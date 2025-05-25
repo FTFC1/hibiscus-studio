@@ -1,6 +1,7 @@
 import { VoiceProcessor, ProcessedVoice } from '../voice/processor.js';
 import { ActionExtractor, TrelloAction, ActionExtractionResult } from '../patterns/action-extractor.js';
 import { NLPAnalysis } from '../intelligence/nlp-pipeline.js';
+import { VoiceContextManager, VoiceContextEntry } from './voice-context-manager.js';
 
 export interface VoiceOSResult {
     sessionId: string;
@@ -26,6 +27,11 @@ export interface VoiceOSResult {
         summary: string;
         ambiguities: string[];
     };
+    context?: {
+        cardId?: string;
+        contextEntry?: VoiceContextEntry;
+        attachmentCreated: boolean;
+    };
     metadata: {
         processingTime: number;
         overallConfidence: number;
@@ -41,11 +47,19 @@ export interface VoiceOSConfig {
     preferAI?: boolean;
     enableContextTracking?: boolean;
     confidenceThreshold?: number;
+    contextManager?: {
+        enabled: boolean;
+        maxContextsPerCard?: number;
+        archiveAfterDays?: number;
+        enableSemanticLinking?: boolean;
+        useSmartSummaries?: boolean;
+    };
 }
 
 export class VoiceOS {
     private voiceProcessor: VoiceProcessor;
     private actionExtractor: ActionExtractor;
+    private contextManager: VoiceContextManager | null = null;
     private config: VoiceOSConfig;
     private activeSession: string | null = null;
 
@@ -54,6 +68,13 @@ export class VoiceOS {
             preferAI: true,
             enableContextTracking: true,
             confidenceThreshold: 0.6,
+            contextManager: {
+                enabled: true,
+                maxContextsPerCard: 10,
+                archiveAfterDays: 7,
+                enableSemanticLinking: true,
+                useSmartSummaries: true
+            },
             ...config
         };
 
@@ -64,11 +85,23 @@ export class VoiceOS {
         });
 
         this.actionExtractor = new ActionExtractor();
+
+        // Initialize context manager if enabled
+        if (this.config.contextManager?.enabled) {
+            this.contextManager = new VoiceContextManager({
+                maxContextsPerCard: this.config.contextManager.maxContextsPerCard,
+                archiveAfterDays: this.config.contextManager.archiveAfterDays,
+                enableSemanticLinking: this.config.contextManager.enableSemanticLinking,
+                useSmartSummaries: this.config.contextManager.useSmartSummaries
+            });
+            console.log('🎙️ VoiceOS initialized with enhanced context management');
+        }
     }
 
     async processVoiceInput(
         audioInput: Buffer | string,
-        sessionId?: string
+        sessionId?: string,
+        cardId?: string
     ): Promise<VoiceOSResult> {
         const startTime = Date.now();
         const currentSessionId = sessionId || this.activeSession || this.generateSessionId();
@@ -139,7 +172,34 @@ export class VoiceOS {
                 result.actions.ambiguities = actionResult.ambiguities;
             }
 
-            // Step 4: Calculate metadata
+            // Step 4: Store voice context if enabled and cardId provided
+            if (this.contextManager && cardId && processedVoice.text) {
+                try {
+                    const contextEntry = await this.contextManager.storeVoiceContext(
+                        cardId,
+                        processedVoice,
+                        result.actions.executable,
+                        processedVoice.text
+                    );
+
+                    result.context = {
+                        cardId,
+                        contextEntry,
+                        attachmentCreated: true
+                    };
+
+                    console.log(`📎 Voice context stored for card ${cardId}`);
+                } catch (error) {
+                    console.warn('Failed to store voice context:', error);
+                    result.context = {
+                        cardId,
+                        attachmentCreated: false
+                    };
+                    result.metadata.warnings.push(`Context storage failed: ${error}`);
+                }
+            }
+
+            // Step 5: Calculate metadata
             const processingTime = Date.now() - startTime;
             result.metadata.processingTime = processingTime;
             result.metadata.overallConfidence = this.calculateOverallConfidence(result);
@@ -160,8 +220,8 @@ export class VoiceOS {
         }
     }
 
-    async processTextInput(text: string, sessionId?: string): Promise<VoiceOSResult> {
-        return await this.processVoiceInput(text, sessionId);
+    async processTextInput(text: string, sessionId?: string, cardId?: string): Promise<VoiceOSResult> {
+        return await this.processVoiceInput(text, sessionId, cardId);
     }
 
     // Session management
@@ -313,6 +373,44 @@ export class VoiceOS {
     }
 
     // Utility methods for output formatting
+    // Context Management Methods
+    async getContextSummary(cardId: string): Promise<string> {
+        if (!this.contextManager) {
+            return "Context management is not enabled.";
+        }
+        return await this.contextManager.getContextSummary(cardId);
+    }
+
+    async findRelatedContext(cardId: string, query: string, maxResults: number = 3): Promise<VoiceContextEntry[]> {
+        if (!this.contextManager) {
+            return [];
+        }
+        return await this.contextManager.findRelatedContext(cardId, query, maxResults);
+    }
+
+    async exportContextForPrompt(cardId: string): Promise<string> {
+        if (!this.contextManager) {
+            return `No voice context available for card ${cardId} (context management disabled).`;
+        }
+        return await this.contextManager.exportContextForPrompt(cardId);
+    }
+
+    getContextAnalytics() {
+        if (!this.contextManager) {
+            return {
+                totalContexts: 0,
+                contextsByType: {},
+                averageConfidence: 0,
+                activeCards: 0
+            };
+        }
+        return this.contextManager.getAnalytics();
+    }
+
+    isContextManagerEnabled(): boolean {
+        return this.contextManager !== null;
+    }
+
     generateHumanReadableSummary(result: VoiceOSResult): string {
         let summary = `Voice OS Processing Summary\n`;
         summary += `Session: ${result.sessionId}\n`;
