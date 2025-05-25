@@ -1,0 +1,32 @@
+{
+    "mcpServers": {
+        "trello-server": {
+            "command": "node",
+            "args": [
+                "build/index.js"
+            ],
+            "cwd": "/Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp",
+            "env": {
+                "TRELLO_API_KEY": "bf371933fcd49ba099774ba087050e38",
+                "TRELLO_TOKEN": "ATTA3f27a64d09d2ceef38759b7f1941ca024bc84c274224f592b84fe11c701398898D4A4EE9",
+                "TRELLO_BOARD_ID": "9bfI9aZS",
+                "OPENROUTER_API_KEY": "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"
+            }
+        },
+        "task-master-ai": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "--package=task-master-ai",
+                "task-master-ai"
+            ],
+            "cwd": "/Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp",
+            "env": {
+                "ANTHROPIC_API_KEY": "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",
+                "PERPLEXITY_API_KEY": "pplx-4c2c6c5c0c0c4c2c6c5c0c0c4c2c6c5c",
+                "OPENAI_API_KEY": "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",
+                "OPENROUTER_API_KEY": "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"
+            }
+        }
+    }
+}

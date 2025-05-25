@@ -1,0 +1,73 @@
+# Trello Waffle Automation - Product Requirements Document (PRD)
+
+## Overview
+Automate the process of capturing ideas, voice notes ("waffle"), and turning them into actionable Trello cards with summaries and checklists.
+
+## Goals
+- Minimise manual copy-paste and tagging steps
+- Centralise all scripts and documentation for easy AI/human extension
+- Enable summarisation and action extraction from long-form notes
+- Keep the workflow simple, modular, and easy to maintain
+
+## User Workflow
+1. Voice note → Transcribe (Whisper app)
+2. Create Trello card with title
+3. Paste transcript into description
+4. System automatically detects waffle content via:
+   - Text length threshold (500+ chars)
+   - Keyword detection ("waffle", "voice note")
+   - AI content classification
+5. System then:
+   - Archives description as .txt
+   - Adds as attachment
+   - Applies [WAFFLE ARCHIVED] label
+   - Clears description field
+
+## Key Features
+- Script to archive card descriptions as .txt and attach to card
+- Script to summarise .txt attachments and extract action items
+- Modular structure for easy extension (e.g., new triggers, integrations)
+- Clear documentation and flow diagrams
++ AI Content-Type Detection
+  - Personal reflection vs project task
+  - Mixed content handling
++ Context Versioning
+  - Full history via .txt attachments
+  - Update comments instead of overwrites
++ Smart Merging
+  - Preserves key insights across versions
+  - Maintains action item continuity
++ Auto-Detection
+  - No manual labeling needed
+  - Combines text analysis + AI
+  - Configurable thresholds
+
+## New: Context Management
+- **Voice Note Versioning**
+  - New transcripts added as comments
+  - Original .txt preserved
+- **Timeline Checklist**
+  - Dated entries for major updates
+  - Visible at a glance
+- **AI-Powered Merge**
+  - Combines insights from multiple waffles
+  - Highlights evolving priorities
+
+## Stretch Goals
+- Reduce manual steps (auto-detect waffle cards, auto-trigger scripts)
+- Support for mobile-friendly triggers (webhooks, iOS Shortcuts)
+- Logging and error handling for all scripts
++ Mobile Triggers
+  - iOS webhook for voice memos
+  - Auto-card creation from recordings
++ Contextual AI Assistant
+  - Answers questions about card history
+  - "What changed since last week?"
+
+## Constraints
+- All code in Python, no CLI required for end user
+- Must work with Trello API and support easy AI integration
+- Folder structure must be clear and documented
+
+---
+*This PRD is designed for Task Master to generate a full breakdown of implementation tasks and subtasks for the Trello Waffle Automation system.* 

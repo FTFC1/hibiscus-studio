@@ -1,4 +1,23 @@
 #!/usr/bin/env node
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES Module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Construct the path to .env in the project root (one level up from 'build' directory)
+const envPath = path.resolve(__dirname, '../.env');
+const dotenvResult = dotenv.config({ path: envPath });
+
+console.error(`[DEBUG_DOTENV] Attempted to load .env from: ${envPath}`);
+if (dotenvResult.error) {
+  console.error('[DEBUG_DOTENV] Error loading .env file:', dotenvResult.error);
+}
+console.error(`[DEBUG_DOTENV] Parsed .env object:`, dotenvResult.parsed);
+console.error(`[DEBUG_DOTENV] OPENROUTER_API_KEY from process.env: ${process.env.OPENROUTER_API_KEY}`);
+
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -326,6 +345,24 @@ class TrelloServer {
             required: [],
           },
         },
+        {
+          name: 'process_waffle_cards',
+          description: 'Processes cards with the WAFFLE label: archives description, updates description, and changes label to WAFFLE ARCHIVED.',
+          inputSchema: {
+            type: 'object',
+            properties: {},
+            required: [],
+          },
+        },
+        {
+          name: 'summarise_waffle_attachments',
+          description: 'Summarises archived waffle text from card attachments, updates card description, adds action items to a checklist, and updates labels.',
+          inputSchema: {
+            type: 'object',
+            properties: {},
+            required: [],
+          },
+        },
       ],
     }));
 
@@ -505,6 +542,15 @@ class TrelloServer {
             } catch (error) {
               return this.handleErrorResponse(error);
             }
+          }
+
+          case 'process_waffle_cards': {
+            return { result: await this.trelloClient.processWaffleCards() };
+          }
+
+          case 'summarise_waffle_attachments': {
+            const result = await this.trelloClient.summariseWaffleAttachments();
+            return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
           }
 
           default:
