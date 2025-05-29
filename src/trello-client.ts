@@ -482,32 +482,44 @@ Ensure there is also an empty line (a double newline) separating the content of 
     }
   }
 
-  private async getOrCreateChecklist(cardId: string, checklistName: string): Promise<string | null> {
+  public async getOrCreateChecklist(cardId: string, checklistName: string): Promise<string | null> {
+    try {
+      // First, try to find an existing checklist with the same name on the card
+      const checklists = await this.handleRequest(async () => {
+        const response = await this.axiosInstance.get(`/cards/${cardId}/checklists`);
+        return response.data;
+      });
+
+      const existingChecklist = checklists.find((cl: any) => cl.name === checklistName);
+      if (existingChecklist) {
+        return existingChecklist.id;
+      }
+
+      // If not found, create a new one
+      const response = await this.handleRequest(async () => 
+        this.axiosInstance.post(`/cards/${cardId}/checklists`, {
+          name: checklistName,
+        })
+      );
+      return response.data.id;
+    } catch (error) {
+      console.error(`Error getting or creating checklist '${checklistName}' on card ${cardId}:`, error);
+      return null;
+    }
+  }
+
+  public async getChecklistDetails(checklistId: string): Promise<{id: string, name: string, state: string}[] | null> {
     return this.handleRequest(async () => {
       try {
-        const checklistsResponse = await this.axiosInstance.get(`/cards/${cardId}/checklists`);
-        const existingChecklists = checklistsResponse.data as { id: string; name: string }[];
-        const found = existingChecklists.find(cl => cl.name === checklistName);
-        if (found) {
-          // console.log(`Found existing checklist '${checklistName}' (ID: ${found.id}) on card ${cardId}.`);
-          return found.id;
-        }
-
-        // Create checklist if not found
-        const createResponse = await this.axiosInstance.post('/checklists', {
-          idCard: cardId,
-          name: checklistName,
-        });
-        const newChecklist = createResponse.data;
-        // console.log(`Created new checklist '${checklistName}' (ID: ${newChecklist.id}) on card ${cardId}.`);
-        return newChecklist.id;
+        const response = await this.axiosInstance.get(`/checklists/${checklistId}/checkItems`);
+        return response.data as {id: string, name: string, state: string}[];
       } catch (e) {
-        console.error(`Error getting or creating checklist '${checklistName}' on card ${cardId}: ${e instanceof Error ? e.message : String(e)}`);
+        console.error(`Error fetching checklist details for ${checklistId}: ${e instanceof Error ? e.message : String(e)}`);
         return null;
       }
     });
   }
-  
+
   private async getChecklistItems(checklistId: string): Promise<{id: string, name: string}[] | null> {
     return this.handleRequest(async () => {
       try {
@@ -521,31 +533,66 @@ Ensure there is also an empty line (a double newline) separating the content of 
     });
   }
 
-  private async addItemToChecklist(checklistId: string, itemName: string, pos: string = "bottom", checked: boolean = false): Promise<boolean> {
-     return this.handleRequest(async () => {
-      try {
-        await this.axiosInstance.post(`/checklists/${checklistId}/checkItems`, { name: itemName, pos: pos, checked: checked });
-        // console.log(`Successfully added item '${itemName}' to checklist ${checklistId}.`);
-        return true;
-      } catch (e) {
-        console.error(`Error adding item '${itemName}' to checklist ${checklistId}: ${e instanceof Error ? e.message : String(e)}`);
-        return false;
-      }
-    });
+  public async addItemToChecklist(checklistId: string, itemName: string, pos: string = "bottom", checked: boolean = false): Promise<boolean> {
+    try {
+      await this.handleRequest(async () => 
+        this.axiosInstance.post(`/checklists/${checklistId}/checkItems`, {
+          name: itemName,
+          pos: pos,
+          checked: checked
+        })
+      );
+      return true;
+    } catch (error) {
+      console.error(`Error adding item '${itemName}' to checklist ${checklistId}:`, error);
+      return false;
+    }
   }
 
-  private async removeChecklistItem(checklistId: string, checkItemId: string): Promise<boolean> {
-    return this.handleRequest(async () => {
-      try {
-        await this.axiosInstance.delete(`/checklists/${checklistId}/checkItems/${checkItemId}`);
-        console.error(`[DEBUG] TrelloClient: Successfully removed checkItem ID '${checkItemId}' from checklist ID '${checklistId}'.`);
-        return true;
-      } catch (e) {
-        const errorMessage = e instanceof Error ? e.message : String(e);
-        console.error(`[DEBUG] TrelloClient: Error removing checkItem ID '${checkItemId}' from checklist ID '${checklistId}': ${errorMessage}`);
-        return false;
+  public async deleteChecklist(checklistId: string): Promise<boolean> {
+    try {
+      await this.handleRequest(async () => 
+        this.axiosInstance.delete(`/checklists/${checklistId}`)
+      );
+      return true;
+    } catch (error) {
+      console.error(`Error deleting checklist ${checklistId}:`, error);
+      return false;
+    }
+  }
+
+  public async updateChecklistItem(cardId: string, checkItemId: string, name?: string, state?: string): Promise<boolean> {
+    try {
+      const updateData: any = {};
+      if (name !== undefined) updateData.name = name;
+      if (state !== undefined) updateData.state = state;
+      
+      if (Object.keys(updateData).length === 0) {
+        return true; // No changes to make, consider it a success
       }
-    });
+
+      await this.handleRequest(async () => 
+        this.axiosInstance.put(`/cards/${cardId}/checkItem/${checkItemId}`, updateData)
+      );
+      return true;
+    } catch (error) {
+      console.error(`Error updating checklist item ${checkItemId}:`, error);
+      return false;
+    }
+  }
+
+  public async deleteChecklistItem(checklistId: string, checkItemId: string): Promise<boolean> {
+    try {
+      await this.handleRequest(async () =>
+        this.axiosInstance.delete(`/checklists/${checklistId}/checkItems/${checkItemId}`)
+      );
+      // console.error(`[DEBUG] TrelloClient: Successfully removed checkItem ID '${checkItemId}' from checklist ID '${checklistId}'.`);
+      return true;
+    } catch (e) {
+      const errorMessage = e instanceof Error ? e.message : String(e);
+      console.error(`[DEBUG] TrelloClient: Error removing checkItem ID '${checkItemId}' from checklist ID '${checklistId}': ${errorMessage}`);
+      return false;
+    }
   }
 
   // --- End of Refactored Helper Methods ---
@@ -667,7 +714,7 @@ Ensure there is also an empty line (a double newline) separating the content of 
                 for (const existingItem of existingItemsRaw) {
                   if (!aiSuggestedItemsLower.includes(existingItem.name.trim().toLowerCase())) {
                     console.error(`[DEBUG] summariseWaffleAttachments: Removing outdated checklist item "${existingItem.name}" (ID: ${existingItem.id}) as it's not in the new AI suggestions.`);
-                    await this.removeChecklistItem(checklistId, existingItem.id);
+                    await this.deleteChecklistItem(checklistId, existingItem.id);
                   }
                 }
               }
@@ -808,5 +855,74 @@ Ensure there is also an empty line (a double newline) separating the content of 
     // console.log(`\n${finalStatus}`);
     results.status = finalStatus;
     return results;
+  }
+
+  /**
+   * Backup the entire active board (lists, cards, labels, checklists, attachments, comments) to a timestamped JSON file in /data
+   */
+  public async backupBoardToFile(): Promise<{ filePath: string; summary: Record<string, number> }> {
+    console.error('[DEBUG_BACKUP] Entered backupBoardToFile');
+    const backupDir = path.join(process.cwd(), 'data');
+    await fs.mkdir(backupDir, { recursive: true });
+    console.error('[DEBUG_BACKUP] Directory created/verified');
+    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const filePath = path.join(backupDir, `trello-backup-${dateStr}.json`);
+    console.error(`[DEBUG_BACKUP] Backup file path: ${filePath}`);
+    try {
+      console.error('[DEBUG_BACKUP] Fetching board info...');
+      const board = await this.getBoardById(this.activeConfig.boardId);
+      console.error('[DEBUG_BACKUP] Board info fetched.');
+      console.error('[DEBUG_BACKUP] Fetching lists...');
+      const lists = await this.getLists();
+      console.error(`[DEBUG_BACKUP] Lists fetched: ${lists.length}`);
+      console.error('[DEBUG_BACKUP] Fetching labels...');
+      const labels = await this.handleRequest(async () => {
+        const response = await this.axiosInstance.get(`/boards/${this.activeConfig.boardId}/labels`);
+        return response.data;
+      });
+      console.error(`[DEBUG_BACKUP] Labels fetched: ${labels.length}`);
+      console.error('[DEBUG_BACKUP] Fetching cards...');
+      const cards = await this.handleRequest(async () => {
+        const response = await this.axiosInstance.get(`/boards/${this.activeConfig.boardId}/cards`);
+        return response.data;
+      });
+      console.error(`[DEBUG_BACKUP] Cards fetched: ${cards.length}`);
+      console.error('[DEBUG_BACKUP] Fetching per-card details...');
+      const cardsWithDetails = await Promise.all(cards.map(async (card: any, idx: number) => {
+        console.error(`[DEBUG_BACKUP] [${idx+1}/${cards.length}] Fetching details for card: ${card.name || card.id}`);
+        const checklists = await this.handleRequest(async () => {
+          const resp = await this.axiosInstance.get(`/cards/${card.id}/checklists`);
+          return resp.data;
+        });
+        const attachments = await this.getCardAttachments(card.id);
+        const comments = await this.handleRequest(async () => {
+          const resp = await this.axiosInstance.get(`/cards/${card.id}/actions`, { params: { filter: 'commentCard' } });
+          return resp.data;
+        });
+        console.error(`[DEBUG_BACKUP] [${idx+1}/${cards.length}] Details fetched.`);
+        return { ...card, checklists, attachments, comments };
+      }));
+      console.error('[DEBUG_BACKUP] All card details fetched. Writing backup file...');
+      const backup = {
+        board,
+        lists,
+        labels,
+        cards: cardsWithDetails,
+        backedUpAt: new Date().toISOString(),
+      };
+      await fs.writeFile(filePath, JSON.stringify(backup, null, 2), 'utf8');
+      console.error(`[DEBUG_BACKUP] Successfully wrote backup file to: ${filePath}`);
+      return {
+        filePath,
+        summary: {
+          lists: lists.length,
+          labels: labels.length,
+          cards: cards.length,
+        },
+      };
+    } catch (err: any) {
+      console.error(`[DEBUG_BACKUP] Error during backup:`, err && err.stack ? err.stack : err);
+      throw err;
+    }
   }
 }

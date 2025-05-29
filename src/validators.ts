@@ -176,3 +176,61 @@ export function validateListBoardsInWorkspaceRequest(args: Record<string, unknow
     workspaceId: validateString(args.workspaceId, 'workspaceId'),
   };
 }
+
+export function validateDeleteChecklistRequest(args: Record<string, unknown>): { checklistId: string } {
+  if (!args.checklistId) {
+    throw new McpError(ErrorCode.InvalidParams, 'checklistId is required');
+  }
+  return {
+    checklistId: validateString(args.checklistId, 'checklistId'),
+  };
+}
+
+export function validateUpdateChecklistItemRequest(args: Record<string, unknown>): { 
+  cardId: string; 
+  checkItemId: string; 
+  name?: string; 
+  state?: string; 
+} {
+  if (!args.cardId || !args.checkItemId) {
+    throw new McpError(ErrorCode.InvalidParams, 'cardId and checkItemId are required');
+  }
+  return {
+    cardId: validateString(args.cardId, 'cardId'),
+    checkItemId: validateString(args.checkItemId, 'checkItemId'),
+    name: validateOptionalString(args.name),
+    state: validateOptionalString(args.state),
+  };
+}
+
+export function validateDeleteChecklistItemRequest(args: Record<string, unknown>): { 
+  checklistId: string; 
+  checkItemId: string; 
+} {
+  if (!args.checklistId || !args.checkItemId) {
+    throw new McpError(ErrorCode.InvalidParams, 'checklistId and checkItemId are required');
+  }
+  return {
+    checklistId: validateString(args.checklistId, 'checklistId'),
+    checkItemId: validateString(args.checkItemId, 'checkItemId'),
+  };
+}
+
+export function validateMoveCardToTopOfListRequest(args: Record<string, unknown>): { cardId: string; listId?: string } {
+  if (!args.cardId) {
+    throw new McpError(ErrorCode.InvalidParams, 'cardId is required');
+  }
+  return {
+    cardId: validateString(args.cardId, 'cardId'),
+    listId: validateOptionalString(args.listId),
+  };
+}
+
+export function validateGetChecklistDetailsRequest(args: Record<string, unknown>): { checklistId: string } {
+  if (!args.checklistId) {
+    throw new McpError(ErrorCode.InvalidParams, 'checklistId is required');
+  }
+  return {
+    checklistId: validateString(args.checklistId, 'checklistId'),
+  };
+}

@@ -40,6 +40,9 @@ import {
   validateSetActiveBoardRequest,
   validateSetActiveWorkspaceRequest,
   validateListBoardsInWorkspaceRequest,
+  validateDeleteChecklistItemRequest,
+  validateMoveCardToTopOfListRequest,
+  validateGetChecklistDetailsRequest,
 } from './validators.js';
 
 class TrelloServer {
@@ -363,6 +366,29 @@ class TrelloServer {
             required: [],
           },
         },
+        {
+          name: 'backup_trello_board',
+          description: 'Backup the entire active Trello board (lists, cards, labels, checklists, attachments, comments) to a timestamped JSON file in /data.',
+          inputSchema: {
+            type: 'object',
+            properties: {},
+            required: [],
+          },
+        },
+        {
+          name: 'get_checklist_details',
+          description: 'Fetch all items and their states from a specific checklist.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              checklistId: {
+                type: 'string',
+                description: 'ID of the checklist to fetch details for.',
+              },
+            },
+            required: ['checklistId'],
+          },
+        },
       ],
     }));
 
@@ -551,6 +577,19 @@ class TrelloServer {
           case 'summarise_waffle_attachments': {
             const result = await this.trelloClient.summariseWaffleAttachments();
             return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+          }
+
+          case 'backup_trello_board': {
+            const result = await this.trelloClient.backupBoardToFile();
+            return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+          }
+
+          case 'get_checklist_details': {
+            const validArgs = validateGetChecklistDetailsRequest(args);
+            const details = await this.trelloClient.getChecklistDetails(validArgs.checklistId);
+            return {
+              content: [{ type: 'text', text: JSON.stringify(details, null, 2) }],
+            };
           }
 
           default:
