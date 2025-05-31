@@ -234,3 +234,33 @@ export function validateGetChecklistDetailsRequest(args: Record<string, unknown>
     checklistId: validateString(args.checklistId, 'checklistId'),
   };
 }
+
+export function validateAddChecklistToCardRequest(args: Record<string, unknown>): { 
+  cardId: string; 
+  checklistName: string; 
+} {
+  if (!args.cardId || !args.checklistName) {
+    throw new McpError(ErrorCode.InvalidParams, 'cardId and checklistName are required');
+  }
+  return {
+    cardId: validateString(args.cardId, 'cardId'),
+    checklistName: validateString(args.checklistName, 'checklistName'),
+  };
+}
+
+export function validateAddItemToChecklistRequest(args: Record<string, unknown>): { 
+  checklistId: string; 
+  itemName: string; 
+  pos?: string;
+  checked?: boolean;
+} {
+  if (!args.checklistId || !args.itemName) {
+    throw new McpError(ErrorCode.InvalidParams, 'checklistId and itemName are required');
+  }
+  return {
+    checklistId: validateString(args.checklistId, 'checklistId'),
+    itemName: validateString(args.itemName, 'itemName'),
+    pos: validateOptionalString(args.pos),
+    checked: args.checked !== undefined ? Boolean(args.checked) : undefined,
+  };
+}

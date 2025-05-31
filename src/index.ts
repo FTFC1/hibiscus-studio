@@ -28,6 +28,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { TrelloClient } from './trello-client.js';
 import {
+  validateString,
   validateGetCardsListRequest,
   validateGetRecentActivityRequest,
   validateAddCardRequest,
@@ -40,9 +41,12 @@ import {
   validateSetActiveBoardRequest,
   validateSetActiveWorkspaceRequest,
   validateListBoardsInWorkspaceRequest,
+  validateUpdateChecklistItemRequest,
   validateDeleteChecklistItemRequest,
-  validateMoveCardToTopOfListRequest,
   validateGetChecklistDetailsRequest,
+  validateDeleteChecklistRequest,
+  validateAddChecklistToCardRequest,
+  validateAddItemToChecklistRequest,
 } from './validators.js';
 
 class TrelloServer {
@@ -389,6 +393,108 @@ class TrelloServer {
             required: ['checklistId'],
           },
         },
+        {
+          name: 'add_checklist_to_card',
+          description: 'Create a new checklist on a card or get existing one with the same name.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              cardId: {
+                type: 'string',
+                description: 'ID of the card to add the checklist to.',
+              },
+              checklistName: {
+                type: 'string',
+                description: 'Name for the checklist.',
+              },
+            },
+            required: ['cardId', 'checklistName'],
+          },
+        },
+        {
+          name: 'add_item_to_checklist',
+          description: 'Add a new item to an existing checklist.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              checklistId: {
+                type: 'string',
+                description: 'ID of the checklist to add the item to.',
+              },
+              itemName: {
+                type: 'string',
+                description: 'Name/text of the checklist item.',
+              },
+              pos: {
+                type: 'string',
+                description: 'Position in the checklist (top, bottom, or a number). Default is bottom.',
+              },
+              checked: {
+                type: 'boolean',
+                description: 'Whether the item should be initially checked. Default is false.',
+              },
+            },
+            required: ['checklistId', 'itemName'],
+          },
+        },
+        {
+          name: 'update_checklist_item',
+          description: 'Update a checklist item name or completion state.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              cardId: {
+                type: 'string',
+                description: 'ID of the card containing the checklist.',
+              },
+              checkItemId: {
+                type: 'string',
+                description: 'ID of the checklist item to update.',
+              },
+              name: {
+                type: 'string',
+                description: 'New name for the checklist item.',
+              },
+              state: {
+                type: 'string',
+                description: 'New state: complete or incomplete.',
+              },
+            },
+            required: ['cardId', 'checkItemId'],
+          },
+        },
+        {
+          name: 'delete_checklist_item',
+          description: 'Remove a specific item from a checklist.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              checklistId: {
+                type: 'string',
+                description: 'ID of the checklist containing the item.',
+              },
+              checkItemId: {
+                type: 'string',
+                description: 'ID of the checklist item to delete.',
+              },
+            },
+            required: ['checklistId', 'checkItemId'],
+          },
+        },
+        {
+          name: 'delete_checklist',
+          description: 'Delete an entire checklist from a card.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              checklistId: {
+                type: 'string',
+                description: 'ID of the checklist to delete.',
+              },
+            },
+            required: ['checklistId'],
+          },
+        },
       ],
     }));
 
@@ -590,6 +696,36 @@ class TrelloServer {
             return {
               content: [{ type: 'text', text: JSON.stringify(details, null, 2) }],
             };
+          }
+
+          case 'add_checklist_to_card': {
+            const validArgs = validateAddChecklistToCardRequest(args);
+            const result = await this.trelloClient.getOrCreateChecklist(validArgs.cardId, validArgs.checklistName);
+            return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+          }
+
+          case 'add_item_to_checklist': {
+            const validArgs = validateAddItemToChecklistRequest(args);
+            const result = await this.trelloClient.addItemToChecklist(validArgs.checklistId, validArgs.itemName, validArgs.pos, validArgs.checked);
+            return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+          }
+
+          case 'update_checklist_item': {
+            const validArgs = validateUpdateChecklistItemRequest(args);
+            const result = await this.trelloClient.updateChecklistItem(validArgs.cardId, validArgs.checkItemId, validArgs.name, validArgs.state);
+            return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+          }
+
+          case 'delete_checklist_item': {
+            const validArgs = validateDeleteChecklistItemRequest(args);
+            const result = await this.trelloClient.deleteChecklistItem(validArgs.checklistId, validArgs.checkItemId);
+            return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
+          }
+
+          case 'delete_checklist': {
+            const validArgs = validateDeleteChecklistRequest(args);
+            const result = await this.trelloClient.deleteChecklist(validArgs.checklistId);
+            return { content: [{ type: 'text', text: JSON.stringify(result, null, 2) }] };
           }
 
           default:
