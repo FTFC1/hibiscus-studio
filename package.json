@@ -18,7 +18,8 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "if [ \"$SKIP_PREPARE\" != \"true\" ]; then npm run build; fi",
-    "inspector": "npx @modelcontextprotocol/inspector build/index.js"
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "blueprint": "node scripts/transcript-to-blueprint.js"
   },
   "repository": {
     "type": "git",
