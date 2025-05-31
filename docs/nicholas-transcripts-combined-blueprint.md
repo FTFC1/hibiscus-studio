@@ -1,0 +1,160 @@
+# Transcript Blueprint
+
+**Date:** 2024-12-31
+**Source:** Nicholas Voice Memos - Multiple Sessions
+**Tags:** 
+**Original Length:** 19.1k characters
+
+📌 **Date: 2024-12-31**
+
+
+
+📌 **Source: Nicholas Voice Memos - Multiple Sessions**
+
+
+
+📌 **Speaker: Nicholas**
+
+
+
+📌 **Session 1: Time Management and Goal Reflection**
+
+- 40% of the year is done. Where do I be? Like 80%, about 100% and I'm addicted to money. 5% of the year, maybe it's better than 1% of the year. What is 1% of the year? No, it was 100 days ago. So it's less than that. So that's what interests me.
+- I remember there was an article about how people could look at their time. And it was, the argument was essentially that you should have a 2-week sprint, like a 14-day week, as opposed to a 7-day one. Again, another interesting way to look at time. You also have how different people in different religions look at time. Like I wonder how Jewish people look at time. I wonder how Muslim people definitely look at time. In a different way, perhaps, what they consider a segment of a big 5 times a day. What next?
+- So we've managed to deploy the, what's it called? The Vehicle Vault, like an inventory tool. But it doesn't have the database, so we need to get the database running. I think the best thing to do is to just say this is a prototype. If you want people to secure it, you're going to have to hire an agency. And I just say that, and if they don't do it, I think they're good.
+- Also, pull my car. I need to trim my nose hair. And I'm starting to do that around the corner tonight. I have to do it early in the morning because tomorrow I have to go to this event with my cousin. So, more things.
+- Today, I need to get this business plan made. I think the challenge is how do I get the content, the content of the business plan, how do I get the logos on, if I can figure that out. The text shouldn't be here. Which means I need to find myself partners.
+- One, essentially it's just going to have my name, and it's going to need to decide what my name is going to say, because my email is one thing, what people call me is another thing. So, with the, I'm not too sure on what I was saying before.
+- One of the things that I guess I'll keep bringing up, which is one downside of doing it here, for like the, I don't know, I don't know if it's a good thing, but I don't know if it's a bad thing. I don't know if it's a good thing.
+- One downside of doing it here, for like the, the daily stream, is that I don't actually see it. I don't actually see what I was previously saying. But for now, the solution is to use Otter, which I do have a subscription, I'm not using it. So the morning when we've done Otter, it was for like my book, book, book, book, makes sense, no problem.
+- Yeah, so when it comes to the gas sales, we have me getting the, me going to Dockyland and getting the what's it called, the the cloud made. Actually, that's a good point, let me ask him that.
+
+
+📋 **Session 2: AI Bot Strategy and Content Creation**
+
+- Okay, so I'm probably just sort of smoking. Workout for five plus minutes, I haven't done five plus minutes. I just had some press ups, but I think it's enough to wake me up. And then I'm now reviewing the notes that I have. So, that was the beginning of the note. And next, I think that one I keep saying to myself, which is, I already have what I want, and the tools to succeed are around me.
+- Like when I even was gonna do this, which is me doing voice transcription right now of my notes. I read those two things, I was like, 'No, I have to.' Even if I had to procrastinate a little bit, I was gonna do some form of physical exercise before I started. And I definitely feel better having done that. Um, the next bullet point I have is around, um, the type of content that I want to be in, like I called it my 'abort.' And it's so basically I said 'Lindy' like content or knowledge that has a 'Lindy' tag. That's things that I say have like 50 years plus, like they've been on the market, we've got like 400 plus ratings on Amazon, they've been translated into like more than two languages.
+- Let's say, and I was just thinking about the components of this bot for mine. So, I was making like a, uh, it was like a 'mime' up, I guess, but it was just like arrows pointing to a central thing, which is my bot. And so we have my bookmarks, um, that's from Raindrop, or my Twitter bookmarks. Then we've got my Trello goal, which is my project management, um, then we've got my daily transcripts that I do. And we've got like another space which will have things like mental models and like examples and personality profile and all this kind of stuff.
+- And then essentially, what it is, is this bot is like an AI system that has full context of me. Next, we were talking about, um, the top 100 companies that we could go for, and then who we could go for at those companies. So, three people per company. So, that, to be honest with you, I've had the conversation today with the guy. We just think I just need to find the top 100 companies that are in that size range. To be honest with you, I can, I can begin that. I need to, in my head, right now. So, I'm using Cursor to actually plan it out.
+- So, it's a project which is called 'Gas.' Um, and so we want to prior, I had an interview with myself on it today. And so I want to use the knowledge from that in order to identify. I think it needs to be more than 100. Because if I want to send 230 emails per week, you see, I need to do more. So, okay, I need to find 230. Okay, then if I do a month's worth, 230 times 4, 800, 920. Okay, let's say I need to find a thousand. I think that's what works. Maybe I need to use Apollo.ai to do it. But first, I need to research them, right? I need to find, I think I need to find the structure, and then I can find the details.
+- Like, what is the email pattern, um, and then there was this whole thing of me looking into Outlook and to see what the, what the number is. And basically, I can send 100 per day, and 230 a week is like 46 per day. So, I mean, that was good enough. And so, the reason why that was so good, as like a detail that I was trying to justify that day, was that it meant I didn't have to use instantly or form a domain. I could just use my own current domain and just have a, um, how do you call it, a signature that says 'Business Development.' No one's gonna say anything to me having that signature.
+- And even that was actually what I have here now. I have the email signature title, and the email secret. So, the signature and the title, we now say 'Business Development Meccano.' Um, the email secret, we're saying is 'Free Emails,' I believe. And then the next thing we have here is, 'How to,' I don't know what I've said here, but I said, 'Even if was how to track.' I said, 'Even if manual export, what am I talking about, how to track?' Oh, because I'm sending all these emails manually, how am I going to track like the open rates, reply rates, and stuff like that.
+- Then I was hoping of like what to aim for. I was saying a 10% reply rate, and, uh, this top 1000 companies. So, yeah, I was just thinking about, so there's three contacts for, so I said, plus an agent researcher, just gonna get the company and the individual, and then an internal deck for sales material. So, I think that's like information about the company, right? So, essentially, I have the free emails, I deliver the leads, and then I hand them off to my sales partner.
+- Um, and then here, yeah, I think today I gained a bit more knowledge about the sales process, and like, for example, the fact that we're not selling power, we're actually selling. We're selling the general. We can sell, we, one of the things we can do is we can sell the engines to a supplier, yeah, we can sell the engines. One of the things we can do is we can sell the engines to a supplier, oh, who will sell them the power. But if they, I think one of the things was that if they buy the engines as well, they, the payback period is shorter.
+- Um, and then I was thinking of questions I wanted to ask him. I was like, 'What was the commission we agreed it would be, like two percent?' We think we can, because we have to convince them, because we are not officially sales people. Then, um, the opinion on email roles, he agreed like middle. Um, and then I said, 'I'm going to go on field trips.' Because I have a thing here that says, 'What would be helpful in the field?' When he comes back, because I think in two days, he flies for two weeks. When he's back, I'll attend meetings with him. Cool.
+- So, that was one part. Then we have another part here, which was essentially this idea that if I am talking how I am now, but I'm also screen recording on my iPad and writing in this visual tool, this, um, it's called 'Scribe,' the app I'm using. That just pay the subscription for, I essentially will have two types of transcripts. I'll have an audio transcript, I'll have a video transcript. I have this JSON profile structured output that I can apply with a large language model like Chat GPT to get a blueprint.
+- And that blueprint can now form the basis of like a larger Markdown file to build up flow and also for content. Um, and the content is this thing that I'm still developing on how I will use. But the idea is, you're selling soda, so you're just giving people little tidbits. Like, there's this idea I keep having, just a screenshot of some of the work I've done that day. I just post it purely for accountability. Anyway, and this blueprint could also then go into my Trello board, which I then action and contract, which I'm still trying to build up that Trello thing.
+- Um, then, yeah, this was where I really got more into things. Um, I said, 'What do I want to do?' I wanted, and I said, 'I want to leverage code to make money. I want to leverage money, and then I'll leverage people.' Not in a bad way, but just those are the things you can leverage. You can leverage code, capital, human resource. I think, I think that's all there is from Naval Ravikant.
+- And then I was like, 'I want to look at my creation.' Because obviously, there's a part of marble that I want to do, and obviously some of these you can do at the same time. I was just thinking of steps, and I was saying to myself, 'I want to help others identify what their strengths are that they can double down.' So, that would be me helping others and also feeling good myself.
+- Um, then, like, I'm saying, I want to actualize my world to have this board that's just like it's very materialistic, like visually how I want to create my life. Um, you know, it's like dog puppies, or like certain breeds of dogs, certain type of aesthetics and of interior, some types of cars, color palette, things like that. Then I was saying, the next thing is to have a family, and like I said, enter religion, which is take it more seriously and decide like what religion. Because there's still this question of like Christianity and Islam, which actually made me think about like, how would I learn about each of them?
+- I'd probably use, yeah, I probably wouldn't read cover to cover. I'd probably actually like, what are the two ways, and how, what are the two ways that my current, uh, life, it would advise me. And I guess there's, there's a number of things that, there's the text that I use, and the model that I use, which is like gonna be less. Oh, we can't use religious text, anyway. Then the next thing was to create something in a more balanced way, while also being a good husband to a good wife. And I really feel like, although I wrote it quickly, a good husband to a wife, I realized like, that's, that is actually I think a worthwhile goal to have.
+- Um, and then the next thing was to spend time with my grandchildren and oversee my creations. Then it was in some way to pass knowledge, pass on knowledge. And there was the grave, and I looked and I was like, this feels really complete. But then I realized I haven't added getting married, I haven't added anything about my current family, and haven't added anything about, I said exercise, but I guess really health. So, that was another thing as well.
+- Then, next section with me talking about how I'm planning to leverage CO2 business money. The first thing I seem to have here is about like, how I like to think about things developing from simplicity. So, components, then organisms, all the way into a design system of sorts. And then that conform builds. And essentially, when I did that, I realized that although I haven't managed to deploy anything successfully, there are things I've successfully made in each of the builds I've done.
+- And I should extract those from other projects, whether it's UI, it's logic, it's script, it's Markdown files. They all form templates for future, um, projects. And I haven't been doing that. I'm definitely sure it's a type of house cleaning that I think I can make a prompt for using the EP guy's prompt tool or his profile tool. Um, then the next thing is like I need to just make an output posting about someone to help me do like, show me how to deploy. Because there's the inventory tool, there's this, um, obviously, there's this tool that we want to build as well for the, the retail education training.
+- Um, and then that, that is also the retail education training is like it's a website, but I also want to use Whoop, Whoop as a, um, like to manage the authentication, the payment subscription. And then I was thinking that because V0 is superior, and they also now have a model that they've just brought out in terms of building. Because it's like that, um, is it possible that I can build multiple parts of a flow, a separate thing that V0 and stitch them together using Cursor?
+- Um, then the next section I was looking at the agent research process. So, I had agent research person, and I was saying that would go to give us the top 1000. Then we have the email sequence, plus the tracking that we need to figure out. And that's essentially optimized that process will eventually go through it. And the Markdown, uh, Markdown something. Oh, right, so I was thinking to myself, when I'm trying to do these agents, the first thing I should do should be being able to visually see and like to plan out these steps verbally.
+- And then the prompt tool can help me to actually write exactly what the agent should do. And also, um, I should probably compare between Perplexity AI, which seems to mess up, because it seems to have the wrong API key, and the native search that Cursor has, which is better when it searches on the web. Um, yeah, that is the transcript for this section.
+
+
+📋 **Session 3: Gas Engine Sales Strategy Deep Dive**
+
+- Yeah the reason why it's this like heavy heavy research approach is because otherwise if we assume the 1% reply rate for us to close four to six deals in 12 months and get at 2% say 400 million Naira we would have to send 11,000 emails 11,000 emails if we were doing it the bulk way and not doing so much research on these individuals what we do at a researched way it's now like in the hundreds of companies three roles at those companies and obviously much more tailored to information about that company that person and that industry does that make sense? Makes sense so then basically we want to narrow this we want to filter our search yeah by finding higher quality people do higher quality research and then doing certain things that don't scale like for example you go in all of us both going to like see someone doesn't scale but like we would have picked this person out of X number of people and decided yes let's go yeah cool and also most of these companies as rich as they are they can't afford the engine not that they can't afford it but they're not liquid enough to pay for the engine so they want to buy power that is the trick that we're using now we have three companies that sell power those companies are Junaid, Kabota, Welbeck these three companies want to buy our engines and sell power to customers why or what is the difference between the three in what sense like why would someone go for Junaid over the other two? So all of them are IPP providers so they have their own clients so for us we decide who we want to give it to based on the relationship you understand it doesn't really matter it doesn't really matter so right now we don't give Welbeck any clients because they've not paid us any money yet so they need to give us some money buy one engine so we know alright you'll be buying engines from us we can give you a client that way whichever client we give you you're gonna buy the engine from us and you sell power to the client Junaid has already paid us for three engines or gas engines we have three gas engines he's paid us for three gas engines Kabota I think they ordered two engines it's been reserved I don't know if they've taken it maybe they paid but I know it there's two engines reserved for them so Kabota is through one of our old employees head of gas before he left this company he went to another company and then Junaid is through me and then Welbeck is through me so we're going to use Junaid?
+- Manufacturing is the priority industry. Manufacturing companies need reliable power because they can't run on diesel and can't rely on NEPA. Gas is the solution. Then hospitality. Then telecoms.
+- The sales cycle is 12-18 months on average. Weekly follow-ups are needed to maintain momentum. Sometimes clients stop replying and you have to switch to monthly check-ins.
+- We have stock that needs to move: 13 units of 1.1MW, 12 units of 1.5MW, and 1 unit of 2MW. We need to sell the 1.5MW units this year before ordering new stock. Each engine costs about $700,000 and we have significant liquidity tied up in inventory.
+- The business model is selling engines to IPP providers like Junaid, Kabota, and Welbeck who then sell power to end customers. Most companies can't afford to buy engines outright but prefer to buy power. If they do buy engines, the payback period is 1-2 years.
+- Email outreach in Nigeria traditionally doesn't work well - relationships and referrals are key. But we're going to test a high-volume, highly-researched approach targeting procurement managers at manufacturing companies.
+- We need to attend industry events like Mining Week to generate leads through face-to-face networking. Business cards should say "Business Developer" or "Power Consultant" rather than technical titles.
+- Site inspections are critical - need to determine if construction is required, who handles civil work, transformer needs, pipeline requirements. Construction can cost 100M naira, wires 500M naira.
+- We offer both power-per-kilowatt-hour and fixed monthly rates depending on client preference. Some clients want predictable monthly costs rather than variable usage billing.
+- Commission structure needs to be agreed upon. Chairman has to approve who gets commission based on relationship politics. There's complexity around satisfying different stakeholders who bring clients.
+- Mining Week in November is a key conversion opportunity. Real estate conventions, air conditioning conventions also valuable for networking.
+- The target is to send 230 emails per week to find quality leads, then convert through high-touch sales process including site visits and relationship building.
+
+
+⚡ **Immediate Actions**
+
+**This Week (🔥 High Priority)**
+- get this business plan made - Impact: 2/5 **⚡** (tomorrow I have to go to this event with my cousin)
+
+**Next 30 Days (⚡ Medium Priority)**
+- have a 2-week sprint, like a 14-day week, as opposed to a 7-day one - Impact: 2/5 **⚡** (a 7-day one)
+- get the database running - Impact: 2/5 **⚡** (get the database running)
+- have to hire an agency - Impact: 2/5 **⚡** (do is to just say this is a prototype)
+- trim my nose hair - Impact: 2/5 **⚡** (trim my nose hair)
+- find myself partners - Impact: 2/5 **⚡** (find myself partners)
+- have my name, and it's going to need to decide what my name is going to say, because my email is one thing, what people call me is another thing - Impact: 2/5 **⚡** (find myself partners)
+- Dockyland and getting the what's it called, the the cloud made - Impact: 2/5 **⚡** (the gas sales, we have me getting the, me going to)
+- have things like mental models and like examples and personality profile and all this kind of stuff - Impact: 2/5 **⚡** 
+- find the top 100 companies that are in that size range - Impact: 2/5 **⚡** (be honest with you, I've had the conversation toda)
+- find a thousand - Impact: 2/5 **⚡** (find a thousand)
+- research them, right? I need to find, I think I need to find the structure, and then I can find the details - Impact: 2/5 **⚡** (use Apollo)
+- track like the open rates, reply rates, and stuff like that - Impact: 2/5 **⚡** (track?' Oh, because I'm sending all these emails m)
+- sell them the power - Impact: 2/5 **⚡** (a supplier, oh, who will sell them the power)
+- go on field trips - Impact: 2/5 **⚡** (go on field trips)
+- have two types of transcripts - Impact: 2/5 **⚡** 
+- extract those from other projects, whether it's UI, it's logic, it's script, it's Markdown files - Impact: 2/5 **⚡** (future, um, projects)
+- just make an output posting about someone to help me do like, show me how to deploy - Impact: 2/5 **⚡** (using the EP guy's prompt tool or his profile tool)
+- eventually go through it - Impact: 2/5 **⚡** (figure out)
+- do should be being able to visually see and like to plan out these steps verbally - Impact: 2/5 **⚡** (myself, when I'm trying to do these agents, the fi)
+- probably compare between Perplexity AI, which seems to mess up, because it seems to have the wrong API key, and the native search that Cursor has, which is better when it searches on the web - Impact: 3/5 **💡** (actually write exactly what the agent should do)
+- test a high-volume, highly-researched approach targeting procurement managers at manufacturing companies - Impact: 2/5 **⚡** (test a high-volume, highly-researched approach tar)
+- attend industry events like Mining Week to generate leads through face-to-face networking - Impact: 2/5 **⚡** (attend industry events like Mining Week to generat)
+- say "Business Developer" or "Power Consultant" rather than technical titles - Impact: 2/5 **⚡** (generate leads through face-to-face networking)
+- determine if construction is required, who handles civil work, transformer needs, pipeline requirements - Impact: 2/5 **⚡** (determine if construction is required, who handles)
+- I'm now reviewing the notes that I have - Impact: 2/5 **⚡** (wake me up)
+- we've got my Trello goal, which is my project management, um, then we've got my daily transcripts that I do - Impact: 2/5 **⚡** 
+- essentially, what it is, is this bot is like an AI system that has full context of me - Impact: 4/5 **⚡** 
+- who we could go for at those companies - Impact: 2/5 **⚡** (at those companies)
+- if I do a month's worth, 230 times 4, 800, 920 - Impact: 2/5 **⚡** (send 230 emails per week, you see, I need to do mo)
+- I can find the details - Impact: 2/5 **⚡** (research them, right? I need to find, I think I ne)
+- there was this whole thing of me looking into Outlook and to see what the, what the number is - Impact: 2/5 **⚡** (Outlook and to see what the, what the number is)
+- the next thing we have here is, 'How to,' I don't know what I've said here, but I said, 'Even if was how to track - Impact: 2/5 **⚡** (track?' Oh, because I'm sending a)
+- I was hoping of like what to aim for - Impact: 2/5 **⚡** (track like the open rates, reply rates, and stuff)
+- an internal deck for sales material - Impact: 2/5 **⚡** (sales material)
+- I hand them off to my sales partner - Impact: 2/5 **⚡** (my sales partner)
+- here, yeah, I think today I gained a bit more knowledge about the sales process, and like, for example, the fact that we're not selling power, we're actually selling - Impact: 2/5 **⚡** (my sales partner)
+- I was thinking of questions I wanted to ask him - Impact: 2/5 **⚡** 
+- I said, 'I'm going to go on field trips - Impact: 2/5 **⚡** (go on field trips)
+- go into my Trello board, which I then action and contract, which I'm still trying to build up that Trello thing - Impact: 2/5 **⚡** (accountability)
+- I'll leverage people - Impact: 2/5 **⚡** (leverage code to make money)
+- I was like, 'I want to look at my creation - Impact: 2/5 **⚡** (look at my creation)
+- I was saying, the next thing is to have a family, and like I said, enter religion, which is take it more seriously and decide like what religion - Impact: 2/5 **⚡** (have a family, and like I said, enter religion, wh)
+- the next thing was to create something in a more balanced way, while also being a good husband to a good wife - Impact: 2/5 **⚡** (create something in a more balanced way, while als)
+- the next thing was to spend time with my grandchildren and oversee my creations - Impact: 2/5 **⚡** (spend time with my grandchildren and oversee my cr)
+- it was in some way to pass knowledge, pass on knowledge - Impact: 2/5 **⚡** (spend time with my grandchildren and oversee my cr)
+- I realized I haven't added getting married, I haven't added anything about my current family, and haven't added anything about, I said exercise, but I guess really health - Impact: 2/5 **⚡** 
+- organisms, all the way into a design system of sorts - Impact: 4/5 **⚡** (think about things developing from simplicity)
+- that conform builds - Impact: 2/5 **⚡** (a design system of sorts)
+- the next thing is like I need to just make an output posting about someone to help me do like, show me how to deploy - Impact: 2/5 **⚡** (using the EP guy's prompt tool or his profile tool)
+- that, that is also the retail education training is like it's a website, but I also want to use Whoop, Whoop as a, um, like to manage the authentication, the payment subscription - Impact: 2/5 **⚡** (build as well for the, the retail education traini)
+- I was thinking that because V0 is superior, and they also now have a model that they've just brought out in terms of building - Impact: 2/5 **⚡** (use Whoop, Whoop as a, um, like to manage the auth)
+- the next section I was looking at the agent research process - Impact: 2/5 **⚡** (give us the top 1000)
+- we have the email sequence, plus the tracking that we need to figure out - Impact: 2/5 **⚡** (give us the top 1000)
+- the prompt tool can help me to actually write exactly what the agent should do - Impact: 2/5 **⚡** (visually see and like to plan out these steps verb)
+- hospitality - Impact: 2/5 **⚡** (they can't run on diesel and can't rely on NEPA)
+- sell power to end customers - Impact: 2/5 **⚡** (IPP providers like Junaid, Kabota, and Welbeck who)
+- convert through high-touch sales process including site visits and relationship building - Impact: 2/5 **⚡** (networking)
+- up flow and also for content - Impact: 2/5 **⚡** (build up flow and also for content)
+- up that Trello thing - Impact: 2/5 **⚡** (my Trello board, which I then action and contract,)
+- something in a more balanced way, while also being a good husband to a good wife - Impact: 2/5 **⚡** (create something in a more balanced way, while als)
+- as well for the, the retail education training - Impact: 2/5 **⚡** (build as well for the, the retail education traini)
+
+💎 **Strategic Insights**
+
+- That's things that I say have like 50 years plus, like they've been on the market, we've got like 400 plus ratings on Amazon, they've been translated into like more than two languages.
+- And then essentially, what it is, is this bot is like an AI system that has full context of me.
+- ' I wanted, and I said, 'I want to leverage code to make money.
+- I want to leverage money, and then I'll leverage people.
+- ' Not in a bad way, but just those are the things you can leverage.
+- You can leverage code, capital, human resource.
+- Then, next section with me talking about how I'm planning to leverage CO2 business money.
+- So, components, then organisms, all the way into a design system of sorts.
+
+---
+
+**Quality Check Questions:**
+- What can I do RIGHT NOW with my current energy?
+- What are the strategic threads connecting my projects?
+- What did I decide that I might forget?
+- What patterns am I seeing that I should double down on?
