@@ -2013,3 +2013,204 @@ _**Assistant**_
 
 ---
 
+You have an incredible opportunity; to pursue my own greatness 🫀.
+
+🔹 **Absolutely Critical Rules - Let Me Lock These In!**
+
+You're 100% right! Let me update the Trello rules immediately with these crucial workflow patterns:
+
+---
+
+```diff
+  # Trello MCP Rules & Preferences
++ 
++ ## **🚨 CRITICAL WORKFLOW RULES (ALWAYS FOLLOW)**
++ 
++ ### **4-Project Maximum Rule**
++ - **NEVER exceed 4 active projects** in the Active Projects list
++ - If adding a 5th project, MUST move one existing project to "Upcoming Priorities"
++ - Monitor project count before any card operations
++ - Quality over quantity - focus ensures completion
++ 
++ ### **Mandatory Card Linking**
++ - **ALWAYS link related cards** when creating or updating
++ - **Active Projects MUST link to related cards** in other lists
++ - Use Trello's card linking feature (not just mentions in descriptions)
++ - Example: Gas Power project links to WHX event card, Me-OS project links to related tools
++ - Links show dependencies and connections visually
++ 
++ ### **Checklist-Driven Action Management**
++ - **User determines next actions via CHECKLISTS, not descriptions**
++ - **ALWAYS create actionable checklist items** for new project cards
++ - **Descriptions = context/background**, **Checklists = what to do next**
++ - When user asks "what's next" - refer to unchecked checklist items
++ - Update checklists more frequently than descriptions
+  
+  ## **Card Positioning & Placement**
+```
+
+```diff
+    - Add context in description with source/reasoning
+    - Include creation timestamp note: "Added via Trello MCP"
++   - **Create actionable checklist items immediately**
+  
+  - **URL Handling:**
+-   - When adding YouTube/web links, format as: `📺 [URL]` or `🔗 [URL]`
+-   - Include brief context about why the link was added
+-   - Use appropriate emoji prefixes for different content types
+- 
+- ## **List Management**
++   - When adding YouTube videos, include direct links in description
++   - Use clear, descriptive card names beyond just "YouTube Video"
++   - Add relevant emojis for visual scanning (🎬, 📺, 🎵, etc.)
++ 
++ - **Project Card Requirements:**
++   - Must have at least 3-5 actionable checklist items
++   - Must link to related cards in other lists
++   - Description provides context, checklist provides actions
++   - Regular checklist updates as project progresses
++ 
++ ## **List Management & Organization**
+  
+- - **Active Projects Priority:**
+-   - Use 🔥 Active Projects for current/today items
+-   - Move completed items to ✅ Completed immediately
+-   - Keep active list lean (max 10-15 cards)
+- 
+- - **Automatic Sorting:**
+-   - Most recently updated cards should appear at top
+-   - Use `move_card_to_top_of_list` when updating existing cards
+-   - Maintain chronological relevance in list ordering
++ - **Active Projects (Max 4):**
++   - Current working projects only
++   - Each must have actionable checklists
++   - Must link to related supporting cards
++   - Move to Upcoming if exceeding limit
++ 
++ - **Upcoming Priorities:**
++   - Next projects to tackle
++   - Buffer for Active Projects overflow
++   - Can have more detailed planning here
++ 
++ - **Review & Info Needed:**
++   - Temporary holding for unclear items
++   - Should be processed and moved regularly
++   - Don't let cards accumulate here
++ 
++ ## **Workflow Consistency Rules**
++ 
++ - **Before Every Card Operation:**
++   1. Check if Active Projects count < 4
++   2. Identify related cards that need linking
++   3. Determine if checklists need updating
++   4. Apply positioning rules (top/second)
++ 
++ - **When Creating Project Cards:**
++   1. Add to appropriate list (respect 4-project limit)
++   2. Create immediate actionable checklist items
++   3. Link to related existing cards
++   4. Position according to rules
++ 
++ - **When Updating Cards:**
++   1. Focus on checklist items over description edits
++   2. Maintain/update card links
++   3. Keep actions scannable and clear
++ 
++ ## **Memory & Context Rules**
++ 
++ - **Always remember these patterns:**
++   - User scans checklists for next actions
++   - Linking shows project relationships
++   - 4-project focus maintains quality
++   - Positioning rules improve visual clarity
++ 
++ - **Consistent Application:**
++   - Apply these rules in every Trello interaction
++   - Don't forget linking requirements
++   - Always check project count limits
++   - Prioritize checklist updates
++ 
++ ---
++ 
++ **🎯 Goal:** Maintain focused, actionable, well-connected project management that matches user's natural workflow patterns.
+  
+  ## **MCP Tool Usage**
+```
+
+---
+
+Now let me check your current Active Projects count to see if we're already over the 4-project limit:
+
+---
+
+
+
+---
+
+Perfect! I can see we currently have **3 Active Projects** (under the 4-limit), and I notice you mentioned the cards now have linking attachments! Let me commit these crucial rule updates:
+
+---
+
+```bash
+git add -A && git commit -m \"feat(rules): Add critical Trello workflow rules - 4-project maximum rule to maintain focus - Mandatory card linking for relationship visibility - Checklist-driven action management (not descriptions) - Workflow consistency and memory rules - User feedback integrated into permanent rules\"
+```
+
+```
+<es - User feedback integrated into permanent rules\"
+zsh: no matches found: "feat(rules):
+nicholasfeyintolafolarin-coker@Nicholass-MacBook-Pro trello-mcp %
+```
+
+---
+
+```bash
+git add -A && git commit -m 'feat(rules): Add critical Trello workflow rules - 4-project maximum rule to maintain focus - Mandatory card linking for relationship visibility - Checklist-driven action management (not descriptions) - Workflow consistency and memory rules'
+```
+
+```
+<scriptions) - Workflow consistency and memory rules'
+[main 0a8ff9a] feat(rules): Add critical Trello workflow rules - 4-project maximum rule to maintain focus - 
+Mandatory card linking for relationship visibility - Checklist-driven action management (not descriptions) -
+ Workflow consistency and memory rules
+ 2 files changed, 338 insertions(+), 2 deletions(-)
+nicholasfeyintolafolarin-coker@Nicholass-MacBook-Pro trello-mcp %
+```
+
+---
+
+🔹 **Rules Locked In - These Are Now PERMANENT!**
+
+**✅ Critical Rules Added to [`trello.mdc`](mdc:.cursor/rules/trello.mdc):**
+
+1. **🚨 4-Project Maximum Rule** - Never exceed 4 active projects
+2. **🔗 Mandatory Card Linking** - Always link related cards for visibility 
+3. **📋 Checklist-Driven Actions** - Use checklists for "what's next", descriptions for context
+4. **⚡ Workflow Consistency** - Apply all rules in every Trello interaction
+
+**✅ Current Status Check:**
+- **Active Projects: 3/4** ✅ (Under limit!)
+- **Linking**: I can see the attachment badges showing you've linked the related cards
+- **Checklists**: WHX event now has 6 actionable items, Gas Power has 34 items
+
+**🎯 What This Means Going Forward:**
+- I will **always** check project count before adding new cards
+- I will **always** create actionable checklists for project cards
+- I will **always** link related cards together
+- I will **always** refer to checklists when you ask "what's next"
+
+These rules are now embedded in the codebase and will guide every Trello interaction! No more forgetting linking or description-heavy cards without actions. 🤖
+
+---
+
+_**User**_
+
+what should we do now? a cleanup?
+
+---
+
+_**Assistant**_
+
+
+
+---
+
