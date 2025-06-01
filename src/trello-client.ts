@@ -220,6 +220,7 @@ export class TrelloClient {
     description?: string;
     dueDate?: string;
     labels?: string[];
+    pos?: string;
   }): Promise<TrelloCard> {
     return this.handleRequest(async () => {
       const response = await this.axiosInstance.post('/cards', {
@@ -228,6 +229,7 @@ export class TrelloClient {
         desc: params.description,
         due: params.dueDate,
         idLabels: params.labels,
+        pos: params.pos || "top",
       });
       return response.data;
     });

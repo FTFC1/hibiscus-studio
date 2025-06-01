@@ -155,6 +155,10 @@ class TrelloServer {
                 },
                 description: 'Array of label IDs to apply to the card',
               },
+              pos: {
+                type: 'string',
+                description: 'Position for the card: "top", "bottom", or specific number (defaults to "top" per workspace rules)',
+              },
             },
             required: ['listId', 'name'],
           },

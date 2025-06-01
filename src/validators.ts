@@ -57,6 +57,7 @@ export function validateAddCardRequest(args: Record<string, unknown>): {
   description?: string;
   dueDate?: string;
   labels?: string[];
+  pos?: string;
 } {
   if (!args.listId || !args.name) {
     throw new McpError(ErrorCode.InvalidParams, 'listId and name are required');
@@ -67,6 +68,7 @@ export function validateAddCardRequest(args: Record<string, unknown>): {
     description: validateOptionalString(args.description),
     dueDate: validateOptionalString(args.dueDate),
     labels: validateOptionalStringArray(args.labels),
+    pos: validateOptionalString(args.pos),
   };
 }
 
