@@ -1,5 +1,151 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Trello MCP Rules & Preferences
+
+## **🚨 CRITICAL WORKFLOW RULES (ALWAYS FOLLOW)**
+
+### **4-Project Maximum Rule**
+- **NEVER exceed 4 active projects** in the Active Projects list
+- If adding a 5th project, MUST move one existing project to "Upcoming Priorities"
+- Monitor project count before any card operations
+- Quality over quantity - focus ensures completion
+
+### **Mandatory Card Linking**
+- **ALWAYS link related cards** when creating or updating
+- **Active Projects MUST link to related cards** in other lists
+- Use Trello's card linking feature (not just mentions in descriptions)
+- Example: Gas Power project links to WHX event card, Me-OS project links to related tools
+- Links show dependencies and connections visually
+
+### **Checklist-Driven Action Management**
+- **User determines next actions via CHECKLISTS, not descriptions**
+- **ALWAYS create actionable checklist items** for new project cards
+- **Descriptions = context/background**, **Checklists = what to do next**
+- When user asks "what's next" - refer to unchecked checklist items
+- Update checklists more frequently than descriptions
+
+## **Card Positioning & Placement**
+
+- **New Cards Always Go to Top or Second Position**
+  - When adding new cards to any list, use `pos: "top"` parameter
+  - If "top" conflicts with existing priority card, use second position
+  - This ensures newest/most relevant cards are immediately visible
+  - Apply this rule automatically for all `add_card_to_list` operations
+
+## **Card Creation Standards**
+
+- **Required Fields:**
+  - Always include descriptive titles
+  - Add context in description with source/reasoning
+  - Include creation timestamp note: "Added via Trello MCP"
+  - **Create actionable checklist items immediately**
+
+- **URL Handling:**
+  - When adding YouTube videos, include direct links in description
+  - Use clear, descriptive card names beyond just "YouTube Video"
+  - Add relevant emojis for visual scanning (🎬, 📺, 🎵, etc.)
+
+- **Project Card Requirements:**
+  - Must have at least 3-5 actionable checklist items
+  - Must link to related cards in other lists
+  - Description provides context, checklist provides actions
+  - Regular checklist updates as project progresses
+
+## **List Management & Organization**
+
+- **Active Projects (Max 4):**
+  - Current working projects only
+  - Each must have actionable checklists
+  - Must link to related supporting cards
+  - Move to Upcoming if exceeding limit
+
+- **Upcoming Priorities:**
+  - Next projects to tackle
+  - Buffer for Active Projects overflow
+  - Can have more detailed planning here
+
+- **Review & Info Needed:**
+  - Temporary holding for unclear items
+  - Should be processed and moved regularly
+  - Don't let cards accumulate here
+
+## **Workflow Consistency Rules**
+
+- **Before Every Card Operation:**
+  1. Check if Active Projects count < 4
+  2. Identify related cards that need linking
+  3. Determine if checklists need updating
+  4. Apply positioning rules (top/second)
+
+- **When Creating Project Cards:**
+  1. Add to appropriate list (respect 4-project limit)
+  2. Create immediate actionable checklist items
+  3. Link to related existing cards
+  4. Position according to rules
+
+- **When Updating Cards:**
+  1. Focus on checklist items over description edits
+  2. Maintain/update card links
+  3. Keep actions scannable and clear
+
+## **Memory & Context Rules**
+
+- **Always remember these patterns:**
+  - User scans checklists for next actions
+  - Linking shows project relationships
+  - 4-project focus maintains quality
+  - Positioning rules improve visual clarity
+
+- **Consistent Application:**
+  - Apply these rules in every Trello interaction
+  - Don't forget linking requirements
+  - Always check project count limits
+  - Prioritize checklist updates
+
+---
+
+**🎯 Goal:** Maintain focused, actionable, well-connected project management that matches user's natural workflow patterns.
+
+## **MCP Tool Usage**
+
+- **Default Parameters:**
+  ```typescript
+  // Always use top positioning for new cards
+  await addCardToList(listId, {
+    name: cardName,
+    description: cardDescription,
+    pos: "top"  // 🔹 REQUIRED: New cards go to top
+  });
+  ```
+
+- **Error Handling:**
+  - Always validate list existence before adding cards
+  - Provide clear feedback when operations complete
+  - Include card URLs in success messages
+
+## **Content Formatting**
+
+- **Descriptions:**
+  - Start with relevant emoji (📺 🔗 📝 💡 etc.)
+  - Include source/context
+  - End with "Added via Trello MCP" signature
+
+- **Titles:**
+  - Keep concise but descriptive
+  - Use title case for consistency
+  - Include content type hint when relevant
+
+## **Workflow Integration**
+
+- **Voice OS Integration:**
+  - Cards created from voice transcripts include audio context
+  - Mark voice-derived cards with 🎤 prefix
+  - Include original transcript excerpt in description
+
+- **Daily Planning:**
+  - Sunday Playlist items go to Active Projects
+  - Review items get moved to 👀 Review list
+  - Ideas go to 📥 Project Ideas for later processing
