@@ -228,6 +228,298 @@ interface ActionableItem {
 
 ---
 
+## 🔄 **Detailed User Flows**
+
+### **Flow 1: Primary Transcript Processing Flow**
+
+**Trigger:** User uploads transcript file or runs `process_transcript` MCP tool
+
+```
+📝 INPUT: Raw transcript text
+    ↓
+🤖 LLM PROCESSING: Extract actionable items + project context
+    ↓
+📋 BLUEPRINT GENERATION: Create structured JSON
+    {
+      "actionableItems": [
+        {
+          "task": "Schedule Smartmark interview",
+          "project": "FORJE",
+          "priority": "high",
+          "context": "expand research foundation while momentum builds",
+          "suggestedCard": "🚀 FORJE - Retail Sales Training",
+          "confidence": 0.95
+        }
+      ],
+      "projectUpdates": [
+        {
+          "cardId": "68387780ffd650df3fa5bc22",
+          "updates": ["MIT changed to Smartmark interview"],
+          "confidence": 0.87
+        }
+      ]
+    }
+    ↓
+🎯 PROJECT MATCHING: Match items to existing cards
+    ↓
+🔍 CONFIDENCE CHECK: 
+    - High confidence (>0.9): Auto-apply
+    - Medium confidence (0.7-0.9): Show review interface
+    - Low confidence (<0.7): Require manual approval
+    ↓
+✅ TRELLO UPDATES: Apply changes via MCP tools
+    ↓
+📱 NOTIFICATION: "3 items added to FORJE, 1 to Gas Project"
+```
+
+**Success Path:** All items matched with high confidence → automatic updates
+**Alternative Path:** Low confidence → manual review required
+
+---
+
+### **Flow 2: Review & Approval Interface Flow**
+
+**Trigger:** Medium/low confidence matches require user review
+
+```
+🔍 REVIEW INTERFACE:
+┌─────────────────────────────────────────┐
+│ 📋 Transcript Processing Results        │
+├─────────────────────────────────────────┤
+│ ✅ Auto-Applied (3 items)               │
+│ │ • "Update RetailTM payment strategy"  │
+│ │   → Payment Strategy Card             │
+│ │                                       │
+│ ⚠️  Needs Review (2 items)              │
+│ │ • "Call Buki about WHX event"        │
+│ │   Suggested: Gas Project Card ❌       │
+│ │   Alternative: WHX Event Card ✅       │
+│ │                                       │
+│ │ • "Debug inventory tool deployment"   │
+│ │   Suggested: Create New Card ❌        │
+│ │   Alternative: Inventory Tool Card ✅  │
+│ │                                       │
+│ 🔄 Actions:                             │
+│ │ [Apply All] [Apply Selected] [Cancel] │
+└─────────────────────────────────────────┘
+```
+
+**User Actions:**
+- ✅ **Approve:** Apply suggested matches
+- 🔄 **Modify:** Change card assignment
+- ➕ **Create:** Make new card for unmatched items
+- ❌ **Reject:** Skip this item entirely
+
+---
+
+### **Flow 3: New Project Detection Flow**
+
+**Trigger:** LLM detects discussion of entirely new project
+
+```
+📝 TRANSCRIPT: "I'm thinking about starting a podcast about AI tools..."
+    ↓
+🤖 ANALYSIS: No existing cards match "podcast" + "AI tools"
+    ↓
+🆕 NEW PROJECT DETECTED:
+┌─────────────────────────────────────────┐
+│ 🎯 New Project Detected                 │
+├─────────────────────────────────────────┤
+│ Project: "AI Tools Podcast"             │
+│ Keywords: podcast, AI tools, content    │
+│ Confidence: 85%                         │
+│                                         │
+│ Suggested Actions:                      │
+│ • Create card in "📅 Upcoming Projects" │
+│ • Add extracted checklist items:        │
+│   - Research podcast formats            │
+│   - Identify target audience            │
+│   - Plan first 5 episodes               │
+│                                         │
+│ [Create Project] [Add to Existing] [Skip]│
+└─────────────────────────────────────────┘
+```
+
+**Outcome:** New project card created with initial checklist items
+
+---
+
+### **Flow 4: Cross-Project Context Flow**
+
+**Trigger:** Transcript mentions multiple existing projects
+
+```
+📝 TRANSCRIPT: "The gas project presentation could help with FORJE's 
+               credibility, and both connect to Me-OS business model..."
+    ↓
+🔗 CONTEXT ANALYSIS: Links detected between:
+    - Gas Project ↔ FORJE (credibility transfer)
+    - FORJE ↔ Me-OS (business model connection)
+    - Gas Project ↔ Me-OS (revenue stream)
+    ↓
+🎯 CROSS-PROJECT UPDATES:
+┌─────────────────────────────────────────┐
+│ 🔗 Project Relationships Updated        │
+├─────────────────────────────────────────┤
+│ Gas Project Card:                       │
+│ + "Use presentation for FORJE credibility"│
+│                                         │
+│ FORJE Card:                             │
+│ + "Leverage gas project success story"  │
+│                                         │
+│ Me-OS Card:                             │
+│ + "Revenue streams: Gas + FORJE synergy"│
+│                                         │
+│ 🔗 Links Added:                         │
+│ • Gas ↔ FORJE attachment               │
+│ • FORJE ↔ Me-OS attachment             │
+└─────────────────────────────────────────┘
+```
+
+**Result:** Enhanced project context and strategic linking
+
+---
+
+### **Flow 5: Error Handling & Recovery Flow**
+
+**Trigger:** API failures, parsing errors, or system issues
+
+```
+❌ ERROR SCENARIOS:
+
+1️⃣ TRELLO API RATE LIMIT:
+   📡 API Error: Rate limit exceeded
+   ⏸️  Queue updates for retry in 60 seconds
+   📱 Notify: "Processing delayed, will retry automatically"
+   
+2️⃣ LLM PARSING FAILURE:
+   🤖 LLM Error: Unable to parse transcript
+   🔄 Fallback: Use keyword extraction
+   📱 Notify: "Using simplified processing, may need manual review"
+   
+3️⃣ CARD NOT FOUND:
+   🔍 Error: Referenced card no longer exists
+   ➕ Create new card with extracted context
+   📱 Notify: "Created new card for orphaned items"
+   
+4️⃣ PERMISSION ERROR:
+   🔒 Error: Cannot update card/board
+   📋 Save to pending queue
+   📱 Notify: "Updates queued, check Trello permissions"
+```
+
+**Recovery Mechanisms:**
+- **Automatic retry** with exponential backoff
+- **Fallback processing** when LLM fails
+- **Pending queue** for permission/API issues
+- **Full rollback** option if major errors
+
+---
+
+### **Flow 6: Bulk Processing Flow**
+
+**Trigger:** User wants to process multiple transcript files
+
+```
+📁 BULK INPUT: 5 transcript files selected
+    ↓
+🔄 PROCESSING QUEUE:
+┌─────────────────────────────────────────┐
+│ 📊 Bulk Processing Status               │
+├─────────────────────────────────────────┤
+│ ✅ transcript-drive-to-grandma.txt      │
+│    → 4 items → Gas Project, FORJE       │
+│                                         │
+│ 🔄 transcript-evening-planning.txt      │
+│    → Processing... (60% complete)       │
+│                                         │
+│ ⏳ transcript-morning-ideas.txt         │
+│    → Queued                             │
+│                                         │
+│ ⏳ transcript-weekend-review.txt        │
+│    → Queued                             │
+│                                         │
+│ ⏳ transcript-project-updates.txt       │
+│    → Queued                             │
+│                                         │
+│ Progress: 2/5 complete (Est. 8min remaining)│
+└─────────────────────────────────────────┘
+```
+
+**Features:**
+- **Sequential processing** to avoid API limits
+- **Progress tracking** with time estimates
+- **Batch summary** of all changes made
+- **Rollback option** for entire batch
+
+---
+
+### **Flow 7: Manual Override Flow**
+
+**Trigger:** User disagrees with automatic placement
+
+```
+❌ INCORRECT PLACEMENT DETECTED:
+   System placed "interview scheduling" → Gas Project
+   User intended: FORJE Project
+   
+🔄 MANUAL CORRECTION:
+┌─────────────────────────────────────────┐
+│ 🎯 Correct This Placement               │
+├─────────────────────────────────────────┤
+│ Item: "Schedule Smartmark interview"    │
+│ Current: Gas Project Card ❌             │
+│                                         │
+│ Move to:                                │
+│ ○ 🚀 FORJE - Retail Sales Training     │
+│ ○ 🔥 AI Gas Power Solutions             │
+│ ○ 📅 Create new "Interview Schedule"    │
+│                                         │
+│ 📚 Learn from this correction:          │
+│ ☑️ "Smartmark" = FORJE context          │
+│ ☑️ "Interview" + "research" = FORJE     │
+│                                         │
+│ [Move & Learn] [Move Only] [Cancel]     │
+└─────────────────────────────────────────┘
+```
+
+**Learning Mechanism:**
+- **Pattern recognition** improves future matching
+- **Context keywords** added to project profiles
+- **User preferences** stored for similar situations
+
+---
+
+### **Flow 8: Voice-to-Action Speed Flow**
+
+**Trigger:** User wants fastest possible processing
+
+```
+🎤 VOICE RECORDING → 📱 MOBILE APP/INTERFACE:
+┌─────────────────────────────────────────┐
+│ 🎙️ Quick Voice Processing              │
+├─────────────────────────────────────────┤
+│ [🔴 Recording...] [⏹️ Stop] [🔄 Process] │
+│                                         │
+│ 🔥 Speed Mode Options:                  │
+│ ○ Instant (keyword-based, 90% accurate) │
+│ ○ Smart (LLM-based, 95% accurate)      │
+│ ○ Thorough (full context, 99% accurate)│
+│                                         │
+│ Current project context:                │
+│ 🎯 Gas Project (driving to expo)        │
+│                                         │
+│ [Process with Context] [Process General]│
+└─────────────────────────────────────────┘
+```
+
+**Speed Optimizations:**
+- **Context-aware processing** when current project known
+- **Keyword shortcuts** for common actions
+- **Voice command integration** for immediate updates
+
+---
+
 ## 🛡️ **Risk Assessment**
 
 **Technical Risks:**
