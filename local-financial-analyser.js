@@ -209,7 +209,14 @@ class LocalFinancialAnalyser {
       /funding.*\$\d+|raised.*£\d+|investment.*€\d+/i,
       // Promotional with no actual payment context
       /\d+%.*off.*next.*\d+.*orders/i,
-      /save.*on.*next.*purchase/i
+      /save.*on.*next.*purchase/i,
+      // PayPal business announcements and introductions
+      /introducing.*paypal|paypal.*introduces|new.*paypal.*feature/i,
+      /paypal.*platform|paypal.*business.*solution|paypal.*open/i,
+      /discover.*paypal|explore.*paypal|learn.*about.*paypal/i,
+      // General business platform announcements
+      /introducing.*platform|new.*platform|one.*platform.*for/i,
+      /business.*solution|enterprise.*solution|platform.*for.*business/i
     ];
 
     // Extract email body for deeper analysis

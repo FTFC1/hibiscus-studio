@@ -327,13 +327,33 @@ async function buildDashboard() {
             align-items: center;
             justify-content: space-between;
             margin-bottom: var(--spacing-lg);
-            padding-bottom: var(--spacing-sm);
-            border-bottom: 1px solid var(--border);
+            padding: var(--spacing-md) 0 var(--spacing-sm);
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--background);
+            z-index: 10;
         }
         
         .section-title {
             font-size: var(--text-lg);
             font-weight: var(--weight-semibold);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .section-icon {
+            font-size: 20px;
+        }
+        
+        .section-count {
+            background: var(--accent);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: var(--weight-medium);
         }
         
         .budget-grid {
@@ -386,9 +406,15 @@ async function buildDashboard() {
         .category-item {
             background: var(--surface);
             border-radius: var(--radius);
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
             overflow: hidden;
             transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        
+        .category-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
         }
         
         .category-header {
@@ -398,10 +424,22 @@ async function buildDashboard() {
             padding: var(--spacing-lg);
             cursor: pointer;
             user-select: none;
+            position: relative;
         }
         
-        .category-header:hover {
-            background: rgba(0, 122, 255, 0.05);
+        .category-header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0;
+            background: var(--accent);
+            transition: width 0.2s ease;
+        }
+        
+        .category-item.expanded .category-header::after {
+            width: 100%;
         }
         
         .category-left {
@@ -411,29 +449,35 @@ async function buildDashboard() {
         }
         
         .category-name {
-            font-weight: var(--weight-medium);
+            font-weight: var(--weight-semibold);
             text-transform: capitalize;
+            font-size: var(--text-base);
         }
         
         .category-count {
-            font-size: var(--text-sm);
+            font-size: 13px;
             color: var(--tertiary);
             margin-left: var(--spacing-xs);
+            font-weight: var(--weight-normal);
         }
         
         .category-amount {
             font-weight: var(--weight-semibold);
             color: var(--secondary);
+            font-size: var(--text-base);
         }
         
         .expand-icon {
             margin-left: var(--spacing-sm);
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
             color: var(--accent);
+            font-weight: bold;
+            font-size: 16px;
         }
         
         .category-item.expanded .expand-icon {
             transform: rotate(180deg);
+            color: var(--accent);
         }
         
         .category-details {
@@ -491,8 +535,15 @@ async function buildDashboard() {
         .month-card {
             background: var(--surface);
             border-radius: var(--radius);
+            margin-bottom: var(--spacing-md);
             overflow: hidden;
             transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        
+        .month-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
         }
         
         .month-header {
@@ -502,19 +553,34 @@ async function buildDashboard() {
             padding: var(--spacing-lg);
             cursor: pointer;
             user-select: none;
+            position: relative;
         }
         
-        .month-header:hover {
-            background: rgba(0, 122, 255, 0.05);
+        .month-header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0;
+            background: var(--accent);
+            transition: width 0.2s ease;
+        }
+        
+        .month-card.expanded .month-header::after {
+            width: 100%;
         }
         
         .month-title {
             font-weight: var(--weight-semibold);
+            text-transform: capitalize;
+            font-size: var(--text-base);
         }
         
         .month-total {
             font-weight: var(--weight-semibold);
             color: var(--secondary);
+            font-size: var(--text-base);
         }
         
         .month-content {
@@ -624,6 +690,191 @@ async function buildDashboard() {
                 min-height: 44px;
             }
         }
+        
+        /* Navigation & Section Improvements */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md) 0 var(--spacing-sm);
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--background);
+            z-index: 10;
+        }
+        
+        .section-title {
+            font-size: var(--text-lg);
+            font-weight: var(--weight-semibold);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .section-icon {
+            font-size: 20px;
+        }
+        
+        .section-count {
+            background: var(--accent);
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: var(--weight-medium);
+        }
+        
+        /* Enhanced Interactive Elements */
+        .category-item, .month-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            margin-bottom: var(--spacing-md);
+            overflow: hidden;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        
+        .category-item:hover, .month-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
+        }
+        
+        .category-header, .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+        
+        .category-header::after, .month-header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0;
+            background: var(--accent);
+            transition: width 0.2s ease;
+        }
+        
+        .category-item.expanded .category-header::after,
+        .month-card.expanded .month-header::after {
+            width: 100%;
+        }
+        
+        /* Better Visual Feedback */
+        .category-header:active, .month-header:active {
+            background: rgba(0, 122, 255, 0.05);
+        }
+        
+        .expand-icon {
+            margin-left: var(--spacing-sm);
+            transition: all 0.3s ease;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .category-item.expanded .expand-icon,
+        .month-card.expanded .expand-icon {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+        
+        /* Quick Actions Bar */
+        .quick-actions {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-sm);
+            z-index: 20;
+        }
+        
+        .quick-action-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
+        }
+        
+        /* Progress Indicators */
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: var(--spacing-xs);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .progress-fill.variable {
+            background: var(--warning);
+        }
+        
+        /* Enhanced Mobile Experience */
+        @media (max-width: 480px) {
+            .container {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
+            
+            .section-header {
+                position: relative;
+                top: auto;
+            }
+            
+            .quick-actions {
+                bottom: var(--spacing-md);
+                right: var(--spacing-md);
+            }
+            
+            .quick-action-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
+        }
+        
+        /* Improved Typography Hierarchy */
+        .category-name, .month-title {
+            font-weight: var(--weight-semibold);
+            text-transform: capitalize;
+            font-size: var(--text-base);
+        }
+        
+        .category-count {
+            font-size: 13px;
+            color: var(--tertiary);
+            margin-left: var(--spacing-xs);
+            font-weight: var(--weight-normal);
+        }
+        
+        .category-amount, .month-total {
+            font-weight: var(--weight-semibold);
+            color: var(--secondary);
+            font-size: var(--text-base);
+        }
     </style>
 </head>
 <body>
@@ -643,7 +894,10 @@ async function buildDashboard() {
         
         <section class="budget-section">
             <div class="section-header">
-                <h2 class="section-title">Budget Breakdown</h2>
+                <h2 class="section-title">
+                    <span class="section-icon">📊</span>
+                    Budget Breakdown
+                </h2>
             </div>
             
             <div class="budget-grid">
@@ -651,19 +905,29 @@ async function buildDashboard() {
                     <h4>Fixed</h4>
                     <div class="amount">${formatNGN(avgFixed)}</div>
                     <div class="percentage">${Math.round((avgFixed / avgMonthlySpend) * 100)}% of budget</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${Math.round((avgFixed / avgMonthlySpend) * 100)}%"></div>
+                    </div>
                 </div>
                 
                 <div class="budget-card variable">
                     <h4>Variable</h4>
                     <div class="amount">${formatNGN(avgVariable)}</div>
                     <div class="percentage">${Math.round((avgVariable / avgMonthlySpend) * 100)}% of budget</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill variable" style="width: ${Math.round((avgVariable / avgMonthlySpend) * 100)}%"></div>
+                    </div>
                 </div>
             </div>
         </section>
         
         <section class="categories">
             <div class="section-header">
-                <h2 class="section-title">Categories</h2>
+                <h2 class="section-title">
+                    <span class="section-icon">📂</span>
+                    Categories
+                    <span class="section-count">${topCategories.length}</span>
+                </h2>
             </div>
             
             ${topCategories.map((cat, index) => `
@@ -698,7 +962,11 @@ async function buildDashboard() {
         
         <section class="months">
             <div class="section-header">
-                <h2 class="section-title">Monthly Details</h2>
+                <h2 class="section-title">
+                    <span class="section-icon">📅</span>
+                    Monthly Details
+                    <span class="section-count">${processedMonths.length}</span>
+                </h2>
             </div>
             
             ${processedMonths.map((month, index) => `
@@ -746,6 +1014,16 @@ async function buildDashboard() {
                 </div>
             `).join('')}
         </section>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="quick-action-btn" onclick="scrollToTop()" title="Back to top">
+                ↑
+            </button>
+            <button class="quick-action-btn" onclick="toggleAllSections()" title="Expand/collapse all">
+                ⚡
+            </button>
+        </div>
         
         <footer class="footer">
             <p>Generated ${new Date().toLocaleDateString('en-GB', { 
@@ -800,6 +1078,39 @@ async function buildDashboard() {
                 this.setAttribute('aria-expanded', expanded);
             });
         });
+        
+        // Quick Actions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        let allExpanded = false;
+        function toggleAllSections() {
+            const categories = document.querySelectorAll('.category-item');
+            const months = document.querySelectorAll('.month-card');
+            
+            allExpanded = !allExpanded;
+            
+            categories.forEach(item => {
+                if (allExpanded) {
+                    item.classList.add('expanded');
+                } else {
+                    item.classList.remove('expanded');
+                }
+            });
+            
+            months.forEach(item => {
+                if (allExpanded) {
+                    item.classList.add('expanded');
+                    const expandIcon = item.querySelector('.expand-icon');
+                    if (expandIcon) expandIcon.style.transform = 'rotate(180deg)';
+                } else {
+                    item.classList.remove('expanded');
+                    const expandIcon = item.querySelector('.expand-icon');
+                    if (expandIcon) expandIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
     </script>
 </body>
 </html>`;
