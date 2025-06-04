@@ -819,11 +819,11 @@ async function buildDashboard() {
                 const escapedSubject = result.subject.replace(/"/g, '&quot;');
                 const escapedMonth = result.month.replace(/"/g, '&quot;');
                 return `
-                <div class="search-result-item" data-month="${escapedMonth}" data-subject="${escapedSubject}" onclick="highlightTransactionFromData(this)">
-                    <div class="search-result-amount">${result.amount}</div>
-                    <div class="search-result-details">${result.subject} - ${result.category} (${result.month})</div>
-                </div>
-            `;
+                    <div class="search-result-item" data-month="${escapedMonth}" data-subject="${escapedSubject}" onclick="highlightTransactionFromData(this)">
+                        <div class="search-result-amount">${result.amount}</div>
+                        <div class="search-result-details">${result.subject} - ${result.category} (${result.month})</div>
+                    </div>
+                `;
             }).join('');
             
             searchResults.style.display = 'block';
