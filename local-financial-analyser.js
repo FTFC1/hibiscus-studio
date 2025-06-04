@@ -523,43 +523,18 @@ class LocalFinancialAnalyser {
   }
 
   async generateDashboard() {
-    const dashboardHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔹 Personal Financial Dashboard</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 20px; }
-        .header { background: #1a1a1a; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .stat-card { background: #f5f5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #007AFF; }
-        .category { margin-bottom: 15px; padding: 10px; background: white; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .transaction { padding: 8px; border-bottom: 1px solid #eee; font-size: 14px; }
-        .amount { font-weight: bold; color: #FF3B30; }
-        .date { color: #666; font-size: 12px; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>🔹 Personal Financial Dashboard</h1>
-        <p>Local-only financial analysis • Secure • Private</p>
-    </div>
+    // Auto-run the interactive dashboard builder
+    console.log('🔹 Building interactive dashboard...');
+    const { exec } = await import('child_process');
+    const { promisify } = await import('util');
+    const execPromise = promisify(exec);
     
-    <div id="dashboard-content">
-        <p>Loading financial data...</p>
-    </div>
-
-    <script>
-        // Dashboard will be populated by the analyser
-        console.log('🔹 Financial Dashboard Ready');
-    </script>
-</body>
-</html>`;
-
-    await fs.writeFile('financial-dashboard.html', dashboardHTML);
-    console.log('📱 Dashboard created: financial-dashboard.html');
+    try {
+      await execPromise('node build-dashboard.js');
+      console.log('✅ Interactive dashboard built successfully');
+    } catch (error) {
+      console.error('❌ Dashboard build failed:', error.message);
+    }
   }
 }
 
