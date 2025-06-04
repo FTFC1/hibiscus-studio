@@ -1,187 +1,138 @@
-# 🔹 **Gmail Financial Search Strategy & Learnings**
+# 🔹 Gmail Search Strategy for Financial Data
 
-*Learning Repository for Effective Financial Email Searches*
+## Investigation Results Summary
 
----
 
-## 🔹 **Gmail MCP Diagnosis - June 4, 2025**
+### January 2025
+- **Total emails searched:** 385
+- **Potential transactions found:** 10
 
-**✅ CONNECTION STATUS:** ACTIVE (Updated 10:16 AM)  
-**✅ WORKING FUNCTIONS:** 
-- GMAIL_LIST_DRAFTS ✅
-- GMAIL_SEARCH_PEOPLE ✅ 
-- GMAIL_CHECK_ACTIVE_CONNECTION ✅
+**Search effectiveness:**
+- `invoice OR billing OR receipt OR payment OR charged`: 50 emails
+- `subscription OR recurring OR monthly`: 50 emails
+- `from:apple OR from:netflix OR from:spotify OR from:openai`: 33 emails
+- `from:paypal OR from:stripe OR from:lemonsqueezy`: 17 emails
+- `from:opay OR from:providus OR from:zenith OR from:hsbc`: 11 emails
+- `transfer OR bank OR statement`: 50 emails
+- `app store OR play store`: 50 emails
+- `claude OR replit OR github`: 50 emails
+- `tinder OR dating`: 24 emails
+- `uber OR bolt OR transport`: 50 emails
 
-**❌ PROBLEM FUNCTION:**
-- GMAIL_FETCH_EMAILS ❌ (Hangs/timeouts consistently)
 
-**💡 ROOT ISSUE:** The email fetch function specifically has timeout/hanging issues, but other Gmail MCP functions work perfectly.
+**Sample transactions found:**
+- "OpenAI o1 and o3-mini API access" from "Nikunj Handa, OpenAI" <noreply@email.op
+- "Subscription Confirmation" from Apple <no_reply@email.apple.com>
+- "Your Subscription is Expiring" from Apple <no_reply@email.apple.com>
 
----
 
-## 🔹 **Alternative Approaches**
 
-### **Option 1: Manual Gmail Web Search**
-Since GMAIL_FETCH_EMAILS is problematic, Nicholas could manually search Gmail for:
-- "invoice january 2025" 
-- "billing february 2025"
-- "subscription march 2025"
-- "payment april 2025"
-- "receipt may 2025"
+### February 2025
+- **Total emails searched:** 268
+- **Potential transactions found:** 11
 
-### **Option 2: Different Gmail MCP Parameters**
-Try smaller result sets, different query structures, or different date formats in GMAIL_FETCH_EMAILS.
+**Search effectiveness:**
+- `invoice OR billing OR receipt OR payment OR charged`: 50 emails
+- `subscription OR recurring OR monthly`: 50 emails
+- `from:apple OR from:netflix OR from:spotify OR from:openai`: 24 emails
+- `from:paypal OR from:stripe OR from:lemonsqueezy`: 31 emails
+- `from:opay OR from:providus OR from:zenith OR from:hsbc`: 13 emails
+- `transfer OR bank OR statement`: 50 emails
+- `app store OR play store`: 50 emails
 
-### **Option 3: Focus on Recent Data First**
-Use working Gmail functions + manual search for historical data.
 
----
+**Sample transactions found:**
+- "US$15.00 payment to Exafunction, Inc. was unsuccessful again" from "Exafunction, Inc." <failed-payments+acc
+- "GPT-4.5 research preview" from "Nikunj Handa, OpenAI" <noreply@email.op
+- "Your invoice from Apple." from Apple <no_reply@email.apple.com>
 
-## 🔹 **Known Financial Data (From Previous Success)**
 
-**✅ June 2025:**
-- **Apple Cal AI** - $4.99/month subscription
-- **Bolt Nigeria** - ₦8,900 ride charges
-- **Tinder Platinum** - Daily subscription charges
-- **HSBC Bank Statement** - Account ending 8716 notification
 
-**✅ May 2025:** Comprehensive data already in personal-finance.md
+### March 2025
+- **Total emails searched:** 249
+- **Potential transactions found:** 13
 
----
+**Search effectiveness:**
+- `invoice OR billing OR receipt OR payment OR charged`: 50 emails
+- `subscription OR recurring OR monthly`: 50 emails
+- `from:apple OR from:netflix OR from:spotify OR from:openai`: 29 emails
+- `from:paypal OR from:stripe OR from:lemonsqueezy`: 20 emails
+- `from:opay OR from:providus OR from:zenith OR from:hsbc`: 50 emails
+- `transfer OR bank OR statement`: 50 emails
 
-## 🔹 **Next Steps**
 
-1. **Try smaller GMAIL_FETCH_EMAILS queries** (max_results: 1-2)
-2. **Manual Gmail search** for Jan-April historical data
-3. **Focus on updating personal-finance.md** with confirmed data
-4. **Test different search terms** with working MCP functions
+**Sample transactions found:**
+- "Your receipt from Vercel Inc. #2724-3058" from "Vercel Inc." <invoice+statements@vercel
+- "🌟You deserve an easy life!" from OPay <no-reply@opay-nigeria.com>
+- "Billing Problem" from Apple <no_reply@email.apple.com>
 
----
 
-**🚨 PRIORITY:** Get Jan-April 2025 financial data to complete the picture
 
-## 🔹 **BREAKTHROUGH: June 4, 2025 - Gmail MCP WORKING! ✅**
+### April 2025 (deeper)
+- **Total emails searched:** 444
+- **Potential transactions found:** 14
 
-**✅ CONNECTION STATUS:** ACTIVE (Updated 10:16 AM)  
-**✅ SEARCH SUCCESS:** Multiple financial queries working perfectly  
-**✅ STRATEGY:** Simple search terms work better than complex date-specific queries
+**Search effectiveness:**
+- `invoice OR billing OR receipt OR payment OR charged`: 50 emails
+- `subscription OR recurring OR monthly`: 50 emails
+- `from:apple OR from:netflix OR from:spotify OR from:openai`: 49 emails
+- `from:paypal OR from:stripe OR from:lemonsqueezy`: 45 emails
+- `from:opay OR from:providus OR from:zenith OR from:hsbc`: 50 emails
+- `transfer OR bank OR statement`: 50 emails
+- `app store OR play store`: 50 emails
+- `claude OR replit OR github OR supabase`: 50 emails
+- `wispr OR ai OR tool`: 50 emails
 
----
 
-## 🔹 **Proven Successful Searches**
+**Sample transactions found:**
+- "Transfer Successful" from OPay <no-reply@opay-nigeria.com>
+- "[Task Update] Time to load AI workout advice" from OpenAI <noreply@tm.openai.com>
+- "Your invoice from Apple." from Apple <no_reply@email.apple.com>
 
-### **Search 1: "invoice" (3 results)**
-✅ **FOUND FINANCIAL DATA:**
-- **Apple Invoice** (June 2, 2025) - Cal AI Calorie Tracker Unlimited $4.99/month ⭐⭐⭐
-- **Bolt Nigeria Receipt** (June 3, 2025) - ₦8,900 ride (₦9,900 total - ₦1,000 discount) ⭐⭐
-- **Creativerly Newsletter** - Design newsletter (not financial)
 
-### **Search 2: "billing" (5 results)**  
-✅ **MAJOR DISCOVERIES:**
-- **Apple Invoice** (June 2, 2025) - Cal AI subscription ⭐⭐⭐
-- **PapaReact Emails** - Development newsletters (multiple)
-- **Condia Newsletter** - Tech newsletter
-- **YouTube Live Notifications** - Not financial but shows email flow
 
----
+## Recommended Search Queries
 
-## 🔹 **Financial Data Collected So Far**
+Based on investigation results, use these queries for comprehensive financial email discovery:
 
-### **June 2025 Confirmed Expenses:**
-- **Apple Cal AI Subscription:** $4.99/month (Renews July 2, 2025)
-- **Bolt Nigeria Rides:** ₦8,900 (June 3)
+### Core Financial Terms
+```
+invoice OR billing OR receipt OR payment OR charged
+subscription OR recurring OR monthly
+transfer OR bank OR statement
+```
 
-### **Missing Search Categories:**
-**🔍 NEXT SEARCHES NEEDED:**
-1. **"subscription"** - Find all recurring payments
-2. **"payment"** - Bank alerts and transfers  
-3. **"OpenAI"** - API usage charges
-4. **"Replit"** - Development platform costs
-5. **"Tinder" OR "dating"** - Dating app charges (mentioned in previous analysis)
-6. **"Stripe" OR "LemonSqueezy"** - Payment processor transactions
-7. **"Providus Bank" OR "Zenith Bank"** - Nigerian bank alerts
+### Service Providers (use from: syntax)
+```
+from:apple OR from:netflix OR from:spotify OR from:openai
+from:paypal OR from:stripe OR from:lemonsqueezy
+from:opay OR from:providus OR from:zenith OR from:hsbc
+from:claude OR from:replit OR from:github OR from:supabase
+```
 
-### **Historical Searches Needed:**
-- **"invoice may 2025"** - Fill May gap
-- **"billing april 2025"** - Q1 historical data
-- **"receipt march 2025"** - Q1 historical data
-- **"payment february 2025"** - Q1 historical data  
-- **"subscription january 2025"** - Q1 historical data
+### App Stores & Digital Services
+```
+app store OR play store
+wispr OR ai OR tool
+```
 
----
+### Date Range Usage
+For monthly analysis, always include date ranges:
+```
+{search_term} after:2025/01/01 before:2025/02/01
+```
 
-## 🔹 **Key Learnings**
+## Implementation Notes
 
-**💡 SEARCH STRATEGY INSIGHTS:**
-- ✅ **Simple terms work better:** "invoice" > "invoice january 2025"
-- ✅ **Gmail MCP handles 5-result batches efficiently**
-- ✅ **Results include full email content for analysis**
-- ✅ **Connection stable - no timeout issues when patient**
+1. **Use from: syntax** for service providers to avoid false matches
+2. **Combine multiple search terms** with OR for broader coverage  
+3. **Include date ranges** for monthly analysis
+4. **Rate limit** API calls (300ms between requests)
+5. **Sample multiple emails** from each search to verify relevance
 
-**⚠️ PATTERNS IDENTIFIED:**
-- Apple subscriptions clearly show in billing emails
-- Bolt rides have detailed receipt formatting
-- Nigerian financial services use ₦ currency symbol
-- Date formats: "2 June 2025" style in Apple emails
+## Next Steps
 
----
-
-## 🔹 **Next Execution Plan**
-
-**Phase 1: Complete June 2025** (Current)
-- ✅ "invoice" ✅ "billing" 
-- 🔄 "subscription" "payment" "OpenAI" "Replit"
-
-**Phase 2: May 2025 Historical**
-- "invoice may 2025" "billing may 2025" "subscription may 2025"
-
-**Phase 3: Q1 2025 Systematic**
-- Month-by-month searches for Jan-Apr
-
-**Phase 4: Update personal-finance.md**
-- Integrate all findings into comprehensive tracker
-
----
-
-*Last Updated: June 4, 2025 10:32 AM*  
-*Gmail MCP Status: ✅ ACTIVE & WORKING*
-
-## 🔹 **NEXT SEARCH BATCH PLAN**
-
-**Batch 2: Expanding Recent Data**
-1. ✅ `invoice` (COMPLETED - 3 results, 2 financial)
-2. 🔄 **NEXT**: `billing` (Target: OpenAI, Replit, Apple subscriptions)
-3. 🔄 **NEXT**: `receipt` (Target: Stripe, LemonSqueezy, purchase confirmations)
-4. 🔄 **NEXT**: `payment` (Target: Bank alerts, transfer notifications)
-
-**Batch 3: Company-Specific Searches**
-1. `Apple` - App Store subscriptions and services
-2. `Bolt` - All ride receipts and transport expenses  
-3. `OpenAI` - API usage charges
-4. `Replit` - Subscription and usage overages
-
-**Batch 4: Banking & Nigerian Context**
-1. `Providus Bank` - Nigerian bank alerts
-2. `Zenith Bank` - Nigerian bank alerts
-3. `Naira` or `₦` - Local currency transactions
-4. `transfer` - Money movement tracking
-
-**Batch 5: Payment Processors**
-1. `Stripe` - Payment processing confirmations
-2. `PayPal` - Payment processor transactions  
-3. `LemonSqueezy` - Software purchase confirmations
-4. `Wise` - International transfer services
-
----
-
-## 🔹 **DATA CATEGORIZATION EMERGING**
-
-**💳 Transport & Mobility:**
-- Bolt Nigeria: ₦8900 (June 3, 2025)
-
-**📱 App Subscriptions:**
-- Cal AI: Monthly (renewed June 2, 2025)
-
-**🔍 SEARCH CONFIDENCE: HIGH**
-Basic search terms work excellently. Gmail MCP returning quality, detailed financial data with timestamps and amounts. Ready to proceed with systematic collection.
- 
+1. Update LocalFinancialAnalyser with improved search queries
+2. Add date range filtering for historical analysis
+3. Implement better transaction detection patterns
+4. Add support for Nigerian financial services

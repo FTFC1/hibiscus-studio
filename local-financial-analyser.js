@@ -377,37 +377,60 @@ class LocalFinancialAnalyser {
   async analyseAllFinancialData() {
     console.log('🔹 Starting comprehensive financial analysis...');
     
-    const searchQueries = [
-      // Fixed queries using proper Gmail search syntax
-      'billing OR invoice OR receipt',
-      'subscription OR recurring',
-      'payment OR charged OR purchase',
+    // Generate date ranges for the last 6 months
+    const now = new Date();
+    const dateRanges = [];
+    
+    for (let i = 0; i < 6; i++) {
+      const month = (now.getMonth() - i + 12) % 12;
+      const year = month > now.getMonth() ? now.getFullYear() - 1 : now.getFullYear();
       
-      // Service-specific searches using from: syntax
-      'from:openai OR from:replit OR from:claude OR from:lemonsqueezy',
-      'from:apple OR from:tinder OR from:spotify OR from:netflix OR from:youtube',
-      'from:bolt OR from:uber',
-      'from:paypal OR from:stripe',
+      const startDate = new Date(year, month, 1);
+      const endDate = new Date(year, month + 1, 1);
       
-      // Nigerian services
-      'from:opay OR from:providus OR from:zenith',
+      dateRanges.push({
+        name: startDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }),
+        query: `after:${year}/${String(month + 1).padStart(2, '0')}/01 before:${endDate.getFullYear()}/${String(endDate.getMonth() + 1).padStart(2, '0')}/01`
+      });
+    }
+    
+    // Enhanced search queries based on deep investigation
+    const baseSearchQueries = [
+      // Core financial terms
+      'invoice OR billing OR receipt OR payment OR charged',
+      'subscription OR recurring OR monthly',
+      'transfer OR bank OR statement',
       
-      // Additional patterns
-      'monthly OR annual OR renewal',
+      // Service providers (using from: syntax for accuracy)
+      'from:apple OR from:netflix OR from:spotify OR from:openai',
+      'from:paypal OR from:stripe OR from:lemonsqueezy',
+      'from:opay OR from:providus OR from:zenith OR from:hsbc',
+      'from:claude OR from:replit OR from:github OR from:supabase',
+      'from:vercel OR from:exafunction OR from:magicpatterns',
+      
+      // App stores & digital services
       'app store OR play store',
+      'wispr OR ai OR tool',
       
-      // Generic financial terms
-      'SPAR OR restaurant OR food'
+      // Transport & dating
+      'from:bolt OR from:uber',
+      'from:tinder OR dating'
     ];
 
     this.transactions = [];
     
-    for (const query of searchQueries) {
-      const results = await this.searchFinancialEmails(query, 25);
-      this.transactions.push(...results);
+    // Search with date ranges for historical completeness
+    for (const dateRange of dateRanges) {
+      console.log(`\n🔍 Searching ${dateRange.name}...`);
       
-      // Rate limiting - be nice to Gmail API
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      for (const baseQuery of baseSearchQueries) {
+        const fullQuery = `${baseQuery} ${dateRange.query}`;
+        const results = await this.searchFinancialEmails(fullQuery, 50);
+        this.transactions.push(...results);
+        
+        // Rate limiting - be nice to Gmail API
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
     }
 
     // Remove duplicates
@@ -419,7 +442,7 @@ class LocalFinancialAnalyser {
       new Date(b.timestamp) - new Date(a.timestamp)
     );
 
-    console.log(`✅ Found ${this.transactions.length} financial transactions`);
+    console.log(`✅ Found ${this.transactions.length} financial transactions across all periods`);
     return this.transactions;
   }
 

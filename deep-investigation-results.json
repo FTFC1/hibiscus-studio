@@ -1,0 +1,354 @@
+[
+  {
+    "period": "January 2025",
+    "totalEmails": 385,
+    "potentialTransactions": [
+      {
+        "subject": "OpenAI o1 and o3-mini API access",
+        "from": "\"Nikunj Handa, OpenAI\" <noreply@email.op",
+        "date": "Fri, 31 Jan 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Subscription Confirmation",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Wed, 29 Jan 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Your Subscription is Expiring",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Wed, 29 Jan 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Why wait? Start selling online with PayPal.",
+        "from": "PayPal <PayPal@emails.paypal.com>",
+        "date": "Thu, 30 Jan 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "New Plugin: Word Generator, Add Login Message, AI Agent Idea",
+        "from": "Tony from TypingMind <tdinh@broadcasts.l",
+        "date": "Thu, 30 Jan 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Your receipt from Exafunction, Inc. #2323-6069",
+        "from": "\"Exafunction, Inc.\" <invoice+statements+",
+        "date": "Wed, 29 Jan 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Learning Series: Sustainable Growth Strategies for 2025",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "Mon, 27 Jan 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "Learning Series: Sustainable Growth Strategies for 2025",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "Mon, 27 Jan 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "Get an Eazy by Zenith Digital Wallet Today",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "Thu, 23 Jan 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithban",
+        "date": "Fri, 31 Jan 2025",
+        "searchTerm": "transfer OR bank OR statement"
+      }
+    ],
+    "searchResults": {
+      "invoice OR billing OR receipt OR payment OR charged": 50,
+      "subscription OR recurring OR monthly": 50,
+      "from:apple OR from:netflix OR from:spotify OR from:openai": 33,
+      "from:paypal OR from:stripe OR from:lemonsqueezy": 17,
+      "from:opay OR from:providus OR from:zenith OR from:hsbc": 11,
+      "transfer OR bank OR statement": 50,
+      "app store OR play store": 50,
+      "claude OR replit OR github": 50,
+      "tinder OR dating": 24,
+      "uber OR bolt OR transport": 50
+    }
+  },
+  {
+    "period": "February 2025",
+    "totalEmails": 268,
+    "potentialTransactions": [
+      {
+        "subject": "US$15.00 payment to Exafunction, Inc. was unsuccessful again",
+        "from": "\"Exafunction, Inc.\" <failed-payments+acc",
+        "date": "Fri, 28 Feb 2025",
+        "searchTerm": "invoice OR billing OR receipt OR payment OR charged"
+      },
+      {
+        "subject": "GPT-4.5 research preview",
+        "from": "\"Nikunj Handa, OpenAI\" <noreply@email.op",
+        "date": "Fri, 28 Feb 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Thu, 27 Feb 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Thu, 27 Feb 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "US$15.00 payment to Exafunction, Inc. was unsuccessful again",
+        "from": "\"Exafunction, Inc.\" <failed-payments+acc",
+        "date": "Fri, 28 Feb 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Don’t wait — get paid fast with the new PayPal Invoicing",
+        "from": "PayPal <PayPal@emails.paypal.com>",
+        "date": "Wed, 26 Feb 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Claude 3.7 Sonnet, New Plugin: Excel Generator, and more!",
+        "from": "Tony from TypingMind <tdinh@broadcasts.l",
+        "date": "Tue, 25 Feb 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Join Us Live",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "Thu, 27 Feb 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "Join Us Live",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "Thu, 27 Feb 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "Your latest HSBC savings account statement is available to v",
+        "from": "HSBC UK  <statements@email1.hsbc.co.uk>",
+        "date": "Wed, 26 Feb 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN51,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithban",
+        "date": "Fri, 28 Feb 2025",
+        "searchTerm": "transfer OR bank OR statement"
+      }
+    ],
+    "searchResults": {
+      "invoice OR billing OR receipt OR payment OR charged": 50,
+      "subscription OR recurring OR monthly": 50,
+      "from:apple OR from:netflix OR from:spotify OR from:openai": 24,
+      "from:paypal OR from:stripe OR from:lemonsqueezy": 31,
+      "from:opay OR from:providus OR from:zenith OR from:hsbc": 13,
+      "transfer OR bank OR statement": 50,
+      "app store OR play store": 50
+    }
+  },
+  {
+    "period": "March 2025",
+    "totalEmails": 249,
+    "potentialTransactions": [
+      {
+        "subject": "Your receipt from Vercel Inc. #2724-3058",
+        "from": "\"Vercel Inc.\" <invoice+statements@vercel",
+        "date": "Mon, 31 Mar 2025",
+        "searchTerm": "invoice OR billing OR receipt OR payment OR charged"
+      },
+      {
+        "subject": "🌟You deserve an easy life!",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Mon, 31 Mar 2025",
+        "searchTerm": "subscription OR recurring OR monthly"
+      },
+      {
+        "subject": "Billing Problem",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Sun, 30 Mar 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Billing Problem",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Sat, 29 Mar 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Billing Problem",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Sat, 29 Mar 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Tap to Pay on iPhone – a new way to get paid",
+        "from": "PayPal <PayPal@emails.paypal.com>",
+        "date": "Tue, 25 Mar 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Gemini 2.0 Flash with Native Image Generation, TypingMind Pr",
+        "from": "Tony from TypingMind <tdinh@broadcasts.l",
+        "date": "Tue, 25 Mar 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Get paid fast and save on POS fees with PayPal",
+        "from": "PayPal <PayPal@emails.paypal.com>",
+        "date": "Sat, 22 Mar 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Transfer Successful",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Mon, 31 Mar 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "🌟You deserve an easy life!",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Mon, 31 Mar 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "💡Stay Powered 24/7",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Mon, 31 Mar 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "Mon, 31 Mar 2025",
+        "searchTerm": "transfer OR bank OR statement"
+      },
+      {
+        "subject": "ProvidusBank - Credit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "Mon, 31 Mar 2025",
+        "searchTerm": "transfer OR bank OR statement"
+      }
+    ],
+    "searchResults": {
+      "invoice OR billing OR receipt OR payment OR charged": 50,
+      "subscription OR recurring OR monthly": 50,
+      "from:apple OR from:netflix OR from:spotify OR from:openai": 29,
+      "from:paypal OR from:stripe OR from:lemonsqueezy": 20,
+      "from:opay OR from:providus OR from:zenith OR from:hsbc": 50,
+      "transfer OR bank OR statement": 50
+    }
+  },
+  {
+    "period": "April 2025 (deeper)",
+    "totalEmails": 444,
+    "potentialTransactions": [
+      {
+        "subject": "Transfer Successful",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Thu, 01 May 2025",
+        "searchTerm": "invoice OR billing OR receipt OR payment OR charged"
+      },
+      {
+        "subject": "[Task Update] Time to load AI workout advice",
+        "from": "OpenAI <noreply@tm.openai.com>",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "[Task Update] Load AI doctor advice now",
+        "from": "OpenAI <noreply@tm.openai.com>",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "from:apple OR from:netflix OR from:spotify OR from:openai"
+      },
+      {
+        "subject": "Thanks for your payment",
+        "from": "\"superwhisper (via Lemon Squeezy)\" <hell",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "FINAL NOTICE: Update your billing info",
+        "from": "\"superwhisper (via Lemon Squeezy)\" <hell",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "US$19.00 payment to Magic Patterns was unsuccessful",
+        "from": "Magic Patterns <failed-payments+acct_1MR",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "from:paypal OR from:stripe OR from:lemonsqueezy"
+      },
+      {
+        "subject": "Happy Workers' Day",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "Thu, 01 May 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "Transfer Successful",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Thu, 01 May 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "Transfer Successful",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "from:opay OR from:providus OR from:zenith OR from:hsbc"
+      },
+      {
+        "subject": "Happy Workers' Day",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "Thu, 01 May 2025",
+        "searchTerm": "transfer OR bank OR statement"
+      },
+      {
+        "subject": "Transfer Successful",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Thu, 01 May 2025",
+        "searchTerm": "transfer OR bank OR statement"
+      },
+      {
+        "subject": "Transfer Successful",
+        "from": "OPay <no-reply@opay-nigeria.com>",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "transfer OR bank OR statement"
+      },
+      {
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "Wed, 30 Apr 2025",
+        "searchTerm": "app store OR play store"
+      }
+    ],
+    "searchResults": {
+      "invoice OR billing OR receipt OR payment OR charged": 50,
+      "subscription OR recurring OR monthly": 50,
+      "from:apple OR from:netflix OR from:spotify OR from:openai": 49,
+      "from:paypal OR from:stripe OR from:lemonsqueezy": 45,
+      "from:opay OR from:providus OR from:zenith OR from:hsbc": 50,
+      "transfer OR bank OR statement": 50,
+      "app store OR play store": 50,
+      "claude OR replit OR github OR supabase": 50,
+      "wispr OR ai OR tool": 50
+    }
+  }
+]
