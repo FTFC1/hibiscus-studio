@@ -489,7 +489,15 @@ class LocalFinancialAnalyser {
       'from:netflix OR from:spotify after:2024/12/01', 
       'from:openai OR from:claude after:2024/12/01',
       'from:paypal OR from:stripe OR from:lemonsqueezy after:2024/12/01',
+      // ENHANCED BANK QUERIES - Capture ALL bank notifications
       'from:opay OR from:providus OR from:zenith after:2024/12/01',
+      '(opay AND (transaction OR transfer OR debit OR payment)) after:2024/12/01',
+      '(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/12/01',
+      '(providus AND (transaction OR transfer OR debit OR payment)) after:2024/12/01',
+      'subject:(debit alert) after:2024/12/01',
+      'subject:(transfer successful) after:2024/12/01',
+      'subject:(₦) after:2024/12/01',
+      // Digital services
       'from:vercel OR from:replit OR from:github after:2024/12/01',
       'from:bolt OR from:uber OR from:tinder after:2024/12/01',
       'invoice OR receipt OR billing after:2024/12/01',
@@ -498,7 +506,7 @@ class LocalFinancialAnalyser {
 
     this.transactions = [];
     
-    console.log(`🚀 Running ${fastSearchQueries.length} optimised queries...`);
+    console.log(`🚀 Running ${fastSearchQueries.length} optimised queries (including enhanced bank patterns)...`);
     
     // SPEED: Process queries in parallel and remove rate limiting
     const searchPromises = fastSearchQueries.map(async (query, index) => {
