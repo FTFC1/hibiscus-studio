@@ -37,29 +37,23 @@ class LocalFinancialAnalyser {
     
     // Pattern to detect internal transfers vs actual spending
     this.internalTransferPatterns = [
-      // Self transfers - your surname variations
+      // Self transfers - your surname variations (MUST be specific)
       /folarin-coker/i,
       /folarin.*coker/i,
       /coker.*folarin/i,
       /nicholas.*folarin/i,
       /folarin.*nicholas/i,
-      // Transfer between your own accounts
-      /transfer.*to.*opay/i,
-      /transfer.*to.*providus/i,
-      /transfer.*from.*zenith.*to.*opay/i,
-      /transfer.*from.*providus.*to.*opay/i,
-      /account.*to.*account/i,
-      // Internal transfers (no recipient name, just balance updates)
-      /transfer.*successful.*your.*balance/i,
-      /wallet.*funded.*from.*bank/i,
-      /account.*funded.*from.*providus/i,
-      /wallet.*funding/i,
-      /account.*funding/i,
-      /top.*up/i,
-      // Generic bank balance updates without clear recipient
-      /your.*account.*has.*been.*debited/i,
-      /balance.*after.*transaction/i,
-      /transaction.*successful.*balance/i
+      /nicholas.*coker/i,
+      /coker.*nicholas/i,
+      // ONLY very specific internal transfer language
+      /transfer.*to.*yourself/i,
+      /transfer.*to.*your.*account/i,
+      /transfer.*to.*own.*account/i,
+      /wallet.*funding.*from.*your.*bank/i,
+      /account.*funding.*from.*your.*bank/i,
+      // Balance updates without recipient names (but be very specific)
+      /balance.*after.*transfer.*₦.*your.*account.*balance.*is.*now/i,
+      /wallet.*funded.*successfully.*new.*balance/i
     ];
     
     // People/services that are actual expenses
@@ -537,7 +531,24 @@ class LocalFinancialAnalyser {
     ];
     
     if (bankTransferIndicators.some(pattern => pattern.test(lowercaseText))) {
-      // FIRST: Check if this is an internal transfer (moving your own money)
+      // Look specifically for recipient information in transfer details
+      // Pattern: "Name: RECIPIENT NAME" or "To: RECIPIENT NAME"
+      const recipientMatch = lowercaseText.match(/(?:name:|to:)\s*([^,\n]+)/i);
+      
+      if (recipientMatch) {
+        const recipientName = recipientMatch[1].trim();
+        // If recipient contains your surname, it's internal
+        const isInternalRecipient = /folarin-coker/i.test(recipientName);
+        
+        if (isInternalRecipient) {
+          return 'internal_transfer';
+        } else {
+          // Recipient is someone else - real banking expense
+          return 'banking';
+        }
+      }
+      
+      // Fallback: Check for general internal transfer patterns
       const isInternalTransfer = this.internalTransferPatterns.some(pattern => 
         pattern.test(lowercaseText)
       );
@@ -546,7 +557,7 @@ class LocalFinancialAnalyser {
         return 'internal_transfer';
       }
       
-      // If it's a bank transaction but NOT internal, it's a real payment
+      // Default: assume external payment if no clear recipient info
       return 'banking';
     }
     
