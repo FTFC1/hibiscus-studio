@@ -42988,3 +42988,1511 @@ _**Assistant**_
 
 ---
 
+You have an incredible opportunity; to pursue my own greatness 🫀
+
+🔹 **Deep Dive into January Mystery**
+
+Only ₦250k captured for January vs ₦667k+ for other months suggests we're missing major bank transactions. Let me investigate what's really happening with January 2025.
+
+---
+
+```diff
+- 
++ #!/usr/bin/env node
++ 
++ import { google } from 'googleapis';
++ import fs from 'fs/promises';
++ 
++ async function debugJanuary() {
++   console.log('🔍 Deep investigation: January 2025 missing transactions');
++   
++   try {
++     // Setup Gmail connection
++     const credentials = JSON.parse(await fs.readFile('gmail-credentials.json', 'utf8'));
++     const token = JSON.parse(await fs.readFile('gmail-token.json', 'utf8'));
++     const { client_secret, client_id } = credentials.installed;
++     const auth = new google.auth.OAuth2(client_id, client_secret);
++     auth.setCredentials(token);
++     const gmail = google.gmail({ version: 'v1', auth });
++ 
++     // SPECIFIC January 2025 searches
++     const januaryQueries = [
++       'after:2024/12/25 before:2025/02/01 from:opay',
++       'after:2024/12/25 before:2025/02/01 from:providus', 
++       'after:2024/12/25 before:2025/02/01 from:zenith',
++       'after:2024/12/25 before:2025/02/01 subject:(transfer successful)',
++       'after:2024/12/25 before:2025/02/01 subject:(debit alert)',
++       'after:2024/12/25 before:2025/02/01 subject:(₦)',
++       'after:2024/12/25 before:2025/02/01 (opay OR providus OR zenith)',
++       'after:2024/12/25 before:2025/02/01 subject:(transaction)',
++       'after:2024/12/25 before:2025/02/01 subject:(payment)',
++     ];
++ 
++     console.log('\n📊 January 2025 email search results:');
++     
++     for (const query of januaryQueries) {
++       console.log(`\n🔍 Query: ${query}`);
++       
++       const response = await gmail.users.messages.list({
++         userId: 'me',
++         q: query,
++         maxResults: 20
++       });
++ 
++       if (!response.data.messages) {
++         console.log('  ❌ No messages found');
++         continue;
++       }
++ 
++       console.log(`  📧 Found ${response.data.messages.length} emails`);
++       
++       // Get details of first few emails
++       for (let i = 0; i < Math.min(3, response.data.messages.length); i++) {
++         const messageId = response.data.messages[i].id;
++         const fullMessage = await gmail.users.messages.get({
++           userId: 'me',
++           id: messageId,
++           format: 'full'
++         });
++         
++         const headers = fullMessage.data.payload?.headers || [];
++         const subject = headers.find(h => h.name === 'Subject')?.value || '';
++         const from = headers.find(h => h.name === 'From')?.value || '';
++         const date = new Date(parseInt(fullMessage.data.internalDate));
++         
++         console.log(`    "${subject.substring(0, 50)}" from ${from.substring(0, 30)} on ${date.toLocaleDateString()}`);
++       }
++     }
++ 
++     // Check what our analyser actually captured for January
++     console.log('\n📊 What our analyser captured for January:');
++     const janData = JSON.parse(await fs.readFile('financial-reports/2025-01.json', 'utf8'));
++     
++     Object.entries(janData.categories).forEach(([category, transactions]) => {
++       console.log(`\n${category}: ${transactions.length} transactions`);
++       transactions.slice(0, 3).forEach(t => {
++         console.log(`  "${t.subject?.substring(0, 40)}" - ${t.amounts?.[0]} ${t.currencies?.[0]} on ${t.date}`);
++       });
++     });
++ 
++   } catch (error) {
++     console.error('❌ Investigation failed:', error.message);
++   }
++ }
++ 
++ debugJanuary(); 
+```
+
+---
+
+```bash
+node debug-january.js
+```
+
+```
+🔍 Deep investigation: January 2025 missing transactions
+
+📊 January 2025 email search results:
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:opay
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:providus
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:zenith
+  📧 Found 12 emails
+    "Learning Series: Sustainable Growth Strategies for" from Zenith Bank <noreply@zenithban on 1/27/2025
+    "Learning Series: Sustainable Growth Strategies for" from Zenith Bank <noreply@zenithban on 1/27/2025
+    "Get an Eazy by Zenith Digital Wallet Today" from Zenith Bank <noreply@zenithban on 1/23/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(transfer successful)
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(debit alert)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(₦)
+  📧 Found 20 emails
+    "Microsoft and CoreWeave announced as founding part" from FutureWeb <futurewebvc@substac on 2/1/2025
+    "1 new notification since 9:28 pm (Jan 31, 2025)" from "Systems to Scale (Skool)" <no on 1/31/2025
+    "FIGSPRO™ Means Business" from FIGS <figs@email.wearfigs.com> on 1/31/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 (opay OR providus OR zenith)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "Five ways to make your startup newsworthy" from Chimgozirim from Techpoint <ne on 1/30/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(transaction)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "Transaction Notification" from Kuda <no-reply@kuda.com> on 1/31/2025
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" from EbusinessGroup <ebusinessgroup on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(payment)
+  📧 Found 5 emails
+    "Your LAST Hosting Payment Ever" from SparkAI Team <customercare@got on 1/26/2025
+    "Payment Trends Shaping 2025." from ProvidusBank <alert@providusba on 1/8/2025
+    "Receipt for your payment to Google" from PayPal <service@paypal.co.uk> on 1/7/2025
+
+📊 What our analyser captured for January:
+
+internal_transfer: 5 transactions
+  "Your Bolt trip on Tuesday" - 30 ₦ on 2025-01-28
+  "Your Bolt trip on Monday" - 32.8 £ on 2025-01-06
+  "Your Bolt trip on Sunday" - 24.6 £ on 2025-01-05
+
+apple_other: 4 transactions
+  "Save £12 on your grocery order 🛒" - 12 £ on 2025-01-16
+  "Get  50% off your next 5 orders" - 15 £ on 2025-01-15
+  "Get  50% off your next 5 orders" - 15 £ on 2025-01-12
+
+```
+
+---
+
+🔹 **FOUND THE SMOKING GUN! January Issues Revealed**
+
+**Major Discovery:**
+1. **Bank emails DO exist** in January: Zenith debit alerts for ₦130k, ₦8.5k + Providus debit alerts
+2. **Different sender patterns**: Zenith uses "EbusinessGroup" not direct bank emails
+3. **Our analyser is MISSING them** - they're not being captured despite existing
+4. **Promotional emails STILL getting through**: "Save £12 on your grocery order" in apple_other category!
+
+**Root Issues:**
+1. **Sender mismatch**: Zenith emails come from "EbusinessGroup" not "zenith"
+2. **Promotional filtering failed**: Food delivery promos still showing as transactions
+3. **Subject pattern mismatch**: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" not caught
+
+Let me fix these critical issues:
+
+---
+
+```diff
+        // ENHANCED BANK QUERIES - Capture ALL bank notifications
+        'from:opay OR from:providus OR from:zenith after:2024/11/01',
++       'from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01',
+        '(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
+        '(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
+```
+
+---
+
+Now let me fix the categorization to catch Zenith's different email patterns:
+
+---
+
+```diff
+        /opay|providus|zenith|hsbc/i,
+        /wallet.*funded/i,
+-       /account.*funded/i
++       /account.*funded/i,
++       // Zenith specific patterns
++       /zenith.*bank.*transaction.*alert/i,
++       /ebusinessgroup/i,
++       /transaction.*alert.*debit/i
+      ];
+      
+```
+
+---
+
+Now let me enhance the promotional filtering to actually catch the grocery offers:
+
+---
+
+```diff
+        /save.*€\d+.*on.*your.*order/i,
+        /\d+%.*off.*next.*\d+.*orders/i,
++       // Specific grocery/food promotional patterns
++       /save.*£\d+.*on.*grocery/i,
++       /grocery.*order.*🛒/i,
++       /🛒.*grocery/i,
++       /get.*\d+%.*off.*your.*next.*\d+.*orders/i,
+        // Promotional messaging
+        /free.*delivery|delivery.*free/i,
+```
+
+---
+
+Now let me also enhance the enhanced subject detection for Zenith transactions:
+
+---
+
+```diff
+        } else if (/providus/i.test(fullText)) {
+          enhancedSubject = "Providus Transaction";
+-       } else if (/zenith/i.test(fullText)) {
+-         enhancedSubject = "Zenith Transaction";
++       } else if (/zenith/i.test(fullText) || /ebusinessgroup/i.test(from)) {
++         enhancedSubject = "Zenith Bank Transaction";
+        }
+      }
++     
++     // Handle Zenith bank transaction alerts specifically
++     if (/zenith.*bank.*transaction.*alert/i.test(subject)) {
++       enhancedSubject = "Zenith Bank Debit Alert";
++     }
+  
+      return {
+```
+
+---
+
+```bash
+node local-financial-analyser.js
+```
+
+```
+🔹 Initializing Local Financial Analyser...
+✅ Gmail connection established
+🔹 Starting FAST financial analysis...
+🚀 Running 16 optimised queries (including enhanced bank patterns)...
+⚡ Query 1/16: from:apple after:2024/11/01
+🔍 Searching for: "from:apple after:2024/11/01"
+⚡ Query 2/16: from:netflix OR from:spotify after:2024/11/01
+🔍 Searching for: "from:netflix OR from:spotify after:2024/11/01"
+⚡ Query 3/16: from:openai OR from:claude after:2024/11/01
+🔍 Searching for: "from:openai OR from:claude after:2024/11/01"
+⚡ Query 4/16: from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01
+🔍 Searching for: "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01"
+⚡ Query 5/16: from:opay OR from:providus OR from:zenith after:2024/11/01
+🔍 Searching for: "from:opay OR from:providus OR from:zenith after:2024/11/01"
+⚡ Query 6/16: from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01
+🔍 Searching for: "from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01"
+⚡ Query 7/16: (opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+🔍 Searching for: "(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+⚡ Query 8/16: (zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+🔍 Searching for: "(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+⚡ Query 9/16: (providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+🔍 Searching for: "(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+⚡ Query 10/16: subject:(debit alert) after:2024/11/01
+🔍 Searching for: "subject:(debit alert) after:2024/11/01"
+⚡ Query 11/16: subject:(transfer successful) after:2024/11/01
+🔍 Searching for: "subject:(transfer successful) after:2024/11/01"
+⚡ Query 12/16: subject:(₦) after:2024/11/01
+🔍 Searching for: "subject:(₦) after:2024/11/01"
+⚡ Query 13/16: from:vercel OR from:replit OR from:github after:2024/11/01
+🔍 Searching for: "from:vercel OR from:replit OR from:github after:2024/11/01"
+⚡ Query 14/16: from:bolt OR from:uber OR from:tinder after:2024/11/01
+🔍 Searching for: "from:bolt OR from:uber OR from:tinder after:2024/11/01"
+⚡ Query 15/16: invoice OR receipt OR billing after:2024/11/01
+🔍 Searching for: "invoice OR receipt OR billing after:2024/11/01"
+⚡ Query 16/16: subscription OR recurring after:2024/11/01
+🔍 Searching for: "subscription OR recurring after:2024/11/01"
+📧 Found 1 emails for query: "from:netflix OR from:spotify after:2024/11/01"
+📧 Found 100 emails for query: "subject:(₦) after:2024/11/01"
+📧 Found 100 emails for query: "from:vercel OR from:replit OR from:github after:2024/11/01"
+📧 Found 50 emails for query: "(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+"
+📧 Found 100 emails for query: "from:opay OR from:providus OR from:zenith after:2024/11/01"
+📧 Found 100 emails for query: "invoice OR receipt OR billing after:2024/11/01"
+📧 Found 100 emails for query: "subject:(debit alert) after:2024/11/01"
+📧 Found 100 emails for query: "(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+📧 Found 100 emails for query: "from:apple after:2024/11/01"
+📧 Found 100 emails for query: "(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+📧 Found 100 emails for query: "from:bolt OR from:uber OR from:tinder after:2024/11/01"
+📧 Found 100 emails for query: "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01"
+📧 Found 68 emails for query: "from:openai OR from:claude after:2024/11/01"
+📧 Found 100 emails for query: "subject:(transfer successful) after:2024/11/01"
+📧 Found 100 emails for query: "from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11
+/01"
+📧 Found 100 emails for query: "subscription OR recurring after:2024/11/01"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "Spotify for Podcasters is now Spotify for Creators" - indicators: false, amounts: false
+ []
+✅ Query "from:netflix OR from:spotify after:2024/11/01": 0 parsed, 1 filtered out
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your Supabase Project prompt tool (via Vercel Marketplace) is inactive." - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Your subscription has been cancelled"
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (promotional): "Ride more, pay less with UberX Share" from Uber <uber@uber.com>
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "GitHub Copilot: Rediscover the joy of coding" - indicators: false, amounts: false []
+🚫 Filtered (weak): "Your Supabase Project prompt tool (via Vercel Marketplace) is inactive." - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "Your subscription has been cancelled"
+🚫 Filtered (weak): "Your Supabase Project supabase-orange-chair (via Vercel Marketplace) has been paused." 
+- indicators: false, amounts: true [25 $]
+🚫 Filtered (weak): "Welcome to your GitHub Copilot free trial!" - indicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] You've been removed from "CodeGuide.dev"'s repositories" - indicators: false, 
+amounts: false []
+🚫 Filtered (weak): "Your Supabase Project supabase-orange-chair (via Vercel Marketplace) is inactive." - in
+dicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "US$19.00 payment to Magic Patterns was unsuccessful"
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed to deploy to the following URLs: https://bankit-design.replit.app"
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed to deploy BankitPortal"
+🚫 Filtered (failed payment): "Failed to deploy BankitPortal"
+🚫 Filtered (promotional): "Welcome to the Apple Developer Program" from App Store Connect <no_reply@email.a
+pple.com>
+🚫 Filtered (promotional): "Request a ride with UberX from your doorstep" from Uber <uber@uber.com>
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (weak): "[GitHub] Please verify your device" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "Reminder: Please update your expired card"
+🚫 Filtered (failed payment): "Replit: Invoice Payment Failed"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (weak): "GitHub Copilot: Rediscover the joy of coding" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+✅ Query "(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01": 35 parsed, 15 filt
+ered out
+🚫 Filtered (weak): "GitHub’s CEO On Getting 15 Million Developers To Trust AI With Their Code" - indicators
+: false, amounts: false []
+🚫 Filtered (weak): "Thanks for contacting Apple Support." - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (weak): "😸 Claude's biggest update yet" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful"
+🚫 Filtered (failed payment): "Update your expired card"
+🚫 Filtered (weak): "OpenAI o1 and o3-mini API access" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+✅ Query "from:openai OR from:claude after:2024/11/01": 0 parsed, 68 filtered out
+🚫 Filtered (weak): "😺 Should YOU care about Claude 4?" - indicators: false, amounts: true [20 $, 100 $]
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "The Apple Developer Agreement has been updated." - indicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (promotional): "Native RAG Support, New OpenAI File Search Plugin and more!" from Tony from Typi
+ngMind <tdinh@broadcasts.lemonsqueezy-mail.com>
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "US$20.04 payment to Cursor was unsuccessful"
+🚫 Filtered (weak): "[GitHub] A new SSH authentication public key was added to your account" - indicators: f
+alse, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful again"
+🚫 Filtered (weak): "Growth tactics from OpenAI and Stripe’s first marketer | Krithika Shankarraman" - indic
+ators: false, amounts: false []
+✅ Query "(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01": 74 parsed, 26 filtered
+ out
+🚫 Filtered (promotional): "Claude 3.7 Sonnet, New Plugin: Excel Generator, and more!" from Tony from Typing
+Mind <tdinh@broadcasts.lemonsqueezy-mail.com>
+✅ Query "(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01": 0 parsed, 100 filter
+ed out
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful again"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+✅ Query "from:apple after:2024/11/01": 63 parsed, 37 filtered out
+✅ Query "subject:(debit alert) after:2024/11/01": 0 parsed, 100 filtered out
+🚫 Filtered (weak): "[GitHub] Please verify your device" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+✅ Query "from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01": 0 parsed, 100 fi
+ltered out
+✅ Query "subject:(transfer successful) after:2024/11/01": 99 parsed, 1 filtered out
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+✅ Query "from:opay OR from:providus OR from:zenith after:2024/11/01": 76 parsed, 24 filtered out
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+✅ Query "invoice OR receipt OR billing after:2024/11/01": 28 parsed, 72 filtered out
+🚫 Filtered (weak): "😸 Claude's biggest update yet" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+✅ Query "from:vercel OR from:replit OR from:github after:2024/11/01": 9 parsed, 91 filtered out
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful"
+✅ Query "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01": 17 parsed, 83 filtered out
+✅ Query "from:bolt OR from:uber OR from:tinder after:2024/11/01": 21 parsed, 79 filtered out
+✅ Query "subject:(₦) after:2024/11/01": 3 parsed, 97 filtered out
+🚫 Filtered (weak): "Vibe Check: Claude 4 Opus" - indicators: false, amounts: true [50 $, 100 $]
+✅ Query "subscription OR recurring after:2024/11/01": 5 parsed, 95 filtered out
+✅ Found 242 financial transactions across all periods
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-06.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-05.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-04.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-03.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-02.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-01.json
+🔹 Building interactive dashboard...
+✅ Interactive dashboard built successfully
+✅ Financial analysis complete!
+
+```
+
+---
+
+I notice the ebusinessgroup query found 100 emails but captured 0 - they're all being filtered out! Let me check what's happening with January specifically:
+
+---
+
+```bash
+node debug-january.js
+```
+
+```
+🔍 Deep investigation: January 2025 missing transactions
+
+📊 January 2025 email search results:
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:opay
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:providus
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:zenith
+  📧 Found 12 emails
+    "Learning Series: Sustainable Growth Strategies for" from Zenith Bank <noreply@zenithban on 1/27/2025
+    "Learning Series: Sustainable Growth Strategies for" from Zenith Bank <noreply@zenithban on 1/27/2025
+    "Get an Eazy by Zenith Digital Wallet Today" from Zenith Bank <noreply@zenithban on 1/23/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(transfer successful)
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(debit alert)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(₦)
+  📧 Found 20 emails
+    "Microsoft and CoreWeave announced as founding part" from FutureWeb <futurewebvc@substac on 2/1/2025
+    "1 new notification since 9:28 pm (Jan 31, 2025)" from "Systems to Scale (Skool)" <no on 1/31/2025
+    "FIGSPRO™ Means Business" from FIGS <figs@email.wearfigs.com> on 1/31/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 (opay OR providus OR zenith)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "Five ways to make your startup newsworthy" from Chimgozirim from Techpoint <ne on 1/30/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(transaction)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "Transaction Notification" from Kuda <no-reply@kuda.com> on 1/31/2025
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" from EbusinessGroup <ebusinessgroup on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(payment)
+  📧 Found 5 emails
+    "Your LAST Hosting Payment Ever" from SparkAI Team <customercare@got on 1/26/2025
+    "Payment Trends Shaping 2025." from ProvidusBank <alert@providusba on 1/8/2025
+    "Receipt for your payment to Google" from PayPal <service@paypal.co.uk> on 1/7/2025
+
+📊 What our analyser captured for January:
+
+internal_transfer: 5 transactions
+  "Your Bolt trip on Tuesday" - 30 ₦ on 2025-01-28
+  "Your Bolt trip on Monday" - 32.8 £ on 2025-01-06
+  "Your Bolt trip on Sunday" - 24.6 £ on 2025-01-05
+
+apple_other: 4 transactions
+  "Save £12 on your grocery order 🛒" - 12 £ on 2025-01-16
+  "Get  50% off your next 5 orders" - 15 £ on 2025-01-15
+  "Get  50% off your next 5 orders" - 15 £ on 2025-01-12
+
+```
+
+---
+
+
+
+---
+
+🔹 **FOUND THE EXACT PROBLEM!**
+
+**Two Critical Issues Discovered:**
+
+1. **Zenith transactions ARE being found** but **filtered out!** 
+   - "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" exists ✅
+   - "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" exists ✅
+   - But none captured by our analyser ❌
+
+2. **Promotional emails STILL getting through**:
+   - "Save £12 on your grocery order 🛒" in apple_other category
+   - "Get 50% off your next 5 orders" still showing
+
+The issue is that the Zenith emails are being **over-filtered** by our patterns. Let me create a specific test to see why:
+
+---
+
+```diff
+- 
++ #!/usr/bin/env node
++ 
++ import { google } from 'googleapis';
++ import fs from 'fs/promises';
++ 
++ async function testZenithParsing() {
++   console.log('🔍 Testing why Zenith transactions are filtered out');
++   
++   try {
++     // Setup Gmail connection
++     const credentials = JSON.parse(await fs.readFile('gmail-credentials.json', 'utf8'));
++     const token = JSON.parse(await fs.readFile('gmail-token.json', 'utf8'));
++     const { client_secret, client_id } = credentials.installed;
++     const auth = new google.auth.OAuth2(client_id, client_secret);
++     auth.setCredentials(token);
++     const gmail = google.gmail({ version: 'v1', auth });
++ 
++     // Get specific Zenith transaction emails
++     const response = await gmail.users.messages.list({
++       userId: 'me',
++       q: 'after:2024/12/25 before:2025/02/01 subject:(zenith bank transaction alert)',
++       maxResults: 5
++     });
++ 
++     if (!response.data.messages) {
++       console.log('❌ No Zenith transaction alerts found');
++       return;
++     }
++ 
++     console.log(`📧 Found ${response.data.messages.length} Zenith transaction alerts`);
++     
++     for (const message of response.data.messages) {
++       const fullMessage = await gmail.users.messages.get({
++         userId: 'me',
++         id: message.id,
++         format: 'full'
++       });
++       
++       const headers = fullMessage.data.payload?.headers || [];
++       const subject = headers.find(h => h.name === 'Subject')?.value || '';
++       const from = headers.find(h => h.name === 'From')?.value || '';
++       const date = new Date(parseInt(fullMessage.data.internalDate));
++       
++       console.log(`\n📧 EMAIL: "${subject}" from ${from} on ${date.toLocaleDateString()}`);
++       
++       // Test our parsing logic manually
++       const promotionalPatterns = [
++         /get \d+%.*off|save \d+%|discount|promo|offer|deal|sale/i,
++         /enjoy.*off|special.*offer|limited.*time|coupon|voucher/i,
++       ];
++       
++       const isPromotional = promotionalPatterns.some(pattern => pattern.test(subject));
++       console.log(`  ❓ Is promotional: ${isPromotional}`);
++       
++       // Check for transaction indicators
++       const strongTransaction = /payment|charged|bill|invoice|receipt|refund|transfer|subscription|purchase|order|total/i;
++       const financialSource = /bank|opay|providus|zenith|hsbc|apple.*invoice|paypal|stripe|lemon.*squeezy/i;
++       
++       const hasStrongTransactionIndicators = strongTransaction.test(subject) || strongTransaction.test(from) || financialSource.test(from);
++       console.log(`  ❓ Has strong transaction indicators: ${hasStrongTransactionIndicators}`);
++       
++       // Extract amounts
++       const nigerianAmount = /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g;
++       let amounts = [];
++       let match;
++       while ((match = nigerianAmount.exec(subject)) !== null) {
++         amounts.push(parseFloat(match[1].replace(/,/g, '')));
++       }
++       
++       console.log(`  ❓ Amounts found: [${amounts.join(', ')}]`);
++       const hasReasonableAmounts = amounts.length > 0 && amounts.some(a => a > 0 && a < 100000);
++       console.log(`  ❓ Has reasonable amounts: ${hasReasonableAmounts}`);
++       
++       // Final decision
++       const shouldPass = !isPromotional && hasStrongTransactionIndicators && hasReasonableAmounts;
++       console.log(`  ✅ Should pass filter: ${shouldPass}`);
++     }
++ 
++   } catch (error) {
++     console.error('❌ Test failed:', error.message);
++   }
++ }
++ 
++ testZenithParsing(); 
+```
+
+---
+
+
+
+---
+
+```bash
+node test-zenith-parsing.js
+```
+
+```
+🔍 Testing why Zenith transactions are filtered out
+📧 Found 5 Zenith transaction alerts
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/31/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN7,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,100.00]" from EbusinessGroup <ebusinessgroup@zenithbank
+.com> on 1/29/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN330,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/25/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+```
+
+---
+
+
+
+---
+
+🔹 **EUREKA! Found The Exact Bug!**
+
+**The Issue:** Our amount regex pattern **can't parse the Zenith format!**
+
+Zenith uses: `NGN130,000.00` (no ₦ symbol)
+Our regex looks for: `₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)`
+
+The **₦490k in missing January Zenith transactions** (₦130k + ₦8.5k + ₦7.5k + ₦13.1k + ₦330k) are being filtered because **we can't extract the amounts**.
+
+Let me fix the amount extraction patterns:
+
+---
+
+
+
+---
+
+Let me find the exact location and add the Zenith NGN pattern:
+
+---
+
+<details>
+            <summary>Grep search for "nigerianAmount.*NGN" • **0** files</summary>
+        
+No results found
+</details>
+
+---
+
+<details>
+            <summary>Grep search for "nigerianAmount:" • **3** files</summary>
+        
+| File | Line | Match |
+|------|------|-------|
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L300 | `nigerianAmount: /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/.specstory/history/2025-06-04_09-47-create-personal-finance-markdown-file.md` | L38565 | `+       nigerianAmount: /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L300 | `nigerianAmount: /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,` |
+
+</details>
+
+---
+
+```diff
+        // More precise patterns to avoid duplicates
+        nigerianAmount: /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
++       // ZENITH BANK FORMAT: NGN130,000.00 (without ₦ symbol)
++       zenithAmount: /NGN\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
+        dollarAmount: /\$\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
+        euroAmount: /€\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
+```
+
+---
+
+Now I need to add the extraction logic for Zenith amounts:
+
+---
+
+```diff
+      
+      patterns.nigerianAmount.lastIndex = 0;
++     
++     // Extract Zenith NGN amounts (without ₦ symbol)
++     while ((match = patterns.zenithAmount.exec(fullText)) !== null) {
++       amounts.push(parseFloat(match[1].replace(/,/g, '')));
++       currencies.push('₦'); // Treat as Nigerian Naira
++     }
++     
++     patterns.zenithAmount.lastIndex = 0;
+      
+      while ((match = patterns.dollarAmount.exec(fullText)) !== null) {
+```
+
+---
+
+```bash
+node test-zenith-parsing.js
+```
+
+```
+🔍 Testing why Zenith transactions are filtered out
+📧 Found 5 Zenith transaction alerts
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/31/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN7,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,100.00]" from EbusinessGroup <ebusinessgroup@zenithbank
+.com> on 1/29/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN330,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/25/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: []
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+```
+
+---
+
+
+
+---
+
+The test script is still using the old pattern. Let me update it to test the new NGN pattern:
+
+---
+
+```diff
+        // Extract amounts
+        const nigerianAmount = /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g;
++       const zenithAmount = /NGN\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g;
+        let amounts = [];
+        let match;
++       
++       // Regular ₦ amounts
+        while ((match = nigerianAmount.exec(subject)) !== null) {
+          amounts.push(parseFloat(match[1].replace(/,/g, '')));
+        }
++       
++       // Zenith NGN amounts  
++       while ((match = zenithAmount.exec(subject)) !== null) {
++         amounts.push(parseFloat(match[1].replace(/,/g, '')));
++       }
+        
+        console.log(`  ❓ Amounts found: [${amounts.join(', ')}]`);
+```
+
+---
+
+```bash
+node test-zenith-parsing.js
+```
+
+```
+🔍 Testing why Zenith transactions are filtered out
+📧 Found 5 Zenith transaction alerts
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/31/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [130000]
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [8500]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN7,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [7500]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,100.00]" from EbusinessGroup <ebusinessgroup@zenithbank
+.com> on 1/29/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [13100]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN330,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/25/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [330000]
+  ❓ Has reasonable amounts: false
+  ✅ Should pass filter: false
+
+```
+
+---
+
+
+
+---
+
+Perfect! The NGN pattern is working, but there's one more issue - the amount filter limit is too low! 
+
+**Found Issues:**
+- ₦130k and ₦330k are being rejected because our filter only allows amounts under ₦100k
+- This is **rejecting your largest transactions**!
+
+Let me fix the amount limit:
+
+---
+
+
+
+---
+
+Let me find the exact location:
+
+---
+
+<details>
+            <summary>Grep search for "amount < 100000" • **3** files</summary>
+        
+| File | Line | Match |
+|------|------|-------|
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L362 | `if (!seenAmounts.has(key) && amount > 0 && amount < 100000) {` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L374 | `uniqueAmounts.some(a => a.amount > 0 && a.amount < 100000); // Raised upper limit, lower minimum` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L392 | `.filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/.specstory/history/2025-06-04_09-47-create-personal-finance-markdown-file.md` | L27234 | `+       .filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/.specstory/history/2025-06-04_09-47-create-personal-finance-markdown-file.md` | L38638 | `+       if (!seenAmounts.has(key) && amount > 0 && amount < 100000) {` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/.specstory/history/2025-06-04_09-47-create-personal-finance-markdown-file.md` | L38652 | `+                                 uniqueAmounts.some(a => a.amount > 0 && a.amount < 100000); // Raised upper limit, lower minimum` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/.specstory/history/2025-06-04_09-47-create-personal-finance-markdown-file.md` | L38675 | `.filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L362 | `if (!seenAmounts.has(key) && amount > 0 && amount < 100000) {` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L374 | `uniqueAmounts.some(a => a.amount > 0 && a.amount < 100000); // Raised upper limit, lower minimum` |
+| `file:///Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/local-financial-analyser.js` | L392 | `.filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions` |
+
+</details>
+
+---
+
+```diff
+        const key = `${amount}_${currency}`;
+        
+-       if (!seenAmounts.has(key) && amount > 0 && amount < 100000) {
++       if (!seenAmounts.has(key) && amount > 0 && amount < 500000) {
+          seenAmounts.add(key);
+          uniqueAmounts.push({ amount, currency });
+```
+
+```diff
+      
+      const hasReasonableAmounts = uniqueAmounts.length > 0 && 
+-                                 uniqueAmounts.some(a => a.amount > 0 && a.amount < 100000); // Raised upper limit, lower minimum
++                                 uniqueAmounts.some(a => a.amount > 0 && a.amount < 500000); // Raised upper limit, lower minimum
+  
+      // Must have BOTH strong indicators AND reasonable amounts
+```
+
+```diff
+          originalCurrency: amount.currency
+        }))
+-       .filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions
++       .filter(t => t.amount > 0 && t.amount < 500000) // Allow smaller subscriptions
+        .slice(0, 3); // Max 3 amounts per transaction
+  
+```
+
+---
+
+```diff
+        
+        console.log(`  ❓ Amounts found: [${amounts.join(', ')}]`);
+-       const hasReasonableAmounts = amounts.length > 0 && amounts.some(a => a > 0 && a < 100000);
++       const hasReasonableAmounts = amounts.length > 0 && amounts.some(a => a > 0 && a < 500000);
+        console.log(`  ❓ Has reasonable amounts: ${hasReasonableAmounts}`);
+        
+```
+
+---
+
+```bash
+node test-zenith-parsing.js
+```
+
+```
+🔍 Testing why Zenith transactions are filtered out
+📧 Found 5 Zenith transaction alerts
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/31/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [130000]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [8500]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN7,500.00]" from EbusinessGroup <ebusinessgroup@zenithbank.
+com> on 1/30/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [7500]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,100.00]" from EbusinessGroup <ebusinessgroup@zenithbank
+.com> on 1/29/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [13100]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+📧 EMAIL: "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN330,000.00]" from EbusinessGroup <ebusinessgroup@zenithban
+k.com> on 1/25/2025
+  ❓ Is promotional: false
+  ❓ Has strong transaction indicators: true
+  ❓ Amounts found: [330000]
+  ❓ Has reasonable amounts: true
+  ✅ Should pass filter: true
+
+```
+
+---
+
+
+
+---
+
+🔹 **PERFECT! All Zenith Transactions Now Pass!**
+
+All 5 Zenith transactions worth **₦489k total** (₦130k + ₦8.5k + ₦7.5k + ₦13.1k + ₦330k) should now be captured.
+
+Let me run the full analyser to capture the missing January transactions:
+
+---
+
+```bash
+node local-financial-analyser.js
+```
+
+```
+🔹 Initializing Local Financial Analyser...
+✅ Gmail connection established
+🔹 Starting FAST financial analysis...
+🚀 Running 16 optimised queries (including enhanced bank patterns)...
+⚡ Query 1/16: from:apple after:2024/11/01
+🔍 Searching for: "from:apple after:2024/11/01"
+⚡ Query 2/16: from:netflix OR from:spotify after:2024/11/01
+🔍 Searching for: "from:netflix OR from:spotify after:2024/11/01"
+⚡ Query 3/16: from:openai OR from:claude after:2024/11/01
+🔍 Searching for: "from:openai OR from:claude after:2024/11/01"
+⚡ Query 4/16: from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01
+🔍 Searching for: "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01"
+⚡ Query 5/16: from:opay OR from:providus OR from:zenith after:2024/11/01
+🔍 Searching for: "from:opay OR from:providus OR from:zenith after:2024/11/01"
+⚡ Query 6/16: from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01
+🔍 Searching for: "from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01"
+⚡ Query 7/16: (opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+🔍 Searching for: "(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+⚡ Query 8/16: (zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+🔍 Searching for: "(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+⚡ Query 9/16: (providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+🔍 Searching for: "(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+⚡ Query 10/16: subject:(debit alert) after:2024/11/01
+🔍 Searching for: "subject:(debit alert) after:2024/11/01"
+⚡ Query 11/16: subject:(transfer successful) after:2024/11/01
+🔍 Searching for: "subject:(transfer successful) after:2024/11/01"
+⚡ Query 12/16: subject:(₦) after:2024/11/01
+🔍 Searching for: "subject:(₦) after:2024/11/01"
+⚡ Query 13/16: from:vercel OR from:replit OR from:github after:2024/11/01
+🔍 Searching for: "from:vercel OR from:replit OR from:github after:2024/11/01"
+⚡ Query 14/16: from:bolt OR from:uber OR from:tinder after:2024/11/01
+🔍 Searching for: "from:bolt OR from:uber OR from:tinder after:2024/11/01"
+⚡ Query 15/16: invoice OR receipt OR billing after:2024/11/01
+🔍 Searching for: "invoice OR receipt OR billing after:2024/11/01"
+⚡ Query 16/16: subscription OR recurring after:2024/11/01
+🔍 Searching for: "subscription OR recurring after:2024/11/01"
+📧 Found 1 emails for query: "from:netflix OR from:spotify after:2024/11/01"
+📧 Found 68 emails for query: "from:openai OR from:claude after:2024/11/01"
+📧 Found 100 emails for query: "from:apple after:2024/11/01"
+📧 Found 100 emails for query: "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01"
+📧 Found 100 emails for query: "subject:(₦) after:2024/11/01"
+📧 Found 100 emails for query: "invoice OR receipt OR billing after:2024/11/01"
+📧 Found 100 emails for query: "from:bolt OR from:uber OR from:tinder after:2024/11/01"
+📧 Found 100 emails for query: "subject:(debit alert) after:2024/11/01"
+📧 Found 100 emails for query: "subscription OR recurring after:2024/11/01"
+📧 Found 100 emails for query: "subject:(transfer successful) after:2024/11/01"
+📧 Found 100 emails for query: "from:vercel OR from:replit OR from:github after:2024/11/01"
+📧 Found 100 emails for query: "(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+📧 Found 100 emails for query: "from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11
+/01"
+📧 Found 100 emails for query: "from:opay OR from:providus OR from:zenith after:2024/11/01"
+📧 Found 100 emails for query: "(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01"
+🚫 Filtered (weak): "Spotify for Podcasters is now Spotify for Creators" - indicators: false, amounts: false
+ []
+✅ Query "from:netflix OR from:spotify after:2024/11/01": 0 parsed, 1 filtered out
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+📧 Found 50 emails for query: "(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01
+"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your Supabase Project prompt tool (via Vercel Marketplace) is inactive." - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "Your subscription has been cancelled"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (promotional): "Ride more, pay less with UberX Share" from Uber <uber@uber.com>
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "GitHub Copilot: Rediscover the joy of coding" - indicators: false, amounts: false []
+🚫 Filtered (weak): "Your Supabase Project prompt tool (via Vercel Marketplace) is inactive." - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "Your subscription has been cancelled"
+🚫 Filtered (weak): "Your Supabase Project supabase-orange-chair (via Vercel Marketplace) has been paused." 
+- indicators: false, amounts: true [25 $]
+🚫 Filtered (weak): "Welcome to your GitHub Copilot free trial!" - indicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] You've been removed from "CodeGuide.dev"'s repositories" - indicators: false, 
+amounts: false []
+🚫 Filtered (failed payment): "US$19.00 payment to Magic Patterns was unsuccessful"
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "Your Supabase Project supabase-orange-chair (via Vercel Marketplace) is inactive." - in
+dicators: false, amounts: false []
+🚫 Filtered (failed payment): "Failed to deploy to the following URLs: https://bankit-design.replit.app"
+🚫 Filtered (failed payment): "Failed to deploy BankitPortal"
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed to deploy BankitPortal"
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (promotional): "Welcome to the Apple Developer Program" from App Store Connect <no_reply@email.a
+pple.com>
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (promotional): "Request a ride with UberX from your doorstep" from Uber <uber@uber.com>
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (weak): "[GitHub] Please verify your device" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "Reminder: Please update your expired card"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "Replit: Invoice Payment Failed"
+✅ Query "(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01": 40 parsed, 10 filt
+ered out
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (weak): "GitHub Copilot: Rediscover the joy of coding" - indicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (weak): "Thanks for contacting Apple Support." - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (weak): "GitHub’s CEO On Getting 15 Million Developers To Trust AI With Their Code" - indicators
+: false, amounts: false []
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (weak): "😸 Claude's biggest update yet" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful"
+🚫 Filtered (failed payment): "Update your expired card"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (weak): "OpenAI o1 and o3-mini API access" - indicators: false, amounts: false []
+✅ Query "from:openai OR from:claude after:2024/11/01": 0 parsed, 68 filtered out
+🚫 Filtered (weak): "😺 Should YOU care about Claude 4?" - indicators: false, amounts: true [20 $, 100 $]
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (promotional): "Native RAG Support, New OpenAI File Search Plugin and more!" from Tony from Typi
+ngMind <tdinh@broadcasts.lemonsqueezy-mail.com>
+🚫 Filtered (failed payment): "US$20.04 payment to Cursor was unsuccessful"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "The Apple Developer Agreement has been updated." - indicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A new SSH authentication public key was added to your account" - indicators: f
+alse, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful again"
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (promotional): "Claude 3.7 Sonnet, New Plugin: Excel Generator, and more!" from Tony from Typing
+Mind <tdinh@broadcasts.lemonsqueezy-mail.com>
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful again"
+✅ Query "subject:(debit alert) after:2024/11/01": 3 parsed, 97 filtered out
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful"
+🚫 Filtered (weak): "Growth tactics from OpenAI and Stripe’s first marketer | Krithika Shankarraman" - indic
+ators: false, amounts: false []
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+✅ Query "from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01": 0 parsed, 100 fi
+ltered out
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+✅ Query "(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01": 0 parsed, 100 filter
+ed out
+🚫 Filtered (weak): "[GitHub] Please verify your device" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+✅ Query "(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01": 75 parsed, 25 filtered
+ out
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+✅ Query "from:apple after:2024/11/01": 63 parsed, 37 filtered out
+✅ Query "subject:(transfer successful) after:2024/11/01": 100 parsed, 0 filtered out
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+✅ Query "from:opay OR from:providus OR from:zenith after:2024/11/01": 77 parsed, 23 filtered out
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+✅ Query "from:vercel OR from:replit OR from:github after:2024/11/01": 9 parsed, 91 filtered out
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful"
+✅ Query "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01": 17 parsed, 83 filtered out
+🚫 Filtered (weak): "😸 Claude's biggest update yet" - indicators: false, amounts: false []
+✅ Query "invoice OR receipt OR billing after:2024/11/01": 30 parsed, 70 filtered out
+✅ Query "subject:(₦) after:2024/11/01": 7 parsed, 93 filtered out
+✅ Query "from:bolt OR from:uber OR from:tinder after:2024/11/01": 63 parsed, 37 filtered out
+🚫 Filtered (weak): "Vibe Check: Claude 4 Opus" - indicators: false, amounts: true [50 $, 100 $]
+✅ Query "subscription OR recurring after:2024/11/01": 5 parsed, 95 filtered out
+✅ Found 293 financial transactions across all periods
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-06.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-05.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-04.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-03.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-02.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-01.json
+🔹 Building interactive dashboard...
+✅ Interactive dashboard built successfully
+✅ Financial analysis complete!
+
+```
+
+---
+
+
+
+---
+
+Great! We found **51 more transactions** (293 vs 242 before). I notice the ebusinessgroup query still shows "0 parsed, 100 filtered out" which means the Zenith transactions are still being filtered for some reason.
+
+Let me check what's in January now:
+
+---
+
+```bash
+node debug-january.js
+```
+
+```
+🔍 Deep investigation: January 2025 missing transactions
+
+📊 January 2025 email search results:
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:opay
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:providus
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 from:zenith
+  📧 Found 12 emails
+    "Learning Series: Sustainable Growth Strategies for" from Zenith Bank <noreply@zenithban on 1/27/2025
+    "Learning Series: Sustainable Growth Strategies for" from Zenith Bank <noreply@zenithban on 1/27/2025
+    "Get an Eazy by Zenith Digital Wallet Today" from Zenith Bank <noreply@zenithban on 1/23/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(transfer successful)
+  ❌ No messages found
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(debit alert)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(₦)
+  📧 Found 20 emails
+    "Microsoft and CoreWeave announced as founding part" from FutureWeb <futurewebvc@substac on 2/1/2025
+    "1 new notification since 9:28 pm (Jan 31, 2025)" from "Systems to Scale (Skool)" <no on 1/31/2025
+    "FIGSPRO™ Means Business" from FIGS <figs@email.wearfigs.com> on 1/31/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 (opay OR providus OR zenith)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "Five ways to make your startup newsworthy" from Chimgozirim from Techpoint <ne on 1/30/2025
+    "ProvidusBank - Debit Alert" from ProvidusBank <alert@providusba on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(transaction)
+  📧 Found 20 emails
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN130,000.00]" from EbusinessGroup <ebusinessgroup on 1/31/2025
+    "Transaction Notification" from Kuda <no-reply@kuda.com> on 1/31/2025
+    "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,500.00]" from EbusinessGroup <ebusinessgroup on 1/30/2025
+
+🔍 Query: after:2024/12/25 before:2025/02/01 subject:(payment)
+  📧 Found 5 emails
+    "Your LAST Hosting Payment Ever" from SparkAI Team <customercare@got on 1/26/2025
+    "Payment Trends Shaping 2025." from ProvidusBank <alert@providusba on 1/8/2025
+    "Receipt for your payment to Google" from PayPal <service@paypal.co.uk> on 1/7/2025
+
+📊 What our analyser captured for January:
+
+internal_transfer: 5 transactions
+  "Your Bolt trip on Tuesday" - 30 ₦ on 2025-01-28
+  "Your Bolt trip on Monday" - 32.8 £ on 2025-01-06
+  "Your Bolt trip on Sunday" - 24.6 £ on 2025-01-05
+
+apple_other: 4 transactions
+  "Save £12 on your grocery order 🛒" - 12 £ on 2025-01-16
+  "Get  50% off your next 5 orders" - 15 £ on 2025-01-15
+  "Get  50% off your next 5 orders" - 15 £ on 2025-01-12
+
+banking: 1 transactions
+  "STATEMENT OF ACCOUNT(40******55)" - 190485.69 ₦ on 2025-01-01
+
+```
+
+---
+
+
+
+---
+
+🔹 **PROGRESS! But Still Issues**
+
+**Good News:**
+- Found 1 banking transaction: ₦190,485 "STATEMENT OF ACCOUNT" 
+- This is much better than 0 banking transactions
+
+**Bad News:**
+- Still missing the 5 specific Zenith alerts we know exist (₦130k, ₦8.5k, ₦7.5k, ₦13.1k, ₦330k)
+- Promotional emails STILL getting through: "Save £12 on your grocery order 🛒"
+
+The issue is that even though we can find and parse the Zenith emails individually, they're getting filtered in the main flow. Let me clean up temp files and commit the progress first:
+
+---
+
+Clean up temporary debug file
+
+---
+
+
+
+
+
+---
+
+Clean up temporary test file
+
+---
+
+Model provided invalid arguments to terminal tool.
+
+---
+
+```bash
+git add -A && git commit -m \"fix: Enhanced Zenith bank transaction parsing - added NGN amount pattern and increased limits to ₦500k\"
+```
+
+```
+error: pathspec 'Enhanced' did not match any file(s) known to git
+error: pathspec 'Zenith' did not match any file(s) known to git
+error: pathspec 'bank' did not match any file(s) known to git
+error: pathspec 'transaction' did not match any file(s) known to git
+error: pathspec 'parsing' did not match any file(s) known to git
+error: pathspec '-' did not match any file(s) known to git
+error: pathspec 'NGN' did not match any file(s) known to git
+error: pathspec 'amount' did not match any file(s) known to git
+error: pathspec 'pattern' did not match any file(s) known to git
+error: pathspec 'and' did not match any file(s) known to git
+error: pathspec 'increased' did not match any file(s) known to git
+error: pathspec 'limits' did not match any file(s) known to git
+error: pathspec 'to' did not match any file(s) known to git
+error: pathspec '₦500k"' did not match any file(s) known to git
+
+```
+
+---
+
+```bash
+git add -A && git commit -m "fix: Enhanced Zenith bank transaction parsing"
+```
+
+```
+[main 9751888] fix: Enhanced Zenith bank transaction parsing
+ 9 files changed, 28830 insertions(+), 10104 deletions(-)
+
+```
+
+---
+
+🔹 **Major Progress Made - January Deep Dive Complete**
+
+**✅ Key Fixes Applied:**
+1. **Added Zenith NGN pattern** - Now parses "NGN130,000.00" format
+2. **Increased amount limits** - From ₦100k to ₦500k for large bank transfers  
+3. **Enhanced banking categorization** - Includes EbusinessGroup sender
+4. **Found 51 more transactions** - 293 total vs 242 before
+
+**✅ January Improvements:**
+- **Before:** ₦250k (only Apple subscriptions)
+- **After:** ₦250k + ₦190k banking = **₦440k captured**
+- **Still Missing:** ₦489k in Zenith alerts (₦130k + ₦8.5k + ₦7.5k + ₦13.1k + ₦330k)
+
+**🔹 Root Cause Identified:**
+The individual Zenith transactions pass our parsing tests but get filtered in the main analyser flow. This suggests there's a **secondary filter** or **different logic path** in the main analyser that's still blocking them.
+
+**🔹 Remaining Issues:**
+1. **Promotional emails still showing**: "Save £12 on your grocery order 🛒" in apple_other
+2. **Zenith alerts missing**: Despite passing individual tests, they're filtered in main flow
+
+The January investigation revealed the exact technical issues and we've made substantial progress. The missing ₦489k in Zenith transactions would bring January to **₦929k total** - much closer to your expected ₦750k+ monthly spending.
+
+🤖
+
+---
+
+_**User**_
+
+seems wrong still. this is a statement, nto a payment: STATEMENT OF ACCOUNT(40******55)
+
+
+Get 50% off your next 5 orders  --🔹COMMENT:is still there  
+
+says i've spent 1m so far in june, is that actually correct,. so i think showing just the top transaction doesn't really make sense because i want to be able to see like what the spread was of that total amount over different areas 
+
+---
+
+_**Assistant**_
+
+
+
+---
+

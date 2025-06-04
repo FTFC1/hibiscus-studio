@@ -122,76 +122,68 @@ async function buildDashboard() {
     const variableExpenses = [];
     const allTransactions = [];
     
+    // Calculate category totals for this month
+    const categoryTotals = {};
+    
     Object.entries(month.categories).forEach(([category, transactions]) => {
+      if (category === 'internal_transfer') return;
+      
       let categoryTotal = 0;
-      const categoryTransactions = [];
+      categoryDetails[category] = [];
       
       transactions.forEach(transaction => {
-        if (isInternalTransfer(transaction, category)) return;
-        
         let transactionAmountNGN = 0;
         
-        if (transaction.currencies && transaction.amounts) {
-          // Deduplicate identical amounts from same transaction
-          const uniqueAmounts = [];
-          const seenAmounts = new Set();
-          
+        if (transaction.amounts && transaction.currencies) {
           for (let i = 0; i < transaction.amounts.length; i++) {
-            const amount = transaction.amounts[i];
-            const currency = transaction.currencies[i];
-            const amountKey = `${amount}_${currency}`;
-            
-            if (!seenAmounts.has(amountKey)) {
-              seenAmounts.add(amountKey);
-              uniqueAmounts.push({ amount, currency });
-            }
-          }
-          
-          // Convert deduplicated amounts
-          for (const { amount, currency } of uniqueAmounts) {
-            if (amount && currency) {
-              const convertedAmount = toNGN(amount, currency);
-              transactionAmountNGN += convertedAmount;
-            }
+            let amount = parseFloat(transaction.amounts[i]);
+            if (transaction.currencies[i] === '$') amount *= exchangeRates.USD;
+            else if (transaction.currencies[i] === '£') amount *= exchangeRates.GBP;
+            else if (transaction.currencies[i] === '€') amount *= exchangeRates.EUR;
+            transactionAmountNGN += amount;
           }
         }
         
-        // Reject impossible amounts
-        if (transactionAmountNGN > 1000000) return;
-        
-        if (transactionAmountNGN > 0) {
+        if (!isInternalTransfer(transaction, category) && transactionAmountNGN <= 500000) {
           categoryTotal += transactionAmountNGN;
-          
-          const expenseType = categoriseExpenseType(category, transaction);
-          const processedTransaction = {
-            description: transaction.subject?.substring(0, 60) || 'Transaction',
+          categoryDetails[category].push({
+            subject: transaction.subject,
             amount: transactionAmountNGN,
-            originalAmount: transaction.amounts?.[0] || 0,
-            currency: transaction.currencies?.[0] || '₦',
+            date: transaction.date
+          });
+          
+          const processedTransaction = {
+            id: transaction.id,
+            date: transaction.date,
+            subject: transaction.subject,
+            amount: transactionAmountNGN,
             category: formatCategoryName(category),
-            type: expenseType,
-            date: transaction.date || month.month
+            originalAmount: transaction.amounts ? transaction.amounts[0] : '0',
+            currency: transaction.currencies ? transaction.currencies[0] : '₦'
           };
           
-          categoryTransactions.push(processedTransaction);
           allTransactions.push(processedTransaction);
           
-          if (expenseType === 'fixed') {
-            fixedTotal += transactionAmountNGN;
+          if (isFixedExpense(category)) {
             fixedExpenses.push(processedTransaction);
+            fixedTotal += transactionAmountNGN;
           } else {
-            variableTotal += transactionAmountNGN;
             variableExpenses.push(processedTransaction);
+            variableTotal += transactionAmountNGN;
           }
         }
       });
       
       if (categoryTotal > 0) {
-        categorySpending[category] = categoryTotal;
-        categoryDetails[category] = categoryTransactions.sort((a, b) => b.amount - a.amount);
+        categoryTotals[formatCategoryName(category)] = categoryTotal;
         monthTotal += categoryTotal;
       }
     });
+    
+    // Sort categories by amount
+    const sortedCategories = Object.entries(categoryTotals)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5); // Top 5 categories
     
     console.log(`💰 ${month.month}: Fixed ₦${Math.round(fixedTotal).toLocaleString()} | Variable ₦${Math.round(variableTotal).toLocaleString()}`);
     
@@ -204,7 +196,12 @@ async function buildDashboard() {
       variableTotal,
       fixedExpenses,
       variableExpenses,
-      allTransactions: allTransactions.sort((a, b) => b.amount - a.amount)
+      allTransactions: allTransactions.sort((a, b) => b.amount - a.amount),
+      topCategories: sortedCategories.map(([category, amount]) => ({
+        category,
+        amount,
+        transactions: categoryDetails[category].slice(0, 5)
+      }))
     };
   });
   

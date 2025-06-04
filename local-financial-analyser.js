@@ -199,9 +199,28 @@ class LocalFinancialAnalyser {
       return null;
     }
 
+    // CRITICAL: Filter account statements (not actual spending)
+    const accountStatementPatterns = [
+      /statement.*of.*account/i,
+      /account.*statement/i,
+      /balance.*inquiry/i,
+      /account.*balance/i,
+      /monthly.*statement/i,
+      /transaction.*history/i
+    ];
+
+    const isAccountStatement = accountStatementPatterns.some(pattern => 
+      pattern.test(subject) || pattern.test(from)
+    );
+
+    if (isAccountStatement) {
+      console.log(`🚫 Filtered (account statement): "${subject}"`);
+      return null;
+    }
+
     // Enhanced promotional vs receipt detection
     const promotionalPatterns = [
-      // Generic promotional language
+      // Generic promotional language - STRENGTHENED
       /get \d+%.*off|save \d+%|discount|promo|offer|deal|sale/i,
       /enjoy.*off|special.*offer|limited.*time|coupon|voucher/i,
       // Food delivery promotional patterns - ENHANCED
@@ -213,6 +232,13 @@ class LocalFinancialAnalyser {
       /save.*\$\d+.*on.*your.*order/i,
       /save.*€\d+.*on.*your.*order/i,
       /\d+%.*off.*next.*\d+.*orders/i,
+      // CRITICAL: Catch specific patterns still getting through
+      /get.*\d+%.*off.*your.*next.*\d+.*orders/i,
+      /enjoy.*\d+%.*off.*your.*next.*\d+.*orders/i,
+      /save.*\d+%.*off.*your.*next.*\d+.*orders/i,
+      // ANY percentage off pattern
+      /\d+%.*off/i,
+      /off.*\d+%/i,
       // Specific grocery/food promotional patterns
       /save.*£\d+.*on.*grocery/i,
       /grocery.*order.*🛒/i,
@@ -234,6 +260,7 @@ class LocalFinancialAnalyser {
       /introducing.*paypal|paypal.*introduces|new.*paypal.*feature/i,
       /paypal.*platform|paypal.*business.*solution|paypal.*open/i,
       /discover.*paypal|explore.*paypal|learn.*about.*paypal/i,
+      /one.*platform.*for.*all.*bus/i,
       // General business platform announcements
       /introducing.*platform|new.*platform|one.*platform.*for/i,
       /business.*solution|enterprise.*solution|platform.*for.*business/i
@@ -419,6 +446,13 @@ class LocalFinancialAnalyser {
       enhancedSubject = "Zenith Bank Debit Alert";
     }
 
+    // Get category and filter out null results
+    const category = this.categoriseTransaction(fullText, message.internalDate);
+    if (category === null) {
+      console.log(`🚫 Filtered (null category): "${subject}"`);
+      return null;
+    }
+
     return {
       id: message.id,
       date: date.toISOString().split('T')[0],
@@ -428,7 +462,7 @@ class LocalFinancialAnalyser {
       amounts: validTransactions.map(t => t.amount.toString()),
       currencies: validTransactions.map(t => t.currency),
       originalAmountsWithCurrency: validTransactions,
-      category: this.categoriseTransaction(fullText, message.internalDate),
+      category,
       isSubscription: patterns.strongTransaction.test(subject) && /subscription|recurring|monthly|annual/i.test(subject),
       raw: message
     };
@@ -436,6 +470,24 @@ class LocalFinancialAnalyser {
 
   categoriseTransaction(text, timestamp) {
     const lowercaseText = text.toLowerCase();
+    
+    // PRIORITY 1: AI tools (must be BEFORE transport to catch Wispr Flow receipts)
+    if (/wispr.*flow.*receipt|wispr.*flow.*#|receipt.*from.*wispr/i.test(text)) {
+      return 'ai_tools';
+    }
+    if (/openai|claude|replit|github.*copilot/i.test(text)) {
+      return 'ai_tools';
+    }
+    
+    // PRIORITY 2: Transport (Uber/Bolt) - check AFTER AI tools
+    if (/uber|bolt|taxi|ride|trip/i.test(text)) {
+      return 'transport';
+    }
+    
+    // PRIORITY 3: PayPal promotional content - filter completely
+    if (/paypal/i.test(text) && /business|open|platform|introducing|one.*platform/i.test(text)) {
+      return null; // This should be filtered out, not categorized
+    }
     
     // Enhanced Apple service categorization
     if (/apple.*invoice|invoice.*apple|subscription.*apple/i.test(text)) {
@@ -460,14 +512,6 @@ class LocalFinancialAnalyser {
       }
       // Default Apple category if can't determine specific service
       return 'apple_other';
-    }
-    
-    if (/wispr.*flow|wispr/i.test(text)) {
-      return 'ai_tools';
-    }
-    
-    if (/paypal/i.test(text) && /business|open|platform/i.test(text)) {
-      return 'other'; // PayPal business emails, not transactions
     }
     
     // ALL BANK TRANSFERS GO TO BANKING CATEGORY
