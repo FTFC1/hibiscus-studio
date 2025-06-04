@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Budget</title>
-    <meta name="description" content="Personal budget tracker">
+    <meta name="description" content="Interactive personal budget tracker">
     <style>
         :root {
             --primary: #000;
@@ -124,12 +124,6 @@
             font-weight: var(--weight-semibold);
         }
         
-        .section-amount {
-            font-size: var(--text-lg);
-            font-weight: var(--weight-semibold);
-            color: var(--secondary);
-        }
-        
         .budget-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -172,21 +166,36 @@
             color: var(--tertiary);
         }
         
-        /* Categories */
+        /* Interactive Categories */
         .categories {
             margin-bottom: var(--spacing-xl);
         }
         
         .category-item {
+            background: var(--surface);
+            border-radius: var(--radius);
+            margin-bottom: var(--spacing-sm);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        
+        .category-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: var(--spacing-md) 0;
-            border-bottom: 1px solid var(--border);
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            user-select: none;
         }
         
-        .category-item:last-child {
-            border-bottom: none;
+        .category-header:hover {
+            background: rgba(0, 122, 255, 0.05);
+        }
+        
+        .category-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
         }
         
         .category-name {
@@ -194,12 +203,74 @@
             text-transform: capitalize;
         }
         
+        .category-count {
+            font-size: var(--text-sm);
+            color: var(--tertiary);
+            margin-left: var(--spacing-xs);
+        }
+        
         .category-amount {
             font-weight: var(--weight-semibold);
             color: var(--secondary);
         }
         
-        /* Monthly Grid */
+        .expand-icon {
+            margin-left: var(--spacing-sm);
+            transition: transform 0.2s ease;
+            color: var(--accent);
+        }
+        
+        .category-item.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        .category-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .category-item.expanded .category-details {
+            max-height: 800px;
+        }
+        
+        .transaction-list {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border);
+            gap: var(--spacing-sm);
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .transaction-description {
+            flex: 1;
+            font-size: var(--text-sm);
+            line-height: 1.4;
+        }
+        
+        .transaction-amount {
+            font-weight: var(--weight-semibold);
+            font-size: var(--text-sm);
+            color: var(--secondary);
+            text-align: right;
+        }
+        
+        .transaction-original {
+            font-size: 12px;
+            color: var(--tertiary);
+            margin-top: 2px;
+        }
+        
+        /* Interactive Monthly Grid */
         .months {
             display: grid;
             gap: var(--spacing-lg);
@@ -208,16 +279,21 @@
         .month-card {
             background: var(--surface);
             border-radius: var(--radius);
-            padding: var(--spacing-lg);
+            overflow: hidden;
+            transition: all 0.2s ease;
         }
         
         .month-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-md);
-            padding-bottom: var(--spacing-sm);
-            border-bottom: 1px solid var(--border);
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .month-header:hover {
+            background: rgba(0, 122, 255, 0.05);
         }
         
         .month-title {
@@ -229,15 +305,28 @@
             color: var(--secondary);
         }
         
+        .month-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .month-card.expanded .month-content {
+            max-height: 1000px;
+        }
+        
         .month-breakdown {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--spacing-md);
-            margin-bottom: var(--spacing-md);
+            padding: 0 var(--spacing-lg) var(--spacing-md);
         }
         
         .breakdown-item {
             text-align: center;
+            padding: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--spacing-xs);
         }
         
         .breakdown-label {
@@ -256,6 +345,19 @@
         
         .breakdown-item.variable .breakdown-amount {
             color: var(--warning);
+        }
+        
+        .month-transactions {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+        }
+        
+        .month-transactions h4 {
+            font-size: var(--text-sm);
+            font-weight: var(--weight-medium);
+            color: var(--secondary);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         /* Footer */
@@ -305,8 +407,9 @@
         
         /* Touch targets */
         @media (pointer: coarse) {
-            .category-item {
-                padding: var(--spacing-lg) 0;
+            .category-header, .month-header {
+                padding: var(--spacing-lg);
+                min-height: 44px;
             }
         }
     </style>
@@ -315,7 +418,7 @@
     <div class="container">
         <header class="header">
             <h1>Budget</h1>
-            <p>Personal expense tracking</p>
+            <p>Interactive expense tracking</p>
         </header>
         
         <section class="summary">
@@ -348,148 +451,1038 @@
         
         <section class="categories">
             <div class="section-header">
-                <h2 class="section-title">Top Categories</h2>
+                <h2 class="section-title">Categories</h2>
             </div>
             
             
-                <div class="category-item">
-                    <span class="category-name">other</span>
-                    <span class="category-amount">₦4,001,443</span>
+                <div class="category-item" data-category="0">
+                    <div class="category-header" onclick="toggleCategory(0)">
+                        <div class="category-left">
+                            <span class="category-name">other</span>
+                            <span class="category-count">(54)</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="category-amount">₦4,001,443</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="category-details">
+                        <div class="transaction-list">
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your receipt from Mobbin #2050-8793</div>
+                                    <div class="transaction-amount">
+                                        ₦213,165
+                                        <div class="transaction-original">$45</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$29.00 payment to UX Pilot AI was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦137,373
+                                        <div class="transaction-original">$29</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$29.00 payment to UX Pilot AI was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦137,373
+                                        <div class="transaction-original">$29</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$29.00 payment to UX Pilot AI was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦137,373
+                                        <div class="transaction-original">$29</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">US$20.04 payment to Cursor was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦94,929
+                                        <div class="transaction-original">$20.04</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your receipt from Vercel Inc. #2427-2081</div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$20.00 payment to Lovable Labs Incorporated was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$20.00 payment to Lovable Labs Incorporated was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$20.00 payment to Lovable Labs Incorporated was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$20.00 payment to Lovable Labs Incorporated was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">+44 more transactions</div>
+                        </div>
+                    </div>
                 </div>
             
-                <div class="category-item">
-                    <span class="category-name">ai tools</span>
-                    <span class="category-amount">₦1,096,616</span>
+                <div class="category-item" data-category="1">
+                    <div class="category-header" onclick="toggleCategory(1)">
+                        <div class="category-left">
+                            <span class="category-name">ai tools</span>
+                            <span class="category-count">(11)</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="category-amount">₦1,096,616</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="category-details">
+                        <div class="transaction-list">
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your receipt from Replit #2660-8504</div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$25.00 payment to Replit was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$25.00 payment to Replit was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$25.00 payment to Replit was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$25.00 payment to Replit was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$25.00 payment to Replit was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">$25.00 payment to Replit was unsuccessful</div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your receipt from Replit #2857-3434</div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your receipt from Replit #2381-3966</div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your receipt from Wispr Flow #2083-3620</div>
+                                    <div class="transaction-amount">
+                                        ₦71,055
+                                        <div class="transaction-original">$15</div>
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">+1 more transactions</div>
+                        </div>
+                    </div>
                 </div>
             
-                <div class="category-item">
-                    <span class="category-name">apple</span>
-                    <span class="category-amount">₦658,901</span>
+                <div class="category-item" data-category="2">
+                    <div class="category-header" onclick="toggleCategory(2)">
+                        <div class="category-left">
+                            <span class="category-name">apple</span>
+                            <span class="category-count">(60)</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="category-amount">₦658,901</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="category-details">
+                        <div class="transaction-list">
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦50,765
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦39,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦30,000
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦29,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦29,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦23,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦19,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦19,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦19,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Your invoice from Apple.</div>
+                                    <div class="transaction-amount">
+                                        ₦19,800
+                                        
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">+50 more transactions</div>
+                        </div>
+                    </div>
                 </div>
             
-                <div class="category-item">
-                    <span class="category-name">food</span>
-                    <span class="category-amount">₦281,814</span>
+                <div class="category-item" data-category="3">
+                    <div class="category-header" onclick="toggleCategory(3)">
+                        <div class="category-left">
+                            <span class="category-name">food</span>
+                            <span class="category-count">(4)</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="category-amount">₦281,814</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="category-details">
+                        <div class="transaction-list">
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Save £12 on your grocery order 🛒</div>
+                                    <div class="transaction-amount">
+                                        ₦100,450
+                                        <div class="transaction-original">£12</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Get  50% off your next 5 orders</div>
+                                    <div class="transaction-amount">
+                                        ₦60,455
+                                        <div class="transaction-original">£15</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Get  50% off your next 5 orders</div>
+                                    <div class="transaction-amount">
+                                        ₦60,455
+                                        <div class="transaction-original">£15</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">Enjoy 50% off your next 5 orders</div>
+                                    <div class="transaction-amount">
+                                        ₦60,455
+                                        <div class="transaction-original">£15</div>
+                                    </div>
+                                </div>
+                            
+                            
+                        </div>
+                    </div>
                 </div>
             
         </section>
         
         <section class="months">
             <div class="section-header">
-                <h2 class="section-title">Monthly History</h2>
+                <h2 class="section-title">Monthly Details</h2>
             </div>
             
             
-                <div class="month-card">
-                    <div class="month-header">
-                        <h3 class="month-title">January</h3>
-                        <span class="month-total">₦741,807</span>
+                <div class="month-card" data-month="0">
+                    <div class="month-header" onclick="toggleMonth(0)">
+                        <div>
+                            <h3 class="month-title">January</h3>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="month-total">₦741,807</span>
+                            <span class="expand-icon" style="margin-left: var(--spacing-sm); transition: transform 0.2s ease; color: var(--accent);">▼</span>
+                        </div>
                     </div>
                     
-                    <div class="month-breakdown">
-                        <div class="breakdown-item fixed">
-                            <div class="breakdown-label">Fixed</div>
-                            <div class="breakdown-amount">₦166,500</div>
+                    <div class="month-content">
+                        <div class="month-breakdown">
+                            <div class="breakdown-item fixed">
+                                <div class="breakdown-label">Fixed</div>
+                                <div class="breakdown-amount">₦166,500</div>
+                            </div>
+                            
+                            <div class="breakdown-item variable">
+                                <div class="breakdown-label">Variable</div>
+                                <div class="breakdown-amount">₦575,307</div>
+                            </div>
                         </div>
                         
-                        <div class="breakdown-item variable">
-                            <div class="breakdown-label">Variable</div>
-                            <div class="breakdown-amount">₦575,307</div>
+                        <div class="month-transactions">
+                            <h4>Top Expenses</h4>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Save £12 on your grocery order 🛒
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">food</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦100,450
+                                        <div class="transaction-original">£12</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Vercel Inc. #2427-2081
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Exafunction, Inc. #2136-6147
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦71,055
+                                        <div class="transaction-original">$15</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Get  50% off your next 5 orders
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">food</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦60,455
+                                        <div class="transaction-original">£15</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Get  50% off your next 5 orders
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">food</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦60,455
+                                        <div class="transaction-original">£15</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Enjoy 50% off your next 5 orders
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">food</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦60,455
+                                        <div class="transaction-original">£15</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Exafunction, Inc. #2323-6069
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦47,370
+                                        <div class="transaction-original">$10</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        A payment was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦35,733
+                                        <div class="transaction-original">$7.07</div>
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">41 total transactions</div>
                         </div>
                     </div>
                 </div>
             
-                <div class="month-card">
-                    <div class="month-header">
-                        <h3 class="month-title">February</h3>
-                        <span class="month-total">₦1,726,532</span>
+                <div class="month-card" data-month="1">
+                    <div class="month-header" onclick="toggleMonth(1)">
+                        <div>
+                            <h3 class="month-title">February</h3>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="month-total">₦1,726,532</span>
+                            <span class="expand-icon" style="margin-left: var(--spacing-sm); transition: transform 0.2s ease; color: var(--accent);">▼</span>
+                        </div>
                     </div>
                     
-                    <div class="month-breakdown">
-                        <div class="breakdown-item fixed">
-                            <div class="breakdown-label">Fixed</div>
-                            <div class="breakdown-amount">₦121,400</div>
+                    <div class="month-content">
+                        <div class="month-breakdown">
+                            <div class="breakdown-item fixed">
+                                <div class="breakdown-label">Fixed</div>
+                                <div class="breakdown-amount">₦121,400</div>
+                            </div>
+                            
+                            <div class="breakdown-item variable">
+                                <div class="breakdown-label">Variable</div>
+                                <div class="breakdown-amount">₦1,605,132</div>
+                            </div>
                         </div>
                         
-                        <div class="breakdown-item variable">
-                            <div class="breakdown-label">Variable</div>
-                            <div class="breakdown-amount">₦1,605,132</div>
+                        <div class="month-transactions">
+                            <h4>Top Expenses</h4>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Replit #2660-8504
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $25.00 payment to Replit was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $25.00 payment to Replit was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $25.00 payment to Replit was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $25.00 payment to Replit was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $25.00 payment to Replit was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $25.00 payment to Replit was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦118,425
+                                        <div class="transaction-original">$25</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $20.00 payment to Lovable Labs Incorporated was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">40 total transactions</div>
                         </div>
                     </div>
                 </div>
             
-                <div class="month-card">
-                    <div class="month-header">
-                        <h3 class="month-title">March</h3>
-                        <span class="month-total">₦845,414</span>
+                <div class="month-card" data-month="2">
+                    <div class="month-header" onclick="toggleMonth(2)">
+                        <div>
+                            <h3 class="month-title">March</h3>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="month-total">₦845,414</span>
+                            <span class="expand-icon" style="margin-left: var(--spacing-sm); transition: transform 0.2s ease; color: var(--accent);">▼</span>
+                        </div>
                     </div>
                     
-                    <div class="month-breakdown">
-                        <div class="breakdown-item fixed">
-                            <div class="breakdown-label">Fixed</div>
-                            <div class="breakdown-amount">₦85,236</div>
+                    <div class="month-content">
+                        <div class="month-breakdown">
+                            <div class="breakdown-item fixed">
+                                <div class="breakdown-label">Fixed</div>
+                                <div class="breakdown-amount">₦85,236</div>
+                            </div>
+                            
+                            <div class="breakdown-item variable">
+                                <div class="breakdown-label">Variable</div>
+                                <div class="breakdown-amount">₦760,178</div>
+                            </div>
                         </div>
                         
-                        <div class="breakdown-item variable">
-                            <div class="breakdown-label">Variable</div>
-                            <div class="breakdown-amount">₦760,178</div>
+                        <div class="month-transactions">
+                            <h4>Top Expenses</h4>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $29.00 payment to UX Pilot AI was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦137,373
+                                        <div class="transaction-original">$29</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $29.00 payment to UX Pilot AI was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦137,373
+                                        <div class="transaction-original">$29</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        US$20.04 payment to Cursor was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,929
+                                        <div class="transaction-original">$20.04</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Vercel Inc. #2724-3058
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from On Off, Inc. #2809-6471
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $20.00 payment to Lovable Labs Incorporated was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        A payment was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦35,733
+                                        <div class="transaction-original">$7.07</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        A payment was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦35,733
+                                        <div class="transaction-original">$7.07</div>
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">76 total transactions</div>
                         </div>
                     </div>
                 </div>
             
-                <div class="month-card">
-                    <div class="month-header">
-                        <h3 class="month-title">April</h3>
-                        <span class="month-total">₦2,051,885</span>
+                <div class="month-card" data-month="3">
+                    <div class="month-header" onclick="toggleMonth(3)">
+                        <div>
+                            <h3 class="month-title">April</h3>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="month-total">₦2,051,885</span>
+                            <span class="expand-icon" style="margin-left: var(--spacing-sm); transition: transform 0.2s ease; color: var(--accent);">▼</span>
+                        </div>
                     </div>
                     
-                    <div class="month-breakdown">
-                        <div class="breakdown-item fixed">
-                            <div class="breakdown-label">Fixed</div>
-                            <div class="breakdown-amount">₦132,200</div>
+                    <div class="month-content">
+                        <div class="month-breakdown">
+                            <div class="breakdown-item fixed">
+                                <div class="breakdown-label">Fixed</div>
+                                <div class="breakdown-amount">₦132,200</div>
+                            </div>
+                            
+                            <div class="breakdown-item variable">
+                                <div class="breakdown-label">Variable</div>
+                                <div class="breakdown-amount">₦1,919,685</div>
+                            </div>
                         </div>
                         
-                        <div class="breakdown-item variable">
-                            <div class="breakdown-label">Variable</div>
-                            <div class="breakdown-amount">₦1,919,685</div>
+                        <div class="month-transactions">
+                            <h4>Top Expenses</h4>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $29.00 payment to UX Pilot AI was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦137,373
+                                        <div class="transaction-original">$29</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $20.00 payment to Lovable Labs Incorporated was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $20.00 payment to Lovable Labs Incorporated was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $20.00 payment to Lovable Labs Incorporated was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        US$20.00 payment to Cursor was unsuccessful again
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        US$20.00 payment to Cursor was unsuccessful again
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        US$20.00 payment to Cursor was unsuccessful again
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        $20.00 payment to Lovable Labs Incorporated was unsuccessful
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">86 total transactions</div>
                         </div>
                     </div>
                 </div>
             
-                <div class="month-card">
-                    <div class="month-header">
-                        <h3 class="month-title">May</h3>
-                        <span class="month-total">₦572,427</span>
+                <div class="month-card" data-month="4">
+                    <div class="month-header" onclick="toggleMonth(4)">
+                        <div>
+                            <h3 class="month-title">May</h3>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="month-total">₦572,427</span>
+                            <span class="expand-icon" style="margin-left: var(--spacing-sm); transition: transform 0.2s ease; color: var(--accent);">▼</span>
+                        </div>
                     </div>
                     
-                    <div class="month-breakdown">
-                        <div class="breakdown-item fixed">
-                            <div class="breakdown-label">Fixed</div>
-                            <div class="breakdown-amount">₦134,965</div>
+                    <div class="month-content">
+                        <div class="month-breakdown">
+                            <div class="breakdown-item fixed">
+                                <div class="breakdown-label">Fixed</div>
+                                <div class="breakdown-amount">₦134,965</div>
+                            </div>
+                            
+                            <div class="breakdown-item variable">
+                                <div class="breakdown-label">Variable</div>
+                                <div class="breakdown-amount">₦437,462</div>
+                            </div>
                         </div>
                         
-                        <div class="breakdown-item variable">
-                            <div class="breakdown-label">Variable</div>
-                            <div class="breakdown-amount">₦437,462</div>
+                        <div class="month-transactions">
+                            <h4>Top Expenses</h4>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Mobbin #2050-8793
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦213,165
+                                        <div class="transaction-original">$45</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Vercel Inc. #2241-5735
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Replit #2381-3966
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦94,740
+                                        <div class="transaction-original">$20</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your invoice from Apple.
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">apple</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦50,765
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Thanks for your payment
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦34,817
+                                        <div class="transaction-original">$7.07</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your invoice from Apple.
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">apple</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦19,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your invoice from Apple.
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">apple</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦19,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your invoice from Apple.
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">apple</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦15,600
+                                        
+                                    </div>
+                                </div>
+                            
+                            <div style="text-align: center; padding: var(--spacing-sm); color: var(--tertiary); font-size: var(--text-sm);">67 total transactions</div>
                         </div>
                     </div>
                 </div>
             
-                <div class="month-card">
-                    <div class="month-header">
-                        <h3 class="month-title">June</h3>
-                        <span class="month-total">₦100,708</span>
+                <div class="month-card" data-month="5">
+                    <div class="month-header" onclick="toggleMonth(5)">
+                        <div>
+                            <h3 class="month-title">June</h3>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="month-total">₦100,708</span>
+                            <span class="expand-icon" style="margin-left: var(--spacing-sm); transition: transform 0.2s ease; color: var(--accent);">▼</span>
+                        </div>
                     </div>
                     
-                    <div class="month-breakdown">
-                        <div class="breakdown-item fixed">
-                            <div class="breakdown-label">Fixed</div>
-                            <div class="breakdown-amount">₦18,600</div>
+                    <div class="month-content">
+                        <div class="month-breakdown">
+                            <div class="breakdown-item fixed">
+                                <div class="breakdown-label">Fixed</div>
+                                <div class="breakdown-amount">₦18,600</div>
+                            </div>
+                            
+                            <div class="breakdown-item variable">
+                                <div class="breakdown-label">Variable</div>
+                                <div class="breakdown-amount">₦82,108</div>
+                            </div>
                         </div>
                         
-                        <div class="breakdown-item variable">
-                            <div class="breakdown-label">Variable</div>
-                            <div class="breakdown-amount">₦82,108</div>
+                        <div class="month-transactions">
+                            <h4>Top Expenses</h4>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your receipt from Wispr Flow #2083-3620
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">ai tools</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦71,055
+                                        <div class="transaction-original">$15</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your invoice from Apple.
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">apple</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦15,800
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Introducing PayPal Open - one platform for all business.
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">other</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦11,053
+                                        <div class="transaction-original">$6</div>
+                                    </div>
+                                </div>
+                            
+                                <div class="transaction-item">
+                                    <div class="transaction-description">
+                                        Your invoice from Apple.
+                                        <div style="font-size: 12px; color: var(--tertiary); margin-top: 2px;">apple</div>
+                                    </div>
+                                    <div class="transaction-amount">
+                                        ₦2,800
+                                        
+                                    </div>
+                                </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -500,5 +1493,51 @@
             <p>Generated 4 Jun 2025</p>
         </footer>
     </div>
+
+    <script>
+        function toggleCategory(index) {
+            const categoryItem = document.querySelector(`[data-category="${index}"]`);
+            categoryItem.classList.toggle('expanded');
+        }
+        
+        function toggleMonth(index) {
+            const monthCard = document.querySelector(`[data-month="${index}"]`);
+            monthCard.classList.toggle('expanded');
+            
+            // Update expand icon
+            const expandIcon = monthCard.querySelector('.expand-icon');
+            if (monthCard.classList.contains('expanded')) {
+                expandIcon.style.transform = 'rotate(180deg)';
+            } else {
+                expandIcon.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        // Add keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (e.target.classList.contains('category-header')) {
+                    e.preventDefault();
+                    e.target.click();
+                }
+                if (e.target.classList.contains('month-header')) {
+                    e.preventDefault();
+                    e.target.click();
+                }
+            }
+        });
+        
+        // Add focus support for accessibility
+        document.querySelectorAll('.category-header, .month-header').forEach(element => {
+            element.setAttribute('tabindex', '0');
+            element.setAttribute('role', 'button');
+            element.setAttribute('aria-expanded', 'false');
+            
+            element.addEventListener('click', function() {
+                const expanded = this.parentElement.classList.contains('expanded');
+                this.setAttribute('aria-expanded', expanded);
+            });
+        });
+    </script>
 </body>
 </html>
