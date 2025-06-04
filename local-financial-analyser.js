@@ -268,16 +268,13 @@ class LocalFinancialAnalyser {
       return null; // Skip non-financial content
     }
 
-    // Enhanced financial patterns with currency preservation
+    // Enhanced financial patterns with currency preservation - FIXED for duplicates
     const patterns = {
-      // Currency with amount - preserve both (improved for subscriptions)
-      amountWithCurrency: /(₦|[\$£€])\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/g,
-      amountAfterCurrency: /(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(₦|[\$£€])/g,
-      // Specific patterns for Nigerian bank transfers
-      nigerianTransfer: /₦(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/g,
-      // Apple/subscription patterns
-      appleAmount: /total[:\s]*[\$£€₦]\s*(\d+(?:\.\d{2})?)/gi,
-      subscriptionAmount: /(?:price|cost|amount|total|charge)[:\s]*[\$£€₦]\s*(\d+(?:\.\d{2})?)/gi,
+      // More precise patterns to avoid duplicates
+      nigerianAmount: /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
+      dollarAmount: /\$\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
+      euroAmount: /€\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
+      poundAmount: /£\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
       // Strong transaction indicators
       strongTransaction: /payment|charged|bill|invoice|receipt|refund|transfer|subscription|purchase|order|total/i,
       // Financial institutions/services
@@ -288,37 +285,48 @@ class LocalFinancialAnalyser {
     let currencies = [];
     let match;
     
-    // Extract amounts with currency info - prioritise Nigerian transfers
-    while ((match = patterns.nigerianTransfer.exec(fullText)) !== null) {
-      const amount = parseFloat(match[1].replace(/,/g, ''));
-      amounts.push(amount);
+    // Extract amounts with specific currency patterns to avoid duplicates
+    while ((match = patterns.nigerianAmount.exec(fullText)) !== null) {
+      amounts.push(parseFloat(match[1].replace(/,/g, '')));
       currencies.push('₦');
     }
     
-    // Extract other currency amounts
-    while ((match = patterns.amountWithCurrency.exec(fullText)) !== null) {
-      const amount = parseFloat(match[2].replace(/,/g, ''));
-      amounts.push(amount);
-      currencies.push(match[1]);
+    patterns.nigerianAmount.lastIndex = 0;
+    
+    while ((match = patterns.dollarAmount.exec(fullText)) !== null) {
+      amounts.push(parseFloat(match[1].replace(/,/g, '')));
+      currencies.push('$');
     }
     
-    while ((match = patterns.amountAfterCurrency.exec(fullText)) !== null) {
-      const amount = parseFloat(match[1].replace(/,/g, ''));
-      amounts.push(amount);
-      currencies.push(match[2]);
+    patterns.dollarAmount.lastIndex = 0;
+    
+    while ((match = patterns.euroAmount.exec(fullText)) !== null) {
+      amounts.push(parseFloat(match[1].replace(/,/g, '')));
+      currencies.push('€');
     }
     
-    // Extract Apple/subscription amounts
-    while ((match = patterns.appleAmount.exec(fullText)) !== null) {
-      const amount = parseFloat(match[1]);
-      amounts.push(amount);
-      currencies.push('$'); // Default to USD for Apple
+    patterns.euroAmount.lastIndex = 0;
+    
+    while ((match = patterns.poundAmount.exec(fullText)) !== null) {
+      amounts.push(parseFloat(match[1].replace(/,/g, '')));
+      currencies.push('£');
     }
     
-    while ((match = patterns.subscriptionAmount.exec(fullText)) !== null) {
-      const amount = parseFloat(match[1]);
-      amounts.push(amount);
-      currencies.push('$'); // Default to USD for subscriptions
+    patterns.poundAmount.lastIndex = 0;
+    
+    // CRITICAL: Deduplicate identical amounts immediately
+    const uniqueAmounts = [];
+    const seenAmounts = new Set();
+    
+    for (let i = 0; i < amounts.length; i++) {
+      const amount = amounts[i];
+      const currency = currencies[i];
+      const key = `${amount}_${currency}`;
+      
+      if (!seenAmounts.has(key) && amount > 0 && amount < 100000) {
+        seenAmounts.add(key);
+        uniqueAmounts.push({ amount, currency });
+      }
     }
 
     // Strong filtering - only accept if:
@@ -326,24 +334,24 @@ class LocalFinancialAnalyser {
                                          patterns.strongTransaction.test(from) ||
                                          patterns.financialSource.test(from);
     
-    const hasReasonableAmounts = amounts.length > 0 && 
-                                amounts.some(a => a > 0 && a < 100000); // Raised upper limit, lower minimum
+    const hasReasonableAmounts = uniqueAmounts.length > 0 && 
+                                uniqueAmounts.some(a => a.amount > 0 && a.amount < 100000); // Raised upper limit, lower minimum
 
     // Must have BOTH strong indicators AND reasonable amounts
     if (!hasStrongTransactionIndicators || !hasReasonableAmounts) {
       // Only log important filtered items
       if (/apple|netflix|spotify|openai|claude|supabase|github/i.test(subject)) {
-        console.log(`🚫 Filtered (weak): "${subject}" - indicators: ${hasStrongTransactionIndicators}, amounts: ${hasReasonableAmounts} [${amounts.join(', ')}]`);
+        console.log(`🚫 Filtered (weak): "${subject}" - indicators: ${hasStrongTransactionIndicators}, amounts: ${hasReasonableAmounts} [${uniqueAmounts.map(a => `${a.amount} ${a.currency}`).join(', ')}]`);
       }
       return null;
     }
 
     // Filter amounts and preserve currency info
-    const validTransactions = amounts
+    const validTransactions = uniqueAmounts
       .map((amount, i) => ({
-        amount: amount,
-        currency: currencies[i] || '$', // Default to USD for subscriptions
-        originalCurrency: currencies[i]
+        amount: amount.amount,
+        currency: amount.currency,
+        originalCurrency: amount.currency
       }))
       .filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions
       .slice(0, 3); // Max 3 amounts per transaction

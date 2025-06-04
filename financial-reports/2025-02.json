@@ -812,26 +812,12 @@
         "subject": "Your subscription confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "19900",
-          "19900",
           "19900"
         ],
         "currencies": [
-          "₦",
-          "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 19900,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 19900,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
           {
             "amount": 19900,
             "currency": "₦",
@@ -1012,26 +998,12 @@
         "subject": "Your subscription confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "4900",
-          "4900",
           "4900"
         ],
         "currencies": [
-          "₦",
-          "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 4900,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 4900,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
           {
             "amount": 4900,
             "currency": "₦",
@@ -1213,26 +1185,12 @@
         "subject": "Your Replit receipt [#1095-6013]",
         "from": "Replit <receipts+acct_15YpNsJAmnYVOvfn@stripe.com>",
         "amounts": [
-          "1.5",
-          "1.5",
           "1.5"
         ],
         "currencies": [
-          "$",
-          "$",
           "$"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 1.5,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
-          {
-            "amount": 1.5,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
           {
             "amount": 1.5,
             "currency": "$",
@@ -1417,26 +1375,12 @@
         "subject": "Your receipt from Vercel Inc. #2990-1255",
         "from": "\"Vercel Inc.\" <invoice+statements@vercel.com>",
         "amounts": [
-          "20",
-          "20",
           "20"
         ],
         "currencies": [
-          "$",
-          "$",
           "$"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 20,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
-          {
-            "amount": 20,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
           {
             "amount": 20,
             "currency": "$",
@@ -1638,7 +1582,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ-Y43lBm9ZutrGshaFDWg4htjw3-hu1XWOdqHXVivXE_HqCCDEAVzuc58ggFLe4A9PV2yfMaA3fCgPr7596iJxlRfGRUauGo1_MpxoX9HPLIxP13wNaT5m4rh95w9E7YBnt9bXLq4vtbN2Ex0lKTieSoFWAjsfUTlTx65H86h4lVnzCZV7F-OVCwln0jZ3FJ85FNxuaVNuQECSmCwytijdYl-TDWNRVYgE5eglbSoXR5tT6srs4KboR6WWAOicDQGZztGx1eCmFKs3at_ftabY9lf3inS5E77PgVSL-zgjreB8xpq0eg9ib0-vaerBHL79DnO-O1Ft9DwvHLPsXaTTpISeZk9ETopLh4U_XpXyOsgFVM_6CZPjPUZvAR6MbnXhMz-c6CvTnP_fc",
+                  "attachmentId": "ANGjdJ-wrxYhOAMUYqehMnFj16ySY_NI-3WhXE4byCUcseI_jLirEX2l1MVVp96R6Te8dyog0_Yr4-LnOOgg4q9Hpvq1AknVuAkD479KfXYEAFJ4pi_AE0y6StTXHXlCcZw5S-uFB7AXwc-rfMluiib6jALWx2fx1RyCoUI7RZsvOCSlSvRzDFNxOaXRh0aYas58i2WlsteAPCSS324KJbcIr1in7C5-GXT5TbbMHv1VzarOnJVN-0m-acXK319ds1wmZl_eAx35noq_16VqXJO16dDK8dklL6TNZSIyZ3ig7vbvt4eP-VFgRlx7RQsmF2hsnNhGci4KqlXPBc9bBbnWu3VoQ-BQbVOEUhDQP_yBu6AObceuM78XKJEcX0Bt7OkwZ_N6NRU-YW-EIij8",
                   "size": 49858
                 }
               },
@@ -1661,7 +1605,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ-hB3Vu-MJU0iJOTALzYJdEXgEw4br7BAtPrnC3HPOweYK-RumqGon6_0zDgidOrfPlSLUGPieblveuGImCWWcwNaSlifC_JAX0vQKVrV2mnvJwUgTQcTKs-5edJSl1mkQWUTDEoyxZ7J_vPNqHEzRxYe4djWdEIOu7hfrjuysrNok3vgMM9gDRvy_tiMouoMXFTGG8rZPm-ccIP4XHNLCuN86VCC6GaAGkIsg4VupnVHolqcOg83GdUrmXBHoN8iRVq3HpZaQI3KIZOLdwzhLMD_Ctr0JqG1PEsgo8adftjc2lrWVqcyyU_DyRP4viq9becRvXeaGo6M8C2IgZN0D6LxlBW29yXcgsPyRrwOWXTLOe_31BMc6gpOe8SO5Iu6U5eLwA8ZDf_srvIs0n0SM8LqA6PC99sOeQug",
+                  "attachmentId": "ANGjdJ9_wpaarsKhnVZ5AoY-8DysAoWXMu8o4y9uV-LkQVgHHc64C4DfhU0oiP515J2Bw6Mym5sCjWERRSTM3U3Ev-_9K-XFbQh7TZgzg-j2GPQ-VcjIzSAl4kpI6VBOqmNyBK-S1fKqWwQqhArNd-DkGqFVuHw_BmOXBmPfThHyPoM0qdOxQmKZbCk5n_qWHFxwETOthXEn3-vP8kxD_wE0HY6g0Sjk9w8N3FQND5ZvqiEQG5YYB1Ae4q_kqkGNYNbZS4n5B3scnxX4he27C4t9ye3BSZiOyQ-fPqXuWf00wtUz0OzfQnfo-ugLYapzKLfzkVEamo-iAfVk_89LXgK52xCnxwGn05mxEtzVRZKZfJ0HVwxQixZ9cJJPY_khcJzzmiakaZ2GB9o-FYlmXzzxlAsuKWYeHlUQhiZISA",
                   "size": 50220
                 }
               }
@@ -1682,26 +1626,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "19900",
-        "19900",
         "19900"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 19900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 19900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 19900,
           "currency": "₦",
@@ -1882,26 +1812,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "4900",
-        "4900",
         "4900"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 4900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 4900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 4900,
           "currency": "₦",
@@ -2683,26 +2599,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "19900",
-        "19900",
         "19900"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 19900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 19900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 19900,
           "currency": "₦",
@@ -2883,26 +2785,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "4900",
-        "4900",
         "4900"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 4900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 4900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 4900,
           "currency": "₦",
@@ -3282,26 +3170,12 @@
       "subject": "Your Replit receipt [#1095-6013]",
       "from": "Replit <receipts+acct_15YpNsJAmnYVOvfn@stripe.com>",
       "amounts": [
-        "1.5",
-        "1.5",
         "1.5"
       ],
       "currencies": [
-        "$",
-        "$",
         "$"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 1.5,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
-        {
-          "amount": 1.5,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
         {
           "amount": 1.5,
           "currency": "$",
@@ -3484,26 +3358,12 @@
       "subject": "Your receipt from Vercel Inc. #2990-1255",
       "from": "\"Vercel Inc.\" <invoice+statements@vercel.com>",
       "amounts": [
-        "20",
-        "20",
         "20"
       ],
       "currencies": [
-        "$",
-        "$",
         "$"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 20,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
-        {
-          "amount": 20,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
         {
           "amount": 20,
           "currency": "$",
@@ -3705,7 +3565,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ-Y43lBm9ZutrGshaFDWg4htjw3-hu1XWOdqHXVivXE_HqCCDEAVzuc58ggFLe4A9PV2yfMaA3fCgPr7596iJxlRfGRUauGo1_MpxoX9HPLIxP13wNaT5m4rh95w9E7YBnt9bXLq4vtbN2Ex0lKTieSoFWAjsfUTlTx65H86h4lVnzCZV7F-OVCwln0jZ3FJ85FNxuaVNuQECSmCwytijdYl-TDWNRVYgE5eglbSoXR5tT6srs4KboR6WWAOicDQGZztGx1eCmFKs3at_ftabY9lf3inS5E77PgVSL-zgjreB8xpq0eg9ib0-vaerBHL79DnO-O1Ft9DwvHLPsXaTTpISeZk9ETopLh4U_XpXyOsgFVM_6CZPjPUZvAR6MbnXhMz-c6CvTnP_fc",
+                "attachmentId": "ANGjdJ-wrxYhOAMUYqehMnFj16ySY_NI-3WhXE4byCUcseI_jLirEX2l1MVVp96R6Te8dyog0_Yr4-LnOOgg4q9Hpvq1AknVuAkD479KfXYEAFJ4pi_AE0y6StTXHXlCcZw5S-uFB7AXwc-rfMluiib6jALWx2fx1RyCoUI7RZsvOCSlSvRzDFNxOaXRh0aYas58i2WlsteAPCSS324KJbcIr1in7C5-GXT5TbbMHv1VzarOnJVN-0m-acXK319ds1wmZl_eAx35noq_16VqXJO16dDK8dklL6TNZSIyZ3ig7vbvt4eP-VFgRlx7RQsmF2hsnNhGci4KqlXPBc9bBbnWu3VoQ-BQbVOEUhDQP_yBu6AObceuM78XKJEcX0Bt7OkwZ_N6NRU-YW-EIij8",
                 "size": 49858
               }
             },
@@ -3728,7 +3588,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ-hB3Vu-MJU0iJOTALzYJdEXgEw4br7BAtPrnC3HPOweYK-RumqGon6_0zDgidOrfPlSLUGPieblveuGImCWWcwNaSlifC_JAX0vQKVrV2mnvJwUgTQcTKs-5edJSl1mkQWUTDEoyxZ7J_vPNqHEzRxYe4djWdEIOu7hfrjuysrNok3vgMM9gDRvy_tiMouoMXFTGG8rZPm-ccIP4XHNLCuN86VCC6GaAGkIsg4VupnVHolqcOg83GdUrmXBHoN8iRVq3HpZaQI3KIZOLdwzhLMD_Ctr0JqG1PEsgo8adftjc2lrWVqcyyU_DyRP4viq9becRvXeaGo6M8C2IgZN0D6LxlBW29yXcgsPyRrwOWXTLOe_31BMc6gpOe8SO5Iu6U5eLwA8ZDf_srvIs0n0SM8LqA6PC99sOeQug",
+                "attachmentId": "ANGjdJ9_wpaarsKhnVZ5AoY-8DysAoWXMu8o4y9uV-LkQVgHHc64C4DfhU0oiP515J2Bw6Mym5sCjWERRSTM3U3Ev-_9K-XFbQh7TZgzg-j2GPQ-VcjIzSAl4kpI6VBOqmNyBK-S1fKqWwQqhArNd-DkGqFVuHw_BmOXBmPfThHyPoM0qdOxQmKZbCk5n_qWHFxwETOthXEn3-vP8kxD_wE0HY6g0Sjk9w8N3FQND5ZvqiEQG5YYB1Ae4q_kqkGNYNbZS4n5B3scnxX4he27C4t9ye3BSZiOyQ-fPqXuWf00wtUz0OzfQnfo-ugLYapzKLfzkVEamo-iAfVk_89LXgK52xCnxwGn05mxEtzVRZKZfJ0HVwxQixZ9cJJPY_khcJzzmiakaZ2GB9o-FYlmXzzxlAsuKWYeHlUQhiZISA",
                 "size": 50220
               }
             }

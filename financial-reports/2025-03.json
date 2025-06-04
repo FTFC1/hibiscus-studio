@@ -10,26 +10,12 @@
         "subject": "Your receipt from Vercel Inc. #2724-3058",
         "from": "\"Vercel Inc.\" <invoice+statements@vercel.com>",
         "amounts": [
-          "20",
-          "20",
           "20"
         ],
         "currencies": [
-          "$",
-          "$",
           "$"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 20,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
-          {
-            "amount": 20,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
           {
             "amount": 20,
             "currency": "$",
@@ -230,7 +216,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ8fA3ZUAxjEHsNtVxe5g9E0BBnK5J8EoTV7HiPBLXzaN04w7BB5XtEMpaDvFF31gLtuxgLOtU7tqMkBRo2kZ9sVJ4UDgHlMcVuUH6Xdjlj7JSEDVXm0zG2YPoq97c3SlFbGnVs6oGXp9LdqBmNN-GM10xIWKt9MttywZOBbQB3raqJCjDLsAvHHu8ucJObe2DVKph_yqO3GrhMXzIpS1zVd5NHVxy5QiDE4lT_3tj7ne7nVESdDUhn0kL_N9a3NhK5Tk_Ty6zFXZJUAhQ_m1QcjRJXxbYp4N3SXIT1Hxpa8ZAXJYJZz3qonMHmmiUU674S1mRcA6u-E5e1YzAWZ5oZ-WLqGH3tZvLrj4O3-TrCl42qVOrIw19XHfmIUbPGnqvhlFX8-npDElk8K",
+                  "attachmentId": "ANGjdJ-hxpWKdb7A90Zf-yZMmzBAAm5W2DmyRoUaBy6yFdMSpe_DKYGgKV1DD7TSyEnr0RYbBEoz68baeLYEwGhgH50eL4OrzJFiN_vPScaf_UR_VMNNU386FR-6qIVIhkFc1jQDE3WvVmfemmXcOIW2AHkiMwf7kNiUlIFSoaYGLgsRDQxE7u8GkbpM1dxZ9tJgKgM6Ddgfa3jA60akkZYOeQwKG8R3hqVT9lwLmJ9UHUTXa798bLAzXifjSgTZ1xubPrPmddRqT7NxvA6zzs6FwyfGI2d8H89Ysmwq5Yn522se51e0sHkqPUSJ30eebYb3ttADIqHZvEmGena1WxWYIaAIkkVMzNDxrW-tjQLt2mgrFiZ62or7n44ipMN6Sd_EGqqL2c0oJKy1qBQK",
                   "size": 50546
                 }
               },
@@ -253,7 +239,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ8OfyxD0tOS3OzxF0m6FVnSxGk-0JJ_EzTKMyjd_stYm6ek106OqvCaXPMLrfK2vo_T_OfdKSb9l8xjseGc5BV25bzEsObmyQCpIYEPZkxB74DTBNewsai6PpDb7DALeQjoDaTdHTmbctGIX3Tj8B0TIug7y5dyhJxVgpcJ-_U_FM2Mp6FjQNeXSPrkNd6H4pudDms6TURNCep1vHEkiIVpDA_yEqylxuzs5n1uLL1ftXvO9VDkc_rW-tOv5-GBdCfh3ijqYoW2qnE2SVjjo5JwAZcS-xgij9_pYN1mZg_uYx1PocyWqRJrO8RlJopAC49ERvgwQ-SFZy8S6T0mJJRy9e9YJVMyPkFCZ7rwu3ZeS2Byq1PjOVrNBDX98x5p8G2zL1rOSo5OvhePxpYiP1X55dRGp7loxaY8FQ",
+                  "attachmentId": "ANGjdJ-sQ0YNBQUPcZNtftnxPVosI9EfamCwF-sNYbsl7SUORX3cyoHTDmKIUW3zzrjQA5tUyLjxxngn7751hcK1SDFdF_lWmmfKNnK7laN6A3iu3f0wsdSq_xGymtVmKEeWi3B8zKTE4dV4iz97ndfzdSF8ANMoUhBPHNA4lbZ-OflaqdLUNMTNk_mzq8yVbKgn5dIr2ychQKPZIjnJcMpsajOMtxPVyrBq4WmYM5fOi9V9pFTZrqVY7ucQ0FYOdPMr3dt4738h1ZX_kCAc5KDtcfxDmJ7R2U68eZRkRyWiEY1saRZX5VZ80Sp5L-Le99Jb0uUCcQ62FfpbTf3hsJFYVqC4oBz1uJgehk_4WVkXJkkFuBrRhnDoax4jHNQDPEj6VVjBTeOZ7l89Ngu98YYRkitGy2aiYTY5M_NNHg",
                   "size": 50979
                 }
               }
@@ -475,26 +461,12 @@
         "subject": "Your receipt from On Off, Inc. #2809-6471",
         "from": "\"On Off, Inc.\" <invoice+statements+acct_1OUEDcCrXZplPvVX@stripe.com>",
         "amounts": [
-          "20",
-          "20",
           "20"
         ],
         "currencies": [
-          "$",
-          "$",
           "$"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 20,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
-          {
-            "amount": 20,
-            "currency": "$",
-            "originalCurrency": "$"
-          },
           {
             "amount": 20,
             "currency": "$",
@@ -699,7 +671,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ96BcJsuGUGkV_uD15-DhUzzq3wz-NSdin6BngSCRqSfviASq2_AXKCZFt6q17ptSoa6j3TIG_lX-rYxzSsVc0wMqduWFnNwTHxQLaDcMYaOdq8n9Lmcll13pEXJX-KxZINUAgr6wLF9Zsdo9l_K7NusW_NdAd4dGr0GHRUm1AGuRlC6fneLhBqFyx4KL3_vI-Hct1V2l_M8UdGeCogtBErEQ6veb_S-LdjY8iN9KJo6DUgTGYDkBn63RiHGnQA7cVsYyvVfJF2SJiByJBIE8zseyc-niSu89xym0YmooFSJ-DnmyymsY6TGL5-grue4_cQljPRuk8bJ_Io989Re_hhea6EgdYg0YCUdRf14_tV8rhQJu3Rtj_GV9wL8RaR1yroFiik97IBtQWN",
+                  "attachmentId": "ANGjdJ9DqymJYHAXsngljZrtXRRZci9uOJlDAsAVLrFlnhBXDCOWA856Q6yqY5nLt57y-_fqPTk-9WnhEOueh30H8yujCryGeLJ2qPpjqjUmxH2WPx3yTXPk6YeUQjFMBDsjWs5VZqiqzzE_pOxIq6Wzze-15NjIK8ooQm11k-o1fD8ZlSDFVRL6aJgFkFp3KAH_xf2wsYYwag2f-tx2qX8dSX_60C4IqJ-P4be0acgapLwSS3NAfBycG5PHB_xEOgBM5sPrWUGA6r-kzW9Cimb71h7MbgH6ZBF2A5fnwH7ZiN39grmzU5gkKHFmCluCxLJCzFU6ADa0PpxBG3693YnXg_3KfI3sxBZlLT8ch0gERSkVIpI06IIVASROv4UowSar1sTvmybeu9VFC_GI",
                   "size": 20853
                 }
               },
@@ -722,7 +694,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ9VsEQyc3lxROx381HHMvk-WpF0FXnHsMAclo_XdbHNbiYjcGPduYvounSHWDlA3REdWBr4nBXuvuYgkYUm16u1t3Z3S7j45ChzkDnfQMer_pZi8dXLq2DOjHZuOo6TBourU_UmOykxiTGJVFi8nVB1opd_XenKXeewdgfkK3I9eMRpbix_4sKWRl9OGgQaf1RTCQf6-pZBhm_53xynrlUIxRY3xidyxGeoSzJoPj6PQd9iOtH3SSHmX4O2v1vLWcJUFvnz_MDbQMzWLV9WmJKUEkN6u4Dg5Gk2q0ab2e59HicNGnpUpmkYAGzZtXwxaakaZA1TcSzshtYEt69jT-hAfcrw_YaAyQd4bckUHXgYeKxfDaN5ha5pbvqnoWKl85QN1d74fxpO3Zgw",
+                  "attachmentId": "ANGjdJ9xsC0d08x542wAZcdrnortgJ9zLzjkqdXtzK9BDI6t3uLhZxLcRobeLsauMFcaYVt285rFBH7NbQfk8zhbv4B0loJQNBvGvJ3vU86eLAEp5V1WKr8zRi7QGkFaHnXDGHZLS1HH9mmAGnnq_2iFX7MFDMcanqMRDQoTK8sMYkROUocLyny3k_8PE0tLM0Bykz6S_ngStIDsNLT_87fjQHqwtpdsa7t2F-kAw1_fTTJT9K_KQVdjm3jlVHMGEEP6EWCjcP1vmpP4Nz8RKl42HzykbwtgVOouwis1dDNkwQQ-kOecS-JqmXbGhgObcymE5HxZtwpBVANa-4oJ-HKaDK0ZaSKaQ9W-07DKpDbvSi3G2fz43XoEYkusizAlJf6VfvdWSGP6UNhKPccI",
                   "size": 22020
                 }
               }
@@ -2940,26 +2912,12 @@
         "subject": "Your subscription confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "7800",
-          "7800",
           "7800"
         ],
         "currencies": [
-          "₦",
-          "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 7800,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 7800,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
           {
             "amount": 7800,
             "currency": "₦",
@@ -3140,26 +3098,12 @@
         "subject": "Your subscription confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "1700",
-          "1700",
           "1700"
         ],
         "currencies": [
-          "₦",
-          "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 1700,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 1700,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
           {
             "amount": 1700,
             "currency": "₦",
@@ -3340,26 +3284,12 @@
         "subject": "Your subscription confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "790",
-          "790",
           "790"
         ],
         "currencies": [
-          "₦",
-          "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 790,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 790,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
           {
             "amount": 790,
             "currency": "₦",
@@ -3540,26 +3470,12 @@
         "subject": "Your subscription confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "1400",
-          "1400",
           "1400"
         ],
         "currencies": [
-          "₦",
-          "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 1400,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 1400,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
           {
             "amount": 1400,
             "currency": "₦",
@@ -3740,26 +3656,12 @@
         "subject": "Your subscription confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "995",
-          "995",
           "995"
         ],
         "currencies": [
-          "₦",
-          "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 995,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 995,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
           {
             "amount": 995,
             "currency": "₦",
@@ -3940,26 +3842,12 @@
         "subject": "Receipt for your payment to Google",
         "from": "PayPal <service@paypal.co.uk>",
         "amounts": [
-          "1.59",
-          "1.59",
           "1.59"
         ],
         "currencies": [
-          "£",
-          "£",
           "£"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 1.59,
-            "currency": "£",
-            "originalCurrency": "£"
-          },
-          {
-            "amount": 1.59,
-            "currency": "£",
-            "originalCurrency": "£"
-          },
           {
             "amount": 1.59,
             "currency": "£",
@@ -4112,30 +4000,16 @@
         "subject": "Subscription Confirmation",
         "from": "Apple <no_reply@email.apple.com>",
         "amounts": [
-          "2900",
-          "2900",
-          "2"
+          "2900"
         ],
         "currencies": [
-          "₦",
-          "₦",
-          "$"
+          "₦"
         ],
         "originalAmountsWithCurrency": [
           {
             "amount": 2900,
             "currency": "₦",
             "originalCurrency": "₦"
-          },
-          {
-            "amount": 2900,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 2,
-            "currency": "$",
-            "originalCurrency": "$"
           }
         ],
         "category": "internal_transfer",
@@ -4313,9 +4187,9 @@
         "subject": "Your Bolt trip on Sunday",
         "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
         "amounts": [
-          "160",
-          "160",
-          "149"
+          "30",
+          "76.63",
+          "0.51"
         ],
         "currencies": [
           "₦",
@@ -4324,17 +4198,17 @@
         ],
         "originalAmountsWithCurrency": [
           {
-            "amount": 160,
+            "amount": 30,
             "currency": "₦",
             "originalCurrency": "₦"
           },
           {
-            "amount": 160,
+            "amount": 76.63,
             "currency": "₦",
             "originalCurrency": "₦"
           },
           {
-            "amount": 149,
+            "amount": 0.51,
             "currency": "₦",
             "originalCurrency": "₦"
           }
@@ -4469,28 +4343,21 @@
         "subject": "Your Bolt trip on Sunday",
         "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
         "amounts": [
-          "330",
-          "330",
-          "311"
+          "30",
+          "154.86"
         ],
         "currencies": [
-          "₦",
           "₦",
           "₦"
         ],
         "originalAmountsWithCurrency": [
           {
-            "amount": 330,
+            "amount": 30,
             "currency": "₦",
             "originalCurrency": "₦"
           },
           {
-            "amount": 330,
-            "currency": "₦",
-            "originalCurrency": "₦"
-          },
-          {
-            "amount": 311,
+            "amount": 154.86,
             "currency": "₦",
             "originalCurrency": "₦"
           }
@@ -4625,9 +4492,9 @@
         "subject": "Your Bolt trip on Saturday",
         "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
         "amounts": [
-          "340",
-          "340",
-          "318"
+          "30",
+          "160.06",
+          "21.75"
         ],
         "currencies": [
           "₦",
@@ -4636,17 +4503,17 @@
         ],
         "originalAmountsWithCurrency": [
           {
-            "amount": 340,
+            "amount": 30,
             "currency": "₦",
             "originalCurrency": "₦"
           },
           {
-            "amount": 340,
+            "amount": 160.06,
             "currency": "₦",
             "originalCurrency": "₦"
           },
           {
-            "amount": 318,
+            "amount": 21.75,
             "currency": "₦",
             "originalCurrency": "₦"
           }
@@ -4784,26 +4651,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "7800",
-        "7800",
         "7800"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 7800,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 7800,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 7800,
           "currency": "₦",
@@ -4984,26 +4837,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "1700",
-        "1700",
         "1700"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 1700,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 1700,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 1700,
           "currency": "₦",
@@ -5184,26 +5023,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "790",
-        "790",
         "790"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 790,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 790,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 790,
           "currency": "₦",
@@ -5384,26 +5209,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "1400",
-        "1400",
         "1400"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 1400,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 1400,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 1400,
           "currency": "₦",
@@ -5584,26 +5395,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "995",
-        "995",
         "995"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 995,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 995,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 995,
           "currency": "₦",
@@ -5784,30 +5581,16 @@
       "subject": "Subscription Confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "2900",
-        "2900",
-        "2"
+        "2900"
       ],
       "currencies": [
-        "₦",
-        "₦",
-        "$"
+        "₦"
       ],
       "originalAmountsWithCurrency": [
         {
           "amount": 2900,
           "currency": "₦",
           "originalCurrency": "₦"
-        },
-        {
-          "amount": 2900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 2,
-          "currency": "$",
-          "originalCurrency": "$"
         }
       ],
       "category": "internal_transfer",
@@ -5987,26 +5770,12 @@
       "subject": "Your receipt from Vercel Inc. #2724-3058",
       "from": "\"Vercel Inc.\" <invoice+statements@vercel.com>",
       "amounts": [
-        "20",
-        "20",
         "20"
       ],
       "currencies": [
-        "$",
-        "$",
         "$"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 20,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
-        {
-          "amount": 20,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
         {
           "amount": 20,
           "currency": "$",
@@ -6207,7 +5976,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ8fA3ZUAxjEHsNtVxe5g9E0BBnK5J8EoTV7HiPBLXzaN04w7BB5XtEMpaDvFF31gLtuxgLOtU7tqMkBRo2kZ9sVJ4UDgHlMcVuUH6Xdjlj7JSEDVXm0zG2YPoq97c3SlFbGnVs6oGXp9LdqBmNN-GM10xIWKt9MttywZOBbQB3raqJCjDLsAvHHu8ucJObe2DVKph_yqO3GrhMXzIpS1zVd5NHVxy5QiDE4lT_3tj7ne7nVESdDUhn0kL_N9a3NhK5Tk_Ty6zFXZJUAhQ_m1QcjRJXxbYp4N3SXIT1Hxpa8ZAXJYJZz3qonMHmmiUU674S1mRcA6u-E5e1YzAWZ5oZ-WLqGH3tZvLrj4O3-TrCl42qVOrIw19XHfmIUbPGnqvhlFX8-npDElk8K",
+                "attachmentId": "ANGjdJ-hxpWKdb7A90Zf-yZMmzBAAm5W2DmyRoUaBy6yFdMSpe_DKYGgKV1DD7TSyEnr0RYbBEoz68baeLYEwGhgH50eL4OrzJFiN_vPScaf_UR_VMNNU386FR-6qIVIhkFc1jQDE3WvVmfemmXcOIW2AHkiMwf7kNiUlIFSoaYGLgsRDQxE7u8GkbpM1dxZ9tJgKgM6Ddgfa3jA60akkZYOeQwKG8R3hqVT9lwLmJ9UHUTXa798bLAzXifjSgTZ1xubPrPmddRqT7NxvA6zzs6FwyfGI2d8H89Ysmwq5Yn522se51e0sHkqPUSJ30eebYb3ttADIqHZvEmGena1WxWYIaAIkkVMzNDxrW-tjQLt2mgrFiZ62or7n44ipMN6Sd_EGqqL2c0oJKy1qBQK",
                 "size": 50546
               }
             },
@@ -6230,7 +5999,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ8OfyxD0tOS3OzxF0m6FVnSxGk-0JJ_EzTKMyjd_stYm6ek106OqvCaXPMLrfK2vo_T_OfdKSb9l8xjseGc5BV25bzEsObmyQCpIYEPZkxB74DTBNewsai6PpDb7DALeQjoDaTdHTmbctGIX3Tj8B0TIug7y5dyhJxVgpcJ-_U_FM2Mp6FjQNeXSPrkNd6H4pudDms6TURNCep1vHEkiIVpDA_yEqylxuzs5n1uLL1ftXvO9VDkc_rW-tOv5-GBdCfh3ijqYoW2qnE2SVjjo5JwAZcS-xgij9_pYN1mZg_uYx1PocyWqRJrO8RlJopAC49ERvgwQ-SFZy8S6T0mJJRy9e9YJVMyPkFCZ7rwu3ZeS2Byq1PjOVrNBDX98x5p8G2zL1rOSo5OvhePxpYiP1X55dRGp7loxaY8FQ",
+                "attachmentId": "ANGjdJ-sQ0YNBQUPcZNtftnxPVosI9EfamCwF-sNYbsl7SUORX3cyoHTDmKIUW3zzrjQA5tUyLjxxngn7751hcK1SDFdF_lWmmfKNnK7laN6A3iu3f0wsdSq_xGymtVmKEeWi3B8zKTE4dV4iz97ndfzdSF8ANMoUhBPHNA4lbZ-OflaqdLUNMTNk_mzq8yVbKgn5dIr2ychQKPZIjnJcMpsajOMtxPVyrBq4WmYM5fOi9V9pFTZrqVY7ucQ0FYOdPMr3dt4738h1ZX_kCAc5KDtcfxDmJ7R2U68eZRkRyWiEY1saRZX5VZ80Sp5L-Le99Jb0uUCcQ62FfpbTf3hsJFYVqC4oBz1uJgehk_4WVkXJkkFuBrRhnDoax4jHNQDPEj6VVjBTeOZ7l89Ngu98YYRkitGy2aiYTY5M_NNHg",
                 "size": 50979
               }
             }
@@ -7444,26 +7213,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "7800",
-        "7800",
         "7800"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 7800,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 7800,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 7800,
           "currency": "₦",
@@ -8044,26 +7799,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "1700",
-        "1700",
         "1700"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 1700,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 1700,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 1700,
           "currency": "₦",
@@ -8848,26 +8589,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "790",
-        "790",
         "790"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 790,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 790,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 790,
           "currency": "₦",
@@ -9248,26 +8975,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "1400",
-        "1400",
         "1400"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 1400,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 1400,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 1400,
           "currency": "₦",
@@ -9448,26 +9161,12 @@
       "subject": "Your subscription confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "995",
-        "995",
         "995"
       ],
       "currencies": [
-        "₦",
-        "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 995,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 995,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
         {
           "amount": 995,
           "currency": "₦",
@@ -9648,26 +9347,12 @@
       "subject": "Your receipt from On Off, Inc. #2809-6471",
       "from": "\"On Off, Inc.\" <invoice+statements+acct_1OUEDcCrXZplPvVX@stripe.com>",
       "amounts": [
-        "20",
-        "20",
         "20"
       ],
       "currencies": [
-        "$",
-        "$",
         "$"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 20,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
-        {
-          "amount": 20,
-          "currency": "$",
-          "originalCurrency": "$"
-        },
         {
           "amount": 20,
           "currency": "$",
@@ -9872,7 +9557,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ96BcJsuGUGkV_uD15-DhUzzq3wz-NSdin6BngSCRqSfviASq2_AXKCZFt6q17ptSoa6j3TIG_lX-rYxzSsVc0wMqduWFnNwTHxQLaDcMYaOdq8n9Lmcll13pEXJX-KxZINUAgr6wLF9Zsdo9l_K7NusW_NdAd4dGr0GHRUm1AGuRlC6fneLhBqFyx4KL3_vI-Hct1V2l_M8UdGeCogtBErEQ6veb_S-LdjY8iN9KJo6DUgTGYDkBn63RiHGnQA7cVsYyvVfJF2SJiByJBIE8zseyc-niSu89xym0YmooFSJ-DnmyymsY6TGL5-grue4_cQljPRuk8bJ_Io989Re_hhea6EgdYg0YCUdRf14_tV8rhQJu3Rtj_GV9wL8RaR1yroFiik97IBtQWN",
+                "attachmentId": "ANGjdJ9DqymJYHAXsngljZrtXRRZci9uOJlDAsAVLrFlnhBXDCOWA856Q6yqY5nLt57y-_fqPTk-9WnhEOueh30H8yujCryGeLJ2qPpjqjUmxH2WPx3yTXPk6YeUQjFMBDsjWs5VZqiqzzE_pOxIq6Wzze-15NjIK8ooQm11k-o1fD8ZlSDFVRL6aJgFkFp3KAH_xf2wsYYwag2f-tx2qX8dSX_60C4IqJ-P4be0acgapLwSS3NAfBycG5PHB_xEOgBM5sPrWUGA6r-kzW9Cimb71h7MbgH6ZBF2A5fnwH7ZiN39grmzU5gkKHFmCluCxLJCzFU6ADa0PpxBG3693YnXg_3KfI3sxBZlLT8ch0gERSkVIpI06IIVASROv4UowSar1sTvmybeu9VFC_GI",
                 "size": 20853
               }
             },
@@ -9895,7 +9580,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ9VsEQyc3lxROx381HHMvk-WpF0FXnHsMAclo_XdbHNbiYjcGPduYvounSHWDlA3REdWBr4nBXuvuYgkYUm16u1t3Z3S7j45ChzkDnfQMer_pZi8dXLq2DOjHZuOo6TBourU_UmOykxiTGJVFi8nVB1opd_XenKXeewdgfkK3I9eMRpbix_4sKWRl9OGgQaf1RTCQf6-pZBhm_53xynrlUIxRY3xidyxGeoSzJoPj6PQd9iOtH3SSHmX4O2v1vLWcJUFvnz_MDbQMzWLV9WmJKUEkN6u4Dg5Gk2q0ab2e59HicNGnpUpmkYAGzZtXwxaakaZA1TcSzshtYEt69jT-hAfcrw_YaAyQd4bckUHXgYeKxfDaN5ha5pbvqnoWKl85QN1d74fxpO3Zgw",
+                "attachmentId": "ANGjdJ9xsC0d08x542wAZcdrnortgJ9zLzjkqdXtzK9BDI6t3uLhZxLcRobeLsauMFcaYVt285rFBH7NbQfk8zhbv4B0loJQNBvGvJ3vU86eLAEp5V1WKr8zRi7QGkFaHnXDGHZLS1HH9mmAGnnq_2iFX7MFDMcanqMRDQoTK8sMYkROUocLyny3k_8PE0tLM0Bykz6S_ngStIDsNLT_87fjQHqwtpdsa7t2F-kAw1_fTTJT9K_KQVdjm3jlVHMGEEP6EWCjcP1vmpP4Nz8RKl42HzykbwtgVOouwis1dDNkwQQ-kOecS-JqmXbGhgObcymE5HxZtwpBVANa-4oJ-HKaDK0ZaSKaQ9W-07DKpDbvSi3G2fz43XoEYkusizAlJf6VfvdWSGP6UNhKPccI",
                 "size": 22020
               }
             }
@@ -9913,26 +9598,12 @@
       "subject": "Receipt for your payment to Google",
       "from": "PayPal <service@paypal.co.uk>",
       "amounts": [
-        "1.59",
-        "1.59",
         "1.59"
       ],
       "currencies": [
-        "£",
-        "£",
         "£"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 1.59,
-          "currency": "£",
-          "originalCurrency": "£"
-        },
-        {
-          "amount": 1.59,
-          "currency": "£",
-          "originalCurrency": "£"
-        },
         {
           "amount": 1.59,
           "currency": "£",
@@ -10085,30 +9756,16 @@
       "subject": "Subscription Confirmation",
       "from": "Apple <no_reply@email.apple.com>",
       "amounts": [
-        "2900",
-        "2900",
-        "2"
+        "2900"
       ],
       "currencies": [
-        "₦",
-        "₦",
-        "$"
+        "₦"
       ],
       "originalAmountsWithCurrency": [
         {
           "amount": 2900,
           "currency": "₦",
           "originalCurrency": "₦"
-        },
-        {
-          "amount": 2900,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 2,
-          "currency": "$",
-          "originalCurrency": "$"
         }
       ],
       "category": "internal_transfer",
@@ -10286,9 +9943,9 @@
       "subject": "Your Bolt trip on Sunday",
       "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
       "amounts": [
-        "160",
-        "160",
-        "149"
+        "30",
+        "76.63",
+        "0.51"
       ],
       "currencies": [
         "₦",
@@ -10297,17 +9954,17 @@
       ],
       "originalAmountsWithCurrency": [
         {
-          "amount": 160,
+          "amount": 30,
           "currency": "₦",
           "originalCurrency": "₦"
         },
         {
-          "amount": 160,
+          "amount": 76.63,
           "currency": "₦",
           "originalCurrency": "₦"
         },
         {
-          "amount": 149,
+          "amount": 0.51,
           "currency": "₦",
           "originalCurrency": "₦"
         }
@@ -10442,28 +10099,21 @@
       "subject": "Your Bolt trip on Sunday",
       "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
       "amounts": [
-        "330",
-        "330",
-        "311"
+        "30",
+        "154.86"
       ],
       "currencies": [
-        "₦",
         "₦",
         "₦"
       ],
       "originalAmountsWithCurrency": [
         {
-          "amount": 330,
+          "amount": 30,
           "currency": "₦",
           "originalCurrency": "₦"
         },
         {
-          "amount": 330,
-          "currency": "₦",
-          "originalCurrency": "₦"
-        },
-        {
-          "amount": 311,
+          "amount": 154.86,
           "currency": "₦",
           "originalCurrency": "₦"
         }
@@ -10598,9 +10248,9 @@
       "subject": "Your Bolt trip on Saturday",
       "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
       "amounts": [
-        "340",
-        "340",
-        "318"
+        "30",
+        "160.06",
+        "21.75"
       ],
       "currencies": [
         "₦",
@@ -10609,17 +10259,17 @@
       ],
       "originalAmountsWithCurrency": [
         {
-          "amount": 340,
+          "amount": 30,
           "currency": "₦",
           "originalCurrency": "₦"
         },
         {
-          "amount": 340,
+          "amount": 160.06,
           "currency": "₦",
           "originalCurrency": "₦"
         },
         {
-          "amount": 318,
+          "amount": 21.75,
           "currency": "₦",
           "originalCurrency": "₦"
         }

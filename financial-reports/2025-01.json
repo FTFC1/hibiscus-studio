@@ -10,9 +10,9 @@
         "subject": "Your Bolt trip on Tuesday",
         "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
         "amounts": [
-          "650",
-          "650",
-          "745"
+          "30",
+          "377.12",
+          "33.57"
         ],
         "currencies": [
           "₦",
@@ -21,17 +21,17 @@
         ],
         "originalAmountsWithCurrency": [
           {
-            "amount": 650,
+            "amount": 30,
             "currency": "₦",
             "originalCurrency": "₦"
           },
           {
-            "amount": 650,
+            "amount": 377.12,
             "currency": "₦",
             "originalCurrency": "₦"
           },
           {
-            "amount": 745,
+            "amount": 33.57,
             "currency": "₦",
             "originalCurrency": "₦"
           }
@@ -167,8 +167,8 @@
         "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
         "amounts": [
           "32.8",
-          "32.8",
-          "29.04"
+          "29.04",
+          "3.76"
         ],
         "currencies": [
           "£",
@@ -182,12 +182,12 @@
             "originalCurrency": "£"
           },
           {
-            "amount": 32.8,
+            "amount": 29.04,
             "currency": "£",
             "originalCurrency": "£"
           },
           {
-            "amount": 29.04,
+            "amount": 3.76,
             "currency": "£",
             "originalCurrency": "£"
           }
@@ -323,8 +323,8 @@
         "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
         "amounts": [
           "24.6",
-          "24.6",
-          "21.78"
+          "21.78",
+          "2.82"
         ],
         "currencies": [
           "£",
@@ -338,12 +338,12 @@
             "originalCurrency": "£"
           },
           {
-            "amount": 24.6,
+            "amount": 21.78,
             "currency": "£",
             "originalCurrency": "£"
           },
           {
-            "amount": 21.78,
+            "amount": 2.82,
             "currency": "£",
             "originalCurrency": "£"
           }
@@ -479,8 +479,8 @@
         "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
         "amounts": [
           "12.8",
-          "12.8",
-          "11.33"
+          "11.33",
+          "1.47"
         ],
         "currencies": [
           "£",
@@ -494,12 +494,12 @@
             "originalCurrency": "£"
           },
           {
-            "amount": 12.8,
+            "amount": 11.33,
             "currency": "£",
             "originalCurrency": "£"
           },
           {
-            "amount": 11.33,
+            "amount": 1.47,
             "currency": "£",
             "originalCurrency": "£"
           }
@@ -635,8 +635,8 @@
         "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
         "amounts": [
           "7.6",
-          "7.6",
-          "6.73"
+          "6.73",
+          "0.87"
         ],
         "currencies": [
           "£",
@@ -650,12 +650,12 @@
             "originalCurrency": "£"
           },
           {
-            "amount": 7.6,
+            "amount": 6.73,
             "currency": "£",
             "originalCurrency": "£"
           },
           {
-            "amount": 6.73,
+            "amount": 0.87,
             "currency": "£",
             "originalCurrency": "£"
           }
@@ -793,20 +793,13 @@
         "from": "Uber Eats <uber@uber.com>",
         "amounts": [
           "12",
-          "12",
           "25"
         ],
         "currencies": [
           "£",
-          "£",
           "£"
         ],
         "originalAmountsWithCurrency": [
-          {
-            "amount": 12,
-            "currency": "£",
-            "originalCurrency": "£"
-          },
           {
             "amount": 12,
             "currency": "£",
@@ -1540,9 +1533,9 @@
       "subject": "Your Bolt trip on Tuesday",
       "from": "Bolt Nigeria <receipts-nigeria@bolt.eu>",
       "amounts": [
-        "650",
-        "650",
-        "745"
+        "30",
+        "377.12",
+        "33.57"
       ],
       "currencies": [
         "₦",
@@ -1551,17 +1544,17 @@
       ],
       "originalAmountsWithCurrency": [
         {
-          "amount": 650,
+          "amount": 30,
           "currency": "₦",
           "originalCurrency": "₦"
         },
         {
-          "amount": 650,
+          "amount": 377.12,
           "currency": "₦",
           "originalCurrency": "₦"
         },
         {
-          "amount": 745,
+          "amount": 33.57,
           "currency": "₦",
           "originalCurrency": "₦"
         }
@@ -1697,20 +1690,13 @@
       "from": "Uber Eats <uber@uber.com>",
       "amounts": [
         "12",
-        "12",
         "25"
       ],
       "currencies": [
         "£",
-        "£",
         "£"
       ],
       "originalAmountsWithCurrency": [
-        {
-          "amount": 12,
-          "currency": "£",
-          "originalCurrency": "£"
-        },
         {
           "amount": 12,
           "currency": "£",
@@ -2441,8 +2427,8 @@
       "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
       "amounts": [
         "32.8",
-        "32.8",
-        "29.04"
+        "29.04",
+        "3.76"
       ],
       "currencies": [
         "£",
@@ -2456,12 +2442,12 @@
           "originalCurrency": "£"
         },
         {
-          "amount": 32.8,
+          "amount": 29.04,
           "currency": "£",
           "originalCurrency": "£"
         },
         {
-          "amount": 29.04,
+          "amount": 3.76,
           "currency": "£",
           "originalCurrency": "£"
         }
@@ -2597,8 +2583,8 @@
       "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
       "amounts": [
         "24.6",
-        "24.6",
-        "21.78"
+        "21.78",
+        "2.82"
       ],
       "currencies": [
         "£",
@@ -2612,12 +2598,12 @@
           "originalCurrency": "£"
         },
         {
-          "amount": 24.6,
+          "amount": 21.78,
           "currency": "£",
           "originalCurrency": "£"
         },
         {
-          "amount": 21.78,
+          "amount": 2.82,
           "currency": "£",
           "originalCurrency": "£"
         }
@@ -2753,8 +2739,8 @@
       "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
       "amounts": [
         "12.8",
-        "12.8",
-        "11.33"
+        "11.33",
+        "1.47"
       ],
       "currencies": [
         "£",
@@ -2768,12 +2754,12 @@
           "originalCurrency": "£"
         },
         {
-          "amount": 12.8,
+          "amount": 11.33,
           "currency": "£",
           "originalCurrency": "£"
         },
         {
-          "amount": 11.33,
+          "amount": 1.47,
           "currency": "£",
           "originalCurrency": "£"
         }
@@ -2909,8 +2895,8 @@
       "from": "Bolt UK <receipts-unitedkingdom@bolt.eu>",
       "amounts": [
         "7.6",
-        "7.6",
-        "6.73"
+        "6.73",
+        "0.87"
       ],
       "currencies": [
         "£",
@@ -2924,12 +2910,12 @@
           "originalCurrency": "£"
         },
         {
-          "amount": 7.6,
+          "amount": 6.73,
           "currency": "£",
           "originalCurrency": "£"
         },
         {
-          "amount": 6.73,
+          "amount": 0.87,
           "currency": "£",
           "originalCurrency": "£"
         }
