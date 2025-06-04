@@ -434,62 +434,39 @@ class LocalFinancialAnalyser {
   }
 
   async analyseAllFinancialData() {
-    console.log('🔹 Starting comprehensive financial analysis...');
+    console.log('🔹 Starting FAST financial analysis...');
     
-    // Generate date ranges for the last 6 months
-    const now = new Date();
-    const dateRanges = [];
-    
-    for (let i = 0; i < 6; i++) {
-      const month = (now.getMonth() - i + 12) % 12;
-      const year = month > now.getMonth() ? now.getFullYear() - 1 : now.getFullYear();
-      
-      const startDate = new Date(year, month, 1);
-      const endDate = new Date(year, month + 1, 1);
-      
-      dateRanges.push({
-        name: startDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }),
-        query: `after:${year}/${String(month + 1).padStart(2, '0')}/01 before:${endDate.getFullYear()}/${String(endDate.getMonth() + 1).padStart(2, '0')}/01`
-      });
-    }
-    
-    // Enhanced search queries based on deep investigation
-    const baseSearchQueries = [
-      // Core financial terms
-      'invoice OR billing OR receipt OR payment OR charged',
-      'subscription OR recurring OR monthly',
-      'transfer OR bank OR statement',
-      
-      // Service providers (using from: syntax for accuracy)
-      'from:apple OR from:netflix OR from:spotify OR from:openai',
-      'from:paypal OR from:stripe OR from:lemonsqueezy',
-      'from:opay OR from:providus OR from:zenith OR from:hsbc',
-      'from:claude OR from:replit OR from:github OR from:supabase',
-      'from:vercel OR from:exafunction OR from:magicpatterns',
-      
-      // App stores & digital services
-      'app store OR play store',
-      'wispr OR ai OR tool',
-      
-      // Transport & dating
-      'from:bolt OR from:uber',
-      'from:tinder OR dating'
+    // MUCH FASTER: Use broader queries instead of month-by-month
+    const fastSearchQueries = [
+      // Single comprehensive query per service (much faster than date ranges)
+      'from:apple after:2024/12/01',
+      'from:netflix OR from:spotify after:2024/12/01', 
+      'from:openai OR from:claude after:2024/12/01',
+      'from:paypal OR from:stripe OR from:lemonsqueezy after:2024/12/01',
+      'from:opay OR from:providus OR from:zenith after:2024/12/01',
+      'from:vercel OR from:replit OR from:github after:2024/12/01',
+      'from:bolt OR from:uber OR from:tinder after:2024/12/01',
+      'invoice OR receipt OR billing after:2024/12/01',
+      'subscription OR recurring after:2024/12/01'
     ];
 
     this.transactions = [];
     
-    // Search with date ranges for historical completeness
-    for (const dateRange of dateRanges) {
-      console.log(`\n🔍 Searching ${dateRange.name}...`);
-      
-      for (const baseQuery of baseSearchQueries) {
-        const fullQuery = `${baseQuery} ${dateRange.query}`;
-        const results = await this.searchFinancialEmails(fullQuery, 50);
-        this.transactions.push(...results);
-        
-        // Rate limiting - be nice to Gmail API
-        await new Promise(resolve => setTimeout(resolve, 500));
-      }
+    console.log(`🚀 Running ${fastSearchQueries.length} optimised queries...`);
+    
+    // SPEED: Process queries in parallel and remove rate limiting
+    const searchPromises = fastSearchQueries.map(async (query, index) => {
+      console.log(`⚡ Query ${index + 1}/${fastSearchQueries.length}: ${query}`);
+      const results = await this.searchFinancialEmails(query, 100); // Increased limit
+      return results;
+    });
+    
+    // Execute all searches simultaneously 
+    const allResults = await Promise.all(searchPromises);
+    
+    // Flatten results
+    for (const results of allResults) {
+      this.transactions.push(...results);
     }
 
     // Remove duplicates
