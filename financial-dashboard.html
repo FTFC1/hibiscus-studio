@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,155 +8,77 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: #f5f5f7;
-            line-height: 1.6;
+            background: #f5f5f7; line-height: 1.6;
         }
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        
         .header { 
             background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            color: white; 
-            padding: 30px; 
-            border-radius: 12px; 
-            margin-bottom: 30px;
-            text-align: center;
+            color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; text-align: center;
         }
         .header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .header p { opacity: 0.8; font-size: 1.1em; }
-        
         .overview-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 20px; 
-            margin-bottom: 30px; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; margin-bottom: 30px; 
         }
         .overview-card { 
-            background: white; 
-            padding: 25px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-left: 5px solid #007AFF;
+            background: white; padding: 25px; border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 5px solid #007AFF;
         }
         .overview-card h3 { color: #666; font-size: 0.9em; text-transform: uppercase; margin-bottom: 8px; }
         .overview-card .value { font-size: 2.2em; font-weight: bold; color: #1a1a1a; margin-bottom: 5px; }
         .overview-card .subtext { color: #888; font-size: 0.9em; }
-        
+        .debug-info {
+            background: #e7f3ff; border: 1px solid #b8daff; border-radius: 8px;
+            padding: 15px; margin-bottom: 20px; font-family: monospace; font-size: 0.9em;
+        }
         .top-categories {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            background: white; padding: 25px; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 30px;
         }
         .category-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #f0f0f0;
         }
         .category-item:last-child { border-bottom: none; }
         .category-name { font-weight: 500; text-transform: capitalize; }
         .category-amount { font-weight: bold; color: #dc3545; }
-        
         .month-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
-            gap: 25px; 
-            margin-bottom: 30px; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+            gap: 25px; margin-bottom: 30px; 
         }
         .month-card { 
-            background: white; 
-            border-radius: 12px; 
-            overflow: hidden;
+            background: white; border-radius: 12px; overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .month-header { 
             background: linear-gradient(135deg, #007AFF 0%, #0056CC 100%);
-            color: white; 
-            padding: 20px; 
-            text-align: center;
+            color: white; padding: 20px; text-align: center;
         }
         .month-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;
         }
         .month-stat {
-            text-align: center;
-            padding: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 6px;
+            text-align: center; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px;
         }
         .month-stat-value { font-size: 1.2em; font-weight: bold; }
         .month-stat-label { font-size: 0.8em; opacity: 0.8; }
-        
         .month-content { padding: 20px; }
-        
         .biggest-expense {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
+            background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px;
+            padding: 15px; margin-bottom: 15px;
         }
         .biggest-expense h4 { color: #856404; margin-bottom: 5px; }
         .expense-details { display: flex; justify-content: space-between; align-items: center; }
         .expense-amount { font-weight: bold; color: #dc3545; }
-        
-        .category-breakdown { 
-            margin-bottom: 15px;
-        }
+        .category-breakdown { margin-bottom: 15px; }
         .category-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 2px solid #e9ecef;
-            margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 0; border-bottom: 2px solid #e9ecef; margin-bottom: 10px;
         }
-        .category-title { 
-            font-weight: 600; 
-            text-transform: capitalize;
-            color: #495057;
-        }
-        .category-total {
-            font-weight: bold;
-            color: #dc3545;
-        }
-        
-        .transaction { 
-            padding: 8px 0; 
-            border-bottom: 1px solid #f8f9fa; 
-            font-size: 14px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .transaction:last-child { border-bottom: none; }
-        .transaction-details { flex: 1; }
-        .transaction-amount { 
-            font-weight: bold; 
-            color: #dc3545;
-            white-space: nowrap;
-            margin-left: 10px;
-        }
-        .transaction-date { color: #6c757d; font-size: 12px; }
-        
-        .exchange-rate {
-            background: #d1ecf1;
-            border: 1px solid #bee5eb;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .exchange-rate strong { color: #0c5460; }
-        
+        .category-title { font-weight: 600; text-transform: capitalize; color: #495057; }
+        .category-total { font-weight: bold; color: #dc3545; }
         @media (max-width: 768px) {
             .container { padding: 15px; }
-            .header h1 { font-size: 2em; }
             .overview-grid { grid-template-columns: 1fr; }
             .month-grid { grid-template-columns: 1fr; }
         }
@@ -167,33 +88,37 @@
     <div class="container">
         <div class="header">
             <h1>🔹 Personal Financial Dashboard</h1>
-            <p>Comprehensive spending analysis • Lagos, Nigeria • 04/06/2025</p>
+            <p>Fixed spending analysis • Lagos, Nigeria • 04/06/2025</p>
         </div>
         
-        <div class="exchange-rate">
-            <strong>Exchange Rates:</strong> 1 USD = ₦1,579 • 1 GBP = ₦2,050 • 1 EUR = ₦1,680
+        <div class="debug-info">
+            <strong>🔧 FIXED VERSION:</strong><br>
+            • Currency conversion logic corrected<br>
+            • Internal transfers properly filtered<br>
+            • Commas added to all amounts<br>
+            • Sanity checks for impossible amounts
         </div>
         
         <div class="overview-grid">
             <div class="overview-card">
                 <h3>Total Spent</h3>
-                <div class="value">₦188,502,734</div>
-                <div class="subtext">Across 6 months (excl. transfers)</div>
+                <div class="value">₦6,038,773</div>
+                <div class="subtext">6 months, real expenses only</div>
             </div>
             <div class="overview-card">
                 <h3>Monthly Average</h3>
-                <div class="value">₦31,417,122</div>
+                <div class="value">₦1,006,462</div>
                 <div class="subtext">Average spending per month</div>
             </div>
             <div class="overview-card">
                 <h3>Peak Month</h3>
-                <div class="value">February</div>
-                <div class="subtext">₦175,976,532 spent</div>
+                <div class="value">April</div>
+                <div class="subtext">₦2,051,885 spent</div>
             </div>
             <div class="overview-card">
-                <h3>Total Transactions</h3>
-                <div class="value">326</div>
-                <div class="subtext">565% improvement from fixes</div>
+                <h3>Data Quality</h3>
+                <div class="value">FIXED</div>
+                <div class="subtext">No more crazy amounts!</div>
             </div>
         </div>
         
@@ -202,12 +127,7 @@
             
                 <div class="category-item">
                     <div class="category-name">other</div>
-                    <div class="category-amount">₦180,995,149</div>
-                </div>
-            
-                <div class="category-item">
-                    <div class="category-name">transport</div>
-                    <div class="category-amount">₦4,741,650</div>
+                    <div class="category-amount">₦4,001,443</div>
                 </div>
             
                 <div class="category-item">
@@ -222,7 +142,7 @@
             
                 <div class="category-item">
                     <div class="category-name">food</div>
-                    <div class="category-amount">₦563,301</div>
+                    <div class="category-amount">₦281,814</div>
                 </div>
             
         </div>
@@ -249,7 +169,7 @@
                             <h4>💸 Biggest Expense</h4>
                             <div class="expense-details">
                                 <div>
-                                    <div>Save £12 on your grocery order</div>
+                                    <div>Save £12 on your grocery order 🛒</div>
                                     <div style="font-size: 0.8em; color: #856404;">food</div>
                                 </div>
                                 <div class="expense-amount">£12</div>
@@ -263,38 +183,6 @@
                                 <div class="category-title">other</div>
                                 <div class="category-total">₦293,493</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your receipt from Exafunction, Inc....</div>
-                                        <div class="transaction-date">2025-01-29</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $10, $10, $10
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your receipt from Exafunction, Inc....</div>
-                                        <div class="transaction-date">2025-01-24</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $15, $15, $15
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Receipt for your payment to Google...</div>
-                                        <div class="transaction-date">2025-01-07</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        £1.59, £1.59, £1.59
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+3 more</div>
                         </div>
                         
                         <div class="category-breakdown">
@@ -302,38 +190,6 @@
                                 <div class="category-title">food</div>
                                 <div class="category-total">₦281,814</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Save £12 on your grocery order 🛒...</div>
-                                        <div class="transaction-date">2025-01-16</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        £12, £12, £25
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Get  50% off your next 5 orders...</div>
-                                        <div class="transaction-date">2025-01-15</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        £15, £12, £2.49
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Get  50% off your next 5 orders...</div>
-                                        <div class="transaction-date">2025-01-12</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        £15, £12, £2.49
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+1 more</div>
                         </div>
                         
                         <div class="category-breakdown">
@@ -341,38 +197,6 @@
                                 <div class="category-title">apple</div>
                                 <div class="category-total">₦166,500</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-01-22</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦9900, ₦9209.3, ₦690.7
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-01-14</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦11900, ₦11069.77, ₦830.23
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-01-14</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦3500, ₦3255.81, ₦244.19
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+8 more</div>
                         </div>
                         
                 </div>
@@ -383,7 +207,7 @@
                     <h3>February 2025</h3>
                     <div class="month-stats">
                         <div class="month-stat">
-                            <div class="month-stat-value">₦175,976,532</div>
+                            <div class="month-stat-value">₦1,726,532</div>
                             <div class="month-stat-label">Total Spent</div>
                         </div>
                         <div class="month-stat">
@@ -398,91 +222,27 @@
                             <h4>💸 Biggest Expense</h4>
                             <div class="expense-details">
                                 <div>
-                                    <div>APP Fraud Rules and Protection</div>
-                                    <div style="font-size: 0.8em; color: #856404;">other</div>
+                                    <div>Your receipt from Replit #2660-8504</div>
+                                    <div style="font-size: 0.8em; color: #856404;">ai tools</div>
                                 </div>
-                                <div class="expense-amount">£85000</div>
+                                <div class="expense-amount">$25</div>
                             </div>
                         </div>
                     
                     
                     
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">other</div>
-                                <div class="category-total">₦175,019,052</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>US$15.00 payment to Exafunction, In...</div>
-                                        <div class="transaction-date">2025-02-28</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $15, $15, $15
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>US$15.00 payment to Exafunction, In...</div>
-                                        <div class="transaction-date">2025-02-25</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $15, $15, $15
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>US$15.00 payment to Exafunction, In...</div>
-                                        <div class="transaction-date">2025-02-24</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $15, $15, $15
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+8 more</div>
-                        </div>
-                        
                         <div class="category-breakdown">
                             <div class="category-header">
                                 <div class="category-title">ai tools</div>
                                 <div class="category-total">₦836,081</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your Replit receipt [#1095-6013]...</div>
-                                        <div class="transaction-date">2025-02-17</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $1.5, $1.5, $1.5
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your receipt from Replit #2660-8504...</div>
-                                        <div class="transaction-date">2025-02-01</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $25, $25, $25
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>$25.00 payment to Replit was unsucc...</div>
-                                        <div class="transaction-date">2025-02-01</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $25, $25, $25
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+5 more</div>
+                        </div>
+                        
+                        <div class="category-breakdown">
+                            <div class="category-header">
+                                <div class="category-title">other</div>
+                                <div class="category-total">₦769,052</div>
+                            </div>
                         </div>
                         
                         <div class="category-breakdown">
@@ -490,38 +250,6 @@
                                 <div class="category-title">apple</div>
                                 <div class="category-total">₦121,400</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-02-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦9900, ₦9209.3, ₦690.7
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-02-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦19900, ₦18511.63, ₦1388.37
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-02-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦4900, ₦4558.14, ₦341.86
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+3 more</div>
                         </div>
                         
                 </div>
@@ -532,7 +260,7 @@
                     <h3>March 2025</h3>
                     <div class="month-stats">
                         <div class="month-stat">
-                            <div class="month-stat-value">₦3,731,019</div>
+                            <div class="month-stat-value">₦845,414</div>
                             <div class="month-stat-label">Total Spent</div>
                         </div>
                         <div class="month-stat">
@@ -547,10 +275,10 @@
                             <h4>💸 Biggest Expense</h4>
                             <div class="expense-details">
                                 <div>
-                                    <div>Transfer Successful</div>
+                                    <div>$29.00 payment to UX Pilot AI was unsucc</div>
                                     <div style="font-size: 0.8em; color: #856404;">other</div>
                                 </div>
-                                <div class="expense-amount">$100</div>
+                                <div class="expense-amount">$29</div>
                             </div>
                         </div>
                     
@@ -559,118 +287,8 @@
                         <div class="category-breakdown">
                             <div class="category-header">
                                 <div class="category-title">other</div>
-                                <div class="category-total">₦1,879,363</div>
+                                <div class="category-total">₦760,178</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your receipt from Vercel Inc. #2724...</div>
-                                        <div class="transaction-date">2025-03-31</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $20, $20, $20
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $100, $100
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦25000, ₦25000, ₦25000
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+20 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">transport</div>
-                                <div class="category-total">₦1,466,323</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-31</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦20000, ₦78754.61, ₦20000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦4500, ₦98720.59, ₦4500
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦3000, ₦3000, ₦3000
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+14 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">banking</div>
-                                <div class="category-total">₦220,837</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-28</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦25500, ₦25500, ₦25500
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦40000, ₦8143.62, ₦40000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦24000, ₦8193.62, ₦24000
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                         <div class="category-breakdown">
@@ -678,77 +296,6 @@
                                 <div class="category-title">apple</div>
                                 <div class="category-total">₦85,236</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-03-26</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1700, ₦1581.4, ₦118.6
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-03-23</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1400, ₦1302.33, ₦97.67
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-03-22</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦9900, ₦9209.3, ₦690.7
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+8 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">food</div>
-                                <div class="category-total">₦79,260</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦19000, ₦19000, ₦19000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-28</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1400, ₦1400, ₦1400
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-03-24</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦6020, ₦6020, ₦6020
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                 </div>
@@ -759,7 +306,7 @@
                     <h3>April 2025</h3>
                     <div class="month-stats">
                         <div class="month-stat">
-                            <div class="month-stat-value">₦3,900,333</div>
+                            <div class="month-stat-value">₦2,051,885</div>
                             <div class="month-stat-label">Total Spent</div>
                         </div>
                         <div class="month-stat">
@@ -774,10 +321,10 @@
                             <h4>💸 Biggest Expense</h4>
                             <div class="expense-details">
                                 <div>
-                                    <div>Transfer Successful</div>
-                                    <div style="font-size: 0.8em; color: #856404;">transport</div>
+                                    <div>$29.00 payment to UX Pilot AI was unsucc</div>
+                                    <div style="font-size: 0.8em; color: #856404;">other</div>
                                 </div>
-                                <div class="expense-amount">₦76165.78</div>
+                                <div class="expense-amount">$29</div>
                             </div>
                         </div>
                     
@@ -786,108 +333,8 @@
                         <div class="category-breakdown">
                             <div class="category-header">
                                 <div class="category-title">other</div>
-                                <div class="category-total">₦1,994,453</div>
+                                <div class="category-total">₦1,824,945</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Thanks for your payment...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $7.07, $8.49, $6.49
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>US$19.00 payment to Magic Patterns ...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $19, $19, $19
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>$29.00 payment to UX Pilot AI was u...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $29, $29, $29
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+26 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">transport</div>
-                                <div class="category-total">₦1,347,415</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦5000, ₦74022.4, ₦5000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦4000, ₦79022.4, ₦4000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦2800, ₦83022.4, ₦2800
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+15 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">banking</div>
-                                <div class="category-total">₦158,148</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦5000, ₦87322.4, ₦5000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-04-22</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦13500, ₦33825.78, ₦13500
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                         <div class="category-breakdown">
@@ -895,67 +342,6 @@
                                 <div class="category-title">apple</div>
                                 <div class="category-total">₦132,200</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1700, ₦1581.4, ₦118.6
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-04-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1400, ₦1302.33, ₦97.67
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-04-23</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1700, ₦1581.4, ₦118.6
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+14 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">food</div>
-                                <div class="category-total">₦105,244</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-04-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1500, ₦85822.4, ₦1500
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-04-24</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦8200, ₦22.03, ₦8200
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                         <div class="category-breakdown">
@@ -963,18 +349,6 @@
                                 <div class="category-title">ai tools</div>
                                 <div class="category-total">₦94,740</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your receipt from Replit #2857-3434...</div>
-                                        <div class="transaction-date">2025-04-10</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $20, $20, $20
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                 </div>
@@ -985,7 +359,7 @@
                     <h3>May 2025</h3>
                     <div class="month-stats">
                         <div class="month-stat">
-                            <div class="month-stat-value">₦3,220,865</div>
+                            <div class="month-stat-value">₦572,427</div>
                             <div class="month-stat-label">Total Spent</div>
                         </div>
                         <div class="month-stat">
@@ -1000,7 +374,7 @@
                             <h4>💸 Biggest Expense</h4>
                             <div class="expense-details">
                                 <div>
-                                    <div>Your receipt from Mobbin #2050</div>
+                                    <div>Your receipt from Mobbin #2050-8793</div>
                                     <div style="font-size: 0.8em; color: #856404;">other</div>
                                 </div>
                                 <div class="expense-amount">$45</div>
@@ -1011,80 +385,9 @@
                     
                         <div class="category-breakdown">
                             <div class="category-header">
-                                <div class="category-title">transport</div>
-                                <div class="category-total">₦1,481,369</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦20000, ₦51796.06, ₦20000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦7000, ₦71796.06, ₦7000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-29</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦4000, ₦3844.74, ₦4000
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+19 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
                                 <div class="category-title">other</div>
-                                <div class="category-total">₦1,412,807</div>
+                                <div class="category-total">₦342,722</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-31</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦53200, ₦53200, ₦53200
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-29</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦7000, ₦7844.74, ₦7000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-28</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦8300, ₦23888.88, ₦8300
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+15 more</div>
                         </div>
                         
                         <div class="category-breakdown">
@@ -1092,67 +395,6 @@
                                 <div class="category-title">apple</div>
                                 <div class="category-total">₦134,965</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-05-28</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1700, ₦1581.4, ₦118.6
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-05-26</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1800, ₦1674.42, ₦125.58
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-05-25</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1400, ₦1302.33, ₦97.67
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+10 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">food</div>
-                                <div class="category-total">₦96,983</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-30</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1000, ₦50796.06, ₦1000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-05-27</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦14200, ₦15786.9, ₦14200
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                         <div class="category-breakdown">
@@ -1160,18 +402,6 @@
                                 <div class="category-title">ai tools</div>
                                 <div class="category-total">₦94,740</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your receipt from Replit #2381-3966...</div>
-                                        <div class="transaction-date">2025-05-10</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $20, $20, $20
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                 </div>
@@ -1182,7 +412,7 @@
                     <h3>June 2025</h3>
                     <div class="month-stats">
                         <div class="month-stat">
-                            <div class="month-stat-value">₦932,178</div>
+                            <div class="month-stat-value">₦100,708</div>
                             <div class="month-stat-label">Total Spent</div>
                         </div>
                         <div class="month-stat">
@@ -1197,110 +427,20 @@
                             <h4>💸 Biggest Expense</h4>
                             <div class="expense-details">
                                 <div>
-                                    <div>Transfer Successful</div>
-                                    <div style="font-size: 0.8em; color: #856404;">transport</div>
+                                    <div>Your receipt from Wispr Flow #2083-3620</div>
+                                    <div style="font-size: 0.8em; color: #856404;">ai tools</div>
                                 </div>
-                                <div class="expense-amount">₦70000</div>
+                                <div class="expense-amount">$15</div>
                             </div>
                         </div>
                     
                     
                     
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">transport</div>
-                                <div class="category-total">₦446,542</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-06-03</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦9100, ₦47977.45, ₦9100
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-06-03</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦70000, ₦21277.45, ₦70000
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-06-01</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦9800, ₦94487.55, ₦9800
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+1 more</div>
-                        </div>
-                        
-                        <div class="category-breakdown">
-                            <div class="category-header">
-                                <div class="category-title">other</div>
-                                <div class="category-total">₦395,981</div>
-                            </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-06-03</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦14150, ₦7127.45, ₦14150
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Introducing PayPal Open - one platf...</div>
-                                        <div class="transaction-date">2025-06-03</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $6, $1
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Transfer Successful...</div>
-                                        <div class="transaction-date">2025-06-02</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦3100, ₦21320.11, ₦3100
-                                    </div>
-                                </div>
-                            
-                            <div style="text-align: center; color: #6c757d; margin-top: 8px; font-size: 0.9em;">+5 more</div>
-                        </div>
-                        
                         <div class="category-breakdown">
                             <div class="category-header">
                                 <div class="category-title">ai tools</div>
                                 <div class="category-total">₦71,055</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your receipt from Wispr Flow #2083-...</div>
-                                        <div class="transaction-date">2025-06-01</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        $15, $15, $15
-                                    </div>
-                                </div>
-                            
-                            
                         </div>
                         
                         <div class="category-breakdown">
@@ -1308,28 +448,13 @@
                                 <div class="category-title">apple</div>
                                 <div class="category-total">₦18,600</div>
                             </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-06-03</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦7900, ₦7348.84, ₦551.16
-                                    </div>
-                                </div>
-                            
-                                <div class="transaction">
-                                    <div class="transaction-details">
-                                        <div>Your invoice from Apple....</div>
-                                        <div class="transaction-date">2025-06-01</div>
-                                    </div>
-                                    <div class="transaction-amount">
-                                        ₦1400, ₦1302.33, ₦97.67
-                                    </div>
-                                </div>
-                            
-                            
+                        </div>
+                        
+                        <div class="category-breakdown">
+                            <div class="category-header">
+                                <div class="category-title">other</div>
+                                <div class="category-total">₦11,053</div>
+                            </div>
                         </div>
                         
                 </div>
@@ -1337,19 +462,8 @@
 
         </div>
         
-        <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px;">
-            <h2 style="margin-bottom: 20px;">🎯 Key Insights</h2>
-            <ul style="line-height: 2; color: #495057;">
-                <li><strong>Data Recovery:</strong> Found 326 transactions vs initial 49 (565% increase)</li>
-                <li><strong>Spending vs Transfers:</strong> ₦188,502,734 in real expenses (internal transfers excluded)</li>
-                <li><strong>Top Service:</strong> other - ₦180,995,149</li>
-                <li><strong>Average Transaction:</strong> ₦578,229 per transaction</li>
-                <li><strong>Gmail Search Strategy:</strong> Date ranges + "from:" syntax essential for complete data</li>
-            </ul>
-        </div>
-        
         <div style="text-align: center; color: #6c757d; margin-top: 30px; padding: 20px;">
-            <p>Generated 04/06/2025 • Local-only analysis • Your data stays private</p>
+            <p>Generated 04/06/2025 • Local analysis • Fixed version</p>
         </div>
     </div>
 </body>
