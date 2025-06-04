@@ -176,38 +176,97 @@ class LocalFinancialAnalyser {
     const from = headers.find(h => h.name === 'From')?.value || '';
     const date = new Date(parseInt(message.internalDate));
 
+    // CRITICAL: Filter failed/unsuccessful payments first
+    const failedPaymentPatterns = [
+      /unsuccessful|failed|declined|rejected|error|cancelled/i,
+      /payment.*unsuccessful|payment.*failed|transaction.*failed/i,
+      /could not.*process|unable to.*charge|card.*declined/i,
+      /insufficient.*funds|expired.*card|invalid.*card/i
+    ];
+
+    const isFailedPayment = failedPaymentPatterns.some(pattern => 
+      pattern.test(subject) || pattern.test(from)
+    );
+
+    if (isFailedPayment) {
+      console.log(`🚫 Filtered (failed payment): "${subject}"`);
+      return null;
+    }
+
+    // Enhanced promotional vs receipt detection
+    const promotionalPatterns = [
+      // Generic promotional language
+      /get \d+%.*off|save \d+%|discount|promo|offer|deal|sale/i,
+      /enjoy.*off|special.*offer|limited.*time|coupon|voucher/i,
+      // Email marketing
+      /newsletter|digest|update|announcement|campaign/i,
+      /unsubscribe|click.*here|view.*online|browser/i,
+      // News and content
+      /sifted\.eu|techcrunch|bloomberg|reuters|every\.to|maven/i,
+      /course|lesson|educational|training|webinar/i,
+      // Market/business data (not personal transactions)
+      /revenue.*£\d+|market.*\$\d+|valuation.*€\d+/i,
+      /funding.*\$\d+|raised.*£\d+|investment.*€\d+/i,
+      // Promotional with no actual payment context
+      /\d+%.*off.*next.*\d+.*orders/i,
+      /save.*on.*next.*purchase/i
+    ];
+
+    // Extract email body for deeper analysis
+    const bodyText = this.extractEmailBody(message.payload);
+    const fullText = subject + ' ' + bodyText;
+
+    // Check if this is promotional content
+    const isPromotional = promotionalPatterns.some(pattern => 
+      pattern.test(subject) || pattern.test(from) || pattern.test(bodyText)
+    );
+
+    // Strong indicators this is an actual receipt/invoice (not promotional)
+    const receiptIndicators = [
+      /invoice|receipt|payment.*confirmation|order.*confirmation/i,
+      /charged|billed|paid|transaction.*complete/i,
+      /your.*order|order.*total|amount.*due|balance.*due/i,
+      /subscription.*renewed|subscription.*started/i,
+      /thank.*you.*for.*your.*payment|payment.*received/i
+    ];
+
+    const hasReceiptIndicators = receiptIndicators.some(pattern => 
+      pattern.test(subject) || pattern.test(bodyText)
+    );
+
+    // If promotional but no receipt indicators, filter it out
+    if (isPromotional && !hasReceiptIndicators) {
+      // Only log important filtered promotional items
+      if (/apple|netflix|spotify|openai|claude|uber|bolt/i.test(subject)) {
+        console.log(`🚫 Filtered (promotional): "${subject}" from ${from}`);
+      }
+      return null;
+    }
+
     // Enhanced news/promotional filtering - exclude Bolt receipts
     const newsPatterns = [
       // News and financial content
       /sifted\.eu|techcrunch|bloomberg|reuters|every\.to|maven/i,
-      // Promotional content
-      /temu|promotional|newsletter|digest|update|announcement/i,
       // Educational content  
       /course|lesson|educational|training|webinar/i,
-      // Market data (amounts that aren't personal transactions)
-      /revenue.*£\d+|market.*\$\d+|valuation.*€\d+/i,
       // Bolt notification emails (NOT the actual payments)
       /your bolt trip|bolt.*trip.*receipt|trip.*completed/i,
-      // Generic notifications
+      // Generic notifications without payment context
       /notification|reminder|alert|update/i
     ];
 
-    // Check if this is news/promotional content
+    // Check if this is news/promotional content (secondary filter)
     const isNonFinancial = newsPatterns.some(filter => 
       filter.test(subject) || filter.test(from)
     );
 
-    if (isNonFinancial) {
+    if (isNonFinancial && !hasReceiptIndicators) {
       // Only log important filtered items
       if (/apple|netflix|spotify|openai|claude/i.test(subject)) {
-        console.log(`🚫 Filtered (news/promo): "${subject}" from ${from}`);
+        console.log(`🚫 Filtered (news/non-financial): "${subject}" from ${from}`);
       }
       return null; // Skip non-financial content
     }
-
-    // Extract email body for amount searching
-    const bodyText = this.extractEmailBody(message.payload);
-    const fullText = subject + ' ' + bodyText;
 
     // Enhanced financial patterns with currency preservation
     const patterns = {
