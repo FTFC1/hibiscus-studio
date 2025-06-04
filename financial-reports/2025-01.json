@@ -784,7 +784,7 @@
         }
       }
     ],
-    "food": [
+    "apple_other": [
       {
         "id": "1946f63d753d22a9",
         "date": "2025-01-16",
@@ -811,7 +811,7 @@
             "originalCurrency": "£"
           }
         ],
-        "category": "food",
+        "category": "apple_other",
         "isSubscription": false,
         "raw": {
           "id": "1946f63d753d22a9",
@@ -1003,7 +1003,7 @@
             "originalCurrency": "£"
           }
         ],
-        "category": "food",
+        "category": "apple_other",
         "isSubscription": false,
         "raw": {
           "id": "1946a0586ed12557",
@@ -1171,7 +1171,7 @@
             "originalCurrency": "£"
           }
         ],
-        "category": "food",
+        "category": "apple_other",
         "isSubscription": false,
         "raw": {
           "id": "1945a8d62c032e9c",
@@ -1363,7 +1363,7 @@
             "originalCurrency": "£"
           }
         ],
-        "category": "food",
+        "category": "apple_other",
         "isSubscription": false,
         "raw": {
           "id": "194504183f5f2f5d",
@@ -1708,7 +1708,7 @@
           "originalCurrency": "£"
         }
       ],
-      "category": "food",
+      "category": "apple_other",
       "isSubscription": false,
       "raw": {
         "id": "1946f63d753d22a9",
@@ -1900,7 +1900,7 @@
           "originalCurrency": "£"
         }
       ],
-      "category": "food",
+      "category": "apple_other",
       "isSubscription": false,
       "raw": {
         "id": "1946a0586ed12557",
@@ -2068,7 +2068,7 @@
           "originalCurrency": "£"
         }
       ],
-      "category": "food",
+      "category": "apple_other",
       "isSubscription": false,
       "raw": {
         "id": "1945a8d62c032e9c",
@@ -2260,7 +2260,7 @@
           "originalCurrency": "£"
         }
       ],
-      "category": "food",
+      "category": "apple_other",
       "isSubscription": false,
       "raw": {
         "id": "194504183f5f2f5d",

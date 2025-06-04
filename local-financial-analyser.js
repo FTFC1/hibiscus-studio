@@ -204,11 +204,18 @@ class LocalFinancialAnalyser {
       // Generic promotional language
       /get \d+%.*off|save \d+%|discount|promo|offer|deal|sale/i,
       /enjoy.*off|special.*offer|limited.*time|coupon|voucher/i,
-      // Food delivery promotional patterns
+      // Food delivery promotional patterns - ENHANCED
       /\d+%.*off.*your.*next.*\d+.*orders/i,
       /get.*\d+%.*off.*next.*orders/i,
       /enjoy.*\d+%.*off.*next.*orders/i,
       /save.*on.*your.*next.*\d+.*orders/i,
+      /save.*£\d+.*on.*your.*grocery.*order/i,
+      /save.*\$\d+.*on.*your.*order/i,
+      /save.*€\d+.*on.*your.*order/i,
+      /\d+%.*off.*next.*\d+.*orders/i,
+      // Promotional messaging
+      /free.*delivery|delivery.*free/i,
+      /new.*customer.*offer|first.*order.*free/i,
       // Email marketing
       /newsletter|digest|update|announcement|campaign/i,
       /unsubscribe|click.*here|view.*online|browser/i,
@@ -218,9 +225,6 @@ class LocalFinancialAnalyser {
       // Market/business data (not personal transactions)
       /revenue.*£\d+|market.*\$\d+|valuation.*€\d+/i,
       /funding.*\$\d+|raised.*£\d+|investment.*€\d+/i,
-      // Promotional with no actual payment context
-      /\d+%.*off.*next.*\d+.*orders/i,
-      /save.*on.*next.*purchase/i,
       // PayPal business announcements and introductions
       /introducing.*paypal|paypal.*introduces|new.*paypal.*feature/i,
       /paypal.*platform|paypal.*business.*solution|paypal.*open/i,
@@ -378,11 +382,28 @@ class LocalFinancialAnalyser {
       return null;
     }
 
+    // Extract banking transfer details for better descriptions
+    let enhancedSubject = subject;
+    if (/transfer.*successful|debit.*alert|transaction.*successful/i.test(subject)) {
+      // Extract bank names and direction
+      if (/opay/i.test(fullText) && /providus/i.test(fullText)) {
+        enhancedSubject = "OPay ↔ Providus Transfer";
+      } else if (/zenith/i.test(fullText) && /opay/i.test(fullText)) {
+        enhancedSubject = "Zenith → OPay Transfer";
+      } else if (/opay/i.test(fullText)) {
+        enhancedSubject = "OPay Transaction";
+      } else if (/providus/i.test(fullText)) {
+        enhancedSubject = "Providus Transaction";
+      } else if (/zenith/i.test(fullText)) {
+        enhancedSubject = "Zenith Transaction";
+      }
+    }
+
     return {
       id: message.id,
       date: date.toISOString().split('T')[0],
       timestamp: date,
-      subject,
+      subject: enhancedSubject,
       from,
       amounts: validTransactions.map(t => t.amount.toString()),
       currencies: validTransactions.map(t => t.currency),
@@ -429,47 +450,34 @@ class LocalFinancialAnalyser {
       return 'other'; // PayPal business emails, not transactions
     }
     
+    // ALL BANK TRANSFERS GO TO BANKING CATEGORY
+    const bankTransferIndicators = [
+      /transfer.*successful/i,
+      /transfer.*details/i,
+      /debit.*alert/i,
+      /transaction.*successful/i,
+      /payment.*successful/i,
+      /opay|providus|zenith|hsbc/i,
+      /wallet.*funded/i,
+      /account.*funded/i
+    ];
+    
+    if (bankTransferIndicators.some(pattern => pattern.test(lowercaseText))) {
+      return 'banking';
+    }
+    
     // Then check if this is an internal transfer (moving your own money)
     const isInternalTransfer = this.internalTransferPatterns.some(pattern => 
       pattern.test(lowercaseText)
     );
     
-    // However, if it's an OPay transfer with a specific recipient name, it's an expense
-    const hasRecipientName = /transfer.*details.*name:.*[a-z]/i.test(text) ||
-                            /bamidele.*oluwatayo.*orefuwa/i.test(text);
-    
-    if (isInternalTransfer && !hasRecipientName) {
+    if (isInternalTransfer) {
       return 'internal_transfer';
-    }
-    
-    // Check for transport driver payments (time-based + amount)
-    const timeDate = new Date(parseInt(timestamp));
-    const hour = timeDate.getHours();
-    const isTransportTime = (hour < 10) || (hour >= 18); // Before 10am or after 6pm
-    
-    const hasSmallAmount = text.match(/₦(\d+)/);
-    const isSmallTransportAmount = hasSmallAmount && parseInt(hasSmallAmount[1]) < 20000;
-    
-    if (isTransportTime && isSmallTransportAmount && hasRecipientName) {
-      return 'transport'; // Uber/Bolt driver payments
-    }
-    
-    // Check if it's a known expense (real spending)
-    const isKnownExpense = this.expensePatterns.some(pattern => 
-      pattern.test(lowercaseText)
-    );
-    
-    if (isKnownExpense) {
-      // Further categorise known expenses
-      if (/iorsuwe.*terkimbi|laundry/i.test(lowercaseText)) return 'personal_services';
-      if (/bamidele.*oluwatayo.*orefuwa/i.test(lowercaseText)) return 'transport'; // This is now transport
-      if (/grubbers.*food|spar.*adeola|restaurant|food.*service/i.test(lowercaseText)) return 'food';
-      if (/agu.*jacinta|coffee|cafe/i.test(lowercaseText)) return 'food';
     }
     
     // Default category matching for other transactions
     for (const [category, keywords] of Object.entries(this.categories)) {
-      if (category === 'internal_transfer') continue; // Skip this as we handled it above
+      if (category === 'internal_transfer' || category === 'banking') continue; // Skip these as we handled them above
       
       if (keywords.some(keyword => lowercaseText.includes(keyword))) {
         return category;
@@ -485,23 +493,23 @@ class LocalFinancialAnalyser {
     // MUCH FASTER: Use broader queries instead of month-by-month
     const fastSearchQueries = [
       // Single comprehensive query per service (much faster than date ranges)
-      'from:apple after:2024/12/01',
-      'from:netflix OR from:spotify after:2024/12/01', 
-      'from:openai OR from:claude after:2024/12/01',
-      'from:paypal OR from:stripe OR from:lemonsqueezy after:2024/12/01',
+      'from:apple after:2024/11/01',
+      'from:netflix OR from:spotify after:2024/11/01', 
+      'from:openai OR from:claude after:2024/11/01',
+      'from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01',
       // ENHANCED BANK QUERIES - Capture ALL bank notifications
-      'from:opay OR from:providus OR from:zenith after:2024/12/01',
-      '(opay AND (transaction OR transfer OR debit OR payment)) after:2024/12/01',
-      '(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/12/01',
-      '(providus AND (transaction OR transfer OR debit OR payment)) after:2024/12/01',
-      'subject:(debit alert) after:2024/12/01',
-      'subject:(transfer successful) after:2024/12/01',
-      'subject:(₦) after:2024/12/01',
+      'from:opay OR from:providus OR from:zenith after:2024/11/01',
+      '(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
+      '(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
+      '(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
+      'subject:(debit alert) after:2024/11/01',
+      'subject:(transfer successful) after:2024/11/01',
+      'subject:(₦) after:2024/11/01',
       // Digital services
-      'from:vercel OR from:replit OR from:github after:2024/12/01',
-      'from:bolt OR from:uber OR from:tinder after:2024/12/01',
-      'invoice OR receipt OR billing after:2024/12/01',
-      'subscription OR recurring after:2024/12/01'
+      'from:vercel OR from:replit OR from:github after:2024/11/01',
+      'from:bolt OR from:uber OR from:tinder after:2024/11/01',
+      'invoice OR receipt OR billing after:2024/11/01',
+      'subscription OR recurring after:2024/11/01'
     ];
 
     this.transactions = [];
