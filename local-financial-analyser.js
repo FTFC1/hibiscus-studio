@@ -37,9 +37,12 @@ class LocalFinancialAnalyser {
     
     // Pattern to detect internal transfers vs actual spending
     this.internalTransferPatterns = [
-      // Self transfers
-      /folarin-coker nicholas/i,
+      // Self transfers - your surname variations
+      /folarin-coker/i,
+      /folarin.*coker/i,
+      /coker.*folarin/i,
       /nicholas.*folarin/i,
+      /folarin.*nicholas/i,
       // Transfer between your own accounts
       /transfer.*to.*opay/i,
       /transfer.*to.*providus/i,
@@ -50,10 +53,13 @@ class LocalFinancialAnalyser {
       /transfer.*successful.*your.*balance/i,
       /wallet.*funded.*from.*bank/i,
       /account.*funded.*from.*providus/i,
-      // Common internal transfer indicators
       /wallet.*funding/i,
       /account.*funding/i,
-      /top.*up/i
+      /top.*up/i,
+      // Generic bank balance updates without clear recipient
+      /your.*account.*has.*been.*debited/i,
+      /balance.*after.*transaction/i,
+      /transaction.*successful.*balance/i
     ];
     
     // People/services that are actual expenses
@@ -531,6 +537,16 @@ class LocalFinancialAnalyser {
     ];
     
     if (bankTransferIndicators.some(pattern => pattern.test(lowercaseText))) {
+      // FIRST: Check if this is an internal transfer (moving your own money)
+      const isInternalTransfer = this.internalTransferPatterns.some(pattern => 
+        pattern.test(lowercaseText)
+      );
+      
+      if (isInternalTransfer) {
+        return 'internal_transfer';
+      }
+      
+      // If it's a bank transaction but NOT internal, it's a real payment
       return 'banking';
     }
     

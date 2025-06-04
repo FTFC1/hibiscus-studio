@@ -604,7 +604,7 @@
         }
       }
     ],
-    "banking": [
+    "internal_transfer": [
       {
         "id": "1973a504486abd6c",
         "date": "2025-06-04",
@@ -624,7 +624,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "1973a504486abd6c",
@@ -794,7 +794,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "1973a50445c6cf8a",
@@ -971,7 +971,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "197373d5e7c005e4",
@@ -1187,7 +1187,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "19735cd1ccf27a6e",
@@ -1403,7 +1403,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "1973462c95696949",
@@ -1612,7 +1612,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "197316699cfc6069",
@@ -1789,7 +1789,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "19730f8892e0941d",
@@ -2005,7 +2005,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "19730eb7213e460c",
@@ -2221,7 +2221,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "197308640a848bff",
@@ -2437,7 +2437,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "19730576433f8acd",
@@ -2653,7 +2653,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "1972fe2a87d9b7b4",
@@ -2869,7 +2869,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "1972ce7b9fc5a2ad",
@@ -3085,7 +3085,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "1972cc033266db39",
@@ -3301,7 +3301,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "banking",
+        "category": "internal_transfer",
         "isSubscription": false,
         "raw": {
           "id": "1972c0b949d946ce",
@@ -5367,7 +5367,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ8CV6wG30eBXuch920iKehaBmT1HQQPK7jvFQK7yhXEoHwLiK1K6CO3gi0g0A_RHXcFNtqI4wUxKsWuXDbrNrVwO-tBGgmm0E7S_p4D9dOQdraQJd5-KiunW1mGfoN4cEX-mKR33rQeTROy42kzQZudHQPFmNWDXMV1ZJ_209wEPz5ukiOWqo1DSFiJ7ktpF04uwTKWTC_6HxVEH82e-XSrswUzkQ7RFUuaIOXv0x1gpa8xCkt9NPCtb7MuY3PxfdpzZ_V8XmPN_gjIH-2xVQbNEcX5Z-oY51EkU-gK4Sfq__gPTK8Sul7zcdawEEyxazjWrFAy1vrPO31c3eHRoIXsE-6NmsnrXjey-NTJkv2iuwxc7diUiwY48W5P8jQrvp4QKkFYgULDLbOk",
+                  "attachmentId": "ANGjdJ8a7Jnhw62zhGwU0Tvld8_oHzgbjDY3AnSHhAOUfno_q5E7ouSjaWxkSJhSvBW8l-oCIAU0XOkn-JjBsOad2UO0MYvFy80RCQIh7KNbxKxkswA_fQskolphpk0CDCbjeW7kL0JSWJs5GdcabTMkFzKfBPHKjbvireBzHL5DnBCGFYRZrpieL27H447Eo5SkykjQ2MTUdyOdVuEQHNhlOFdxsLW8kYkACjadayvzUxIhSmgTShvxJxG7oNMxUOv1jEyzFc5_GhXgDKmlWY_zmjLltP5uUDugZtjUy1gIFFFub8Rau3wUp8piwESl7hgit711329x-S6GExZsCuYz4phaLlFN0Nn4eDxnJtvhwC3Ep-U0iQsj52qWumAH42J5cbaq0MZPwNY66mlZ",
                   "size": 57744
                 }
               },
@@ -5390,7 +5390,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ9tg2H8rMzGayWYnN90SxU6Up-SQCg3tIxoTE9NG5wgiYl3qKVrvhyJ24pxptBigmnvWYGo6SOMPy_y01hUOooL3d2J7gP-7Rq8i9TsTkWL50DoBcUtl0VswTOu0Xo8ch0VLwET-OVe2tKUM_3Z92Gg1BMpnUDkkvi0oM_QqaA--kIbJe8FyDrtJqqb5Jz3AUO0YgjH7LWJ9P83n3o2Y5c9juBSk7hjcUqY2CBbwU98oJ6FUEOWQ7dAwRP0MRjmEc5eW244rAT07Bpn6jDrOsqKhyq6gbwVGW3qoNQTGjnIFWpi2liFicXJi-PtOkXm8ME1qrfUMEPg5Fd7bkwoprKRD-Ea-mSYOOgNpQR0qRMFTtq8NgnCxziB-aCPo7Q8GRGhp-Ckuj9LkFenvn8rw1xdqlpfdOMoqFgFug",
+                  "attachmentId": "ANGjdJ-s8kDimQtJ_6M_rL9E0PBNU3d5yWagD1bHSMdWjoBOptS8RIDPGLsOskmQbFuHOPpNfgd1ARs8ZERpNJTZZoO41V1ftD10QyNkjmQvNRJEaRNRYFoK_52SRdTFNpdaA8ECW612LfgH74KURKonE3eWUB8YRM8fQpvXrTbW9mYvp5-bnmMUdq2vX_Wm6Jv0Ut4ty7KYo4BNklzUkfFDOBDHjvJtUfYO15wFykQfRJQaEuU-9mnu0IFImhD6PaGfb47VZbT-e_didOaPJtktu9h2_IKF5FDRGfZIxXBr4IxQvioZNtNBM28ItaOC3UsaT2alg_PFdOcorrCLk-sCi1gsVcQ6oID4rSSp2NFpWdsTLi7cik0aRiJL2P1HDtORcnluJxxfXNcdiKx1EyBibC79a_dw1PCAz7KpAg",
                   "size": 58403
                 }
               }
@@ -5812,7 +5812,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "1973a504486abd6c",
@@ -5982,7 +5982,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "1973a50445c6cf8a",
@@ -6468,7 +6468,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "197373d5e7c005e4",
@@ -6844,7 +6844,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "19735cd1ccf27a6e",
@@ -7244,7 +7244,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "1973462c95696949",
@@ -7973,7 +7973,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "197316699cfc6069",
@@ -8306,7 +8306,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "19730f8892e0941d",
@@ -8522,7 +8522,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "19730eb7213e460c",
@@ -9081,7 +9081,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "197308640a848bff",
@@ -9297,7 +9297,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "19730576433f8acd",
@@ -9513,7 +9513,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "1972fe2a87d9b7b4",
@@ -9913,7 +9913,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "1972ce7b9fc5a2ad",
@@ -10129,7 +10129,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "1972cc033266db39",
@@ -10345,7 +10345,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "banking",
+      "category": "internal_transfer",
       "isSubscription": false,
       "raw": {
         "id": "1972c0b949d946ce",
@@ -10949,7 +10949,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ8CV6wG30eBXuch920iKehaBmT1HQQPK7jvFQK7yhXEoHwLiK1K6CO3gi0g0A_RHXcFNtqI4wUxKsWuXDbrNrVwO-tBGgmm0E7S_p4D9dOQdraQJd5-KiunW1mGfoN4cEX-mKR33rQeTROy42kzQZudHQPFmNWDXMV1ZJ_209wEPz5ukiOWqo1DSFiJ7ktpF04uwTKWTC_6HxVEH82e-XSrswUzkQ7RFUuaIOXv0x1gpa8xCkt9NPCtb7MuY3PxfdpzZ_V8XmPN_gjIH-2xVQbNEcX5Z-oY51EkU-gK4Sfq__gPTK8Sul7zcdawEEyxazjWrFAy1vrPO31c3eHRoIXsE-6NmsnrXjey-NTJkv2iuwxc7diUiwY48W5P8jQrvp4QKkFYgULDLbOk",
+                "attachmentId": "ANGjdJ8a7Jnhw62zhGwU0Tvld8_oHzgbjDY3AnSHhAOUfno_q5E7ouSjaWxkSJhSvBW8l-oCIAU0XOkn-JjBsOad2UO0MYvFy80RCQIh7KNbxKxkswA_fQskolphpk0CDCbjeW7kL0JSWJs5GdcabTMkFzKfBPHKjbvireBzHL5DnBCGFYRZrpieL27H447Eo5SkykjQ2MTUdyOdVuEQHNhlOFdxsLW8kYkACjadayvzUxIhSmgTShvxJxG7oNMxUOv1jEyzFc5_GhXgDKmlWY_zmjLltP5uUDugZtjUy1gIFFFub8Rau3wUp8piwESl7hgit711329x-S6GExZsCuYz4phaLlFN0Nn4eDxnJtvhwC3Ep-U0iQsj52qWumAH42J5cbaq0MZPwNY66mlZ",
                 "size": 57744
               }
             },
@@ -10972,7 +10972,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ9tg2H8rMzGayWYnN90SxU6Up-SQCg3tIxoTE9NG5wgiYl3qKVrvhyJ24pxptBigmnvWYGo6SOMPy_y01hUOooL3d2J7gP-7Rq8i9TsTkWL50DoBcUtl0VswTOu0Xo8ch0VLwET-OVe2tKUM_3Z92Gg1BMpnUDkkvi0oM_QqaA--kIbJe8FyDrtJqqb5Jz3AUO0YgjH7LWJ9P83n3o2Y5c9juBSk7hjcUqY2CBbwU98oJ6FUEOWQ7dAwRP0MRjmEc5eW244rAT07Bpn6jDrOsqKhyq6gbwVGW3qoNQTGjnIFWpi2liFicXJi-PtOkXm8ME1qrfUMEPg5Fd7bkwoprKRD-Ea-mSYOOgNpQR0qRMFTtq8NgnCxziB-aCPo7Q8GRGhp-Ckuj9LkFenvn8rw1xdqlpfdOMoqFgFug",
+                "attachmentId": "ANGjdJ-s8kDimQtJ_6M_rL9E0PBNU3d5yWagD1bHSMdWjoBOptS8RIDPGLsOskmQbFuHOPpNfgd1ARs8ZERpNJTZZoO41V1ftD10QyNkjmQvNRJEaRNRYFoK_52SRdTFNpdaA8ECW612LfgH74KURKonE3eWUB8YRM8fQpvXrTbW9mYvp5-bnmMUdq2vX_Wm6Jv0Ut4ty7KYo4BNklzUkfFDOBDHjvJtUfYO15wFykQfRJQaEuU-9mnu0IFImhD6PaGfb47VZbT-e_didOaPJtktu9h2_IKF5FDRGfZIxXBr4IxQvioZNtNBM28ItaOC3UsaT2alg_PFdOcorrCLk-sCi1gsVcQ6oID4rSSp2NFpWdsTLi7cik0aRiJL2P1HDtORcnluJxxfXNcdiKx1EyBibC79a_dw1PCAz7KpAg",
                 "size": 58403
               }
             }
