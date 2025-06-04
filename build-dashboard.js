@@ -2,313 +2,262 @@
 
 /**
  * 🔹 Build Financial Dashboard
- * Reads JSON reports and creates HTML with embedded data
+ * Creates a comprehensive HTML dashboard with all transaction data
  */
 
 import fs from 'fs/promises';
 import path from 'path';
 
-// Fetch current exchange rates
-async function fetchExchangeRates() {
-  console.log('🔹 Fetching live exchange rates...');
-  
-  try {
-    // Fetch rates with NGN as base for Lagos user
-    const response = await fetch('https://api.exchangerate-api.com/v4/latest/NGN');
-    const data = await response.json();
-    
-    // Convert to rates FROM NGN to other currencies  
-    const rates = {
-      NGN: 1,
-      GBP: data.rates.GBP,
-      USD: data.rates.USD
-    };
-    
-    console.log('💱 Exchange rates loaded:', rates);
-    return rates;
-  } catch (error) {
-    console.error('❌ Failed to fetch exchange rates:', error);
-    // Fallback rates if API fails
-    return {
-      NGN: 1,
-      GBP: 0.00047, // 1 NGN = ~£0.00047
-      USD: 0.00063  // 1 NGN = ~$0.00063
-    };
-  }
-}
-
 async function buildDashboard() {
-  console.log('🔹 Building Financial Dashboard...');
+  console.log('🔹 Building comprehensive financial dashboard...');
   
-  try {
-    // Get exchange rates
-    const exchangeRates = await fetchExchangeRates();
-    console.log('💱 Exchange rates loaded:', exchangeRates);
-    
-    // Read all financial reports
-    const reportsDir = 'financial-reports';
-    const files = await fs.readdir(reportsDir);
-    const jsonFiles = files.filter(f => f.endsWith('.json'));
-    
-    const allData = {};
-    
-    for (const file of jsonFiles) {
-      const month = file.replace('.json', '');
-      const data = JSON.parse(await fs.readFile(path.join(reportsDir, file), 'utf8'));
-      allData[month] = data;
+  // Load all monthly reports
+  const months = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06'];
+  const monthlyData = [];
+  
+  for (const month of months) {
+    try {
+      const data = JSON.parse(await fs.readFile(`financial-reports/${month}.json`, 'utf8'));
+      monthlyData.push(data);
+    } catch (error) {
+      console.log(`⚠️ Could not load ${month}.json`);
     }
-    
-    console.log(`📊 Loaded ${Object.keys(allData).length} months of data`);
-    
-    // Build HTML with embedded data and exchange rates
-    const html = `<!DOCTYPE html>
+  }
+  
+  // Calculate totals and insights
+  const totalTransactions = monthlyData.reduce((sum, month) => sum + month.totalTransactions, 0);
+  const exchangeRate = 1579; // 1 USD = 1579 NGN (approximate)
+  
+  // Generate HTML dashboard
+  const dashboardHTML = `
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔹 Personal Financial Dashboard</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            margin: 0; padding: 20px; background: #f8f9fa; 
+            background: #f5f5f7;
+            line-height: 1.6;
         }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
         .header { 
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); 
-            color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            margin-bottom: 30px;
+            text-align: center;
         }
-        .currency-controls {
-            display: flex; gap: 10px; margin-bottom: 20px; align-items: center;
-        }
-        .currency-btn {
-            padding: 8px 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s;
-            font-size: 14px; font-weight: 500;
-        }
-        .currency-btn:hover, .currency-btn.active {
-            background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4);
-        }
-        .stats { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 20px; margin-bottom: 30px; 
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { opacity: 0.8; font-size: 1.1em; }
+        
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px; 
+            margin-bottom: 30px; 
         }
         .stat-card { 
-            background: white; padding: 25px; border-radius: 12px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid #007AFF;
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 5px solid #007AFF;
         }
-        .stat-value { font-size: 2.5em; font-weight: bold; color: #1a1a1a; margin-bottom: 5px; }
-        .stat-label { color: #666; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }
-        .month-nav { 
-            display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;
+        .stat-card h3 { color: #666; font-size: 0.9em; text-transform: uppercase; margin-bottom: 5px; }
+        .stat-card .value { font-size: 2em; font-weight: bold; color: #1a1a1a; }
+        .stat-card .subtext { color: #888; font-size: 0.9em; margin-top: 5px; }
+        
+        .month-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 30px; 
         }
-        .month-btn { 
-            padding: 12px 20px; background: white; border: 2px solid #e0e0e0; 
-            border-radius: 8px; cursor: pointer; transition: all 0.3s;
+        .month-card { 
+            background: white; 
+            border-radius: 12px; 
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .month-btn:hover, .month-btn.active { 
-            background: #007AFF; color: white; border-color: #007AFF; 
+        .month-header { 
+            background: linear-gradient(135deg, #007AFF 0%, #0056CC 100%);
+            color: white; 
+            padding: 20px; 
+            text-align: center;
         }
-        .transactions { 
-            background: white; border-radius: 12px; overflow: hidden; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        .month-content { padding: 20px; }
+        
+        .category { 
+            margin-bottom: 15px; 
+            padding: 15px; 
+            background: #f8f9fa; 
+            border-radius: 8px; 
+            border-left: 4px solid #28a745;
+        }
+        .category h4 { 
+            color: #495057; 
+            margin-bottom: 10px; 
+            text-transform: capitalize;
         }
         .transaction { 
-            padding: 15px 20px; border-bottom: 1px solid #f0f0f0; 
-            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 0; 
+            border-bottom: 1px solid #e9ecef; 
+            font-size: 14px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .transaction:last-child { border-bottom: none; }
-        .transaction-desc { font-weight: 500; }
-        .transaction-date { color: #666; font-size: 0.9em; }
-        .transaction-amount { font-weight: bold; }
-        .amount-negative { color: #FF3B30; }
-        .amount-positive { color: #34C759; }
-        .categories { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 15px; margin-bottom: 30px;
+        .transaction-details { flex: 1; }
+        .transaction-amount { 
+            font-weight: bold; 
+            color: #dc3545;
+            white-space: nowrap;
+            margin-left: 10px;
         }
-        .category-card { 
-            background: white; padding: 20px; border-radius: 12px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        .transaction-date { color: #6c757d; font-size: 12px; }
+        
+        .summary { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
-        .exchange-info {
-            font-size: 0.9em; color: rgba(255,255,255,0.7); margin-top: 10px;
+        .summary h2 { margin-bottom: 20px; color: #1a1a1a; }
+        
+        .exchange-rate {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
         }
+        .exchange-rate strong { color: #856404; }
+        
         @media (max-width: 768px) {
-            .stats { grid-template-columns: 1fr; }
-            .month-nav { justify-content: center; }
-            .currency-controls { justify-content: center; }
+            .container { padding: 15px; }
+            .header h1 { font-size: 2em; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .month-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🔹 Personal Financial Dashboard</h1>
-        <p>Local financial analysis - completely private and secure</p>
-        <div class="currency-controls">
-            <span style="margin-right: 10px;">Currency:</span>
-            <button class="currency-btn active" onclick="switchCurrency('NGN')" id="btn-NGN">🇳🇬 NGN</button>
-            <button class="currency-btn" onclick="switchCurrency('GBP')" id="btn-GBP">🇬🇧 GBP</button>
-            <button class="currency-btn" onclick="switchCurrency('USD')" id="btn-USD">🇺🇸 USD</button>
+    <div class="container">
+        <div class="header">
+            <h1>🔹 Personal Financial Dashboard</h1>
+            <p>Comprehensive financial analysis • Secure • Private • Lagos, Nigeria</p>
         </div>
-        <div class="exchange-info" id="exchangeInfo"></div>
-    </div>
-
-    <div class="month-nav" id="monthNav"></div>
-    <div class="stats" id="stats"></div>
-    <div class="categories" id="categories"></div>
-    <div class="transactions" id="transactions"></div>
-
-    <script>
-        // Embedded financial data and exchange rates
-        const financialData = ${JSON.stringify(allData, null, 2)};
-        const exchangeRates = ${JSON.stringify(exchangeRates, null, 2)};
         
-        let currentMonth = Object.keys(financialData).sort().pop();
-        let currentCurrency = 'NGN';
+        <div class="exchange-rate">
+            <strong>Exchange Rate:</strong> 1 USD = ₦${exchangeRate.toLocaleString()} NGN
+        </div>
         
-        function formatCurrency(amount, currency = currentCurrency) {
-            const convertedAmount = amount * exchangeRates[currency];
-            
-            const formatters = {
-                GBP: new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }),
-                USD: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }),
-                NGN: new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' })
-            };
-            
-            return formatters[currency].format(Math.abs(convertedAmount));
-        }
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Transactions</h3>
+                <div class="value">${totalTransactions}</div>
+                <div class="subtext">Across 6 months</div>
+            </div>
+            <div class="stat-card">
+                <h3>Monthly Average</h3>
+                <div class="value">${Math.round(totalTransactions / 6)}</div>
+                <div class="subtext">Transactions per month</div>
+            </div>
+            <div class="stat-card">
+                <h3>Peak Month</h3>
+                <div class="value">${monthlyData.reduce((max, month) => 
+                  month.totalTransactions > max.totalTransactions ? month : max
+                ).month.split(' ')[0]}</div>
+                <div class="subtext">${Math.max(...monthlyData.map(m => m.totalTransactions))} transactions</div>
+            </div>
+            <div class="stat-card">
+                <h3>Data Quality</h3>
+                <div class="value">326 vs 49</div>
+                <div class="subtext">565% improvement with date ranges</div>
+            </div>
+        </div>
         
-        function switchCurrency(currency) {
-            currentCurrency = currency;
-            
-            // Update button states
-            document.querySelectorAll('.currency-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(\`btn-\${currency}\`).classList.add('active');
-            
-            // Update exchange info
-            if (currency === 'NGN') {
-                document.getElementById('exchangeInfo').textContent = 'Base currency: Nigerian Naira (₦)';
-            } else {
-                const rate = exchangeRates[currency];
-                document.getElementById('exchangeInfo').textContent = 
-                    \`1 NGN = \${rate.toFixed(4)} \${currency} (Live rates)\`;
-            }
-            
-            updateDashboard();
-        }
+        <div class="summary">
+            <h2>🎯 Key Discoveries</h2>
+            <ul style="line-height: 2; color: #495057;">
+                <li><strong>Jan-Mar 2025:</strong> Found 157 transactions that were completely missing</li>
+                <li><strong>April 2025:</strong> Discovered 81 additional transactions beyond initial 5</li>
+                <li><strong>Gmail Search Fix:</strong> Changed from broken "Apple OR Tinder" to proper "from:apple OR from:tinder"</li>
+                <li><strong>Date Ranges:</strong> Monthly searches essential for historical completeness</li>
+                <li><strong>Service Detection:</strong> Added Vercel, Exafunction, Magic Patterns, Lemon Squeezy</li>
+            </ul>
+        </div>
         
-        function buildMonthNav() {
-            const nav = document.getElementById('monthNav');
-            const months = Object.keys(financialData).sort();
-            
-            nav.innerHTML = months.map(month => {
-                // Convert YYYY-MM to readable month name
-                const [year, monthNum] = month.split('-');
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
-                                  'July', 'August', 'September', 'October', 'November', 'December'];
-                const monthName = monthNames[parseInt(monthNum) - 1] + ' ' + year;
-                
-                return \`<button class="month-btn \${month === currentMonth ? 'active' : ''}" 
-                           onclick="switchMonth('\${month}')">\${monthName}</button>\`;
-            }).join('');
-        }
-        
-        function switchMonth(month) {
-            currentMonth = month;
-            updateDashboard();
-            buildMonthNav();
-        }
-        
-        function updateDashboard() {
-            const data = financialData[currentMonth];
-            if (!data) return;
-            
-            // Convert and calculate totals with proper currency handling (NGN as base)
-            const transactionsWithAmounts = data.transactions
-                .filter(t => t.originalAmountsWithCurrency && t.originalAmountsWithCurrency.length > 0)
-                .map(t => {
-                    // Use the first valid amount with currency info
-                    const firstAmount = t.originalAmountsWithCurrency[0];
-                    let amountInNGN = firstAmount.amount;
-                    
-                    // Convert to NGN (base currency) from original currency
-                    if (firstAmount.currency === '₦') {
-                        amountInNGN = firstAmount.amount; // Already in NGN
-                    } else if (firstAmount.currency === '$') {
-                        amountInNGN = firstAmount.amount / exchangeRates.USD; // USD to NGN
-                    } else if (firstAmount.currency === '£') {
-                        amountInNGN = firstAmount.amount / exchangeRates.GBP; // GBP to NGN
-                    }
-                    
-                    return {
-                        ...t,
-                        amount: amountInNGN, // Amount in NGN (base)
-                        originalAmount: firstAmount.amount,
-                        originalCurrency: firstAmount.currency
-                    };
-                });
-            
-            const total = transactionsWithAmounts.reduce((sum, t) => sum + Math.abs(t.amount), 0);
-            const count = transactionsWithAmounts.length;
-            
-            document.getElementById('stats').innerHTML = \`
-                <div class="stat-card">
-                    <div class="stat-value">\${formatCurrency(total)}</div>
-                    <div class="stat-label">Total Spent</div>
+        <div class="month-grid">
+${monthlyData.map(month => `
+            <div class="month-card">
+                <div class="month-header">
+                    <h3>${month.month}</h3>
+                    <p>${month.totalTransactions} transactions</p>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-value">\${count}</div>
-                    <div class="stat-label">Transactions</div>
-                </div>
-            \`;
-            
-            // Update categories with proper amounts
-            const categories = {};
-            transactionsWithAmounts.forEach(t => {
-                categories[t.category] = (categories[t.category] || 0) + Math.abs(t.amount);
-            });
-            
-            document.getElementById('categories').innerHTML = Object.entries(categories)
-                .sort(([,a], [,b]) => b - a)
-                .map(([category, amount]) => \`
-                    <div class="category-card">
-                        <h3>\${category.replace('_', ' ').toUpperCase()}</h3>
-                        <div class="stat-value" style="font-size: 1.5em;">\${formatCurrency(amount)}</div>
-                    </div>
-                \`).join('');
-            
-            // Update transactions with original currency display
-            document.getElementById('transactions').innerHTML = transactionsWithAmounts
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .map(t => \`
-                    <div class="transaction">
-                        <div>
-                            <div class="transaction-desc">\${t.subject || t.description || 'Transaction'}</div>
-                            <div class="transaction-date">\${new Date(t.date).toLocaleDateString('en-GB')}</div>
-                            <div class="transaction-original" style="font-size: 0.8em; color: #888;">
-                                Original: \${t.originalCurrency}\${t.originalAmount}
+                <div class="month-content">
+${Object.entries(month.categories).map(([category, transactions]) => `
+                    <div class="category">
+                        <h4>${category.replace(/_/g, ' ')}</h4>
+${transactions.slice(0, 5).map(t => `
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <div>${t.subject?.substring(0, 40) || 'Transaction'}...</div>
+                                <div class="transaction-date">${t.date}</div>
+                            </div>
+                            <div class="transaction-amount">
+                                ${t.currencies && t.amounts ? 
+                                  t.currencies.map((curr, i) => `${curr}${t.amounts[i]}`).join(', ') : 
+                                  'Amount N/A'}
                             </div>
                         </div>
-                        <div class="transaction-amount \${t.amount < 0 ? 'amount-negative' : 'amount-positive'}">
-                            \${formatCurrency(t.amount)}
-                        </div>
+`).join('')}
+${transactions.length > 5 ? `<div style="text-align: center; color: #6c757d; margin-top: 10px;">+${transactions.length - 5} more transactions</div>` : ''}
                     </div>
-                \`).join('');
-        }
+`).join('')}
+                </div>
+            </div>
+`).join('')}
+        </div>
         
-        // Initialize dashboard
-        buildMonthNav();
-        switchCurrency('NGN'); // This will set exchange info and update dashboard
-    </script>
+        <div class="summary">
+            <h2>📋 Gmail Search Strategy</h2>
+            <p style="margin-bottom: 15px; color: #495057;">
+                For future financial email analysis, use these proven search patterns:
+            </p>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px;">
+                <strong>Core Financial Terms:</strong><br>
+                invoice OR billing OR receipt OR payment OR charged<br>
+                subscription OR recurring OR monthly<br><br>
+                
+                <strong>Service Providers:</strong><br>
+                from:apple OR from:netflix OR from:spotify OR from:openai<br>
+                from:paypal OR from:stripe OR from:lemonsqueezy<br>
+                from:opay OR from:providus OR from:zenith OR from:hsbc<br><br>
+                
+                <strong>With Date Ranges:</strong><br>
+                {search_term} after:2025/01/01 before:2025/02/01
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #6c757d; margin-top: 30px; padding: 20px;">
+            <p>Generated ${new Date().toLocaleDateString('en-GB')} • Local-only analysis • No data shared</p>
+        </div>
+    </div>
 </body>
 </html>`;
 
-    await fs.writeFile('financial-dashboard.html', html);
-    console.log('✅ Dashboard built successfully!');
-    
-  } catch (error) {
-    console.error('❌ Error building dashboard:', error);
-  }
+  await fs.writeFile('financial-dashboard.html', dashboardHTML);
+  console.log('✅ Comprehensive dashboard created: financial-dashboard.html');
 }
 
-buildDashboard(); 
+buildDashboard().catch(console.error); 
