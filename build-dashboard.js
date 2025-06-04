@@ -9,22 +9,30 @@ import fs from 'fs/promises';
 import path from 'path';
 
 // Fetch current exchange rates
-async function getExchangeRates() {
+async function fetchExchangeRates() {
+  console.log('🔹 Fetching live exchange rates...');
+  
   try {
-    console.log('🔹 Fetching live exchange rates...');
-    const response = await fetch('https://api.exchangerate-api.com/v4/latest/GBP');
+    // Fetch rates with NGN as base for Lagos user
+    const response = await fetch('https://api.exchangerate-api.com/v4/latest/NGN');
     const data = await response.json();
-    return {
-      GBP: 1,
-      USD: data.rates.USD,
-      NGN: data.rates.NGN
+    
+    // Convert to rates FROM NGN to other currencies  
+    const rates = {
+      NGN: 1,
+      GBP: data.rates.GBP,
+      USD: data.rates.USD
     };
+    
+    console.log('💱 Exchange rates loaded:', rates);
+    return rates;
   } catch (error) {
-    console.log('⚠️ Using fallback exchange rates');
+    console.error('❌ Failed to fetch exchange rates:', error);
+    // Fallback rates if API fails
     return {
-      GBP: 1,
-      USD: 1.27,  // Approximate rates as fallback
-      NGN: 2000
+      NGN: 1,
+      GBP: 0.00047, // 1 NGN = ~£0.00047
+      USD: 0.00063  // 1 NGN = ~$0.00063
     };
   }
 }
@@ -34,7 +42,7 @@ async function buildDashboard() {
   
   try {
     // Get exchange rates
-    const exchangeRates = await getExchangeRates();
+    const exchangeRates = await fetchExchangeRates();
     console.log('💱 Exchange rates loaded:', exchangeRates);
     
     // Read all financial reports
@@ -138,9 +146,9 @@ async function buildDashboard() {
         <p>Local financial analysis - completely private and secure</p>
         <div class="currency-controls">
             <span style="margin-right: 10px;">Currency:</span>
-            <button class="currency-btn active" onclick="switchCurrency('GBP')" id="btn-GBP">🇬🇧 GBP</button>
+            <button class="currency-btn active" onclick="switchCurrency('NGN')" id="btn-NGN">🇳🇬 NGN</button>
+            <button class="currency-btn" onclick="switchCurrency('GBP')" id="btn-GBP">🇬🇧 GBP</button>
             <button class="currency-btn" onclick="switchCurrency('USD')" id="btn-USD">🇺🇸 USD</button>
-            <button class="currency-btn" onclick="switchCurrency('NGN')" id="btn-NGN">🇳🇬 NGN</button>
         </div>
         <div class="exchange-info" id="exchangeInfo"></div>
     </div>
@@ -156,7 +164,7 @@ async function buildDashboard() {
         const exchangeRates = ${JSON.stringify(exchangeRates, null, 2)};
         
         let currentMonth = Object.keys(financialData).sort().pop();
-        let currentCurrency = 'GBP';
+        let currentCurrency = 'NGN';
         
         function formatCurrency(amount, currency = currentCurrency) {
             const convertedAmount = amount * exchangeRates[currency];
@@ -178,9 +186,13 @@ async function buildDashboard() {
             document.getElementById(\`btn-\${currency}\`).classList.add('active');
             
             // Update exchange info
-            const rate = exchangeRates[currency];
-            document.getElementById('exchangeInfo').textContent = 
-                \`1 GBP = \${rate.toFixed(2)} \${currency} (Live rates)\`;
+            if (currency === 'NGN') {
+                document.getElementById('exchangeInfo').textContent = 'Base currency: Nigerian Naira (₦)';
+            } else {
+                const rate = exchangeRates[currency];
+                document.getElementById('exchangeInfo').textContent = 
+                    \`1 NGN = \${rate.toFixed(4)} \${currency} (Live rates)\`;
+            }
             
             updateDashboard();
         }
@@ -189,10 +201,16 @@ async function buildDashboard() {
             const nav = document.getElementById('monthNav');
             const months = Object.keys(financialData).sort();
             
-            nav.innerHTML = months.map(month => 
-                \`<button class="month-btn \${month === currentMonth ? 'active' : ''}" 
-                   onclick="switchMonth('\${month}')">\${month}</button>\`
-            ).join('');
+            nav.innerHTML = months.map(month => {
+                // Convert YYYY-MM to readable month name
+                const [year, monthNum] = month.split('-');
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                  'July', 'August', 'September', 'October', 'November', 'December'];
+                const monthName = monthNames[parseInt(monthNum) - 1] + ' ' + year;
+                
+                return \`<button class="month-btn \${month === currentMonth ? 'active' : ''}" 
+                           onclick="switchMonth('\${month}')">\${monthName}</button>\`;
+            }).join('');
         }
         
         function switchMonth(month) {
@@ -205,25 +223,26 @@ async function buildDashboard() {
             const data = financialData[currentMonth];
             if (!data) return;
             
-            // Convert and calculate totals with proper currency handling
+            // Convert and calculate totals with proper currency handling (NGN as base)
             const transactionsWithAmounts = data.transactions
                 .filter(t => t.originalAmountsWithCurrency && t.originalAmountsWithCurrency.length > 0)
                 .map(t => {
                     // Use the first valid amount with currency info
                     const firstAmount = t.originalAmountsWithCurrency[0];
-                    let amountInGBP = firstAmount.amount;
+                    let amountInNGN = firstAmount.amount;
                     
-                    // Convert to GBP based on original currency
+                    // Convert to NGN (base currency) from original currency
                     if (firstAmount.currency === '₦') {
-                        amountInGBP = firstAmount.amount / exchangeRates.NGN; // NGN to GBP
+                        amountInNGN = firstAmount.amount; // Already in NGN
                     } else if (firstAmount.currency === '$') {
-                        amountInGBP = firstAmount.amount / exchangeRates.USD; // USD to GBP
+                        amountInNGN = firstAmount.amount / exchangeRates.USD; // USD to NGN
+                    } else if (firstAmount.currency === '£') {
+                        amountInNGN = firstAmount.amount / exchangeRates.GBP; // GBP to NGN
                     }
-                    // If £ or unknown, assume already in GBP
                     
                     return {
                         ...t,
-                        amount: amountInGBP,
+                        amount: amountInNGN, // Amount in NGN (base)
                         originalAmount: firstAmount.amount,
                         originalCurrency: firstAmount.currency
                     };
@@ -231,7 +250,6 @@ async function buildDashboard() {
             
             const total = transactionsWithAmounts.reduce((sum, t) => sum + Math.abs(t.amount), 0);
             const count = transactionsWithAmounts.length;
-            const avgTransaction = count > 0 ? total / count : 0;
             
             document.getElementById('stats').innerHTML = \`
                 <div class="stat-card">
@@ -241,10 +259,6 @@ async function buildDashboard() {
                 <div class="stat-card">
                     <div class="stat-value">\${count}</div>
                     <div class="stat-label">Transactions</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">\${formatCurrency(avgTransaction)}</div>
-                    <div class="stat-label">Average Transaction</div>
                 </div>
             \`;
             
@@ -284,7 +298,7 @@ async function buildDashboard() {
         
         // Initialize dashboard
         buildMonthNav();
-        switchCurrency('GBP'); // This will set exchange info and update dashboard
+        switchCurrency('NGN'); // This will set exchange info and update dashboard
     </script>
 </body>
 </html>`;

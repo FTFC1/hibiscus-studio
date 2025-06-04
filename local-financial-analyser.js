@@ -261,13 +261,13 @@ class LocalFinancialAnalyser {
       amounts: validTransactions.map(t => t.amount.toString()),
       currencies: validTransactions.map(t => t.currency),
       originalAmountsWithCurrency: validTransactions,
-      category: this.categoriseTransaction(fullText),
+      category: this.categoriseTransaction(fullText, message.internalDate),
       isSubscription: patterns.strongTransaction.test(subject) && /subscription|recurring|monthly|annual/i.test(subject),
       raw: message
     };
   }
 
-  categoriseTransaction(text) {
+  categoriseTransaction(text, timestamp) {
     const lowercaseText = text.toLowerCase();
     
     // First check if this is an internal transfer (moving your own money)
@@ -283,12 +283,15 @@ class LocalFinancialAnalyser {
       return 'internal_transfer';
     }
     
-    // Check for transport driver payments (Nigerian names + small amounts)
-    const isNigerianName = /[A-Z]{2,}\s+[A-Z]{2,}\s+[A-Z]{2,}/i.test(text); // 3+ capital word names
+    // Check for transport driver payments (time-based + amount)
+    const timeDate = new Date(parseInt(timestamp));
+    const hour = timeDate.getHours();
+    const isTransportTime = (hour < 10) || (hour >= 18); // Before 10am or after 6pm
+    
     const hasSmallAmount = text.match(/₦(\d+)/);
     const isSmallTransportAmount = hasSmallAmount && parseInt(hasSmallAmount[1]) < 20000;
     
-    if (isNigerianName && isSmallTransportAmount && hasRecipientName) {
+    if (isTransportTime && isSmallTransportAmount && hasRecipientName) {
       return 'transport'; // Uber/Bolt driver payments
     }
     
