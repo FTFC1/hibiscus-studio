@@ -23,7 +23,7 @@ async function buildDashboard() {
     }
   }
   
-  // Convert amount to NGN
+  // Convert amount to NGN - UPDATED RATES
   function toNGN(amount, currency) {
     if (!amount || isNaN(amount)) return 0;
     
@@ -32,9 +32,9 @@ async function buildDashboard() {
     
     const rates = {
       '₦': 1,           // Base currency
-      '$': 1579,        // 1 USD = ₦1,579
-      '£': 2050,        // 1 GBP = ₦2,050
-      '€': 1680         // 1 EUR = ₦1,680
+      '$': 1583,        // 1 USD = ₦1,583 (current rate)
+      '£': 2000,        // 1 GBP = ₦2,000 (updated)
+      '€': 1700         // 1 EUR = ₦1,700 (updated)
     };
     
     if (currency === '₦') return cleanAmount;
