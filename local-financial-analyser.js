@@ -104,17 +104,30 @@ class LocalFinancialAnalyser {
         return [];
       }
 
+      console.log(`📧 Found ${response.data.messages.length} emails for query: "${query}"`);
+      
       const messages = [];
+      let filtered = 0;
+      let parsed = 0;
+      
       for (const message of response.data.messages) {
         const fullMessage = await this.gmailService.users.messages.get({
           userId: 'me',
           id: message.id,
-          format: 'full' // Get full message including body
+          format: 'full'
         });
-        messages.push(this.parseFinancialEmail(fullMessage.data));
+        
+        const result = this.parseFinancialEmail(fullMessage.data);
+        if (result === null) {
+          filtered++;
+        } else {
+          parsed++;
+          messages.push(result);
+        }
       }
-
-      return messages.filter(msg => msg !== null);
+      
+      console.log(`✅ Query "${query}": ${parsed} parsed, ${filtered} filtered out`);
+      return messages;
     } catch (error) {
       console.error(`❌ Search failed for "${query}":`, error.message);
       return [];
@@ -127,7 +140,9 @@ class LocalFinancialAnalyser {
     
     if (payload.body && payload.body.data) {
       try {
-        bodyText += Buffer.from(payload.body.data, 'base64').toString('utf-8');
+        const text = Buffer.from(payload.body.data, 'base64').toString('utf-8');
+        // Simple HTML tag removal for basic parsing
+        bodyText += text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
       } catch (e) {
         // Ignore decode errors
       }
@@ -135,9 +150,11 @@ class LocalFinancialAnalyser {
     
     if (payload.parts) {
       for (const part of payload.parts) {
-        if (part.mimeType === 'text/plain' && part.body && part.body.data) {
+        if ((part.mimeType === 'text/plain' || part.mimeType === 'text/html') && part.body && part.body.data) {
           try {
-            bodyText += Buffer.from(part.body.data, 'base64').toString('utf-8');
+            const text = Buffer.from(part.body.data, 'base64').toString('utf-8');
+            // Simple HTML tag removal for basic parsing
+            bodyText += text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
           } catch (e) {
             // Ignore decode errors
           }
@@ -159,28 +176,32 @@ class LocalFinancialAnalyser {
     const from = headers.find(h => h.name === 'From')?.value || '';
     const date = new Date(parseInt(message.internalDate));
 
-    // Enhanced filtering for non-financial content
-    const newsFilters = [
-      // Newsletter domains
-      /sifted\.eu|techcrunch|venturebeat|bloomberg|reuters|bbc\.com|every\.to|maven\.com/i,
-      // Promotional/marketing domains
-      /temu|temuemail|promotional|marketing|newsletter/i,
-      // Newsletter keywords
-      /newsletter|digest|roundup|daily|weekly|trending|hits.*revenue|raises.*funding/i,
-      // News-style subjects  
-      /\b(hits|reaches|raises|announces|launches|reports)\s+[£$€₦]\d+/i,
+    // Enhanced news/promotional filtering - exclude Bolt receipts
+    const newsPatterns = [
+      // News and financial content
+      /sifted\.eu|techcrunch|bloomberg|reuters|every\.to|maven/i,
       // Promotional content
-      /unsubscribe|marketing|promotional|announcement|reward|treasure|credits|course|learn|master/i,
-      // Educational/content
-      /ways.*work|build.*agents|land.*role|article|guide|tutorial/i
+      /temu|promotional|newsletter|digest|update|announcement/i,
+      // Educational content  
+      /course|lesson|educational|training|webinar/i,
+      // Market data (amounts that aren't personal transactions)
+      /revenue.*£\d+|market.*\$\d+|valuation.*€\d+/i,
+      // Bolt notification emails (NOT the actual payments)
+      /your bolt trip|bolt.*trip.*receipt|trip.*completed/i,
+      // Generic notifications
+      /notification|reminder|alert|update/i
     ];
 
     // Check if this is news/promotional content
-    const isNonFinancial = newsFilters.some(filter => 
+    const isNonFinancial = newsPatterns.some(filter => 
       filter.test(subject) || filter.test(from)
     );
 
     if (isNonFinancial) {
+      // Only log important filtered items
+      if (/apple|netflix|spotify|openai|claude/i.test(subject)) {
+        console.log(`🚫 Filtered (news/promo): "${subject}" from ${from}`);
+      }
       return null; // Skip non-financial content
     }
 
@@ -190,15 +211,18 @@ class LocalFinancialAnalyser {
 
     // Enhanced financial patterns with currency preservation
     const patterns = {
-      // Currency with amount - preserve both (improved for Nigerian amounts)
+      // Currency with amount - preserve both (improved for subscriptions)
       amountWithCurrency: /(₦|[\$£€])\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/g,
       amountAfterCurrency: /(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(₦|[\$£€])/g,
       // Specific patterns for Nigerian bank transfers
       nigerianTransfer: /₦(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/g,
+      // Apple/subscription patterns
+      appleAmount: /total[:\s]*[\$£€₦]\s*(\d+(?:\.\d{2})?)/gi,
+      subscriptionAmount: /(?:price|cost|amount|total|charge)[:\s]*[\$£€₦]\s*(\d+(?:\.\d{2})?)/gi,
       // Strong transaction indicators
-      strongTransaction: /payment|charged|bill|invoice|receipt|refund|transfer|subscription|purchase|order/i,
+      strongTransaction: /payment|charged|bill|invoice|receipt|refund|transfer|subscription|purchase|order|total/i,
       // Financial institutions/services
-      financialSource: /bank|opay|providus|zenith|hsbc|apple.*invoice|paypal|stripe/i
+      financialSource: /bank|opay|providus|zenith|hsbc|apple.*invoice|paypal|stripe|lemon.*squeezy/i
     };
 
     let amounts = [];
@@ -224,6 +248,19 @@ class LocalFinancialAnalyser {
       amounts.push(amount);
       currencies.push(match[2]);
     }
+    
+    // Extract Apple/subscription amounts
+    while ((match = patterns.appleAmount.exec(fullText)) !== null) {
+      const amount = parseFloat(match[1]);
+      amounts.push(amount);
+      currencies.push('$'); // Default to USD for Apple
+    }
+    
+    while ((match = patterns.subscriptionAmount.exec(fullText)) !== null) {
+      const amount = parseFloat(match[1]);
+      amounts.push(amount);
+      currencies.push('$'); // Default to USD for subscriptions
+    }
 
     // Strong filtering - only accept if:
     const hasStrongTransactionIndicators = patterns.strongTransaction.test(subject) || 
@@ -231,10 +268,14 @@ class LocalFinancialAnalyser {
                                          patterns.financialSource.test(from);
     
     const hasReasonableAmounts = amounts.length > 0 && 
-                                amounts.some(a => a > 0 && a < 50000); // Reasonable range
+                                amounts.some(a => a > 0 && a < 100000); // Raised upper limit, lower minimum
 
     // Must have BOTH strong indicators AND reasonable amounts
     if (!hasStrongTransactionIndicators || !hasReasonableAmounts) {
+      // Only log important filtered items
+      if (/apple|netflix|spotify|openai|claude|supabase|github/i.test(subject)) {
+        console.log(`🚫 Filtered (weak): "${subject}" - indicators: ${hasStrongTransactionIndicators}, amounts: ${hasReasonableAmounts} [${amounts.join(', ')}]`);
+      }
       return null;
     }
 
@@ -242,10 +283,10 @@ class LocalFinancialAnalyser {
     const validTransactions = amounts
       .map((amount, i) => ({
         amount: amount,
-        currency: currencies[i] || '£', // Default to GBP if currency unclear
+        currency: currencies[i] || '$', // Default to USD for subscriptions
         originalCurrency: currencies[i]
       }))
-      .filter(t => t.amount > 0 && t.amount < 50000)
+      .filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions
       .slice(0, 3); // Max 3 amounts per transaction
 
     if (validTransactions.length === 0) {
@@ -270,7 +311,20 @@ class LocalFinancialAnalyser {
   categoriseTransaction(text, timestamp) {
     const lowercaseText = text.toLowerCase();
     
-    // First check if this is an internal transfer (moving your own money)
+    // First check for specific service categories before internal transfers
+    if (/apple.*invoice|invoice.*apple/i.test(text)) {
+      return 'apple';
+    }
+    
+    if (/wispr.*flow|wispr/i.test(text)) {
+      return 'ai_tools';
+    }
+    
+    if (/paypal/i.test(text) && /business|open|platform/i.test(text)) {
+      return 'other'; // PayPal business emails, not transactions
+    }
+    
+    // Then check if this is an internal transfer (moving your own money)
     const isInternalTransfer = this.internalTransferPatterns.some(pattern => 
       pattern.test(lowercaseText)
     );
@@ -324,13 +378,25 @@ class LocalFinancialAnalyser {
     console.log('🔹 Starting comprehensive financial analysis...');
     
     const searchQueries = [
+      // Fixed queries using proper Gmail search syntax
       'billing OR invoice OR receipt',
       'subscription OR recurring',
-      'payment OR charged',
-      'OpenAI OR Replit OR Claude',
-      'Apple OR Tinder OR Spotify',
-      'Bolt OR Uber OR transport',
-      'bank OR statement OR transfer',
+      'payment OR charged OR purchase',
+      
+      // Service-specific searches using from: syntax
+      'from:openai OR from:replit OR from:claude OR from:lemonsqueezy',
+      'from:apple OR from:tinder OR from:spotify OR from:netflix OR from:youtube',
+      'from:bolt OR from:uber',
+      'from:paypal OR from:stripe',
+      
+      // Nigerian services
+      'from:opay OR from:providus OR from:zenith',
+      
+      // Additional patterns
+      'monthly OR annual OR renewal',
+      'app store OR play store',
+      
+      // Generic financial terms
       'SPAR OR restaurant OR food'
     ];
 
