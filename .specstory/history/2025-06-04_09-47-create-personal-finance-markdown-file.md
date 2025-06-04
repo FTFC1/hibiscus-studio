@@ -39330,15 +39330,848 @@ _**Assistant**_
 
 ---
 
+You have an incredible opportunity; to pursue my own greatness 🫀
+
+🔹 **PayPal Promo Email Still Getting Through + Navigation Improvements**
+
+You're absolutely right - that "Introducing PayPal Open" is clearly promotional content, not an expense. Let me fix the filtering and enhance the navigation.
+
+---
+
+```diff
+        // Promotional with no actual payment context
+        /\d+%.*off.*next.*\d+.*orders/i,
+-       /save.*on.*next.*purchase/i
++       /save.*on.*next.*purchase/i,
++       // PayPal business announcements and introductions
++       /introducing.*paypal|paypal.*introduces|new.*paypal.*feature/i,
++       /paypal.*platform|paypal.*business.*solution|paypal.*open/i,
++       /discover.*paypal|explore.*paypal|learn.*about.*paypal/i,
++       // General business platform announcements
++       /introducing.*platform|new.*platform|one.*platform.*for/i,
++       /business.*solution|enterprise.*solution|platform.*for.*business/i
+      ];
+  
+```
+
+---
+
+Now let me improve the dashboard navigation with better visual hierarchy and more intuitive interactions:
+
+---
+
+```diff
+              justify-content: space-between;
+              margin-bottom: var(--spacing-lg);
+-             padding-bottom: var(--spacing-sm);
+-             border-bottom: 1px solid var(--border);
++             padding: var(--spacing-md) 0 var(--spacing-sm);
++             border-bottom: 2px solid var(--border);
++             position: sticky;
++             top: 0;
++             background: var(--background);
++             z-index: 10;
+          }
+          
+          .section-title {
+              font-size: var(--text-lg);
+              font-weight: var(--weight-semibold);
++             display: flex;
++             align-items: center;
++             gap: var(--spacing-sm);
++         }
++         
++         .section-icon {
++             font-size: 20px;
++         }
++         
++         .section-count {
++             background: var(--accent);
++             color: white;
++             font-size: 12px;
++             padding: 2px 8px;
++             border-radius: 12px;
++             font-weight: var(--weight-medium);
+          }
+          
+```
+
+```diff
+              background: var(--surface);
+              border-radius: var(--radius);
+-             margin-bottom: var(--spacing-sm);
++             margin-bottom: var(--spacing-md);
+              overflow: hidden;
+              transition: all 0.2s ease;
++             border: 1px solid transparent;
++         }
++         
++         .category-item:hover {
++             border-color: var(--accent);
++             box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
+          }
+          
+```
+
+```diff
+              cursor: pointer;
+              user-select: none;
++             position: relative;
+          }
+          
+-         .category-header:hover {
+-             background: rgba(0, 122, 255, 0.05);
++         .category-header::after {
++             content: '';
++             position: absolute;
++             left: 0;
++             bottom: 0;
++             height: 2px;
++             width: 0;
++             background: var(--accent);
++             transition: width 0.2s ease;
++         }
++         
++         .category-item.expanded .category-header::after {
++             width: 100%;
+          }
+          
+```
+
+```diff
+          
+          .category-name {
+-             font-weight: var(--weight-medium);
++             font-weight: var(--weight-semibold);
+              text-transform: capitalize;
++             font-size: var(--text-base);
+          }
+          
+          .category-count {
+-             font-size: var(--text-sm);
++             font-size: 13px;
+              color: var(--tertiary);
+              margin-left: var(--spacing-xs);
++             font-weight: var(--weight-normal);
+          }
+          
+          .category-amount {
+              font-weight: var(--weight-semibold);
+              color: var(--secondary);
++             font-size: var(--text-base);
+          }
+          
+          .expand-icon {
+              margin-left: var(--spacing-sm);
+-             transition: transform 0.2s ease;
++             transition: all 0.3s ease;
+              color: var(--accent);
++             font-weight: bold;
++             font-size: 16px;
+          }
+          
+          .category-item.expanded .expand-icon {
+              transform: rotate(180deg);
++             color: var(--accent);
+          }
+          
+```
+
+```diff
+              background: var(--surface);
+              border-radius: var(--radius);
++             margin-bottom: var(--spacing-md);
+              overflow: hidden;
+              transition: all 0.2s ease;
++             border: 1px solid transparent;
++         }
++         
++         .month-card:hover {
++             border-color: var(--accent);
++             box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
+          }
+          
+```
+
+```diff
+              cursor: pointer;
+              user-select: none;
++             position: relative;
+          }
+          
+-         .month-header:hover {
+-             background: rgba(0, 122, 255, 0.05);
++         .month-header::after {
++             content: '';
++             position: absolute;
++             left: 0;
++             bottom: 0;
++             height: 2px;
++             width: 0;
++             background: var(--accent);
++             transition: width 0.2s ease;
++         }
++         
++         .month-card.expanded .month-header::after {
++             width: 100%;
+          }
+          
+          .month-title {
+              font-weight: var(--weight-semibold);
++             text-transform: capitalize;
++             font-size: var(--text-base);
+          }
+          
+          .month-total {
+              font-weight: var(--weight-semibold);
+              color: var(--secondary);
++             font-size: var(--text-base);
+          }
+          
+```
+
+```diff
+              }
+          }
++         
++         /* Navigation & Section Improvements */
++         .section-header {
++             display: flex;
++             align-items: center;
++             justify-content: space-between;
++             margin-bottom: var(--spacing-lg);
++             padding: var(--spacing-md) 0 var(--spacing-sm);
++             border-bottom: 2px solid var(--border);
++             position: sticky;
++             top: 0;
++             background: var(--background);
++             z-index: 10;
++         }
++         
++         .section-title {
++             font-size: var(--text-lg);
++             font-weight: var(--weight-semibold);
++             display: flex;
++             align-items: center;
++             gap: var(--spacing-sm);
++         }
++         
++         .section-icon {
++             font-size: 20px;
++         }
++         
++         .section-count {
++             background: var(--accent);
++             color: white;
++             font-size: 12px;
++             padding: 2px 8px;
++             border-radius: 12px;
++             font-weight: var(--weight-medium);
++         }
++         
++         /* Enhanced Interactive Elements */
++         .category-item, .month-card {
++             background: var(--surface);
++             border-radius: var(--radius);
++             margin-bottom: var(--spacing-md);
++             overflow: hidden;
++             transition: all 0.2s ease;
++             border: 1px solid transparent;
++         }
++         
++         .category-item:hover, .month-card:hover {
++             border-color: var(--accent);
++             box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
++         }
++         
++         .category-header, .month-header {
++             display: flex;
++             justify-content: space-between;
++             align-items: center;
++             padding: var(--spacing-lg);
++             cursor: pointer;
++             user-select: none;
++             position: relative;
++         }
++         
++         .category-header::after, .month-header::after {
++             content: '';
++             position: absolute;
++             left: 0;
++             bottom: 0;
++             height: 2px;
++             width: 0;
++             background: var(--accent);
++             transition: width 0.2s ease;
++         }
++         
++         .category-item.expanded .category-header::after,
++         .month-card.expanded .month-header::after {
++             width: 100%;
++         }
++         
++         /* Better Visual Feedback */
++         .category-header:active, .month-header:active {
++             background: rgba(0, 122, 255, 0.05);
++         }
++         
++         .expand-icon {
++             margin-left: var(--spacing-sm);
++             transition: all 0.3s ease;
++             color: var(--accent);
++             font-weight: bold;
++             font-size: 16px;
++         }
++         
++         .category-item.expanded .expand-icon,
++         .month-card.expanded .expand-icon {
++             transform: rotate(180deg);
++             color: var(--accent);
++         }
++         
++         /* Quick Actions Bar */
++         .quick-actions {
++             position: fixed;
++             bottom: var(--spacing-lg);
++             right: var(--spacing-lg);
++             display: flex;
++             gap: var(--spacing-sm);
++             z-index: 20;
++         }
++         
++         .quick-action-btn {
++             width: 48px;
++             height: 48px;
++             border-radius: 50%;
++             background: var(--accent);
++             color: white;
++             border: none;
++             font-size: 20px;
++             cursor: pointer;
++             box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
++             transition: all 0.2s ease;
++         }
++         
++         .quick-action-btn:hover {
++             transform: translateY(-2px);
++             box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
++         }
++         
++         /* Progress Indicators */
++         .progress-bar {
++             height: 4px;
++             background: var(--border);
++             border-radius: 2px;
++             overflow: hidden;
++             margin-top: var(--spacing-xs);
++         }
++         
++         .progress-fill {
++             height: 100%;
++             background: var(--accent);
++             transition: width 0.3s ease;
++         }
++         
++         .progress-fill.variable {
++             background: var(--warning);
++         }
++         
++         /* Enhanced Mobile Experience */
++         @media (max-width: 480px) {
++             .container {
++                 padding: var(--spacing-md) var(--spacing-sm);
++             }
++             
++             .section-header {
++                 position: relative;
++                 top: auto;
++             }
++             
++             .quick-actions {
++                 bottom: var(--spacing-md);
++                 right: var(--spacing-md);
++             }
++             
++             .quick-action-btn {
++                 width: 44px;
++                 height: 44px;
++                 font-size: 18px;
++             }
++         }
++         
++         /* Improved Typography Hierarchy */
++         .category-name, .month-title {
++             font-weight: var(--weight-semibold);
++             text-transform: capitalize;
++             font-size: var(--text-base);
++         }
++         
++         .category-count {
++             font-size: 13px;
++             color: var(--tertiary);
++             margin-left: var(--spacing-xs);
++             font-weight: var(--weight-normal);
++         }
++         
++         .category-amount, .month-total {
++             font-weight: var(--weight-semibold);
++             color: var(--secondary);
++             font-size: var(--text-base);
++         }
+      </style>
+  </head>
+```
+
+---
+
+Now let me update the HTML structure to include icons and better section organization:
+
+---
+
+```diff
+          <section class="budget-section">
+              <div class="section-header">
+-                 <h2 class="section-title">Budget Breakdown</h2>
++                 <h2 class="section-title">
++                     <span class="section-icon">📊</span>
++                     Budget Breakdown
++                 </h2>
+              </div>
+              
+```
+
+```diff
+                      <div class="amount">${formatNGN(avgFixed)}</div>
+                      <div class="percentage">${Math.round((avgFixed / avgMonthlySpend) * 100)}% of budget</div>
++                     <div class="progress-bar">
++                         <div class="progress-fill" style="width: ${Math.round((avgFixed / avgMonthlySpend) * 100)}%"></div>
++                     </div>
+                  </div>
+                  
+```
+
+```diff
+                      <div class="amount">${formatNGN(avgVariable)}</div>
+                      <div class="percentage">${Math.round((avgVariable / avgMonthlySpend) * 100)}% of budget</div>
++                     <div class="progress-bar">
++                         <div class="progress-fill variable" style="width: ${Math.round((avgVariable / avgMonthlySpend) * 100)}%"></div>
++                     </div>
+                  </div>
+              </div>
+```
+
+```diff
+          <section class="categories">
+              <div class="section-header">
+-                 <h2 class="section-title">Categories</h2>
++                 <h2 class="section-title">
++                     <span class="section-icon">📂</span>
++                     Categories
++                     <span class="section-count">${topCategories.length}</span>
++                 </h2>
+              </div>
+              
+```
+
+---
+
+```diff
+          <section class="months">
+              <div class="section-header">
+-                 <h2 class="section-title">Monthly Details</h2>
++                 <h2 class="section-title">
++                     <span class="section-icon">📅</span>
++                     Monthly Details
++                     <span class="section-count">${processedMonths.length}</span>
++                 </h2>
+              </div>
+              
+```
+
+---
+
+```diff
+              `).join('')}
+          </section>
++         
++         <!-- Quick Actions -->
++         <div class="quick-actions">
++             <button class="quick-action-btn" onclick="scrollToTop()" title="Back to top">
++                 ↑
++             </button>
++             <button class="quick-action-btn" onclick="toggleAllSections()" title="Expand/collapse all">
++                 ⚡
++             </button>
++         </div>
+          
+          <footer class="footer">
+```
+
+---
+
+```diff
+              });
+          });
++         
++         // Quick Actions
++         function scrollToTop() {
++             window.scrollTo({ top: 0, behavior: 'smooth' });
++         }
++         
++         let allExpanded = false;
++         function toggleAllSections() {
++             const categories = document.querySelectorAll('.category-item');
++             const months = document.querySelectorAll('.month-card');
++             
++             allExpanded = !allExpanded;
++             
++             categories.forEach(item => {
++                 if (allExpanded) {
++                     item.classList.add('expanded');
++                 } else {
++                     item.classList.remove('expanded');
++                 }
++             });
++             
++             months.forEach(item => {
++                 if (allExpanded) {
++                     item.classList.add('expanded');
++                     const expandIcon = item.querySelector('.expand-icon');
++                     if (expandIcon) expandIcon.style.transform = 'rotate(180deg)';
++                 } else {
++                     item.classList.remove('expanded');
++                     const expandIcon = item.querySelector('.expand-icon');
++                     if (expandIcon) expandIcon.style.transform = 'rotate(0deg)';
++                 }
++             });
++         }
+      </script>
+  </body>
+```
+
+---
+
+Now let me regenerate the analysis with the improved PayPal filtering and rebuild the dashboard:
+
+---
+
+```bash
+node local-financial-analyser.js
+```
+
+```
+🔹 Initializing Local Financial Analyser...
+✅ Gmail connection established
+🔹 Starting FAST financial analysis...
+🚀 Running 9 optimised queries...
+⚡ Query 1/9: from:apple after:2024/12/01
+🔍 Searching for: "from:apple after:2024/12/01"
+⚡ Query 2/9: from:netflix OR from:spotify after:2024/12/01
+🔍 Searching for: "from:netflix OR from:spotify after:2024/12/01"
+⚡ Query 3/9: from:openai OR from:claude after:2024/12/01
+🔍 Searching for: "from:openai OR from:claude after:2024/12/01"
+⚡ Query 4/9: from:paypal OR from:stripe OR from:lemonsqueezy after:2024/12/01
+🔍 Searching for: "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/12/01"
+⚡ Query 5/9: from:opay OR from:providus OR from:zenith after:2024/12/01
+🔍 Searching for: "from:opay OR from:providus OR from:zenith after:2024/12/01"
+⚡ Query 6/9: from:vercel OR from:replit OR from:github after:2024/12/01
+🔍 Searching for: "from:vercel OR from:replit OR from:github after:2024/12/01"
+⚡ Query 7/9: from:bolt OR from:uber OR from:tinder after:2024/12/01
+🔍 Searching for: "from:bolt OR from:uber OR from:tinder after:2024/12/01"
+⚡ Query 8/9: invoice OR receipt OR billing after:2024/12/01
+🔍 Searching for: "invoice OR receipt OR billing after:2024/12/01"
+⚡ Query 9/9: subscription OR recurring after:2024/12/01
+🔍 Searching for: "subscription OR recurring after:2024/12/01"
+No messages found
+📧 Found 67 emails for query: "from:openai OR from:claude after:2024/12/01"
+📧 Found 100 emails for query: "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/12/01"
+📧 Found 100 emails for query: "from:bolt OR from:uber OR from:tinder after:2024/12/01"
+📧 Found 100 emails for query: "from:vercel OR from:replit OR from:github after:2024/12/01"
+📧 Found 100 emails for query: "from:apple after:2024/12/01"
+📧 Found 100 emails for query: "from:opay OR from:providus OR from:zenith after:2024/12/01"
+📧 Found 100 emails for query: "subscription OR recurring after:2024/12/01"
+📧 Found 100 emails for query: "invoice OR receipt OR billing after:2024/12/01"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your Supabase Project prompt tool (via Vercel Marketplace) is inactive." - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "Your subscription has been cancelled"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (promotional): "Ride more, pay less with UberX Share" from Uber <uber@uber.com>
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "GitHub Copilot: Rediscover the joy of coding" - indicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "Your Supabase Project supabase-orange-chair (via Vercel Marketplace) has been paused." 
+- indicators: false, amounts: true [25 $]
+🚫 Filtered (failed payment): "Your subscription has been cancelled"
+🚫 Filtered (weak): "Welcome to your GitHub Copilot free trial!" - indicators: false, amounts: false []
+🚫 Filtered (weak): "Your Supabase Project supabase-orange-chair (via Vercel Marketplace) is inactive." - in
+dicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] You've been removed from "CodeGuide.dev"'s repositories" - indicators: false, 
+amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "US$19.00 payment to Magic Patterns was unsuccessful"
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "Your GitHub Copilot trial ends in 14 days" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "Failed to deploy to the following URLs: https://bankit-design.replit.app"
+🚫 Filtered (failed payment): "Failed to deploy BankitPortal"
+🚫 Filtered (failed payment): "Failed to deploy BankitPortal"
+🚫 Filtered (promotional): "Request a ride with UberX from your doorstep" from Uber <uber@uber.com>
+🚫 Filtered (weak): "[GitHub] Please verify your device" - indicators: false, amounts: false []
+🚫 Filtered (promotional): "Welcome to the Apple Developer Program" from App Store Connect <no_reply@email.a
+pple.com>
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "Reminder: Please update your expired card"
+🚫 Filtered (weak): "GitHub Copilot: Rediscover the joy of coding" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "Replit: Invoice Payment Failed"
+🚫 Filtered (weak): "GitHub’s CEO On Getting 15 Million Developers To Trust AI With Their Code" - indicators
+: false, amounts: false []
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "😸 Claude's biggest update yet" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful again"
+🚫 Filtered (weak): "Thanks for contacting Apple Support." - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (weak): "😺 Should YOU care about Claude 4?" - indicators: false, amounts: true [20 $, 100 $]
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "US$16.36 payment to Cursor was unsuccessful"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "US$20.00 payment to Cursor was unsuccessful"
+🚫 Filtered (failed payment): "Update your expired card"
+🚫 Filtered (weak): "OpenAI o1 and o3-mini API access" - indicators: false, amounts: false []
+✅ Query "from:openai OR from:claude after:2024/12/01": 0 parsed, 67 filtered out
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (failed payment): "$29.00 payment to UX Pilot AI was unsuccessful"
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (promotional): "Native RAG Support, New OpenAI File Search Plugin and more!" from Tony from Typi
+ngMind <tdinh@broadcasts.lemonsqueezy-mail.com>
+🚫 Filtered (weak): "Your OpenAI API account has been funded" - indicators: false, amounts: true [10 $]
+🚫 Filtered (failed payment): "US$20.04 payment to Cursor was unsuccessful"
+🚫 Filtered (weak): "The Apple Developer Agreement has been updated." - indicators: false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A new SSH authentication public key was added to your account" - indicators: f
+alse, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "Growth tactics from OpenAI and Stripe’s first marketer | Krithika Shankarraman" - indic
+ators: false, amounts: false []
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'FT's projects'"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (weak): "[GitHub] A third-party GitHub Application has been added to your account" - indicators:
+ false, amounts: false []
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "A payment was unsuccessful"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful again"
+🚫 Filtered (weak): "[GitHub] A third-party OAuth application has been added to your account" - indicators: 
+false, amounts: false []
+🚫 Filtered (promotional): "Claude 3.7 Sonnet, New Plugin: Excel Generator, and more!" from Tony from Typing
+Mind <tdinh@broadcasts.lemonsqueezy-mail.com>
+🚫 Filtered (weak): "[GitHub] Please verify your device" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful again"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "US$15.00 payment to Exafunction, Inc. was unsuccessful"
+🚫 Filtered (weak): "😸 Claude's biggest update yet" - indicators: false, amounts: false []
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+✅ Query "invoice OR receipt OR billing after:2024/12/01": 28 parsed, 72 filtered out
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+🚫 Filtered (failed payment): "Failed production deployment on team 'fts-projects-53b79011'"
+✅ Query "from:apple after:2024/12/01": 63 parsed, 37 filtered out
+✅ Query "from:opay OR from:providus OR from:zenith after:2024/12/01": 76 parsed, 24 filtered out
+✅ Query "from:vercel OR from:replit OR from:github after:2024/12/01": 9 parsed, 91 filtered out
+🚫 Filtered (weak): "Vibe Check: Claude 4 Opus" - indicators: false, amounts: true [50 $, 100 $]
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful again"
+🚫 Filtered (failed payment): "$20.00 payment to Lovable Labs Incorporated was unsuccessful"
+✅ Query "from:paypal OR from:stripe OR from:lemonsqueezy after:2024/12/01": 17 parsed, 83 filtered out
+✅ Query "from:bolt OR from:uber OR from:tinder after:2024/12/01": 21 parsed, 79 filtered out
+✅ Query "subscription OR recurring after:2024/12/01": 5 parsed, 95 filtered out
+✅ Found 188 financial transactions across all periods
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-06.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-05.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-04.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-03.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-02.json
+📊 Report saved: /Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/financial-reports/2025-01.json
+🔹 Building interactive dashboard...
+✅ Interactive dashboard built successfully
+✅ Financial analysis complete!
+
+```
+
+---
+
+```bash
+open financial-dashboard.html
+```
+
+```
+nicholasfeyintolafolarin-coker@Nicholass-MacBook-Pro trello-mcp % 
+
+```
+
+---
+
+```bash
+git add . && git commit -m 'feat(navigation): Enhanced dashboard UX - sticky headers, progress bars, quick actions, PayPal promo filtering, better visual hierarchy with icons and hover states'
+```
+
+```
+[main 50a03c3] feat(navigation): Enhanced dashboard UX - sticky headers, progress bars, quick actions, PayPa
+l promo filtering, better visual hierarchy with icons and hover states
+ 9 files changed, 3428 insertions(+), 1462 deletions(-)
+
+```
+
+---
+
+🔹 **Fixed PayPal Promo + Enhanced Navigation Complete!**
+
+**🚫 PayPal Promotional Filtering Enhanced**
+
+Added specific patterns to catch PayPal business announcements:
+- `"Introducing PayPal Open"` → **Filtered as promotional**
+- `"PayPal platform"` → **Filtered as promotional**  
+- `"One platform for business"` → **Filtered as promotional**
+
+**⚡ Simply Genius Navigation Improvements**
+
+**🎯 Visual Hierarchy Enhanced:**
+- **Section Icons**: 📊 Budget, 📂 Categories, 📅 Monthly  
+- **Sticky Headers**: Stay visible while scrolling
+- **Progress Bars**: Visual budget split indicators
+- **Hover States**: Blue accent borders and shadows
+
+**📱 Mobile-First Interactions:**
+- **Quick Action Buttons**: ↑ Scroll to top, ⚡ Expand/collapse all
+- **Better Touch Targets**: 44px minimum for mobile
+- **Smooth Animations**: 0.3s transitions for all interactions
+
+**🔍 Enhanced Visual Feedback:**
+- **Section Counts**: Show number of categories/months
+- **Expanding Indicators**: Blue progress lines under active sections
+- **Typography Hierarchy**: Semibold titles, proper spacing
+
+Your dashboard now has **professional-grade navigation** that would make Dieter Rams proud - functional, intuitive, and beautifully minimal! 🤖
+
+---
+
+_**User**_
+
+- for apple i want to know what the payment was. icloud, scribe app etc 
+- it's still adding promo emails (see attached) 
+
+---
+
+_**Assistant**_
+
 
 
 ---
 
+You have an incredible opportunity; to pursue my own greatness 🫀
 
+🔹 **Still Missing Promo Emails + Need Apple Breakdown**
+
+You're absolutely right - "Get 50% off your next 5 orders" is clearly promotional and showing as £15 food expenses. Plus you want to see what Apple payments are actually for (iCloud vs apps vs subscriptions).
 
 ---
 
+```diff
+        /get \d+%.*off|save \d+%|discount|promo|offer|deal|sale/i,
+        /enjoy.*off|special.*offer|limited.*time|coupon|voucher/i,
++       // Food delivery promotional patterns
++       /\d+%.*off.*your.*next.*\d+.*orders/i,
++       /get.*\d+%.*off.*next.*orders/i,
++       /enjoy.*\d+%.*off.*next.*orders/i,
++       /save.*on.*your.*next.*\d+.*orders/i,
+        // Email marketing
+        /newsletter|digest|update|announcement|campaign/i,
+```
 
+---
+
+Now let me enhance the Apple categorization to break down into specific services:
+
+---
+
+```diff
+      const lowercaseText = text.toLowerCase();
+      
+-     // First check for specific service categories before internal transfers
+-     if (/apple.*invoice|invoice.*apple/i.test(text)) {
+-       return 'apple';
++     // Enhanced Apple service categorization
++     if (/apple.*invoice|invoice.*apple|subscription.*apple/i.test(text)) {
++       // Break down Apple services by specific indicators
++       if (/icloud/i.test(text)) {
++         return 'apple_icloud';
++       }
++       if (/apple.*music|music.*apple/i.test(text)) {
++         return 'apple_music';
++       }
++       if (/app.*store|store.*purchase/i.test(text)) {
++         return 'apple_apps';
++       }
++       if (/apple.*tv|tv.*apple/i.test(text)) {
++         return 'apple_tv';
++       }
++       if (/apple.*one|one.*apple/i.test(text)) {
++         return 'apple_one';
++       }
++       if (/developer.*program|apple.*developer/i.test(text)) {
++         return 'apple_developer';
++       }
++       // Default Apple category if can't determine specific service
++       return 'apple_other';
+      }
+      
+```
+
+---
+
+Now let me update the categories object to include the new Apple subcategories:
 
 ---
 

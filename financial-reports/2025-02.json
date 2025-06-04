@@ -2,7 +2,7 @@
   "month": "February 2025",
   "totalTransactions": 7,
   "categories": {
-    "apple": [
+    "apple_icloud": [
       {
         "id": "195488502fd27471",
         "date": "2025-02-27",
@@ -36,7 +36,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "apple",
+        "category": "apple_icloud",
         "isSubscription": false,
         "raw": {
           "id": "195488502fd27471",
@@ -202,7 +202,9 @@
           "historyId": "26865127",
           "internalDate": "1740678431000"
         }
-      },
+      }
+    ],
+    "apple_apps": [
       {
         "id": "1954884ebfea3476",
         "date": "2025-02-27",
@@ -236,7 +238,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "apple",
+        "category": "apple_apps",
         "isSubscription": false,
         "raw": {
           "id": "1954884ebfea3476",
@@ -436,7 +438,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "apple",
+        "category": "apple_apps",
         "isSubscription": false,
         "raw": {
           "id": "1954882a65c2d00c",
@@ -604,7 +606,7 @@
         }
       }
     ],
-    "internal_transfer": [
+    "apple_one": [
       {
         "id": "1954758548401f75",
         "date": "2025-02-27",
@@ -624,7 +626,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "internal_transfer",
+        "category": "apple_one",
         "isSubscription": true,
         "raw": {
           "id": "1954758548401f75",
@@ -810,7 +812,7 @@
             "originalCurrency": "₦"
           }
         ],
-        "category": "internal_transfer",
+        "category": "apple_one",
         "isSubscription": true,
         "raw": {
           "id": "1953ce4ad7fa755a",
@@ -1382,7 +1384,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ_jrTCCPrKLGtmLjN32wDD5Zj20WF2kN4Jpnv4eCZTr3ysBuZZBaR8322Nuk74K_iRTOP6zgQzS3sNUqW8ZVi507vUMQjLVYvrD7nl6rwPsnWd0_RFswEnxKUVACzNfdAo0OGopSh2NmC2LCQVAksY4W187mtUQovwbX8F9YewSTjZXCc3ddfNI4p2i5rw6cvKqK05L9HIq-kY5s_Cy7xg0wrGxorJIVQHyiQXEwpPnFkr0TZ44n095UScM2PDiajJ9i1vps-wF1tug1CXpwWoIZiomkGhw2FAlCK4sNuRHpR5Zu9GSKUSCCLSaZsVl0a121xuI9VnNqo2NmQWD6iTi0P8DzSkM3_7iEShTfmHUcnGBXQLadMZgsPwLpPE7IWQBPEPnDBp652tK",
+                  "attachmentId": "ANGjdJ-Gepfy_G57yrSs-tjlc88QSeIh5gMNkiVmtoyMa2SKxBI5b8VcFQNXZ11RSGOEU1Zpy-fZsenutP5UTzsHel9Yd0LKtXWqtG4XHMcGHloeMh8YHzCWT3MEJ8k0Oda57x5dMAzagiDmUkLgk6RAoBVeLCA6Inj04oekRy6vvbS0Xwrn0ohKvIvouaqExlKmjHNFaIyhyGdSps5Tj6FRETBVxEjbtoN5DYXekmgOXgaBqzldK_Ikhuld8uQIP2V1MPZy_SCK2nJL05xe0tHpF1LpwFMx3uk6AU1zxbmC3_HWPBy-i4pB_49ntRAIMtaPUowBA00TNoC0OIEz9AwcRxrTYSANZHOuuqq6eJi19pTf2eMKbCYrIiMsdy1bA744IX986U_kFV8GadM8",
                   "size": 49858
                 }
               },
@@ -1405,7 +1407,7 @@
                   }
                 ],
                 "body": {
-                  "attachmentId": "ANGjdJ_M4zOgDIGnFWzrZfuFYfHsmxgqOwYptlUg7k6UVVC2KoffXXIHqljtrt9RbfyshumFCA6BIGJLuK8lx7iK8zsxMLUCYr29LCundO5w3u8h1zzVfCaLq9mxZjXUnbVoiZTK5qLc5Dt2ga3r13oglXsJ5LpvdLMsIwm47wozyBxWSHaQTw8dsM-eWSXwYGvyG9rFIcwlKPJAjqLW-gqy6SI09DvOx8AaF9DAbPaCBYQEJ5XIz6lZ7jMgxrWt1rXVDUk4WHGXPmYDJP0oDU5zS7YbqP1NhPVmLAzPwOpzLlwoHRSlkAIE3FUdHHoUJdXwjoxNCcFm7uwBEhhserinpttRrLDeW1p0qbaU4LiltyngIPooOp8Nwc9PSze3M0e_wigWYFpYtbaUEqdaYR_aIsNTlWi9djqzZjhfmA",
+                  "attachmentId": "ANGjdJ9tujGvMdVRecitvl8CzH3xuRkNYajAnTUUlaPzvumLSRY_gWFqms2ZSVQJzuzqxAOCV4cWMLx2NEjlQurItfx9QBdC4pvFAbQ4Ba83S8wT5AVLjfekrj062hnH28idN-SNlcJ-MDw1BRYDV9FUaaYe0j9qT9MMdbXDyzQ6OWG3koVpPDDneanJPA8j7UHw3WrVt6t2hE1RQohsEt7_gKUwJMP3nMMl2j7CtfMHKgyb-VV_X-0gZWz6eB-l4imIB-bynFTL9bavpbJTXzfAiMI03zzq3MEIAA9kPp_yv_qEmXjUPHlma4H5ar3Ryg3IUC5haVQ3w3lUcuiyHT4rXSpHyRKK_uZYTIqoIiAEv8ZFNUn7CW7BM_vsXBh7iB2zsAE7xIC2yewl1od0k9gIwi7slgeNBEGNmrqQEg",
                   "size": 50220
                 }
               }
@@ -1438,7 +1440,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "internal_transfer",
+      "category": "apple_one",
       "isSubscription": true,
       "raw": {
         "id": "1954758548401f75",
@@ -1624,7 +1626,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "internal_transfer",
+      "category": "apple_one",
       "isSubscription": true,
       "raw": {
         "id": "1953ce4ad7fa755a",
@@ -1825,7 +1827,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "apple",
+      "category": "apple_icloud",
       "isSubscription": false,
       "raw": {
         "id": "195488502fd27471",
@@ -2025,7 +2027,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "apple",
+      "category": "apple_apps",
       "isSubscription": false,
       "raw": {
         "id": "1954884ebfea3476",
@@ -2225,7 +2227,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "apple",
+      "category": "apple_apps",
       "isSubscription": false,
       "raw": {
         "id": "1954882a65c2d00c",
@@ -2411,7 +2413,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "internal_transfer",
+      "category": "apple_one",
       "isSubscription": true,
       "raw": {
         "id": "1954758548401f75",
@@ -2597,7 +2599,7 @@
           "originalCurrency": "₦"
         }
       ],
-      "category": "internal_transfer",
+      "category": "apple_one",
       "isSubscription": true,
       "raw": {
         "id": "1953ce4ad7fa755a",
@@ -3165,7 +3167,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ_jrTCCPrKLGtmLjN32wDD5Zj20WF2kN4Jpnv4eCZTr3ysBuZZBaR8322Nuk74K_iRTOP6zgQzS3sNUqW8ZVi507vUMQjLVYvrD7nl6rwPsnWd0_RFswEnxKUVACzNfdAo0OGopSh2NmC2LCQVAksY4W187mtUQovwbX8F9YewSTjZXCc3ddfNI4p2i5rw6cvKqK05L9HIq-kY5s_Cy7xg0wrGxorJIVQHyiQXEwpPnFkr0TZ44n095UScM2PDiajJ9i1vps-wF1tug1CXpwWoIZiomkGhw2FAlCK4sNuRHpR5Zu9GSKUSCCLSaZsVl0a121xuI9VnNqo2NmQWD6iTi0P8DzSkM3_7iEShTfmHUcnGBXQLadMZgsPwLpPE7IWQBPEPnDBp652tK",
+                "attachmentId": "ANGjdJ-Gepfy_G57yrSs-tjlc88QSeIh5gMNkiVmtoyMa2SKxBI5b8VcFQNXZ11RSGOEU1Zpy-fZsenutP5UTzsHel9Yd0LKtXWqtG4XHMcGHloeMh8YHzCWT3MEJ8k0Oda57x5dMAzagiDmUkLgk6RAoBVeLCA6Inj04oekRy6vvbS0Xwrn0ohKvIvouaqExlKmjHNFaIyhyGdSps5Tj6FRETBVxEjbtoN5DYXekmgOXgaBqzldK_Ikhuld8uQIP2V1MPZy_SCK2nJL05xe0tHpF1LpwFMx3uk6AU1zxbmC3_HWPBy-i4pB_49ntRAIMtaPUowBA00TNoC0OIEz9AwcRxrTYSANZHOuuqq6eJi19pTf2eMKbCYrIiMsdy1bA744IX986U_kFV8GadM8",
                 "size": 49858
               }
             },
@@ -3188,7 +3190,7 @@
                 }
               ],
               "body": {
-                "attachmentId": "ANGjdJ_M4zOgDIGnFWzrZfuFYfHsmxgqOwYptlUg7k6UVVC2KoffXXIHqljtrt9RbfyshumFCA6BIGJLuK8lx7iK8zsxMLUCYr29LCundO5w3u8h1zzVfCaLq9mxZjXUnbVoiZTK5qLc5Dt2ga3r13oglXsJ5LpvdLMsIwm47wozyBxWSHaQTw8dsM-eWSXwYGvyG9rFIcwlKPJAjqLW-gqy6SI09DvOx8AaF9DAbPaCBYQEJ5XIz6lZ7jMgxrWt1rXVDUk4WHGXPmYDJP0oDU5zS7YbqP1NhPVmLAzPwOpzLlwoHRSlkAIE3FUdHHoUJdXwjoxNCcFm7uwBEhhserinpttRrLDeW1p0qbaU4LiltyngIPooOp8Nwc9PSze3M0e_wigWYFpYtbaUEqdaYR_aIsNTlWi9djqzZjhfmA",
+                "attachmentId": "ANGjdJ9tujGvMdVRecitvl8CzH3xuRkNYajAnTUUlaPzvumLSRY_gWFqms2ZSVQJzuzqxAOCV4cWMLx2NEjlQurItfx9QBdC4pvFAbQ4Ba83S8wT5AVLjfekrj062hnH28idN-SNlcJ-MDw1BRYDV9FUaaYe0j9qT9MMdbXDyzQ6OWG3koVpPDDneanJPA8j7UHw3WrVt6t2hE1RQohsEt7_gKUwJMP3nMMl2j7CtfMHKgyb-VV_X-0gZWz6eB-l4imIB-bynFTL9bavpbJTXzfAiMI03zzq3MEIAA9kPp_yv_qEmXjUPHlma4H5ar3Ryg3IUC5haVQ3w3lUcuiyHT4rXSpHyRKK_uZYTIqoIiAEv8ZFNUn7CW7BM_vsXBh7iB2zsAE7xIC2yewl1od0k9gIwi7slgeNBEGNmrqQEg",
                 "size": 50220
               }
             }

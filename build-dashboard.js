@@ -60,6 +60,25 @@ async function buildDashboard() {
     return `₦${Math.round(amount).toLocaleString('en-GB')}`;
   }
   
+  // Format category names for display
+  function formatCategoryName(category) {
+    const categoryMap = {
+      'apple_icloud': 'iCloud Storage',
+      'apple_music': 'Apple Music',
+      'apple_apps': 'App Store',
+      'apple_tv': 'Apple TV+',
+      'apple_one': 'Apple One',
+      'apple_developer': 'Apple Developer',
+      'apple_other': 'Apple Services',
+      'ai_tools': 'AI Tools',
+      'internal_transfer': 'Internal Transfer',
+      'personal_services': 'Personal Services',
+      'personal_payments': 'Personal Payments'
+    };
+    
+    return categoryMap[category] || category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+  
   // Categorise expenses as fixed or variable
   function categoriseExpenseType(category, transaction) {
     const subject = (transaction.subject || '').toLowerCase();
@@ -138,7 +157,7 @@ async function buildDashboard() {
             amount: transactionAmountNGN,
             originalAmount: transaction.amounts?.[0] || 0,
             currency: transaction.currencies?.[0] || '₦',
-            category: category.replace(/_/g, ' '),
+            category: formatCategoryName(category),
             type: expenseType,
             date: transaction.date || month.month
           };
@@ -934,7 +953,7 @@ async function buildDashboard() {
                 <div class="category-item" data-category="${index}">
                     <div class="category-header" onclick="toggleCategory(${index})">
                         <div class="category-left">
-                            <span class="category-name">${cat.category.replace(/_/g, ' ')}</span>
+                            <span class="category-name">${formatCategoryName(cat.category)}</span>
                             <span class="category-count">(${cat.transactions.length})</span>
                         </div>
                         <div style="display: flex; align-items: center;">

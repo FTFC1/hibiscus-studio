@@ -18,7 +18,13 @@ class LocalFinancialAnalyser {
     this.transactions = [];
     this.categories = {
       'ai_tools': ['openai', 'claude', 'gemini', 'replit', 'github'],
-      'apple': ['apple', 'icloud', 'app store'],
+      'apple_icloud': ['icloud', 'icloud storage'],
+      'apple_music': ['apple music', 'music'],
+      'apple_apps': ['app store', 'apps'],
+      'apple_tv': ['apple tv', 'tv'],
+      'apple_one': ['apple one'],
+      'apple_developer': ['developer program'],
+      'apple_other': ['apple'],
       'dating': ['tinder', 'bumble', 'hinge'],
       'transport': ['bolt', 'uber', 'taxi'],
       'food': ['spar', 'grubbers', 'restaurant'],
@@ -198,6 +204,11 @@ class LocalFinancialAnalyser {
       // Generic promotional language
       /get \d+%.*off|save \d+%|discount|promo|offer|deal|sale/i,
       /enjoy.*off|special.*offer|limited.*time|coupon|voucher/i,
+      // Food delivery promotional patterns
+      /\d+%.*off.*your.*next.*\d+.*orders/i,
+      /get.*\d+%.*off.*next.*orders/i,
+      /enjoy.*\d+%.*off.*next.*orders/i,
+      /save.*on.*your.*next.*\d+.*orders/i,
       // Email marketing
       /newsletter|digest|update|announcement|campaign/i,
       /unsubscribe|click.*here|view.*online|browser/i,
@@ -385,9 +396,29 @@ class LocalFinancialAnalyser {
   categoriseTransaction(text, timestamp) {
     const lowercaseText = text.toLowerCase();
     
-    // First check for specific service categories before internal transfers
-    if (/apple.*invoice|invoice.*apple/i.test(text)) {
-      return 'apple';
+    // Enhanced Apple service categorization
+    if (/apple.*invoice|invoice.*apple|subscription.*apple/i.test(text)) {
+      // Break down Apple services by specific indicators
+      if (/icloud/i.test(text)) {
+        return 'apple_icloud';
+      }
+      if (/apple.*music|music.*apple/i.test(text)) {
+        return 'apple_music';
+      }
+      if (/app.*store|store.*purchase/i.test(text)) {
+        return 'apple_apps';
+      }
+      if (/apple.*tv|tv.*apple/i.test(text)) {
+        return 'apple_tv';
+      }
+      if (/apple.*one|one.*apple/i.test(text)) {
+        return 'apple_one';
+      }
+      if (/developer.*program|apple.*developer/i.test(text)) {
+        return 'apple_developer';
+      }
+      // Default Apple category if can't determine specific service
+      return 'apple_other';
     }
     
     if (/wispr.*flow|wispr/i.test(text)) {
