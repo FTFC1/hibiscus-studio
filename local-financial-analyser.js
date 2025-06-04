@@ -213,6 +213,11 @@ class LocalFinancialAnalyser {
       /save.*\$\d+.*on.*your.*order/i,
       /save.*€\d+.*on.*your.*order/i,
       /\d+%.*off.*next.*\d+.*orders/i,
+      // Specific grocery/food promotional patterns
+      /save.*£\d+.*on.*grocery/i,
+      /grocery.*order.*🛒/i,
+      /🛒.*grocery/i,
+      /get.*\d+%.*off.*your.*next.*\d+.*orders/i,
       // Promotional messaging
       /free.*delivery|delivery.*free/i,
       /new.*customer.*offer|first.*order.*free/i,
@@ -294,6 +299,8 @@ class LocalFinancialAnalyser {
     const patterns = {
       // More precise patterns to avoid duplicates
       nigerianAmount: /₦\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
+      // ZENITH BANK FORMAT: NGN130,000.00 (without ₦ symbol)
+      zenithAmount: /NGN\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
       dollarAmount: /\$\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
       euroAmount: /€\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
       poundAmount: /£\s*(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\b/g,
@@ -314,6 +321,14 @@ class LocalFinancialAnalyser {
     }
     
     patterns.nigerianAmount.lastIndex = 0;
+    
+    // Extract Zenith NGN amounts (without ₦ symbol)
+    while ((match = patterns.zenithAmount.exec(fullText)) !== null) {
+      amounts.push(parseFloat(match[1].replace(/,/g, '')));
+      currencies.push('₦'); // Treat as Nigerian Naira
+    }
+    
+    patterns.zenithAmount.lastIndex = 0;
     
     while ((match = patterns.dollarAmount.exec(fullText)) !== null) {
       amounts.push(parseFloat(match[1].replace(/,/g, '')));
@@ -345,7 +360,7 @@ class LocalFinancialAnalyser {
       const currency = currencies[i];
       const key = `${amount}_${currency}`;
       
-      if (!seenAmounts.has(key) && amount > 0 && amount < 100000) {
+      if (!seenAmounts.has(key) && amount > 0 && amount < 500000) {
         seenAmounts.add(key);
         uniqueAmounts.push({ amount, currency });
       }
@@ -357,7 +372,7 @@ class LocalFinancialAnalyser {
                                          patterns.financialSource.test(from);
     
     const hasReasonableAmounts = uniqueAmounts.length > 0 && 
-                                uniqueAmounts.some(a => a.amount > 0 && a.amount < 100000); // Raised upper limit, lower minimum
+                                uniqueAmounts.some(a => a.amount > 0 && a.amount < 500000); // Raised upper limit, lower minimum
 
     // Must have BOTH strong indicators AND reasonable amounts
     if (!hasStrongTransactionIndicators || !hasReasonableAmounts) {
@@ -375,7 +390,7 @@ class LocalFinancialAnalyser {
         currency: amount.currency,
         originalCurrency: amount.currency
       }))
-      .filter(t => t.amount > 0 && t.amount < 100000) // Allow smaller subscriptions
+      .filter(t => t.amount > 0 && t.amount < 500000) // Allow smaller subscriptions
       .slice(0, 3); // Max 3 amounts per transaction
 
     if (validTransactions.length === 0) {
@@ -394,9 +409,14 @@ class LocalFinancialAnalyser {
         enhancedSubject = "OPay Transaction";
       } else if (/providus/i.test(fullText)) {
         enhancedSubject = "Providus Transaction";
-      } else if (/zenith/i.test(fullText)) {
-        enhancedSubject = "Zenith Transaction";
+      } else if (/zenith/i.test(fullText) || /ebusinessgroup/i.test(from)) {
+        enhancedSubject = "Zenith Bank Transaction";
       }
+    }
+    
+    // Handle Zenith bank transaction alerts specifically
+    if (/zenith.*bank.*transaction.*alert/i.test(subject)) {
+      enhancedSubject = "Zenith Bank Debit Alert";
     }
 
     return {
@@ -459,7 +479,11 @@ class LocalFinancialAnalyser {
       /payment.*successful/i,
       /opay|providus|zenith|hsbc/i,
       /wallet.*funded/i,
-      /account.*funded/i
+      /account.*funded/i,
+      // Zenith specific patterns
+      /zenith.*bank.*transaction.*alert/i,
+      /ebusinessgroup/i,
+      /transaction.*alert.*debit/i
     ];
     
     if (bankTransferIndicators.some(pattern => pattern.test(lowercaseText))) {
@@ -499,6 +523,7 @@ class LocalFinancialAnalyser {
       'from:paypal OR from:stripe OR from:lemonsqueezy after:2024/11/01',
       // ENHANCED BANK QUERIES - Capture ALL bank notifications
       'from:opay OR from:providus OR from:zenith after:2024/11/01',
+      'from:ebusinessgroup OR subject:(zenith bank transaction alert) after:2024/11/01',
       '(opay AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
       '(zenith AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
       '(providus AND (transaction OR transfer OR debit OR payment)) after:2024/11/01',
