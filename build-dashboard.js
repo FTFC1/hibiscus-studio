@@ -44,15 +44,26 @@ async function buildDashboard() {
   
   // Enhanced internal transfer detection
   function isInternalTransfer(transaction, category) {
+    // Only exclude if explicitly marked as internal_transfer category
     if (category === 'internal_transfer') return true;
     
     const subject = (transaction.subject || '').toLowerCase();
-    const transferPatterns = [
-      /transfer.*successful/, /wallet.*funded/, /account.*funded/,
-      /balance.*updated/, /top.*up/, /folarin.*coker/, /nicholas.*folarin/
+    
+    // Very specific patterns for actual internal transfers (not all bank transactions)
+    const trueInternalPatterns = [
+      /folarin.*coker.*nicholas/i,
+      /nicholas.*folarin.*coker/i,
+      /transfer.*to.*yourself/i,
+      /wallet.*funded.*from.*bank.*account/i,
+      /account.*to.*account.*transfer/i
     ];
     
-    return transferPatterns.some(pattern => pattern.test(subject));
+    // Don't filter banking/transport categories - these are real expenses
+    if (category === 'banking' || category === 'transport') {
+      return false;
+    }
+    
+    return trueInternalPatterns.some(pattern => pattern.test(subject));
   }
   
   // Clean formatting
