@@ -33,7 +33,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -59,6 +59,94 @@
         .header p {
             color: var(--secondary);
             font-size: 16px;
+        }
+        
+        /* Insights Panel */
+        .insights-panel {
+            background: linear-gradient(135deg, var(--accent), #5856d6);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 122, 255, 0.3);
+        }
+        
+        .insights-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .insights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .insights-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .insight-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .insight-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .insight-icon {
+            font-size: 28px;
+        }
+        
+        .insight-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .insight-description {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .insight-details {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 12px;
+            opacity: 0.8;
+            white-space: pre-line;
+        }
+        
+        .insight-card.expanded .insight-details {
+            display: block;
         }
         
         /* Month cards grid */
@@ -102,6 +190,29 @@
             color: var(--accent);
         }
         
+        /* Sorting controls */
+        .sort-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .sort-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            background: var(--background);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .sort-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
         /* Category sections */
         .category-list {
             space-y: 12px;
@@ -142,6 +253,12 @@
         .category-name {
             font-weight: 500;
             font-size: 16px;
+        }
+        
+        .category-count {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-left: 8px;
         }
         
         .category-amount {
@@ -225,6 +342,10 @@
             .category-details {
                 padding: 0 16px 16px;
             }
+            
+            .insights-panel {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -232,7 +353,54 @@
     <div class="container">
         <div class="header">
             <h1>Personal Budget Dashboard</h1>
-            <p>Category breakdown with expandable transaction details</p>
+            <p>Enhanced with insights and smart categorization</p>
+        </div>
+        
+        <!-- Insights Panel -->
+        <div class="insights-panel">
+            <div class="insights-title">
+                <span>💡</span>
+                <span>Financial Insights</span>
+            </div>
+            <div class="insights-grid">
+                
+                    <div class="insight-card" onclick="toggleInsight(this)">
+                        <div class="insight-header">
+                            <span class="insight-icon">💸</span>
+                            <span class="insight-title">Largest Single Expenses</span>
+                        </div>
+                        <div class="insight-description">Your biggest expense was ₦486,588 for "OPay ↔ Providus Transfer" in March 2025</div>
+                        <div class="insight-details">₦486,588 - OPay ↔ Providus Transfer (March 2025)\n₦383,980 - Information about your Blinkist Subscription (May 2025)\n₦363,016 - OPay ↔ Providus Transfer (March 2025)</div>
+                    </div>
+                
+                    <div class="insight-card" onclick="toggleInsight(this)">
+                        <div class="insight-header">
+                            <span class="insight-icon">📊</span>
+                            <span class="insight-title">Spending Patterns</span>
+                        </div>
+                        <div class="insight-description">Monthly average: ₦2,013,223. Highest: May 2025 (₦6,596,200)</div>
+                        <div class="insight-details">Highest: May 2025 - ₦6,596,200\nLowest: February 2025 - ₦99,695\nAverage: ₦2,013,223</div>
+                    </div>
+                
+                    <div class="insight-card" onclick="toggleInsight(this)">
+                        <div class="insight-header">
+                            <span class="insight-icon">🏦</span>
+                            <span class="insight-title">Top Spending Category</span>
+                        </div>
+                        <div class="insight-description">Banking accounts for 79% of total spending (₦9,543,963)</div>
+                        <div class="insight-details">Banking: ₦9,543,963 (79%)\nTransport: ₦1,247,871 (10%)\nApple TV+: ₦453,790 (4%)\nApp Store: ₦343,582 (3%)\nAI Tools: ₦235,129 (2%)</div>
+                    </div>
+                
+                    <div class="insight-card" onclick="toggleInsight(this)">
+                        <div class="insight-header">
+                            <span class="insight-icon">🏦</span>
+                            <span class="insight-title">Large Banking Transfers</span>
+                        </div>
+                        <div class="insight-description">Found 12 transfers over ₦200k. Recent: ₦486,588 on 2025-03-19</div>
+                        <div class="insight-details">₦486,588 - 2025-03-19 (March 2025)\n₦363,016 - 2025-03-28 (March 2025)\n₦331,153 - 2025-03-20 (March 2025)\n₦311,883 - 2025-04-18 (April 2025)\n₦309,653 - 2025-03-20 (March 2025)</div>
+                    </div>
+                
+            </div>
         </div>
         
         <div class="months-grid">
@@ -243,6 +411,11 @@
                         <div class="month-total">₦883,316</div>
                     </div>
                     
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortTransactions(this, 'amount')">💰 By Amount</button>
+                        <button class="sort-btn" onclick="sortTransactions(this, 'date')">📅 By Date</button>
+                    </div>
+                    
                     <div class="category-list">
                         
                             <div class="category-item" data-category="banking">
@@ -250,6 +423,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🏦</span>
                                         <span class="category-name">Banking</span>
+                                        <span class="category-count">(10)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦752,675</span>
@@ -346,6 +520,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🚗</span>
                                         <span class="category-name">Transport</span>
+                                        <span class="category-count">(9)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦76,996</span>
@@ -434,6 +609,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🤖</span>
                                         <span class="category-name">AI Tools</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦23,745</span>
@@ -458,6 +634,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">App Store</span>
+                                        <span class="category-count">(3)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦22,000</span>
@@ -498,6 +675,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🍎</span>
                                         <span class="category-name">Apple One</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦7,900</span>
@@ -526,6 +704,11 @@
                         <div class="month-total">₦6,596,200</div>
                     </div>
                     
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortTransactions(this, 'amount')">💰 By Amount</button>
+                        <button class="sort-btn" onclick="sortTransactions(this, 'date')">📅 By Date</button>
+                    </div>
+                    
                     <div class="category-list">
                         
                             <div class="category-item" data-category="banking">
@@ -533,6 +716,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🏦</span>
                                         <span class="category-name">Banking</span>
+                                        <span class="category-count">(90)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦5,409,025</span>
@@ -1269,6 +1453,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🚗</span>
                                         <span class="category-name">Transport</span>
+                                        <span class="category-count">(40)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦493,771</span>
@@ -1605,6 +1790,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">Apple TV+</span>
+                                        <span class="category-count">(2)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦418,885</span>
@@ -1637,6 +1823,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">App Store</span>
+                                        <span class="category-count">(12)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦121,565</span>
@@ -1749,6 +1936,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🤖</span>
                                         <span class="category-name">AI Tools</span>
+                                        <span class="category-count">(2)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦87,223</span>
@@ -1781,6 +1969,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🍎</span>
                                         <span class="category-name">Apple One</span>
+                                        <span class="category-count">(2)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦26,700</span>
@@ -1813,6 +2002,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">iCloud Storage</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦19,800</span>
@@ -1837,6 +2027,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">📄</span>
                                         <span class="category-name">Other</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦15,830</span>
@@ -1861,6 +2052,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🎵</span>
                                         <span class="category-name">Apple Music</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦3,400</span>
@@ -1889,6 +2081,11 @@
                         <div class="month-total">₦1,321,533</div>
                     </div>
                     
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortTransactions(this, 'amount')">💰 By Amount</button>
+                        <button class="sort-btn" onclick="sortTransactions(this, 'date')">📅 By Date</button>
+                    </div>
+                    
                     <div class="category-list">
                         
                             <div class="category-item" data-category="banking">
@@ -1896,6 +2093,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🏦</span>
                                         <span class="category-name">Banking</span>
+                                        <span class="category-count">(6)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦965,799</span>
@@ -1960,6 +2158,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🤖</span>
                                         <span class="category-name">AI Tools</span>
+                                        <span class="category-count">(3)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦121,786</span>
@@ -2000,6 +2199,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">App Store</span>
+                                        <span class="category-count">(15)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦90,000</span>
@@ -2136,6 +2336,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">📄</span>
                                         <span class="category-name">Other</span>
+                                        <span class="category-count">(3)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦59,568</span>
@@ -2176,6 +2377,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🚗</span>
                                         <span class="category-name">Transport</span>
+                                        <span class="category-count">(4)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦47,579</span>
@@ -2224,6 +2426,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">iCloud Storage</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦19,800</span>
@@ -2248,6 +2451,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🍎</span>
                                         <span class="category-name">Apple One</span>
+                                        <span class="category-count">(3)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦14,600</span>
@@ -2288,6 +2492,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🎵</span>
                                         <span class="category-name">Apple Music</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦2,400</span>
@@ -2316,6 +2521,11 @@
                         <div class="month-total">₦2,616,014</div>
                     </div>
                     
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortTransactions(this, 'amount')">💰 By Amount</button>
+                        <button class="sort-btn" onclick="sortTransactions(this, 'date')">📅 By Date</button>
+                    </div>
+                    
                     <div class="category-list">
                         
                             <div class="category-item" data-category="banking">
@@ -2323,6 +2533,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🏦</span>
                                         <span class="category-name">Banking</span>
+                                        <span class="category-count">(11)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦2,416,464</span>
@@ -2427,6 +2638,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🚗</span>
                                         <span class="category-name">Transport</span>
+                                        <span class="category-count">(5)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦63,824</span>
@@ -2483,6 +2695,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">App Store</span>
+                                        <span class="category-count">(9)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦60,417</span>
@@ -2571,6 +2784,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">Apple TV+</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦34,905</span>
@@ -2595,6 +2809,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">iCloud Storage</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦19,800</span>
@@ -2619,6 +2834,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🍎</span>
                                         <span class="category-name">Apple One</span>
+                                        <span class="category-count">(6)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦15,585</span>
@@ -2683,6 +2899,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🎵</span>
                                         <span class="category-name">Apple Music</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦5,019</span>
@@ -2708,7 +2925,12 @@
                 <div class="month-card">
                     <div class="month-header">
                         <h2 class="month-title">February 2025</h2>
-                        <div class="month-total">₦131,355</div>
+                        <div class="month-total">₦99,695</div>
+                    </div>
+                    
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortTransactions(this, 'amount')">💰 By Amount</button>
+                        <button class="sort-btn" onclick="sortTransactions(this, 'date')">📅 By Date</button>
                     </div>
                     
                     <div class="category-list">
@@ -2718,6 +2940,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">App Store</span>
+                                        <span class="category-count">(2)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦49,600</span>
@@ -2745,43 +2968,12 @@
                                 </div>
                             </div>
                           
-                            <div class="category-item" data-category="transport">
-                                <div class="category-header" onclick="toggleCategory(this)">
-                                    <div class="category-info">
-                                        <span class="category-icon">🚗</span>
-                                        <span class="category-name">Transport</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px;">
-                                        <span class="category-amount">₦34,780</span>
-                                        <span class="expand-icon">▼</span>
-                                    </div>
-                                </div>
-                                <div class="category-details">
-                                    
-                                        <div class="transaction-item">
-                                            <div class="transaction-subject">Your receipt from Vercel Inc. #2990-1255</div>
-                                            <div style="display: flex; align-items: center;">
-                                                <span class="transaction-amount">₦31,660</span>
-                                                <span class="transaction-date">2025-02-05</span>
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="transaction-item">
-                                            <div class="transaction-subject">Your Saturday evening trip with Uber</div>
-                                            <div style="display: flex; align-items: center;">
-                                                <span class="transaction-amount">₦3,120</span>
-                                                <span class="transaction-date">2025-02-22</span>
-                                            </div>
-                                        </div>
-                                    
-                                </div>
-                            </div>
-                          
                             <div class="category-item" data-category="apple_one">
                                 <div class="category-header" onclick="toggleCategory(this)">
                                     <div class="category-info">
                                         <span class="category-icon">🍎</span>
                                         <span class="category-name">Apple One</span>
+                                        <span class="category-count">(2)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦24,800</span>
@@ -2814,6 +3006,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">💰</span>
                                         <span class="category-name">iCloud Storage</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦19,800</span>
@@ -2833,11 +3026,37 @@
                                 </div>
                             </div>
                           
+                            <div class="category-item" data-category="transport">
+                                <div class="category-header" onclick="toggleCategory(this)">
+                                    <div class="category-info">
+                                        <span class="category-icon">🚗</span>
+                                        <span class="category-name">Transport</span>
+                                        <span class="category-count">(1)</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <span class="category-amount">₦3,120</span>
+                                        <span class="expand-icon">▼</span>
+                                    </div>
+                                </div>
+                                <div class="category-details">
+                                    
+                                        <div class="transaction-item">
+                                            <div class="transaction-subject">Your Saturday evening trip with Uber</div>
+                                            <div style="display: flex; align-items: center;">
+                                                <span class="transaction-amount">₦3,120</span>
+                                                <span class="transaction-date">2025-02-22</span>
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                          
                             <div class="category-item" data-category="ai_tools">
                                 <div class="category-header" onclick="toggleCategory(this)">
                                     <div class="category-info">
                                         <span class="category-icon">🤖</span>
                                         <span class="category-name">AI Tools</span>
+                                        <span class="category-count">(1)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦2,375</span>
@@ -2866,6 +3085,11 @@
                         <div class="month-total">₦562,581</div>
                     </div>
                     
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortTransactions(this, 'amount')">💰 By Amount</button>
+                        <button class="sort-btn" onclick="sortTransactions(this, 'date')">📅 By Date</button>
+                    </div>
+                    
                     <div class="category-list">
                         
                             <div class="category-item" data-category="transport">
@@ -2873,6 +3097,7 @@
                                     <div class="category-info">
                                         <span class="category-icon">🚗</span>
                                         <span class="category-name">Transport</span>
+                                        <span class="category-count">(9)</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">₦562,581</span>
@@ -2966,6 +3191,44 @@
         function toggleCategory(element) {
             const categoryItem = element.closest('.category-item');
             categoryItem.classList.toggle('expanded');
+        }
+        
+        function toggleInsight(element) {
+            element.classList.toggle('expanded');
+        }
+        
+        function sortTransactions(button, sortType) {
+            const monthCard = button.closest('.month-card');
+            const sortButtons = monthCard.querySelectorAll('.sort-btn');
+            const categories = monthCard.querySelectorAll('.category-item');
+            
+            // Update active button
+            sortButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Sort each category's transactions
+            categories.forEach(category => {
+                const details = category.querySelector('.category-details');
+                const transactions = Array.from(details.querySelectorAll('.transaction-item'));
+                
+                if (sortType === 'amount') {
+                    transactions.sort((a, b) => {
+                        const amountA = parseFloat(a.querySelector('.transaction-amount').textContent.replace(/[₦,]/g, ''));
+                        const amountB = parseFloat(b.querySelector('.transaction-amount').textContent.replace(/[₦,]/g, ''));
+                        return amountB - amountA;
+                    });
+                } else if (sortType === 'date') {
+                    transactions.sort((a, b) => {
+                        const dateA = new Date(a.querySelector('.transaction-date').textContent);
+                        const dateB = new Date(b.querySelector('.transaction-date').textContent);
+                        return dateB - dateA;
+                    });
+                }
+                
+                // Re-append sorted transactions
+                details.innerHTML = '';
+                transactions.forEach(transaction => details.appendChild(transaction));
+            });
         }
         
         // Auto-expand largest category for each month on load

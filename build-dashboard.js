@@ -2,13 +2,13 @@
 
 /**
  * 🔹 Interactive Budget Dashboard
- * Category-focused design with expandable details
+ * Enhanced with insights, sorting, and call-outs
  */
 
 import fs from 'fs/promises';
 
 async function buildDashboard() {
-  console.log('🔹 Building category-focused budget dashboard...');
+  console.log('🔹 Building enhanced budget dashboard with insights...');
   
   // Load all monthly reports
   const months = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06'];
@@ -84,6 +84,105 @@ async function buildDashboard() {
     return `₦${Math.round(amount).toLocaleString('en-GB')}`;
   }
   
+  // Generate insights
+  function generateInsights(processedMonths) {
+    const insights = [];
+    let allTransactions = [];
+    let totalSpending = 0;
+    
+    // Collect all transactions
+    processedMonths.forEach(month => {
+      month.categories.forEach(([categoryName, amount]) => {
+        totalSpending += amount;
+        const transactions = month.transactions[categoryName] || [];
+        transactions.forEach(tx => {
+          allTransactions.push({
+            ...tx,
+            category: categoryName,
+            month: month.month,
+            amountNGN: tx.amount
+          });
+        });
+      });
+    });
+    
+    // Sort by amount for insights
+    allTransactions.sort((a, b) => b.amountNGN - a.amountNGN);
+    
+    // Insight 1: Largest single expenses
+    const top3Expenses = allTransactions.slice(0, 3);
+    if (top3Expenses.length > 0) {
+      insights.push({
+        icon: '💸',
+        title: 'Largest Single Expenses',
+        description: `Your biggest expense was ${formatNGN(top3Expenses[0].amountNGN)} for "${top3Expenses[0].subject}" in ${top3Expenses[0].month}`,
+        details: top3Expenses.map(tx => 
+          `${formatNGN(tx.amountNGN)} - ${tx.subject} (${tx.month})`
+        ).join('\\n')
+      });
+    }
+    
+    // Insight 2: Monthly averages
+    const avgMonthly = totalSpending / processedMonths.length;
+    const highestMonth = processedMonths.reduce((max, month) => 
+      month.total > max.total ? month : max, processedMonths[0]
+    );
+    const lowestMonth = processedMonths.reduce((min, month) => 
+      month.total < min.total ? month : min, processedMonths[0]
+    );
+    
+    insights.push({
+      icon: '📊',
+      title: 'Spending Patterns',
+      description: `Monthly average: ${formatNGN(avgMonthly)}. Highest: ${highestMonth.month} (${formatNGN(highestMonth.total)})`,
+      details: `Highest: ${highestMonth.month} - ${formatNGN(highestMonth.total)}\\nLowest: ${lowestMonth.month} - ${formatNGN(lowestMonth.total)}\\nAverage: ${formatNGN(avgMonthly)}`
+    });
+    
+    // Insight 3: Category breakdown
+    const categoryTotals = {};
+    processedMonths.forEach(month => {
+      month.categories.forEach(([categoryName, amount]) => {
+        categoryTotals[categoryName] = (categoryTotals[categoryName] || 0) + amount;
+      });
+    });
+    
+    const topCategory = Object.entries(categoryTotals)
+      .sort((a, b) => b[1] - a[1])[0];
+    
+    if (topCategory) {
+      const categoryPercent = Math.round((topCategory[1] / totalSpending) * 100);
+      insights.push({
+        icon: getCategoryIcon(topCategory[0].toLowerCase().replace(/\s+/g, '_')),
+        title: 'Top Spending Category',
+        description: `${topCategory[0]} accounts for ${categoryPercent}% of total spending (${formatNGN(topCategory[1])})`,
+        details: Object.entries(categoryTotals)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 5)
+          .map(([cat, amount]) => 
+            `${cat}: ${formatNGN(amount)} (${Math.round((amount/totalSpending)*100)}%)`
+          ).join('\\n')
+      });
+    }
+    
+    // Insight 4: Large banking transfers (your ₦250k question)
+    const largeTransfers = allTransactions.filter(tx => 
+      tx.amountNGN >= 200000 && tx.category === 'Banking'
+    );
+    
+    if (largeTransfers.length > 0) {
+      insights.push({
+        icon: '🏦',
+        title: 'Large Banking Transfers',
+        description: `Found ${largeTransfers.length} transfers over ₦200k. Recent: ${formatNGN(largeTransfers[0].amountNGN)} on ${largeTransfers[0].date}`,
+        details: largeTransfers.slice(0, 5).map(tx => 
+          `${formatNGN(tx.amountNGN)} - ${tx.date} (${tx.month})`
+        ).join('\\n')
+      });
+    }
+    
+    return insights;
+  }
+  
   // Process monthly data
   const processedMonths = monthlyData.map(month => {
     const categoryTotals = {};
@@ -122,12 +221,13 @@ async function buildDashboard() {
       if (categoryTotal > 0) {
         const formattedCategory = formatCategoryName(category);
         categoryTotals[formattedCategory] = categoryTotal;
+        // Sort by amount descending by default
         categoryTransactions[formattedCategory] = categoryDetails.sort((a, b) => b.amount - a.amount);
         monthTotal += categoryTotal;
       }
     });
     
-    // Sort categories by spending
+    // Sort categories by spending (descending)
     const sortedCategories = Object.entries(categoryTotals)
       .sort((a, b) => b[1] - a[1]);
     
@@ -138,6 +238,12 @@ async function buildDashboard() {
       transactions: categoryTransactions
     };
   });
+  
+  // Sort months by date (most recent first)
+  processedMonths.sort((a, b) => new Date(b.month) - new Date(a.month));
+  
+  // Generate insights
+  const insights = generateInsights(processedMonths);
 
   // Generate HTML
   const html = `<!DOCTYPE html>
@@ -175,7 +281,7 @@ async function buildDashboard() {
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -201,6 +307,94 @@ async function buildDashboard() {
         .header p {
             color: var(--secondary);
             font-size: 16px;
+        }
+        
+        /* Insights Panel */
+        .insights-panel {
+            background: linear-gradient(135deg, var(--accent), #5856d6);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 122, 255, 0.3);
+        }
+        
+        .insights-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .insights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .insights-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .insight-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .insight-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .insight-icon {
+            font-size: 28px;
+        }
+        
+        .insight-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .insight-description {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .insight-details {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 12px;
+            opacity: 0.8;
+            white-space: pre-line;
+        }
+        
+        .insight-card.expanded .insight-details {
+            display: block;
         }
         
         /* Month cards grid */
@@ -244,6 +438,29 @@ async function buildDashboard() {
             color: var(--accent);
         }
         
+        /* Sorting controls */
+        .sort-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .sort-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            background: var(--background);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .sort-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
         /* Category sections */
         .category-list {
             space-y: 12px;
@@ -284,6 +501,12 @@ async function buildDashboard() {
         .category-name {
             font-weight: 500;
             font-size: 16px;
+        }
+        
+        .category-count {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-left: 8px;
         }
         
         .category-amount {
@@ -367,6 +590,10 @@ async function buildDashboard() {
             .category-details {
                 padding: 0 16px 16px;
             }
+            
+            .insights-panel {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -374,15 +601,40 @@ async function buildDashboard() {
     <div class="container">
         <div class="header">
             <h1>Personal Budget Dashboard</h1>
-            <p>Category breakdown with expandable transaction details</p>
+            <p>Enhanced with insights and smart categorization</p>
+        </div>
+        
+        <!-- Insights Panel -->
+        <div class="insights-panel">
+            <div class="insights-title">
+                <span>💡</span>
+                <span>Financial Insights</span>
+            </div>
+            <div class="insights-grid">
+                ${insights.map(insight => `
+                    <div class="insight-card" onclick="toggleInsight(this)">
+                        <div class="insight-header">
+                            <span class="insight-icon">${insight.icon}</span>
+                            <span class="insight-title">${insight.title}</span>
+                        </div>
+                        <div class="insight-description">${insight.description}</div>
+                        <div class="insight-details">${insight.details}</div>
+                    </div>
+                `).join('')}
+            </div>
         </div>
         
         <div class="months-grid">
-            ${processedMonths.reverse().map(month => `
+            ${processedMonths.map(month => `
                 <div class="month-card">
                     <div class="month-header">
                         <h2 class="month-title">${month.month}</h2>
                         <div class="month-total">${formatNGN(month.total)}</div>
+                    </div>
+                    
+                    <div class="sort-controls">
+                        <button class="sort-btn active" onclick="sortTransactions(this, 'amount')">💰 By Amount</button>
+                        <button class="sort-btn" onclick="sortTransactions(this, 'date')">📅 By Date</button>
                     </div>
                     
                     <div class="category-list">
@@ -397,6 +649,7 @@ async function buildDashboard() {
                                     <div class="category-info">
                                         <span class="category-icon">${icon}</span>
                                         <span class="category-name">${categoryName}</span>
+                                        <span class="category-count">(${transactions.length})</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <span class="category-amount">${formatNGN(amount)}</span>
@@ -433,6 +686,44 @@ async function buildDashboard() {
             categoryItem.classList.toggle('expanded');
         }
         
+        function toggleInsight(element) {
+            element.classList.toggle('expanded');
+        }
+        
+        function sortTransactions(button, sortType) {
+            const monthCard = button.closest('.month-card');
+            const sortButtons = monthCard.querySelectorAll('.sort-btn');
+            const categories = monthCard.querySelectorAll('.category-item');
+            
+            // Update active button
+            sortButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Sort each category's transactions
+            categories.forEach(category => {
+                const details = category.querySelector('.category-details');
+                const transactions = Array.from(details.querySelectorAll('.transaction-item'));
+                
+                if (sortType === 'amount') {
+                    transactions.sort((a, b) => {
+                        const amountA = parseFloat(a.querySelector('.transaction-amount').textContent.replace(/[₦,]/g, ''));
+                        const amountB = parseFloat(b.querySelector('.transaction-amount').textContent.replace(/[₦,]/g, ''));
+                        return amountB - amountA;
+                    });
+                } else if (sortType === 'date') {
+                    transactions.sort((a, b) => {
+                        const dateA = new Date(a.querySelector('.transaction-date').textContent);
+                        const dateB = new Date(b.querySelector('.transaction-date').textContent);
+                        return dateB - dateA;
+                    });
+                }
+                
+                // Re-append sorted transactions
+                details.innerHTML = '';
+                transactions.forEach(transaction => details.appendChild(transaction));
+            });
+        }
+        
         // Auto-expand largest category for each month on load
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.month-card').forEach(monthCard => {
@@ -447,7 +738,7 @@ async function buildDashboard() {
 </html>`;
 
   await fs.writeFile('financial-dashboard.html', html);
-  console.log('✅ Category-focused dashboard created: financial-dashboard.html');
+  console.log('✅ Enhanced dashboard created with insights and sorting: financial-dashboard.html');
 }
 
 buildDashboard().catch(console.error); 
