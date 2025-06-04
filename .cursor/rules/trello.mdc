@@ -44,9 +44,9 @@ alwaysApply: false
   - **Create actionable checklist items immediately**
 
 - **URL Handling:**
-  - When adding YouTube videos, include direct links in description
-  - Use clear, descriptive card names beyond just "YouTube Video"
-  - Add relevant emojis for visual scanning (🎬, 📺, 🎵, etc.)
+  - When adding YouTube/web links, format as: `📺 [URL]` or `🔗 [URL]`
+  - Include brief context about why the link was added
+  - Use appropriate emoji prefixes for different content types
 
 - **Project Card Requirements:**
   - Must have at least 3-5 actionable checklist items
@@ -122,9 +122,9 @@ alwaysApply: false
   ```
 
 - **Error Handling:**
-  - Always validate list existence before adding cards
-  - Provide clear feedback when operations complete
-  - Include card URLs in success messages
+  - If `pos: "top"` fails, retry with `pos: 1` (second position)
+  - Log positioning choices for debugging
+  - Confirm card placement after creation
 
 ## **Content Formatting**
 
@@ -149,3 +149,40 @@ alwaysApply: false
   - Sunday Playlist items go to Active Projects
   - Review items get moved to 👀 Review list
   - Ideas go to 📥 Project Ideas for later processing
+
+## **List Management**
+
+- **Active Projects Priority:**
+  - Use 🔥 Active Projects for current/today items
+  - Move completed items to ✅ Completed immediately
+  - Keep active list lean (max 10-15 cards)
+
+- **Automatic Sorting:**
+  - Most recently updated cards should appear at top
+  - Use `move_card_to_top_of_list` when updating existing cards
+  - Maintain chronological relevance in list ordering
+
+## **Content Organisation**
+
+- **Daily/Weekly Items:**
+  - Use time-based prefixes: "Sunday Playlist", "Monday Tasks"
+  - Group related content with consistent naming
+  - Archive time-sensitive cards after completion
+
+- **Priority Indicators:**
+  - 🔥 High priority / Today
+  - ⚡️ In progress / Active work
+  - 📝 Planning / Future work
+  - ✅ Completed / Archive ready
+
+## **Automation Rules**
+
+- **Card Updates:**
+  - When modifying existing cards, automatically move to top of list
+  - Update modification timestamp in description
+  - Maintain activity log for important changes
+
+- **List Hygiene:**
+  - Auto-archive cards older than 30 days in completed
+  - Suggest moving stale "Active" cards to planning
+  - Keep lists organised and relevant

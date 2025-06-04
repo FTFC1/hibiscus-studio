@@ -44,9 +44,11 @@
   },
   "homepage": "https://github.com/delorenj/mcp-server-trello#readme",
   "dependencies": {
+    "@google-cloud/local-auth": "^3.0.1",
     "@modelcontextprotocol/sdk": "^1.0.4",
     "axios": "^1.6.2",
     "dotenv": "^16.5.0",
+    "googleapis": "^149.0.0",
     "openai": "^4.103.0"
   },
   "devDependencies": {
