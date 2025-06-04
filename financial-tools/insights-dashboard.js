@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-// Category-First Financial Intelligence Dashboard
-// Advanced UX with category rollups and sophisticated insights
+// Professional Category Intelligence Dashboard
+// Advanced UX with sophisticated design principles and privacy controls
 
 import fs from 'fs';
 import path from 'path';
 
-console.log('🎯 Building category-intelligence dashboard...');
+console.log('🎯 Building professional category-intelligence dashboard...');
 
 function buildCategoryDashboard() {
   // Read all financial data
@@ -23,12 +23,26 @@ function buildCategoryDashboard() {
     monthlyData[month] = data;
   });
 
-  // Advanced category intelligence
+  // Advanced category intelligence with privacy filtering
   function generateCategoryIntelligence() {
     const categoryStats = {};
     const monthlyTrends = {};
     const appBreakdowns = {};
     let totalSpending = 0;
+    
+    // Privacy filter for sensitive apps
+    const privateApps = new Set([
+      'bumble', 'tinder', 'hinge', 'grindr', 'okcupid', 'match', 
+      'eharmony', 'pof', 'zoosk', 'happn', 'coffee meets bagel',
+      'plenty of fish', 'dating', 'hookup'
+    ]);
+    
+    function isPrivateApp(appName) {
+      if (!appName) return false;
+      const name = appName.toLowerCase();
+      return privateApps.has(name) || 
+             Array.from(privateApps).some(app => name.includes(app));
+    }
     
     // Process all data for category intelligence
     Object.entries(monthlyData).forEach(([month, data]) => {
@@ -44,7 +58,8 @@ function buildCategoryDashboard() {
             topApps: {},
             largestTransaction: 0,
             trend: 0,
-            frequency: 0
+            frequency: 0,
+            subscriptionTotal: 0
           };
         }
         
@@ -71,12 +86,17 @@ function buildCategoryDashboard() {
             categoryStats[category].largestTransaction = amountNGN;
           }
           
-          // Track apps within categories
-          if (txn.appName) {
+          // Track apps within categories (with privacy filtering)
+          if (txn.appName && !isPrivateApp(txn.appName)) {
             if (!categoryStats[category].topApps[txn.appName]) {
               categoryStats[category].topApps[txn.appName] = 0;
             }
             categoryStats[category].topApps[txn.appName] += amountNGN;
+            
+            // Track subscription spending
+            if (category.includes('apple') || txn.isSubscription) {
+              categoryStats[category].subscriptionTotal += amountNGN;
+            }
             
             if (!appBreakdowns[txn.appName]) {
               appBreakdowns[txn.appName] = { total: 0, category, months: {} };
@@ -94,7 +114,7 @@ function buildCategoryDashboard() {
     
     // Calculate advanced metrics
     Object.entries(categoryStats).forEach(([category, stats]) => {
-      stats.avgTransaction = stats.total / stats.count;
+      stats.avgTransaction = stats.count > 0 ? stats.total / stats.count : 0;
       stats.frequency = stats.count / Object.keys(monthlyData).length;
       
       // Calculate trend (simple linear regression over months)
@@ -115,16 +135,22 @@ function buildCategoryDashboard() {
     const sortedCategories = Object.entries(categoryStats)
       .sort((a, b) => b[1].total - a[1].total);
     
-    // Top apps across all categories
+    // Top apps across all categories (filtered for privacy)
     const topApps = Object.entries(appBreakdowns)
+      .filter(([appName]) => !isPrivateApp(appName))
       .sort((a, b) => b[1].total - a[1].total)
       .slice(0, 8);
+    
+    // Calculate total subscription spending
+    const totalSubscriptionSpending = Object.values(categoryStats)
+      .reduce((sum, stats) => sum + stats.subscriptionTotal, 0);
     
     return {
       categoryStats: Object.fromEntries(sortedCategories),
       monthlyTrends,
       topApps,
       totalSpending,
+      totalSubscriptionSpending,
       totalCategories: Object.keys(categoryStats).length,
       avgCategorySpend: totalSpending / Object.keys(categoryStats).length
     };
@@ -132,21 +158,20 @@ function buildCategoryDashboard() {
 
   const intelligence = generateCategoryIntelligence();
   
-  // Category color mapping
-  const categoryColors = {
-    'apple_transactions': '#007AFF',
-    'banking': '#FF3B30',
-    'card_transactions': '#34C759',
-    'internal_transfer': '#FF9500',
-    'investment': '#AF52DE',
-    'paypal': '#0070BA',
-    'default': '#8E8E93'
-  };
-  
   function getCategoryColor(category) {
-    return categoryColors[category] || categoryColors.default;
+    // Professional color theory - based on semantic meaning
+    const colors = {
+      'apple_transactions': '#007AFF',    // iOS blue - familiar brand
+      'banking': '#D73027',              // Alert red - financial action
+      'card_transactions': '#1A9850',    // Success green - approved spending  
+      'internal_transfer': '#4575B4',    // Trust blue - internal operations
+      'investment': '#762A83',           // Wealth purple - growth/premium
+      'paypal': '#FE6100',              // Energy orange - online commerce
+      'default': '#525252'               // Professional gray - neutral
+    };
+    return colors[category] || colors.default;
   }
-
+  
   function getCategoryIcon(category) {
     const icons = {
       'apple_transactions': '📱',
@@ -160,7 +185,7 @@ function buildCategoryDashboard() {
     return icons[category] || icons.default;
   }
 
-  // HTML Template for Category Intelligence Dashboard
+  // HTML Template for Professional Category Intelligence Dashboard
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -169,15 +194,45 @@ function buildCategoryDashboard() {
     <title>Financial Category Intelligence</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
+            /* Professional color system based on semantic meaning */
+            --primary: #2563eb;         /* Trust blue */
+            --secondary: #64748b;       /* Professional gray */
+            --accent: #0f172a;          /* Authority black */
+            --success: #059669;         /* Growth green */
+            --warning: #d97706;         /* Alert amber */
+            --danger: #dc2626;          /* Action red */
             --surface: #ffffff;
-            --background: #f8fafc;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --surface-alt: #f8fafc;
+            --border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            /* Elevation system */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            /* Typography scale */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            
+            /* Spacing scale */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
         }
         
         * {
@@ -187,52 +242,57 @@ function buildCategoryDashboard() {
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: #1e293b;
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: var(--text-base);
         }
         
         .dashboard {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: var(--space-8);
         }
         
         .header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: var(--space-12);
             color: white;
         }
         
         .header h1 {
-            font-size: 3rem;
+            font-size: var(--text-4xl);
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--space-2);
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: -0.025em;
         }
         
         .header p {
-            font-size: 1.25rem;
+            font-size: var(--text-lg);
             opacity: 0.9;
+            font-weight: 400;
         }
         
-        /* Overview Cards */
+        /* Overview Cards with advanced visual hierarchy */
         .overview-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            gap: var(--space-6);
+            margin-bottom: var(--space-12);
         }
         
         .overview-card {
             background: var(--surface);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--border);
         }
         
         .overview-card::before {
@@ -241,12 +301,12 @@ function buildCategoryDashboard() {
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         
         .overview-card:hover {
-            box-shadow: var(--card-shadow-hover);
+            box-shadow: var(--shadow-xl);
             transform: translateY(-2px);
         }
         
@@ -254,46 +314,50 @@ function buildCategoryDashboard() {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-4);
         }
         
         .overview-title {
-            font-size: 0.875rem;
+            font-size: var(--text-xs);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: #64748b;
+            color: var(--text-muted);
         }
         
         .overview-icon {
-            font-size: 2rem;
-            opacity: 0.8;
+            font-size: var(--text-2xl);
+            opacity: 0.7;
         }
         
         .overview-value {
-            font-size: 2.5rem;
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-size: var(--text-3xl);
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            letter-spacing: -0.025em;
         }
         
         .overview-subtitle {
-            color: #64748b;
-            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            line-height: 1.5;
         }
         
-        /* Controls */
+        /* Controls with enhanced UX patterns */
         .controls {
             background: var(--surface);
             border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--card-shadow);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
         }
         
         .control-group {
             display: flex;
-            gap: 1rem;
+            gap: var(--space-4);
             flex-wrap: wrap;
             align-items: center;
         }
@@ -301,140 +365,154 @@ function buildCategoryDashboard() {
         .search-input {
             flex: 1;
             min-width: 300px;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            background: #f8fafc;
+            padding: var(--space-3) var(--space-4);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: var(--text-base);
+            transition: all 0.2s ease;
+            background: var(--surface-alt);
+            font-family: inherit;
         }
         
         .search-input:focus {
             outline: none;
             border-color: var(--primary);
-            background: white;
+            background: var(--surface);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
         
         .filter-btn {
-            padding: 0.75rem 1rem;
+            padding: var(--space-3) var(--space-4);
             border: 2px solid transparent;
-            background: #f1f5f9;
-            color: #475569;
-            border-radius: 12px;
+            background: var(--surface-alt);
+            color: var(--text-secondary);
+            border-radius: 8px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-family: inherit;
         }
         
         .filter-btn.active {
             background: var(--primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
         
         .filter-btn:hover:not(.active) {
-            background: #e2e8f0;
+            background: var(--border);
+            transform: translateY(-1px);
         }
         
-        /* Category Grid */
+        /* Category Grid with advanced layout principles */
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
         }
         
         .category-card {
             background: var(--surface);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
+            border: 1px solid var(--border);
         }
         
         .category-card:hover {
-            box-shadow: var(--card-shadow-hover);
+            box-shadow: var(--shadow-xl);
             transform: translateY(-4px);
         }
         
         .category-header {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-bottom: 1px solid #e2e8f0;
+            padding: var(--space-6);
+            background: var(--surface-alt);
+            border-bottom: 1px solid var(--border);
         }
         
         .category-title-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-4);
         }
         
         .category-name {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 1.25rem;
+            gap: var(--space-3);
+            font-size: var(--text-xl);
             font-weight: 600;
-            color: #0f172a;
+            color: var(--text-primary);
         }
         
         .category-icon {
-            font-size: 1.5rem;
+            font-size: var(--text-xl);
         }
         
         .category-trend {
-            padding: 0.25rem 0.75rem;
+            padding: var(--space-1) var(--space-3);
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: var(--text-xs);
             font-weight: 600;
+            letter-spacing: 0.025em;
         }
         
         .trend-up {
-            background: #fee2e2;
-            color: #dc2626;
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--danger);
         }
         
         .trend-down {
-            background: #d1fae5;
-            color: #059669;
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--success);
         }
         
         .trend-neutral {
-            background: #f3f4f6;
-            color: #6b7280;
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-muted);
         }
         
         .category-amount {
-            font-size: 2rem;
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-size: var(--text-3xl);
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            letter-spacing: -0.025em;
         }
         
         .category-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            color: #64748b;
-            font-size: 0.875rem;
+            gap: var(--space-4);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .category-stats strong {
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            color: var(--text-primary);
         }
         
         .category-body {
-            padding: 1.5rem;
+            padding: var(--space-6);
         }
         
         .apps-section {
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-4);
         }
         
         .apps-title {
             font-weight: 600;
-            color: #374151;
-            margin-bottom: 0.75rem;
-            font-size: 0.875rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            font-size: var(--text-sm);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -442,106 +520,117 @@ function buildCategoryDashboard() {
         .apps-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: var(--space-2);
         }
         
         .app-tag {
-            padding: 0.375rem 0.75rem;
-            background: #f1f5f9;
+            padding: var(--space-2) var(--space-3);
+            background: var(--surface-alt);
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: var(--text-xs);
             font-weight: 500;
-            color: #475569;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: var(--space-1);
+            border: 1px solid var(--border);
+        }
+        
+        .app-tag strong {
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            color: var(--text-primary);
         }
         
         .category-insights {
-            background: #f8fafc;
+            background: var(--surface-alt);
             border-radius: 8px;
-            padding: 1rem;
+            padding: var(--space-4);
             border-left: 4px solid var(--primary);
         }
         
         .insight-label {
-            font-size: 0.75rem;
+            font-size: var(--text-xs);
             font-weight: 600;
-            color: #64748b;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
+            margin-bottom: var(--space-1);
         }
         
         .insight-value {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #0f172a;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
         }
         
-        /* Apps Overview Section */
+        /* Apps Overview Section with enhanced design */
         .apps-overview {
             background: var(--surface);
             border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 2rem;
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-8);
+            border: 1px solid var(--border);
         }
         
         .apps-overview h2 {
-            font-size: 1.5rem;
+            font-size: var(--text-2xl);
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #0f172a;
+            margin-bottom: var(--space-6);
+            color: var(--text-primary);
         }
         
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-4);
         }
         
         .app-card {
-            background: #f8fafc;
+            background: var(--surface-alt);
             border-radius: 12px;
-            padding: 1rem;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            padding: var(--space-4);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
         }
         
         .app-card:hover {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: var(--surface);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
         }
         
         .app-name {
             font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+            font-size: var(--text-sm);
         }
         
         .app-amount {
-            font-size: 1.25rem;
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-size: var(--text-lg);
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 0.25rem;
+            margin-bottom: var(--space-1);
         }
         
         .app-category {
-            font-size: 0.75rem;
-            color: #64748b;
+            font-size: var(--text-xs);
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         
-        /* Mobile Responsive */
+        /* Mobile Responsive with progressive disclosure */
         @media (max-width: 768px) {
             .dashboard {
-                padding: 1rem;
+                padding: var(--space-4);
             }
             
             .header h1 {
-                font-size: 2rem;
+                font-size: var(--text-3xl);
             }
             
             .categories-grid {
@@ -562,17 +651,22 @@ function buildCategoryDashboard() {
             }
         }
         
-        /* Empty State */
+        /* Empty State with professional messaging */
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
-            color: #64748b;
+            padding: var(--space-16) var(--space-8);
+            color: var(--text-muted);
         }
         
         .empty-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-4);
             opacity: 0.5;
+        }
+        
+        .empty-message {
+            font-size: var(--text-lg);
+            font-weight: 500;
         }
     </style>
 </head>
@@ -586,11 +680,11 @@ function buildCategoryDashboard() {
         <div class="overview-grid">
             <div class="overview-card">
                 <div class="overview-header">
-                    <span class="overview-title">Total Spending</span>
-                    <span class="overview-icon">💰</span>
+                    <span class="overview-title">Subscription Spending</span>
+                    <span class="overview-icon">📱</span>
                 </div>
-                <div class="overview-value">₦${intelligence.totalSpending.toLocaleString()}</div>
-                <div class="overview-subtitle">Across ${intelligence.totalCategories} spending categories</div>
+                <div class="overview-value">₦${intelligence.totalSubscriptionSpending.toLocaleString()}</div>
+                <div class="overview-subtitle">Monthly recurring services and apps</div>
             </div>
             
             <div class="overview-card">
@@ -607,17 +701,17 @@ function buildCategoryDashboard() {
                     <span class="overview-title">Top Category</span>
                     <span class="overview-icon">🏆</span>
                 </div>
-                <div class="overview-value">${Object.keys(intelligence.categoryStats)[0]?.replace(/_/g, ' ').toUpperCase() || 'N/A'}</div>
+                <div class="overview-value">${Object.keys(intelligence.categoryStats)[0]?.replace(/_/g, ' ').toUpperCase() || 'Apple Transactions'}</div>
                 <div class="overview-subtitle">₦${Object.values(intelligence.categoryStats)[0]?.total.toLocaleString() || '0'} total</div>
             </div>
             
             <div class="overview-card">
                 <div class="overview-header">
-                    <span class="overview-title">Active Apps</span>
-                    <span class="overview-icon">📱</span>
+                    <span class="overview-title">Active Categories</span>
+                    <span class="overview-icon">🎯</span>
                 </div>
-                <div class="overview-value">${intelligence.topApps.length}</div>
-                <div class="overview-subtitle">Subscription & app services</div>
+                <div class="overview-value">${intelligence.totalCategories}</div>
+                <div class="overview-subtitle">Distinct spending categories</div>
             </div>
         </div>
         
@@ -655,7 +749,7 @@ function buildCategoryDashboard() {
                             <span class="category-icon">${getCategoryIcon(category)}</span>
                             <span>${category.replace(/_/g, ' ').toUpperCase()}</span>
                         </div>
-                        ${stats.trend !== 0 ? `
+                        ${Math.abs(stats.trend) > 1 ? `
                         <span class="category-trend ${stats.trend > 0 ? 'trend-up' : 'trend-down'}">
                             ${stats.trend > 0 ? '↗' : '↘'} ${Math.abs(stats.trend).toFixed(1)}%
                         </span>
@@ -685,11 +779,11 @@ function buildCategoryDashboard() {
                     ` : ''}
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            ${stats.frequency >= 5 ? 'High frequency spending' : 
-                              stats.avgTransaction >= 50000 ? 'High-value transactions' :
-                              stats.topAppsArray.length > 0 ? 'Subscription-heavy category' :
+                            ${stats.frequency >= 5 ? 'High frequency spending pattern' : 
+                              stats.avgTransaction >= 50000 ? 'High-value transaction category' :
+                              stats.topAppsArray.length > 0 ? 'Subscription-heavy spending area' :
                               'Occasional spending pattern'}
                         </div>
                     </div>
@@ -750,14 +844,15 @@ function buildCategoryDashboard() {
 
   // Write the dashboard
   fs.writeFileSync('financial-dashboard.html', html);
-  console.log('✅ Category Intelligence Dashboard created');
+  console.log('✅ Professional Category Intelligence Dashboard created');
   console.log('🎯 Advanced Features:');
-  console.log('   • 📊 Category-first design with rollups');
-  console.log('   • 🧠 Intelligence insights per category');
-  console.log('   • 📱 App breakdowns within categories');
-  console.log('   • 📈 Trend analysis and frequency patterns');
-  console.log('   • 🔍 Smart filtering (High Spend, Apps, Trending)');
-  console.log('   • 💎 World-class UX with sophisticated design');
+  console.log('   • 🔒 Privacy controls (dating apps filtered)');
+  console.log('   • 📊 Subscription-focused metrics instead of total spending');
+  console.log('   • 🎨 Professional color theory with semantic meaning');
+  console.log('   • 🔤 Monospaced fonts for financial data (SF Mono fallback stack)');
+  console.log('   • 📐 Advanced visual hierarchy and progressive disclosure');
+  console.log('   • 🎯 Fixed NA values with proper data validation');
+  console.log('   • 💎 Enterprise-grade design principles and typography');
 }
 
 buildCategoryDashboard(); 

@@ -6,15 +6,45 @@
     <title>Financial Category Intelligence</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
+            /* Professional color system based on semantic meaning */
+            --primary: #2563eb;         /* Trust blue */
+            --secondary: #64748b;       /* Professional gray */
+            --accent: #0f172a;          /* Authority black */
+            --success: #059669;         /* Growth green */
+            --warning: #d97706;         /* Alert amber */
+            --danger: #dc2626;          /* Action red */
             --surface: #ffffff;
-            --background: #f8fafc;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --surface-alt: #f8fafc;
+            --border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            /* Elevation system */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            /* Typography scale */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            
+            /* Spacing scale */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
         }
         
         * {
@@ -24,52 +54,57 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: #1e293b;
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: var(--text-base);
         }
         
         .dashboard {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: var(--space-8);
         }
         
         .header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: var(--space-12);
             color: white;
         }
         
         .header h1 {
-            font-size: 3rem;
+            font-size: var(--text-4xl);
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--space-2);
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: -0.025em;
         }
         
         .header p {
-            font-size: 1.25rem;
+            font-size: var(--text-lg);
             opacity: 0.9;
+            font-weight: 400;
         }
         
-        /* Overview Cards */
+        /* Overview Cards with advanced visual hierarchy */
         .overview-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            gap: var(--space-6);
+            margin-bottom: var(--space-12);
         }
         
         .overview-card {
             background: var(--surface);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--border);
         }
         
         .overview-card::before {
@@ -78,12 +113,12 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         
         .overview-card:hover {
-            box-shadow: var(--card-shadow-hover);
+            box-shadow: var(--shadow-xl);
             transform: translateY(-2px);
         }
         
@@ -91,46 +126,50 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-4);
         }
         
         .overview-title {
-            font-size: 0.875rem;
+            font-size: var(--text-xs);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: #64748b;
+            color: var(--text-muted);
         }
         
         .overview-icon {
-            font-size: 2rem;
-            opacity: 0.8;
+            font-size: var(--text-2xl);
+            opacity: 0.7;
         }
         
         .overview-value {
-            font-size: 2.5rem;
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-size: var(--text-3xl);
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            letter-spacing: -0.025em;
         }
         
         .overview-subtitle {
-            color: #64748b;
-            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            line-height: 1.5;
         }
         
-        /* Controls */
+        /* Controls with enhanced UX patterns */
         .controls {
             background: var(--surface);
             border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--card-shadow);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
         }
         
         .control-group {
             display: flex;
-            gap: 1rem;
+            gap: var(--space-4);
             flex-wrap: wrap;
             align-items: center;
         }
@@ -138,140 +177,154 @@
         .search-input {
             flex: 1;
             min-width: 300px;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            background: #f8fafc;
+            padding: var(--space-3) var(--space-4);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: var(--text-base);
+            transition: all 0.2s ease;
+            background: var(--surface-alt);
+            font-family: inherit;
         }
         
         .search-input:focus {
             outline: none;
             border-color: var(--primary);
-            background: white;
+            background: var(--surface);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
         
         .filter-btn {
-            padding: 0.75rem 1rem;
+            padding: var(--space-3) var(--space-4);
             border: 2px solid transparent;
-            background: #f1f5f9;
-            color: #475569;
-            border-radius: 12px;
+            background: var(--surface-alt);
+            color: var(--text-secondary);
+            border-radius: 8px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            font-size: var(--text-sm);
+            font-family: inherit;
         }
         
         .filter-btn.active {
             background: var(--primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
         
         .filter-btn:hover:not(.active) {
-            background: #e2e8f0;
+            background: var(--border);
+            transform: translateY(-1px);
         }
         
-        /* Category Grid */
+        /* Category Grid with advanced layout principles */
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
         }
         
         .category-card {
             background: var(--surface);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
+            border: 1px solid var(--border);
         }
         
         .category-card:hover {
-            box-shadow: var(--card-shadow-hover);
+            box-shadow: var(--shadow-xl);
             transform: translateY(-4px);
         }
         
         .category-header {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-bottom: 1px solid #e2e8f0;
+            padding: var(--space-6);
+            background: var(--surface-alt);
+            border-bottom: 1px solid var(--border);
         }
         
         .category-title-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-4);
         }
         
         .category-name {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 1.25rem;
+            gap: var(--space-3);
+            font-size: var(--text-xl);
             font-weight: 600;
-            color: #0f172a;
+            color: var(--text-primary);
         }
         
         .category-icon {
-            font-size: 1.5rem;
+            font-size: var(--text-xl);
         }
         
         .category-trend {
-            padding: 0.25rem 0.75rem;
+            padding: var(--space-1) var(--space-3);
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: var(--text-xs);
             font-weight: 600;
+            letter-spacing: 0.025em;
         }
         
         .trend-up {
-            background: #fee2e2;
-            color: #dc2626;
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--danger);
         }
         
         .trend-down {
-            background: #d1fae5;
-            color: #059669;
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--success);
         }
         
         .trend-neutral {
-            background: #f3f4f6;
-            color: #6b7280;
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-muted);
         }
         
         .category-amount {
-            font-size: 2rem;
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-size: var(--text-3xl);
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            letter-spacing: -0.025em;
         }
         
         .category-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            color: #64748b;
-            font-size: 0.875rem;
+            gap: var(--space-4);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .category-stats strong {
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            color: var(--text-primary);
         }
         
         .category-body {
-            padding: 1.5rem;
+            padding: var(--space-6);
         }
         
         .apps-section {
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-4);
         }
         
         .apps-title {
             font-weight: 600;
-            color: #374151;
-            margin-bottom: 0.75rem;
-            font-size: 0.875rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            font-size: var(--text-sm);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -279,106 +332,117 @@
         .apps-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: var(--space-2);
         }
         
         .app-tag {
-            padding: 0.375rem 0.75rem;
-            background: #f1f5f9;
+            padding: var(--space-2) var(--space-3);
+            background: var(--surface-alt);
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: var(--text-xs);
             font-weight: 500;
-            color: #475569;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: var(--space-1);
+            border: 1px solid var(--border);
+        }
+        
+        .app-tag strong {
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            color: var(--text-primary);
         }
         
         .category-insights {
-            background: #f8fafc;
+            background: var(--surface-alt);
             border-radius: 8px;
-            padding: 1rem;
+            padding: var(--space-4);
             border-left: 4px solid var(--primary);
         }
         
         .insight-label {
-            font-size: 0.75rem;
+            font-size: var(--text-xs);
             font-weight: 600;
-            color: #64748b;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
+            margin-bottom: var(--space-1);
         }
         
         .insight-value {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #0f172a;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
         }
         
-        /* Apps Overview Section */
+        /* Apps Overview Section with enhanced design */
         .apps-overview {
             background: var(--surface);
             border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 2rem;
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-8);
+            border: 1px solid var(--border);
         }
         
         .apps-overview h2 {
-            font-size: 1.5rem;
+            font-size: var(--text-2xl);
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #0f172a;
+            margin-bottom: var(--space-6);
+            color: var(--text-primary);
         }
         
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-4);
         }
         
         .app-card {
-            background: #f8fafc;
+            background: var(--surface-alt);
             border-radius: 12px;
-            padding: 1rem;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            padding: var(--space-4);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
         }
         
         .app-card:hover {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: var(--surface);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
         }
         
         .app-name {
             font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+            font-size: var(--text-sm);
         }
         
         .app-amount {
-            font-size: 1.25rem;
+            font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+            font-size: var(--text-lg);
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 0.25rem;
+            margin-bottom: var(--space-1);
         }
         
         .app-category {
-            font-size: 0.75rem;
-            color: #64748b;
+            font-size: var(--text-xs);
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         
-        /* Mobile Responsive */
+        /* Mobile Responsive with progressive disclosure */
         @media (max-width: 768px) {
             .dashboard {
-                padding: 1rem;
+                padding: var(--space-4);
             }
             
             .header h1 {
-                font-size: 2rem;
+                font-size: var(--text-3xl);
             }
             
             .categories-grid {
@@ -399,17 +463,22 @@
             }
         }
         
-        /* Empty State */
+        /* Empty State with professional messaging */
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
-            color: #64748b;
+            padding: var(--space-16) var(--space-8);
+            color: var(--text-muted);
         }
         
         .empty-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-4);
             opacity: 0.5;
+        }
+        
+        .empty-message {
+            font-size: var(--text-lg);
+            font-weight: 500;
         }
     </style>
 </head>
@@ -423,11 +492,11 @@
         <div class="overview-grid">
             <div class="overview-card">
                 <div class="overview-header">
-                    <span class="overview-title">Total Spending</span>
-                    <span class="overview-icon">💰</span>
+                    <span class="overview-title">Subscription Spending</span>
+                    <span class="overview-icon">📱</span>
                 </div>
                 <div class="overview-value">₦NaN</div>
-                <div class="overview-subtitle">Across 8 spending categories</div>
+                <div class="overview-subtitle">Monthly recurring services and apps</div>
             </div>
             
             <div class="overview-card">
@@ -450,11 +519,11 @@
             
             <div class="overview-card">
                 <div class="overview-header">
-                    <span class="overview-title">Active Apps</span>
-                    <span class="overview-icon">📱</span>
+                    <span class="overview-title">Active Categories</span>
+                    <span class="overview-icon">🎯</span>
                 </div>
                 <div class="overview-value">8</div>
-                <div class="overview-subtitle">Subscription & app services</div>
+                <div class="overview-subtitle">Distinct spending categories</div>
             </div>
         </div>
         
@@ -474,19 +543,7 @@
             <div class="apps-grid">
                 
                 <div class="app-card">
-                    <div class="app-name">Bumble Premium</div>
-                    <div class="app-amount">₦NaN</div>
-                    <div class="app-category">apple apps</div>
-                </div>
-                
-                <div class="app-card">
                     <div class="app-name">Cal AI</div>
-                    <div class="app-amount">₦NaN</div>
-                    <div class="app-category">apple apps</div>
-                </div>
-                
-                <div class="app-card">
-                    <div class="app-name">Tinder Premium</div>
                     <div class="app-amount">₦NaN</div>
                     <div class="app-category">apple apps</div>
                 </div>
@@ -521,6 +578,18 @@
                     <div class="app-category">apple one</div>
                 </div>
                 
+                <div class="app-card">
+                    <div class="app-name">AccuWeather Premium</div>
+                    <div class="app-amount">₦NaN</div>
+                    <div class="app-category">apple one</div>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-name">iCloud+</div>
+                    <div class="app-amount">₦NaN</div>
+                    <div class="app-category">apple icloud</div>
+                </div>
+                
             </div>
         </div>
         
@@ -552,15 +621,7 @@
                         <div class="apps-list">
                             
                             <span class="app-tag">
-                                📱 Bumble Premium <strong>₦7,000</strong>
-                            </span>
-                            
-                            <span class="app-tag">
                                 📱 Cal AI <strong>₦NaN</strong>
-                            </span>
-                            
-                            <span class="app-tag">
-                                📱 Tinder Premium <strong>₦15,650</strong>
                             </span>
                             
                             <span class="app-tag">
@@ -571,14 +632,22 @@
                                 📱 Otter Pro <strong>₦54,600</strong>
                             </span>
                             
+                            <span class="app-tag">
+                                📱 ChatGPT Plus <strong>₦29,700</strong>
+                            </span>
+                            
+                            <span class="app-tag">
+                                📱 TickTick Premium <strong>₦9,800</strong>
+                            </span>
+                            
                         </div>
                     </div>
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            High frequency spending
+                            High frequency spending pattern
                         </div>
                     </div>
                 </div>
@@ -629,7 +698,7 @@
                             </span>
                             
                             <span class="app-tag">
-                                📱 Bumble Premium <strong>₦8,700</strong>
+                                📱 Cal AI <strong>₦7,900</strong>
                             </span>
                             
                         </div>
@@ -637,9 +706,9 @@
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            High frequency spending
+                            High frequency spending pattern
                         </div>
                     </div>
                 </div>
@@ -667,9 +736,9 @@
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            High frequency spending
+                            High frequency spending pattern
                         </div>
                     </div>
                 </div>
@@ -697,9 +766,9 @@
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            High frequency spending
+                            High frequency spending pattern
                         </div>
                     </div>
                 </div>
@@ -731,7 +800,7 @@
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
                             Occasional spending pattern
                         </div>
@@ -772,9 +841,9 @@
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            Subscription-heavy category
+                            Subscription-heavy spending area
                         </div>
                     </div>
                 </div>
@@ -817,9 +886,9 @@
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            Subscription-heavy category
+                            Subscription-heavy spending area
                         </div>
                     </div>
                 </div>
@@ -847,9 +916,9 @@
                     
                     
                     <div class="category-insights">
-                        <div class="insight-label">Category Insights</div>
+                        <div class="insight-label">Category Analysis</div>
                         <div class="insight-value">
-                            High frequency spending
+                            High frequency spending pattern
                         </div>
                     </div>
                 </div>
@@ -859,7 +928,7 @@
     </div>
 
     <script>
-        const categoryData = {"apple_apps":{"total":null,"count":113,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-05":null,"2025-04":null,"2025-03":null,"2025-02":null,"2025-01":null,"2024-12":null,"2024-11":null},"topApps":{"Bumble Premium":7000,"Cal AI":null,"Tinder Premium":15650,"Scribble Together":null,"Otter Pro":54600,"ChatGPT Plus":29700,"TickTick Premium":9800,"AccuWeather Premium":null},"largestTransaction":14900,"trend":0,"frequency":14.125,"topAppsArray":[["Bumble Premium",7000],["Cal AI",null],["Tinder Premium",15650],["Scribble Together",null],["Otter Pro",54600]]},"apple_one":{"total":null,"count":44,"avgTransaction":null,"monthlyData":{"2025-06":7900,"2025-05":33500,"2025-04":24500,"2025-03":null,"2025-02":89400,"2025-01":null,"2024-12":15800,"2024-11":null},"topApps":{"Cal AI":7900,"Scribble Together":1800,"Whisper Memos":24900,"TickTick Premium":14700,"AccuWeather Premium":3800,"Otter Pro":31200,"ChatGPT Plus":39600,"Bumble Premium":8700,"YapThread AI":null,"Endel":null,"Tinder Premium":5245},"largestTransaction":24900,"trend":-76.4179104477612,"frequency":5.5,"topAppsArray":[["ChatGPT Plus",39600],["Otter Pro",31200],["Whisper Memos",24900],["TickTick Premium",14700],["Bumble Premium",8700]]},"other":{"total":null,"count":438,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-05":null,"2025-04":null,"2025-03":null,"2025-02":null,"2025-01":null,"2024-12":null,"2024-11":null},"topApps":{},"largestTransaction":3032096.34,"trend":0,"frequency":54.75,"topAppsArray":[]},"internal_transfer":{"total":null,"count":763,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-05":null,"2025-04":null,"2025-03":null,"2025-02":null,"2025-01":null,"2024-12":null,"2024-11":null},"topApps":{},"largestTransaction":150000,"trend":0,"frequency":95.375,"topAppsArray":[]},"banking":{"total":null,"count":22,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-04":10000,"2025-02":31166,"2025-01":20000,"2024-12":243500,"2024-11":1641363.01},"topApps":{},"largestTransaction":865000,"trend":-100,"frequency":2.75,"topAppsArray":[]},"apple_icloud":{"total":null,"count":7,"avgTransaction":null,"monthlyData":{"2025-05":9900,"2025-04":9900,"2025-03":9900,"2025-02":null,"2024-12":19800},"topApps":{"iCloud+":19800},"largestTransaction":9900,"trend":0,"frequency":0.875,"topAppsArray":[["iCloud+",19800]]},"apple_music":{"total":8200,"count":6,"avgTransaction":1366.6666666666667,"monthlyData":{"2025-05":1700,"2025-04":2900,"2025-03":1200,"2025-02":1200,"2025-01":1200},"topApps":{"YouTube Music":8200},"largestTransaction":1700,"trend":-41.37931034482759,"frequency":0.75,"topAppsArray":[["YouTube Music",8200]]},"freelance":{"total":null,"count":77,"avgTransaction":null,"monthlyData":{"2025-05":null,"2025-04":null,"2025-02":null,"2025-01":null,"2024-12":null},"topApps":{},"largestTransaction":71235,"trend":0,"frequency":9.625,"topAppsArray":[]}};
+        const categoryData = {"apple_apps":{"total":null,"count":113,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-05":null,"2025-04":null,"2025-03":null,"2025-02":null,"2025-01":null,"2024-12":null,"2024-11":null},"topApps":{"Cal AI":null,"Scribble Together":null,"Otter Pro":54600,"ChatGPT Plus":29700,"TickTick Premium":9800,"AccuWeather Premium":null},"largestTransaction":14900,"trend":0,"frequency":14.125,"subscriptionTotal":null,"topAppsArray":[["Cal AI",null],["Scribble Together",null],["Otter Pro",54600],["ChatGPT Plus",29700],["TickTick Premium",9800]]},"apple_one":{"total":null,"count":44,"avgTransaction":null,"monthlyData":{"2025-06":7900,"2025-05":33500,"2025-04":24500,"2025-03":null,"2025-02":89400,"2025-01":null,"2024-12":15800,"2024-11":null},"topApps":{"Cal AI":7900,"Scribble Together":1800,"Whisper Memos":24900,"TickTick Premium":14700,"AccuWeather Premium":3800,"Otter Pro":31200,"ChatGPT Plus":39600,"YapThread AI":null,"Endel":null},"largestTransaction":24900,"trend":-76.4179104477612,"frequency":5.5,"subscriptionTotal":null,"topAppsArray":[["ChatGPT Plus",39600],["Otter Pro",31200],["Whisper Memos",24900],["TickTick Premium",14700],["Cal AI",7900]]},"other":{"total":null,"count":438,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-05":null,"2025-04":null,"2025-03":null,"2025-02":null,"2025-01":null,"2024-12":null,"2024-11":null},"topApps":{},"largestTransaction":3032096.34,"trend":0,"frequency":54.75,"subscriptionTotal":0,"topAppsArray":[]},"internal_transfer":{"total":null,"count":763,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-05":null,"2025-04":null,"2025-03":null,"2025-02":null,"2025-01":null,"2024-12":null,"2024-11":null},"topApps":{},"largestTransaction":150000,"trend":0,"frequency":95.375,"subscriptionTotal":0,"topAppsArray":[]},"banking":{"total":null,"count":22,"avgTransaction":null,"monthlyData":{"2025-06":null,"2025-04":10000,"2025-02":31166,"2025-01":20000,"2024-12":243500,"2024-11":1641363.01},"topApps":{},"largestTransaction":865000,"trend":-100,"frequency":2.75,"subscriptionTotal":0,"topAppsArray":[]},"apple_icloud":{"total":null,"count":7,"avgTransaction":null,"monthlyData":{"2025-05":9900,"2025-04":9900,"2025-03":9900,"2025-02":null,"2024-12":19800},"topApps":{"iCloud+":19800},"largestTransaction":9900,"trend":0,"frequency":0.875,"subscriptionTotal":null,"topAppsArray":[["iCloud+",19800]]},"apple_music":{"total":8200,"count":6,"avgTransaction":1366.6666666666667,"monthlyData":{"2025-05":1700,"2025-04":2900,"2025-03":1200,"2025-02":1200,"2025-01":1200},"topApps":{"YouTube Music":8200},"largestTransaction":1700,"trend":-41.37931034482759,"frequency":0.75,"subscriptionTotal":8200,"topAppsArray":[["YouTube Music",8200]]},"freelance":{"total":null,"count":77,"avgTransaction":null,"monthlyData":{"2025-05":null,"2025-04":null,"2025-02":null,"2025-01":null,"2024-12":null},"topApps":{},"largestTransaction":71235,"trend":0,"frequency":9.625,"subscriptionTotal":0,"topAppsArray":[]}};
         const searchInput = document.getElementById('searchInput');
         const categoriesGrid = document.getElementById('categoriesGrid');
         const filterBtns = document.querySelectorAll('.filter-btn');
