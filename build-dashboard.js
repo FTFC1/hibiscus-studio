@@ -102,12 +102,26 @@ async function buildDashboard() {
         let transactionAmountNGN = 0;
         
         if (transaction.currencies && transaction.amounts) {
+          // Deduplicate identical amounts from same transaction
+          const uniqueAmounts = [];
+          const seenAmounts = new Set();
+          
           for (let i = 0; i < transaction.amounts.length; i++) {
             const amount = transaction.amounts[i];
             const currency = transaction.currencies[i];
+            const amountKey = `${amount}_${currency}`;
             
+            if (!seenAmounts.has(amountKey)) {
+              seenAmounts.add(amountKey);
+              uniqueAmounts.push({ amount, currency });
+            }
+          }
+          
+          // Convert deduplicated amounts
+          for (const { amount, currency } of uniqueAmounts) {
             if (amount && currency) {
-              transactionAmountNGN += toNGN(amount, currency);
+              const convertedAmount = toNGN(amount, currency);
+              transactionAmountNGN += convertedAmount;
             }
           }
         }
