@@ -1,0 +1,3102 @@
+{
+  "month": "2024-11",
+  "categories": {
+    "apple_apps": [
+      {
+        "id": "19372950746dcf22",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T11:43:09.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 28 Nov 2024 SEQUENCE NO. 2-6234005296 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 28 Nov 2024 SEQUENCE NO. 2-6234005296 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 28 Nov 2024 SEQUENCE NO. 2-6234005296 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "19356667a1c5b206",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-23",
+        "timestamp": "2024-11-23T00:22:55.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 22 Nov 2024 SEQUENCE NO. 2-6205999476 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 22 Nov 2024 SEQUENCE NO. 2-6205999476 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 22 Nov 2024 SEQUENCE NO. 2-6205999476 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "193522fd5b5d5c4a",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-22",
+        "timestamp": "2024-11-22T04:44:45.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 22 Nov 2024 SEQUENCE NO. 2-6204002126 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 22 Nov 2024 SEQUENCE NO. 2-6204002126 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 22 Nov 2024 SEQUENCE NO. 2-6204002126 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "1934740e3de64a49",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-20",
+        "timestamp": "2024-11-20T01:47:34.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 19 Nov 2024 SEQUENCE NO. 2-6194157453 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 19 Nov 2024 SEQUENCE NO. 2-6194157453 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 19 Nov 2024 SEQUENCE NO. 2-6194157453 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "193443a16272c391",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-19",
+        "timestamp": "2024-11-19T11:41:16.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 19 Nov 2024 SEQUENCE NO. 2-6191799048 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 19 Nov 2024 SEQUENCE NO. 2-6191799048 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 19 Nov 2024 SEQUENCE NO. 2-6191799048 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "1933080455b31dbe",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-15",
+        "timestamp": "2024-11-15T15:45:32.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 14 Nov 2024 SEQUENCE NO. 2-6167177118 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 14 Nov 2024 SEQUENCE NO. 2-6167177118 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 14 Nov 2024 SEQUENCE NO. 2-6167177118 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "1932d1397a3ea561",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T23:47:57.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 13 Nov 2024 SEQUENCE NO. 2-6161382023 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 13 Nov 2024 SEQUENCE NO. 2-6161382023 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 13 Nov 2024 SEQUENCE NO. 2-6161382023 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "19300f9d397c6fcc",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-06",
+        "timestamp": "2024-11-06T10:16:31.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 06 Nov 2024 SEQUENCE NO. 2-6131515767 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 06 Nov 2024 SEQUENCE NO. 2-6131515767 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 06 Nov 2024 SEQUENCE NO. 2-6131515767 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "192f4ffbc6914c71",
+        "subject": "Your invoice from Apple.",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-04",
+        "timestamp": "2024-11-04T02:27:33.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": null,
+        "searchableText": "Your invoice from Apple. Apple <no_reply@email.apple.com> Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 04 Nov 2024 SEQUENCE NO. 2-6122468003 ORDER ID",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 04 Nov 2024 SEQUENCE NO. 2-6122468003 ORDER ID",
+        "raw": {
+          "snippet": "Invoice APPLE ACCOUNT nicholasfcoker@googlemail.com BILLED TO Visa .... 8349 Nicholas Folarin-Coker 31C Raymond Njoku Ikoyi, Lagos 101233 NGA INVOICE DATE 04 Nov 2024 SEQUENCE NO. 2-6122468003 ORDER ID",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      }
+    ],
+    "apple_one": [
+      {
+        "id": "19354d825e4fedf9",
+        "subject": "Your Subscription is Expiring",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-22",
+        "timestamp": "2024-11-22T17:07:50.000Z",
+        "amounts": [
+          6700,
+          6700
+        ],
+        "currencies": [
+          "₦",
+          "₦"
+        ],
+        "category": "apple_one",
+        "appName": null,
+        "searchableText": "Your Subscription is Expiring Apple <no_reply@email.apple.com> Subscription Expiring YNAB YNAB YNAB Subscription (1 month) ₦6700.00/month Dear Nicholas, The following subscription will expire soon: YNAB Subscription (1 month) – ₦6700.00/month expires on 7 December",
+        "isSubscription": true,
+        "transactionIndicators": true,
+        "rawSubject": "Your Subscription is Expiring",
+        "description": "Subscription Expiring YNAB YNAB YNAB Subscription (1 month) ₦6700.00/month Dear Nicholas, The following subscription will expire soon: YNAB Subscription (1 month) – ₦6700.00/month expires on 7 December",
+        "raw": {
+          "snippet": "Subscription Expiring YNAB YNAB YNAB Subscription (1 month) ₦6700.00/month Dear Nicholas, The following subscription will expire soon: YNAB Subscription (1 month) – ₦6700.00/month expires on 7 December",
+          "subject": "Your Subscription is Expiring",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "193467d633f97d3c",
+        "subject": "Your subscription confirmation",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-19",
+        "timestamp": "2024-11-19T22:14:01.000Z",
+        "amounts": [
+          7900
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "apple_one",
+        "appName": null,
+        "searchableText": "Your subscription confirmation Apple <no_reply@email.apple.com> Subscription Confirmation Craft: Write docs, AI editing Craft: Write docs, AI editing Plus Monthly Subscription (1 month) ₦7900.00/month Dear Nicholas, This email confirms your subscription purchase:",
+        "isSubscription": true,
+        "transactionIndicators": true,
+        "rawSubject": "Your subscription confirmation",
+        "description": "Subscription Confirmation Craft: Write docs, AI editing Craft: Write docs, AI editing Plus Monthly Subscription (1 month) ₦7900.00/month Dear Nicholas, This email confirms your subscription purchase:",
+        "raw": {
+          "snippet": "Subscription Confirmation Craft: Write docs, AI editing Craft: Write docs, AI editing Plus Monthly Subscription (1 month) ₦7900.00/month Dear Nicholas, This email confirms your subscription purchase:",
+          "subject": "Your subscription confirmation",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "1932426845ce32ec",
+        "subject": "Otter Pro (Apple)",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T06:12:03.000Z",
+        "amounts": [
+          7800
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "apple_one",
+        "appName": "Otter Pro",
+        "searchableText": "Otter Pro Your subscription confirmation subscription confirmation otter transcribe voice notes otter transcribe voice notes otter pro (monthly) (1 month) ₦7800.00/month dear nicholas, this email confirms your subscription purchase: app otter",
+        "isSubscription": true,
+        "transactionIndicators": true,
+        "rawSubject": "Your subscription confirmation",
+        "description": "Subscription Confirmation Otter Transcribe Voice Notes Otter Transcribe Voice Notes Otter Pro (monthly) (1 month) ₦7800.00/month Dear Nicholas, This email confirms your subscription purchase: App Otter",
+        "raw": {
+          "snippet": "Subscription Confirmation Otter Transcribe Voice Notes Otter Transcribe Voice Notes Otter Pro (monthly) (1 month) ₦7800.00/month Dear Nicholas, This email confirms your subscription purchase: App Otter",
+          "subject": "Your subscription confirmation",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "19308b8ea5161008",
+        "subject": "Subscription Confirmation",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2024-11-07",
+        "timestamp": "2024-11-07T22:22:35.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_one",
+        "appName": null,
+        "searchableText": "Subscription Confirmation Apple <no_reply@email.apple.com> Subscription Confirmation YNAB Dear Nicholas, You have accepted the following offer: App YNAB Subscription YNAB Subscription Content Provider You Need A Budget LLC Date Accepted 07 November 2024 Trial",
+        "isSubscription": true,
+        "transactionIndicators": false,
+        "rawSubject": "Subscription Confirmation",
+        "description": "Subscription Confirmation YNAB Dear Nicholas, You have accepted the following offer: App YNAB Subscription YNAB Subscription Content Provider You Need A Budget LLC Date Accepted 07 November 2024 Trial",
+        "raw": {
+          "snippet": "Subscription Confirmation YNAB Dear Nicholas, You have accepted the following offer: App YNAB Subscription YNAB Subscription Content Provider You Need A Budget LLC Date Accepted 07 November 2024 Trial",
+          "subject": "Subscription Confirmation",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      }
+    ],
+    "internal_transfer": [
+      {
+        "id": "1937a25ecd08ea1b",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-29",
+        "timestamp": "2024-11-29T18:11:05.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Friday, November 29, 2024 07:01:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,000.00]",
+        "description": "Transaction Notification - Friday, November 29, 2024 07:01:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Friday, November 29, 2024 07:01:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19379db5ca0b3c98",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN20,250.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-29",
+        "timestamp": "2024-11-29T21:37:16.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN20,250.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Friday, November 29, 2024 10:37:14 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN20,250.00]",
+        "description": "Transaction Notification - Friday, November 29, 2024 10:37:14 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Friday, November 29, 2024 10:37:14 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN20,250.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19379cfeb3e2325f",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-29",
+        "timestamp": "2024-11-29T18:11:05.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Friday, November 29, 2024 07:01:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Friday, November 29, 2024 07:01:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Friday, November 29, 2024 07:01:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19379c8b952ee539",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-29",
+        "timestamp": "2024-11-29T17:24:28.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Friday, November 29, 2024 06:23:54 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00]",
+        "description": "Transaction Notification - Friday, November 29, 2024 06:23:54 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Friday, November 29, 2024 06:23:54 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193753794f239e62",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN66,505.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T23:59:55.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN66,505.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Friday, November 29, 2024 12:59:53 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN66,505.00]",
+        "description": "Transaction Notification - Friday, November 29, 2024 12:59:53 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Friday, November 29, 2024 12:59:53 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN66,505.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1937357ee4eaddb7",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN51,405.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T14:50:56.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN51,405.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 28, 2024 03:50:53 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN51,405.00]",
+        "description": "Transaction Notification - Thursday, November 28, 2024 03:50:53 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 28, 2024 03:50:53 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN51,405.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19372d3366be833b",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T12:51:03.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 28, 2024 01:51:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00]",
+        "description": "Transaction Notification - Thursday, November 28, 2024 01:51:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 28, 2024 01:51:00 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193729c83978e5f9",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T11:44:38.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 28, 2024 12:44:34 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Thursday, November 28, 2024 12:44:34 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 28, 2024 12:44:34 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193729677861c862",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T11:44:38.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 28, 2024 12:44:34 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00]",
+        "description": "Transaction Notification - Thursday, November 28, 2024 12:44:34 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 28, 2024 12:44:34 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1936eb576c1431ea",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.01]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-27",
+        "timestamp": "2024-11-27T17:40:05.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.01] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 27, 2024 05:59:47 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.01]",
+        "description": "Transaction Notification - Wednesday, November 27, 2024 05:59:47 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 27, 2024 05:59:47 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.01]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1936eb5764d7d5bb",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-27",
+        "timestamp": "2024-11-27T17:40:05.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 27, 2024 05:59:47 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Wednesday, November 27, 2024 05:59:47 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 27, 2024 05:59:47 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1936cf7ce0185799",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN6,655.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-27",
+        "timestamp": "2024-11-27T09:32:23.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN6,655.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 27, 2024 10:32:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN6,655.00]",
+        "description": "Transaction Notification - Wednesday, November 27, 2024 10:32:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 27, 2024 10:32:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN6,655.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1936c56869041354",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN31,500.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-27",
+        "timestamp": "2024-11-27T06:35:26.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN31,500.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 27, 2024 07:35:24 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN31,500.00]",
+        "description": "Transaction Notification - Wednesday, November 27, 2024 07:35:24 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 27, 2024 07:35:24 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN31,500.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1936940a120d74a6",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN175,364.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T15:49:15.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN175,364.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 26, 2024 04:49:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN175,364.00]",
+        "description": "Transaction Notification - Tuesday, November 26, 2024 04:49:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 26, 2024 04:49:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN175,364.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1936929a6900ab12",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T15:49:15.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 26, 2024 04:49:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Tuesday, November 26, 2024 04:49:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 26, 2024 04:49:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193683fcfb845eb2",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN250,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T11:25:15.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN250,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 26, 2024 12:25:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN250,000.00]",
+        "description": "Transaction Notification - Tuesday, November 26, 2024 12:25:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 26, 2024 12:25:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN250,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "192fd2d32b774102",
+        "subject": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,082,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-05",
+        "timestamp": "2024-11-05T16:34:04.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,082,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 05, 2024 04:49:30 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,082,000.00]",
+        "description": "Transaction Notification - Tuesday, November 05, 2024 04:49:30 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 05, 2024 04:49:30 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,082,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "192ecd72a97a15bf",
+        "subject": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,617,500.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-02",
+        "timestamp": "2024-11-02T12:25:50.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,617,500.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 02, 2024 01:25:42 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,617,500.00]",
+        "description": "Transaction Notification - Saturday, November 02, 2024 01:25:42 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 02, 2024 01:25:42 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[CREDIT:NGN2,617,500.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1937dc26853a71f3",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-30",
+        "timestamp": "2024-11-30T15:48:32.000Z",
+        "amounts": [
+          5000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦5000.00 to Nnamadi John Ani - Coker. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦5000.00 to Nnamadi John Ani - Coker. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦5000.00 to Nnamadi John Ani - Coker. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "193739177502a86f",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T16:18:53.000Z",
+        "amounts": [
+          10000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦10000.00 to Ayodele Samuel Ijagbemi - food and extra . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦10000.00 to Ayodele Samuel Ijagbemi - food and extra . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦10000.00 to Ayodele Samuel Ijagbemi - food and extra . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19372523abd9ecb5",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T10:30:11.000Z",
+        "amounts": [
+          1000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - Drink . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - Drink . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - Drink . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19369cea15aa9c43",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T18:49:29.000Z",
+        "amounts": [
+          27000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦27000.00 to Gaadi Terfa Joseph - FT . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦27000.00 to Gaadi Terfa Joseph - FT . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦27000.00 to Gaadi Terfa Joseph - FT . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1936837f32bf23e0",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T11:25:15.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 26, 2024 12:25:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Tuesday, November 26, 2024 12:25:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 26, 2024 12:25:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193682fb14168837",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T11:16:16.000Z",
+        "amounts": [
+          23650
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦23650.00 to Oma Wellness - FT Coker . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦23650.00 to Oma Wellness - FT Coker . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦23650.00 to Oma Wellness - FT Coker . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1936385b2baf1ac1",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T13:32:06.000Z",
+        "amounts": [
+          10000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just paid ₦10000.00 online, Settlement to Reisty technology services limited via Paystack. Love, The Kuda Team. Button Follow Us",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just paid ₦10000.00 online, Settlement to Reisty technology services limited via Paystack. Love, The Kuda Team. Button Follow Us",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just paid ₦10000.00 online, Settlement to Reisty technology services limited via Paystack. Love, The Kuda Team. Button Follow Us",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "193637e216417755",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,700.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T13:23:48.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,700.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 02:23:44 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,700.00]",
+        "description": "Transaction Notification - Monday, November 25, 2024 02:23:44 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 02:23:44 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,700.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193637957b3e0892",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T13:18:33.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 02:18:29 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10.75]",
+        "description": "Transaction Notification - Monday, November 25, 2024 02:18:29 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 02:18:29 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1936379503810e46",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T13:18:33.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 02:18:29 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,000.00]",
+        "description": "Transaction Notification - Monday, November 25, 2024 02:18:29 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 02:18:29 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193636e2e0994dee",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,500.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T13:04:45.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,500.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 02:04:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,500.00]",
+        "description": "Transaction Notification - Monday, November 25, 2024 02:04:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 02:04:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,500.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193635401aea17cb",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T12:37:21.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 01:37:16 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Monday, November 25, 2024 01:37:16 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 01:37:16 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193635400a151d99",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN35,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T12:37:20.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN35,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 01:37:16 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN35,000.00]",
+        "description": "Transaction Notification - Monday, November 25, 2024 01:37:16 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 01:37:16 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN35,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193629bed09f665c",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T09:16:42.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 10:16:39 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00]",
+        "description": "Transaction Notification - Monday, November 25, 2024 10:16:39 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 10:16:39 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193629beba7885a5",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T09:16:42.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 25, 2024 10:16:39 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Monday, November 25, 2024 10:16:39 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 25, 2024 10:16:39 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19359d866682c228",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,500.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-23",
+        "timestamp": "2024-11-23T16:26:12.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,500.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 23, 2024 05:26:09 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,500.00]",
+        "description": "Transaction Notification - Saturday, November 23, 2024 05:26:09 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 23, 2024 05:26:09 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN75,500.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19359843b2b963ff",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-23",
+        "timestamp": "2024-11-23T14:54:16.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 23, 2024 03:54:13 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00]",
+        "description": "Transaction Notification - Saturday, November 23, 2024 03:54:13 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 23, 2024 03:54:13 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN450.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19359678993eac1a",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,700.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-23",
+        "timestamp": "2024-11-23T14:22:34.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,700.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 23, 2024 03:22:31 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,700.00]",
+        "description": "Transaction Notification - Saturday, November 23, 2024 03:22:31 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 23, 2024 03:22:31 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,700.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193595c001dad775",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,200.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-23",
+        "timestamp": "2024-11-23T14:10:17.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,200.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 23, 2024 03:10:14 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,200.00]",
+        "description": "Transaction Notification - Saturday, November 23, 2024 03:10:14 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 23, 2024 03:10:14 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,200.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193593d23011b849",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN29,690.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-23",
+        "timestamp": "2024-11-23T13:36:37.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN29,690.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 23, 2024 02:36:35 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN29,690.00]",
+        "description": "Transaction Notification - Saturday, November 23, 2024 02:36:35 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 23, 2024 02:36:35 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN29,690.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19358c7592983e5d",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-23",
+        "timestamp": "2024-11-23T11:27:59.000Z",
+        "amounts": [
+          6000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦6000.00 to Adekunle Femi Fasanmade - Uber . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦6000.00 to Adekunle Femi Fasanmade - Uber . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦6000.00 to Adekunle Femi Fasanmade - Uber . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "193535179e58d9a6",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-22",
+        "timestamp": "2024-11-22T10:01:08.000Z",
+        "amounts": [
+          1000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - ft. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - ft. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - ft. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1935310968bb9037",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-22",
+        "timestamp": "2024-11-22T08:50:16.000Z",
+        "amounts": [
+          6000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦6000.00 to Ayodele Samuel Ijagbemi - plantain . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦6000.00 to Ayodele Samuel Ijagbemi - plantain . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦6000.00 to Ayodele Samuel Ijagbemi - plantain . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19351c8a60c41b4c",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-22",
+        "timestamp": "2024-11-22T02:52:04.000Z",
+        "amounts": [
+          4000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦4000.00 to Chiamaka Chikezie - rd . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦4000.00 to Chiamaka Chikezie - rd . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦4000.00 to Chiamaka Chikezie - rd . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19351b6f69647a89",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-22",
+        "timestamp": "2024-11-22T02:32:45.000Z",
+        "amounts": [
+          112000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦112000.00 to Chiamaka Chikezie - dg . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦112000.00 to Chiamaka Chikezie - dg . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦112000.00 to Chiamaka Chikezie - dg . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1934ef2527c92e61",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN18,420.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-21",
+        "timestamp": "2024-11-21T13:29:49.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN18,420.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 21, 2024 02:19:09 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN18,420.00]",
+        "description": "Transaction Notification - Thursday, November 21, 2024 02:19:09 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 21, 2024 02:19:09 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN18,420.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1934e5668ed12a6a",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-21",
+        "timestamp": "2024-11-21T10:48:26.000Z",
+        "amounts": [
+          40000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦40000.00 to Miracle Juliet Monday - 🎉. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦40000.00 to Miracle Juliet Monday - 🎉. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦40000.00 to Miracle Juliet Monday - 🎉. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1934e541a426e9e0",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-21",
+        "timestamp": "2024-11-21T10:45:54.000Z",
+        "amounts": [
+          30000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦30000.00 to Favour Collinus - 🎉. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦30000.00 to Favour Collinus - 🎉. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦30000.00 to Favour Collinus - 🎉. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1934e538ffdea764",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN90,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-21",
+        "timestamp": "2024-11-21T10:45:17.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN90,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 21, 2024 11:45:08 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN90,000.00]",
+        "description": "Transaction Notification - Thursday, November 21, 2024 11:45:08 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 21, 2024 11:45:08 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN90,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1934e538e6ccabab",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-21",
+        "timestamp": "2024-11-21T10:45:17.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 21, 2024 11:45:08 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Thursday, November 21, 2024 11:45:08 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 21, 2024 11:45:08 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1934ad435e2dfe44",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN9,620.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-20",
+        "timestamp": "2024-11-20T18:27:19.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN9,620.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 20, 2024 06:35:36 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN9,620.00]",
+        "description": "Transaction Notification - Wednesday, November 20, 2024 06:35:36 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 20, 2024 06:35:36 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN9,620.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1934ad434179e165",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-20",
+        "timestamp": "2024-11-20T18:27:19.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 20, 2024 06:35:36 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Wednesday, November 20, 2024 06:35:36 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 20, 2024 06:35:36 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19349a50f764b952",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN19,020.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-20",
+        "timestamp": "2024-11-20T12:52:24.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN19,020.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 20, 2024 01:37:50 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN19,020.00]",
+        "description": "Transaction Notification - Wednesday, November 20, 2024 01:37:50 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 20, 2024 01:37:50 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN19,020.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19348b6626248e6b",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-20",
+        "timestamp": "2024-11-20T08:34:10.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 20, 2024 09:34:07 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00]",
+        "description": "Transaction Notification - Wednesday, November 20, 2024 09:34:07 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 20, 2024 09:34:07 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19348b6625dd1028",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-20",
+        "timestamp": "2024-11-20T08:34:09.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 20, 2024 09:34:07 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Wednesday, November 20, 2024 09:34:07 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 20, 2024 09:34:07 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1934607f9247dd1c",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN14,600.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-19",
+        "timestamp": "2024-11-19T20:05:46.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN14,600.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 19, 2024 09:05:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN14,600.00]",
+        "description": "Transaction Notification - Tuesday, November 19, 2024 09:05:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 19, 2024 09:05:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN14,600.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19345f98f5cf258a",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,900.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-19",
+        "timestamp": "2024-11-19T19:48:42.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,900.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 19, 2024 08:47:21 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,900.00]",
+        "description": "Transaction Notification - Tuesday, November 19, 2024 08:47:21 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 19, 2024 08:47:21 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,900.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193458bb4ea529b1",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,950.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-19",
+        "timestamp": "2024-11-19T17:49:07.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,950.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 19, 2024 06:33:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,950.00]",
+        "description": "Transaction Notification - Tuesday, November 19, 2024 06:33:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 19, 2024 06:33:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,950.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1934396e94753425",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,375.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-19",
+        "timestamp": "2024-11-19T08:43:02.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,375.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 19, 2024 09:42:59 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,375.00]",
+        "description": "Transaction Notification - Tuesday, November 19, 2024 09:42:59 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 19, 2024 09:42:59 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN5,375.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193410ed645d3b5d",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN11,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T20:52:57.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN11,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 18, 2024 09:30:57 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN11,000.00]",
+        "description": "Transaction Notification - Monday, November 18, 2024 09:30:57 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 18, 2024 09:30:57 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN11,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1934108eb8a5745d",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN28,900.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T20:48:42.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN28,900.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 18, 2024 09:15:50 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN28,900.00]",
+        "description": "Transaction Notification - Monday, November 18, 2024 09:15:50 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 18, 2024 09:15:50 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN28,900.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933fa32338cef58",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,700.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T14:17:54.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,700.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 18, 2024 03:17:49 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,700.00]",
+        "description": "Transaction Notification - Monday, November 18, 2024 03:17:49 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 18, 2024 03:17:49 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN13,700.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933f0b65fa38c49",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T11:32:09.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 18, 2024 12:30:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Monday, November 18, 2024 12:30:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 18, 2024 12:30:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933f0b644560cb7",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN25,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T11:32:09.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN25,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 18, 2024 12:30:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN25,000.00]",
+        "description": "Transaction Notification - Monday, November 18, 2024 12:30:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 18, 2024 12:30:55 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN25,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933edfcfc5d2048",
+        "subject": "Transaction Receipt",
+        "from": "Eversend App <notifications-noreply@eversend.co>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T10:44:35.000Z",
+        "amounts": [
+          150000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Receipt Eversend App <notifications-noreply@eversend.co> Hi Nicholas, You have created a transaction on your Eversend wallet. Transaction details: ID: RA0094583183118 Type: Bank transfer Beneficiary: Nicholas Coker Amount sent: NGN 150000 Amount received:",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Receipt",
+        "description": "Hi Nicholas, You have created a transaction on your Eversend wallet. Transaction details: ID: RA0094583183118 Type: Bank transfer Beneficiary: Nicholas Coker Amount sent: NGN 150000 Amount received:",
+        "raw": {
+          "snippet": "Hi Nicholas, You have created a transaction on your Eversend wallet. Transaction details: ID: RA0094583183118 Type: Bank transfer Beneficiary: Nicholas Coker Amount sent: NGN 150000 Amount received:",
+          "subject": "Transaction Receipt",
+          "from": "Eversend App <notifications-noreply@eversend.co>"
+        }
+      },
+      {
+        "id": "1933edd547e4b0b5",
+        "subject": "Transaction Receipt",
+        "from": "Eversend App <notifications-noreply@eversend.co>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T10:41:52.000Z",
+        "amounts": [
+          500
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Receipt Eversend App <notifications-noreply@eversend.co> Hi Nicholas, You have created a transaction on your Eversend wallet. Transaction details: ID: RA0094313183112 Type: Bank transfer Beneficiary: Nicholas Coker Amount sent: NGN 500 Amount received: NGN",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Receipt",
+        "description": "Hi Nicholas, You have created a transaction on your Eversend wallet. Transaction details: ID: RA0094313183112 Type: Bank transfer Beneficiary: Nicholas Coker Amount sent: NGN 500 Amount received: NGN",
+        "raw": {
+          "snippet": "Hi Nicholas, You have created a transaction on your Eversend wallet. Transaction details: ID: RA0094313183112 Type: Bank transfer Beneficiary: Nicholas Coker Amount sent: NGN 500 Amount received: NGN",
+          "subject": "Transaction Receipt",
+          "from": "Eversend App <notifications-noreply@eversend.co>"
+        }
+      },
+      {
+        "id": "1933e6b45e2f8f6d",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T08:37:08.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 18, 2024 09:37:05 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Monday, November 18, 2024 09:37:05 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 18, 2024 09:37:05 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933e6b2856e5014",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T08:37:08.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Monday, November 18, 2024 09:37:05 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00]",
+        "description": "Transaction Notification - Monday, November 18, 2024 09:37:05 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Monday, November 18, 2024 09:37:05 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN50,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933a14b2527bba6",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN30,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-17",
+        "timestamp": "2024-11-17T12:24:13.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN30,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Sunday, November 17, 2024 01:24:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN30,000.00]",
+        "description": "Transaction Notification - Sunday, November 17, 2024 01:24:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Sunday, November 17, 2024 01:24:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN30,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933a14b220ea7b8",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-17",
+        "timestamp": "2024-11-17T12:24:14.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Sunday, November 17, 2024 01:24:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Sunday, November 17, 2024 01:24:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Sunday, November 17, 2024 01:24:11 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193367b0872fbb8a",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,300.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-16",
+        "timestamp": "2024-11-16T19:37:31.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,300.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 16, 2024 08:37:28 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,300.00]",
+        "description": "Transaction Notification - Saturday, November 16, 2024 08:37:28 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 16, 2024 08:37:28 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,300.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933525063250c10",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN12,600.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-16",
+        "timestamp": "2024-11-16T13:23:56.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN12,600.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 16, 2024 02:23:53 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN12,600.00]",
+        "description": "Transaction Notification - Saturday, November 16, 2024 02:23:53 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 16, 2024 02:23:53 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN12,600.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19334fcb193dd17f",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,100.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-16",
+        "timestamp": "2024-11-16T12:39:54.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,100.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 16, 2024 01:39:49 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,100.00]",
+        "description": "Transaction Notification - Saturday, November 16, 2024 01:39:49 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 16, 2024 01:39:49 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN16,100.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933357c114967b1",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-16",
+        "timestamp": "2024-11-16T05:00:09.000Z",
+        "amounts": [
+          70000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦70000.00 to Miracle Juliet Monday - Tyson . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦70000.00 to Miracle Juliet Monday - Tyson . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦70000.00 to Miracle Juliet Monday - Tyson . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19332f099b70869a",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-16",
+        "timestamp": "2024-11-16T03:07:28.000Z",
+        "amounts": [
+          4000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦4000.00 to Oluwaseun Olamilekan Adeniran - cab . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦4000.00 to Oluwaseun Olamilekan Adeniran - cab . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦4000.00 to Oluwaseun Olamilekan Adeniran - cab . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19332a1b4a28d1e2",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,500.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-16",
+        "timestamp": "2024-11-16T01:41:16.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,500.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Saturday, November 16, 2024 02:41:14 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,500.00]",
+        "description": "Transaction Notification - Saturday, November 16, 2024 02:41:14 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Saturday, November 16, 2024 02:41:14 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN2,500.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933012b8e76a16e",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-15",
+        "timestamp": "2024-11-15T13:45:52.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Friday, November 15, 2024 02:45:25 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Friday, November 15, 2024 02:45:25 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Friday, November 15, 2024 02:45:25 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1933012b8e166e9c",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-15",
+        "timestamp": "2024-11-15T13:45:52.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Friday, November 15, 2024 02:45:25 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00]",
+        "description": "Transaction Notification - Friday, November 15, 2024 02:45:25 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Friday, November 15, 2024 02:45:25 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN27,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1932c4a6b9b4a8f8",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,250.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T20:07:30.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,250.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 14, 2024 09:07:28 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,250.00]",
+        "description": "Transaction Notification - Thursday, November 14, 2024 09:07:28 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 14, 2024 09:07:28 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN8,250.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1932a1c1dad121ef",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T09:58:22.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 14, 2024 10:58:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00]",
+        "description": "Transaction Notification - Thursday, November 14, 2024 10:58:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 14, 2024 10:58:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN15,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1932a1c1c3327099",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T09:58:22.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 14, 2024 10:58:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Thursday, November 14, 2024 10:58:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 14, 2024 10:58:20 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19329fe135299d53",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T09:24:56.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 14, 2024 10:24:52 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Thursday, November 14, 2024 10:24:52 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 14, 2024 10:24:52 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19329fe111774cfe",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T09:24:56.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 14, 2024 10:24:52 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10,000.00]",
+        "description": "Transaction Notification - Thursday, November 14, 2024 10:24:52 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 14, 2024 10:24:52 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN10,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19329e2dd928ae4a",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T08:55:51.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 14, 2024 09:55:48 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+        "description": "Transaction Notification - Thursday, November 14, 2024 09:55:48 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 14, 2024 09:55:48 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN26.88]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19329e2d8a533cca",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T08:55:51.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Thursday, November 14, 2024 09:55:48 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,000.00]",
+        "description": "Transaction Notification - Thursday, November 14, 2024 09:55:48 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Thursday, November 14, 2024 09:55:48 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN17,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19327a3d5dda866e",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T22:27:47.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 13, 2024 11:27:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Wednesday, November 13, 2024 11:27:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 13, 2024 11:27:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19327a3d43593b72",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T22:27:47.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Wednesday, November 13, 2024 11:27:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00]",
+        "description": "Transaction Notification - Wednesday, November 13, 2024 11:27:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+        "raw": {
+          "snippet": "Transaction Notification - Wednesday, November 13, 2024 11:27:43 PM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN70,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "193246e12d719b50",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T07:30:12.000Z",
+        "amounts": [
+          10500
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦10500.00 to Cornelius Delali Ocloo - ft. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦10500.00 to Cornelius Delali Ocloo - ft. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦10500.00 to Cornelius Delali Ocloo - ft. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19321ad313625319",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-12",
+        "timestamp": "2024-11-12T18:40:18.000Z",
+        "amounts": [
+          20000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦20000.00 to Gaadi Terfa Joseph - FT. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦20000.00 to Gaadi Terfa Joseph - FT. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦20000.00 to Gaadi Terfa Joseph - FT. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1931ffcc4ea8c14b",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-12",
+        "timestamp": "2024-11-12T10:47:59.000Z",
+        "amounts": [
+          8000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦8000.00 to Oluwatosin Maryam Sannie - FT. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦8000.00 to Oluwatosin Maryam Sannie - FT. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦8000.00 to Oluwatosin Maryam Sannie - FT. . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1931fcee92455884",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-12",
+        "timestamp": "2024-11-12T09:57:53.000Z",
+        "amounts": [
+          1000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - drink . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - drink . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦1000.00 to Kehinde Muheebat Adeboye - drink . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1931f8464edf357f",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN179,000.00]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-12",
+        "timestamp": "2024-11-12T08:35:12.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN179,000.00] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 12, 2024 09:35:10 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN179,000.00]",
+        "description": "Transaction Notification - Tuesday, November 12, 2024 09:35:10 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 12, 2024 09:35:10 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN179,000.00]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1931f846267e9dee",
+        "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>",
+        "date": "2024-11-12",
+        "timestamp": "2024-11-12T08:35:12.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75] EbusinessGroup <ebusinessgroup@zenithbank.com> Transaction Notification - Tuesday, November 12, 2024 09:35:10 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+        "description": "Transaction Notification - Tuesday, November 12, 2024 09:35:10 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+        "raw": {
+          "snippet": "Transaction Notification - Tuesday, November 12, 2024 09:35:10 AM Dear NICHOLAS FOLARIN-COKER, Please see below details of the transaction on your account: Account Number 205****377 Date of Transaction",
+          "subject": "ZENITH BANK TRANSACTION ALERT[DEBIT:NGN53.75]",
+          "from": "EbusinessGroup <ebusinessgroup@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19319b4541a69c69",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-11",
+        "timestamp": "2024-11-11T05:31:08.000Z",
+        "amounts": [
+          105000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦105000.00 to Miracle Juliet Monday - Nov Trace . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦105000.00 to Miracle Juliet Monday - Nov Trace . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+        "raw": {
+          "snippet": "Transaction Notification Hi Folarin-Coker Feyintola Nicholas, You just sent ₦105000.00 to Miracle Juliet Monday - Nov Trace . Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      }
+    ],
+    "other": [
+      {
+        "id": "193750cf5cc64fd8",
+        "subject": "Declined Card Transaction: Top Up Your Card to Complete Transaction",
+        "from": "support@eversend.co",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T23:13:23.000Z",
+        "amounts": [
+          20
+        ],
+        "currencies": [
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Declined Card Transaction: Top Up Your Card to Complete Transaction support@eversend.co Dear Nicholas We&#39;re writing to let you know that your payment of USD 20 to CURSOR, AI POWERED IDE with 451946******9224 has been declined due to insufficient funds in your Eversend virtual card. To",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Declined Card Transaction: Top Up Your Card to Complete Transaction",
+        "description": "Dear Nicholas We&#39;re writing to let you know that your payment of USD 20 to CURSOR, AI POWERED IDE with 451946******9224 has been declined due to insufficient funds in your Eversend virtual card. To",
+        "raw": {
+          "snippet": "Dear Nicholas We&#39;re writing to let you know that your payment of USD 20 to CURSOR, AI POWERED IDE with 451946******9224 has been declined due to insufficient funds in your Eversend virtual card. To",
+          "subject": "Declined Card Transaction: Top Up Your Card to Complete Transaction",
+          "from": "support@eversend.co"
+        }
+      },
+      {
+        "id": "1933eb7d14f60727",
+        "subject": "New post from echohive: \"Fancy receipt & invoice data extractor webapp\"",
+        "from": "Patreon <no-reply@patreon.com>",
+        "date": "2024-11-18",
+        "timestamp": "2024-11-18T10:00:53.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "New post from echohive: \"Fancy receipt & invoice data extractor webapp\" Patreon <no-reply@patreon.com> echohive New post: &quot;Fancy receipt &amp; invoice data extractor webapp&quot; echohive just shared a new post for paid members. To view the post and get access to exclusive benefits, upgrade your",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "New post from echohive: \"Fancy receipt & invoice data extractor webapp\"",
+        "description": "echohive New post: &quot;Fancy receipt &amp; invoice data extractor webapp&quot; echohive just shared a new post for paid members. To view the post and get access to exclusive benefits, upgrade your",
+        "raw": {
+          "snippet": "echohive New post: &quot;Fancy receipt &amp; invoice data extractor webapp&quot; echohive just shared a new post for paid members. To view the post and get access to exclusive benefits, upgrade your",
+          "subject": "New post from echohive: \"Fancy receipt & invoice data extractor webapp\"",
+          "from": "Patreon <no-reply@patreon.com>"
+        }
+      },
+      {
+        "id": "1933b0a38569b179",
+        "subject": "BoloSign, Crema, echodocs.ai, GitShare, and Receipt Generator",
+        "from": "BetaList Digest <digest@betalist.com>",
+        "date": "2024-11-17",
+        "timestamp": "2024-11-17T16:45:55.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "BoloSign, Crema, echodocs.ai, GitShare, and Receipt Generator BetaList Digest <digest@betalist.com> Free Custom Receipt Generator | Online AI Receipt Maker BetaList BetaList Daily BoloSign The eSignature Platform for Small Businesses GitShare The easiest way to share your private GitHub repositories",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "BoloSign, Crema, echodocs.ai, GitShare, and Receipt Generator",
+        "description": "Free Custom Receipt Generator | Online AI Receipt Maker BetaList BetaList Daily BoloSign The eSignature Platform for Small Businesses GitShare The easiest way to share your private GitHub repositories",
+        "raw": {
+          "snippet": "Free Custom Receipt Generator | Online AI Receipt Maker BetaList BetaList Daily BoloSign The eSignature Platform for Small Businesses GitShare The easiest way to share your private GitHub repositories",
+          "subject": "BoloSign, Crema, echodocs.ai, GitShare, and Receipt Generator",
+          "from": "BetaList Digest <digest@betalist.com>"
+        }
+      },
+      {
+        "id": "193292c6b75f07d1",
+        "subject": "MEGA payment receipt #L-q-6PPyVco",
+        "from": "MEGA <support@mega.nz>",
+        "date": "2024-11-14",
+        "timestamp": "2024-11-14T05:36:36.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "MEGA payment receipt #L-q-6PPyVco MEGA <support@mega.nz> MEGA payment receipt Order ID: Lq-6PPyVco GST No: 134-418-737 NZBN: 942904816128 14 Nov 2024 Nicholas Coker 31C Raymond Njoku Ikoyi Ikoyi 101233 NG Paid with: Stripe Description Pro Lite recurring",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "MEGA payment receipt #L-q-6PPyVco",
+        "description": "MEGA payment receipt Order ID: Lq-6PPyVco GST No: 134-418-737 NZBN: 942904816128 14 Nov 2024 Nicholas Coker 31C Raymond Njoku Ikoyi Ikoyi 101233 NG Paid with: Stripe Description Pro Lite recurring",
+        "raw": {
+          "snippet": "MEGA payment receipt Order ID: Lq-6PPyVco GST No: 134-418-737 NZBN: 942904816128 14 Nov 2024 Nicholas Coker 31C Raymond Njoku Ikoyi Ikoyi 101233 NG Paid with: Stripe Description Pro Lite recurring",
+          "subject": "MEGA payment receipt #L-q-6PPyVco",
+          "from": "MEGA <support@mega.nz>"
+        }
+      },
+      {
+        "id": "193050c97d3592c1",
+        "subject": "Receipt for your payment to Google",
+        "from": "PayPal <service@paypal.co.uk>",
+        "date": "2024-11-07",
+        "timestamp": "2024-11-07T05:15:31.000Z",
+        "amounts": [
+          1.59
+        ],
+        "currencies": [
+          "£"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Receipt for your payment to Google PayPal <service@paypal.co.uk> Nicholas Folarin-Coker, you&#39;ve successfully sent a payment. Hi Nicholas Folarin-Coker, You paid £1.59 GBP to Google View or Manage Payment Transaction ID 3SC17864TM0225404 Transaction date 7",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Receipt for your payment to Google",
+        "description": "Nicholas Folarin-Coker, you&#39;ve successfully sent a payment. Hi Nicholas Folarin-Coker, You paid £1.59 GBP to Google View or Manage Payment Transaction ID 3SC17864TM0225404 Transaction date 7",
+        "raw": {
+          "snippet": "Nicholas Folarin-Coker, you&#39;ve successfully sent a payment. Hi Nicholas Folarin-Coker, You paid £1.59 GBP to Google View or Manage Payment Transaction ID 3SC17864TM0225404 Transaction date 7",
+          "subject": "Receipt for your payment to Google",
+          "from": "PayPal <service@paypal.co.uk>"
+        }
+      },
+      {
+        "id": "193693f145e2286c",
+        "subject": "Your Card Payment Failed - Low Balance",
+        "from": "Kuda Cards <hello@alerts.kuda.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T16:12:41.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Your Card Payment Failed - Low Balance Kuda Cards <hello@alerts.kuda.com> Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your Card Payment Failed - Low Balance",
+        "description": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "raw": {
+          "snippet": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+          "subject": "Your Card Payment Failed - Low Balance",
+          "from": "Kuda Cards <hello@alerts.kuda.com>"
+        }
+      },
+      {
+        "id": "1932f8a32e26c768",
+        "subject": "Do you have a second to fix this payment issue?",
+        "from": "\"Refero (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-15",
+        "timestamp": "2024-11-15T11:16:44.000Z",
+        "amounts": [
+          8.4
+        ],
+        "currencies": [
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Do you have a second to fix this payment issue? \"Refero (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com> Refero Just letting you know that your Refero subscription payment of $8.40 did not go through. Please update your payment information here: https://referodesign.lemonsqueezy.com/subscription/565944/",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Do you have a second to fix this payment issue?",
+        "description": "Refero Just letting you know that your Refero subscription payment of $8.40 did not go through. Please update your payment information here: https://referodesign.lemonsqueezy.com/subscription/565944/",
+        "raw": {
+          "snippet": "Refero Just letting you know that your Refero subscription payment of $8.40 did not go through. Please update your payment information here: https://referodesign.lemonsqueezy.com/subscription/565944/",
+          "subject": "Do you have a second to fix this payment issue?",
+          "from": "\"Refero (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com>"
+        }
+      },
+      {
+        "id": "193253d79495bbb3",
+        "subject": "Need help with your Refero subscription payment?",
+        "from": "\"Refero (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T11:16:44.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Need help with your Refero subscription payment? \"Refero (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com> Refero Hey there, We had an issue trying to process your previous payment. Can you make sure we have the right payment info? You can quickly update here: https://referodesign.lemonsqueezy.com/",
+        "isSubscription": true,
+        "transactionIndicators": false,
+        "rawSubject": "Need help with your Refero subscription payment?",
+        "description": "Refero Hey there, We had an issue trying to process your previous payment. Can you make sure we have the right payment info? You can quickly update here: https://referodesign.lemonsqueezy.com/",
+        "raw": {
+          "snippet": "Refero Hey there, We had an issue trying to process your previous payment. Can you make sure we have the right payment info? You can quickly update here: https://referodesign.lemonsqueezy.com/",
+          "subject": "Need help with your Refero subscription payment?",
+          "from": "\"Refero (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com>"
+        }
+      },
+      {
+        "id": "193253d5d1a786e9",
+        "subject": "A payment was unsuccessful",
+        "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T11:16:36.000Z",
+        "amounts": [
+          9.15,
+          14
+        ],
+        "currencies": [
+          "$",
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "A payment was unsuccessful Lemon Squeezy <hello@lemonsqueezy-mail.com> Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 from VISA •••• 5845 Monthly Subscription $14.00 billed every month We were unable to charge the card",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "A payment was unsuccessful",
+        "description": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 from VISA •••• 5845 Monthly Subscription $14.00 billed every month We were unable to charge the card",
+        "raw": {
+          "snippet": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 from VISA •••• 5845 Monthly Subscription $14.00 billed every month We were unable to charge the card",
+          "subject": "A payment was unsuccessful",
+          "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>"
+        }
+      },
+      {
+        "id": "19315828a50e74ec",
+        "subject": "Your Card Payment Failed - Low Balance",
+        "from": "Kuda Cards <hello@alerts.kuda.com>",
+        "date": "2024-11-10",
+        "timestamp": "2024-11-10T09:58:16.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Your Card Payment Failed - Low Balance Kuda Cards <hello@alerts.kuda.com> Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your Card Payment Failed - Low Balance",
+        "description": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "raw": {
+          "snippet": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+          "subject": "Your Card Payment Failed - Low Balance",
+          "from": "Kuda Cards <hello@alerts.kuda.com>"
+        }
+      },
+      {
+        "id": "193158280c0557d6",
+        "subject": "Your Card Payment Failed - Low Balance",
+        "from": "Kuda Cards <hello@alerts.kuda.com>",
+        "date": "2024-11-10",
+        "timestamp": "2024-11-10T09:58:13.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Your Card Payment Failed - Low Balance Kuda Cards <hello@alerts.kuda.com> Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your Card Payment Failed - Low Balance",
+        "description": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "raw": {
+          "snippet": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+          "subject": "Your Card Payment Failed - Low Balance",
+          "from": "Kuda Cards <hello@alerts.kuda.com>"
+        }
+      },
+      {
+        "id": "193154b34cc90c1c",
+        "subject": "Your Card Payment Failed - Low Balance",
+        "from": "Kuda Cards <hello@alerts.kuda.com>",
+        "date": "2024-11-10",
+        "timestamp": "2024-11-10T08:57:50.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Your Card Payment Failed - Low Balance Kuda Cards <hello@alerts.kuda.com> Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your Card Payment Failed - Low Balance",
+        "description": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "raw": {
+          "snippet": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+          "subject": "Your Card Payment Failed - Low Balance",
+          "from": "Kuda Cards <hello@alerts.kuda.com>"
+        }
+      },
+      {
+        "id": "193154b226fd2e46",
+        "subject": "Your Card Payment Failed - Low Balance",
+        "from": "Kuda Cards <hello@alerts.kuda.com>",
+        "date": "2024-11-10",
+        "timestamp": "2024-11-10T08:57:45.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Your Card Payment Failed - Low Balance Kuda Cards <hello@alerts.kuda.com> Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your Card Payment Failed - Low Balance",
+        "description": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+        "raw": {
+          "snippet": "Please, add money to your account to cover your card payment. ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌ ͏‌",
+          "subject": "Your Card Payment Failed - Low Balance",
+          "from": "Kuda Cards <hello@alerts.kuda.com>"
+        }
+      },
+      {
+        "id": "1930acb2430cbbff",
+        "subject": "Ethiopia’s big move to cashless payment",
+        "from": "Condia Insider <newsletter@thecondia.com>",
+        "date": "2024-11-08",
+        "timestamp": "2024-11-08T08:01:11.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Ethiopia’s big move to cashless payment Condia Insider <newsletter@thecondia.com> One QR code system for digital payments ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Ethiopia’s big move to cashless payment",
+        "description": "One QR code system for digital payments ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏",
+        "raw": {
+          "snippet": "One QR code system for digital payments ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏",
+          "subject": "Ethiopia’s big move to cashless payment",
+          "from": "Condia Insider <newsletter@thecondia.com>"
+        }
+      },
+      {
+        "id": "193031f2e678d82c",
+        "subject": "A payment was unsuccessful",
+        "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-06",
+        "timestamp": "2024-11-06T20:16:34.000Z",
+        "amounts": [
+          9.15,
+          14
+        ],
+        "currencies": [
+          "$",
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "A payment was unsuccessful Lemon Squeezy <hello@lemonsqueezy-mail.com> Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "A payment was unsuccessful",
+        "description": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+        "raw": {
+          "snippet": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+          "subject": "A payment was unsuccessful",
+          "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>"
+        }
+      },
+      {
+        "id": "19300d6ed61d79de",
+        "subject": "Bills Payment",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-06",
+        "timestamp": "2024-11-06T09:38:25.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Bills Payment Kuda <no-reply@kuda.com> Bills Payment Hi NICHOLAS, Your meter token from EKEDC NG is below. Please, keep it safe. Token 39576092241551965046 Please, note: To upgrade your meter, you need to load the two Key Change Tokens (KCT",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Bills Payment",
+        "description": "Bills Payment Hi NICHOLAS, Your meter token from EKEDC NG is below. Please, keep it safe. Token 39576092241551965046 Please, note: To upgrade your meter, you need to load the two Key Change Tokens (KCT",
+        "raw": {
+          "snippet": "Bills Payment Hi NICHOLAS, Your meter token from EKEDC NG is below. Please, keep it safe. Token 39576092241551965046 Please, note: To upgrade your meter, you need to load the two Key Change Tokens (KCT",
+          "subject": "Bills Payment",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "192f419f2952a8c4",
+        "subject": "A payment was unsuccessful",
+        "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-03",
+        "timestamp": "2024-11-03T22:16:32.000Z",
+        "amounts": [
+          9.15,
+          14
+        ],
+        "currencies": [
+          "$",
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "A payment was unsuccessful Lemon Squeezy <hello@lemonsqueezy-mail.com> Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "A payment was unsuccessful",
+        "description": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+        "raw": {
+          "snippet": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+          "subject": "A payment was unsuccessful",
+          "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>"
+        }
+      },
+      {
+        "id": "192ec99bef53a428",
+        "subject": "Thanks for your payment",
+        "from": "\"superwhisper (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-02",
+        "timestamp": "2024-11-02T11:19:11.000Z",
+        "amounts": [
+          7.07,
+          8.49,
+          6.49,
+          0.58
+        ],
+        "currencies": [
+          "$",
+          "$",
+          "$",
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Thanks for your payment \"superwhisper (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com> Lemon Squeezy Payment Receipt superwhisper Thanks for your payment! Date: 1 Nov 2024, 15:33 Payment: $7.07 from VISA •••• 9224 superwhisper pro $8.49 billed every month Subtotal $6.49 Tax $0.58 Total",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Thanks for your payment",
+        "description": "Lemon Squeezy Payment Receipt superwhisper Thanks for your payment! Date: 1 Nov 2024, 15:33 Payment: $7.07 from VISA •••• 9224 superwhisper pro $8.49 billed every month Subtotal $6.49 Tax $0.58 Total",
+        "raw": {
+          "snippet": "Lemon Squeezy Payment Receipt superwhisper Thanks for your payment! Date: 1 Nov 2024, 15:33 Payment: $7.07 from VISA •••• 9224 superwhisper pro $8.49 billed every month Subtotal $6.49 Tax $0.58 Total",
+          "subject": "Thanks for your payment",
+          "from": "\"superwhisper (via Lemon Squeezy)\" <hello@lemonsqueezy-mail.com>"
+        }
+      },
+      {
+        "id": "192ea3b0e978544a",
+        "subject": "A payment was unsuccessful",
+        "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-02",
+        "timestamp": "2024-11-02T00:16:30.000Z",
+        "amounts": [
+          9.15,
+          14
+        ],
+        "currencies": [
+          "$",
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "A payment was unsuccessful Lemon Squeezy <hello@lemonsqueezy-mail.com> Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "A payment was unsuccessful",
+        "description": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+        "raw": {
+          "snippet": "Lemon Squeezy Payment Failed Refero Your payment failed Date: 30 Oct 2024, 10:15 Payment: $9.15 Monthly Subscription $14.00 billed every month We were unable to charge the card for this product. Please",
+          "subject": "A payment was unsuccessful",
+          "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>"
+        }
+      },
+      {
+        "id": "192e893fefdbd268",
+        "subject": "A payment was unsuccessful",
+        "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>",
+        "date": "2024-11-01",
+        "timestamp": "2024-11-01T16:34:24.000Z",
+        "amounts": [
+          7.07,
+          8.49
+        ],
+        "currencies": [
+          "$",
+          "$"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "A payment was unsuccessful Lemon Squeezy <hello@lemonsqueezy-mail.com> Lemon Squeezy Payment Failed superwhisper Your payment failed Date: 1 Nov 2024, 15:33 Payment: $7.07 superwhisper pro $8.49 billed every month We were unable to charge the card for this product. Please",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "A payment was unsuccessful",
+        "description": "Lemon Squeezy Payment Failed superwhisper Your payment failed Date: 1 Nov 2024, 15:33 Payment: $7.07 superwhisper pro $8.49 billed every month We were unable to charge the card for this product. Please",
+        "raw": {
+          "snippet": "Lemon Squeezy Payment Failed superwhisper Your payment failed Date: 1 Nov 2024, 15:33 Payment: $7.07 superwhisper pro $8.49 billed every month We were unable to charge the card for this product. Please",
+          "subject": "A payment was unsuccessful",
+          "from": "Lemon Squeezy <hello@lemonsqueezy-mail.com>"
+        }
+      }
+    ],
+    "banking": [
+      {
+        "id": "19372a4aa7e0f712",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-28",
+        "timestamp": "2024-11-28T12:00:14.000Z",
+        "amounts": [
+          250000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Karimat Adedamola Okunola just sent you ₦250000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Karimat Adedamola Okunola just sent you ₦250000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from",
+        "raw": {
+          "snippet": "Transaction Notification Karimat Adedamola Okunola just sent you ₦250000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1936e9163cb128de",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-27",
+        "timestamp": "2024-11-27T17:00:41.000Z",
+        "amounts": [
+          50000.01
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Folorunsho just sent you ₦50000.01. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Folorunsho just sent you ₦50000.01. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "raw": {
+          "snippet": "Transaction Notification Folorunsho just sent you ₦50000.01. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1936929a248d615f",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-26",
+        "timestamp": "2024-11-26T15:49:16.000Z",
+        "amounts": [
+          175364
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Folorunsho just sent you ₦175364.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Folorunsho just sent you ₦175364.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "raw": {
+          "snippet": "Transaction Notification Folorunsho just sent you ₦175364.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1934e537d851e540",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-21",
+        "timestamp": "2024-11-21T10:45:14.000Z",
+        "amounts": [
+          90000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Folorunsho just sent you ₦90000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Folorunsho just sent you ₦90000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "raw": {
+          "snippet": "Transaction Notification Folorunsho just sent you ₦90000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19349edf6e5262a8",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-20",
+        "timestamp": "2024-11-20T14:15:51.000Z",
+        "amounts": [
+          865000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Garba just sent you ₦865000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Garba just sent you ₦865000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "raw": {
+          "snippet": "Transaction Notification Garba just sent you ₦865000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19327a3d89b16d8d",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T22:27:49.000Z",
+        "amounts": [
+          70000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Folorunsho just sent you ₦70000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Folorunsho just sent you ₦70000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "raw": {
+          "snippet": "Transaction Notification Folorunsho just sent you ₦70000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "193242653b4d4d94",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-13",
+        "timestamp": "2024-11-13T06:11:51.000Z",
+        "amounts": [
+          2000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification You just recharged GLO NG DATA 08050758776 - Bills with ₦2000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification You just recharged GLO NG DATA 08050758776 - Bills with ₦2000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+        "raw": {
+          "snippet": "Transaction Notification You just recharged GLO NG DATA 08050758776 - Bills with ₦2000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19322096ac68335f",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-12",
+        "timestamp": "2024-11-12T20:21:02.000Z",
+        "amounts": [
+          11000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification You just recharged MTN NG DATA 08109942191 - Bills with ₦11000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification You just recharged MTN NG DATA 08109942191 - Bills with ₦11000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+        "raw": {
+          "snippet": "Transaction Notification You just recharged MTN NG DATA 08109942191 - Bills with ₦11000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1932113c18640c94",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-12",
+        "timestamp": "2024-11-12T15:52:42.000Z",
+        "amounts": [
+          3000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification You just recharged MTN NG VTU 2348109942191 - Airtime with ₦3000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification You just recharged MTN NG VTU 2348109942191 - Airtime with ₦3000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+        "raw": {
+          "snippet": "Transaction Notification You just recharged MTN NG VTU 2348109942191 - Airtime with ₦3000.00 Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "19319b17f436f5b9",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2024-11-11",
+        "timestamp": "2024-11-11T05:28:02.000Z",
+        "amounts": [
+          100000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Folorunsho just sent you ₦100000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Folorunsho just sent you ₦100000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+        "raw": {
+          "snippet": "Transaction Notification Folorunsho just sent you ₦100000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe from marketing",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      },
+      {
+        "id": "1936385b2fdf4c2f",
+        "subject": "Receipt from Reisty technology services limited [1732541418106]",
+        "from": "Paystack Receipts <noreply@paystack.com>",
+        "date": "2024-11-25",
+        "timestamp": "2024-11-25T13:32:06.000Z",
+        "amounts": [
+          10000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Receipt from Reisty technology services limited [1732541418106] Paystack Receipts <noreply@paystack.com> If you have any issues with payment, kindly reply to this email or send an email to Support@reisty.com Reisty technology services limited received your payment of NGN 10000.00 Transaction Details",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Receipt from Reisty technology services limited [1732541418106]",
+        "description": "If you have any issues with payment, kindly reply to this email or send an email to Support@reisty.com Reisty technology services limited received your payment of NGN 10000.00 Transaction Details",
+        "raw": {
+          "snippet": "If you have any issues with payment, kindly reply to this email or send an email to Support@reisty.com Reisty technology services limited received your payment of NGN 10000.00 Transaction Details",
+          "subject": "Receipt from Reisty technology services limited [1732541418106]",
+          "from": "Paystack Receipts <noreply@paystack.com>"
+        }
+      },
+      {
+        "id": "192fe2cc734687d7",
+        "subject": "Receipt from Africa Startup Festival [PAYSTACK-20241105211144-BRWLLojkgQ7bGVdFrmVL8K]",
+        "from": "Paystack Receipts <noreply@paystack.com>",
+        "date": "2024-11-05",
+        "timestamp": "2024-11-05T21:13:19.000Z",
+        "amounts": [
+          14999
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Receipt from Africa Startup Festival [PAYSTACK-20241105211144-BRWLLojkgQ7bGVdFrmVL8K] Paystack Receipts <noreply@paystack.com> If you have any issues with payment, kindly reply to this email or send an email to support@africastartupfestival.com Africa Startup Festival received your payment of NGN 14999.00 Transaction Details",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Receipt from Africa Startup Festival [PAYSTACK-20241105211144-BRWLLojkgQ7bGVdFrmVL8K]",
+        "description": "If you have any issues with payment, kindly reply to this email or send an email to support@africastartupfestival.com Africa Startup Festival received your payment of NGN 14999.00 Transaction Details",
+        "raw": {
+          "snippet": "If you have any issues with payment, kindly reply to this email or send an email to support@africastartupfestival.com Africa Startup Festival received your payment of NGN 14999.00 Transaction Details",
+          "subject": "Receipt from Africa Startup Festival [PAYSTACK-20241105211144-BRWLLojkgQ7bGVdFrmVL8K]",
+          "from": "Paystack Receipts <noreply@paystack.com>"
+        }
+      }
+    ]
+  },
+  "summary": {
+    "totalTransactions": 137,
+    "categoriesCount": 5,
+    "dateRange": {
+      "earliest": "2024-11-01",
+      "latest": "2024-11-30"
+    }
+  }
+}

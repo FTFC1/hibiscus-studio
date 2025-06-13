@@ -1,0 +1,32 @@
+{
+  "project": "Trello MCP Automations",
+  "last_updated": "2025-06-12",
+  "summary": "Suite of Python + Node tools exposing Trello power-user workflows via MCP server endpoints (board backups, WAFFLE label processing, checklist manipulation, Gmail hooks).",
+  "decisions": [
+    {
+      "id": "d1",
+      "decision": "Use Trello REST API directly instead of Selenium",
+      "reason": "Reliability & speed",
+      "date": "2025-06-12"
+    },
+    {
+      "id": "d2",
+      "decision": "Centralise automations in MCP server",
+      "reason": "Single invocation surface for agents and CLI"
+    }
+  ],
+  "considerations": [
+    {
+      "id": "c1",
+      "text": "Auth mechanism for multi-board, multi-user scenarios"
+    },
+    {
+      "id": "c2",
+      "text": "Rate limiting and API quotas"
+    }
+  ],
+  "open_questions": [
+    "What is the minimal backup frequency that balances data safety & quota?",
+    "Should we wrap Trello webhooks for real-time triggers?"
+  ]
+}

@@ -1,0 +1,807 @@
+{
+  "month": "2025-06",
+  "categories": {
+    "apple_apps": [
+      {
+        "id": "1973b6bd62b843ab",
+        "subject": "Bumble Premium (Apple)",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T14:50:10.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": "Bumble Premium",
+        "searchableText": "Bumble Premium Your invoice from Apple. invoice 4 june 2025 sequence: 2-7157319350 order id: mq1v0zy15z document: 147962908554 apple account: nicholasfcoker@googlemail.com bumble: dating, chat &amp; meet up 7 days bumble premium (daily)",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice 4 June 2025 Sequence: 2-7157319350 Order ID: MQ1V0ZY15Z Document: 147962908554 Apple Account: nicholasfcoker@googlemail.com Bumble: Dating, Chat &amp; Meet up 7 Days Bumble Premium (Daily)",
+        "raw": {
+          "snippet": "Invoice 4 June 2025 Sequence: 2-7157319350 Order ID: MQ1V0ZY15Z Document: 147962908554 Apple Account: nicholasfcoker@googlemail.com Bumble: Dating, Chat &amp; Meet up 7 Days Bumble Premium (Daily)",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "197341756749b28e",
+        "subject": "Cal AI (Apple)",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T04:40:33.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": "Cal AI",
+        "searchableText": "Cal AI Your invoice from Apple. invoice 2 june 2025 sequence: 2-7150008619 order id: mq1v0t24dh document: 211961513357 apple account: nicholasfcoker@googlemail.com cal ai - calorie tracker unlimited (monthly) renews 2 july 2025",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice 2 June 2025 Sequence: 2-7150008619 Order ID: MQ1V0T24DH Document: 211961513357 Apple Account: nicholasfcoker@googlemail.com Cal AI - Calorie Tracker Unlimited (Monthly) Renews 2 July 2025",
+        "raw": {
+          "snippet": "Invoice 2 June 2025 Sequence: 2-7150008619 Order ID: MQ1V0T24DH Document: 211961513357 Apple Account: nicholasfcoker@googlemail.com Cal AI - Calorie Tracker Unlimited (Monthly) Renews 2 July 2025",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      },
+      {
+        "id": "1972bf184cbe3e37",
+        "subject": "Tinder Premium (Apple)",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T14:42:17.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "apple_apps",
+        "appName": "Tinder Premium",
+        "searchableText": "Tinder Premium Your invoice from Apple. invoice 1 june 2025 sequence: 2-7142635929 order id: mq1v0fmxk7 document: 208960713249 apple account: nicholasfcoker@googlemail.com tinder dating app: chat &amp; date tinder platinum (daily) renews 6",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your invoice from Apple.",
+        "description": "Invoice 1 June 2025 Sequence: 2-7142635929 Order ID: MQ1V0FMXK7 Document: 208960713249 Apple Account: nicholasfcoker@googlemail.com Tinder Dating App: Chat &amp; Date Tinder Platinum (Daily) Renews 6",
+        "raw": {
+          "snippet": "Invoice 1 June 2025 Sequence: 2-7142635929 Order ID: MQ1V0FMXK7 Document: 208960713249 Apple Account: nicholasfcoker@googlemail.com Tinder Dating App: Chat &amp; Date Tinder Platinum (Daily) Renews 6",
+          "subject": "Your invoice from Apple.",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      }
+    ],
+    "apple_one": [
+      {
+        "id": "19730bde635a2f4a",
+        "subject": "Cal AI (Apple)",
+        "from": "Apple <no_reply@email.apple.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T13:04:00.000Z",
+        "amounts": [
+          7900
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "apple_one",
+        "appName": "Cal AI",
+        "searchableText": "Cal AI Your subscription confirmation subscription confirmation cal ai - calorie tracker cal ai - calorie tracker unlimited (1 month) ₦7900.00/month dear nicholas, this email confirms your subscription purchase: app cal ai - calorie",
+        "isSubscription": true,
+        "transactionIndicators": true,
+        "rawSubject": "Your subscription confirmation",
+        "description": "Subscription Confirmation Cal AI - Calorie Tracker Cal AI - Calorie Tracker Unlimited (1 month) ₦7900.00/month Dear Nicholas, This email confirms your subscription purchase: App Cal AI - Calorie",
+        "raw": {
+          "snippet": "Subscription Confirmation Cal AI - Calorie Tracker Cal AI - Calorie Tracker Unlimited (1 month) ₦7900.00/month Dear Nicholas, This email confirms your subscription purchase: App Cal AI - Calorie",
+          "subject": "Your subscription confirmation",
+          "from": "Apple <no_reply@email.apple.com>"
+        }
+      }
+    ],
+    "other": [
+      {
+        "id": "1973bd154f403bb5",
+        "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T16:41:03.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "MOBILE BANKING LOG IN CONFIRMATION ProvidusBank <alert@providusbank.com> ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 17:41:00 PM, (GMT+1) June 04, 2025.",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "description": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 17:41:00 PM, (GMT+1) June 04, 2025.",
+        "raw": {
+          "snippet": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 17:41:00 PM, (GMT+1) June 04, 2025.",
+          "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1973a563ffd52789",
+        "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T09:46:59.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "MOBILE BANKING LOG IN CONFIRMATION ProvidusBank <alert@providusbank.com> ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 10:46:57 AM, (GMT+1) June 04, 2025.",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "description": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 10:46:57 AM, (GMT+1) June 04, 2025.",
+        "raw": {
+          "snippet": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 10:46:57 AM, (GMT+1) June 04, 2025.",
+          "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1973a4fb56e7e18b",
+        "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T09:39:51.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "MOBILE BANKING LOG IN CONFIRMATION ProvidusBank <alert@providusbank.com> ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 10:39:49 AM, (GMT+1) June 04, 2025.",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "description": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 10:39:49 AM, (GMT+1) June 04, 2025.",
+        "raw": {
+          "snippet": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 10:39:49 AM, (GMT+1) June 04, 2025.",
+          "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "197372eca5342978",
+        "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T19:05:02.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "MOBILE BANKING LOG IN CONFIRMATION ProvidusBank <alert@providusbank.com> ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 20:04:59 PM, (GMT+1) June 03, 2025.",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "description": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 20:04:59 PM, (GMT+1) June 03, 2025.",
+        "raw": {
+          "snippet": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 20:04:59 PM, (GMT+1) June 03, 2025.",
+          "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "197368ebf1fa4899",
+        "subject": "Help Us Tailor Just for You – It Only Takes a Minute.",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T16:10:14.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Help Us Tailor Just for You – It Only Takes a Minute. ProvidusBank <alert@providusbank.com> Dear FOLARIN-COKER NICHOLAS, At ProvidusBank, delivering exceptional and personalized service is at the core of everything we do. To continue improving your experience with us, we would like your",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Help Us Tailor Just for You – It Only Takes a Minute.",
+        "description": "Dear FOLARIN-COKER NICHOLAS, At ProvidusBank, delivering exceptional and personalized service is at the core of everything we do. To continue improving your experience with us, we would like your",
+        "raw": {
+          "snippet": "Dear FOLARIN-COKER NICHOLAS, At ProvidusBank, delivering exceptional and personalized service is at the core of everything we do. To continue improving your experience with us, we would like your",
+          "subject": "Help Us Tailor Just for You – It Only Takes a Minute.",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1973461586cc3a63",
+        "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T06:01:24.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "MOBILE BANKING LOG IN CONFIRMATION ProvidusBank <alert@providusbank.com> ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 07:01:21 AM, (GMT+1) June 03, 2025.",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "MOBILE BANKING LOG IN CONFIRMATION",
+        "description": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 07:01:21 AM, (GMT+1) June 03, 2025.",
+        "raw": {
+          "snippet": "ONLINE BANKING LOG IN CONFIRMATION Dear FOLARIN-COKER NICHOLAS ONLINE BANKING LOG IN CONFIRMATION Please be informed that your online banking profile was accessed at 07:01:21 AM, (GMT+1) June 03, 2025.",
+          "subject": "MOBILE BANKING LOG IN CONFIRMATION",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1972b60ce61cf52b",
+        "subject": "Providus One Time Password",
+        "from": "no-reply@providusbank.com",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T12:04:10.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Providus One Time Password no-reply@providusbank.com &quot;You are about to be debited for a card transaction. Please approve with 3DS OTP: 968745 which expires in 10 minutes or call 070077684387 to stop the payment&quot;",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Providus One Time Password",
+        "description": "&quot;You are about to be debited for a card transaction. Please approve with 3DS OTP: 968745 which expires in 10 minutes or call 070077684387 to stop the payment&quot;",
+        "raw": {
+          "snippet": "&quot;You are about to be debited for a card transaction. Please approve with 3DS OTP: 968745 which expires in 10 minutes or call 070077684387 to stop the payment&quot;",
+          "subject": "Providus One Time Password",
+          "from": "no-reply@providusbank.com"
+        }
+      },
+      {
+        "id": "1972b0e68f3e151b",
+        "subject": "STATEMENT OF ACCOUNT(40******55)",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T10:34:10.000Z",
+        "amounts": [
+          3032096.34
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "other",
+        "appName": null,
+        "searchableText": "STATEMENT OF ACCOUNT(40******55) ProvidusBank <alert@providusbank.com> ProvidusBank logo May 2025 Dear MR. FOLARIN-COKER NICHOLAS, See how you have spent on your PROVIDUS CURRENT ACCOUNT (NAIRA (NGN)) in the last month Debit Count 116 Debit Total NGN 3032096.34 Credit",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "STATEMENT OF ACCOUNT(40******55)",
+        "description": "ProvidusBank logo May 2025 Dear MR. FOLARIN-COKER NICHOLAS, See how you have spent on your PROVIDUS CURRENT ACCOUNT (NAIRA (NGN)) in the last month Debit Count 116 Debit Total NGN 3032096.34 Credit",
+        "raw": {
+          "snippet": "ProvidusBank logo May 2025 Dear MR. FOLARIN-COKER NICHOLAS, See how you have spent on your PROVIDUS CURRENT ACCOUNT (NAIRA (NGN)) in the last month Debit Count 116 Debit Total NGN 3032096.34 Credit",
+          "subject": "STATEMENT OF ACCOUNT(40******55)",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1973b5f85bdb97d8",
+        "subject": "Enjoy Premium Lounge Access",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T14:36:45.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Enjoy Premium Lounge Access Zenith Bank <noreply@zenithbank.com> Enjoy Premium Lounge Access ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Enjoy Premium Lounge Access",
+        "description": "Enjoy Premium Lounge Access ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "raw": {
+          "snippet": "Enjoy Premium Lounge Access ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+          "subject": "Enjoy Premium Lounge Access",
+          "from": "Zenith Bank <noreply@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1973b1eec4d7d30b",
+        "subject": "Enjoy Premium Lounge Access",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T13:26:11.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Enjoy Premium Lounge Access Zenith Bank <noreply@zenithbank.com> Enjoy Premium Lounge Access ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Enjoy Premium Lounge Access",
+        "description": "Enjoy Premium Lounge Access ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "raw": {
+          "snippet": "Enjoy Premium Lounge Access ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+          "subject": "Enjoy Premium Lounge Access",
+          "from": "Zenith Bank <noreply@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19735db8ff1bee05",
+        "subject": "Zenith Bank Contact Details",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T12:54:30.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Zenith Bank Contact Details Zenith Bank <noreply@zenithbank.com> Zenith Bank Contact Details ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Zenith Bank Contact Details",
+        "description": "Zenith Bank Contact Details ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "raw": {
+          "snippet": "Zenith Bank Contact Details ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+          "subject": "Zenith Bank Contact Details",
+          "from": "Zenith Bank <noreply@zenithbank.com>"
+        }
+      },
+      {
+        "id": "19735d309f4dd23f",
+        "subject": "Zenith Bank Contact Details",
+        "from": "Zenith Bank <noreply@zenithbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T12:45:12.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Zenith Bank Contact Details Zenith Bank <noreply@zenithbank.com> Zenith Bank Contact Details ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Zenith Bank Contact Details",
+        "description": "Zenith Bank Contact Details ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+        "raw": {
+          "snippet": "Zenith Bank Contact Details ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌",
+          "subject": "Zenith Bank Contact Details",
+          "from": "Zenith Bank <noreply@zenithbank.com>"
+        }
+      },
+      {
+        "id": "1972c698e8a6289f",
+        "subject": "Bloggr.AI, Kitlayer, Invoice Den, and Traction",
+        "from": "BetaList Digest <digest@betalist.com>",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T16:53:04.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Bloggr.AI, Kitlayer, Invoice Den, and Traction BetaList Digest <digest@betalist.com> Discover high-quality design tools — no fluff, just results BetaList BetaList Daily Bloggr.AI Create unique, SEO content with Bloggr.ai — free to try Kitlayer Discover high-quality design tools — no",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Bloggr.AI, Kitlayer, Invoice Den, and Traction",
+        "description": "Discover high-quality design tools — no fluff, just results BetaList BetaList Daily Bloggr.AI Create unique, SEO content with Bloggr.ai — free to try Kitlayer Discover high-quality design tools — no",
+        "raw": {
+          "snippet": "Discover high-quality design tools — no fluff, just results BetaList BetaList Daily Bloggr.AI Create unique, SEO content with Bloggr.ai — free to try Kitlayer Discover high-quality design tools — no",
+          "subject": "Bloggr.AI, Kitlayer, Invoice Den, and Traction",
+          "from": "BetaList Digest <digest@betalist.com>"
+        }
+      },
+      {
+        "id": "1972b65e35420ac4",
+        "subject": "Your receipt from Wispr Flow #2083-3620",
+        "from": "Wispr Flow <invoice+statements@wispr.ai>",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T12:09:46.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "other",
+        "appName": null,
+        "searchableText": "Your receipt from Wispr Flow #2083-3620 Wispr Flow <invoice+statements@wispr.ai> Your receipt from Wispr Flow #2083-3620 ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Your receipt from Wispr Flow #2083-3620",
+        "description": "Your receipt from Wispr Flow #2083-3620 ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏",
+        "raw": {
+          "snippet": "Your receipt from Wispr Flow #2083-3620 ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏",
+          "subject": "Your receipt from Wispr Flow #2083-3620",
+          "from": "Wispr Flow <invoice+statements@wispr.ai>"
+        }
+      }
+    ],
+    "internal_transfer": [
+      {
+        "id": "1973a504486abd6c",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T09:40:27.000Z",
+        "amounts": [
+          25
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 25.00",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 25.00",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 25.00",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1973a50445c6cf8a",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-04",
+        "timestamp": "2025-06-04T09:40:27.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "197372f5bace8921",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T19:05:37.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "197372f5b1d4b101",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T19:05:37.000Z",
+        "amounts": [
+          25
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 25.00",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 25.00",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 25.00",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "19734624f439d344",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T06:02:26.000Z",
+        "amounts": [
+          50
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 50.00",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 50.00",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 50.00",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "19734624eb1a4faa",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T06:02:26.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "19733d7496cbd2cf",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-03",
+        "timestamp": "2025-06-03T03:30:35.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "197326917a00c3a5",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T20:50:36.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "197316699cfc6069",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T16:08:14.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "19730cca3795a44a",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T13:20:06.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1972f844586cd988",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T07:21:26.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1972eb66de021c15",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T03:36:35.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1972ea9c3d3273f2",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T03:22:45.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1972b8e317c4babf",
+        "subject": "ProvidusBank - Credit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T12:53:46.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Credit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Credit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "ProvidusBank - Credit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Credit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Credit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN",
+          "subject": "ProvidusBank - Credit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "1972b8e301fe564c",
+        "subject": "ProvidusBank - Debit Alert",
+        "from": "ProvidusBank <alert@providusbank.com>",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T12:53:46.000Z",
+        "amounts": [
+          50
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "ProvidusBank - Debit Alert ProvidusBank <alert@providusbank.com> Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 50.00",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "ProvidusBank - Debit Alert",
+        "description": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 50.00",
+        "raw": {
+          "snippet": "Transaction Alert Service Dear FOLARIN-COKER NICHOLAS, This is to notify you that a Debit transaction just occured on your account. Kindly see details below: Account Number 40******55 Amount NGN 50.00",
+          "subject": "ProvidusBank - Debit Alert",
+          "from": "ProvidusBank <alert@providusbank.com>"
+        }
+      },
+      {
+        "id": "197321a89400aec2",
+        "subject": "Monthly Statement for MAY  2025",
+        "from": "ZenithDirect <NoReply@zenithbank.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T19:24:49.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Monthly Statement for MAY  2025 ZenithDirect <NoReply@zenithbank.com> Monday, June 2, 2025 MONTHLY STATEMENT FOR MAY 2025 Dear NICHOLAS FEYINTOLA FOLARIN-COKER , Your MAY 2025 Zenith Bank savings account statement is hereby attached. To open the file, use the last four",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Monthly Statement for MAY  2025",
+        "description": "Monday, June 2, 2025 MONTHLY STATEMENT FOR MAY 2025 Dear NICHOLAS FEYINTOLA FOLARIN-COKER , Your MAY 2025 Zenith Bank savings account statement is hereby attached. To open the file, use the last four",
+        "raw": {
+          "snippet": "Monday, June 2, 2025 MONTHLY STATEMENT FOR MAY 2025 Dear NICHOLAS FEYINTOLA FOLARIN-COKER , Your MAY 2025 Zenith Bank savings account statement is hereby attached. To open the file, use the last four",
+          "subject": "Monthly Statement for MAY  2025",
+          "from": "ZenithDirect <NoReply@zenithbank.com>"
+        }
+      },
+      {
+        "id": "197305774431907a",
+        "subject": "Transaction Notification",
+        "from": "Kuda <no-reply@kuda.com>",
+        "date": "2025-06-02",
+        "timestamp": "2025-06-02T11:12:07.000Z",
+        "amounts": [
+          20000
+        ],
+        "currencies": [
+          "₦"
+        ],
+        "category": "internal_transfer",
+        "appName": null,
+        "searchableText": "Transaction Notification Kuda <no-reply@kuda.com> Transaction Notification Nicholas Feyintola Folarin-Coker just sent you ₦20000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe",
+        "isSubscription": false,
+        "transactionIndicators": true,
+        "rawSubject": "Transaction Notification",
+        "description": "Transaction Notification Nicholas Feyintola Folarin-Coker just sent you ₦20000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe",
+        "raw": {
+          "snippet": "Transaction Notification Nicholas Feyintola Folarin-Coker just sent you ₦20000.00. Love, The Kuda Team. Button Follow Us Twitter Instagram Linkedin Medium Contact Us help@kuda.com You can unsubscribe",
+          "subject": "Transaction Notification",
+          "from": "Kuda <no-reply@kuda.com>"
+        }
+      }
+    ],
+    "banking": [
+      {
+        "id": "1972b84919a654e9",
+        "subject": "Say you care with a credit alert",
+        "from": "Bolanle from V <noreply@vbank.ng>",
+        "date": "2025-06-01",
+        "timestamp": "2025-06-01T12:43:17.000Z",
+        "amounts": [],
+        "currencies": [],
+        "category": "banking",
+        "appName": null,
+        "searchableText": "Say you care with a credit alert Bolanle from V <noreply@vbank.ng> Dear Nicholas, A credit alert hits any day, any time and VBank makes it seamless through the VBank App, USSD Banking, or WhatsApp Banking. It is a new month, the perfect time to show love to the people",
+        "isSubscription": false,
+        "transactionIndicators": false,
+        "rawSubject": "Say you care with a credit alert",
+        "description": "Dear Nicholas, A credit alert hits any day, any time and VBank makes it seamless through the VBank App, USSD Banking, or WhatsApp Banking. It is a new month, the perfect time to show love to the people",
+        "raw": {
+          "snippet": "Dear Nicholas, A credit alert hits any day, any time and VBank makes it seamless through the VBank App, USSD Banking, or WhatsApp Banking. It is a new month, the perfect time to show love to the people",
+          "subject": "Say you care with a credit alert",
+          "from": "Bolanle from V <noreply@vbank.ng>"
+        }
+      }
+    ]
+  },
+  "summary": {
+    "totalTransactions": 36,
+    "categoriesCount": 5,
+    "dateRange": {
+      "earliest": "2025-06-01",
+      "latest": "2025-06-04"
+    }
+  }
+}

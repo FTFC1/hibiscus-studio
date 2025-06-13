@@ -1,0 +1,27 @@
+{
+  "project": "FORJE Retail Certification",
+  "last_updated": "2025-06-12",
+  "summary": "Building Nigeria's first professional retail certification system using mobile micro-lessons, manager role-plays and external assessments to lift sales KPIs and career pathways.",
+  "decisions": [
+    { "id": "d1", "decision": "Pilot partner open (LBS proposal nice-to-have)", "reason": "Accelerate testing while proposal is pending", "date": "2025-06-12" },
+    { "id": "d2", "decision": "Rebuild landing page; Netlify prototype legacy", "reason": "Need clearer messaging for pilot recruitment", "date": "2025-06-12" },
+    { "id": "d3", "decision": "Set evaluation split 30% manager / 70% external", "reason": "Manager capacity stats from Abu interview", "date": "2025-06-12" },
+    { "id": "d4", "decision": "Mark training-archive-v002.zip as draft", "reason": "Outdated content", "date": "2025-06-12" }
+  ],
+  "considerations": [
+    { "id": "c1", "text": "Certification scope: internal-only vs industry-transferable" },
+    { "id": "c2", "text": "Primary KPI: conversion vs basket size vs basket items" },
+    { "id": "c3", "text": "Incentive scheme: bond or pay-band progression tied to certification" },
+    { "id": "c4", "text": "Mitigating manager bias via AI grading & external audits" }
+  ],
+  "cross_project_insights": [
+    { "id": "x1", "insight": "Micro-lesson + role-play loop applicable to hospitality vertical", "related_projects": ["Hospitality Training"] }
+  ],
+  "conflicts": [
+    { "type": "capacity", "details": "Manager time limits may cap internal evaluation quality" },
+    { "type": "poaching_risk", "details": "Transferable certs could increase staff churn" }
+  ],
+  "side_discoveries": [
+    { "id": "s1", "note": "Retail Routine App idea (hourly push-nudge, QR feedback) from Abu interview", "relevance": "Potential product spin-off" }
+  ]
+} 

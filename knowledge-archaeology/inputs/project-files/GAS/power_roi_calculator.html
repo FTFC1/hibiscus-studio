@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Power Solution Advisor - Mikano International</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Source Serif Pro', serif; }
+        
+        /* Clean color system */
+        :root {
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --red-600: #dc2626;
+            --red-700: #b91c1c;
+            --red-500: #ef4444;
+            --emerald-600: #059669;
+            --emerald-700: #047857;
+            --emerald-50: #ecfdf5;
+            --emerald-100: #d1fae5;
+            --blue-50: #eff6ff;
+            --blue-600: #2563eb;
+        }
+        
+        [data-theme="dark"] {
+            --slate-50: #0f172a;
+            --slate-100: #1e293b;
+            --slate-200: #334155;
+            --slate-300: #475569;
+            --slate-400: #64748b;
+            --slate-500: #94a3b8;
+            --slate-600: #cbd5e1;
+            --slate-700: #e2e8f0;
+            --slate-800: #f1f5f9;
+            --slate-900: #f8fafc;
+            --emerald-50: #064e3b;
+            --emerald-100: #065f46;
+        }
+        
+        body {
+            background: var(--slate-100);
+            color: var(--slate-900);
+            transition: all 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Remove loading shimmer - unnecessary */
+        
+        /* Remove spring physics - unnecessary */
+        
+        /* Clean shadow system */
+        .card-shadow {
+            box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.12), 0 1px 2px 0 rgba(15, 23, 42, 0.06);
+        }
+        
+        .elevated-shadow {
+            box-shadow: 0 8px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+        }
+        
+        [data-theme="dark"] .card-shadow {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        [data-theme="dark"] .elevated-shadow {
+            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Clean card system */
+        .main-card {
+            background: white;
+            border: 2px solid var(--slate-300);
+            border-radius: 1.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px 0 rgba(15, 23, 42, 0.08);
+        }
+        
+        [data-theme="dark"] .main-card {
+            background: var(--slate-100);
+            border-color: var(--slate-400);
+        }
+        
+        .main-card:hover {
+            border-color: var(--slate-400);
+            transform: translateY(-1px);
+        }
+        
+        /* Clean metric cards */
+        .metric-card {
+            background: white;
+            border: 2px solid var(--slate-300);
+            border-radius: 1rem;
+            position: relative;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 6px 0 rgba(15, 23, 42, 0.08);
+        }
+        
+        [data-theme="dark"] .metric-card {
+            background: var(--slate-100);
+            border-color: var(--slate-400);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -5px rgba(15, 23, 42, 0.15);
+        }
+        
+        /* Clean input system - NO SHAPE CHANGES */
+        .mobile-input {
+            font-size: 16px;
+            line-height: 1.5;
+            min-height: 3.75rem;
+            background: white;
+            border: 2px solid var(--slate-200);
+            color: var(--slate-900);
+            border-radius: 1rem;
+            transition: border-color 0.2s ease;
+            font-weight: 500;
+        }
+        
+        /* Clean filled state - NO VISUAL CHANGES */
+        .mobile-input.filled {
+            border-color: var(--emerald-600);
+        }
+        
+        .mobile-input.error {
+            border-color: var(--red-500);
+        }
+        
+        [data-theme="dark"] .mobile-input {
+            background: var(--slate-100);
+            border-color: var(--slate-300);
+            color: var(--slate-900);
+        }
+        
+        [data-theme="dark"] .mobile-input.filled {
+            border-color: var(--emerald-600);
+        }
+        
+        .mobile-input:focus {
+            border-color: var(--red-600);
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+            outline: none;
+        }
+        
+        /* Clean button system */
+        .primary-button {
+            background: var(--red-600);
+            color: white !important;
+            border: none;
+            border-radius: 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-height: 3.75rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px 0 rgba(220, 38, 38, 0.25);
+        }
+        
+        [data-theme="dark"] .primary-button {
+            background: var(--red-600);
+            color: white !important;
+        }
+        
+        .primary-button:hover {
+            background: var(--red-700);
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(220, 38, 38, 0.3);
+        }
+        
+        [data-theme="dark"] .primary-button:hover {
+            background: var(--red-700);
+            color: white !important;
+        }
+        
+        .primary-button:active {
+            transform: translateY(0);
+            color: white !important;
+        }
+        
+        .primary-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            color: white !important;
+        }
+        
+        .secondary-button {
+            background: var(--slate-900);
+            color: white !important;
+            border: none;
+            border-radius: 1rem;
+            font-weight: 700;
+            min-height: 3.5rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px 0 rgba(15, 23, 42, 0.2);
+        }
+        
+        [data-theme="dark"] .secondary-button {
+            background: var(--slate-900);
+            color: white !important;
+        }
+        
+        .secondary-button:hover {
+            background: var(--slate-800);
+            color: white !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px 0 rgba(15, 23, 42, 0.25);
+        }
+        
+        [data-theme="dark"] .secondary-button:hover {
+            background: var(--slate-700);
+            color: white !important;
+        }
+        
+        /* Clean number stepper */
+        .number-stepper {
+            position: relative;
+        }
+        
+        .stepper-buttons {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .stepper-btn {
+            width: 36px;
+            height: 24px;
+            background: var(--slate-100);
+            border: 1px solid var(--slate-300);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        
+        [data-theme="dark"] .stepper-btn {
+            background: var(--slate-200);
+            border-color: var(--slate-400);
+        }
+        
+        .stepper-btn:hover {
+            background: var(--slate-200);
+            border-color: var(--slate-400);
+            transform: scale(1.05);
+        }
+        
+        /* Clean dropdown */
+        .dropdown-container {
+            position: relative;
+        }
+        
+        .dropdown-container::after {
+            content: '';
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.5em;
+            height: 1.5em;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            pointer-events: none;
+        }
+        
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent;
+            padding-right: 3.5rem;
+            font-weight: 500;
+        }
+        
+        /* Clean currency symbol */
+        .currency-input-container {
+            position: relative;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            color: var(--slate-600);
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        /* Clean dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 50;
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 1rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1);
+        }
+        
+        [data-theme="dark"] .theme-toggle {
+            background: var(--slate-100);
+            border-color: var(--slate-300);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px -3px rgba(15, 23, 42, 0.15);
+        }
+        
+        /* Clean scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--slate-100);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--slate-400);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--slate-500);
+        }
+        
+        .hidden { display: none; }
+        
+        /* Clean success state */
+        .success-indicator {
+            background: var(--emerald-50);
+            border: 1px solid var(--emerald-600);
+            color: var(--emerald-700);
+        }
+        
+        [data-theme="dark"] .success-indicator {
+            background: var(--emerald-50);
+            border-color: var(--emerald-600);
+            color: var(--emerald-600);
+        }
+        
+        /* Enhanced typography with better spacing */
+        .headline-large {
+            font-size: 1.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+        }
+        
+        .headline-medium {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .title-large {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .body-large {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        
+        .body-medium {
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .label-medium {
+            font-size: 0.75rem;
+            font-weight: 600;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+        
+        /* Enhanced animations with spring physics */
+        .animate-slide-up {
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(32px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes scaleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) rotate(-5deg); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
+        }
+        
+        /* Enhanced scrollbar with better styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--slate-100);
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--slate-400), var(--slate-500));
+            border-radius: 8px;
+            border: 2px solid var(--slate-100);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--slate-500), var(--slate-600));
+        }
+        
+        /* Enhanced success state with better animation */
+        .success-indicator {
+            background: linear-gradient(135deg, var(--emerald-50), var(--emerald-100));
+            border: 2px solid var(--emerald-600);
+            color: var(--emerald-700);
+            animation: successPulse 2s ease-out;
+        }
+        
+        @keyframes successPulse {
+            0% { 
+                transform: scale(0.8); 
+                box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4);
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 0 0 20px rgba(5, 150, 105, 0);
+            }
+            100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
+            }
+        }
+        
+        [data-theme="dark"] .success-indicator {
+            background: linear-gradient(135deg, var(--emerald-100), var(--emerald-50));
+            border-color: var(--emerald-600);
+            color: var(--emerald-600);
+        }
+        
+        /* Progress indicator for form completion */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red-600), var(--red-500));
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+        
+        /* Enhanced focus states for accessibility */
+        *:focus-visible {
+            outline: 2px solid var(--red-600);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        
+        /* Loading state for buttons */
+        .loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            margin-left: 8px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Enhanced mobile touch feedback */
+        @media (hover: none) and (pointer: coarse) {
+            .main-card:hover {
+                transform: none;
+                box-shadow: 0 4px 8px 0 rgba(15, 23, 42, 0.08);
+            }
+            
+            .metric-card:hover {
+                transform: none;
+            }
+            
+            .theme-toggle:hover {
+                transform: none;
+            }
+        }
+        
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .main-card {
+                border-width: 3px;
+            }
+            
+            .mobile-input {
+                border-width: 3px;
+            }
+            
+            .primary-button {
+                box-shadow: none;
+                border: 3px solid var(--slate-900);
+            }
+        }
+        
+        /* Enhanced tooltip system */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--slate-900);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-8px);
+        }
+        
+        /* Print styles */
+        @media print {
+            .theme-toggle,
+            .primary-button,
+            .secondary-button {
+                display: none !important;
+            }
+            
+            .main-card {
+                border: 1px solid #000;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-4">
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle card-shadow" onclick="toggleTheme()">
+        <svg id="sun-icon" class="w-6 h-6" style="color: var(--slate-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <svg id="moon-icon" class="w-6 h-6 hidden" style="color: var(--slate-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+    </button>
+
+    <div class="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="main-card card-shadow p-6 sm:p-8 lg:p-10 mb-6 sm:mb-8">
+            <div class="text-center">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-2xl mx-auto mb-4 sm:mb-6 flex items-center justify-center" style="background: var(--red-600);">
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                </div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 font-serif" style="color: var(--slate-900);">Healthcare Power Solutions</h1>
+                <p class="text-base sm:text-lg lg:text-xl mb-4 sm:mb-6" style="color: var(--slate-600);">Reliable power for better patient care</p>
+                
+                <!-- Trust Indicators -->
+                <div class="rounded-xl p-3 sm:p-4 lg:p-5" style="background: var(--slate-100); border: 1px solid var(--slate-200);">
+                    <div class="flex items-center justify-center space-x-4 sm:space-x-6 text-xs sm:text-sm lg:text-base font-semibold" style="color: var(--slate-700);">
+                        <span>30+ Years</span>
+                        <span>•</span>
+                        <span>Nigeria's #1</span>
+                        <span>•</span>
+                        <span>5kW-5MW</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment Form -->
+        <div id="assessmentForm" class="main-card card-shadow p-6 sm:p-8 lg:p-10 mb-6 sm:mb-8">
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 font-serif" style="color: var(--slate-900);">Power Assessment</h2>
+            
+            <form id="powerAssessment" class="space-y-4 sm:space-y-6">
+                <div class="sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 space-y-4">
+                    <div>
+                        <label class="block text-sm sm:text-base font-medium mb-2 sm:mb-3" style="color: var(--slate-800);">What type of facility?</label>
+                        <div class="dropdown-container">
+                            <select id="facilityType" class="w-full px-4 sm:px-5 py-3 sm:py-4 mobile-input" required>
+                                <option value="">Choose your facility type</option>
+                                <option value="clinic">Private Clinic</option>
+                                <option value="phc">Primary Health Centre</option>
+                                <option value="hospital">General Hospital</option>
+                                <option value="medical_centre">Medical Centre</option>
+                                <option value="laboratory">Medical Laboratory</option>
+                                <option value="pharmacy">Pharmacy</option>
+                                <option value="diagnostic">Diagnostic Centre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm sm:text-base font-medium mb-2 sm:mb-3" style="color: var(--slate-800);">Power requirement</label>
+                        <div class="dropdown-container">
+                            <select id="powerNeed" class="w-full px-4 sm:px-5 py-3 sm:py-4 mobile-input" required>
+                                <option value="">Select power range</option>
+                                <option value="5">Small (5-15kW)</option>
+                                <option value="25">Medium (15-50kW)</option>
+                                <option value="100">Large (50-200kW)</option>
+                                <option value="500">Extra Large (200kW-1MW)</option>
+                                <option value="1500">Industrial (1MW+)</option>
+                            </select>
+                        </div>
+                        <p class="text-xs sm:text-sm font-medium mt-2" style="color: var(--slate-500);">Not sure? We'll help you find the right size</p>
+                    </div>
+                </div>
+
+                <div class="sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 space-y-4">
+                    <div>
+                        <label class="block text-sm sm:text-base font-medium mb-2 sm:mb-3" style="color: var(--slate-800);">Monthly power cost</label>
+                        <div class="number-stepper">
+                            <div class="currency-input-container">
+                                <span class="currency-symbol">₦</span>
+                                <input type="text" id="currentCost" class="w-full pl-10 sm:pl-12 pr-16 sm:pr-20 py-3 sm:py-4 mobile-input" placeholder="150,000" inputmode="numeric" required>
+                            </div>
+                            <div class="stepper-buttons">
+                                <div class="stepper-btn" onclick="adjustCost(10000)">
+                                    <svg class="w-4 h-4" style="color: var(--slate-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"/>
+                                    </svg>
+                                </div>
+                                <div class="stepper-btn" onclick="adjustCost(-10000)">
+                                    <svg class="w-4 h-4" style="color: var(--slate-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm font-medium mt-2" style="color: var(--slate-500);">Include fuel, grid & maintenance costs</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm sm:text-base font-medium mb-2 sm:mb-3" style="color: var(--slate-800);">Current reliability</label>
+                        <div class="dropdown-container">
+                            <select id="currentUptime" class="w-full px-4 sm:px-5 py-3 sm:py-4 mobile-input" required>
+                                <option value="">How often do you have power?</option>
+                                <option value="30">30% - Mostly unavailable</option>
+                                <option value="50">50% - Half the time</option>
+                                <option value="70">70% - Most of the time</option>
+                                <option value="85">85% - Generally reliable</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full primary-button mt-6 sm:mt-8">
+                    Calculate My Solution →
+                </button>
+            </form>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="main-card elevated-shadow p-6 sm:p-8 lg:p-10 mb-6 sm:mb-8 hidden">
+            <div class="text-center mb-6 sm:mb-8">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl mx-auto mb-3 sm:mb-4 flex items-center justify-center success-indicator">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" style="color: var(--emerald-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold font-serif" style="color: var(--slate-900);">Your Power Solution</h2>
+            </div>
+
+            <div id="resultContent">
+                <!-- Dynamic results content -->
+            </div>
+            
+            <!-- Why Choose Mikano -->
+            <div class="mt-6 sm:mt-8 pt-4 sm:pt-6" style="border-top: 1px solid var(--slate-200);">
+                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 font-serif" style="color: var(--slate-900);">Why Mikano International?</h3>
+                <div class="space-y-2 sm:space-y-3 text-sm sm:text-base" style="color: var(--slate-600);">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0" style="color: var(--emerald-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>30+ years powering Nigeria's businesses</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0" style="color: var(--emerald-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Nigeria's favourite generator brand</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0" style="color: var(--emerald-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Complete range: 5kW to 5MW generators</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0" style="color: var(--emerald-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Nationwide support & maintenance</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="shareResults()" class="w-full secondary-button mt-6 sm:mt-8">
+                Get Quote & Pricing →
+            </button>
+            
+            <!-- iPad-friendly option -->
+            <button onclick="copyAndContact()" class="w-full mt-3 sm:mt-4 px-6 py-3 border-2 rounded-xl font-semibold transition-all duration-200" style="border-color: var(--slate-300); color: var(--slate-700); background: transparent;">
+                📋 Copy Results & Contact Details
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center">
+            <p class="text-xs sm:text-sm font-medium" style="color: var(--slate-500);">
+                Powered by <span style="color: var(--slate-700);">Mikano International</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let solutionType = '';
+        let userInputs = {};
+
+        // Simple number abbreviation
+        function abbreviateNumber(num) {
+            if (num >= 1000000) {
+                return '₦' + (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return '₦' + Math.round(num / 1000) + 'K';
+            } else {
+                return '₦' + num.toLocaleString('en-NG');
+            }
+        }
+
+        // Simple dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            
+            if (newTheme === 'dark') {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        }
+
+        // Simple cost adjustment
+        function adjustCost(amount) {
+            const input = document.getElementById('currentCost');
+            let currentValue = parseFloat(input.value.replace(/,/g, '')) || 0;
+            currentValue = Math.max(0, currentValue + amount);
+            input.value = currentValue.toLocaleString('en-NG');
+        }
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const html = document.documentElement;
+            html.setAttribute('data-theme', savedTheme);
+            
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            
+            if (savedTheme === 'dark') {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+
+            // Simple cost input formatting
+            const costInput = document.getElementById('currentCost');
+            if (costInput) {
+                costInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    e.target.value = formatted;
+                });
+            }
+        });
+
+        // Simple form submission
+        document.getElementById('powerAssessment').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const facilityType = document.getElementById('facilityType').value;
+            const powerNeed = parseInt(document.getElementById('powerNeed').value);
+            const currentCostInput = document.getElementById('currentCost').value;
+            const currentCost = parseFloat(currentCostInput.replace(/,/g, ''));
+            const currentUptime = parseInt(document.getElementById('currentUptime').value);
+            
+            if (!facilityType || !powerNeed || !currentCost || !currentUptime) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            userInputs = {
+                facilityType,
+                powerNeed,
+                currentCost,
+                currentCostFormatted: currentCostInput,
+                currentUptime
+            };
+            
+            if (powerNeed >= 1000) {
+                solutionType = 'gas_ipp';
+            } else {
+                solutionType = 'diesel_generator';
+            }
+            
+            calculateAndShowResults();
+        });
+
+        function calculateAndShowResults() {
+            const baseImprovements = {
+                'diesel_generator': { 
+                    uptime: 95, 
+                    monthlySavingsPercent: 0.15,
+                    name: 'Mikano Diesel Generator',
+                    description: 'More efficient than old generators'
+                },
+                'gas_ipp': { 
+                    uptime: 98, 
+                    monthlySavingsPercent: 0.25,
+                    name: 'Gas Power Plant',
+                    description: 'Lower cost per kWh at scale'
+                }
+            };
+            
+            const solution = baseImprovements[solutionType];
+            const monthlySavings = userInputs.currentCost * solution.monthlySavingsPercent;
+            
+            window.calculatorResults = {
+                ...userInputs,
+                solutionType,
+                solutionName: solution.name,
+                monthlySavings,
+                newUptime: solution.uptime,
+                savingsDescription: solution.description
+            };
+            
+            showResults();
+        }
+
+        function showResults() {
+            const results = window.calculatorResults;
+            const content = document.getElementById('resultContent');
+            
+            const facilityNames = {
+                'clinic': 'Private Clinic',
+                'phc': 'Primary Health Centre',
+                'hospital': 'General Hospital',
+                'medical_centre': 'Medical Centre',
+                'laboratory': 'Medical Laboratory',
+                'pharmacy': 'Pharmacy',
+                'diagnostic': 'Diagnostic Centre'
+            };
+            
+            content.innerHTML = `
+                <div class="rounded-2xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8" style="background: var(--slate-100); border: 1px solid var(--slate-200);">
+                    <div class="flex items-center mb-3">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-3" style="color: var(--red-600);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <span class="text-lg sm:text-xl lg:text-2xl font-bold font-serif" style="color: var(--slate-800);">Recommended: ${results.solutionName}</span>
+                    </div>
+                    <p class="text-sm sm:text-base lg:text-lg" style="color: var(--slate-600);">Perfect for ${facilityNames[results.facilityType]} • ${results.powerNeed}kW capacity</p>
+                </div>
+                
+                <!-- Primary Metrics Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6 mb-4 sm:mb-6">
+                    <div class="metric-card card-shadow" style="padding: 1.5rem sm:1.75rem lg:2rem 1.25rem sm:1.5rem;">
+                        <div class="text-center">
+                            <span class="block mb-2 sm:mb-3 text-xs sm:text-sm font-semibold" style="color: var(--slate-500);">MONTHLY SAVINGS</span>
+                            <div style="font-size: 1.75rem; sm:font-size: 2rem; lg:font-size: 2.25rem; font-weight: 800; line-height: 1; color: var(--slate-900); font-family: 'Inter', sans-serif;">${abbreviateNumber(results.monthlySavings)}</div>
+                            <div class="text-xs sm:text-sm font-medium mt-1 sm:mt-2" style="color: var(--emerald-600);">vs current costs</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card card-shadow" style="padding: 1.5rem sm:1.75rem lg:2rem 1.25rem sm:1.5rem;">
+                        <div class="text-center">
+                            <span class="block mb-2 sm:mb-3 text-xs sm:text-sm font-semibold" style="color: var(--slate-500);">RELIABILITY</span>
+                            <div style="font-size: 1.75rem; sm:font-size: 2rem; lg:font-size: 2.25rem; font-weight: 800; line-height: 1; color: var(--slate-900); font-family: 'Inter', sans-serif;">${results.newUptime}%</div>
+                            <div class="text-xs sm:text-sm font-medium mt-1 sm:mt-2" style="color: var(--slate-500);">vs ${results.currentUptime}% now</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secondary Metrics Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6 mb-6 sm:mb-8">
+                    <div class="metric-card card-shadow" style="padding: 1.25rem sm:1.5rem lg:1.75rem;">
+                        <span class="block mb-2 text-xs sm:text-sm font-semibold" style="color: var(--slate-500);">ANNUAL SAVINGS</span>
+                        <div style="font-size: 1.5rem; sm:font-size: 1.75rem; lg:font-size: 2rem; font-weight: 700; line-height: 1.1; color: var(--slate-900); margin-bottom: 0.25rem;">${abbreviateNumber(results.monthlySavings * 12)}</div>
+                        <div class="text-xs sm:text-sm font-medium" style="color: var(--slate-500);">Projected yearly</div>
+                    </div>
+                    
+                    <div class="metric-card card-shadow" style="padding: 1.25rem sm:1.5rem lg:1.75rem;">
+                        <span class="block mb-2 text-xs sm:text-sm font-semibold" style="color: var(--slate-500);">PAYBACK PERIOD</span>
+                        <div style="font-size: 1.125rem; sm:font-size: 1.25rem; lg:font-size: 1.5rem; font-weight: 600; line-height: 1.2; color: var(--slate-900); margin-bottom: 0.25rem;">18-24 months</div>
+                        <div class="text-xs sm:text-sm font-medium" style="color: var(--slate-500);">Typical ROI period</div>
+                    </div>
+                </div>
+
+                <div class="rounded-xl p-3 sm:p-4 lg:p-5 mb-4 sm:mb-6" style="background: var(--slate-100); border-left: 4px solid var(--slate-400);">
+                    <p class="text-sm sm:text-base" style="color: var(--slate-600);">
+                        <strong>Note:</strong> Estimates based on typical improvements. Actual results vary based on usage patterns and facility requirements.
+                    </p>
+                </div>
+            `;
+            
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function shareResults() {
+            if (!window.calculatorResults) return;
+            
+            const results = window.calculatorResults;
+            
+            const facilityNames = {
+                'clinic': 'Private Clinic',
+                'phc': 'Primary Health Centre',
+                'hospital': 'General Hospital',
+                'medical_centre': 'Medical Centre',
+                'laboratory': 'Medical Laboratory',
+                'pharmacy': 'Pharmacy',
+                'diagnostic': 'Diagnostic Centre'
+            };
+            
+            const message = `🏥 Healthcare Power Solution Analysis
+
+Facility: ${facilityNames[results.facilityType]}
+Power Need: ${results.powerNeed}kW
+Current Cost: ₦${results.currentCostFormatted}/month
+Current Uptime: ${results.currentUptime}%
+
+💡 RECOMMENDED: ${results.solutionName}
+✅ Monthly Savings: ${abbreviateNumber(results.monthlySavings)}
+✅ New Reliability: ${results.newUptime}%
+✅ Annual Savings: ${abbreviateNumber(results.monthlySavings * 12)}
+⚡ Payback Period: 18-24 months
+
+Ready for detailed quote & installation timeline?
+
+🎯 Mikano International
+📞 Direct: +2348109942191
+🏆 30+ years experience • Nigeria's #1
+⚡ Complete range: 5kW to 5MW
+
+#PowerSolution #MikanoInternational #WHXLagos2025`;
+            
+            const whatsappUrl = `https://wa.me/2348109942191?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function copyAndContact() {
+            if (!window.calculatorResults) return;
+            
+            const results = window.calculatorResults;
+            
+            const facilityNames = {
+                'clinic': 'Private Clinic',
+                'phc': 'Primary Health Centre', 
+                'hospital': 'General Hospital',
+                'medical_centre': 'Medical Centre',
+                'laboratory': 'Medical Laboratory',
+                'pharmacy': 'Pharmacy',
+                'diagnostic': 'Diagnostic Centre'
+            };
+            
+            const message = `🏥 Healthcare Power Solution Analysis
+
+Facility: ${facilityNames[results.facilityType]}
+Power Need: ${results.powerNeed}kW
+Current Cost: ₦${results.currentCostFormatted}/month
+Current Uptime: ${results.currentUptime}%
+
+💡 RECOMMENDED: ${results.solutionName}
+✅ Monthly Savings: ${abbreviateNumber(results.monthlySavings)}
+✅ New Reliability: ${results.newUptime}%
+✅ Annual Savings: ${abbreviateNumber(results.monthlySavings * 12)}
+⚡ Payback Period: 18-24 months
+
+Ready for detailed quote & installation timeline?
+
+🎯 Mikano International
+📞 Direct: +2348109942191
+🏆 30+ years experience • Nigeria's #1
+⚡ Complete range: 5kW to 5MW
+
+#PowerSolution #MikanoInternational #WHXLagos2025`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(message).then(() => {
+                alert(`✅ Results copied to clipboard!
+
+📞 CONTACT NICHOLAS:
++2348109942191
+
+📧 EMAIL: 
+nicholas@mikano.com
+
+💼 COMPANY:
+Mikano International
+Business Development Executive
+
+🎯 NEXT STEPS:
+1. Call/SMS: +2348109942191
+2. Share copied results
+3. Schedule site visit`);
+            }).catch(() => {
+                // Fallback for older browsers
+                alert(`📞 CONTACT NICHOLAS:
++2348109942191
+
+📧 EMAIL: 
+nicholas@mikano.com
+
+💼 COMPANY:
+Mikano International
+Business Development Executive
+
+Results summary:
+${facilityNames[results.facilityType]} - ${results.powerNeed}kW
+Monthly Savings: ${abbreviateNumber(results.monthlySavings)}
+New Reliability: ${results.newUptime}%`);
+            });
+        }
+    </script>
+</body>
+</html> 

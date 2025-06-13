@@ -1,0 +1,31 @@
+FORJE Retail – Knowledge Map (2025-06-12)
+
+   [PROJECT ROOT]
+        |
+        |-- [C] Core Docs
+            - forje-mvp-landing.html
+            - index.html
+            - indexnew.html
+            - README.md
+            - STATUS.md
+        |
+        |-- [R] Research Interviews
+            - kieran.murphy interview.md
+            - uzomaka-ash-luxury-interview.md
+            - retail-sales-staff-interview-part-2.md
+        |
+        |-- [P] Partnership Docs
+            - STATUS.md
+            - forje-lbs-proposal.md
+            - _page_1_Picture_0.jpeg
+        |
+        |-- [A] Assets
+            - booking-description.md
+            - sales-training-archive-v002.zip
+            - _page_2_Picture_2.jpeg
+
+Legend:
+   [C] Core
+   [R] Research
+   [P] Partnership
+   [A] Asset

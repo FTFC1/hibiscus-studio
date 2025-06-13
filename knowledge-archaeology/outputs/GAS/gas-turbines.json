@@ -1,0 +1,29 @@
+{
+  "project": "Gas Turbines Lagos",
+  "last_updated": "2025-06-11",
+  "summary": "Pivoting from cold-email outreach to phone-first lead generation for Nigerian manufacturers requiring reliable gas-turbine power. Current challenge: acquiring verified decision-maker phone numbers in a data-sparse market.",
+  "decisions": [
+    { "id": "d1", "decision": "Prioritise phone-first outreach; email is secondary.", "reason": "Higher engagement potential in Nigerian context.", "date": "2025-06-03" },
+    { "id": "d2", "decision": "Retire legacy email Python scripts; keep for reference only.", "reason": "Strategy pivot from email-first to phone-first outreach.", "date": "2025-06-05" },
+    { "id": "d3", "decision": "Use Claude Opus deep-research to surface company & document URLs (not private numbers).", "reason": "Cost-effective broad discovery of public sources.", "date": "2025-06-10" },
+    { "id": "d4", "decision": "Maintain existing company lists from May 2025 as valid starting targets.", "reason": "Credits already spent; data still relevant.", "date": "2025-06-11" },
+    { "id": "d5", "decision": "Exclude RocketReach for now due to sparse Nigerian coverage.", "reason": "Initial tests yielded low hit-rate.", "date": "2025-06-11" },
+    { "id": "d6", "decision": "Accept 30% WhatsApp-registration or live-connect rate as minimum viable accuracy for lead packs.", "reason": "User-defined success threshold for phone-number validity.", "date": "2025-06-11" }
+  ],
+  "considerations": [
+    { "id": "c1", "text": "Leverage CAC filings, tender PDFs and supplier directories to mine phone numbers.", "context": "Potential public docs with direct contacts." },
+    { "id": "c2", "text": "Use enrichment APIs (Apollo, PeopleDataLabs) for additional fields where available.", "context": "May improve hit-rate if affordable." },
+    { "id": "c3", "text": "Implement WhatsApp Business API ping as lightweight number validity test.", "context": "Cheap alternative to live calls." },
+    { "id": "c4", "text": "Geo-target scrape by roads/estate clusters with high hotel/manufacturing density.", "context": "Idea from local operator; yet to prototype." }
+  ],
+  "cross_project_insights": [
+    { "id": "x1", "insight": "Market-intel PDFs generated from scrape data can double as social-proof content for other sales initiatives.", "related_projects": ["Personal Branding", "Design Studio"] }
+  ],
+  "conflicts": [
+    { "type": "outdated_pipeline", "details": "Firecrawl-based scraping pipeline documented in earlier README now deprecated.", "files_involved": ["lead_gen_system/tools/scripts/*", "old README.md"] },
+    { "type": "data_tool_limit", "details": "RocketReach coverage insufficient for Nigeria.", "files_involved": [] }
+  ],
+  "side_discoveries": [
+    { "id": "s1", "note": "ROI calculator HTML still valuable as sales collateral for pitch decks.", "relevance": "Supports credibility in calls." }
+  ]
+} 

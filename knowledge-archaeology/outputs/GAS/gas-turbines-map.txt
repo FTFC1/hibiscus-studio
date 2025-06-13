@@ -1,0 +1,24 @@
+Gas Turbines Lagos – Knowledge Map (2025-06-11)
+
+   [PROJECT ROOT]
+        |
+        |-- [D] d1 Phone-First Outreach
+        |-- [D] d2 Retire Email Scripts
+        |-- [D] d6 30 % Connect-Rate Target
+        |
+        |-- [C] c1 CAC / Tender Docs
+        |-- [C] c2 Enrichment APIs (TBD)
+        |-- [C] c3 WhatsApp Lookup Validation
+        |-- [C] c4 Geo Road-Based Scrape (now)
+        |
+        |-- [CONFLICT] Firecrawl vs Claude (outdated)
+        |-- [CONFLICT] RocketReach Data Gap
+        |
+        |-- [SIDE] s1 ROI Calculator Artefact
+
+Legend:
+   [D] Decision
+   [C] Consideration
+   [?] Ambiguous / needs input
+   [CONFLICT] Conflict or duplicate
+   [SIDE] Tangential discovery 

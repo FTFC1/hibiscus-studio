@@ -1,0 +1,1282 @@
+[
+  {
+    "name": "Dangote Cement",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Dangote Cement"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "BUA Cement",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: BUA Cement"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Ajaokuta Steel",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Ajaokuta Steel"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Delta Steel",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Delta Steel"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Jos Steel Rolling",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Jos Steel Rolling"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Eko Steel",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Eko Steel"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Ashaka Cement",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Ashaka Cement"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Emzor Pharmaceutical",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Emzor Pharmaceutical"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Chi Pharmaceuticals",
+    "industry": "Manufacturing",
+    "location": "Nigeria",
+    "estimated_power_cost": 800000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Chi Pharmaceuticals"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 58.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Lafarge Africa",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Lafarge Africa"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Flour Mills Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Flour Mills Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Nestle Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Nestle Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Unilever Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Unilever Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Cadbury Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Cadbury Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Nigerian Breweries",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Nigerian Breweries"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Guinness Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Guinness Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "International Breweries",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: International Breweries"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Champion Breweries",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Champion Breweries"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Cutix Cables",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Cutix Cables"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Coleman Technical Industries",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Coleman Technical Industries"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Beta Glass",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Beta Glass"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Portland Paints",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Portland Paints"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Berger Paints",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Berger Paints"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "CAP Plc",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: CAP Plc"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Nigerian National Petroleum Corporation",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Nigerian National Petroleum Corporation"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Chevron Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Chevron Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Shell Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Shell Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "TotalEnergies Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: TotalEnergies Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "ExxonMobil Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: ExxonMobil Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Aiteo Group",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Aiteo Group"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Oando Plc",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Oando Plc"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Conoil Plc",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Conoil Plc"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Forte Oil",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Forte Oil"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "MRS Oil Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: MRS Oil Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Access Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Access Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Zenith Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Zenith Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Guaranty Trust Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Guaranty Trust Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "First Bank Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: First Bank Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "United Bank for Africa",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: United Bank for Africa"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Fidelity Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Fidelity Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Union Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Union Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Sterling Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Sterling Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Stanbic IBTC Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Stanbic IBTC Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Wema Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Wema Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "FCMB Group",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: FCMB Group"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Polaris Bank",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Polaris Bank"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "MTN Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: MTN Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Airtel Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Airtel Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Glo Mobile",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Glo Mobile"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "9mobile",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: 9mobile"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "MainOne",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: MainOne"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "IHS Towers",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: IHS Towers"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "American Tower Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: American Tower Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "May & Baker Nigeria",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: May & Baker Nigeria"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Fidson Healthcare",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Fidson Healthcare"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Pharma-Deko",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Pharma-Deko"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Neimeth International",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Neimeth International"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Transcorp Hotels",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Transcorp Hotels"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Golden Tulip",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Golden Tulip"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Radisson Blu",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Radisson Blu"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Sheraton Hotels",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Sheraton Hotels"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Eko Hotels",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Eko Hotels"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Lagos Continental Hotel",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Lagos Continental Hotel"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  },
+  {
+    "name": "Nicon Luxury Hotel",
+    "industry": "Unknown",
+    "location": "Nigeria",
+    "estimated_power_cost": 500000000,
+    "employee_count": 100,
+    "revenue_estimate": 0,
+    "website": "",
+    "news_mentions": [
+      "Known Nigerian company: Nicon Luxury Hotel"
+    ],
+    "contact_info": {},
+    "power_indicators": [],
+    "priority_score": 38.0,
+    "discovery_date": "2025-05-29",
+    "data_sources": [
+      "news_scraping",
+      "known_companies"
+    ]
+  }
+]

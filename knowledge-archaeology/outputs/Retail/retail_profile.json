@@ -1,0 +1,28 @@
+{
+  "project": "FORJE Retail Certification",
+  "last_updated": "2025-06-12",
+  "summary": "Building Nigeria's first professional retail certification system using mobile micro-lessons, monthly in-store role-plays and bi-annual external assessments. Goal: measurable uplift in frontline sales KPIs while creating clear career pathways for retail staff.",
+  "decisions": [
+    { "id": "d1", "decision": "Pilot partner remains open; LBS proposal optional but not blocking.", "reason": "Allows faster testing while proposal is pending.", "date": "2025-06-12" },
+    { "id": "d2", "decision": "Rebuild landing page; Netlify prototype is legacy.", "reason": "Need clearer messaging for pilot recruitment.", "date": "2025-06-12" },
+    { "id": "d3", "decision": "Target evaluation split 30 % manager / 70 % external.", "reason": "Based on Abu interview numbers (65 managers, 275 staff).", "date": "2025-06-12" },
+    { "id": "d4", "decision": "Treat sales-training-archive-v002.zip as draft; final asset pack to be produced.", "reason": "Content outdated & incomplete.", "date": "2025-06-12" }
+  ],
+  "considerations": [
+    { "id": "c1", "text": "Certification scope: internal-only (retention) vs industry-transferable (talent marketplace)." },
+    { "id": "c2", "text": "Primary KPI: conversion rate vs basket size vs basket items; may vary by retailer." },
+    { "id": "c3", "text": "Incentive model – bond or pay-band progression tied to certification levels." },
+    { "id": "c4", "text": "Manager bias & capability; need robust external checks & AI-assisted grading." }
+  ],
+  "cross_project_insights": [
+    { "id": "x1", "insight": "Mobile micro-lesson framework reusable for hospitality vertical.", "related_projects": ["Hospitality Training" ] }
+  ],
+  "conflicts": [
+    { "type": "capacity", "details": "Managers limited to ~2 h/month for assessments; risks under-scoring external component." },
+    { "type": "poaching_risk", "details": "Transferable certificates may increase staff churn; owners express concern." }
+  ],
+  "side_discoveries": [
+    { "id": "s1", "note": "Retail Routine App – hourly push-nudge with QR feedback proposed by Abu.", "relevance": "Potential product spin-off." },
+    { "id": "s2", "note": "QR customer feedback tool complements KPI tracking.", "relevance": "Built-in measurement layer." }
+  ]
+}
