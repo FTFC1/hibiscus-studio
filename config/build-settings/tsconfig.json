@@ -4,7 +4,7 @@
     "module": "ES2020",
     "moduleResolution": "node",
     "outDir": "./build",
-    "rootDir": "./src",
+    "rootDir": "./supporting-systems/trello-integration",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -12,6 +12,6 @@
     "declaration": true,
     "sourceMap": true
   },
-  "include": ["src/**/*"],
+  "include": ["supporting-systems/trello-integration/**/*"],
   "exclude": ["node_modules", "build"]
 }
