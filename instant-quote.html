@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Your Event - Hibiscus Studio</title>
+  <meta name="description" content="Complete your booking for Hibiscus Studio. Select your package and secure your date for your event in East London.">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+  <link rel="preconnect" href="https://acuityscheduling.com">
+  <link rel="dns-prefetch" href="//maps.googleapis.com">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <script>
+    // Force dark mode for consistent experience
+    document.documentElement.classList.add('dark')
+    localStorage.setItem('theme', 'dark')
+  </script>
+  <style>
+    /* Smooth animations */
+    * {
+      transition: all 0.2s ease-in-out;
+    }
+    
+    /* Hover animations */
+    .hover-lift:hover {
+      transform: translateY(-2px);
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.02);
+    }
+    
+    /* Loading animation */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .loading-pulse {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    /* Fade in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Selected package styling */
+    .package-selected {
+      border-color: #3b82f6 !important;
+      background-color: rgba(59, 130, 246, 0.05);
+    }
+    
+    .dark .package-selected {
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    
+    /* Error styling */
+    .error-state {
+      border-color: #ef4444 !important;
+      background-color: rgba(239, 68, 68, 0.05);
+    }
+    
+    .dark .error-state {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    
+    /* Badge styling */
+    .badge-deposit {
+      background: rgba(245, 158, 11, 0.1);
+      color: rgb(146, 64, 14);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+    
+    .dark .badge-deposit {
+      background: rgba(245, 158, 11, 0.15);
+      color: rgb(251, 191, 36);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+  
+  <!-- Header with Back Button -->
+  <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors hover-scale">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        <span>Back to Studio</span>
+      </a>
+      
+      <!-- Location Info -->
+      <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        <span class="text-sm">East London E16</span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto p-4 py-8">
+    
+    <!-- Title -->
+    <div class="text-center mb-8 fade-in">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Book Your Event</h1>
+      <p class="text-gray-600 dark:text-gray-400">Select package → Pick date → Pay deposit → Done!</p>
+    </div>
+    
+    <!-- Error Alert (hidden by default) -->
+    <div id="error-alert" class="hidden mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 text-red-600 dark:text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+        </svg>
+        <span id="error-message" class="text-red-800 dark:text-red-200 font-medium"></span>
+      </div>
+    </div>
+    
+    <!-- Package Selection -->
+    <section class="mb-8 fade-in">
+      <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Choose Your Package</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        
+        <!-- Half Day Package (Pre-selected) -->
+        <div id="package-half" class="package-option border-2 border-blue-500 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 cursor-pointer hover-scale package-selected" data-package="half" data-price="420" data-acuity="79362536">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Half Day</h3>
+            <div class="text-right">
+              <div class="text-2xl font-bold text-gray-900 dark:text-white">£420</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">6 hours</div>
+            </div>
+          </div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+            <div>✓ 6-hour venue hire</div>
+            <div>✓ Tables and chairs for 40</div>
+            <div>✓ Kitchen access</div>
+            <div>✓ Wi-Fi included</div>
+          </div>
+          <div class="mt-4 text-xs text-gray-500 dark:text-gray-400">
+            + £200 refundable deposit
+          </div>
+        </div>
+        
+        <!-- Full Day Package -->
+        <div id="package-full" class="package-option border-2 border-gray-200 dark:border-gray-700 rounded-xl p-6 cursor-pointer hover-scale" data-package="full" data-price="840" data-acuity="79453733">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Full Day</h3>
+            <div class="text-right">
+              <div class="text-2xl font-bold text-gray-900 dark:text-white">£840</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">12 hours</div>
+            </div>
+          </div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+            <div>✓ 12-hour venue hire</div>
+            <div>✓ Tables and chairs for 40</div>
+            <div>✓ Kitchen access</div>
+            <div>✓ Wi-Fi included</div>
+            <div>✓ Extended setup time</div>
+          </div>
+          <div class="mt-4 text-xs text-gray-500 dark:text-gray-400">
+            + £200 refundable deposit
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+    <!-- Selected Package Summary -->
+    <section id="package-summary" class="mb-8 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 fade-in">
+      <div class="flex justify-between items-center">
+        <div>
+          <div class="font-semibold text-gray-900 dark:text-white">Selected: <span id="selected-package">Half Day Package</span></div>
+          <div class="text-sm text-gray-600 dark:text-gray-400"><span id="selected-hours">6 hours</span> venue hire + kitchen access</div>
+        </div>
+        <div class="text-right">
+          <div class="text-xl font-bold text-gray-900 dark:text-white">£<span id="selected-price">420</span></div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">+ £200 deposit</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Booking Button -->
+    <section class="text-center fade-in">
+      <div class="flex justify-center">
+        <button id="book-now-btn" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover-scale shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+          <span id="book-btn-text">Continue to Date Selection</span>
+          <div id="book-btn-spinner" class="hidden inline-block ml-2 spinner"></div>
+        </button>
+      </div>
+      
+      <div class="mt-6 flex flex-col items-center gap-4">
+        <!-- Option A -->
+        <span class="badge-deposit">Pay £200 today • Balance later</span>
+        <div class="mt-6 text-sm text-gray-500 dark:text-gray-400 space-y-2">
+          <p>✓ Instant booking confirmation</p>
+          <p>✓ Secure payment via Acuity</p>
+          <p>✓ Full refund if cancelled 48hrs+ in advance</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Additional Info -->
+    <section class="mt-12 p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 fade-in">
+      <h3 class="font-semibold mb-3 text-gray-900 dark:text-white">What's Included</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
+        <div class="space-y-2">
+          <div>🪑 40 chairs (stackable)</div>
+          <div>🍽️ 10 tables (various sizes)</div>
+          <div>🔌 Power outlets throughout</div>
+          <div>📶 High-speed Wi-Fi</div>
+        </div>
+        <div class="space-y-2">
+          <div>🍳 Full kitchen access</div>
+          <div>🚗 30min loading zone</div>
+          <div>🚇 Near transport links</div>
+          <div>📞 Host support included</div>
+        </div>
+      </div>
+      
+      <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <h4 class="font-medium mb-4 text-gray-900 dark:text-white">Location</h4>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+          📍 Peto Street North, London E16<br>
+          Accessible by DLR, bus, and car. Detailed directions sent after booking.
+        </p>
+        
+        <!-- Google Maps -->
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden hover-scale">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2484.8524!2d0.0297!3d51.5089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487602c8b8b0b8b1%3A0x1234567890abcdef!2sPeto%20Street%20North%2C%20London%20E16!5e0!3m2!1sen!2suk!4v1234567890123&style=element:geometry%7Ccolor:0x1d2c4d&style=element:labels.text.fill%7Ccolor:0x8ec3b9&style=element:labels.text.stroke%7Ccolor:0x1a3646&style=feature:administrative.country%7Celement:geometry.stroke%7Ccolor:0x4b6878&style=feature:administrative.land_parcel%7Celement:labels.text.fill%7Ccolor:0x64779e&style=feature:administrative.province%7Celement:geometry.stroke%7Ccolor:0x4b6878&style=feature:landscape.man_made%7Celement:geometry.stroke%7Ccolor:0x334e87&style=feature:landscape.natural%7Celement:geometry%7Ccolor:0x023e58&style=feature:poi%7Celement:geometry%7Ccolor:0x283d6a&style=feature:poi%7Celement:labels.text.fill%7Ccolor:0x6f9ba5&style=feature:poi%7Celement:labels.text.stroke%7Ccolor:0x1d2c4d&style=feature:poi.park%7Celement:geometry.fill%7Ccolor:0x023e58&style=feature:poi.park%7Celement:labels.text.fill%7Ccolor:0x3C7680&style=feature:road%7Celement:geometry%7Ccolor:0x304a7d&style=feature:road%7Celement:labels.text.fill%7Ccolor:0x98a5be&style=feature:road%7Celement:labels.text.stroke%7Ccolor:0x1d2c4d&style=feature:road.highway%7Celement:geometry%7Ccolor:0x2c6675&style=feature:road.highway%7Celement:geometry.stroke%7Ccolor:0x255763&style=feature:road.highway%7Celement:labels.text.fill%7Ccolor:0xb0d5ce&style=feature:road.highway%7Celement:labels.text.stroke%7Ccolor:0x023e58&style=feature:transit%7Celement:labels.text.fill%7Ccolor:0x98a5be&style=feature:transit%7Celement:labels.text.stroke%7Ccolor:0x1d2c4d&style=feature:transit.line%7Celement:geometry.fill%7Ccolor:0x283d6a&style=feature:transit.station%7Celement:geometry%7Ccolor:0x3a4762&style=feature:water%7Celement:geometry%7Ccolor:0x0e1626&style=feature:water%7Celement:labels.text.fill%7Ccolor:0x4e6d70"
+            width="100%" 
+            height="200" 
+            style="border:0; filter: invert(1) hue-rotate(180deg);" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            class="dark:filter-none">
+          </iframe>
+        </div>
+        
+        <div class="mt-3 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+          <span>🚇 5 min from Custom House DLR</span>
+          <a href="https://goo.gl/maps/example" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">
+            Open in Google Maps →
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    </main>
+  
+  <!-- Full Page Acuity Overlay -->
+  <div id="acuity-overlay" class="fixed inset-0 bg-white dark:bg-gray-900 hidden z-50">
+    <!-- Header with Close Button -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Select Your Date & Time</h3>
+      <button id="close-overlay" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover-scale">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Loading State -->
+    <div id="overlay-loading" class="flex items-center justify-center h-full">
+      <div class="text-center">
+        <div class="inline-block spinner w-8 h-8 text-blue-600 dark:text-blue-400 mb-4"></div>
+        <p class="text-gray-600 dark:text-gray-400">Loading booking calendar...</p>
+      </div>
+    </div>
+    
+    <!-- Acuity Iframe -->
+    <div id="acuity-container" class="hidden h-full">
+      <iframe id="acuity-iframe" src="" width="100%" height="100%" frameborder="0" class="h-full"></iframe>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, initializing package selection...');
+
+      // Package selection functionality
+      let selectedPackage = 'half'; // Default to half-day
+      let selectedAcuityId = '79362536'; // Default to half-day Acuity ID
+
+      const packageOptions = document.querySelectorAll('.package-option');
+      const selectedPackageEl = document.getElementById('selected-package');
+      const selectedPriceEl = document.getElementById('selected-price');
+      const selectedHoursEl = document.getElementById('selected-hours');
+      
+      console.log('packageOptions found:', packageOptions.length);
+      console.log('selectedPackageEl:', selectedPackageEl);
+      console.log('selectedPriceEl:', selectedPriceEl);
+      console.log('selectedHoursEl:', selectedHoursEl);
+
+      function updatePackageSelection(packageType) {
+        console.log('updatePackageSelection called with:', packageType);
+        
+        // Remove selection styling from all packages
+        packageOptions.forEach(option => {
+          option.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20', 'package-selected');
+          option.classList.add('border-gray-200', 'dark:border-gray-700', 'bg-white', 'dark:bg-gray-800');
+          console.log('Removed selection from:', option.dataset.package);
+        });
+        
+        // Add selection styling to chosen package
+        const selectedOption = document.querySelector(`[data-package="${packageType}"]`);
+        if (selectedOption) {
+          selectedOption.classList.remove('border-gray-200', 'dark:border-gray-700', 'bg-white', 'dark:bg-gray-800');
+          selectedOption.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20', 'package-selected');
+          console.log('Added selection to:', packageType);
+          
+          // Update summary
+          const price = selectedOption.dataset.price;
+          const acuityId = selectedOption.dataset.acuity;
+          
+          selectedPackage = packageType;
+          selectedAcuityId = acuityId;
+          
+          selectedPackageEl.textContent = packageType === 'half' ? 'Half Day Package' : 'Full Day Package';
+          selectedPriceEl.textContent = price;
+          selectedHoursEl.textContent = packageType === 'half' ? '6 hours' : '12 hours';
+        } else {
+          console.error('Could not find element with data-package:', packageType);
+        }
+      }
+
+      // Error handling functions
+      function showError(message) {
+        const errorAlert = document.getElementById('error-alert');
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = message;
+        errorAlert.classList.remove('hidden');
+        errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      function hideError() {
+        const errorAlert = document.getElementById('error-alert');
+        errorAlert.classList.add('hidden');
+      }
+
+      // Add click handlers to packages
+      packageOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          const packageType = option.dataset.package;
+          console.log('Package clicked:', packageType);
+          updatePackageSelection(packageType);
+          hideError(); // Clear any errors when user makes a selection
+        });
+      });
+      
+      console.log('Found package options:', packageOptions.length);
+
+      // Booking functionality
+      const bookNowBtn = document.getElementById('book-now-btn');
+      const bookBtnText = document.getElementById('book-btn-text');
+      const bookBtnSpinner = document.getElementById('book-btn-spinner');
+      const acuityOverlay = document.getElementById('acuity-overlay');
+      const overlayLoading = document.getElementById('overlay-loading');
+      const acuityContainer = document.getElementById('acuity-container');
+      const acuityIframe = document.getElementById('acuity-iframe');
+      const closeOverlay = document.getElementById('close-overlay');
+
+      function setBookingLoading(loading) {
+        if (loading) {
+          bookNowBtn.disabled = true;
+          bookBtnText.textContent = 'Loading...';
+          bookBtnSpinner.classList.remove('hidden');
+        } else {
+          bookNowBtn.disabled = false;
+          bookBtnText.textContent = 'Continue to Date Selection';
+          bookBtnSpinner.classList.add('hidden');
+        }
+      }
+
+      function openBookingOverlay() {
+        hideError();
+        acuityOverlay.classList.remove('hidden');
+        overlayLoading.classList.remove('hidden');
+        acuityContainer.classList.add('hidden');
+        
+        // Load Acuity iframe
+        const acuityUrl = `https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=${selectedAcuityId}`;
+        acuityIframe.src = acuityUrl;
+        
+        // Show iframe after loading
+        setTimeout(() => {
+          overlayLoading.classList.add('hidden');
+          acuityContainer.classList.remove('hidden');
+        }, 1500);
+      }
+
+      function closeBookingOverlay() {
+        acuityOverlay.classList.add('hidden');
+        acuityIframe.src = ''; // Clear iframe
+        setBookingLoading(false);
+      }
+
+      // Event listeners
+      bookNowBtn.addEventListener('click', () => {
+        if (!selectedPackage) {
+          showError('Please select a package before continuing.');
+          return;
+        }
+        
+        setBookingLoading(true);
+        
+        setTimeout(() => {
+          setBookingLoading(false);
+          openBookingOverlay();
+        }, 500);
+      });
+
+      closeOverlay.addEventListener('click', closeBookingOverlay);
+
+      // Close overlay on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !acuityOverlay.classList.contains('hidden')) {
+          closeBookingOverlay();
+        }
+      });
+
+      // Initialize with half-day selected
+      updatePackageSelection('half');
+
+      // Staggered animation for elements
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }, index * 100);
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for animation
+      document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+
+</body>
+</html> 
