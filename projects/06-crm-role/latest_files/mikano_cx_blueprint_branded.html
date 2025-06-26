@@ -411,7 +411,7 @@
                     </div>
                     <div class="system-arrow">→</div>
                     <div class="system-box engine">
-                        <h3>Excel CRM Spreadsheet</h3>
+                        <h3>CRM Spreadsheet</h3>
                         <p>Daily interactions, sales pipeline, customer journey tracking</p>
                     </div>
                     <div class="system-arrow">→</div>
@@ -432,7 +432,7 @@
                             </div>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 2px; overflow: hidden;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0; background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 2px; overflow: hidden;">
                             <div style="padding: 2.5rem 2rem; text-align: center; position: relative;">
                                 <div style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;">
                                     <div style="width: 20px; height: 20px; background: var(--mikano-red); border-radius: 2px;"></div>
@@ -474,7 +474,7 @@
                             <!-- Timeline Line -->
                             <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--mikano-red) 0%, var(--mikano-red) 33%, var(--mikano-blue) 33%, var(--mikano-blue) 66%, var(--mikano-red) 66%, var(--mikano-red) 100%);"></div>
                             
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0;">
                                 <div style="padding: 2.5rem 2rem; text-align: center; position: relative;">
                                     <div style="font-size: 2.5rem; font-weight: 300; color: var(--mikano-red); margin-bottom: 1rem; line-height: 1;">01</div>
                                     <h4 style="font-size: 1rem; font-weight: 600; color: #2c3e50; margin-bottom: 0.5rem; letter-spacing: 0.3px;">MOTORS PILOT</h4>
@@ -688,7 +688,7 @@
             </div>
 
             <div class="card elevated">
-                <div class="card-title">Excel CRM Spreadsheet Architecture</div>
+                <div class="card-title">CRM Spreadsheet Architecture</div>
                 <div class="card-content">
                     <!-- File Header -->
                     <div style="text-align: center; margin-bottom: 2.5rem;">
@@ -802,10 +802,10 @@
             </div>
 
             <!-- Commission Models -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; align-items: start;">
                 <!-- 2-Person Model -->
                 <div class="card elevated">
-                    <div class="card-title">Simple Model: 2-Person Split</div>
+                    <div class="card-title">2-Person Split</div>
                     <div class="card-content">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
                             <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-blue);">
@@ -825,7 +825,7 @@
 
                 <!-- 3-Person Model -->
                 <div class="card elevated">
-                    <div class="card-title">Complex Model: 3-Person Split</div>
+                    <div class="card-title">3-Person Split</div>
                     <div class="card-content">
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin-top: 1rem;">
                             <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-blue);">
@@ -889,17 +889,20 @@
                         
                         <div>
                             <h4 style="color: var(--mikano-red); margin-bottom: 1rem; font-size: 1.1rem;">Governance</h4>
-                            <div style="display: grid; gap: 0.8rem;">
-                                <div style="padding: 0.8rem; background: white; border-radius: 4px; border-left: 3px solid var(--mikano-red);">
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 0.8rem; padding-left: 1rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--mikano-red);">•</span>
                                     <strong style="color: var(--mikano-red);">Trigger:</strong> Any deal >₦15M gets split commission
-                                </div>
-                                <div style="padding: 0.8rem; background: white; border-radius: 4px; border-left: 3px solid var(--mikano-blue);">
-                                    <strong style="color: var(--mikano-blue);">Evidence:</strong> Prior logged interactions in Excel CRM
-                                </div>
-                                <div style="padding: 0.8rem; background: white; border-radius: 4px; border-left: 3px solid var(--mikano-gray-600);">
+                                </li>
+                                <li style="margin-bottom: 0.8rem; padding-left: 1rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--mikano-blue);">•</span>
+                                    <strong style="color: var(--mikano-blue);">Evidence:</strong> Prior logged interactions in CRM Spreadsheet
+                                </li>
+                                <li style="padding-left: 1rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--mikano-gray-600);">•</span>
                                     <strong style="color: var(--mikano-gray-600);">Authority:</strong> Division Head makes final call
-                                </div>
-                            </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -1138,7 +1141,7 @@
                     <div class="card-title">Template Protection</div>
                     <div class="card-content">
                         <ul>
-                            <li><strong>Microsoft Form Input:</strong> Staff add data via form that directly updates the Excel CRM Spreadsheet, can't break structure</li>
+                            <li><strong>Microsoft Form Input:</strong> Staff add data via form that directly updates the CRM Spreadsheet, can't break structure</li>
                             <li><strong>Change Management:</strong> All structure changes go through P&BI team</li>
                         </ul>
                     </div>
@@ -1270,7 +1273,7 @@
                         </tr>
                         <tr>
                             <td><strong>7. Launch Pilot</strong></td>
-                            <td>Build Excel CRM Spreadsheet & train Motors team</td>
+                            <td>Build CRM Spreadsheet & train Motors team</td>
                             <td>Put plan into action with real users</td>
                             <td>August - October (3 months)</td>
                         </tr>
