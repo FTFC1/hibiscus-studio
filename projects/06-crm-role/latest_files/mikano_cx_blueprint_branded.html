@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Unified Customer Experience - Mikano International</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mikano-red: #C41E3A;
+            --mikano-red-light: #E8506A;
+            --mikano-red-dark: #8B1F2B;
+            --mikano-red-subtle: #F8E8EA;
+            --mikano-gray-900: #1A1A1A;
+            --mikano-gray-700: #374151;
+            --mikano-gray-500: #6B7280;
+            --mikano-gray-300: #D1D5DB;
+            --mikano-gray-100: #F9FAFB;
+            --mikano-blue: #1E40AF;
+            --mikano-green: #059669;
+            --mikano-amber: #D97706;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--mikano-gray-900);
+            background: #fff;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--mikano-red) 0%, var(--mikano-red-dark) 100%);
+            color: white;
+            position: relative;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .cover-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cover-company {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .cover-mission {
+            font-size: 1rem;
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+        }
+
+        .cover-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Visual System Map */
+        .system-map {
+            background: var(--mikano-gray-100);
+            padding: 3rem 0;
+            margin: 3rem 0;
+        }
+
+        .system-map h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--mikano-red);
+            margin-bottom: 3rem;
+        }
+
+        .system-diagram {
+            display: grid;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .system-level {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .system-box {
+            background: white;
+            border: 1px solid var(--mikano-gray-300);
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            text-align: center;
+            min-width: 180px;
+            border-top: 3px solid var(--mikano-red);
+            transition: all 0.2s ease;
+        }
+
+        .system-box:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        .system-box.input { border-top-color: var(--mikano-blue); }
+        .system-box.engine { border-top-color: var(--mikano-red); }
+        .system-box.output { border-top-color: var(--mikano-red); }
+
+        .system-box h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--mikano-gray-900);
+        }
+
+        .system-box p {
+            font-size: 0.9rem;
+            color: var(--mikano-gray-700);
+            line-height: 1.4;
+        }
+
+        .system-arrow {
+            font-size: 2rem;
+            color: var(--mikano-red);
+        }
+
+        .phases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .phase-box {
+            background: white;
+            border: 1px solid var(--mikano-gray-300);
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            text-align: center;
+            border-top: 3px solid var(--mikano-red);
+            transition: all 0.2s ease;
+        }
+
+        .phase-box:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        .phase-box:nth-child(2) { border-top-color: var(--mikano-blue); }
+        .phase-box:nth-child(3) { border-top-color: var(--mikano-gray-700); }
+
+        /* Sections */
+        .section {
+            margin: 4rem 0;
+            padding: 0 1rem;
+        }
+
+        .section-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--mikano-red);
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--mikano-red);
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-intro {
+            font-size: 1.1rem;
+            color: var(--mikano-gray-700);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border: 1px solid var(--mikano-gray-300);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        .card.primary { 
+            border-top: 3px solid var(--mikano-red);
+        }
+        
+        .card.secondary { 
+            border-top: 3px solid var(--mikano-blue);
+        }
+        
+        .card.elevated {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid var(--mikano-gray-300);
+            border-top: 3px solid var(--mikano-red);
+        }
+        
+        .card.minimal {
+            background: var(--mikano-gray-100);
+            border: 1px solid var(--mikano-gray-300);
+            box-shadow: none;
+        }
+        
+        .card.highlight {
+            background: var(--mikano-red-subtle);
+            border: 1px solid var(--mikano-red);
+            border-top: 3px solid var(--mikano-red);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--mikano-gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            color: var(--mikano-gray-700);
+            line-height: 1.6;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        table.primary thead th {
+            background: var(--mikano-red);
+            color: white;
+        }
+
+        table.secondary thead th {
+            background: var(--mikano-gray-700);
+            color: white;
+        }
+
+        table.tertiary thead th {
+            background: var(--mikano-blue);
+            color: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--mikano-gray-300);
+        }
+
+        th {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            font-size: 0.9rem;
+            color: var(--mikano-gray-700);
+        }
+
+        tbody tr:hover {
+            background: var(--mikano-gray-100);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .cover-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .system-level {
+                flex-direction: column;
+            }
+
+            .system-arrow {
+                transform: rotate(90deg);
+            }
+
+            .phases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                margin: 2rem 0;
+            }
+
+            .section-header {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .cover-page {
+                page-break-after: always;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="cover-content">
+            <h1 class="cover-title">The Unified Customer Experience</h1>
+            <p class="cover-subtitle">Operational Playbook for Growth</p>
+            <div class="cover-company">Mikano International Limited</div>
+            <div class="cover-mission">One Customer Experience. One Source of Truth. One Path to Growth.</div>
+            <div class="cover-meta">
+                <span>Created by FT Coker</span>
+                <span>June 2025</span>
+                <span>CONFIDENTIAL</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Visual System Map -->
+        <div class="system-map">
+            <h2>System Architecture</h2>
+            <div class="system-diagram">
+                <div class="system-level">
+                    <div class="system-box input">
+                        <h3>👑 ERP (Master)</h3>
+                        <p>Customer master data, official records, source of truth</p>
+                    </div>
+                    <div class="system-arrow">→</div>
+                    <div class="system-box engine">
+                        <h3>📋 Excel CRM Spreadsheet</h3>
+                        <p>Daily interactions, sales pipeline, customer journey tracking</p>
+                    </div>
+                    <div class="system-arrow">→</div>
+                    <div class="system-box output">
+                        <h3>🎯 Business Capabilities</h3>
+                        <p>Customer segmentation, targeted campaigns, revenue analytics</p>
+                    </div>
+                </div>
+                
+                <div class="card elevated" style="margin-top: 2rem; background: var(--mikano-gray-50);">
+                    <div class="card-title" style="color: var(--mikano-blue); margin-bottom: 1rem;">What This Unlocks</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <div style="padding: 1rem; background: white; border-left: 3px solid var(--mikano-red);">
+                            <h5 style="color: var(--mikano-red); margin-bottom: 0.5rem;">Customer Segmentation</h5>
+                            <p style="font-size: 0.9rem; margin: 0;">Identify high-value customers, repeat buyers, and at-risk accounts</p>
+                        </div>
+                        <div style="padding: 1rem; background: white; border-left: 3px solid var(--mikano-blue);">
+                            <h5 style="color: var(--mikano-blue); margin-bottom: 0.5rem;">Targeted Campaigns</h5>
+                            <p style="font-size: 0.9rem; margin: 0;">Send relevant offers to specific customer groups based on history</p>
+                        </div>
+                        <div style="padding: 1rem; background: white; border-left: 3px solid var(--mikano-red);">
+                            <h5 style="color: var(--mikano-red); margin-bottom: 0.5rem;">Revenue Analytics</h5>
+                            <p style="font-size: 0.9rem; margin: 0;">Track which activities actually drive sales and focus efforts there</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phases-grid">
+                    <div class="phase-box">
+                        <h3>Phase 1: Motors Pilot</h3>
+                        <p>Weeks 3-12<br/>Build & refine system</p>
+                    </div>
+                    <div class="phase-box">
+                        <h3>Phase 2: Power Division</h3>
+                        <p>Post-pilot<br/>Apply lessons learned</p>
+                    </div>
+                    <div class="phase-box">
+                        <h3>Phase 3: Medical Division</h3>
+                        <p>Post-Phase 2<br/>Scale proven model</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="section">
+            <div class="section-header">Table of Contents</div>
+            <div class="table-container">
+                <table class="secondary">
+                    <thead>
+                        <tr>
+                            <th>Section</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Executive Summary</strong></td><td>The why and how in 30 seconds</td></tr>
+                        <tr><td><strong>Phased Action Plan</strong></td><td>Sequential rollout strategy</td></tr>
+                        <tr><td><strong>Success Metrics</strong></td><td>How we measure winning</td></tr>
+                        <tr><td><strong>Core System Structure</strong></td><td>The Excel Hub explained</td></tr>
+                        <tr><td><strong>Customer Journey Maps</strong></td><td>Division-specific improvements</td></tr>
+                        <tr><td><strong>Key Performance Indicators</strong></td><td>Targets that matter</td></tr>
+                        <tr><td><strong>Risk Mitigation</strong></td><td>How we prevent failure</td></tr>
+                        <tr><td><strong>Future State Planning</strong></td><td>Path to proper CRM</td></tr>
+                        <tr><td><strong>Open Questions</strong></td><td>Blockers we must resolve</td></tr>
+                        <tr><td><strong>Next Steps</strong></td><td>What happens tomorrow</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <div class="section-header">Executive Summary</div>
+            <div class="section-intro">
+                Create one brilliant customer experience that increases satisfaction, improves processes, and grows revenue through a data-driven, scalable approach.
+            </div>
+            
+            <div class="card highlight">
+                <div class="card-title">The Goal</div>
+                <div class="card-content">
+                    <p>Create one brilliant customer experience that increases satisfaction, improves processes, and grows revenue.</p>
+                </div>
+            </div>
+
+            <div class="card elevated">
+                <div class="card-title">The Strategy</div>
+                <div class="card-content">
+                    <p>Start simple, scale smart. Use Excel first to fix the process, then upgrade to proper CRM when we hit clear limits.</p>
+                </div>
+            </div>
+
+            <div class="card minimal">
+                <div class="card-title">Core Principles</div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>ERP is King</strong> - Our master data source remains supreme</li>
+                        <li><strong>Data-Driven Rules</strong> - Facts solve sales conflicts, not politics</li>
+                        <li><strong>Smart Technology Path</strong> - Prove value before big spend</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phased Action Plan -->
+        <div class="section">
+            <div class="section-header">Phased Action Plan</div>
+            <div class="section-intro">
+                Sequential division-by-division rollout ensures we learn and improve with each phase.
+            </div>
+
+            <div class="table-container">
+                <table class="primary">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Task Description</th>
+                            <th>Key Deliverables</th>
+                            <th>Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Phase 0: Discovery</strong></td>
+                            <td>Hold Kickoff & Gather Requirements</td>
+                            <td>Divisional Buy-in; Answered Questions</td>
+                            <td>Weeks 1-2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 1: Motors Pilot</strong></td>
+                            <td>Build, Launch & Refine the System</td>
+                            <td>Trained Team & Working Hub; Reusable Training Kit</td>
+                            <td>Weeks 3-12</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 2: Power Division</strong></td>
+                            <td>Apply Lessons & Launch for Power</td>
+                            <td>Trained Team & Working Hub</td>
+                            <td>4-6 Weeks Post-Pilot</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 3: Medical Division</strong></td>
+                            <td>Apply Lessons & Launch for Medical</td>
+                            <td>Trained Team & Working Hub</td>
+                            <td>4-6 Weeks Post-Phase 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Success Metrics -->
+        <div class="section">
+            <div class="section-header">Pilot Success Metrics</div>
+            <div class="section-intro">
+                The Motors Division pilot will be considered successful if we achieve all targets by Week 12.
+            </div>
+
+            <div class="table-container">
+                <table class="tertiary">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                            <th>How We Measure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Adoption Rate</strong></td>
+                            <td>&gt;80%</td>
+                            <td>Weekly count of active users / total staff</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Process Compliance</strong></td>
+                            <td>100%</td>
+                            <td>All reviews use Excel Hub as primary data source</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Quality</strong></td>
+                            <td>&lt;10% Errors</td>
+                            <td>Weekly audit of new entries</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stakeholder Confidence</strong></td>
+                            <td>Positive</td>
+                            <td>Post-pilot satisfaction survey</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card warning">
+                <div class="card-title">Early Warning System</div>
+                <div class="card-content">
+                    <p><strong>Review Cadence:</strong> Every 2 weeks with Division Head</p>
+                    <p><strong>Intervention Trigger:</strong> Any metric off-track for 2 consecutive reviews</p>
+                    <p><strong>Response:</strong> Immediate corrective action meeting</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core System Structure -->
+        <div class="section">
+            <div class="section-header">Core System Structure</div>
+            <div class="section-intro">
+                A simple three-tab Excel workbook that captures everything we need to know about our customers.
+            </div>
+
+            <div class="card">
+                <div class="card-title">The Excel Hub Architecture</div>
+                <div class="card-content">
+                    <div style="text-align: center; font-weight: 600; color: var(--mikano-red); margin-bottom: 2rem; font-size: 1.2rem;">
+                        MIKANO_CX_HUB.xlsx
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                        <div style="background: var(--mikano-gray-100); border-radius: 8px; padding: 1.5rem;">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 1: ACCOUNTS</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">Business Entities</p>
+                            <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
+                                <li>• Account ID</li>
+                                <li>• Company Name</li>
+                                <li>• Industry</li>
+                                <li>• ERP Customer ID</li>
+                                <li>• Account Owner</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: var(--mikano-gray-100); border-radius: 8px; padding: 1.5rem;">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 2: CONTACTS</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">People</p>
+                            <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
+                                <li>• Contact ID</li>
+                                <li>• Full Name</li>
+                                <li>• Job Title</li>
+                                <li>• Associated Account ID</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: var(--mikano-gray-100); border-radius: 8px; padding: 1.5rem;">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 3: INTERACTIONS</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">Every Touchpoint</p>
+                            <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
+                                <li>• Interaction ID</li>
+                                <li>• Date</li>
+                                <li>• Contact ID</li>
+                                <li>• Channel</li>
+                                <li>• Notes</li>
+                                <li>• Next Action</li>
+                                <li>• Logged By</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="secondary">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Account</strong></td><td>One business entity per record</td></tr>
+                        <tr><td><strong>Contact</strong></td><td>One person who works at an Account</td></tr>
+                        <tr><td><strong>Interaction</strong></td><td>Single meaningful touchpoint</td></tr>
+                        <tr><td><strong>Account Owner</strong></td><td>Single salesperson responsible for relationship</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <!-- Sales Conflict Resolution -->
+        <div class="section">
+            <div class="section-header">Sales Conflict Resolution Framework</div>
+            <div class="section-intro">
+                Clear, data-driven rules to prevent the account ownership disputes that have historically damaged relationships and lost deals.
+            </div>
+
+            <div class="card elevated" style="margin-bottom: 2rem;">
+                <div class="card-title">The Real Problem: Sequential Ownership Conflicts</div>
+                <div class="card-content">
+                    <p style="margin-bottom: 1rem; font-weight: 600; color: var(--mikano-red);">The typical scenario that causes disputes:</p>
+                    <div style="background: var(--mikano-gray-50); padding: 1rem; margin: 1rem 0; border-left: 3px solid var(--mikano-red);">
+                        <p style="margin: 0;"><strong>2023:</strong> Salesperson A talks to Client → Nothing happens</p>
+                        <p style="margin: 0.5rem 0;"><strong>2024:</strong> Salesperson B talks to same Client (different contact/branch) → Fresh lead, closes deal</p>
+                        <p style="margin: 0; color: var(--mikano-red);"><strong>Conflict:</strong> "Whose account is this?" A had relationship, B closed deal</p>
+                    </div>
+                    <p>Winner-takes-all creates perverse incentives where people might try to "steal" dormant accounts.</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+                    <div class="card-title">Solution 1: Winner Takes All</div>
+                    <div class="card-content">
+                        <p><strong>Rule:</strong> Whoever closes the deal owns all future opportunities</p>
+                        <p><strong>Pro:</strong> Simple and rewards results</p>
+                        <p><strong>Con:</strong> May encourage account stealing from dormant relationships</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-top: 3px solid var(--mikano-blue);">
+                    <div class="card-title">Solution 2: No Account Left Behind</div>
+                    <div class="card-content">
+                        <p><strong>Rule:</strong> Division Head assigns all unassigned accounts initially and monthly</p>
+                        <p><strong>Pro:</strong> Every client has a dedicated point person</p>
+                        <p><strong>Con:</strong> Doesn't solve active ownership conflicts</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+                    <div class="card-title">Solution 3: Time-Based Ownership Decay</div>
+                    <div class="card-content">
+                        <p><strong>Rule:</strong> After 6 months of no logged activity, account becomes "open territory"</p>
+                        <p><strong>Pro:</strong> Prevents hoarding AND stealing</p>
+                        <p><strong>Con:</strong> Requires consistent logging to maintain ownership</p>
+                        <p style="margin-top: 1rem; font-style: italic; color: var(--mikano-blue);">Recommended: Rewards active work, not just history</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Journey Maps -->
+        <div class="section">
+            <div class="section-header">Customer Journey Maps</div>
+            <div class="section-intro">
+                Division-specific improvements targeting the biggest pain points in each customer journey.
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Motors Division</div>
+                <div class="card-content">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">1. AWARENESS</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Price Focus</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Show Value & Awards</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">2. PURCHASE</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Slow Process</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">12hr Reply & Checklist</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">3. ONBOARDING</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Handover Process</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Delivery Checklist</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">4. LOYALTY</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Cost Transparency</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Upfront Quotes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                                        <div class="card">
+                <div class="card-title">Power Division</div>
+                <div class="card-content">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">1. LEAD GEN</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Lost/Delayed Leads</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">4hr Response & Specialist</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">2. QUALIFICATION</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Misunderstood Needs</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Standard Checklist</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">3. PROPOSAL</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Stalled Talks</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Log All Points</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">4. DELIVERY</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Handover Process</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Schedule 1st Maintenance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Medical Division</div>
+                <div class="card-content">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">1. DISTRIBUTOR ID</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: No Clear List</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Target List in Excel</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">2. ONBOARDING</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Info Gaps</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Onboarding Kit</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">3. MANAGEMENT</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Review Process</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Data-Driven Reviews</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">4. SUPPORT</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Feedback Loops</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Clear Quality Process</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Performance Indicators -->
+        <div class="section">
+            <div class="section-header">Key Performance Indicators</div>
+            <div class="section-intro">
+                Specific, measurable targets for each division that directly impact revenue growth.
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+                    <div class="card-title">Motors Division</div>
+                    <div class="card-content">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><strong>Inquiry-to-Quote Rate:</strong> >60%</li>
+                            <li style="margin-bottom: 0.5rem;"><strong>Quote-to-Purchase Rate:</strong> >40%</li>
+                            <li><strong>First-Contact Resolution:</strong> >80%</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-top: 3px solid var(--mikano-blue);">
+                    <div class="card-title">Power Division</div>
+                    <div class="card-content">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><strong>Lead Response Time:</strong> <4 Hours</li>
+                            <li style="margin-bottom: 0.5rem;"><strong>Proposal Win Rate:</strong> >35%</li>
+                            <li><strong>Sales Cycle Length:</strong> <90 Days</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+                    <div class="card-title">Medical Division</div>
+                    <div class="card-content">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><strong>New Distributor Acquisition:</strong> 2/quarter</li>
+                            <li style="margin-bottom: 0.5rem;"><strong>Average Order Volume:</strong> +10% YoY</li>
+                            <li><strong>Quality Issue Resolution:</strong> <48 Hours</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="max-width: 400px; margin: 0 auto;">
+                <div class="card" style="border-top: 3px solid var(--mikano-blue);">
+                    <div class="card-title">GRAS Restaurant & Cube 65</div>
+                    <div class="card-content">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><strong>Average Spend Per Customer:</strong> +15% YoY</li>
+                            <li style="margin-bottom: 0.5rem;"><strong>Repeat Customer Rate:</strong> >50%</li>
+                            <li><strong>Online Review Score:</strong> 4.5+ Stars</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Mitigation -->
+        <div class="section">
+            <div class="section-header">Critical Success Factors & Risk Mitigation</div>
+            <div class="section-intro">
+                Proactive strategies to prevent the most common failure modes in customer experience initiatives.
+            </div>
+
+            <div class="card" style="border-top: 3px solid var(--mikano-red); margin-bottom: 1.5rem;">
+                <div class="card-title">Risk 1: Poor User Adoption</div>
+                <div class="card-content">
+                    <p><strong>The Challenge:</strong> Staff see this as extra work</p>
+                    
+                    <h4 style="color: var(--mikano-blue); margin: 1.5rem 0 1rem;">WIIFM (What's In It For Me)</h4>
+                    <ul>
+                        <li><strong>Sales:</strong> Prove your work, secure commission</li>
+                        <li><strong>Service:</strong> Look professional, have full history</li>
+                        <li><strong>Management:</strong> Clear pipeline without chasing</li>
+                    </ul>
+                    
+                    <div style="background: var(--mikano-red-subtle); border-left: 4px solid var(--mikano-red); padding: 1rem 1rem 1rem 2rem; margin-top: 1.5rem;">
+                        <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Weekly Team Review - Iron Rule:</h4>
+                        <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"If it's not in the Hub, we don't discuss it"</p>
+                        
+                        <h5 style="color: var(--mikano-red); margin-bottom: 0.5rem;">30-Minute Standard Meeting Format:</h5>
+                        <ol style="margin-left: 1rem;">
+                            <li>Pipeline Review (15 mins)</li>
+                            <li>Performance Check (5 mins)</li>
+                            <li>Problem Solving (10 mins)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+                    <div class="card-title">Risk 2: Data Quality Issues</div>
+                    <div class="card-content">
+                        <p><strong>The Challenge:</strong> Bad data = useless reports</p>
+                        
+                        <h5 style="color: var(--mikano-blue); margin: 1rem 0 0.5rem;">3 Simple Rules</h5>
+                        <ol style="margin-left: 1rem;">
+                            <li><strong>Search First</strong> - Check before creating</li>
+                            <li><strong>Standard Naming</strong> - Use official company names</li>
+                            <li><strong>Data Stewards</strong> - One person owns quality per division</li>
+                        </ol>
+                    </div>
+                </div>
+            
+                <div class="card" style="border-top: 3px solid var(--mikano-blue);">
+                    <div class="card-title">Risk 3: Misaligned Incentives</div>
+                    <div class="card-content">
+                        <p><strong>The Challenge:</strong> No reward for teamwork = silos continue</p>
+                        <p style="margin-top: 1rem;"><strong style="color: var(--mikano-blue);">Mitigation:</strong> Define cross-selling compensation <strong>before</strong> go-live</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+                    <div class="card-title">Risk 4: Scalability Limits</div>
+                    <div class="card-content">
+                        <p><strong>The Challenge:</strong> Excel will eventually break</p>
+                        
+                        <h5 style="color: var(--mikano-blue); margin: 1rem 0 0.5rem;">CRM Review Triggers (Any 2 = Start Review):</h5>
+                        <ul>
+                            <li>File >100MB</li>
+                            <li>File takes >10 seconds to open</li>
+                            <li>Data Stewards spend >2 hours/week cleaning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future State Planning -->
+        <div class="section">
+            <div class="section-header">System Governance & Future State</div>
+            <div class="section-intro">
+                How we protect the system today and prepare for tomorrow's CRM investment.
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="card primary">
+                    <div class="card-title">Template Protection</div>
+                    <div class="card-content">
+                        <ul>
+                            <li><strong>Microsoft Form Input:</strong> Staff add data via form, can't break structure</li>
+                            <li><strong>Change Management:</strong> All structure changes go through P&BI team</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card secondary">
+                    <div class="card-title">CRM Preparation Strategy</div>
+                    <div class="card-content">
+                        <ul>
+                            <li><strong>Document Everything:</strong> Log every feature request and pain point</li>
+                            <li><strong>Requirements Document:</strong> Compile notes into formal CRM requirements</li>
+                            <li><strong>Smarter Evaluation:</strong> Give vendors our requirements, say <em>"Show us how your software does THIS"</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Open Questions -->
+        <div class="section">
+            <div class="section-header">Open Questions (Blockers for Kickoff)</div>
+            <div class="section-intro">
+                Critical questions that must be answered before the project can officially begin.
+            </div>
+
+            <div class="table-container">
+                <table class="primary">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Critical Question</th>
+                            <th>Why It Blocks Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Governance</strong></td>
+                            <td>What's the main 3-month outcome management wants?</td>
+                            <td>Need clear success target</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Commercials</strong></td>
+                            <td>What's the cross-selling compensation policy?</td>
+                            <td>Team needs to know rewards</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Commercials</strong></td>
+                            <td>What are current account ownership rules & conflicts?</td>
+                            <td>Must understand past failures</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technology</strong></td>
+                            <td>How are inbound leads handled & what's failed?</td>
+                            <td>Ensure we solve real problems</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Process</strong></td>
+                            <td>What are top 3 reasons we lose after quoting?</td>
+                            <td>Fix real bottlenecks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technology</strong></td>
+                            <td>What's the ERP customer ID & can we get auto export?</td>
+                            <td>Technical linking essential</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Process</strong></td>
+                            <td>How do we handle unassigned/orphan accounts?</td>
+                            <td>Prevent ownership conflicts</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="section">
+            <div class="section-header">Next Steps</div>
+            <div class="section-intro">
+                The immediate actions required to launch this initiative successfully.
+            </div>
+
+            <div class="table-container">
+                <table class="tertiary">
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Action</th>
+                            <th>Why Critical</th>
+                            <th>Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Internal CRM Meeting</strong></td>
+                            <td>Product & BI team alignment check on CRM vision</td>
+                            <td>Ensure technical readiness & long-term strategy</td>
+                            <td>Week 1-2 (Early July)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Answer Blockers</strong></td>
+                            <td>Get answers to critical open questions</td>
+                            <td>Cannot design pilot without these</td>
+                            <td>Weeks 2-3 (Mid July)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Update Document</strong></td>
+                            <td>Incorporate answers into final blueprint</td>
+                            <td>Ensure all stakeholders work from same plan</td>
+                            <td>Week 3 (Mid July)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Schedule Kickoff</strong></td>
+                            <td>Send calendar invite to all division heads</td>
+                            <td>Formal project launch</td>
+                            <td>Week 3 (Late July)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Circulate Final Plan</strong></td>
+                            <td>Send updated blueprint 48hrs before meeting</td>
+                            <td>Everyone reads & prepares beforehand</td>
+                            <td>Week 4 (Late July)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Hold Kickoff</strong></td>
+                            <td>Requirements gathering & final buy-in</td>
+                            <td>Official project launch with clear scope</td>
+                            <td>Week 4 (End July)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7. Launch Pilot</strong></td>
+                            <td>Build Excel Hub & train Motors team</td>
+                            <td>Put plan into action with real users</td>
+                            <td>August - October</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bottom Line -->
+        <div class="section">
+            <div style="background: linear-gradient(135deg, var(--mikano-red) 0%, var(--mikano-red-dark) 100%); color: white; padding: 3rem 2rem; margin: 3rem -1rem 0; text-align: center; border-radius: 12px;">
+                <h2 style="font-size: 1.8rem; font-weight: 600; margin-bottom: 1.5rem; color: white;">The Bottom Line</h2>
+                <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 1rem;">This isn't just a process improvement - it's a revenue growth engine.</p>
+                <p style="font-size: 1rem; margin-bottom: 1.5rem; opacity: 0.9;">By following this data-driven, user-focused plan, we create a more unified and profitable customer experience for Mikano.</p>
+                <div style="font-size: 1.4rem; font-weight: 600; letter-spacing: 1px; color: white;">Simple. Scalable. Smart.</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="background: var(--mikano-gray-900); color: white; text-align: center; padding: 2rem; margin: 3rem -20px 0; font-size: 0.9rem;">
+            <div style="margin-bottom: 0.5rem;">Document Version: 1.0 | Last Updated: June 2025</div>
+            <div>© Mikano International Limited</div>
+        </div>
+    </div>
+</body>
+</html> 
