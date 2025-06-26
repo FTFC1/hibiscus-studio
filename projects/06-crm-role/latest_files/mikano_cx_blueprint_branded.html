@@ -142,8 +142,8 @@
             padding: 1.5rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.04);
             text-align: center;
-            width: 200px;
-            min-height: 120px;
+            flex: 1;
+            min-height: 140px;
             border-top: 3px solid var(--mikano-red);
             transition: all 0.2s ease;
             display: flex;
@@ -738,11 +738,11 @@
                         </div>
                         
                         <!-- Tab 3 -->
-                        <div style="background: white; border: 2px solid var(--mikano-gray-600); border-radius: 8px; padding: 1.5rem; position: relative;">
-                            <div style="position: absolute; top: -12px; left: 1rem; background: var(--mikano-gray-600); color: white; padding: 0.3rem 1rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                        <div style="background: white; border: 2px solid var(--mikano-blue); border-radius: 8px; padding: 1.5rem; position: relative;">
+                            <div style="position: absolute; top: -12px; left: 1rem; background: var(--mikano-blue); color: white; padding: 0.3rem 1rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
                                 TAB 3
                             </div>
-                            <h4 style="color: var(--mikano-gray-600); margin: 1rem 0 0.8rem; font-weight: 700; letter-spacing: 0.5px;">INTERACTIONS</h4>
+                            <h4 style="color: var(--mikano-blue); margin: 1rem 0 0.8rem; font-weight: 700; letter-spacing: 0.5px;">INTERACTIONS</h4>
                             <p style="font-size: 0.9rem; margin-bottom: 1.2rem; color: var(--mikano-gray-600); font-style: italic;">Every Touchpoint</p>
                             <div style="display: grid; gap: 0.4rem;">
                                 <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Interaction ID</div>
@@ -819,9 +819,7 @@
                                 <p style="font-size: 0.85rem; margin: 0;">Final negotiations</p>
                             </div>
                         </div>
-                        <div style="margin-top: 1rem; padding: 0.75rem; background: white; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
-                            <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);"><strong>For deals with 2 people involved</strong></p>
-                        </div>
+
                     </div>
                 </div>
 
@@ -846,49 +844,61 @@
                                 <p style="font-size: 0.75rem; margin: 0;">Closed</p>
                             </div>
                         </div>
-                        <div style="margin-top: 1rem; padding: 0.75rem; background: white; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
-                            <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);"><strong>For complex deals with 3 people involved</strong></p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation & Rules -->
+            <div class="card elevated" style="margin-bottom: 2rem;">
+                <div class="card-title">Implementation Framework</div>
+                <div class="card-content">
+                    <!-- Universal Rules -->
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem; border-left: 4px solid var(--mikano-blue);">
+                        <h4 style="color: var(--mikano-blue); margin-bottom: 1rem; font-size: 1.1rem;">Universal Rules</h4>
+                        <div style="display: grid; gap: 0.8rem;">
+                            <p style="margin: 0; font-weight: 600;"><strong>Time Decay:</strong> After 18 months of no activity, relationship builder's share drops to 0%</p>
+                            <p style="margin: 0;"><strong>Minimum Threshold:</strong> ₦15M deals only</p>
+                            <p style="margin: 0;"><strong>Employment Rule:</strong> Must be employed when deal closes</p>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Time Decay Rule -->
-            <div class="card secondary" style="margin-bottom: 2rem;">
-                <div class="card-title">Universal Rules</div>
-                <div class="card-content">
-                    <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
-                        <p style="margin-bottom: 0.5rem; font-weight: 600;"><strong>Time Decay:</strong> After 18 months of no activity, relationship builder's share drops to 0%</p>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);">Minimum deal threshold: ₦15M • Must be employed when deal closes</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-                <div class="card minimal">
-                    <div class="card-title">Why This Works</div>
-                    <div class="card-content">
-                        <ul style="margin-left: 1rem;">
-                            <li style="color: var(--mikano-blue);">Rewards both relationship building AND closing</li>
-                            <li style="color: var(--mikano-blue);">Eliminates "stealing" incentives</li>
-                            <li style="color: var(--mikano-blue);">Prevents account hoarding</li>
-                            <li style="color: var(--mikano-blue);">Fair to all parties</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card primary">
-                    <div class="card-title">Implementation Rules</div>
-                    <div class="card-content">
-                        <div style="display: grid; gap: 0.8rem;">
-                            <div style="padding: 0.8rem; background: #f8f9fa; border-radius: 4px; border-left: 3px solid var(--mikano-red);">
-                                <strong style="color: var(--mikano-red);">Trigger:</strong> Any deal >₦15M gets split commission
-                            </div>
-                            <div style="padding: 0.8rem; background: #f8f9fa; border-radius: 4px; border-left: 3px solid var(--mikano-blue);">
-                                <strong style="color: var(--mikano-blue);">Evidence:</strong> Prior logged interactions in Excel CRM Spreadsheet
-                            </div>
-                            <div style="padding: 0.8rem; background: #f8f9fa; border-radius: 4px; border-left: 3px solid var(--mikano-gray-600);">
-                                <strong style="color: var(--mikano-gray-600);">Authority:</strong> Division Head makes final call on disputes
+                    <!-- Implementation Details -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem; font-size: 1.1rem;">How It Works</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 0.8rem; padding-left: 1rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--mikano-blue);">•</span>
+                                    Rewards both relationship building AND closing
+                                </li>
+                                <li style="margin-bottom: 0.8rem; padding-left: 1rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--mikano-blue);">•</span>
+                                    Eliminates "stealing" incentives
+                                </li>
+                                <li style="margin-bottom: 0.8rem; padding-left: 1rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--mikano-blue);">•</span>
+                                    Prevents account hoarding
+                                </li>
+                                <li style="padding-left: 1rem; position: relative;">
+                                    <span style="position: absolute; left: 0; color: var(--mikano-blue);">•</span>
+                                    Fair to all parties
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem; font-size: 1.1rem;">Governance</h4>
+                            <div style="display: grid; gap: 0.8rem;">
+                                <div style="padding: 0.8rem; background: white; border-radius: 4px; border-left: 3px solid var(--mikano-red);">
+                                    <strong style="color: var(--mikano-red);">Trigger:</strong> Any deal >₦15M gets split commission
+                                </div>
+                                <div style="padding: 0.8rem; background: white; border-radius: 4px; border-left: 3px solid var(--mikano-blue);">
+                                    <strong style="color: var(--mikano-blue);">Evidence:</strong> Prior logged interactions in Excel CRM
+                                </div>
+                                <div style="padding: 0.8rem; background: white; border-radius: 4px; border-left: 3px solid var(--mikano-gray-600);">
+                                    <strong style="color: var(--mikano-gray-600);">Authority:</strong> Division Head makes final call
+                                </div>
                             </div>
                         </div>
                     </div>
