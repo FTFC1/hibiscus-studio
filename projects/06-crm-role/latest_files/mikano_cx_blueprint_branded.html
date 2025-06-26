@@ -502,14 +502,23 @@
                 </div>
             </div>
 
-            <div class="card minimal">
-                <div class="card-title">Core Principles</div>
+            <div class="card elevated" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid var(--mikano-blue);">
+                <div class="card-title" style="color: var(--mikano-blue); text-align: center; border-bottom: 2px solid var(--mikano-blue); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Core Principles</div>
                 <div class="card-content">
-                    <ul>
-                        <li><strong>ERP is King</strong> - Our master data source remains supreme</li>
-                        <li><strong>Data-Driven Rules</strong> - Facts solve sales conflicts, not politics</li>
-                        <li><strong>Smart Technology Path</strong> - Prove value before big spend</li>
-                    </ul>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                        <div style="padding: 1rem; background: white; border-radius: 4px; border-left: 4px solid var(--mikano-red); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h5 style="color: var(--mikano-red); margin-bottom: 0.3rem; font-weight: 600;">ERP is King</h5>
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);">Our master data source remains supreme</p>
+                        </div>
+                        <div style="padding: 1rem; background: white; border-radius: 4px; border-left: 4px solid var(--mikano-blue); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h5 style="color: var(--mikano-blue); margin-bottom: 0.3rem; font-weight: 600;">Data-Driven Rules</h5>
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);">Facts solve sales conflicts, not politics</p>
+                        </div>
+                        <div style="padding: 1rem; background: white; border-radius: 4px; border-left: 4px solid var(--mikano-red); box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h5 style="color: var(--mikano-red); margin-bottom: 0.3rem; font-weight: 600;">Smart Technology Path</h5>
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);">Prove value before big spend</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -602,12 +611,21 @@
                 </table>
             </div>
 
-            <div class="card warning">
-                <div class="card-title">Early Warning System</div>
+            <div class="card warning" style="background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%); border: 2px solid var(--mikano-red); border-radius: 8px; position: relative;">
+                <div style="position: absolute; top: -10px; left: 20px; background: var(--mikano-red); color: white; padding: 0.3rem 1rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">⚠ CRITICAL</div>
+                <div class="card-title" style="color: var(--mikano-red); margin-top: 0.5rem;">Early Warning System</div>
                 <div class="card-content">
-                    <p><strong>Review Cadence:</strong> Every 2 weeks with Division Head</p>
-                    <p><strong>Intervention Trigger:</strong> Any metric off-track for 2 consecutive reviews</p>
-                    <p><strong>Response:</strong> Immediate corrective action meeting</p>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 0.8rem;">
+                        <div style="background: white; padding: 1rem; border-radius: 4px; border-left: 4px solid var(--mikano-red);">
+                            <strong style="color: var(--mikano-red);">Review Cadence:</strong> Every 2 weeks with Division Head
+                        </div>
+                        <div style="background: white; padding: 1rem; border-radius: 4px; border-left: 4px solid var(--mikano-red);">
+                            <strong style="color: var(--mikano-red);">Intervention Trigger:</strong> Any metric off-track for 2 consecutive reviews
+                        </div>
+                        <div style="background: white; padding: 1rem; border-radius: 4px; border-left: 4px solid var(--mikano-red);">
+                            <strong style="color: var(--mikano-red);">Response:</strong> Immediate corrective action meeting
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -620,7 +638,7 @@
             </div>
 
             <div class="card">
-                <div class="card-title">The Excel Hub Architecture</div>
+                <div class="card-title">Excel CRM Spreadsheet Architecture</div>
                 <div class="card-content">
                     <div style="text-align: center; font-weight: 600; color: var(--mikano-red); margin-bottom: 2rem; font-size: 1.2rem;">
                         MIKANO_CX_HUB.xlsx
@@ -631,7 +649,7 @@
                             <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 1: ACCOUNTS</h4>
                             <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">Business Entities</p>
                             <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
-                                <li>• Account ID</li>
+                                <li>• <strong>Account ID</strong> (Unique Key)</li>
                                 <li>• Company Name</li>
                                 <li>• Industry</li>
                                 <li>• ERP Customer ID</li>
@@ -643,10 +661,11 @@
                             <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 2: CONTACTS</h4>
                             <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">People</p>
                             <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
-                                <li>• Contact ID</li>
+                                <li>• <strong>Contact ID</strong> (Unique Key)</li>
                                 <li>• Full Name</li>
                                 <li>• Job Title</li>
-                                <li>• Associated Account ID</li>
+                                <li>• <strong>Account ID</strong> (Links to Tab 1)</li>
+                                <li>• Division Interacted With</li>
                             </ul>
                         </div>
                         
@@ -656,7 +675,8 @@
                             <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
                                 <li>• Interaction ID</li>
                                 <li>• Date</li>
-                                <li>• Contact ID</li>
+                                <li>• <strong>Contact ID</strong> (Links to Tab 2)</li>
+                                <li>• Division</li>
                                 <li>• Channel</li>
                                 <li>• Notes</li>
                                 <li>• Next Action</li>
@@ -708,22 +728,28 @@
             </div>
 
             <div class="card highlight" style="margin-bottom: 2rem;">
-                <div class="card-title">Recommended Solution: Shared Commission</div>
+                <div class="card-title">Recommended Solution: Shared Commission (3-Person Model)</div>
                 <div class="card-content">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
                         <div style="background: white; padding: 1.5rem; border-radius: 4px; text-align: center;">
-                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem;">Relationship Builder</h4>
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">30%</div>
-                            <p style="font-size: 0.9rem; margin: 0;">Rewards relationship investment</p>
+                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Relationship Builder</h4>
+                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">30%</div>
+                            <p style="font-size: 0.85rem; margin: 0;">Started conversation</p>
                         </div>
                         <div style="background: white; padding: 1.5rem; border-radius: 4px; text-align: center;">
-                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem;">Deal Closer</h4>
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">70%</div>
-                            <p style="font-size: 0.9rem; margin: 0;">Rewards actual sales work</p>
+                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Deal Facilitator</h4>
+                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-blue); margin: 0.5rem 0;">20%</div>
+                            <p style="font-size: 0.85rem; margin: 0;">Site visits, coordination</p>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 4px; text-align: center;">
+                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Deal Closer</h4>
+                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">50%</div>
+                            <p style="font-size: 0.85rem; margin: 0;">Final negotiations</p>
                         </div>
                     </div>
                     <div style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; text-align: center;">
                         <p style="margin: 0; font-weight: 600;"><strong>Time Decay:</strong> After 18 months of no activity, relationship builder's share drops to 0%</p>
+                        <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--mikano-gray-600);">Maximum 3 people per deal • Must be employed when deal closes</p>
                     </div>
                 </div>
             </div>
@@ -745,7 +771,7 @@
                     <div class="card-title">Implementation Rules</div>
                     <div class="card-content">
                         <ul style="margin-left: 1rem;">
-                            <li><strong>Trigger:</strong> Any deal >₦500k gets split commission</li>
+                            <li><strong>Trigger:</strong> Any deal >₦15M gets split commission</li>
                             <li><strong>Evidence:</strong> Prior logged interactions in Excel CRM Spreadsheet</li>
                             <li><strong>Authority:</strong> Division Head makes final call on disputes</li>
                         </ul>
@@ -1127,13 +1153,36 @@
             </div>
         </div>
 
-        <!-- Bottom Line -->
+        <!-- Executive Summary -->
         <div class="section">
-            <div style="background: linear-gradient(135deg, var(--mikano-red) 0%, var(--mikano-red-dark) 100%); color: white; padding: 3rem 2rem; margin: 3rem -1rem 0; text-align: center; border-radius: 12px;">
-                <h2 style="font-size: 1.8rem; font-weight: 600; margin-bottom: 1.5rem; color: white;">The Bottom Line</h2>
-                <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 1rem;">This isn't just a process improvement - it's a revenue growth engine.</p>
-                <p style="font-size: 1rem; margin-bottom: 1.5rem; opacity: 0.9;">By following this data-driven, user-focused plan, we create a more unified and profitable customer experience for Mikano.</p>
-                <div style="font-size: 1.4rem; font-weight: 600; letter-spacing: 1px; color: white;">Simple. Scalable. Smart.</div>
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border: 2px solid var(--mikano-blue); padding: 3rem 2rem; margin: 3rem 0 0; border-radius: 8px; position: relative;">
+                <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--mikano-blue); color: white; padding: 0.5rem 2rem; border-radius: 25px; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;">EXECUTIVE SUMMARY</div>
+                
+                <div style="text-align: center; margin-top: 1rem;">
+                    <h2 style="font-size: 1.6rem; font-weight: 600; margin-bottom: 2rem; color: var(--mikano-blue);">Strategic Customer Experience Initiative</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                        <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--mikano-red); box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem; font-weight: 600;">Business Impact</h4>
+                            <p style="margin: 0; font-size: 0.95rem; line-height: 1.5;">Revenue growth engine through unified customer data, streamlined processes, and cross-selling opportunities.</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--mikano-blue); box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-blue); margin-bottom: 1rem; font-weight: 600;">Implementation</h4>
+                            <p style="margin: 0; font-size: 0.95rem; line-height: 1.5;">Phased rollout starting with Motors Division pilot, scaling to all divisions with proven methodology.</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--mikano-red); box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem; font-weight: 600;">Technology Strategy</h4>
+                            <p style="margin: 0; font-size: 0.95rem; line-height: 1.5;">Excel foundation building to formal CRM system, ensuring cost-effective value validation.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2.5rem; padding: 1.5rem; background: var(--mikano-blue); color: white; border-radius: 8px;">
+                        <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Strategic Foundation</div>
+                        <div style="font-size: 1.3rem; font-weight: 300; letter-spacing: 1px;">Simple • Scalable • Smart</div>
+                    </div>
+                </div>
             </div>
         </div>
 
