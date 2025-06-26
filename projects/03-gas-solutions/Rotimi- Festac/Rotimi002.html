@@ -25,27 +25,48 @@
             padding: 0;
         }
         
-        /* Header */
+        /* Header - Mobile First */
         .header {
             background: #FFFFFF;
-            padding: 24px 20px;
+            padding: 20px 16px;
             border-bottom: 2px solid #000000;
         }
         
+        .header-content {
+            display: block;
+        }
+        
+        .header-main {
+            margin-bottom: 20px;
+        }
+        
+        .header-value-box {
+            text-align: center;
+            padding: 20px;
+            background: #E8D5C4;
+            border: 2px solid #D2451E;
+            margin-bottom: 16px;
+        }
+        
         .meeting-label {
-            font-size: 12px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666666;
+            color: #8B7355;
             margin-bottom: 8px;
         }
         
         .project-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 12px;
-            color: #E85D30;
+            margin-bottom: 8px;
+            color: #000000;
             letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+        
+        .project-title-accent {
+            color: #D2451E;
         }
         
         .meeting-info {
@@ -60,90 +81,117 @@
             font-weight: 400;
         }
         
-        /* Key Metrics */
+        /* Key Metrics - Mobile First */
         .metrics-section {
-            background: #FFFFFF;
-            padding: 48px 20px;
+            background: #E8D5C4;
+            padding: 24px 16px;
             position: relative;
-        }
-        
-        .metrics-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .metrics-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .metrics-title {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #8B7355;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .metrics-subtitle {
-            font-size: 24px;
-            color: #000000;
-            font-weight: 300;
-            letter-spacing: -0.5px;
         }
         
         .metrics-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: #E8D5C4;
-            border: 1px solid #E8D5C4;
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
         
         .metric-card {
             background: #FFFFFF;
-            padding: 32px 24px;
+            border: 2px solid #000000;
+            padding: 20px 16px;
             text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
             position: relative;
-            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        
+        /* Responsive Design */
+        @media (min-width: 640px) {
+            .header {
+                padding: 32px 20px;
+                background: linear-gradient(135deg, #FFFFFF 50%, #E8D5C4 50%);
+                position: relative;
+            }
+            
+            .header-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+                align-items: center;
+            }
+            
+            .header-main {
+                margin-bottom: 0;
+            }
+            
+            .header-value-box {
+                background: rgba(255,255,255,0.95);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                margin-bottom: 0;
+            }
+            
+            .project-title {
+                font-size: 36px;
+                margin-bottom: 12px;
+            }
+            
+            .metrics-section {
+                background: linear-gradient(135deg, #E8D5C4 0%, #E8D5C4 85%, #F0E4D6 100%);
+                padding: 28px 20px 24px 20px;
+            }
+            
+            .metrics-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 8px;
+                background: linear-gradient(135deg, transparent 0%, transparent 60%, rgba(210, 69, 30, 0.1) 100%);
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            
+            .metric-card::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                right: -2px;
+                width: 20px;
+                height: 20px;
+                background: linear-gradient(135deg, transparent 0%, rgba(210, 69, 30, 0.08) 100%);
+                clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+            }
         }
         
         .metric-card:hover {
-            background: #FEFEFE;
-            transform: scale(1.02);
-            z-index: 10;
-            box-shadow: 0 8px 32px rgba(210, 69, 30, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
         
-        .metric-card:nth-child(1) { border-top-left-radius: 8px; }
-        .metric-card:nth-child(2) { border-top-right-radius: 8px; }
-        .metric-card:nth-child(3) { border-bottom-left-radius: 8px; }
-        .metric-card:nth-child(4) { border-bottom-right-radius: 8px; }
-        
         .metric-label {
-            font-size: 10px;
+            font-size: 11px;
             color: #8B7355;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-weight: 600;
-            margin-bottom: 16px;
         }
         
         .metric-value {
-            font-size: 42px;
-            font-weight: 200;
+            font-size: 32px;
+            font-weight: 700;
             color: #D2451E;
-            margin: 0 0 12px 0;
-            letter-spacing: -2px;
-            line-height: 1;
+            margin: 8px 0 4px 0;
+            letter-spacing: -1px;
         }
         
         .metric-unit {
-            font-size: 13px;
-            color: #666666;
-            font-weight: 400;
-            letter-spacing: 0.5px;
+            font-size: 14px;
+            color: #333333;
+            font-weight: 500;
         }
         
         /* Project Scope */
@@ -376,20 +424,71 @@
         
         /* Print Styles */
         @media print {
-            body {
-                background: white;
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             
-            .header, .scope-section, .equipment-section, .next-steps-section {
+            body {
                 background: white !important;
             }
             
-            .metrics-section, .timeline-section, .info-section {
-                background: #F5F5F5 !important;
+            .header {
+                background: #E8D5C4 !important;
+                border-bottom: 2px solid #000000 !important;
+            }
+            
+            .header-value-box {
+                background: #FFFFFF !important;
+                border: 2px solid #D2451E !important;
+            }
+            
+            .metrics-section {
+                background: #E8D5C4 !important;
+            }
+            
+            .metrics-section::before {
+                display: none !important;
+            }
+            
+            .metric-card {
+                background: #FFFFFF !important;
+                border: 2px solid #000000 !important;
+                box-shadow: none !important;
+            }
+            
+            .metric-card::before {
+                display: none !important;
+            }
+            
+            .metric-value {
+                color: #D2451E !important;
+            }
+            
+            .metric-label {
+                color: #8B7355 !important;
+            }
+            
+            .project-title-accent {
+                color: #D2451E !important;
+            }
+            
+            .meeting-label {
+                color: #8B7355 !important;
+            }
+            
+            .scope-section, .equipment-section, .next-steps-section {
+                background: white !important;
+            }
+            
+            .timeline-section, .info-section {
+                background: #E8D5C4 !important;
             }
             
             .footer {
-                background: #333333 !important;
+                background: #000000 !important;
+                color: #FFFFFF !important;
             }
             
             /* Prevent page breaks */
@@ -413,55 +512,47 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header" style="background: linear-gradient(135deg, #FFFFFF 50%, #E8D5C4 50%); padding: 40px 20px 32px 20px; position: relative;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;">
-                <div>
-                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #8B7355; margin-bottom: 8px;">● MEETING SUMMARY</div>
-                    <h1 style="font-size: 36px; font-weight: 800; margin: 0 0 12px 0; color: #000000; line-height: 1.1;">FESTAC<br>AGRO-INDUSTRIAL<br><span style="color: #D2451E;">PROJECT</span></h1>
-                    <div style="font-size: 14px; color: #666666; margin-bottom: 20px;">Cassava Processing Plant & 1,000-Unit Residential Estate</div>
-                    <div style="display: flex; gap: 24px; font-size: 12px; color: #333333;">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-main">
+                    <div class="meeting-label">● Meeting Summary</div>
+                    <h1 class="project-title">FESTAC<br>AGRO-INDUSTRIAL<br><span class="project-title-accent">PROJECT</span></h1>
+                    <p style="font-size: 14px; color: #666666; margin-bottom: 16px;">Cassava Processing Plant & 1,000-Unit Residential Estate</p>
+                    <div style="display: flex; gap: 20px; font-size: 12px; color: #333333;">
                         <div><strong>LOCATION</strong><br>Amuwo Odofin, Lagos</div>
                         <div><strong>DATE</strong><br>June 2025</div>
                     </div>
                 </div>
-                <div style="text-align: center; padding: 24px; background: rgba(255,255,255,0.95); border: 2px solid #D2451E; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    <div style="font-size: 48px; font-weight: 700; color: #D2451E; margin-bottom: 8px;">$10M</div>
-                    <div style="font-size: 14px; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Estimated Project Value</div>
-                    <div style="font-size: 12px; color: #8B7355; margin-top: 12px; padding-top: 12px; border-top: 1px solid #E0E0E0;">MD Firas • Rotimi • Munaj • FT</div>
+                <div class="header-value-box">
+                    <div style="font-size: 40px; font-weight: 700; color: #D2451E; margin-bottom: 8px;">$10M</div>
+                    <div style="font-size: 12px; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Estimated Project Value</div>
+                    <div style="font-size: 11px; color: #8B7355; margin-top: 8px; padding-top: 8px; border-top: 1px solid #CCC;">MD Firas • Rotimi • Munaj • FT</div>
                 </div>
             </div>
-            <!-- Transition element -->
-            <div style="position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: linear-gradient(to right, #D2451E 0%, #E8D5C4 50%, #D2451E 100%);"></div>
         </div>
         
         <!-- Key Metrics -->
         <div class="metrics-section">
-            <div class="metrics-container">
-                <div class="metrics-header">
-                    <div class="metrics-title">Key Project Metrics</div>
-                    <div class="metrics-subtitle">At a Glance</div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Production Capacity</div>
+                    <div class="metric-value">1,000</div>
+                    <div class="metric-unit">Tons/Day Cassava</div>
                 </div>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Production Capacity</div>
-                        <div class="metric-value">1,000</div>
-                        <div class="metric-unit">Tons/Day Cassava</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Housing Units</div>
-                        <div class="metric-value">1,000</div>
-                        <div class="metric-unit">High-Rise Units</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Power Required</div>
-                        <div class="metric-value">2.2+</div>
-                        <div class="metric-unit">MW Total</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Land Size</div>
-                        <div class="metric-value">25</div>
-                        <div class="metric-unit">Acres Total</div>
-                    </div>
+                <div class="metric-card">
+                    <div class="metric-label">Housing Units</div>
+                    <div class="metric-value">1,000</div>
+                    <div class="metric-unit">High-Rise Units</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Power Required</div>
+                    <div class="metric-value">2.2+</div>
+                    <div class="metric-unit">MW Total</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Land Size</div>
+                    <div class="metric-value">25</div>
+                    <div class="metric-unit">Acres Total</div>
                 </div>
             </div>
         </div>
