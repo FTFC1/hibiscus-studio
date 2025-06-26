@@ -27,7 +27,7 @@
         
         /* Header - Mobile First */
         .header {
-            background: #FFFFFF;
+            background: #E8D5C4;
             padding: 20px 16px;
             border-bottom: 2px solid #000000;
         }
@@ -43,7 +43,7 @@
         .header-value-box {
             text-align: center;
             padding: 20px;
-            background: #E8D5C4;
+            background: #FFFFFF;
             border: 2px solid #D2451E;
             margin-bottom: 16px;
         }
@@ -52,7 +52,8 @@
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #8B7355;
+            color: #5D4E37;
+            font-weight: 700;
             margin-bottom: 8px;
         }
         
@@ -109,7 +110,7 @@
         @media (min-width: 640px) {
             .header {
                 padding: 32px 20px;
-                background: linear-gradient(135deg, #FFFFFF 50%, #E8D5C4 50%);
+                background: #E8D5C4;
                 position: relative;
             }
             
@@ -125,7 +126,7 @@
             }
             
             .header-value-box {
-                background: rgba(255,255,255,0.95);
+                background: #FFFFFF;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                 margin-bottom: 0;
             }
@@ -136,18 +137,8 @@
             }
             
             .metrics-section {
-                background: linear-gradient(135deg, #E8D5C4 0%, #E8D5C4 85%, #F0E4D6 100%);
+                background: #E8D5C4;
                 padding: 28px 20px 24px 20px;
-            }
-            
-            .metrics-section::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 8px;
-                background: linear-gradient(135deg, transparent 0%, transparent 60%, rgba(210, 69, 30, 0.1) 100%);
             }
             
             .metrics-grid {
@@ -155,16 +146,7 @@
                 gap: 16px;
             }
             
-            .metric-card::before {
-                content: '';
-                position: absolute;
-                top: -2px;
-                right: -2px;
-                width: 20px;
-                height: 20px;
-                background: linear-gradient(135deg, transparent 0%, rgba(210, 69, 30, 0.08) 100%);
-                clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
-            }
+
         }
         
         .metric-card:hover {
@@ -466,16 +448,16 @@
                 color: #D2451E !important;
             }
             
-            .metric-label {
-                color: #8B7355 !important;
+                         .metric-label {
+                color: #5D4E37 !important;
             }
             
             .project-title-accent {
                 color: #D2451E !important;
             }
             
-            .meeting-label {
-                color: #8B7355 !important;
+                         .meeting-label {
+                color: #5D4E37 !important;
             }
             
             .scope-section, .equipment-section, .next-steps-section {
@@ -526,7 +508,7 @@
                 <div class="header-value-box">
                     <div style="font-size: 40px; font-weight: 700; color: #D2451E; margin-bottom: 8px;">$10M</div>
                     <div style="font-size: 12px; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Estimated Project Value</div>
-                    <div style="font-size: 11px; color: #8B7355; margin-top: 8px; padding-top: 8px; border-top: 1px solid #CCC;">MD Firas • Rotimi • Munaj • FT</div>
+                    <div style="font-size: 11px; color: #5D4E37; font-weight: 600; margin-top: 8px; padding-top: 8px;">MD Firas • Rotimi • Munaj • FT</div>
                 </div>
             </div>
         </div>
