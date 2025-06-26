@@ -62,51 +62,88 @@
         
         /* Key Metrics */
         .metrics-section {
-            background: #E8D5C4;
-            padding: 28px 20px 24px 20px;
+            background: #FFFFFF;
+            padding: 48px 20px;
             position: relative;
+        }
+        
+        .metrics-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .metrics-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .metrics-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #8B7355;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .metrics-subtitle {
+            font-size: 24px;
+            color: #000000;
+            font-weight: 300;
+            letter-spacing: -0.5px;
         }
         
         .metrics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 1px;
+            background: #E8D5C4;
+            border: 1px solid #E8D5C4;
         }
         
         .metric-card {
             background: #FFFFFF;
-            border: 2px solid #000000;
-            padding: 20px 16px;
+            padding: 32px 24px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            position: relative;
+            transition: all 0.4s ease;
         }
         
         .metric-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            background: #FEFEFE;
+            transform: scale(1.02);
+            z-index: 10;
+            box-shadow: 0 8px 32px rgba(210, 69, 30, 0.15);
         }
         
+        .metric-card:nth-child(1) { border-top-left-radius: 8px; }
+        .metric-card:nth-child(2) { border-top-right-radius: 8px; }
+        .metric-card:nth-child(3) { border-bottom-left-radius: 8px; }
+        .metric-card:nth-child(4) { border-bottom-right-radius: 8px; }
+        
         .metric-label {
-            font-size: 11px;
+            font-size: 10px;
             color: #8B7355;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             font-weight: 600;
+            margin-bottom: 16px;
         }
         
         .metric-value {
-            font-size: 32px;
-            font-weight: 700;
+            font-size: 42px;
+            font-weight: 200;
             color: #D2451E;
-            margin: 8px 0 4px 0;
-            letter-spacing: -1px;
+            margin: 0 0 12px 0;
+            letter-spacing: -2px;
+            line-height: 1;
         }
         
         .metric-unit {
-            font-size: 14px;
-            color: #333333;
-            font-weight: 500;
+            font-size: 13px;
+            color: #666666;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
         
         /* Project Scope */
@@ -376,74 +413,55 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header" style="background: #FFFFFF; padding: 0; border-bottom: 1px solid #E0E0E0;">
-            <!-- Top Bar -->
-            <div style="background: #D2451E; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center;">
-                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #FFFFFF; font-weight: 600;">Meeting Summary • June 2025</div>
-                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #FFFFFF; font-weight: 600;">Amuwo Odofin, Lagos</div>
-            </div>
-            
-            <!-- Main Header Content -->
-            <div style="padding: 40px 20px 32px 20px;">
-                <div style="max-width: 1200px; margin: 0 auto;">
-                    <!-- Title Section -->
-                    <div style="text-align: center; margin-bottom: 32px;">
-                        <h1 style="font-size: 48px; font-weight: 300; margin: 0 0 8px 0; color: #000000; letter-spacing: -1px; line-height: 1.1;">FESTAC AGRO-INDUSTRIAL</h1>
-                        <div style="font-size: 24px; font-weight: 600; color: #D2451E; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;">PROJECT</div>
-                        <div style="font-size: 16px; color: #666666; max-width: 600px; margin: 0 auto;">Cassava Processing Plant & 1,000-Unit Residential Estate</div>
-                    </div>
-                    
-                    <!-- Key Info Cards -->
-                    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; max-width: 800px; margin: 0 auto;">
-                        <!-- Project Owner -->
-                        <div style="background: #E8D5C4; padding: 20px; text-align: center; border: 1px solid #D2451E;">
-                            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8B7355; margin-bottom: 8px; font-weight: 600;">Project Owner</div>
-                            <div style="font-size: 18px; font-weight: 700; color: #000000;">PRETORIAN</div>
-                        </div>
-                        
-                        <!-- Central Value -->
-                        <div style="background: #D2451E; padding: 32px 28px; text-align: center; position: relative; min-width: 200px;">
-                            <div style="font-size: 36px; font-weight: 700; color: #FFFFFF; margin-bottom: 4px;">$10M</div>
-                            <div style="font-size: 11px; color: #FFFFFF; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Est. Value</div>
-                            <!-- Corner decorations -->
-                            <div style="position: absolute; top: 8px; left: 8px; width: 12px; height: 12px; border-left: 2px solid #FFFFFF; border-top: 2px solid #FFFFFF;"></div>
-                            <div style="position: absolute; top: 8px; right: 8px; width: 12px; height: 12px; border-right: 2px solid #FFFFFF; border-top: 2px solid #FFFFFF;"></div>
-                            <div style="position: absolute; bottom: 8px; left: 8px; width: 12px; height: 12px; border-left: 2px solid #FFFFFF; border-bottom: 2px solid #FFFFFF;"></div>
-                            <div style="position: absolute; bottom: 8px; right: 8px; width: 12px; height: 12px; border-right: 2px solid #FFFFFF; border-bottom: 2px solid #FFFFFF;"></div>
-                        </div>
-                        
-                        <!-- Attendees -->
-                        <div style="background: #E8D5C4; padding: 20px; text-align: center; border: 1px solid #D2451E;">
-                            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8B7355; margin-bottom: 8px; font-weight: 600;">Attendees</div>
-                            <div style="font-size: 12px; font-weight: 500; color: #000000; line-height: 1.4;">MD Firas • Rotimi<br>Munaj • FT</div>
-                        </div>
+        <div class="header" style="background: linear-gradient(135deg, #FFFFFF 50%, #E8D5C4 50%); padding: 40px 20px 32px 20px; position: relative;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;">
+                <div>
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #8B7355; margin-bottom: 8px;">● MEETING SUMMARY</div>
+                    <h1 style="font-size: 36px; font-weight: 800; margin: 0 0 12px 0; color: #000000; line-height: 1.1;">FESTAC<br>AGRO-INDUSTRIAL<br><span style="color: #D2451E;">PROJECT</span></h1>
+                    <div style="font-size: 14px; color: #666666; margin-bottom: 20px;">Cassava Processing Plant & 1,000-Unit Residential Estate</div>
+                    <div style="display: flex; gap: 24px; font-size: 12px; color: #333333;">
+                        <div><strong>LOCATION</strong><br>Amuwo Odofin, Lagos</div>
+                        <div><strong>DATE</strong><br>June 2025</div>
                     </div>
                 </div>
+                <div style="text-align: center; padding: 24px; background: rgba(255,255,255,0.95); border: 2px solid #D2451E; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <div style="font-size: 48px; font-weight: 700; color: #D2451E; margin-bottom: 8px;">$10M</div>
+                    <div style="font-size: 14px; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Estimated Project Value</div>
+                    <div style="font-size: 12px; color: #8B7355; margin-top: 12px; padding-top: 12px; border-top: 1px solid #E0E0E0;">MD Firas • Rotimi • Munaj • FT</div>
+                </div>
             </div>
+            <!-- Transition element -->
+            <div style="position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: linear-gradient(to right, #D2451E 0%, #E8D5C4 50%, #D2451E 100%);"></div>
         </div>
         
         <!-- Key Metrics -->
         <div class="metrics-section">
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Production Capacity</div>
-                    <div class="metric-value">1,000</div>
-                    <div class="metric-unit">Tons/Day Cassava</div>
+            <div class="metrics-container">
+                <div class="metrics-header">
+                    <div class="metrics-title">Key Project Metrics</div>
+                    <div class="metrics-subtitle">At a Glance</div>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-label">Housing Units</div>
-                    <div class="metric-value">1,000</div>
-                    <div class="metric-unit">High-Rise Units</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Power Required</div>
-                    <div class="metric-value">2.2+</div>
-                    <div class="metric-unit">MW Total</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Land Size</div>
-                    <div class="metric-value">25</div>
-                    <div class="metric-unit">Acres Total</div>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Production Capacity</div>
+                        <div class="metric-value">1,000</div>
+                        <div class="metric-unit">Tons/Day Cassava</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Housing Units</div>
+                        <div class="metric-value">1,000</div>
+                        <div class="metric-unit">High-Rise Units</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Power Required</div>
+                        <div class="metric-value">2.2+</div>
+                        <div class="metric-unit">MW Total</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Land Size</div>
+                        <div class="metric-value">25</div>
+                        <div class="metric-unit">Acres Total</div>
+                    </div>
                 </div>
             </div>
         </div>
