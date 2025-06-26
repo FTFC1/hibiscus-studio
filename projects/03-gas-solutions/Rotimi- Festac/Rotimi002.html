@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festac Agro-Industrial Project - Meeting Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #F5E6D3;
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        /* Header */
+        .header {
+            background: #FFFFFF;
+            padding: 24px 20px;
+            border-bottom: 2px solid #000000;
+        }
+        
+        .meeting-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+        
+        .project-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #E85D30;
+            letter-spacing: -0.5px;
+        }
+        
+        .meeting-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: #333333;
+        }
+        
+        .attendee-list {
+            font-weight: 400;
+        }
+        
+        /* Key Metrics */
+        .metrics-section {
+            background: #E8D5C4;
+            padding: 24px 20px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .metric-card {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 20px 16px;
+            text-align: center;
+        }
+        
+        .metric-label {
+            font-size: 11px;
+            color: #8B7355;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #D2451E;
+            margin: 8px 0 4px 0;
+            letter-spacing: -1px;
+        }
+        
+        .metric-unit {
+            font-size: 14px;
+            color: #333333;
+            font-weight: 500;
+        }
+        
+        /* Project Scope */
+        .scope-section {
+            background: #FFFFFF;
+            padding: 24px 20px;
+            border-top: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #E85D30;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .scope-item {
+            background: #F5E6D3;
+            border: 1px solid #000000;
+            padding: 16px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #000000;
+            font-weight: 500;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+        
+        .scope-number {
+            background: #E85D30;
+            color: #FFFFFF;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            background: #F5E6D3;
+            padding: 24px 20px;
+        }
+        
+        .timeline-card {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .timeline-item {
+            flex: 1;
+        }
+        
+        .timeline-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-duration {
+            font-size: 24px;
+            font-weight: 700;
+            color: #E85D30;
+        }
+        
+        .timeline-unit {
+            font-size: 14px;
+            color: #666666;
+            font-weight: 500;
+        }
+        
+        .priority-badge {
+            background: transparent;
+            color: #E85D30;
+            border: 2px solid #E85D30;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Equipment & Services */
+        .equipment-section {
+            background: #FFFFFF;
+            padding: 24px 20px;
+            border-top: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+        }
+        
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        .equipment-category {
+            background: #F5E6D3;
+            border: 1px solid #000000;
+            padding: 16px;
+        }
+        
+        .category-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #E85D30;
+            margin-bottom: 8px;
+        }
+        
+        .equipment-list {
+            font-size: 14px;
+            color: #333333;
+            font-weight: 500;
+        }
+        
+        /* Key Information */
+        .info-section {
+            background: #F5E6D3;
+            padding: 24px 20px;
+        }
+        
+        .info-card {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .info-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .info-content {
+            font-size: 14px;
+            color: #333333;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            background: #FFD93D;
+            padding: 2px 4px;
+            font-weight: 700;
+        }
+        
+        /* Next Steps */
+        .next-steps-section {
+            background: #FFFFFF;
+            padding: 24px 20px;
+            border-top: 2px solid #000000;
+        }
+        
+        .step-item {
+            display: flex;
+            gap: 16px;
+            align-items: start;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #F5E6D3;
+            border: 1px solid #000000;
+        }
+        
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            background: #E85D30;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+            border-radius: 50%;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        
+        .step-description {
+            font-size: 14px;
+            color: #333333;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #000000;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Responsive grid for supporting details */
+        @media (min-width: 640px) {
+            .supporting-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .header, .scope-section, .equipment-section, .next-steps-section {
+                background: white !important;
+            }
+            
+            .metrics-section, .timeline-section, .info-section {
+                background: #F5F5F5 !important;
+            }
+            
+            .footer {
+                background: #333333 !important;
+            }
+            
+            /* Prevent page breaks */
+            .metric-card, .scope-item, .timeline-card, .equipment-category, .info-card, .step-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            .section-title {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+            
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header" style="background: linear-gradient(135deg, #FFFFFF 50%, #E8D5C4 50%); padding: 40px 20px; border-bottom: 2px solid #000000;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;">
+                <div>
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #8B7355; margin-bottom: 8px;">● MEETING SUMMARY</div>
+                    <h1 style="font-size: 36px; font-weight: 800; margin: 0 0 12px 0; color: #000000; line-height: 1.1;">FESTAC<br>AGRO-INDUSTRIAL<br><span style="color: #D2451E;">PROJECT</span></h1>
+                    <div style="font-size: 14px; color: #666666; margin-bottom: 20px;">Cassava Processing Plant & 1,000-Unit Residential Estate</div>
+                    <div style="display: flex; gap: 24px; font-size: 12px; color: #333333;">
+                        <div><strong>LOCATION</strong><br>Amuwo Odofin, Lagos</div>
+                        <div><strong>DATE</strong><br>June 2025</div>
+                    </div>
+                </div>
+                <div style="text-align: center; padding: 24px; background: rgba(255,255,255,0.9); border: 2px solid #D2451E;">
+                    <div style="font-size: 48px; font-weight: 700; color: #D2451E; margin-bottom: 8px;">$10M</div>
+                    <div style="font-size: 14px; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Estimated Project Value</div>
+                    <div style="font-size: 12px; color: #8B7355; margin-top: 12px; padding-top: 12px; border-top: 1px solid #E0E0E0;">MD Firas • Rotimi • Munaj • FT</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Metrics -->
+        <div class="metrics-section">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Production Capacity</div>
+                    <div class="metric-value">1,000</div>
+                    <div class="metric-unit">Tons/Day Cassava</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Housing Units</div>
+                    <div class="metric-value">1,000</div>
+                    <div class="metric-unit">High-Rise Units</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Power Required</div>
+                    <div class="metric-value">2.2+</div>
+                    <div class="metric-unit">MW Total</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Land Size</div>
+                    <div class="metric-value">25</div>
+                    <div class="metric-unit">Acres Total</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Strategic Position -->
+        <div class="scope-section">
+            <h2 class="section-title">Current Status</h2>
+            <div class="info-card" style="background: #FFF8E1; border: 2px solid #E85D30; margin-bottom: 24px;">
+                <div class="info-title" style="font-size: 18px; color: #E85D30;">AWAITING INVESTMENT MEMORANDUM</div>
+                <div class="info-content" style="color: #333333; font-weight: 500;">
+                    Rotimi (Portfolio Manager) to provide IM with project financials.<br>
+                    Our involvement model will be finalized post-funding confirmation.
+                </div>
+            </div>
+            
+            <h2 class="section-title" style="margin-top: 24px;">Flexible Involvement Models</h2>
+            <div class="scope-item">
+                <span class="scope-number">A</span>
+                <div>
+                    <strong>Turn-key Power Solution</strong><br>
+                    <span style="font-weight: 400;">Mikano supplies generators → Partner installs → Client owns complete system</span>
+                </div>
+            </div>
+            <div class="scope-item">
+                <span class="scope-number">B</span>
+                <div>
+                    <strong>Energy-as-a-Service</strong><br>
+                    <span style="font-weight: 400;">Partner installs & maintains plant → Client pays only for energy consumed</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Major Opportunities -->
+        <div class="equipment-section">
+            <h2 class="section-title">Major Opportunities</h2>
+            <div class="equipment-category" style="background: #E5FFE5; border-color: #388E3C;">
+                <div class="equipment-list">
+                    • <strong>Gas Pipeline Access:</strong> Nearby connection will significantly reduce operational costs<br>
+                    • <strong>Quick Revenue Start:</strong> Cassava plant operational in 2 months while housing develops<br>
+                    • <strong>Multiple Revenue Streams:</strong> Power generation + equipment supply + potential construction<br>
+                    • <strong>Expansion Potential:</strong> Additional power capacity as development grows
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="timeline-section">
+            <h2 class="section-title">Development Timeline</h2>
+            <div class="timeline-card">
+                <div class="timeline-item">
+                    <div class="timeline-label">Cassava Processing Plant</div>
+                    <div class="timeline-duration">2 <span class="timeline-unit">MONTHS</span></div>
+                </div>
+                <div class="priority-badge">FIRST PRIORITY</div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-item">
+                    <div class="timeline-label">Terraces</div>
+                    <div class="timeline-duration">8 <span class="timeline-unit">MONTHS</span></div>
+                </div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-item">
+                    <div class="timeline-label">High-Rise Buildings</div>
+                    <div class="timeline-duration">24 <span class="timeline-unit">MONTHS</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Equipment & Services -->
+        <div class="equipment-section">
+            <h2 class="section-title">Mikano Supply Scope</h2>
+            <div class="equipment-grid">
+                <div class="equipment-category">
+                    <div class="category-title">Power Generation</div>
+                    <div class="equipment-list">IPP setup • Gas generators • Transformers • Switchgears</div>
+                </div>
+                <div class="equipment-category">
+                    <div class="category-title">Electrical Infrastructure</div>
+                    <div class="equipment-list">Complete lighting systems • Distribution panels • Cabling</div>
+                </div>
+                <div class="equipment-category">
+                    <div class="category-title">Additional Equipment</div>
+                    <div class="equipment-list">Furniture • Factory equipment • Construction support</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Information -->
+        <div class="info-section">
+            <h2 class="section-title">Project Details</h2>
+            <div class="info-card">
+                <div class="info-title">Project Structure</div>
+                <div class="info-content">
+                    • Project Owner: <span class="highlight">Pretorian</span><br>
+                    • Agency funding available for mass housing<br>
+                    • Mikano to win bid then subcontract construction work<br>
+                    • Current infrastructure: 1.6MW (4×500kVA + 2×50kVA) - all to be replaced
+                </div>
+            </div>
+        </div>
+        
+        <!-- Next Steps -->
+        <div class="next-steps-section">
+            <h2 class="section-title">Immediate Actions</h2>
+            <div class="step-item">
+                <div class="step-icon">1</div>
+                <div class="step-content">
+                    <div class="step-title">Await Investment Memorandum</div>
+                    <div class="step-description">Follow up with Rotimi for IM containing detailed financials and funding confirmation</div>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">2</div>
+                <div class="step-content">
+                    <div class="step-title">Technical Site Assessment</div>
+                    <div class="step-description">Schedule Mikano Construction team visit to evaluate 25-acre site and existing 1.6MW infrastructure</div>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">3</div>
+                <div class="step-content">
+                    <div class="step-title">Load Analysis</div>
+                    <div class="step-description">Calculate power requirements for 1,000 tons/day cassava production + 1,000 housing units</div>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">4</div>
+                <div class="step-content">
+                    <div class="step-title">Partnership Model Decision</div>
+                    <div class="step-description">Determine client preference: turn-key ownership vs energy-as-a-service model</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Supporting Details (Condensed) -->
+        <div class="info-section">
+            <h2 class="section-title">Supporting Details</h2>
+            <div class="supporting-grid" style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+                <div class="info-card">
+                    <div class="info-title" style="font-size: 14px;">Equipment Status</div>
+                    <div class="info-content" style="font-size: 13px;">
+                        All existing generators (4×500kVA + 2×50kVA) and 1960s transformer require replacement
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-title" style="font-size: 14px;">Site Considerations</div>
+                    <div class="info-content" style="font-size: 13px;">
+                        Good lay-down space available. Gas pipeline verification with NGML/Axella pending. Major load from housing & processing site
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            Mikano International • Meeting Summary • June 2025
+        </div>
+    </div>
+</body>
+</html>
