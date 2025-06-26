@@ -142,9 +142,13 @@
             padding: 1.5rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.04);
             text-align: center;
-            min-width: 180px;
+            width: 200px;
+            min-height: 120px;
             border-top: 3px solid var(--mikano-red);
             transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .system-box:hover {
@@ -683,51 +687,75 @@
                 A simple three-tab Excel workbook that captures everything we need to know about our customers.
             </div>
 
-            <div class="card">
+            <div class="card elevated">
                 <div class="card-title">Excel CRM Spreadsheet Architecture</div>
                 <div class="card-content">
-                    <div style="text-align: center; font-weight: 600; color: var(--mikano-red); margin-bottom: 2rem; font-size: 1.2rem;">
-                        MIKANO_CX_HUB.xlsx
+                    <!-- File Header -->
+                    <div style="text-align: center; margin-bottom: 2.5rem;">
+                        <div style="display: inline-block; padding: 0.8rem 2rem; background: var(--mikano-red); color: white; border-radius: 6px; font-weight: 600; font-size: 1.1rem; letter-spacing: 0.5px;">
+                            MIKANO_CX_HUB.xlsx
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                        <div style="background: var(--mikano-gray-100); border-radius: 8px; padding: 1.5rem;">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 1: ACCOUNTS</h4>
-                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">Business Entities</p>
-                            <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
-                                <li>• <strong>Account ID</strong> (Unique Key)</li>
-                                <li>• Company Name</li>
-                                <li>• Industry</li>
-                                <li>• ERP Customer ID</li>
-                                <li>• Account Owner</li>
-                            </ul>
+                    <!-- Tab Architecture -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                        <!-- Tab 1 -->
+                        <div style="background: white; border: 2px solid var(--mikano-red); border-radius: 8px; padding: 1.5rem; position: relative;">
+                            <div style="position: absolute; top: -12px; left: 1rem; background: var(--mikano-red); color: white; padding: 0.3rem 1rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                                TAB 1
+                            </div>
+                            <h4 style="color: var(--mikano-red); margin: 1rem 0 0.8rem; font-weight: 700; letter-spacing: 0.5px;">ACCOUNTS</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1.2rem; color: var(--mikano-gray-600); font-style: italic;">Business Entities</p>
+                            <div style="display: grid; gap: 0.5rem;">
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem; border-left: 3px solid var(--mikano-red);">
+                                    <strong>Account ID</strong> <span style="color: var(--mikano-red);">(Key)</span>
+                                </div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem;">Company Name</div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem;">Industry</div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem;">ERP Customer ID</div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem;">Account Owner</div>
+                            </div>
                         </div>
                         
-                        <div style="background: var(--mikano-gray-100); border-radius: 8px; padding: 1.5rem;">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 2: CONTACTS</h4>
-                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">People</p>
-                            <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
-                                <li>• <strong>Contact ID</strong> (Unique Key)</li>
-                                <li>• Full Name</li>
-                                <li>• Job Title</li>
-                                <li>• <strong>Account ID</strong> (Links to Tab 1)</li>
-                                <li>• Division Interacted With</li>
-                            </ul>
+                        <!-- Tab 2 -->
+                        <div style="background: white; border: 2px solid var(--mikano-blue); border-radius: 8px; padding: 1.5rem; position: relative;">
+                            <div style="position: absolute; top: -12px; left: 1rem; background: var(--mikano-blue); color: white; padding: 0.3rem 1rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                                TAB 2
+                            </div>
+                            <h4 style="color: var(--mikano-blue); margin: 1rem 0 0.8rem; font-weight: 700; letter-spacing: 0.5px;">CONTACTS</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1.2rem; color: var(--mikano-gray-600); font-style: italic;">People</p>
+                            <div style="display: grid; gap: 0.5rem;">
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem; border-left: 3px solid var(--mikano-blue);">
+                                    <strong>Contact ID</strong> <span style="color: var(--mikano-blue);">(Key)</span>
+                                </div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem;">Full Name</div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem;">Job Title</div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem; border-left: 3px solid var(--mikano-red);">
+                                    <strong>Account ID</strong> <span style="color: var(--mikano-red);">(Links Tab 1)</span>
+                                </div>
+                                <div style="padding: 0.5rem; background: #f8f9fa; border-radius: 3px; font-size: 0.85rem;">Division Interacted With</div>
+                            </div>
                         </div>
                         
-                        <div style="background: var(--mikano-gray-100); border-radius: 8px; padding: 1.5rem;">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 1rem;">Tab 3: INTERACTIONS</h4>
-                            <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--mikano-gray-600);">Every Touchpoint</p>
-                            <ul style="font-size: 0.9rem; list-style: none; padding: 0;">
-                                <li>• Interaction ID</li>
-                                <li>• Date</li>
-                                <li>• <strong>Contact ID</strong> (Links to Tab 2)</li>
-                                <li>• Division</li>
-                                <li>• Channel</li>
-                                <li>• Notes</li>
-                                <li>• Next Action</li>
-                                <li>• Logged By</li>
-                            </ul>
+                        <!-- Tab 3 -->
+                        <div style="background: white; border: 2px solid var(--mikano-gray-600); border-radius: 8px; padding: 1.5rem; position: relative;">
+                            <div style="position: absolute; top: -12px; left: 1rem; background: var(--mikano-gray-600); color: white; padding: 0.3rem 1rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">
+                                TAB 3
+                            </div>
+                            <h4 style="color: var(--mikano-gray-600); margin: 1rem 0 0.8rem; font-weight: 700; letter-spacing: 0.5px;">INTERACTIONS</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 1.2rem; color: var(--mikano-gray-600); font-style: italic;">Every Touchpoint</p>
+                            <div style="display: grid; gap: 0.4rem;">
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Interaction ID</div>
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Date</div>
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem; border-left: 3px solid var(--mikano-blue);">
+                                    <strong>Contact ID</strong> <span style="color: var(--mikano-blue);">(Links Tab 2)</span>
+                                </div>
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Division</div>
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Channel</div>
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Notes</div>
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Next Action</div>
+                                <div style="padding: 0.4rem; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">Logged By</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -773,29 +801,65 @@
                 </div>
             </div>
 
-            <div class="card highlight" style="margin-bottom: 2rem;">
-                <div class="card-title">Recommended Solution: Shared Commission (3-Person Model)</div>
-                <div class="card-content">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
-                        <div style="background: white; padding: 1.5rem; border-radius: 4px; text-align: center;">
-                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Relationship Builder</h4>
-                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">30%</div>
-                            <p style="font-size: 0.85rem; margin: 0;">Started conversation</p>
+            <!-- Commission Models -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <!-- 2-Person Model -->
+                <div class="card elevated">
+                    <div class="card-title">Simple Model: 2-Person Split</div>
+                    <div class="card-content">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-blue);">
+                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Relationship Builder</h4>
+                                <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">40%</div>
+                                <p style="font-size: 0.85rem; margin: 0;">Started conversation</p>
+                            </div>
+                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-red);">
+                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Deal Closer</h4>
+                                <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">60%</div>
+                                <p style="font-size: 0.85rem; margin: 0;">Final negotiations</p>
+                            </div>
                         </div>
-                        <div style="background: white; padding: 1.5rem; border-radius: 4px; text-align: center;">
-                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Deal Facilitator</h4>
-                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-blue); margin: 0.5rem 0;">15%</div>
-                            <p style="font-size: 0.85rem; margin: 0;">Site visits, coordination</p>
-                        </div>
-                        <div style="background: white; padding: 1.5rem; border-radius: 4px; text-align: center;">
-                            <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Deal Closer</h4>
-                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">55%</div>
-                            <p style="font-size: 0.85rem; margin: 0;">Final negotiations</p>
+                        <div style="margin-top: 1rem; padding: 0.75rem; background: white; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);"><strong>For deals with 2 people involved</strong></p>
                         </div>
                     </div>
-                    <div style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; text-align: center;">
-                        <p style="margin: 0; font-weight: 600;"><strong>Time Decay:</strong> After 18 months of no activity, relationship builder's share drops to 0%</p>
-                        <p style="margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--mikano-gray-600);">Maximum 3 people per deal • Must be employed when deal closes</p>
+                </div>
+
+                <!-- 3-Person Model -->
+                <div class="card elevated">
+                    <div class="card-title">Complex Model: 3-Person Split</div>
+                    <div class="card-content">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin-top: 1rem;">
+                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-blue);">
+                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.3rem; font-size: 0.85rem;">Builder</h4>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--mikano-red); margin: 0.3rem 0;">30%</div>
+                                <p style="font-size: 0.75rem; margin: 0;">Started</p>
+                            </div>
+                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-gray-600);">
+                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.3rem; font-size: 0.85rem;">Facilitator</h4>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--mikano-blue); margin: 0.3rem 0;">15%</div>
+                                <p style="font-size: 0.75rem; margin: 0;">Coordinated</p>
+                            </div>
+                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-red);">
+                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.3rem; font-size: 0.85rem;">Closer</h4>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--mikano-red); margin: 0.3rem 0;">55%</div>
+                                <p style="font-size: 0.75rem; margin: 0;">Closed</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; padding: 0.75rem; background: white; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);"><strong>For complex deals with 3 people involved</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Decay Rule -->
+            <div class="card secondary" style="margin-bottom: 2rem;">
+                <div class="card-title">Universal Rules</div>
+                <div class="card-content">
+                    <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
+                        <p style="margin-bottom: 0.5rem; font-weight: 600;"><strong>Time Decay:</strong> After 18 months of no activity, relationship builder's share drops to 0%</p>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--mikano-gray-600);">Minimum deal threshold: ₦15M • Must be employed when deal closes</p>
                     </div>
                 </div>
             </div>
@@ -813,14 +877,20 @@
                     </div>
                 </div>
                 
-                <div class="card minimal">
+                <div class="card primary">
                     <div class="card-title">Implementation Rules</div>
                     <div class="card-content">
-                        <ul style="margin-left: 1rem;">
-                            <li><strong>Trigger:</strong> Any deal >₦15M gets split commission</li>
-                            <li><strong>Evidence:</strong> Prior logged interactions in Excel CRM Spreadsheet</li>
-                            <li><strong>Authority:</strong> Division Head makes final call on disputes</li>
-                        </ul>
+                        <div style="display: grid; gap: 0.8rem;">
+                            <div style="padding: 0.8rem; background: #f8f9fa; border-radius: 4px; border-left: 3px solid var(--mikano-red);">
+                                <strong style="color: var(--mikano-red);">Trigger:</strong> Any deal >₦15M gets split commission
+                            </div>
+                            <div style="padding: 0.8rem; background: #f8f9fa; border-radius: 4px; border-left: 3px solid var(--mikano-blue);">
+                                <strong style="color: var(--mikano-blue);">Evidence:</strong> Prior logged interactions in Excel CRM Spreadsheet
+                            </div>
+                            <div style="padding: 0.8rem; background: #f8f9fa; border-radius: 4px; border-left: 3px solid var(--mikano-gray-600);">
+                                <strong style="color: var(--mikano-gray-600);">Authority:</strong> Division Head makes final call on disputes
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
