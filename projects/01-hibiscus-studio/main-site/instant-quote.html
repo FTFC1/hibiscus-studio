@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Hibiscus Studio – Instant Quote</title>
+  <style>
+    :root{
+      --accent:#000;--dark:#111;--grey:#666;--light:#fafafa
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
+    body{color:var(--dark);background:#fff}
+    .container{max-width:680px;margin:auto;padding:32px 20px}
+    h1{text-align:center;font-size:28px;font-weight:600;margin-bottom:12px}
+    p.lead{text-align:center;font-size:14px;color:var(--grey);margin-bottom:32px}
+    .btn-pair{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+    .btn{
+      flex:1 1 160px;text-align:center;text-decoration:none;color:#fff;background:var(--accent);
+      padding:20px 16px;font-size:16px;font-weight:600;border-radius:6px;cursor:pointer;transition:.3s;min-height:48px
+    }
+    .btn:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+    section{display:none}
+    section.active{display:block}
+    h2{font-size:20px;font-weight:600;margin-bottom:24px;text-align:center}
+    .card{background:var(--light);border:1px solid #eee;border-radius:6px;padding:20px;margin-bottom:16px}
+    .card label{display:block;font-size:14px;margin-bottom:8px}
+    select,input[type=number]{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:15px;margin-bottom:16px}
+    .result{font-size:18px;font-weight:600;text-align:center;margin-top:8px}
+    .faq{margin-top:48px}
+    .faq-item{margin-bottom:24px}
+    .faq-q{font-weight:500;margin-bottom:4px}
+    .faq-a{font-size:14px;color:var(--grey)}
+    .cta{text-align:center;margin-top:40px}
+    .cta a{color:#fff;background:var(--dark);padding:14px 24px;border-radius:4px;font-size:14px;font-weight:600;text-decoration:none}
+    @media(min-width:768px){.btn{flex:0 1 220px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Instant Quote & Availability</h1>
+    <p class="lead">Select your hire type to get price, deposit & next-steps in seconds.</p>
+
+    <div class="btn-pair">
+      <button class="btn" data-target="event">Event Hire</button>
+      <button class="btn" data-target="content">Content Creation</button>
+    </div>
+
+    <!-- EVENT HIRE -->
+    <section id="event">
+      <h2>Event Hire Calculator</h2>
+      <div class="card">
+        <label for="event-package">Choose package</label>
+        <select id="event-package">
+          <option value="hourly">Hourly (2-12 hrs) – £100/hr</option>
+          <option value="6">Half-Day (6 hrs) – £420</option>
+          <option value="12">Full-Day (12 hrs) – £840</option>
+        </select>
+        <div id="event-hours-field" style="display:none">
+          <label for="event-hours">Number of hours</label>
+          <input type="number" id="event-hours" min="2" max="12" value="2">
+        </div>
+        <div class="result" id="event-total">Total: £200</div>
+        <div class="result" id="event-deposit" style="font-size:14px;font-weight:400;color:var(--grey)">Damage deposit: £200</div>
+      </div>
+      <div class="cta"><a id="event-cta" href="#" target="_blank">Book Viewing / Secure Date</a></div>
+    </section>
+
+    <!-- CONTENT HIRE -->
+    <section id="content">
+      <h2>Content Creation Calculator</h2>
+      <div class="card">
+        <label for="content-package">Choose package</label>
+        <select id="content-package">
+          <option value="6">Half-Day (6 hrs) – £250</option>
+          <option value="12">Full-Day (12 hrs) – £500</option>
+        </select>
+        <div id="content-hours-field" style="display:none">
+          <label for="content-hours">Number of hours</label>
+          <input type="number" id="content-hours" min="2" max="12" value="2">
+        </div>
+        <div class="result" id="content-total">Total: £90</div>
+        <div class="result" id="content-deposit" style="font-size:14px;font-weight:400;color:var(--grey)">Damage deposit: £50</div>
+      </div>
+      <div class="cta"><a href="https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=category:Content%20Hire" target="_blank">Book Viewing / Secure Date</a></div>
+    </section>
+
+    <!-- FAQ SNAP -->
+    <div class="faq">
+      <h2 style="margin-bottom:24px">Quick FAQ</h2>
+      <div class="faq-item"><div class="faq-q">Are tables & chairs included?</div><div class="faq-a">Yes – 40 Chiavari chairs & 10 tables come with every hire.</div></div>
+      <div class="faq-item"><div class="faq-q">Refundable damage deposit?</div><div class="faq-a">£200 for Event Hire, £50 for Content Creation.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I secure a date?</div><div class="faq-a">Pay the deposit online; you'll receive an instant confirmation & calendar invite.</div></div>
+    </div>
+  </div>
+
+<script>
+// toggle sections
+const buttons=document.querySelectorAll('.btn');
+buttons.forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(btn.dataset.target).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}))
+
+// pricing logic
+autoCalc('event',100,{4:300,6:420,8:600,12:840},200);
+autoCalc('content',45,{6:250,12:500},50);
+
+function autoCalc(prefix,hourRate,fixedMap,deposit){
+  const pkg=document.getElementById(prefix+'-package');
+  const hrsField=document.getElementById(prefix+'-hours-field');
+  const hrsInput=document.getElementById(prefix+'-hours');
+  const totalEl=document.getElementById(prefix+'-total');
+  const depEl=document.getElementById(prefix+'-deposit');
+  function compute(){
+    let val=pkg.value,price=0;
+    if(val==='hourly'){
+      hrsField.style.display='block';
+      const hrs=parseInt(hrsInput.value)||2;
+      price=hrs*hourRate;
+    }else{
+      hrsField.style.display='none';
+      price=fixedMap[val];
+    }
+    totalEl.textContent=`Total: £${price.toLocaleString()}`;
+    depEl.textContent=`Damage deposit: £${deposit}`;
+  }
+  pkg.addEventListener('change',compute);
+  hrsInput&&hrsInput.addEventListener('input',compute);
+  compute();
+}
+
+// dynamic CTA for event
+const eventCta=document.getElementById('event-cta');
+function updateEventLink(){
+   const val=document.getElementById('event-package').value;
+   if(val==='6') eventCta.href='https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536';
+   else if(val==='12') eventCta.href='https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79453733';
+   else eventCta.href='https://app.acuityscheduling.com/schedule.php?owner=35990507';
+}
+document.getElementById('event-package').addEventListener('change',updateEventLink);
+updateEventLink();
+</script>
+</body>
+</html> 

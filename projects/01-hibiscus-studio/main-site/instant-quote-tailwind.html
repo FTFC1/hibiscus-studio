@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hibiscus Studio – Instant Quote</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Bottom-sheet animation */
+    .sheet{transition:transform .3s ease-in-out}
+    .sheet.closed{transform:translateY(100%)}
+    .sheet.open{transform:translateY(0)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s ease}
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal iframe{width:100%;max-width:420px;height:80vh;border:0;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+
+    /* FAQ accordion – mimic reference */
+    details.faq{border-bottom:1px solid #dcdcdc}
+    summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:#f5f5f5;font-weight:600;font-size:.85rem;letter-spacing:0.05em;text-transform:uppercase;color:#000}
+    summary::-webkit-details-marker{display:none}
+    summary::after{display:none}
+    details.faq[open] summary{background:#fff;border-bottom:1px solid #dcdcdc}
+    details.faq > *:not(summary){background:#ffffff;padding:1rem 1.25rem;font-size:.85rem;line-height:1.5;color:#333}
+  </style>
+</head>
+<body class="bg-white text-neutral-900 font-sans">
+  <!-- Layout Switcher -->
+  <div class="fixed top-4 right-4 z-50 flex gap-2">
+    <button class="layout-btn bg-black text-white text-xs px-3 py-2 rounded data-[active=true]:bg-neutral-700" data-layout="1">Layout&nbsp;1</button>
+    <button class="layout-btn bg-black text-white text-xs px-3 py-2 rounded opacity-70 hover:opacity-100" data-layout="2">Layout&nbsp;2</button>
+    <button class="layout-btn bg-black text-white text-xs px-3 py-2 rounded opacity-70 hover:opacity-100" data-layout="3">Layout&nbsp;3</button>
+  </div>
+
+  <main class="max-w-5xl mx-auto p-4 md:p-8">
+    <h1 class="text-2xl md:text-4xl font-semibold text-center mb-6">Instant Quote</h1>
+    <p class="text-center text-sm text-neutral-600 mb-10">Tap a hire type, pick a package, see price & deposit instantly.</p>
+
+    <!-- LAYOUT 1: two cards stacked grid (current) -->
+    <div id="layout-1" class="layout-section grid gap-6 md:grid-cols-2">
+      <!-- Event Hire Card -->
+      <section class="border rounded-lg p-6 flex flex-col">
+        <h2 class="text-xl font-medium mb-4">Event Hire</h2>
+        <div class="flex-1 flex flex-col">
+          <!-- Desktop select -->
+          <label class="hidden md:block text-sm font-medium mb-2" for="event-package">Choose package</label>
+          <select id="event-package" class="hidden md:block w-full border rounded px-3 py-2 mb-4">
+            <option value="6">Half-Day (6 hrs) – £420</option>
+            <option value="12">Full-Day (12 hrs) – £840</option>
+          </select>
+
+          <!-- Mobile trigger -->
+          <button id="event-trigger" class="md:hidden w-full border rounded px-4 py-3 text-left flex justify-between items-center mb-4">Select package <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="ml-2"><path d="M4 6l4 4 4-4"/></svg></button>
+
+          <div class="text-sm leading-relaxed space-y-2 mb-6">
+            <p>Total Price: <span id="event-total" class="font-semibold">£420</span></p>
+            <p>Damage Deposit: £200</p>
+          </div>
+          <button id="event-cta" class="mt-auto inline-block text-center bg-black text-white rounded-lg py-3 px-6 font-medium">Book Now</button>
+        </div>
+      </section>
+
+      <!-- Content Creation Card (Coming Soon) -->
+      <section class="border rounded-lg p-6 flex flex-col items-center justify-center text-center bg-neutral-50">
+        <h2 class="text-xl font-medium mb-2">Content Creation</h2>
+        <p class="text-sm text-neutral-600 mb-4">Packages launching soon – follow us on Instagram for updates.</p>
+        <button disabled class="opacity-50 cursor-not-allowed bg-neutral-300 text-neutral-600 rounded-lg py-3 px-6 inline-block">Coming Soon</button>
+      </section>
+    </div>
+
+    <!-- FAQ Accordion (Updated) -->
+    <section class="max-w-xl mx-auto mt-12">
+      <h3 class="text-lg font-semibold mb-4">Frequently Asked Questions</h3>
+
+      <!-- ITEM -->
+      <details class="faq border-b border-[#DCDCDC] group">
+        <summary class="flex items-center justify-between bg-[#F5F5F5] px-5 py-4 uppercase tracking-wide font-semibold text-sm text-black cursor-pointer group-open:bg-white">
+          Is parking available?
+          <span class="ml-3 text-xl leading-none select-none group-open:hidden">+</span>
+          <span class="ml-3 text-xl leading-none select-none hidden group-open:inline">−</span>
+        </summary>
+        <p class="px-5 py-4 text-sm text-gray-700 bg-white">
+          30-minute off-loading zone right outside the studio. Paid bays nearby. Parking is free after 6 : 30 PM Monday–Saturday and free all day Sunday.
+        </p>
+      </details>
+
+      <!-- ITEM -->
+      <details class="faq border-b border-[#DCDCDC] group">
+        <summary class="flex items-center justify-between bg-[#F5F5F5] px-5 py-4 uppercase tracking-wide font-semibold text-sm text-black cursor-pointer group-open:bg-white">
+          What's included?
+          <span class="ml-3 text-xl leading-none select-none group-open:hidden">+</span>
+          <span class="ml-3 text-xl leading-none select-none hidden group-open:inline">−</span>
+        </summary>
+        <p class="px-5 py-4 text-sm text-gray-700 bg-white">
+          40 lime-wash Chiavari chairs, 10 tables, full kitchen, Wi-Fi, and toilet access.
+        </p>
+      </details>
+
+      <!-- ITEM -->
+      <details class="faq border-b border-[#DCDCDC] group">
+        <summary class="flex items-center justify-between bg-[#F5F5F5] px-5 py-4 uppercase tracking-wide font-semibold text-sm text-black cursor-pointer group-open:bg-white">
+          How do I secure a date?
+          <span class="ml-3 text-xl leading-none select-none group-open:hidden">+</span>
+          <span class="ml-3 text-xl leading-none select-none hidden group-open:inline">−</span>
+        </summary>
+        <p class="px-5 py-4 text-sm text-gray-700 bg-white">
+          Pay the invoice deposit online – you'll get instant confirmation and a calendar invite.
+        </p>
+      </details>
+    </section>
+    </div><!-- end layout 1 -->
+
+    <!-- LAYOUT 2: three-column desktop (Event | FAQ | Content) -->
+    <div id="layout-2" class="layout-section hidden grid md:grid-cols-3 gap-6">
+      <!-- Event column -->
+      <section class="border rounded-lg p-6 flex flex-col md:col-span-1">
+        <h2 class="text-xl font-medium mb-4">Event Hire</h2>
+        <!-- reuse select trigger etc -->
+        <div class="flex-1 flex flex-col">
+          <label class="text-sm font-medium mb-2" for="event-package-2">Choose package</label>
+          <select id="event-package-2" class="w-full border rounded px-3 py-2 mb-4">
+            <option value="6">Half-Day (6 hrs) – £420</option>
+            <option value="12">Full-Day (12 hrs) – £840</option>
+          </select>
+          <div class="text-sm leading-relaxed space-y-2 mb-6"><p>Total Price: £420</p><p>Damage Deposit: £200</p></div>
+        </div>
+      </section>
+
+      <!-- FAQ middle -->
+      <section class="md:col-span-1 border rounded-lg p-0">
+        <!-- reuse accordion -->
+        <div class="divide-y" id="faq-clone"></div>
+      </section>
+
+      <!-- Coming Soon -->
+      <section class="border rounded-lg p-6 flex flex-col items-center justify-center text-center bg-neutral-50 md:col-span-1">
+        <h2 class="text-xl font-medium mb-2">Content Creation</h2>
+        <p class="text-sm text-neutral-600 mb-4">Packages launching soon.</p>
+        <button disabled class="opacity-50 cursor-not-allowed bg-neutral-300 text-neutral-600 rounded-lg py-3 px-6 inline-block">Coming Soon</button>
+      </section>
+    </div><!-- end layout 2 -->
+
+    <!-- LAYOUT 3: Wide hero style with cards below side-by-side -->
+    <div id="layout-3" class="layout-section hidden flex flex-col">
+      <section class="bg-neutral-100 rounded-lg p-10 text-center mb-10">
+        <h2 class="text-3xl font-semibold mb-4">Instant Quote Calculator</h2>
+        <p class="max-w-2xl mx-auto text-neutral-600">Choose your hire type and get pricing instantly. Book directly without back-and-forth emails.</p>
+      </section>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Event -->
+        <section class="border rounded-lg p-6 flex flex-col md:col-span-2">
+          <h2 class="text-xl font-medium mb-4">Event Hire</h2>
+          <!-- simple content -->
+          <div class="flex-1 flex flex-col">
+            <label class="text-sm font-medium mb-2" for="event-package-3">Choose package</label>
+            <select id="event-package-3" class="w-full border rounded px-3 py-2 mb-4">
+              <option value="6">Half-Day (6 hrs) – £420</option>
+              <option value="12">Full-Day (12 hrs) – £840</option>
+            </select>
+            <div class="text-sm leading-relaxed space-y-2 mb-6"><p>Total Price: £420</p><p>Damage Deposit: £200</p></div>
+          </div>
+        </section>
+        <!-- Content Soon -->
+        <section class="border rounded-lg p-6 flex flex-col items-center justify-center text-center bg-neutral-50 md:col-span-1">
+          <h2 class="text-xl font-medium mb-2">Content Creation</h2>
+          <p class="text-sm text-neutral-600 mb-4">Coming Soon</p>
+          <button disabled class="opacity-50 cursor-not-allowed bg-neutral-300 text-neutral-600 rounded-lg py-3 px-6 inline-block">Stay Tuned</button>
+        </section>
+      </div>
+      <!-- FAQ below full width -->
+      <div class="mt-10" id="faq-clone-2"></div>
+    </div><!-- end layout 3 -->
+  </main>
+
+  <!-- Mobile Bottom Sheet -->
+  <div id="event-sheet" class="sheet closed fixed inset-x-0 bottom-0 bg-white shadow-2xl rounded-t-2xl p-4 space-y-4 md:hidden">
+    <h4 class="text-center font-medium mb-2">Select Package</h4>
+    <button data-val="6" class="sheet-opt w-full border rounded-lg py-3">Half-Day (6 hrs) – £420</button>
+    <button data-val="12" class="sheet-opt w-full border rounded-lg py-3">Full-Day (12 hrs) – £840</button>
+    <button id="event-close" class="w-full bg-neutral-200 rounded-lg py-3">Cancel</button>
+  </div>
+
+  <!-- Acuity Modal -->
+  <div id="acuity-modal" class="modal">
+    <iframe id="acuity-frame" loading="lazy"></iframe>
+  </div>
+
+<script>
+  const sheet=document.getElementById('event-sheet');
+  const trigger=document.getElementById('event-trigger');
+  const closeBtn=document.getElementById('event-close');
+  const opts=document.querySelectorAll('.sheet-opt');
+  const total=document.getElementById('event-total');
+  const cta=document.getElementById('event-cta');
+
+  const links={6:'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536',12:'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79453733'};
+  const prices={6:420,12:840};
+
+  trigger.addEventListener('click',()=>sheet.classList.replace('closed','open'));
+  closeBtn.addEventListener('click',()=>sheet.classList.replace('open','closed'));
+  opts.forEach(btn=>btn.addEventListener('click',()=>{
+      const v=btn.dataset.val;
+      total.textContent=`£${prices[v]}`;
+      cta.href=links[v];
+      trigger.firstChild.textContent=btn.textContent;
+      sheet.classList.replace('open','closed');
+  }));
+  // Desktop select sync
+  document.getElementById('event-package').addEventListener('change',e=>{
+      const v=e.target.value;total.textContent=`£${prices[v]}`;cta.href=links[v];
+  });
+
+  const modal=document.getElementById('acuity-modal');
+  const frame=document.getElementById('acuity-frame');
+
+  function openModal(url){
+    frame.src=url+'?iframe=true';
+    modal.classList.add('open');
+  }
+  function closeModal(){modal.classList.remove('open');frame.src='';}
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+
+  document.getElementById('event-cta').addEventListener('click',()=>openModal(cta.href));
+
+  // layout switching
+  const buttons=document.querySelectorAll('.layout-btn');
+  const sections=document.querySelectorAll('.layout-section');
+  buttons.forEach(btn=>btn.addEventListener('click',()=>{
+     const id=btn.dataset.layout;
+     sections.forEach(sec=>sec.id===`layout-${id}`?sec.classList.remove('hidden'):sec.classList.add('hidden'));
+     buttons.forEach(b=>b.toggleAttribute('data-active',b===btn));
+  }));
+
+  // clone FAQ into other layouts to avoid duplicate html editing
+  const faq=document.querySelector('#layout-1 section:nth-of-type(3)').innerHTML;
+  document.getElementById('faq-clone').innerHTML=faq;
+  document.getElementById('faq-clone-2').innerHTML=faq;
+</script>
+</body>
+</html> 
