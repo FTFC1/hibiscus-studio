@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hibiscus Studio - East London Event Space Rental</title>
-  <meta name="description" content="Studio hire for events, workshops & hourly content shoots. Book Hibiscus Studio for corporate events, creative sessions, and private parties in East London.">
+  <meta name="description" content="Book Hibiscus Studio for corporate events, creative sessions, and private parties. Beautiful event space in East London with full kitchen, 40 chairs, 10 tables.">
   
   <!-- Preload critical resources -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
@@ -138,77 +138,6 @@
         padding-bottom: 120%; /* Slightly taller on mobile for better fit */
       }
     }
-    
-    /* Hire grid and card styles */
-    .hire-grid {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-columns: 1fr;
-    }
-    
-    @media (min-width: 768px) {
-      .hire-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      .hire-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
-    .hire-card {
-      @apply bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 hover-scale;
-    }
-    
-    .hire-card h3 {
-      @apply text-lg font-semibold text-gray-900 dark:text-white mb-2;
-    }
-    
-    .hire-card .price {
-      @apply text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2;
-    }
-    
-    .hire-card .duration {
-      @apply text-sm text-gray-500 dark:text-gray-400 mb-3;
-    }
-    
-    .hire-card .description {
-      @apply text-sm text-gray-600 dark:text-gray-300 mb-4;
-    }
-    
-    .hire-card .book-btn {
-      @apply w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors;
-    }
-    
-    /* Accordion styles for mobile */
-    @media (max-width: 767px) {
-      .hire-section {
-        border: 1px solid #e5e7eb;
-        border-radius: 0.75rem;
-        margin-bottom: 1rem;
-      }
-      
-      .hire-section-header {
-        @apply bg-gray-50 dark:bg-gray-800 p-4 rounded-t-xl cursor-pointer select-none;
-      }
-      
-      .hire-section-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
-      }
-      
-      .hire-section.open .hire-section-content {
-        max-height: 2000px;
-        transition: max-height 0.5s ease-in;
-      }
-      
-      .hire-section.open .hire-section-header {
-        @apply rounded-b-none;
-      }
-    }
   </style>
 </head>
 <body class="bg-white dark:bg-gray-900 transition-colors">
@@ -220,7 +149,7 @@
       <!-- Studio Name & Hook -->
       <div class="space-y-4">
         <h1 class="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">Hibiscus Studio</h1>
-        <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 font-light">Studio hire for events, workshops & hourly content shoots</p>
+        <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 font-light">East London's most versatile event space</p>
         <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Host unforgettable corporate events, creative sessions, and private parties in our beautifully designed studio space.</p>
       </div>
 
@@ -431,197 +360,61 @@
         </div>
       </div>
       
-      <!-- New Hire Options Grid -->
-      <div id="hire" class="text-center mt-12 space-y-8">
-        <div class="max-w-6xl mx-auto">
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Studio Hire Options</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-8">Book directly into our calendar • 50% deposit invoiced within 48h</p>
+      <!-- After watching videos, show pricing -->
+      <div class="text-center mt-12 space-y-6">
+        <div class="max-w-2xl mx-auto">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Ready to Book?</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-8">Choose your package and secure your date with just a £200 deposit</p>
           
-          <!-- Desktop/Tablet Grid -->
-          <div class="hidden md:block">
-            <!-- Event Hire Section -->
-            <div class="mb-12">
-              <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Event Hire</h4>
-              <div class="hire-grid">
-                <div class="hire-card">
-                  <h3>Event Half-Day (10-5)</h3>
-                  <div class="price">£420</div>
-                  <div class="duration">6 hours</div>
-                  <div class="description">Perfect for corporate events and team building sessions. 50% deposit invoiced within 48h.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_HALF_DAY_10_5" class="book-btn">Book Now</a>
-                </div>
-                <div class="hire-card">
-                  <h3>Event Half-Day (5-11)</h3>
-                  <div class="price">£420</div>
-                  <div class="duration">6 hours</div>
-                  <div class="description">Evening events and private parties in a relaxed atmosphere. 50% deposit invoiced within 48h.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_HALF_DAY_5_11" class="book-btn">Book Now</a>
-                </div>
-                <div class="hire-card">
-                  <h3>Event Full-Day (10-10)</h3>
-                  <div class="price">£840</div>
-                  <div class="duration">12 hours</div>
-                  <div class="description">Complete day access for major events and celebrations. 50% deposit invoiced within 48h.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_FULL_DAY" class="book-btn">Book Now</a>
-                </div>
-                <div class="hire-card">
-                  <h3>Event Full-Day + Late (10-11)</h3>
-                  <div class="price">£940</div>
-                  <div class="duration">13 hours</div>
-                  <div class="description">Extended hours with £100 late finish premium. 50% deposit invoiced within 48h.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_FULL_DAY_LATE" class="book-btn">Book Now</a>
+          <!-- Pricing Cards -->
+          <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <!-- Half Day -->
+            <div id="landing-package-half" class="landing-package-option relative cursor-pointer border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 hover-scale shadow-lg" data-package="half">
+              <div class="absolute -top-3 left-6 bg-blue-600 text-white text-sm px-4 py-2 rounded-full font-medium">
+                Most Popular
+              </div>
+              <div class="text-center space-y-3">
+                <h4 class="text-xl font-bold text-gray-900 dark:text-white">Half Day</h4>
+                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£420</div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">6 hours • £70/hour</p>
+                <div class="text-xs text-gray-500 dark:text-gray-400 space-y-1 pt-2">
+                  <div>✓ Tables & chairs for 40</div>
+                  <div>✓ Full kitchen access</div>
+                  <div>✓ High-speed Wi-Fi</div>
                 </div>
               </div>
             </div>
-
-            <!-- Workshops & Content Section -->
-            <div class="mb-12">
-              <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Workshops & Content</h4>
-              <div class="hire-grid">
-                <div class="hire-card">
-                  <h3>Workshop Hourly (Weekdays)</h3>
-                  <div class="price">£70</div>
-                  <div class="duration">1 hour</div>
-                  <div class="description">Perfect for teaching workshops and small group sessions on weekdays.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=WORKSHOP_HOURLY" class="book-btn">Book Now</a>
-                </div>
-                <div class="hire-card">
-                  <h3>Workshop Full-Day (Weekends)</h3>
-                  <div class="price">£840</div>
-                  <div class="duration">12 hours</div>
-                  <div class="description">Weekend-long workshops and intensive training sessions.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=WORKSHOP_FULL_DAY" class="book-btn">Book Now</a>
-                </div>
-                <div class="hire-card">
-                  <h3>Content Weekday/Off-Peak</h3>
-                  <div class="price">£70</div>
-                  <div class="duration">1 hour</div>
-                  <div class="description">Content creation and photo shoots during weekday hours.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=CONTENT_WEEKDAY" class="book-btn">Book Now</a>
-                </div>
-                <div class="hire-card">
-                  <h3>Content Peak Weekend (10-12)</h3>
-                  <div class="price">£70</div>
-                  <div class="duration">1 hour</div>
-                  <div class="description">Weekend morning content creation during peak hours (May-Oct).</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=CONTENT_WEEKEND" class="book-btn">Book Now</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Viewings Section -->
-            <div>
-              <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Viewings</h4>
-              <div class="hire-grid max-w-sm mx-auto">
-                <div class="hire-card">
-                  <h3>Studio Viewing (Tue 2-4)</h3>
-                  <div class="price">Free</div>
-                  <div class="duration">20 minutes</div>
-                  <div class="description">Tuesday afternoon viewings to see the space before booking.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=STUDIO_VIEWING" class="book-btn">Book Now</a>
+            
+            <!-- Full Day -->
+            <div id="landing-package-full" class="landing-package-option cursor-pointer border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg" data-package="full">
+              <div class="text-center space-y-3">
+                <h4 class="text-xl font-bold text-gray-900 dark:text-white">Full Day</h4>
+                <div class="text-3xl font-bold text-gray-900 dark:text-white">£840</div>
+                <p class="text-sm text-green-600 dark:text-green-400 font-medium">Save £280!</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">12 hours • £70/hour</p>
+                <div class="text-xs text-gray-500 dark:text-gray-400 space-y-1 pt-2">
+                  <div>✓ Tables & chairs for 40</div>
+                  <div>✓ Full kitchen access</div>
+                  <div>✓ Extended setup time</div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Mobile Accordion -->
-          <div class="md:hidden space-y-4">
-            <!-- Event Hire -->
-            <div class="hire-section" data-section="events">
-              <div class="hire-section-header flex justify-between items-center">
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Event Hire</h4>
-                <span class="section-toggle text-xl text-gray-500">+</span>
+          
+          <!-- Payment Info & CTA -->
+          <div class="mt-8 space-y-6">
+            <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg p-4 max-w-md mx-auto">
+              <div class="text-amber-800 dark:text-amber-200 font-bold text-base">
+                Pay £200 today • Balance later
               </div>
-              <div class="hire-section-content p-4">
-                <div class="space-y-4">
-                  <div class="hire-card">
-                    <h3>Event Half-Day (10-5)</h3>
-                    <div class="price">£420</div>
-                    <div class="duration">6 hours</div>
-                    <div class="description">Perfect for corporate events and team building sessions. 50% deposit invoiced within 48h.</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_HALF_DAY_10_5" class="book-btn">Book Now</a>
-                  </div>
-                  <div class="hire-card">
-                    <h3>Event Half-Day (5-11)</h3>
-                    <div class="price">£420</div>
-                    <div class="duration">6 hours</div>
-                    <div class="description">Evening events and private parties in a relaxed atmosphere. 50% deposit invoiced within 48h.</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_HALF_DAY_5_11" class="book-btn">Book Now</a>
-                  </div>
-                  <div class="hire-card">
-                    <h3>Event Full-Day (10-10)</h3>
-                    <div class="price">£840</div>
-                    <div class="duration">12 hours</div>
-                    <div class="description">Complete day access for major events and celebrations. 50% deposit invoiced within 48h.</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_FULL_DAY" class="book-btn">Book Now</a>
-                  </div>
-                  <div class="hire-card">
-                    <h3>Event Full-Day + Late (10-11)</h3>
-                    <div class="price">£940</div>
-                    <div class="duration">13 hours</div>
-                    <div class="description">Extended hours with £100 late finish premium. 50% deposit invoiced within 48h.</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=EVENT_FULL_DAY_LATE" class="book-btn">Book Now</a>
-                  </div>
-                </div>
+              <div class="text-xs text-amber-700 dark:text-amber-300 mt-1">
+                Fully refundable if cancelled 48hrs+ in advance
               </div>
             </div>
-
-            <!-- Workshops & Content -->
-            <div class="hire-section" data-section="workshops">
-              <div class="hire-section-header flex justify-between items-center">
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Workshops & Content</h4>
-                <span class="section-toggle text-xl text-gray-500">+</span>
-              </div>
-              <div class="hire-section-content p-4">
-                <div class="space-y-4">
-                  <div class="hire-card">
-                    <h3>Workshop Hourly (Weekdays)</h3>
-                    <div class="price">£70</div>
-                    <div class="duration">1 hour</div>
-                    <div class="description">Perfect for teaching workshops and small group sessions on weekdays.</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=WORKSHOP_HOURLY" class="book-btn">Book Now</a>
-                  </div>
-                  <div class="hire-card">
-                    <h3>Workshop Full-Day (Weekends)</h3>
-                    <div class="price">£840</div>
-                    <div class="duration">12 hours</div>
-                    <div class="description">Weekend-long workshops and intensive training sessions.</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=WORKSHOP_FULL_DAY" class="book-btn">Book Now</a>
-                  </div>
-                  <div class="hire-card">
-                    <h3>Content Weekday/Off-Peak</h3>
-                    <div class="price">£70</div>
-                    <div class="duration">1 hour</div>
-                    <div class="description">Content creation and photo shoots during weekday hours.</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=CONTENT_WEEKDAY" class="book-btn">Book Now</a>
-                  </div>
-                  <div class="hire-card">
-                    <h3>Content Peak Weekend (10-12)</h3>
-                    <div class="price">£70</div>
-                    <div class="duration">1 hour</div>
-                    <div class="description">Weekend morning content creation during peak hours (May-Oct).</div>
-                    <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=CONTENT_WEEKEND" class="book-btn">Book Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Viewings -->
-            <div class="hire-section" data-section="viewings">
-              <div class="hire-section-header flex justify-between items-center">
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Viewings</h4>
-                <span class="section-toggle text-xl text-gray-500">+</span>
-              </div>
-              <div class="hire-section-content p-4">
-                <div class="hire-card">
-                  <h3>Studio Viewing (Tue 2-4)</h3>
-                  <div class="price">Free</div>
-                  <div class="duration">20 minutes</div>
-                  <div class="description">Tuesday afternoon viewings to see the space before booking.</div>
-                  <a href="https://acuityscheduling.com/schedule.php?owner=35990507&appointmentType=STUDIO_VIEWING" class="book-btn">Book Now</a>
-                </div>
-              </div>
-            </div>
+            
+            <a href="instant-quote-v2.html" class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 hover-scale shadow-lg hover:shadow-xl">
+              Book Your Event
+            </a>
           </div>
         </div>
       </div>
@@ -662,8 +455,8 @@
       
       <!-- Secondary CTA -->
       <div class="mt-12 fade-in">
-        <a href="#hire" class="inline-block bg-black dark:bg-white text-white dark:text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors hover-scale">
-          View Hire Options
+        <a href="instant-quote-v2.html" class="inline-block bg-black dark:bg-white text-white dark:text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors hover-scale">
+          Check Availability
         </a>
       </div>
     </div>
@@ -681,7 +474,7 @@
             How do I secure my date?
             <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
           </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Book directly into our calendar through the hire options above. A 50% deposit will be invoiced within 48 hours to secure your date.</p>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Pick a package, choose an available slot in the calendar, and pay the £200 deposit. Your date is instantly locked in.</p>
         </details>
 
         <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
@@ -729,7 +522,7 @@
 
   <!-- Sticky mobile CTA -->
   <div class="mobile-sticky-cta md:hidden fixed bottom-4 inset-x-0 flex justify-center z-50 px-4 opacity-0 pointer-events-none transition-opacity duration-300">
-            <a href="#hire" class="flex-1 bg-black dark:bg-white text-white dark:text-black text-center py-4 rounded-xl font-semibold shadow-lg hover:opacity-90 transition">View Hire Options</a>
+    <a href="instant-quote-v2.html" class="flex-1 bg-black dark:bg-white text-white dark:text-black text-center py-4 rounded-xl font-semibold shadow-lg hover:opacity-90 transition">Book Your Event</a>
   </div>
 
   <script>
@@ -836,38 +629,5 @@
     }
   </script>
 
-  <script>
-    // Mobile accordion functionality for hire sections
-    document.addEventListener('DOMContentLoaded', function() {
-      const sections = document.querySelectorAll('.hire-section');
-      
-      sections.forEach(section => {
-        const header = section.querySelector('.hire-section-header');
-        const content = section.querySelector('.hire-section-content');
-        const toggle = section.querySelector('.section-toggle');
-        
-        header.addEventListener('click', function() {
-          const isOpen = section.classList.contains('open');
-          
-          // Close all other sections
-          sections.forEach(otherSection => {
-            if (otherSection !== section) {
-              otherSection.classList.remove('open');
-              otherSection.querySelector('.section-toggle').textContent = '+';
-            }
-          });
-          
-          // Toggle current section
-          if (isOpen) {
-            section.classList.remove('open');
-            toggle.textContent = '+';
-          } else {
-            section.classList.add('open');
-            toggle.textContent = '−';
-          }
-        });
-      });
-    });
-  </script>
-  </body>
+</body>
 </html> 
