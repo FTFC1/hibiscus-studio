@@ -47,4 +47,16 @@ dev-debug.log
 # OS specific
 # Task files
 tasks.json
-tasks/ 
+tasks/
+
+# Hidden by user request
+pdf_reader_env/
+config/
+tests/
+extracted_prices.json
+LICENSE
+mcp-server-trello.code-workspace
+mise.toml
+package-lock.json
+package.json
+read_pdf_prices.py 
