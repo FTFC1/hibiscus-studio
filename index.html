@@ -167,7 +167,7 @@
         <div class="flex flex-col items-center space-y-3 hover-lift">
           <div class="w-18 h-18 bg-blue-100 dark:bg-blue-600/20 text-blue-600 dark:text-blue-300 rounded-full flex items-center justify-center shadow-sm">
             <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20 6H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H4V8h16v8z"/>
+              <path d="M20 6H4c-1.1 0-2 .9-2 2v8c0 1.11.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H4V8h16v8z"/>
             </svg>
           </div>
           <span class="font-medium text-center">10 tables</span>
@@ -225,137 +225,24 @@
         </div>
       </div>
 
-      <!-- Primary CTA with Scroll Indicator -->
-      <div class="space-y-6">
-        <button onclick="smoothScrollToSpace()" class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 hover-scale shadow-lg hover:shadow-xl">
-          See the Space
-        </button>
+      <!-- Primary CTA -->
+      <div class="space-y-4">
+        <a href="#hire" class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 hover-scale shadow-lg hover:shadow-xl">
+          View Booking Options
+        </a>
         <p class="text-base text-gray-500 dark:text-gray-400">
-          Watch our virtual tour and real events
+          8 flexible booking options • Book directly • 50% deposit invoiced within 48h
         </p>
-        
-        <!-- Desktop Scroll Indicator -->
-        <div class="hidden md:flex flex-col items-center space-y-2 text-gray-400 dark:text-gray-500 animate-bounce">
-          <span class="text-sm font-medium">Scroll to explore</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
-        </div>
-        
-        <!-- Mobile Swipe Indicator -->
-        <div class="md:hidden flex flex-col items-center space-y-2 text-gray-400 dark:text-gray-500">
-          <span class="text-sm font-medium">Tap to see videos below</span>
-          <div class="flex space-x-1">
-            <div class="w-2 h-2 bg-gray-300 rounded-full animate-pulse"></div>
-            <div class="w-2 h-2 bg-gray-300 rounded-full animate-pulse delay-75"></div>
-            <div class="w-2 h-2 bg-gray-300 rounded-full animate-pulse delay-150"></div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
   
-  <!-- Virtual Tour Section -->
-  <section id="see-space" class="py-16 bg-white dark:bg-gray-900">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-12 fade-in">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">See the Space</h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Watch our virtual tour and real events in action</p>
-      </div>
-      
-      <!-- Mobile-First Video Carousel -->
-      <div class="relative mb-8">
-        <!-- Mobile: Swipeable Carousel -->
-        <div class="md:hidden">
-          <div id="mobile-video-container" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide space-x-4 pb-4">
-            <!-- Video 1: Virtual Tour -->
-            <div class="min-w-[85vw] snap-center">
-              <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
-                <div class="relative aspect-[9/16] max-h-[70vh]">
-                  <iframe 
-                    src="https://www.youtube.com/embed/CmL7jAPwrm0?autoplay=1&mute=1&loop=1&playlist=CmL7jAPwrm0&controls=0&modestbranding=1&rel=0&disablekb=1"
-                    allow="autoplay; encrypted-media"
-                    class="w-full h-full"
-                    style="pointer-events: none;">
-                  </iframe>
-                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-                    <h3 class="text-white font-semibold text-lg">Virtual Tour</h3>
-                    <p class="text-white/80 text-sm">See the full space layout</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Video 2: Birthday Event -->
-            <div class="min-w-[85vw] snap-center">
-              <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
-                <div class="relative aspect-[9/16] max-h-[70vh]">
-                  <iframe 
-                    src="https://www.youtube.com/embed/9iFztw87Gic?autoplay=1&mute=1&loop=1&playlist=9iFztw87Gic&controls=0&modestbranding=1&rel=0&disablekb=1"
-                    allow="autoplay; encrypted-media"
-                    class="w-full h-full"
-                    style="pointer-events: none;">
-                  </iframe>
-                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-                    <h3 class="text-white font-semibold text-lg">Birthday Event</h3>
-                    <p class="text-white/80 text-sm">Real celebration in action</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Mobile Carousel Indicators -->
-          <div class="flex justify-center space-x-2 mt-4">
-            <div class="w-2 h-2 rounded-full bg-blue-600 transition-all duration-300" id="indicator-0"></div>
-            <div class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all duration-300" id="indicator-1"></div>
-          </div>
-        </div>
-        
-        <!-- Desktop: Responsive Grid -->
-        <div class="hidden md:grid md:grid-cols-1 lg:grid-cols-2 gap-8">
-          <!-- Video 1: Virtual Tour -->
-          <div class="space-y-4">
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover-scale">
-              <div class="aspect-[16/9] lg:aspect-[4/5]">
-                <iframe 
-                  src="https://www.youtube.com/embed/CmL7jAPwrm0?autoplay=1&mute=1&loop=1&playlist=CmL7jAPwrm0&controls=0&modestbranding=1&rel=0&disablekb=1"
-                  allow="autoplay; encrypted-media"
-                  class="w-full h-full"
-                  style="pointer-events: none;">
-                </iframe>
-              </div>
-            </div>
-            <div class="text-center">
-              <h3 class="font-semibold text-gray-900 dark:text-white text-lg">Virtual Tour</h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">See the full space layout</p>
-            </div>
-          </div>
-          
-          <!-- Video 2: Birthday Event -->
-          <div class="space-y-4">
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover-scale">
-              <div class="aspect-[16/9] lg:aspect-[4/5]">
-                <iframe 
-                  src="https://www.youtube.com/embed/9iFztw87Gic?autoplay=1&mute=1&loop=1&playlist=9iFztw87Gic&controls=0&modestbranding=1&rel=0&disablekb=1"
-                  allow="autoplay; encrypted-media"
-                  class="w-full h-full"
-                  style="pointer-events: none;">
-                </iframe>
-              </div>
-            </div>
-            <div class="text-center">
-              <h3 class="font-semibold text-gray-900 dark:text-white text-lg">Birthday Event</h3>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">Real celebration in action</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Enhanced Social Media Section -->
+  <!-- Social Media Section -->
+  <section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-4xl mx-auto px-4">
       <div class="text-center space-y-6">
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 max-w-md mx-auto">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Follow Our Journey</h3>
+        <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md mx-auto shadow-lg">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-6">Follow Our Journey</h3>
           <div class="flex justify-center gap-8">
             <a href="https://www.instagram.com/hibiscusstudiosuk" target="_blank" class="flex flex-col items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors group">
               <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -377,144 +264,185 @@
           <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">Behind-the-scenes content & event inspiration</p>
         </div>
       </div>
+    </div>
+  </section>
       
-      <!-- Studio Hire Options -->
+      <!-- Studio Hire Options with Progressive Disclosure -->
       <div id="hire" class="text-center mt-12 space-y-8">
-        <div class="max-w-6xl mx-auto">
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Studio Hire Options</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-8">Book directly into our calendar • 50% deposit invoiced within 48h</p>
+        <div class="max-w-4xl mx-auto">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">What would you like to book?</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-8">Choose your category below • Book directly • 50% deposit invoiced within 48h</p>
           
-                      <!-- Event Hire Section -->
-            <div class="mb-12">
-              <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Event Hire</h4>
-              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Event Half-Day (10-5 / 5-11) -->
-                <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                  <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Half-Day</h5>
-                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10-5 / 5-11)</p>
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£420</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for corporate events, workshops, and private parties.</p>
-                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79362536')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                      Book Now
-                    </button>
-                  </div>
+          <!-- Category Selection (Progressive Disclosure Step 1) -->
+          <div id="categorySelection" class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-8 px-4 md:px-0">
+            <!-- Studio Viewing Category - FIRST (Direct booking) -->
+            <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164274/calendar/12260380')" class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
+              <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-2xl flex items-center justify-center mx-auto">
+                <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+              <h4 class="text-xl font-bold text-gray-900 dark:text-white">Studio Viewing</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">See the space before booking</p>
+              <div class="text-sm font-medium text-green-600 dark:text-green-400">Free • 20 mins • Tues 2-4</div>
+            </button>
+            
+            <!-- Event Hire Category - SECOND -->
+            <button onclick="showCategory('event')" class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
+              <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center mx-auto">
+                <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <h4 class="text-xl font-bold text-gray-900 dark:text-white">Event Hire</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Corporate events, private parties & celebrations</p>
+              <div class="text-sm font-medium text-blue-600 dark:text-blue-400">£420 - £940</div>
+            </button>
+            
+            <!-- Workshops & Content Category - THIRD -->
+            <button onclick="showCategory('workshop')" class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
+              <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-2xl flex items-center justify-center mx-auto">
+                <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                </svg>
+              </div>
+              <h4 class="text-xl font-bold text-gray-900 dark:text-white">Workshops & Content</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Teaching workshops & content creation</p>
+              <div class="text-sm font-medium text-purple-600 dark:text-purple-400">£70 - £840</div>
+            </button>
+          </div>
+          
+                    <!-- Detailed Options (Progressive Disclosure Step 2) -->
+          <!-- Event Hire Options -->
+          <div id="eventOptions" class="category-options hidden px-4 md:px-0">
+            <div class="mb-6 flex items-center justify-between">
+              <h4 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Event Hire Options</h4>
+              <button onclick="showCategories()" class="flex items-center space-x-1 md:space-x-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
+                <svg class="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span class="hidden sm:inline">Back to categories</span>
+                <span class="sm:hidden">Back</span>
+              </button>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <!-- Event Half-Day -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Half-Day</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10-5 / 5-11)</p>
+                  <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£420</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for corporate events, workshops, and private parties.</p>
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79362536')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
                 </div>
-                
-                <!-- Event Full-Day (10AM-10PM) -->
-                <div class="relative border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
+              </div>
+              
+              <!-- Event Full-Day (Most Popular) -->
+              <div class="relative border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
               <div class="absolute -top-3 left-6 bg-blue-600 text-white text-sm px-4 py-2 rounded-full font-medium">
                 Most Popular
               </div>
               <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day</h5>
-                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£840</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Complete day access for major events and celebrations.</p>
-                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                      Book Now
-                    </button>
-                  </div>
-                </div>
-                
-                <!-- Event Full-Day + Late Finish (10AM-11PM) -->
-                <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                  <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day + Late</h5>
-                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-11PM)</p>
-                    <div class="text-2xl font-bold text-gray-900 dark:text-white">£940</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">13 hours</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Extended hours with £100 late finish premium.</p>
-                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80167908/calendar/12355763')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                      Book Now
-                    </button>
-                  </div>
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
+                  <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£840</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Complete day access for major events and celebrations.</p>
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
                 </div>
               </div>
-            </div>
-
-                      <!-- Workshops & Content Section -->
-            <div class="mb-12">
-              <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Workshops & Content</h4>
-              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Workshop Hourly (Weekdays) -->
-                <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                  <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Hourly</h5>
-                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Weekdays)</p>
-                    <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£70</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for teaching workshops and small group sessions on weekdays.</p>
-                                      <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163988/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                    Book Now
-                  </button>
-                  </div>
-                </div>
-                
-                <!-- Workshop Full-Day (Weekends) -->
-                <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                  <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Full-Day</h5>
-                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Weekends 10AM-10PM)</p>
-                    <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£840</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Weekend-long workshops and intensive training sessions.</p>
-                                      <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                    Book Now
-                  </button>
-                  </div>
-                </div>
-                
-                <!-- Content Weekday/Off-Peak -->
-                <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                  <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Creation</h5>
-                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Weekday/Off-Peak)</p>
-                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">£70</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Content creation and photo shoots during weekday hours.</p>
-                                      <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80162472')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                    Book Now
-                  </button>
-                  </div>
-                </div>
-                
-                <!-- Content Peak Weekend (10-12) -->
-                <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                  <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Creation</h5>
-                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Peak Weekend 10-12)</p>
-                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">£70</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Weekend morning content creation during peak hours (May-Oct).</p>
-                                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                  Book Now
-                </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          <!-- Viewings Section -->
-          <div class="mb-12">
-            <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Studio Viewings</h4>
-            <div class="max-w-sm mx-auto">
+              
+              <!-- Event Full-Day + Late -->
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-              <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Studio Viewing</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Tues 2-4)</p>
-                  <div class="text-2xl font-bold text-gray-600 dark:text-gray-400">Free</div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">20 minutes</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Tuesday afternoon viewings to see the space before booking.</p>
-                                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164274/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                  Book Now
-                </button>
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day + Late</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-11PM)</p>
+                  <div class="text-2xl font-bold text-gray-900 dark:text-white">£940</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">13 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Extended hours with £100 late finish premium.</p>
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80167908/calendar/12355763')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Workshop & Content Options -->
+          <div id="workshopOptions" class="category-options hidden px-4 md:px-0">
+            <div class="mb-6 flex items-center justify-between">
+              <h4 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Workshops & Content Creation</h4>
+              <button onclick="showCategories()" class="flex items-center space-x-1 md:space-x-2 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors">
+                <svg class="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span class="hidden sm:inline">Back to categories</span>
+                <span class="sm:hidden">Back</span>
+              </button>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              <!-- Workshop Hourly -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Hourly</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Weekdays)</p>
+                  <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£70</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for teaching workshops and small group sessions on weekdays.</p>
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163988/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Workshop Full-Day -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Full-Day</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Weekends 10AM-10PM)</p>
+                  <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£840</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Weekend-long workshops and intensive training sessions.</p>
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Content Weekday -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Creation</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Weekday/Off-Peak)</p>
+                  <div class="text-2xl font-bold text-green-600 dark:text-green-400">£70</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Content creation and photo shoots during weekday hours.</p>
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80162472')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Content Peak Weekend -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Creation</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Peak Weekend 10-12)</p>
+                  <div class="text-2xl font-bold text-green-600 dark:text-green-400">£70</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Weekend morning content creation during peak hours (May-Oct).</p>
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
+                </div>
+              </div>
+            </div>
           
           <!-- Payment Info -->
           <div class="mt-8 space-y-6">
@@ -541,7 +469,9 @@
         <!-- Corporate left -->
         <div class="space-y-3 fade-in hover-lift flex flex-col items-center text-center">
           <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto">
-            <span class="text-2xl">💼</span>
+            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
           </div>
           <h3 class="font-semibold text-gray-900 dark:text-white">Corporate Events</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm">Meetings, workshops, and team building</p>
@@ -549,7 +479,9 @@
         <!-- Creative centre -->
         <div class="space-y-3 fade-in hover-lift flex flex-col items-center text-center">
           <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto">
-            <span class="text-2xl">🎨</span>
+            <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </svg>
           </div>
           <h3 class="font-semibold text-gray-900 dark:text-white">Creative Sessions</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm">Workshops, classes, and artistic projects</p>
@@ -557,7 +489,9 @@
         <!-- Private right -->
         <div class="space-y-3 fade-in hover-lift flex flex-col items-center text-center">
           <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto">
-            <span class="text-2xl">🎉</span>
+            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
           </div>
           <h3 class="font-semibold text-gray-900 dark:text-white">Private Parties</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm">Birthdays, celebrations, and social gatherings</p>
@@ -660,16 +594,62 @@
       </div>
       
       <!-- Modal Content -->
-      <div class="h-[calc(90vh-80px)]">
-        <iframe id="bookingFrame" src="" class="w-full h-full rounded-b-2xl" frameborder="0"></iframe>
+      <div class="h-[calc(90vh-80px)] relative">
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900 rounded-b-2xl">
+          <div class="flex flex-col items-center space-y-4">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Loading booking calendar...</p>
+          </div>
+        </div>
+        <iframe id="bookingFrame" src="" class="w-full h-full rounded-b-2xl opacity-0 transition-opacity duration-300" frameborder="0"></iframe>
       </div>
     </div>
   </div>
 
   <script>
-    // Smooth scroll to space section
-    function smoothScrollToSpace() {
-      document.getElementById('see-space').scrollIntoView({ 
+    // Progressive Disclosure Functions - Updated for direct Studio Viewing
+    function showCategory(category) {
+      // Hide category selection
+      const categorySelection = document.getElementById('categorySelection');
+      if (categorySelection) {
+        categorySelection.style.display = 'none';
+      }
+      
+      // Get category option divs (only event and workshop now)
+      const eventOptions = document.getElementById('eventOptions');
+      const workshopOptions = document.getElementById('workshopOptions');
+      
+      // Hide all options first
+      if (eventOptions) eventOptions.classList.add('hidden');
+      if (workshopOptions) workshopOptions.classList.add('hidden');
+      
+      // Show the selected category
+      if (category === 'event' && eventOptions) {
+        eventOptions.classList.remove('hidden');
+      } else if (category === 'workshop' && workshopOptions) {
+        workshopOptions.classList.remove('hidden');
+      }
+    }
+    
+    function showCategories() {
+      // Show category selection
+      const categorySelection = document.getElementById('categorySelection');
+      if (categorySelection) {
+        categorySelection.style.display = 'grid';
+      }
+      
+      // Hide category options (only event and workshop now)
+      const eventOptions = document.getElementById('eventOptions');
+      const workshopOptions = document.getElementById('workshopOptions');
+      
+      if (eventOptions) eventOptions.classList.add('hidden');
+      if (workshopOptions) workshopOptions.classList.add('hidden');
+    }
+    
+    // Updated smooth scroll function
+    function smoothScrollToHire() {
+      document.getElementById('hire').scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
@@ -679,16 +659,33 @@
     function openBookingModal(url) {
       const modal = document.getElementById('bookingModal');
       const iframe = document.getElementById('bookingFrame');
-      iframe.src = url;
+      const spinner = document.getElementById('loadingSpinner');
+      
+      // Show modal and loading spinner
       modal.classList.remove('hidden');
+      spinner.classList.remove('hidden');
+      iframe.classList.add('opacity-0');
       document.body.style.overflow = 'hidden';
+      
+      // Load iframe
+      iframe.src = url;
+      
+      // Hide spinner when iframe loads
+      iframe.onload = function() {
+        spinner.classList.add('hidden');
+        iframe.classList.remove('opacity-0');
+      };
     }
 
     function closeBookingModal() {
       const modal = document.getElementById('bookingModal');
       const iframe = document.getElementById('bookingFrame');
+      const spinner = document.getElementById('loadingSpinner');
+      
       modal.classList.add('hidden');
       iframe.src = '';
+      iframe.classList.add('opacity-0');
+      spinner.classList.remove('hidden');
       document.body.style.overflow = 'auto';
     }
 
@@ -705,6 +702,8 @@
         closeBookingModal();
       }
     });
+
+
   </script>
 
   <script>
