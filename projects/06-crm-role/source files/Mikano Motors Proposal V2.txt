@@ -1,0 +1,460 @@
+                                                
+
+                                     
+
+
+                           Proposal Subject: Natej DMS 
+                                                            
+                           Submitted on:  07/06/2023 
+
+                            
+
+
+Prepared For
+Mikano Motors 
+       
+  Attention
+  Mr. Toni
+                                    Table of Contents 
+                                                
+1.  Statement of Confidentiality & Non-Disclosure ............................................................................ 3 
+2.  Executive Summary ......................................................................................................................... 4 
+3.  Natejsoft Background ..................................................................................................................... 5 
+  3.1   Natejsoft Mission: ....................................................................................................................... 5 
+  3.2   Services and Products: ............................................................................................................... 5 
+4.  Proposed Solution ........................................................................................................................... 6 
+  4.1   Resolution Coverage Matrix ....................................................................................................... 6 
+  4.2   Immediate Impact analysis ......................................................................................................... 6 
+  4.3   Installation Base Plan ................................................................................................................. 6 
+  4.4   Installation Execution Plan ......................................................................................................... 6 
+5.  Why Choose Natejsoft? .................................................................................................................. 7 
+6.  Implementation Plan ........................................................................................................................ 8 
+  6.1   Mapping ...................................................................................................................................... 8 
+  6.2   Gap Analysis ............................................................................................................................... 8 
+  6.3   Customization (This phase is dependent on the agreement terms). .......................................... 8 
+  6.4   Process design ......................................................................................................................... 8 
+  6.5   Simulation ................................................................................................................................... 8 
+  6.6   Training ....................................................................................................................................... 8 
+  6.7   Pilot session (optional phase) ..................................................................................................... 8 
+  6.8   Go life ......................................................................................................................................... 8 
+7.  Financials ......................................................................................................................................... 9 
+  7.1   Products Cost ............................................................................................................................. 9 
+  7.2   Price Conditions.......................................................................................................................... 9 
+  7.3   Payments Terms....................................................................................................................... 10 
+  7.4   Number of users ....................................................................................................................... 10 
+  7.5   Maintenance .................................................................................................................................  
+8.  Warranty and Support ................................................................................................................... 10 
+  8.1   Warranty ................................................................................................................................... 10 
+  8.2   Support ..................................................................................................................................... 10 
+  8.3   Hours of Availability .................................................................................................................. 10 
+  8.4   Severity Level 1 Problem .......................................................................................................... 10 
+  8.5   Maintenance ............................................................................................................................. 10 
+9.  Conclusion ..................................................................................................................................... 11 
+ 
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                          Page 2 
+1.   Statement of Confidentiality & Non-Disclosure 
+ 
+ 
+This document contains proprietary and confidential information. All data submitted to Mikano Motors is 
+provided in reliance upon its consent not to use or disclose any information contained herein except in 
+the context of its business dealings with Natejsoft. The recipient of this document agrees to inform 
+present and future employees of Mikano Motors who view or have access to the content of its 
+confidential nature. 
+ 
+The recipient agrees to instruct each employee that they must not disclose any information concerning 
+this document to others except to the extent that such matters are generally known to, and are 
+available for use by, the public. The recipient also agrees not to duplicate or distribute or permit others 
+to duplicate or distribute any material contained herein without Natejsoft's express written consent. 
+ 
+Natejsoft retains all title, ownership, and intellectual property rights to the material and trademarks 
+contained herein, including all supporting documentation, files, marketing material, and multimedia. 
+ 
+BY ACCEPTANCE OF THIS DOCUMENT, THE RECIPIENT AGREES TO BE BOUND BY THE 
+AFOREMENTIONED STATEMENT. 
+ 
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                          Page 3 
+2.   Executive Summary 
+ 
+ 
+Natejsoft is pleased to present Mikano Motors with this proposal for the Natejsoft ERP project. We 
+understand the problems that lead to the need for research that Mikano Motors is faced with and 
+recognize the unique opportunity to resolve all problems and meet the needs and ability to develop in 
+the current business and to upgrade them. We believe that the current market is in it's in the process 
+Of growth and prosperity stage and that we are uniquely positioned to make a successful story. 
+ 
+Having duly examined your requirements, we are confident that our proposed (Natejsoft Methodology) 
+will effectively address your needs. Our goal consults to access a unique success story by Natejsoft 
+methodology and our solutions and to complete this by good time, for a total cost of fear cost. By 
+implementing our strategy and solution, Mikano Motors will: 
+ 
+      ❑  Start with the project without the complexity and several requirements.  
+
+      ❑  Benefit from past experiences that have been dealt with high professionalism.  
+
+      ❑  Engage in the work environment quickly and without hindrance. 
+
+      ❑  The benefit of the experience of the staff is characterized by the comprehensiveness of 
+      information.  
+ 
+Our unique ability to implement, train, consult, develop andation our successful track record in all of the 
+business sections makes us an enviable partner in this project. We look forward to forming a mutually 
+rewarding relationship with Mikano Motors. 
+ 
+ 
+ 
+ 
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                          Page 4 
+3.  Natejsoft Background 
+ 
+ 
+Natejsoft (Natej for information technology) offers since 1999 experience as a premier software vendor! 
+With a little over 800 clients, Natejsoft is a leader in the world of software, serving Jordan and the 
+middle-east region. 
+ 
+Natejsoft has developed and implemented complex business solutions in the most simplified way 
+possible for customers. We come in as consultants; we understand the needs of your business and 
+help you in finding out a solution that helps you maximize revenues / minimize costs. Our experienced 
+and skilled team of project managers, programmers, and quality experts then helps you in the technical 
+implementation of the same in a cost-effective and timely manner. 
+ 
+    3.1 Natejsoft Mission: 
+Natejsoft’s mission is to develop and provide the most advanced, integrated software solutions and 
+services to its clients in the most easily implemented 
+way. Working with a range of ERPs, Natejsoft’s software is designed to coordinate its client’s complete 
+set of resources, information, and activities within one 
+holistic system, contributing substantially to their productivity, efficiency, and profitability. 
+ 
+    3.2 Services and Solutions: 
+ 
+ 
+ 
+ 
+               ERP System 
+             
+ 
+ 
+               Gas Stations Solutions 
+ 
+ 
+ 
+               E Solutions 
+ 
+ 
+ 
+               Mobility Solutions 
+ 
+ 
+               RFID Solutions 
+ 
+ 
+               Hardware & Networking 
+ 
+ 
+ 
+ 
+                               
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                          Page 5 
+4.  Proposed Solution 
+ 
+
+    4.1 Resolution Coverage Matrix 
+Natejsoft is proposing a solution fulfilling the gap between the NOW and the TO-BE state through the 
+deployment  of  our state-of-the-art NATEJSOFT ™ enterprise  resource  planning  system  and/or  any 
+particular module(s) therein. The proposed solution is divided into segments each covering an aspect or 
+a problematic issue. 
+ 
+
+    4.2 Immediate Impact analysis  
+NATEJSOFT™     encompasses   – business process intelligence – Meaning that the software was built 
+around business,  therefore,  Business  Process  Re-engineering – which  binds  the organization to the 
+software – is not required (in national standards i.e. (TQM), it is recommended) and the resulted impact 
+is the better overall management of the organization’s procedural routes with access to data based on 
+delegations as well as precise analysis of any bottle-necks currently facing the organization(s). Saving 
+costs  when  searching,  querying, or  even  reporting  is  eliminated  through  a  quick  interface  searching 
+volumes of data in a breeze a norm to the company.   
+
+    4.3  Installation Base Plan  
+The following software(s) shall be furnished at the installation time  
+    -  Oracle database engine  
+    -  User interface (either desktop/web-enabled or both – discuss with sales)  
+    -  All reporting utilities (customized) are oracle components, therefore. No additional 
+       frameworks/runtimes/redistributable is required 
+ 
+
+    4.4 Installation Execution Plan 
+Once a contract is in effect, a team consisting of a project manager, ERP consultant, senior software 
+developer, and a database developer to successfully deploy on-site and provide the training necessary 
+for (power users and general users alike) – at times, the quality auditing department may stop by and 
+collect quality service information.  
+Standard installation is usually furnished in less than [180] working days upon contract approval (this 
+time frame includes training as well). 
+    
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                          Page 6 
+5.  Why Choose Natejsoft? 
+ 
+ 
+Natejsoft, as the anagram in its name aims to suggest is a leading provider of advanced software for 
+information technology, with more than 10 years of experience in the field and a robust group of clients 
+to show for its success to date. Through the continuous provision of truly innovative and cutting-edge 
+technologies, Natejsoft has overcome its fair share of challenges since its inception. This, we strongly 
+believe, has been the result of our conviction: that to succeed within a fiercely competitive sector, both 
+at home and abroad, our software solutions must deliver the binary of reliable, advanced knowledge and 
+technology with user accessibility and implementation. Herein lays our strongest comparative advantage. 
+ 
+Headquartered in Amman, Jordan, Natejsoft regards itself as the country’s pioneering, premier software 
+provider,  furnishing  clients  with  comprehensive,  yet  customizable  packages  to  suit  their  every  need. 
+Natejsoft’s product portfolio spans an entire spectrum of Enterprise Resource Planning Systems (ERPs) 
+and Customer Relationship Management (CRM) solutions, alongside more customized, specialized 
+solutions such as school and car maintenance centers management. Natejsoft also prides itself on its 
+ability  to  provide  highly  customized solutions,  specifically tailored  to  its  client’s  needs  and  daily 
+operations. 
+ 
+The  expertise  behind  these systems  is  derived from  our  pool  of  highly  qualified technicians,  system 
+developers, and specialized experts in system analysis, as well as through the valuable feedback we 
+receive from our loyal client base. 
+ 
+We  realize  that  the  complex  business  environment  of  today  imperatively  demands  equally  complex 
+business structures, and we adeptly provide systems to match company-specific requirements. Since its 
+early  beginnings  in  1999, Natejsoft has  experienced  a  significantly  steep  growth  curve,  posting 
+substantial sales and revenue figures, as well as considerable increases in the number of clients it caters 
+to and the sectors in which it operates. In response, our team of developers, system analysts, sales 
+team, and customer care personnel have also grown in parallel with our success. Our methodology of 
+operation has proven to be instrumental to our successes. We enter the equation as consultants and 
+commit  to  thoroughly  understanding  the  needs  of  our  clients  and  the  intricacies  of  their  day-to-day 
+demands. Thereafter, our team of highly specialized project managers, developers, and experts come 
+together  to tailor specific solutions to suit their needs in a manner that positively contributes  to their 
+revenues and significantly minimizes overall costs. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                               
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                          Page 7 
+6.  Implementation Plan 
+ 
+ 
+    6.1  Mapping  
+In this phase we will understand the way your organization work, our consultants will perform site visits to your different locations 
+and  meet  with  your  key  users  to  understand  your  business  requirements  and  your  business  processes,  this  will  help  us  to 
+understand your business environment better and put the road map of how can we help you to improve your business according 
+to the best practice and through using our ERP system. 
+ 
+The result of this phase is a document that describes the present situation; this document is called the "Mapping Document". 
+ 
+By taking your approval on this document, this phase will end and a new phase will come next. 
+ 
+    6.2  Gap Analysis 
+In this phase, our consultants will create the gap analysis document; this document will describe the gaps between your present 
+system and your new ERP system, by approving this document you will give us the green light to move to the next phase. 
+ 
+    6.3  Customization (This phase is dependent on the agreement terms). 
+As a result of the Gap analysis phase we may need to make customizations, together the Natejsoft project manager and client 
+project manager are the only persons who are authorized to agree on doing customizations. 
+ 
+Natejsoft will create a document containing prototypes with full business details, this document is called "To Be Document", by 
+taking approval on this document from the client project manager the development of the design will begin, immediately after the 
+client approval on this document Natejsoft project manager will deliver a deadline to complete the customizations. 
+ 
+After  completing  and  delivering  the  required  customization  successfully,  approval from  the  client  project  manager  should  be 
+obtained to move to the next phase.  
+ 
+    6.4  Process design 
+During the build, the design is set into action. All implementation decisions and all processes that have been developed and verified 
+during design are adapted to physically construct the system. 
+ 
+Also, we will use your sample data which you will provide to us according to our template to complete this phase. 
+ 
+This phase will be only inside our offices, you can see the result of this phase only in the next phase. 
+ 
+    6.5  Simulation  
+After completing all of the previous phases, we will execute the simulation phase, in this phase, we will perform a full functionality 
+for the system, and this will be the final step before training. 
+ 
+By taking approval on this phase from the client project manager and the key users, this phase will be completed. 
+ 
+    6.6  Training  
+In this phase, the Natejsoft project manager will agree with the client project manager on the detailed training schedule, never to 
+mention that the training schedule dates will be already defined in the previously delivered project plan. 
+ 
+By  obtaining  the  approval  of the client  project  manager  on  the  training  schedule, Natejsoft will  start  the  training  phase,  after 
+completing this phase, the client project manager will give Natejsoft project manager his approval on the training completion. 
+ 
+Through training sessions, the users will learn how can they create all of the necessary data for going life, example: opening 
+balances, Natejsoft project  manager  will  request  a  deadline  from the client  project  manager  to  complete  all  of  the  short  and 
+necessary data such as opening balances to be ready for going live.  
+ 
+By the end of this phase, Natejsoft will have no tasks to perform. 
+ 
+    6.7  Pilot session (optional phase) 
+This phase is a preparation to the go life, all users will set in one room and start making transactions on a test environment to make 
+sure that everybody understands his role and to see the flow of data, managers will give orders to their staff and staff will execute 
+this orders on the system. 
+ 
+    6.8  Go live 
+Natejsoft consultants will be on the client site only to give support and to handle any unexpected problems, this phase is 
+complete the client project manager and users’ responsibility. 
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                                       Page 8 
+7. Financials 
+ 
+                     Module Name                       Users       Amount 
+ E-commerce (website and application)                            28,000.00 
+                              Total                              28,000.00 
+                                      Twenty-Eight thousand Dollars. 
+   7.1 Products Cost 
+ 
+                     Module Name                       Users       Amount 
+ General Ledger 
+ Cash & Cheques 
+ Account Receivable/Payable
+ Fixed Asset
+ Budgets
+ Planning and Recruitment
+ Human Resources
+ Training and Development
+ Payroll Systems
+ Time Attendance
+ Job application 
+ Employees Self-Service Portal                                         
+ Employees Self-Service Application                                    
+ Warehouses                                                            
+ Purchases                                                             
+ Sales & Marketing                                                     
+ Fleet Management                                    Unlimited   140,000.00 
+ Tasks Management
+ Maintenance Management
+ Automotive Dealers Management System
+    •  CRM 
+    •  Purchases 
+    •  Sales 
+    •  After Sales Service 
+    •   Warehouses 
+ Customer Self Service -Mobile application 
+ Customer Self Service -Portal site
+ Smart work shop application (Customize)
+                              Total                              140,000.00 
+                            Discount                             15,000.00 
+                              Net                                125,000.00 
+                                      One hundred twenty-five thousand Dollars. 
+ 
+ 
+   7.2  Price Conditions 
+•  The price indicated is in the dollar Currency and free of taxes.  
+•  The offer prices are valid until 2 weeks from the proposal date. 
+ 
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                        Page 9 
+ 
+    7.3  Payments Terms 
+ 
+The payment will be as the following table (as suggested) 
+ Payment     Percentage                              Event 
+     1        52,100.00    upon approving and signing the agreement 
+     2        18,225.00    Upon setup and installation. 
+     3        18,225.00    Finished the customization. 
+     4        18,225.00    Finished training. 
+     5        18,225.00    Accept and go live. 
+ 
+    7.4  Number of users 
+Natej ERP gives you an unlimited number of users without any extra fees. 
+ 
+        
+    7.5 Maintenance 
+After the warranty period, the cost of maintenance is 20% (per year) of the total Natej ERP cost, and it is paid 
+start of the maintenance year. 
+Warranty and Support 
+ 
+ 
+    7.6 Warranty 
+Upon successful installation and acceptance of the system, Natejsoft will extend a warranty period of 
+12 months for ERP Solution. 
+
+ 
+
+    7.7 Support 
+Natejsoft will provide Mikano Motors with a phone number and Email address to report Severity Level 1 
+problems (described in the section below) and Natejsoft will provide a return telephone call/Email within 
+24 hours during the hours of availability defined in section 4.1.2 below. In return, Mikano Motors’s will 
+provide detailed descriptions of errors and access to the system if needed. 
+
+    7.8 Hours of Availability 
+The hours of availability for second-level support are from 8:30 am to 6:00 pm Sunday through 
+Thursday Amman time all year long except for the Month of Ramadan where working hours are 
+reduced to 6 hours a day. 
+
+    7.9 Severity Level 1 Problem 
+The Warranty will cover Severity Level 1 problems, identified as follows: 
+    ❑  The solution hangs, aborts, is inoperable, or Mikano Motors is unable to perform essential 
+       business functions using the solution, or 
+    ❑  There is unrecoverable data loss, or 
+    ❑  The solution executes instructions but incorrect results are encountered. 
+
+
+ 
+    7.10        Maintenance 
+If requested by Mikano Motors, Natejsoft will extend maintenance services upon the completion of the 
+Warranty period. A special agreement will be developed for Maintenance costs and terms. 
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                         Page 10 
+8.  Conclusion 
+ 
+ 
+Natejsoft is confident that our proposed ERP strategy will supply all our solution’s benefits. We 
+sincerely hope that Mikano Motors will consider us as a long-term partner and allow us to enter into a 
+mutually beneficial relationship. We are available to answer any questions you may have and look 
+forward to discussing this opportunity further. 
+ 
+After reviewing this document, the following steps should be performed to come to a final agreement.  
+ 
+- Submission of questions/suggestions 
+- A counter-proposal or approval by Mikano Motors   
+- Negotiation of fees, terms, clauses, and conditions 
+ 
+We declare this offer to be binding and free of errors or omissions. Due diligence has been performed 
+to ensure compliance with your requirements and particular situation. We agree to hold our proposal 
+open for acceptance at any time. 
+  
+Thank you for your interest. 
+ 
+Sincerely, 
+ 
+ 
+ 
+
+
+Natej ERP SYSTEM prepared by Natej for information technology 
+                                                                                         Page 11 

@@ -383,3 +383,13 @@ This file is a live index of all raw materials, research, and historical context
 - inputs/context-dumps/nigerian head office research claude.txt
 - inputs/context-dumps/operations inventory.txt
 - inputs/context-dumps/massive chat slightly older.txt
+- inputs/project-files/01-hibiscus-studio/README.md
+- inputs/project-files/01-hibiscus-studio/STATUS.md
+- inputs/project-files/01-hibiscus-studio/gmail-management-instructions.md
+- inputs/project-files/04-fitness/README.md
+- inputs/project-files/04-fitness/STATUS.md
+- inputs/project-files/05-personal-development/README.md
+- inputs/project-files/05-personal-development/STATUS.md
+- inputs/project-files/05-personal-development/my-tool-stack.md
+- inputs/project-files/06-crm-role/README.md
+- inputs/project-files/07-ad-hoc/README.md

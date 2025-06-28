@@ -13845,15 +13845,3 @@ Ready to test the improvements! The site should now be much faster, more emotion
 
 ---
 
-_**User**_
-
-But first lets delploy this to github pages ( ONLY THE LANDING PAGE AND BOOKING WE HAVE BEEN WORKING ON, NOT THE WHOLE PROJECT HERE ) 
-
----
-
-_**Assistant**_
-
-
-
----
-

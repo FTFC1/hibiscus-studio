@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vehicle Dispatch Report Generator{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dark.css', v=time.time()) }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <!-- Global Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo"><a href="/" style="text-decoration:none;color:inherit;">Mikano Motors Operations</a></div>
+                <div class="nav-links">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">Login</a>
+                        <a href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Flash messages -->
+    <div class="container" style="margin-top:20px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

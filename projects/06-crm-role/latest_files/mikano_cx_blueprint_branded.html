@@ -40,6 +40,354 @@
             padding: 0 20px;
         }
 
+        /* ========== PRINT MEDIA STYLES ========== */
+        @media print {
+            /* Page setup and size */
+            @page {
+                size: A4;
+                margin: 15mm 15mm 20mm 15mm;
+            }
+
+            /* Fix page break issues and black lines */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                break-inside: avoid-page;
+            }
+
+            /* Body and container adjustments for print */
+            body {
+                font-size: 12pt;
+                line-height: 1.4;
+                background: white !important;
+                color: black !important;
+            }
+
+            .container {
+                max-width: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* Cover page handling */
+            .cover-page {
+                break-after: page;
+                min-height: 100vh;
+                background: var(--mikano-red) !important;
+                color: white !important;
+            }
+
+            /* Section and content break management */
+            .section {
+                break-inside: avoid-page;
+                margin: 1rem 0;
+                padding: 0;
+            }
+
+            .section-header {
+                break-after: avoid-page;
+                font-size: 16pt;
+                margin-bottom: 0.5rem;
+                padding-bottom: 0.3rem;
+            }
+
+            /* Card handling for print */
+            .card {
+                break-inside: avoid-page;
+                margin-bottom: 0.8rem;
+                padding: 0.8rem;
+                border: 1px solid var(--mikano-gray-300) !important;
+                background: white !important;
+                box-shadow: none !important;
+            }
+
+            /* Strategic positioning for tables */
+            .table-container {
+                break-inside: avoid-page;
+                margin: 0.5rem 0;
+            }
+
+            table {
+                break-inside: auto;
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                break-inside: avoid-page;
+                padding: 0.3rem;
+                border: 1px solid var(--mikano-gray-300) !important;
+                font-size: 10pt;
+                line-height: 1.2;
+            }
+
+            th {
+                background: var(--mikano-gray-100) !important;
+                font-weight: 600;
+            }
+
+            /* Customer Journey Maps - ensure borders are consistent */
+            .customer-journey-container {
+                break-inside: avoid-page;
+                border: 1px solid var(--mikano-gray-300) !important;
+                margin-bottom: 1rem;
+                background: #f8f9fa !important;
+            }
+
+            .customer-journey-header {
+                background: white !important;
+                border-bottom: 1px solid var(--mikano-gray-300) !important;
+                padding: 1rem;
+            }
+
+            .journey-stage {
+                break-inside: avoid-page;
+                background: white !important;
+                border: 1px solid var(--mikano-gray-300) !important;
+                margin: 0.3rem;
+                padding: 0.8rem;
+            }
+
+            /* Grid layout adjustments for print */
+            .grid-layout {
+                display: block !important;
+            }
+
+            .grid-layout > * {
+                display: block !important;
+                width: 100% !important;
+                margin-bottom: 0.5rem;
+            }
+
+            /* KPI cards - ensure 2x2 layout works in print */
+            .kpi-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.5rem !important;
+                max-width: none !important;
+            }
+
+            /* Commission models - fix mobile stacking */
+            .commission-models {
+                break-inside: avoid-page;
+            }
+
+            .commission-model {
+                break-inside: avoid-page;
+                margin-bottom: 0.8rem;
+                width: 100% !important;
+                display: block !important;
+            }
+
+            /* Handle orphans and widows */
+            p, li {
+                orphans: 3;
+                widows: 3;
+                break-inside: avoid-page;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                break-after: avoid-page;
+                break-inside: avoid-page;
+                orphans: 3;
+                widows: 3;
+            }
+
+            /* Lists and content flow */
+            ul, ol {
+                break-inside: auto;
+            }
+
+            li {
+                break-inside: avoid-page;
+            }
+
+            /* System architecture boxes */
+            .system-box {
+                break-inside: avoid-page;
+                background: white !important;
+                border: 1px solid var(--mikano-gray-300) !important;
+                margin-bottom: 0.5rem;
+                padding: 0.8rem;
+            }
+
+            /* Executive summary handling */
+            .executive-summary {
+                break-inside: avoid-page;
+                background: white !important;
+                border: 2px solid var(--mikano-blue) !important;
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .executive-summary .grid-layout {
+                display: block !important;
+            }
+
+            .executive-summary .card {
+                margin-bottom: 0.8rem;
+                background: white !important;
+                border: 1px solid var(--mikano-gray-200) !important;
+            }
+
+            /* Hide interactive elements */
+            .hover-effect,
+            .transition-effect {
+                transition: none !important;
+                transform: none !important;
+            }
+
+            /* Ensure borders are visible */
+            .card.critical {
+                border-top: 3px solid var(--mikano-red) !important;
+            }
+
+            .card.strategic {
+                border-top: 3px solid var(--mikano-blue) !important;
+            }
+
+            /* Fix gradient backgrounds for print */
+            .gradient-bg {
+                background: white !important;
+                border: 2px solid var(--mikano-blue) !important;
+            }
+
+            /* Footer handling */
+            .footer {
+                break-before: auto;
+                margin-top: 2rem;
+                background: var(--mikano-gray-900) !important;
+                color: white !important;
+                padding: 1rem;
+            }
+
+            /* Force page breaks for major sections */
+            .major-section {
+                break-before: page;
+            }
+
+            /* Avoid breaking these elements */
+            .avoid-break {
+                break-inside: avoid-page !important;
+            }
+
+            /* Ensure consistent spacing */
+            .print-spacing {
+                margin: 0.5rem 0 !important;
+                padding: 0.3rem 0 !important;
+            }
+        }
+
+        /* ========== MOBILE RESPONSIVE STYLES ========== */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .section-header {
+                font-size: 1.8rem;
+            }
+
+            /* Grid layout mobile fixes */
+            .grid-layout {
+                display: block !important;
+            }
+
+            .grid-layout > * {
+                margin-bottom: 1rem;
+            }
+
+            /* Commission models mobile stacking */
+            .commission-models-grid {
+                display: block !important;
+            }
+
+            .commission-model {
+                margin-bottom: 1rem;
+                width: 100% !important;
+            }
+
+            /* Customer journey mobile */
+            .journey-stages {
+                display: block !important;
+            }
+
+            .journey-stage {
+                margin-bottom: 0.8rem;
+            }
+
+            /* KPI mobile - stack instead of 2x2 */
+            .kpi-grid {
+                display: block !important;
+            }
+
+            .kpi-card {
+                margin-bottom: 1rem;
+            }
+
+            /* Executive summary mobile */
+            .executive-summary .grid-layout {
+                display: block !important;
+            }
+
+            .executive-summary .card {
+                margin-bottom: 1rem;
+            }
+
+            /* System boxes mobile */
+            .system-level {
+                flex-direction: column !important;
+                gap: 1rem !important;
+            }
+
+            .system-box {
+                min-height: auto !important;
+            }
+
+            /* Tables mobile */
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                min-width: 600px;
+            }
+
+            th, td {
+                padding: 0.5rem;
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .section-header {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+
+            th, td {
+                padding: 0.3rem;
+                font-size: 12px;
+            }
+
+            .cover-title {
+                font-size: 2rem !important;
+            }
+
+            .cover-subtitle {
+                font-size: 1rem !important;
+            }
+        }
+
         /* Cover Page */
         .cover-page {
             min-height: 100vh;
@@ -243,25 +591,19 @@
         }
 
         .card.critical { 
-            border-top: 3px solid var(--mikano-red);
+            border-top: 3px solid var(--mikano-red) !important;
         }
         
         .card.strategic { 
-            border-top: 3px solid var(--mikano-blue);
+            border-top: 3px solid var(--mikano-blue) !important;
         }
-        
+
         .card.elevated {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-        
-        .card.minimal {
-            background: var(--mikano-gray-100);
-            border: 1px solid var(--mikano-gray-300);
-            box-shadow: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
         .card-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--mikano-gray-900);
             margin-bottom: 1rem;
@@ -272,12 +614,33 @@
             line-height: 1.6;
         }
 
+        .card-content h4 {
+            color: var(--mikano-gray-900);
+            margin: 1.5rem 0 0.8rem;
+            font-weight: 600;
+        }
+
+        .card-content h5 {
+            color: var(--mikano-blue);
+            margin: 1rem 0 0.5rem;
+            font-weight: 600;
+        }
+
+        .card-content ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
         /* Tables */
         .table-container {
             overflow-x: auto;
             margin: 2rem 0;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--mikano-gray-300);
+            border-radius: 4px;
         }
 
         table {
@@ -286,91 +649,252 @@
             background: white;
         }
 
-        table.primary thead th {
-            background: var(--mikano-red);
-            color: white;
-        }
-
-        table.secondary thead th {
-            background: var(--mikano-gray-700);
-            color: white;
-        }
-
-        table.tertiary thead th {
-            background: var(--mikano-blue);
-            color: white;
+        table.secondary th {
+            background: var(--mikano-gray-100);
+            color: var(--mikano-gray-700);
         }
 
         th, td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid var(--mikano-gray-300);
+            border-bottom: 1px solid var(--mikano-gray-200);
         }
 
         th {
             font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            background: var(--mikano-gray-50);
+            color: var(--mikano-gray-900);
         }
 
-        td {
-            font-size: 0.9rem;
+        /* Business Capabilities and Implementation Timeline - Mobile Responsive */
+        .capabilities-grid,
+        .timeline-phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .capability-item,
+        .timeline-phase {
+            background: white;
+            border: 1px solid var(--mikano-gray-300);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .capability-item:hover,
+        .timeline-phase:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .capability-icon,
+        .phase-number {
+            width: 60px;
+            height: 60px;
+            background: var(--mikano-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .capability-icon.blue,
+        .phase-number.blue {
+            background: var(--mikano-blue);
+        }
+
+        .capability-title,
+        .phase-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--mikano-gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .capability-description,
+        .phase-description {
             color: var(--mikano-gray-700);
+            line-height: 1.6;
         }
 
-        tbody tr:hover {
-            background: var(--mikano-gray-100);
+        /* Implementation Timeline */
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
         }
 
-        /* Responsive */
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--mikano-red) 0%, var(--mikano-blue) 50%, var(--mikano-gray-300) 100%);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .timeline-phases {
+            position: relative;
+            z-index: 2;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Responsive Design Updates */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .cover-meta {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .system-level {
-                flex-direction: column;
-            }
-
-            .system-arrow {
-                transform: rotate(90deg);
-            }
-
-            .phases-grid {
+            .capabilities-grid,
+            .timeline-phases {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
-            .section {
+            .timeline-line {
+                display: none;
+            }
+        }
+
+        /* Commission Models Mobile Fix */
+        .commission-models {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .commission-model {
+            background: white;
+            border: 1px solid var(--mikano-gray-300);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .commission-models {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+        }
+
+        /* Customer Journey Classes */
+        .customer-journey-container {
+            border: 1px solid var(--mikano-gray-300);
+            border-radius: 4px;
+            background: #f8f9fa;
+            margin-bottom: 1.5rem;
+        }
+
+        .customer-journey-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--mikano-gray-300);
+            background: white;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .journey-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .journey-stage {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border: 1px solid var(--mikano-gray-300);
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* KPI Grid Classes */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .kpi-card {
+            /* Already covered by .card class */
+        }
+
+        /* Executive Summary Classes */
+        .executive-summary {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid var(--mikano-blue);
+            padding: 3rem 2rem;
+            margin: 3rem 0 0;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .executive-summary .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Utility Classes */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .avoid-break {
+            break-inside: avoid;
+        }
+
+        .print-spacing {
+            margin: 1rem 0;
+        }
+
+        /* Final Mobile Responsive Overrides */
+        @media (max-width: 768px) {
+            .journey-stages {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.8rem;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+
+            .executive-summary {
+                padding: 2rem 1rem;
                 margin: 2rem 0;
             }
 
-            .section-header {
-                font-size: 1.5rem;
-            }
-
-            .card {
-                padding: 1.5rem;
+            .executive-summary .grid-layout {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
             }
         }
 
-        /* Print Styles */
-        @media print {
-            .cover-page {
-                page-break-after: always;
+        @media (max-width: 480px) {
+            .journey-stages {
+                grid-template-columns: 1fr !important;
             }
-            
-            .section {
-                page-break-inside: avoid;
+
+            .journey-stage {
+                padding: 1rem;
             }
-            
-            .card {
-                page-break-inside: avoid;
+
+            .journey-stage h4 {
+                font-size: 0.9rem;
+            }
+
+            .journey-stage p {
+                font-size: 0.8rem !important;
             }
         }
     </style>
@@ -616,7 +1140,7 @@
         <div class="section">
             <div class="section-header">Pilot Success Metrics</div>
             <div class="section-intro">
-                The Motors Division pilot will be considered successful if we achieve all targets by Week 12.
+                The Motors Division pilot will be considered successful if we achieve all targets by Week 12 of the pilot (12 weeks from launch).
             </div>
 
             <div class="table-container">
@@ -800,13 +1324,13 @@
                     <div class="card-title">2-Person Split</div>
                     <div class="card-content">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
-                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-blue);">
-                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Relationship Builder</h4>
+                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
+                                <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.5rem; font-size: 0.95rem;">Relationship Builder</h4>
                                 <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">40%</div>
-                                <p style="font-size: 0.85rem; margin: 0;">Started conversation</p>
+                                <p style="font-size: 0.85rem; margin: 0;">Started conversation (applies to all deals)</p>
                             </div>
-                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-red);">
-                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.5rem; font-size: 0.95rem;">Deal Closer</h4>
+                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
+                                <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.5rem; font-size: 0.95rem;">Deal Closer</h4>
                                 <div style="font-size: 1.8rem; font-weight: 700; color: var(--mikano-red); margin: 0.5rem 0;">60%</div>
                                 <p style="font-size: 0.85rem; margin: 0;">Final negotiations</p>
                             </div>
@@ -820,18 +1344,18 @@
                     <div class="card-title">3-Person Split</div>
                     <div class="card-content">
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; margin-top: 1rem;">
-                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-blue);">
-                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.3rem; font-size: 0.85rem;">Builder</h4>
+                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
+                                <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.3rem; font-size: 0.85rem;">Builder</h4>
                                 <div style="font-size: 1.5rem; font-weight: 700; color: var(--mikano-red); margin: 0.3rem 0;">30%</div>
-                                <p style="font-size: 0.75rem; margin: 0;">Started</p>
+                                <p style="font-size: 0.75rem; margin: 0;">Started (applies to all deals)</p>
                             </div>
-                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-gray-600);">
-                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.3rem; font-size: 0.85rem;">Facilitator</h4>
+                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
+                                <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.3rem; font-size: 0.85rem;">Facilitator</h4>
                                 <div style="font-size: 1.5rem; font-weight: 700; color: var(--mikano-blue); margin: 0.3rem 0;">15%</div>
                                 <p style="font-size: 0.75rem; margin: 0;">Coordinated</p>
                             </div>
-                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 2px solid var(--mikano-red);">
-                                <h4 style="color: var(--mikano-blue); margin-bottom: 0.3rem; font-size: 0.85rem;">Closer</h4>
+                            <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 4px; text-align: center; border: 1px solid var(--mikano-gray-300);">
+                                <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.3rem; font-size: 0.85rem;">Closer</h4>
                                 <div style="font-size: 1.5rem; font-weight: 700; color: var(--mikano-red); margin: 0.3rem 0;">55%</div>
                                 <p style="font-size: 0.75rem; margin: 0;">Closed</p>
                             </div>
@@ -850,8 +1374,8 @@
                         <h4 style="color: var(--mikano-blue); margin-bottom: 1rem; font-size: 1.1rem;">Universal Rules</h4>
                         <div style="display: grid; gap: 0.8rem;">
                             <p style="margin: 0; font-weight: 600;"><strong>Time Decay:</strong> After 18 months of no activity, relationship builder's share drops to 0%</p>
-                            <p style="margin: 0;"><strong>Minimum Threshold:</strong> ₦15M deals only</p>
-                            <p style="margin: 0;"><strong>Employment Rule:</strong> Must be employed when deal closes</p>
+                            <p style="margin: 0;"><strong>Minimum Threshold:</strong> ₦15M per deal/transaction</p>
+                            <p style="margin: 0;"><strong>Employment Rule:</strong> Must be employed when deal closes (including notice period)</p>
                         </div>
                     </div>
 
@@ -908,26 +1432,28 @@
                 Division-specific improvements targeting the biggest pain points in each customer journey.
             </div>
             
-            <div class="card">
-                <div class="card-title">Motors Division</div>
-                <div class="card-content">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300);">
+            <div class="customer-journey-container">
+                <div class="customer-journey-header">
+                    <h3 style="margin: 0; font-size: 1.2rem; font-weight: 600; color: var(--mikano-gray-800);">Motors Division</h3>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <div class="journey-stages" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div class="journey-stage">
                             <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">1. AWARENESS</h4>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Price Focus</p>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Show Value & Awards</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300);">
+                        <div class="journey-stage">
                             <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">2. PURCHASE</h4>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Slow Process</p>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">12hr Reply & Checklist</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300);">
+                        <div class="journey-stage">
                             <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">3. ONBOARDING</h4>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Handover Process</p>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Delivery Checklist</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300);">
+                        <div class="journey-stage">
                             <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">4. LOYALTY</h4>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Cost Transparency</p>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Upfront Quotes</p>
@@ -936,57 +1462,61 @@
                 </div>
             </div>
 
-                                        <div class="card">
-                <div class="card-title">Power Division</div>
-                <div class="card-content">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300);">
+            <div style="border: 1px solid var(--mikano-gray-300); border-radius: 4px; background: #f8f9fa; margin-bottom: 1.5rem;">
+                <div style="padding: 1.5rem; border-bottom: 1px solid var(--mikano-gray-300); background: white; border-radius: 4px 4px 0 0;">
+                    <h3 style="margin: 0; font-size: 1.2rem; font-weight: 600; color: var(--mikano-gray-800);">Power Division</h3>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                             <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">1. LEAD GEN</h4>
                             <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Lost/Delayed Leads</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">4hr Response & Specialist</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">4hr Business Response & Specialist</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">2. QUALIFICATION</h4>
-                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Misunderstood Needs</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Standard Checklist</p>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">2. QUALIFICATION</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Misunderstood Needs</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Standard Checklist</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">3. PROPOSAL</h4>
-                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Stalled Talks</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Log All Points</p>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">3. PROPOSAL</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Stalled Talks</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Log All Points</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">4. DELIVERY</h4>
-                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Handover Process</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Schedule 1st Maintenance</p>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">4. DELIVERY</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Handover Process</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Schedule 1st Maintenance</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-title">Medical Division</div>
-                <div class="card-content">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">1. DISTRIBUTOR ID</h4>
-                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: No Clear List</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Target List in Excel</p>
+            <div style="border: 1px solid var(--mikano-gray-300); border-radius: 4px; background: #f8f9fa; margin-bottom: 1.5rem;">
+                <div style="padding: 1.5rem; border-bottom: 1px solid var(--mikano-gray-300); background: white; border-radius: 4px 4px 0 0;">
+                    <h3 style="margin: 0; font-size: 1.2rem; font-weight: 600; color: var(--mikano-gray-800);">Medical Division</h3>
+                </div>
+                <div style="padding: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">1. DISTRIBUTOR ID</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: No Clear List</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Target List in Excel</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">2. ONBOARDING</h4>
-                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Info Gaps</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Onboarding Kit</p>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">2. ONBOARDING</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Info Gaps</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Onboarding Kit</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">3. MANAGEMENT</h4>
-                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Review Process</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Data-Driven Reviews</p>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">3. MANAGEMENT</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Review Process</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Data-Driven Reviews</p>
                         </div>
-                        <div style="text-align: center; padding: 1.5rem; background: white; border: 1px solid var(--mikano-gray-300); border-top: 3px solid var(--mikano-red);">
-                            <h4 style="color: var(--mikano-red); margin-bottom: 0.8rem; font-weight: 600;">4. SUPPORT</h4>
-                            <p style="font-size: 0.9rem; color: var(--mikano-red-dark); margin-bottom: 0.5rem;">Challenge: Feedback Loops</p>
-                            <p style="font-size: 0.9rem; color: var(--mikano-blue); font-weight: 600;">Clear Quality Process</p>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h4 style="color: var(--mikano-gray-700); margin-bottom: 0.8rem; font-weight: 600;">4. SUPPORT</h4>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-600); margin-bottom: 0.5rem;">Challenge: Feedback Loops</p>
+                            <p style="font-size: 0.9rem; color: var(--mikano-gray-700); font-weight: 600;">Clear Quality Process</p>
                         </div>
                     </div>
                 </div>
@@ -1000,8 +1530,8 @@
                 Specific, measurable targets for each division that directly impact revenue growth.
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
-                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 800px; margin: 0 auto;">
+                <div class="card">
                     <div class="card-title">Motors Division</div>
                     <div class="card-content">
                         <ul style="list-style: none; padding: 0;">
@@ -1012,18 +1542,18 @@
                     </div>
                 </div>
                 
-                <div class="card" style="border-top: 3px solid var(--mikano-blue);">
+                <div class="card">
                     <div class="card-title">Power Division</div>
                     <div class="card-content">
                         <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><strong>Lead Response Time:</strong> <4 Hours</li>
+                            <li style="margin-bottom: 0.5rem;"><strong>Lead Response Time:</strong> <4 Business Hours</li>
                             <li style="margin-bottom: 0.5rem;"><strong>Proposal Win Rate:</strong> >35%</li>
                             <li><strong>Sales Cycle Length:</strong> <90 Days</li>
                         </ul>
                     </div>
                 </div>
                 
-                <div class="card" style="border-top: 3px solid var(--mikano-red);">
+                <div class="card">
                     <div class="card-title">Medical Division</div>
                     <div class="card-content">
                         <ul style="list-style: none; padding: 0;">
@@ -1033,10 +1563,8 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            
-            <div style="max-width: 400px; margin: 0 auto;">
-                <div class="card" style="border-top: 3px solid var(--mikano-blue);">
+                
+                <div class="card">
                     <div class="card-title">GRAS Restaurant & Cube 65</div>
                     <div class="card-content">
                         <ul style="list-style: none; padding: 0;">
@@ -1092,7 +1620,7 @@
                         <ol style="margin-left: 1rem;">
                             <li><strong>Search First</strong> - Check before creating</li>
                             <li><strong>Standard Naming</strong> - Use official company names</li>
-                            <li><strong>Data Stewards</strong> - One person owns quality per division</li>
+                            <li><strong>Data Stewards</strong> - One person owns quality per division (appointed by Head of Division/Manager by agreement)</li>
                         </ol>
                     </div>
                 </div>
@@ -1203,6 +1731,21 @@
                             <td><strong>Process</strong></td>
                             <td>How do we handle unassigned/orphan accounts?</td>
                             <td>Prevent ownership conflicts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Process</strong></td>
+                            <td>Who manages missed 4-hour response target and escalation process?</td>
+                            <td>Need clear accountability for service standards</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technology</strong></td>
+                            <td>Who builds Microsoft Form and when? What specific fields needed?</td>
+                            <td>Critical for data input structure (Product & BI team to build)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technology</strong></td>
+                            <td>When/how does ERP export integration happen? What triggers it?</td>
+                            <td>To be decided by ERP team - timing affects pilot design</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1331,7 +1874,7 @@
 
         <!-- Footer -->
         <div style="background: var(--mikano-gray-900); color: white; text-align: center; padding: 2rem; margin: 3rem -20px 0; font-size: 0.9rem;">
-            <div style="margin-bottom: 0.5rem;">Document Version: 1.0 | Last Updated: June 2025</div>
+            <div style="margin-bottom: 0.5rem;">Document Version: 1.1 | Last Updated: 26 June 2025</div>
             <div>© Mikano International Limited</div>
         </div>
     </div>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigerian Industrial Gas Sales Automation Framework</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.4;
+        }
+        
+        .framework-container {
+            width: 1200px;
+            height: 900px;
+            margin: 0 auto;
+            padding: 60px;
+            position: relative;
+            background: #ffffff;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #6b7280;
+            font-weight: 400;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .kpi-item {
+            text-align: center;
+        }
+        
+        .kpi-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+        
+        .kpi-label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stages-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .stage {
+            position: relative;
+        }
+        
+        .stage-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            line-height: 32px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            border-radius: 50%;
+        }
+        
+        .stage-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        
+        .stage-items {
+            list-style: none;
+        }
+        
+        .stage-items li {
+            font-size: 13px;
+            color: #4b5563;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 12px;
+        }
+        
+        .stage-items li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #9ca3af;
+        }
+        
+        .flow-arrows {
+            position: absolute;
+            top: 420px;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+        }
+        
+        .arrow {
+            position: absolute;
+            height: 2px;
+            background: #e5e7eb;
+            top: 0;
+        }
+        
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: -3px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid #e5e7eb;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+        
+        .arrow:nth-child(1) { left: 23%; width: 27%; }
+        .arrow:nth-child(2) { left: 48%; width: 27%; }
+        .arrow:nth-child(3) { left: 73%; width: 27%; }
+        
+        .continuous-learning {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 480px;
+            width: 400px;
+            text-align: center;
+        }
+        
+        .learning-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        
+        .learning-items {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.6;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .learning-items span {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .market-context {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+            right: 60px;
+        }
+        
+        .context-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .context-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 13px;
+        }
+        
+        .context-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .context-item {
+            display: flex;
+            justify-content: space-between;
+            color: #4b5563;
+            padding: 0 5px;
+            max-width: 400px;
+        }
+        
+        .context-label {
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .context-value {
+            color: #1a1a1a;
+            font-weight: 600;
+            text-align: right;
+            flex: 0 0 auto;
+            margin-left: 20px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #f3f4f6;
+            margin: 40px 0 30px 0;
+        }
+        
+        .principles {
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="framework-container">
+        <div class="header">
+            <h1 class="title">Nigerian Industrial Gas Sales Automation Framework</h1>
+            <p class="subtitle">₦1tn Revenue Target • 1000 Companies • 400 Annual Contracts</p>
+        </div>
+        
+        <div class="kpi-grid">
+            <div class="kpi-item">
+                <div class="kpi-value">₦1tn</div>
+                <div class="kpi-label">Revenue Target</div>
+            </div>
+            <div class="kpi-item">
+                <div class="kpi-value">400</div>
+                <div class="kpi-label">Annual Contracts</div>
+            </div>
+            <div class="kpi-item">
+                <div class="kpi-value">₦4bn</div>
+                <div class="kpi-label">Average Deal</div>
+            </div>
+            <div class="kpi-item">
+                <div class="kpi-value">30%</div>
+                <div class="kpi-label">Market Penetration</div>
+            </div>
+        </div>
+        
+        <div class="stages-container">
+            <div class="stage">
+                <div class="stage-number">1</div>
+                <h3 class="stage-title">Discovery</h3>
+                <ul class="stage-items">
+                    <li>1000 Companies</li>
+                    <li>₦500m+ Power Costs</li>
+                    <li>Web Scraping, Data Cleaning</li>
+                    <li>85% Accuracy, 70% Coverage</li>
+                </ul>
+            </div>
+            
+            <div class="stage">
+                <div class="stage-number">2</div>
+                <h3 class="stage-title">Champion Mapping</h3>
+                <ul class="stage-items">
+                    <li>3-5 Contacts/Company</li>
+                    <li>Middle Management</li>
+                    <li>LinkedIn Automation</li>
+                    <li>80% Validity, 85% Accuracy</li>
+                </ul>
+            </div>
+            
+            <div class="stage">
+                <div class="stage-number">3</div>
+                <h3 class="stage-title">Deep Research</h3>
+                <ul class="stage-items">
+                    <li>8-Hour Research</li>
+                    <li>Psychology & Persuasion</li>
+                    <li>News Monitoring, AI Analysis</li>
+                    <li>8/10 Depth, 90% Complete</li>
+                </ul>
+            </div>
+            
+            <div class="stage">
+                <div class="stage-number">4</div>
+                <h3 class="stage-title">Campaign Prep</h3>
+                <ul class="stage-items">
+                    <li>20-50 Companies/Week</li>
+                    <li>Personalised Outreach</li>
+                    <li>Email Personalisation</li>
+                    <li>15% Meetings, 8% Deals</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="flow-arrows">
+            <div class="arrow"></div>
+            <div class="arrow"></div>
+            <div class="arrow"></div>
+        </div>
+        
+        <div class="continuous-learning">
+            <div class="learning-title">Continuous Learning</div>
+            <div class="learning-items">
+                <span>Win/Loss Analysis</span>
+                <span>Weekly Reviews</span>
+                <span>Monthly Optimisation</span>
+                <span>20% Annual Improvement</span>
+            </div>
+        </div>
+        
+        <div class="market-context">
+            <h3 class="context-title">Nigerian Market Context</h3>
+            <div class="context-grid">
+                <div class="context-group">
+                    <div class="context-item">
+                        <span class="context-label">Grid Reliability</span>
+                        <span class="context-value">40-70%</span>
+                    </div>
+                    <div class="context-item">
+                        <span class="context-label">Diesel Cost</span>
+                        <span class="context-value">₦180-250/kWh</span>
+                    </div>
+                    <div class="context-item">
+                        <span class="context-label">Relationship-First</span>
+                        <span class="context-value">Trust: 5 Touchpoints</span>
+                    </div>
+                </div>
+                <div class="context-group">
+                    <div class="context-item">
+                        <span class="context-label">Generator Dependency</span>
+                        <span class="context-value">85%</span>
+                    </div>
+                    <div class="context-item">
+                        <span class="context-label">Gas Cost</span>
+                        <span class="context-value">₦80-120/kWh</span>
+                    </div>
+                    <div class="context-item">
+                        <span class="context-label">Bottom-up Influence</span>
+                        <span class="context-value">Hierarchy Respect</span>
+                    </div>
+                </div>
+            </div>
+            <div class="principles">Challenges not Problems</div>
+        </div>
+    </div>
+</body>
+</html> 

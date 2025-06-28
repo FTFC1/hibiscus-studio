@@ -1,0 +1,243 @@
+{
+  "name": "Nigerian Industrial Gas Sales Automation Framework",
+  "version": "2.1_simplified",
+  "profile_purpose": "To enable automated, culturally-optimized discovery, research, and campaign targeting of Nigerian industrial companies for high-value gas infrastructure sales.",
+  
+  "nigerian_market_context": {
+    "power_infrastructure_realities": {
+      "grid_reliability_national": "40-60%",
+      "grid_reliability_lagos_abuja": "60-70%",
+      "generator_dependency_rate": "85% of businesses >50 employees",
+      "cost_differential": {
+        "grid_electricity": "₦60-120 per kWh",
+        "diesel_generators": "₦180-250 per kWh", 
+        "gas_generators": "₦80-120 per kWh"
+      },
+      "common_pain_points": [
+        "Voltage fluctuations (180V-250V swings)",
+        "Frequency instability (45-52Hz)",
+        "Complete grid failures (2-8 hours daily)",
+        "Generator fuel theft and security issues"
+      ]
+    },
+    "cultural_communication_patterns": {
+      "relationship_building_sequence": [
+        "mutual_connection_introduction",
+        "technical_credibility_demonstration", 
+        "industry_knowledge_validation",
+        "company_specific_discussion"
+      ],
+      "decision_making_flow": "bottom_up_influence_top_down_approval",
+      "trust_building_touchpoints_required": 5,
+      "preferred_language": "challenges_and_opportunities_not_problems",
+      "hierarchy_respect_mandatory": true
+    }
+  },
+
+  "company_discovery_engine": {
+    "objective": "Automated identification of 1000 Nigerian industrial companies with £500k+ annual power costs.",
+    "data_sources": [
+      "Nigerian Corporate Affairs Commission (CAC) registry",
+      "Nigerian Stock Exchange industrial filings",
+      "Industry association member lists (MAN, NACCIMA, etc.)",
+      "Company websites and press releases",
+      "LinkedIn company pages",
+      "News mentions of expansion/operations"
+    ],
+    "filtering_criteria": {
+      "location": "Nigeria",
+      "priority_locations": ["Lagos", "Abuja", "Port Harcourt", "Kano"],
+      "industry": [
+        "Manufacturing",
+        "Processing", 
+        "Heavy Industry",
+        "Banking",
+        "Healthcare",
+        "Telecommunications"
+      ],
+      "annual_power_cost_min_gbp": 500000,
+      "employee_count_min": 100,
+      "annual_revenue_min_gbp": 2000000
+    },
+    "technology_requirements": [
+      "Web scraping tools for company data collection",
+      "Basic data cleaning and deduplication"
+    ],
+    "success_metrics": {
+      "companies_identified": 1000,
+      "data_accuracy_percent": 85,
+      "market_coverage_percent": 70
+    }
+  },
+
+  "power_champion_mapping": {
+    "objective": "Systematic identification of 3-5 middle management contacts per company with operational authority.",
+    "target_roles_by_industry": {
+      "manufacturing": ["Plant Manager", "Production Manager", "Maintenance Manager", "Engineering Manager"],
+      "banking": ["Facilities Manager", "IT Infrastructure Manager", "Operations Manager"],
+      "healthcare": ["Facilities Manager", "Biomedical Engineer", "Operations Manager"],
+      "telecommunications": ["Network Operations Manager", "Infrastructure Manager", "Site Acquisition Manager"]
+    },
+    "data_sources": [
+      "LinkedIn professional networks",
+      "Company websites",
+      "Industry conference attendee lists",
+      "News mentions and press releases"
+    ],
+    "technology_requirements": [
+      "LinkedIn automation for contact discovery",
+      "Contact data enrichment"
+    ],
+    "success_metrics": {
+      "average_contacts_per_company": 4,
+      "contact_validity_rate_percent": 80,
+      "power_champion_identification_accuracy": 85
+    }
+  },
+
+  "deep_research_and_profiling": {
+    "objective": "8-hour equivalent intelligence gathering per batch including company operations, individual psychology, and persuasion strategies.",
+    "research_stages": {
+      "stage_1_company_overview": {
+        "duration_hours": 2,
+        "focus": "basic operational analysis and power infrastructure",
+        "outputs": ["current_power_setup", "operational_challenges", "growth_indicators"]
+      },
+      "stage_2_decision_mapping": {
+        "duration_hours": 2, 
+        "focus": "stakeholder mapping and decision processes",
+        "outputs": ["budget_cycles", "approval_processes", "key_influencers"]
+      },
+      "stage_3_individual_profiling": {
+        "duration_hours": 2,
+        "focus": "power champion psychology and communication preferences", 
+        "outputs": ["motivation_analysis", "communication_patterns", "influence_tactics"]
+      },
+      "stage_4_persuasion_strategy": {
+        "duration_hours": 2,
+        "focus": "messaging optimization and relationship building approach",
+        "outputs": ["persuasion_angles", "objection_handling", "touchpoint_sequence"]
+      }
+    },
+    "research_methodologies": [
+      "Company news and financial analysis",
+      "Social media analysis (LinkedIn, Twitter)",
+      "Stakeholder mapping and relationship history",
+      "Individual psychology profiling",
+      "Cultural sensitivity analysis"
+    ],
+    "technology_requirements": [
+      "News monitoring and aggregation",
+      "Basic sentiment analysis (AI agent capability)"
+    ],
+    "success_metrics": {
+      "insight_depth_score": "8/10 average across batch",
+      "profile_completion_rate_percent": 90,
+      "research_to_campaign_turnaround_days": 3
+    }
+  },
+
+  "campaign_preparation": {
+    "objective": "Weekly batch output of 20-50 companies with personalized email campaigns and engagement strategies.",
+    "batch_composition": {
+      "size_range": [20, 50],
+      "industry_mix": "balanced across target sectors",
+      "priority_weighting": "70% high-priority, 30% medium-priority companies"
+    },
+    "personalization_elements": [
+      "Operational pain points specific to company",
+      "Relationship-based messaging with mutual connections",
+      "Case studies relevant to Nigerian market and industry",
+      "Positioning gas as infrastructure partnership not commodity",
+      "Cultural sensitivity and hierarchy respect"
+    ],
+    "engagement_strategies": {
+      "relationship_building_phase": [
+        "Introductory emails referencing shared connections",
+        "Technical credibility demonstration with case studies",
+        "Industry knowledge validation through insights sharing"
+      ],
+      "business_discussion_phase": [
+        "Operational efficiency opportunity discussions", 
+        "Technical assessment proposals"
+      ]
+    },
+    "technology_requirements": [
+      "Email personalization (manual/simple automation)",
+      "Response tracking (basic)"
+    ],
+    "success_metrics": {
+      "weekly_personalized_campaigns": 1,
+      "companies_targeted_per_week": 35,
+      "qualified_meeting_rate_percent": 15,
+      "deal_progression_rate_percent": 8
+    }
+  },
+
+  "continuous_learning_system": {
+    "win_loss_tracking": {
+      "successful_patterns": [],
+      "failed_approaches": [],
+      "industry_specific_learnings": [],
+      "cultural_insights": []
+    },
+    "optimization_schedule": {
+      "weekly_review": "batch performance and messaging effectiveness",
+      "monthly_adjustment": "targeting criteria and industry focus",
+      "quarterly_overhaul": "strategy refinement and market adaptation"
+    },
+    "technology_requirements": [
+      "Simple data collection and analysis (JSON + Python when needed)"
+    ]
+  },
+
+  "pipeline_management": {
+    "stage_definitions": {
+      "initial_contact": "First response received from power champion",
+      "relationship_building": "Multiple touchpoints establishing trust",
+      "technical_interest": "Assessment request or operational discussion",
+      "proposal_stage": "Formal proposal submitted",
+      "negotiation": "Commercial terms discussion",
+      "contract_signed": "Deal closed"
+    },
+    "conversion_rates_targets": {
+      "contact_to_relationship": "25%",
+      "relationship_to_interest": "35%",
+      "interest_to_proposal": "45%", 
+      "proposal_to_contract": "60%"
+    },
+    "technology_requirements": [
+      "Simple tracking (spreadsheet/JSON-based)"
+    ]
+  },
+
+  "overall_success_criteria": {
+    "annual_contracts_target": 400,
+    "average_contract_size_gbp": 3500000,
+    "annual_revenue_target_gbp": 1000000000,
+    "market_penetration_rate": "30% of identified high-value targets engaged"
+  },
+
+  "implementation_approach": {
+    "phase_1_foundation": {
+      "duration_weeks": 4,
+      "focus": "Company discovery and power champion identification",
+      "tools_needed": ["Web scraping", "LinkedIn automation", "Basic data cleaning"]
+    },
+    "phase_2_research": {
+      "duration_weeks": 4,
+      "focus": "Deep research automation and profiling",
+      "tools_needed": ["News monitoring", "AI agent for analysis"]
+    },
+    "phase_3_campaigns": {
+      "duration_weeks": 4,
+      "focus": "Campaign preparation and execution",
+      "tools_needed": ["Email personalization", "Response tracking"]
+    },
+    "phase_4_optimization": {
+      "duration_ongoing": true,
+      "focus": "Continuous learning and improvement",
+      "tools_needed": ["Python for analysis when needed", "JSON data management"]
+    }
+  }
+} 

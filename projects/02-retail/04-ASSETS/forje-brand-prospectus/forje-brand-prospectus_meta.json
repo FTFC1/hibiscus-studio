@@ -1,0 +1,27 @@
+{
+  "source_file": "forje-brand-prospectus.pdf",
+  "extracted_images": [
+    "_page_0_Picture_0.jpeg",
+    "_page_0_Picture_1.jpeg",
+    "_page_0_Picture_2.jpeg",
+    "_page_1_Picture_0.jpeg",
+    "_page_1_Picture_1.jpeg",
+    "_page_1_Picture_2.jpeg",
+    "_page_2_Picture_0.jpeg",
+    "_page_2_Picture_1.jpeg",
+    "_page_2_Picture_2.jpeg",
+    "_page_3_Picture_0.jpeg",
+    "_page_3_Picture_1.jpeg",
+    "_page_4_Picture_0.jpeg",
+    "_page_4_Picture_1.jpeg",
+    "_page_5_Picture_0.jpeg",
+    "_page_5_Picture_1.jpeg",
+    "_page_6_Picture_0.jpeg",
+    "_page_6_Picture_1.jpeg",
+    "_page_7_Picture_0.jpeg",
+    "_page_7_Picture_1.jpeg",
+    "_page_7_Picture_2.jpeg"
+  ],
+  "total_pages": 8,
+  "extraction_method": "PyMuPDF"
+}

@@ -1,0 +1,185 @@
+{
+  "nigerian_power_market_knowledge_base": {
+    "last_updated": "2025-01-27",
+    "version": "1.0",
+    "market_overview": {
+      "grid_reliability": {
+        "average_uptime": "40-60% nationally",
+        "lagos_abuja_uptime": "60-70%",
+        "industrial_zones": "70-80% with backup systems",
+        "common_issues": [
+          "Voltage fluctuations (180V-250V swings)",
+          "Frequency instability (45-52Hz)",
+          "Complete grid failures (2-8 hours daily)",
+          "Planned load shedding (scheduled outages)",
+          "Transformer failures in industrial areas"
+        ]
+      },
+      "backup_power_dependency": {
+        "generator_penetration": "85% of businesses >50 employees",
+        "fuel_costs": "₦800-1200 per litre diesel (fluctuates with FX)",
+        "maintenance_costs": "15-25% of fuel costs annually",
+        "operational_challenges": [
+          "Noise pollution regulations",
+          "Fuel theft and security",
+          "Generator breakdown during peak demand",
+          "Fuel quality issues (adulterated diesel)",
+          "Environmental compliance costs"
+        ]
+      },
+      "economic_factors": {
+        "electricity_tariffs": "₦60-120 per kWh (varies by state/class)",
+        "diesel_generator_costs": "₦180-250 per kWh",
+        "gas_generator_costs": "₦80-120 per kWh",
+        "foreign_exchange_impact": "40-60% of energy costs USD-denominated",
+        "government_subsidies": "Reducing annually, full cost-reflective tariffs by 2025"
+      }
+    },
+    "cultural_communication_patterns": {
+      "business_hierarchy": {
+        "decision_making_flow": "Bottom-up influence, top-down approval",
+        "respect_protocols": "Title usage mandatory, age/experience deference",
+        "meeting_dynamics": "Senior person speaks last, consensus-building important",
+        "relationship_building": "Personal connection before business discussion"
+      },
+      "communication_style": {
+        "directness_level": "Indirect, face-saving important",
+        "problem_acknowledgment": "Rarely admit 'problems' to outsiders initially",
+        "preferred_language": "Challenges, opportunities, improvements vs problems",
+        "trust_building_required": "3-5 touchpoints before business discussion",
+        "credibility_establishment": "Technical competence must be demonstrated early"
+      },
+      "business_culture": {
+        "relationship_importance": "Personal relationships trump transactional efficiency",
+        "long_term_thinking": "Sustainability and partnership valued over quick wins",
+        "local_preference": "Nigerian companies preferred when competence equal",
+        "government_relations": "Regulatory relationships critical for large contracts",
+        "family_business_dynamics": "Founder/family approval often required regardless of hierarchy"
+      }
+    },
+    "industry_specific_contexts": {
+      "manufacturing": {
+        "power_criticality": "Production line shutdowns cost ₦2-10M per hour",
+        "common_pain_points": [
+          "Equipment damage from voltage fluctuations",
+          "Production schedule disruptions",
+          "Quality control issues during power transitions",
+          "Worker safety during generator switchovers",
+          "Inventory spoilage during extended outages"
+        ],
+        "decision_makers": {
+          "power_champions": ["Plant Manager", "Production Manager", "Maintenance Manager"],
+          "influencers": ["Operations Director", "Engineering Manager", "Quality Manager"],
+          "approvers": ["Managing Director", "Operations Director", "CFO"]
+        },
+        "budget_cycles": "Annual capex planning (Oct-Dec), quarterly opex reviews",
+        "roi_expectations": "12-18 month payback period, 25%+ IRR"
+      },
+      "banking_financial": {
+        "power_criticality": "Regulatory compliance requires 99.9% uptime",
+        "common_pain_points": [
+          "ATM network downtime loses customer trust",
+          "Data center cooling failures risk server damage",
+          "Branch operations halt during outages",
+          "Backup generator noise complaints from neighbors",
+          "Cybersecurity vulnerabilities during power transitions"
+        ],
+        "decision_makers": {
+          "power_champions": ["Facilities Manager", "IT Infrastructure Manager", "Operations Manager"],
+          "influencers": ["Head of Operations", "Chief Technology Officer", "Risk Manager"],
+          "approvers": ["Managing Director", "Executive Director Operations", "Board Infrastructure Committee"]
+        },
+        "budget_cycles": "Annual infrastructure budget (Jan-Mar planning)",
+        "roi_expectations": "Business continuity value > cost savings focus"
+      },
+      "healthcare": {
+        "power_criticality": "Patient safety trumps all cost considerations",
+        "common_pain_points": [
+          "Life support equipment failures during outages",
+          "Vaccine/medicine spoilage in storage",
+          "Surgery postponements due to power uncertainty",
+          "Generator exhaust affecting patient areas",
+          "Staff productivity loss during manual operations"
+        ],
+        "decision_makers": {
+          "power_champions": ["Facilities Manager", "Biomedical Engineer", "Operations Manager"],
+          "influencers": ["Chief Medical Director", "Head of Nursing", "Pharmacy Manager"],
+          "approvers": ["Medical Director", "Board of Directors", "Government Health Ministry (public)"]
+        },
+        "budget_cycles": "Government budget cycles (public), annual planning (private)",
+        "roi_expectations": "Patient safety and regulatory compliance primary, cost secondary"
+      },
+      "telecommunications": {
+        "power_criticality": "Network downtime directly impacts revenue (₦50M+ per hour for major operators)",
+        "common_pain_points": [
+          "Base station outages affect network coverage",
+          "Data center cooling failures risk equipment damage",
+          "Customer churn due to service interruptions",
+          "Fuel theft at remote base stations",
+          "Generator maintenance costs across thousands of sites"
+        ],
+        "decision_makers": {
+          "power_champions": ["Network Operations Manager", "Infrastructure Manager", "Site Acquisition Manager"],
+          "influencers": ["Chief Technology Officer", "Head of Network Operations", "Regional Operations Manager"],
+          "approvers": ["Chief Executive Officer", "Chief Operating Officer", "Board Infrastructure Committee"]
+        },
+        "budget_cycles": "Quarterly infrastructure reviews, annual capex planning",
+        "roi_expectations": "Revenue protection focus, 6-12 month payback acceptable"
+      }
+    },
+    "government_regulatory_context": {
+      "key_agencies": {
+        "nerc": "Nigerian Electricity Regulatory Commission - tariff and licensing",
+        "nbet": "Nigerian Bulk Electricity Trading - power purchase agreements",
+        "nesrea": "Environmental compliance for power generation",
+        "dpr": "Gas supply and pipeline regulations",
+        "state_governments": "Land use, environmental permits, local content requirements"
+      },
+      "policy_trends": {
+        "electricity_market_reform": "Transition to full cost-reflective tariffs by 2025",
+        "gas_utilization_policy": "Domestic gas supply obligations for producers",
+        "environmental_regulations": "Stricter emissions standards for generators",
+        "local_content_requirements": "Preference for Nigerian companies in government contracts",
+        "foreign_exchange_policies": "Restrictions affecting equipment imports and fuel costs"
+      }
+    },
+    "competitive_landscape": {
+      "local_players": {
+        "strengths": ["Government relationships", "Local market knowledge", "Naira pricing"],
+        "weaknesses": ["Limited technical capacity", "Financing constraints", "Equipment sourcing"]
+      },
+      "international_players": {
+        "strengths": ["Technical expertise", "Equipment access", "Financing capability"],
+        "weaknesses": ["Cultural barriers", "Regulatory navigation", "Local partnership requirements"]
+      },
+      "market_gaps": {
+        "hybrid_solutions": "Combined grid/gas/solar systems underserved",
+        "sme_segment": "Small-medium enterprises lack tailored solutions",
+        "remote_locations": "Off-grid industrial sites underserved",
+        "maintenance_services": "Reliable long-term maintenance contracts scarce"
+      }
+    },
+    "research_approach_guidelines": {
+      "relationship_building_sequence": [
+        "Initial introduction through mutual connection",
+        "Technical credibility demonstration (case studies, certifications)",
+        "Industry knowledge validation (understanding their specific challenges)",
+        "Gradual transition from general industry discussion to specific company needs"
+      ],
+      "question_progression": [
+        "Industry-level challenges discussion",
+        "Operational efficiency opportunities",
+        "Current power infrastructure assessment",
+        "Future expansion/improvement plans",
+        "Decision-making process and timeline"
+      ],
+      "cultural_sensitivity": [
+        "Use 'challenges' and 'opportunities' rather than 'problems'",
+        "Acknowledge their expertise and experience",
+        "Reference successful similar companies (with permission)",
+        "Emphasize partnership and long-term relationship",
+        "Respect hierarchy and decision-making processes"
+      ]
+    }
+  }
+} 

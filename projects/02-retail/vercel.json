@@ -1,0 +1,14 @@
+{
+  "name": "forje-landing",
+  "version": 2,
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/01-CORE/forje-mvp-landing.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/01-CORE/$1"
+    }
+  ]
+} 

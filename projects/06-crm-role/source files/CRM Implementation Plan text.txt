@@ -1,0 +1,370 @@
+CRM Implementation Plan
+
+FT Coker - Aug 2024
+Enhancing Efficiency and Customer Relationships
+
+Introduction
+The CRM implementation project aims to address key challenges and improve overall efficiency in customer relationship management. Primary objectives are:
+Enhance Sales Tracking: Improve the accuracy and efficiency of sales tracking across all divisions.
+Streamline Customer Relationship Management: Develop a more united approach to managing customer interactions and relationships.
+Increase Operational Efficiency: Optimise processes to reduce inefficiencies and improve overall productivity.
+Phased Implementation: Provide a structured, phased approach that can be initially applied to the Motors division and subsequently expanded to other divisions.
+
+Current State
+Fragmented Processes: Current workflows are disjointed, leading to inefficiencies and errors.
+Manual Tracking: Reliance on manual tracking methods results in inconsistent data and increased workload.
+Departmental Silos: Lack of integration between departments hampers communication and collaboration.
+
+
+Desired State
+Integrated Processes: Streamlined workflows with integrated systems for seamless operations.
+Interaction Tracking: Reliable and consistent data with automated tracking methods.
+Unified Departments: Improved communication and collaboration through integrated departmental processes.
+VS
+Sales Pipeline Tracking: Automating the tracking of leads through various stages of the sales process, from initial contact to closed deals.
+Customer Interaction Tracking: Automatically logging and categorizing all customer interactions, including emails, phone calls, and meetings.
+Ticketing System: An automated system for creating, assigning, and tracking customer service tickets from creation to resolution.
+Performance Metrics: Automated tracking of key performance indicators (KPIs) such as conversion rates, sales cycle length, and customer satisfaction scores.
+Follow-up Task Management: Automated reminders and task creation for follow-up activities with customers and leads.
+Data Analytics and Reporting: Automated generation of reports and dashboards for real-time insights into sales and customer service performance.
+Customer Profile Management: Automated updating of customer profiles with the latest interaction data and purchase history.
+Marketing Automation: In later phases, the plan mentions exploring marketing automation features, which could include automated email campaigns and lead nurturing processes.
+
+
+
+Current Challenges
+Operational Efficiency:
+Current processes require manual data entry across multiple systems
+Time-consuming task switching between different tools and platforms
+Limited visibility into overall workflow and bottlenecks
+
+Sales Opportunity Management:
+Difficulty in tracking leads throughout the sales pipeline
+Follow-up processes are managed individually, which may result in missed opportunities.
+Limited ability to analyse conversion rates and sales cycle length
+
+Customer Experience Enhancement:
+Fragmented customer data across different departments
+Inconsistent communication channels and response times
+Limited ability to provide personalised service based on customer history
+
+External System Integration:
+Multiple standalone systems with limited interconnectivity
+Manual data transfer between systems increases risk of errors
+Challenges in generating comprehensive reports across departments
+Collecting details via whatsapp to forward to system handlers, effectively middlemannign data
+Not using data collecting tools for leads and not leveraging notifications to inform those at the next stage of process that an task is ready 
+Sale progress kept within department, marketing can’t align their efforts to leads and sales outcomes 
+Matching data between the lead, sales and aftersales for improved CX difficult due to different systems holding data without data validations   
+
+Phases of Implementation
+Phase 1: Motors Division Pilot:
+Description: Initial implementation in the Motors division to test and refine the CRM system.
+Actions: Setting up the CRM, training staff, and collecting feedback.
+Phase 2: Analyse and Refine:
+Description: Evaluate the results from the pilot phase and make necessary adjustments.
+Actions: Analysing data, addressing issues, and optimising processes.
+Phase 3: Full-Scale Implementation:
+Description: Roll out the CRM system across all divisions based on learnings from the pilot.
+Actions: Implementing the CRM, training staff, and ensuring system integration.
+Phase 4: Post-Implementation Optimisation:
+Description: Continuous monitoring and improvement of the CRM system to ensure sustained benefits.
+Actions: Regular updates, user feedback collection, and process optimisation.
+
+
+Phase 1: Motors Division Pilot
+Objectives:
+Initial implementation in the Motors division to test and refine the CRM system
+Serves as a learning phase for the entire organisation
+Pilot focused on VI branch for sales and Ikeja branch for after-sales
+Utilise Google Sheets or similar tools for initial data collection and process testing
+
+Specific Challenges and Solutions:
+Challenge: Limited functionality of initial tools 
+Solution: Focus on core features and plan for future enhancements
+
+Challenge: User resistance to new processes 
+Solution: Provide hands-on training and emphasise benefits of the new system
+
+Why do we choose to use google sheets for the pilot over using an actual CRM tool? >> Cost Effective, Tool familiarity, Able to test basic functionality, acts as a stepping stone 
+
+Phase 2: Analyse and Refine
+Objective:
+Evaluate results from the Motors division pilot and refine the CRM strategy
+Prepare for full-scale implementation across all divisions
+
+Specific Challenges and Solutions:
+Challenge: Extrapolating insights from Motors division to diverse industries within Mikano
+Solution: Discuss with key stakeholders from each division to identify any industry-specific requirements or adaptations
+
+Challenge: Balancing feature requests with system complexity 
+Solution: Focus on core functionalities and create a roadmap for future enhancements
+
+What will a full scale implementation plan entail? >> Enterprise CRM Solution Selection and Setup, Data Migration and Integration, Customisation and Feature Development
+
+Phase 3: Full-Scale Implementation
+Objective:
+Select and implement an enterprise CRM solution, starting with Motors division
+Roll out the CRM system across all divisions based on the refined strategy
+
+Specific Challenges and Solutions:
+Challenge: Ensuring the selected CRM solution meets the diverse needs of all divisions 
+Solution: Prioritise a flexible, customisable CRM platform and involve representatives from each division in the selection process
+
+Phase 4: Post-Implementation Optimisation
+Objective:
+Continuous monitoring and improvement of the CRM system
+Ensure sustained benefits and adapt to evolving business needs
+
+Specific Challenges and Solutions:
+Challenge: Maintaining user engagement long-term 
+Solution: Regular training refreshers and showcasing of new features and benefits
+
+Challenge: Balancing system stability with new feature requests 
+Solution: Implement a structured change management process for system updates
+
+
+3 Key Challenges
+Data Migration Challenges:
+Challenge: Moving existing data to the new CRM system can be complex and time-consuming.
+Solution: In collaboration with ERP consultants, create a data migration plan, including data cleaning and validation steps, to ensure accurate and seamless transfer of information.
+User Adoption Hurdles:
+Challenge: Employees may resist using the new CRM system due to unfamiliarity or fear of change.
+Solution: Provide comprehensive training and ongoing support to help employees become comfortable with the new system and understand its benefits.
+Integration with Existing Systems:
+Challenge: Ensuring the new CRM integrates smoothly with existing tools and systems.
+Solution: Conduct thorough testing and work with IT to address any compatibility issues, ensuring seamless integration and data flow between systems.
+Integration with existing ERP system:
+Challenge: The new CRM may struggle to integrate with the current Oracle ERP.  
+Solution: Create custom integration points or use middleware for data exchange.
+
+Data format inconsistencies:
+Challenge: Existing data formats may not match the new CRM's requirements.  
+Solution: Implement data transformation during migration for compatibility.
+
+
+Visualising Success: Motors 
+Initially the CRM capture will be manual. As the system improves automations can be added.
+CSR team performs lead qualification, assessing the nature and urgency of the inquiry.
+Based on this qualification, the CSR would then categorise the ticket as Sales or After-Sales.
+This process ensures proper routing and timely handling of all customer inquiries.
+Process continually improves based on CRM data insights and customer feedback, allowing for ongoing optimisation.
+During the lead qualification stage, the CSR would:Verify that the inquiry is indeed for the Motors Division and not for another division of the company.
+Based on this qualification, the CSR would then categorize the ticket:If it's a sales inquiry for the Motors Division, it would be forwarded to the Motors Sales Rep.
+
+CRM Team Roles in Customer Journey
+
+Implementation Process: Role Evolution
+Role
+Current
+Future
+Sales Representatives
+Manual lead tracking and follow-ups
+Focused on relationship-building, guided by CRM insights
+After Sales/Customer Service
+Limited access to customer history
+Comprehensive view of customer interactions across all touchpoints
+Management
+Limited visibility into sales pipeline and customer interactions
+Real-time access to performance metrics and customer data
+CRM Team (New)
+Non-existent
+Oversees CRM implementation, provides training, and ensures system optimisation
+Key Benefits:
+Improved efficiency through automation
+Enhanced customer experience through personalised interactions
+Data-driven decision making
+Increased collaboration across departments
+
+
+Sales CRM Benefits
+Improved Follow-Up Efficiency
+Before CRM: Details about follow-up frequency were managed individually by salespeople, making it hard to overview the sales pipeline. 
+After CRM: With the CRM system, follow-up frequencies are tracked centrally, providing clear visibility into the sales pipeline and enabling better management of leads.
+Streamlined Sales Cycle
+Before CRM: We weren’t collecting data to understand sales cycles, bottlenecks, or ways to improve communication. 
+After CRM: By analysing data on sales cycles, we can identify bottlenecks and streamline our communication strategies, resulting in more efficient and effective sales processes.
+Example Bottleneck: Customers contacting sales teams post-purchase instead of after sales, disrupting sales activities.
+
+After-Sales CRM Benefits
+Comprehensive Customer Interaction History
+Before CRM: Customer service records are detailed but not consolidated into a single profile. For a car, this means purchase history, services, repairs, due services, and preferences for reminders are not easily accessible in one place. 
+After CRM: The CRM system consolidates all customer information into a clear, comprehensive profile, allowing support teams to quickly access and manage customer data.
+Assisted Service Management
+Before CRM: Tracking service issues and follow-ups is done manually, which can delay responses. 
+After CRM: The CRM system tracks all service requests and follow-ups, ensuring timely resolutions and improved customer satisfaction.
+
+
+Key Outcomes
+Increased Sales Conversion Rates:
+With our new CRM system, we aim to achieve a 5-8% sales conversion rate from lead to closed deal
+This conservative benchmark is lower than typical industry averages (10-15%) to account for the complexity of selling across multiple industries and the initial learning curve of using a new CRM system
+Reduced Issue Resolution Time:
+The CRM will help reduce issue resolution time to 3-5 business days
+This target is more conservative than some industry standards (1-3 days) to account for potential challenges in routing tickets across different business units and the time needed for staff to adapt to the new CRM system
+Enhanced Customer Satisfaction Scores (CSAT):
+We anticipate achieving a CSAT score of 60-70%
+This goal is set lower than many industry standards (75-85%) to acknowledge the challenges of implementing consistent customer service practices across diverse business sectors and the time required to fully leverage CRM insights for improved customer experiences
+CSAT=(Number of satisfied customers (ratings 4 and 5)/Total number of responses
+
+
+Project Team
+The modular design allows for easy expansion as the company grows.
+Vendor-provided training will save costs and ensure best practice CRM methodologies are used across the company.
+Sales Reps focus solely on sales tasks related to their specific divisions
+After-Sales reps are embedded in each division, ensuring specialised support and maintaining strong customer relationships post-sale.
+Pilot will be a sample: 
+
+
+They will make CRM team do follow ups and be proactive with customers: service, have you gotten your first service. You’ll be doing CRM and Customer Service 
+Do an Org chart of what the CRM team would look like. Have a JD of what this person would do. Right now they’ll think it’s just “analysing information” 
+Current: No team, Femi/IKJ us half half + Same with Good luck 
+Before and After Current 
+How do the after sales people do their thing?
+
+
+VN Version:
+
+Who collects the data from sales and after sales to see visualse/data on. People for the Visualising Success flow and their roles. 
+Show the progression from now to the successful flow showing who the people are that are being added.Okay, so I'm just trying to better articulate what was said to me. First, it's likely that management is going to make the CRM team do a number of follow-ups and be proactive with customers. Not that this will be something purely done by the sales reps. We'll also be saying things like, "Have you got your service? Have you done your first service? Has anyone gotten back to you?" So, doing checkups to see that things are happening, making sure that sales and office sales teams are actually doing what they need to do. It's almost like an extension of customer service. That's why we think it's likely that it would be CRM and customer service happening.
+
+My colleague advised that I should do an organization chart of what this CRM team would look like. I might not do a full job description, but I need to have slides indicating the tasks and responsibilities of each person. Right now, they'll see it as if the team is just analyzing information, which isn't enough. They will want to know more tasks that we're doing.
+
+Currently, we don't really have a team. We have someone effectively doing after-sales/customer service in Ikeja. I've mentioned Femi, IKJ, and he's half doing CRM, half receiving messages from customers on WhatsApp. He's also trying to book service appointments, dealing with customer complaints in the workshop, and now involved in recouping funds from customers who had their car serviced on credit. We also have Goodluck, who's managing messages from people asking about prices and questions on social media, particularly Instagram. He's also involved in marketing activities on Instagram. So that's another half-half situation.
+
+The point is to do a before and after of the organization - what it is today and what the desired outcome is. I also need to show how people will be putting information in the after-sales team. We have this Google Sheet now for sales to input leads and add follow-up information. It has conditional formatting to show who needs follow-up and only counts people within certain stages of the sales. If an invoice is marked as lost, it's not counted. But we don't have a system for collecting after-sales information yet. We're considering Google Sheets, Notion, or HubSpot's free version.
+
+All of this is being done to gain data to inform how we either change NATEJSOFT (the current selected tool) or a different tool to meet the teams' actual requirements based on what we learn from this pilot phase. Only then can we engage other showrooms like Abuja, Port Harcourt, and others. Showing them Google Sheets and NATEJSOFT simultaneously would be confusing. So the pilot is focused only on the VI branch for sales and the Ikeja branch for after-sales.
+
+I have another slide on visualizing success in the motors division. They want to know who's doing which tasks, how they're involved in that flow, and showing progression from today to the future in terms of people. Currently, it's me coming up with the plan, phases, and general direction for the CRM strategy. Then it moves to the managers of sales and after-sales ensuring these tools are used to build the data we need to inform NATEJSOFT. Then it's me and someone else analyzing the information, collecting feedback, and drawing insights. Next, we'll create a requirements document to share with NATEJSOFT and other enterprise vendors. After selecting a tool, we'll develop training materials and standard operating procedures for the divisions.
+
+Before finalizing the SOPs, we'll have conversations with different divisions to ensure alignment and address specific customization needs. This will give us customized plans for what the software or solution needs to do for these divisions. Then we can create and distribute training, start onboarding different divisions, monitor, get feedback, share that feedback with the solution provider, and proactively help ensure they're not having problems with the solution an customers are being contacted.
+
+
+CRM Supervisor - Group: Group-wide CRM Success
+Maintaining a cohesive CRM approach across diverse business units, ensuring the system adds value to each division while maintaining group-wide consistency.
+Develops and oversees the CRM strategy across all divisions
+Ensures CRM practices align with overall business objectives
+Coordinates consistent CRM practices across divisions (e.g., standardising customer data fields)
+Analyses cross-divisional CRM performance metrics to identify areas for improvement
+Gathers feedback from division managers and operational staff to drive CRM adoption
+Utilises CRM insights to enhance after-sales/customer service, promoting repeat purchases and customer loyalty
+Identifies cross-selling and upselling opportunities across divisions (e.g., commercial vehicle buyers may need generators or service contracts)
+
+
+
+CRM Analyst: Driving Data-Driven Insights and Improvements
+Extracting valuable insights from CRM data, enabling informed decision-making and continuous improvement of customer relationship management strategies.
+Analyses cross-divisional CRM performance metrics to identify trends and areas for improvement
+Develops and maintains dashboards and reports for various stakeholders, including management and divisional teams
+Monitors key CRM metrics such as:
+ Average Sales Cycle, 
+Sales Conversion Rate, 
+Customer Satisfaction Score (CSAT)
+Collaborates with the CRM Supervisors to provide data-driven recommendations for process improvements
+Conducts regular data quality audits to ensure accuracy and completeness of CRM data
+Identifies opportunities for cross-selling and upselling based on customer data analysis
+Assists in the development of predictive models to forecast customer behavior and sales trends, such as identifying customers likely to make repeat purchases based on past buying patterns and engagement levels
+
+
+
+Project Manager: CRM Implementation Success
+Ensuring the smooth execution of the CRM implementation project across all phases and divisions.
+Develops and maintains the overall CRM implementation project plan
+Coordinates activities across different teams and divisions involved in the CRM rollout
+Manages project timelines, resources, and budgets
+Identifies and mitigates potential risks to the project's success
+Facilitates communication between operating teams, business units, and stakeholders
+Oversees the transition from the pilot phase to full-scale implementation
+Monitors project progress and provides regular status updates to senior management
+Ensures alignment between CRM implementation and overall business objectives
+Collaborates with the CRM Supervisor - Group to adapt the project plan based on insights from the pilot phase
+
+Data Integration/Migration Specialist: Data Transition and System Integration
+This role is crucial for the successful integration of existing data into the new CRM system and ensuring smooth data flow between different systems.
+Develops and implements data migration strategies for transferring existing customer data to the new CRM system
+Ensures data integrity and quality during the migration process
+Creates and maintains data mapping between legacy systems and the new CRM
+Collaborates with IT teams to establish secure data integration protocols
+Designs and implements automated data synchronisation processes between the CRM and other business systems
+Troubleshoots data integration issues and provides solutions
+Develops data validation and cleansing procedures to maintain high data quality in the CRM
+Works closely with the CRM Analyst to ensure migrated data supports required reporting and analytics functions
+Provides training and documentation on data integration processes for relevant team members
+
+
+CRM Supervisor - Call Center: Optimising Customer Interactions
+Ensuring efficient and effective customer service operations, leveraging CRM data to enhance customer experiences and drive performance improvements.
+Manages day-to-day operations of the call centre and CRM team
+Develops and implements call centre strategies aligned with CRM objectives
+Monitors and analyses key call centre KPIs such as:
+Average Handle Time (AHT)
+First Call Resolution (FCR)	
+Customer Satisfaction Score (CSAT)
+Ensures consistent CRM data entry and usage across the call centre team
+Collaborates with other departments to improve customer service processes
+Identifies training needs and implements ongoing skill development programs
+Utilises CRM insights such as customer inquiry types to optimise call routing and resource allocation, for efficient handling of customer inquiries and workload distribution among call centre staff
+
+
+Call Centre Reps: Front-line Customer Engagement
+Direct customer interaction, ensuring efficient handling of inquiries and maintaining high levels of customer satisfaction.
+Handle customer inquiries for all divisions via various channels (phone, email, chat)
+Update CRM with detailed records of all customer interactions
+Utilise CRM data to provide personalised customer service
+Manage and prioritise customer issues based on urgency and impact
+Collaborate with sales and after-sales teams across divisions to resolve complex inquiries
+Contribute to continuous improvement by providing feedback on common customer issues
+Achieve and maintain key performance indicators such as:
+First Call Resolution (FCR)
+Customer Satisfaction Score (CSAT)
+Average Handle Time (AHT)
+Identify and escalate potential sales opportunities to the appropriate divisional sales team
+
+
+
+Maintaining strong customer relationships post-sale, addressing issues, and promoting customer loyalty across all divisions.
+Handle post-sale customer inquiries and support requests for their specific division 
+Utilise the CRM system to access comprehensive customer histories and previous interactions
+Manage and resolve customer complaints and technical issues efficiently
+Coordinate with technical teams for complex product-specific queries or repairs
+Schedule and oversee service appointments, ensuring timely completion
+Maintain key performance indicators such as:
+Customer Satisfaction Score (CSAT)
+First Contact Resolution Rate
+Average Resolution Time
+Update the CRM with detailed records of all after-sales interactions and resolutions
+Identify opportunities for upselling or cross-selling based on customer needs and usage patterns
+Collaborate with sales teams to ensure smooth handover of customers post-purchase
+Contribute to product improvement by providing feedback on common issues or customer suggestions
+
+After-Sales Reps: Ensuring Continued Customer Satisfaction
+
+CRM Team’s Role in Customer Success
+Guiding Implementation:
+Description: Our team will lead the implementation of the CRM system, ensuring that all departments are fully integrated and operational.
+Role: We will coordinate with each department, providing support and expertise to tailor the CRM system to meet specific needs.
+Training and Support:
+Description: Comprehensive training programs and ongoing support will be provided to ensure all employees are comfortable and proficient with the new system.
+Role: We will conduct training sessions, create user guides, and offer continuous assistance to address any questions or issues.
+Continuous Improvement:
+Description: Post-implementation, we will continuously monitor the system’s performance and gather feedback to make necessary adjustments and improvements.
+Role: We will regularly review CRM metrics, conduct user surveys, and implement updates to enhance the system’s effectiveness and user experience.
+
+
+Wrap Up
+Recap of Benefits:
+Increased Sales Conversion Rates: Aim for a 5-8% conversion rate, enhancing sales performance.
+Reduced Issue Resolution Time: Targeting a 3-5 business day resolution, improving customer service efficiency.
+Enhanced Customer Satisfaction Scores (CSAT): Expected scores of 60-70%, leading to better customer experiences.
+Next Steps for Kickoff and Implementation:
+Detailed Implementation Plan: Review and finalise the implementation phases.
+Pilot Kickoff: Begin pilot launch with Motor Division sales and after sales team.
+Stakeholder Engagement: Ensure all departments are informed and prepared for the transition.
+Training Schedule: Set up training sessions for operational users.
+Request for Support and Engagement:
+Management Support: Participation and support from management to fast-track implementation
+Continuous Improvement: Emphasise the importance of ongoing feedback and improvement to maximise the CRM system's effectiveness.
+CSAT=(Number of satisfied customers (ratings 4 and 5)/Total number of responses
+
+Q&A

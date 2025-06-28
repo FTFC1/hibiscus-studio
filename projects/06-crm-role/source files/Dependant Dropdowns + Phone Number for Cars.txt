@@ -1,0 +1,122 @@
+function onEdit(e) {
+  // Check if the event object is available
+  if (!e) return;
+
+  var sheet = e.source.getActiveSheet();
+  var range = e.range;
+  var row = range.getRow();
+  var column = range.getColumn();
+
+  if (sheet.getName() !== "DATA") return;
+
+  // Column indices based on your latest description:
+  const config = {
+    phoneColumn: 8,                 // Column H for Phone
+    salesStatusColumn: 10,          // Column J for Sales Status
+    salesStatusDateColumn: 11,      // Column K for Sales Status Date
+    brandColumn: 14,                // Column N for Brand
+    modelColumn: 15,                // Column O for Model
+    trimColumn: 16                  // Column P for Trim
+  };
+
+  // Phone validation
+  if (column == config.phoneColumn && row > 4) {
+    validatePhoneNumber(sheet, range);
+  }
+
+  // Sales Status Date update
+  if (column == config.salesStatusColumn && row > 4) {
+    updateSalesStatusDate(sheet, row, config.salesStatusDateColumn);
+  }
+
+  // Dependent dropdowns for Car of Interest
+  if (column == config.brandColumn && row > 4) {
+    updateModelValidation(sheet, row, range.getValue(), config.modelColumn, config.trimColumn);
+  }
+
+  if (column == config.modelColumn && row > 4) {
+    updateTrimValidation(sheet, row, range.getValue(), config.trimColumn);
+  }
+}
+
+// Phone Number Formatting
+function validatePhoneNumber(sheet, range) {
+  var phoneNumber = range.getValue().toString().trim();
+  
+  // Remove all non-digit characters except '+'
+  phoneNumber = phoneNumber.replace(/[^\d+]/g, '');
+  
+  // Add '+' if missing
+  if (!phoneNumber.startsWith("+")) {
+    phoneNumber = "+" + phoneNumber;
+  }
+  
+  // Validate the number length
+  const cleanedNumber = phoneNumber.replace(/\D/g, '');
+  if (cleanedNumber.length < 10 || cleanedNumber.length > 15) {
+    range.clearContent();
+  } else {
+    // Set the phone number with '+' and as text
+    sheet.getRange(range.getRow(), range.getColumn()).setNumberFormat('@').setValue(phoneNumber);
+  }
+}
+
+// Sales Status Date Update
+function updateSalesStatusDate(sheet, row, salesStatusDateColumn) {
+  var dateCell = sheet.getRange(row, salesStatusDateColumn);
+  var currentDateTime = new Date();
+  dateCell.setValue(currentDateTime);
+  dateCell.setNumberFormat("dd/MM/yyyy");
+}
+
+// Dependent Dropdowns
+function updateModelValidation(sheet, row, brand, modelColumn, trimColumn) {
+  if (brand) {
+    var models = getDependentValues(brand, "Models");
+    if (models.length > 0) {
+      var modelRange = sheet.getRange(row, modelColumn);
+      var modelValidation = SpreadsheetApp.newDataValidation()
+                        .requireValueInList(models, true)
+                        .setAllowInvalid(false)
+                        .setHelpText('Select a model.')
+                        .build();
+      modelRange.setDataValidation(modelValidation);
+      modelRange.clearContent();
+      var trimRange = sheet.getRange(row, trimColumn);
+      trimRange.clearContent();
+      trimRange.setDataValidation(null);
+    }
+  }
+}
+
+function updateTrimValidation(sheet, row, model, trimColumn) {
+  if (model) {
+    var trims = getDependentValues(model, "Trims");
+    if (trims.length > 0) {
+      var trimRange = sheet.getRange(row, trimColumn);
+      var trimValidation = SpreadsheetApp.newDataValidation()
+                        .requireValueInList(trims, true)
+                        .setAllowInvalid(false)
+                        .setHelpText('Select a trim.')
+                        .build();
+      trimRange.setDataValidation(trimValidation);
+      trimRange.clearContent();
+    }
+  }
+}
+
+function getDependentValues(value, type) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("DATA VALIDATION");
+  var data = sheet.getDataRange().getValues();
+  var values = [];
+  for (var i = 1; i < data.length; i++) {
+    if (type == "Models" && data[i][0] == value) {
+      values.push(data[i][1]);
+    }
+    if (type == "Trims" && data[i][1] == value) {
+      values.push(data[i][2]);
+    }
+  }
+  return values;
+}
+

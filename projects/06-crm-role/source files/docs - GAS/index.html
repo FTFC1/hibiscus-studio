@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Lead Generation Arsenal - Nigerian Manufacturing Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .ascii-art {
+            background: #111111;
+            color: #4ade80;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+            border: 1px solid #2d5a2d;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            color: #f0f0f0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #4ade80;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+        
+        .features {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 5rem 0;
+            color: #333;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border-left: 4px solid #4ade80;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(74, 222, 128, 0.15);
+        }
+        
+        .feature-card h3 {
+            color: #1a4a1a;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+        
+        .feature-card p {
+            font-weight: 600;
+            color: #2d5a2d;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card ul {
+            margin-left: 1rem;
+        }
+        
+        .feature-card li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .wireframe-nav {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            padding: 5rem 0;
+            color: #e0e0e0;
+            border-top: 3px solid #4ade80;
+        }
+        
+        .wireframe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .wireframe-link {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+            border: 2px solid #2d5a2d;
+        }
+        
+        .wireframe-link:hover {
+            background: linear-gradient(135deg, #333333 0%, #404040 100%);
+            border-color: #4ade80;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(74, 222, 128, 0.2);
+        }
+        
+        .wireframe-link h4 {
+            margin-bottom: 0.8rem;
+            color: #4ade80;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .wireframe-link p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+        
+        .stats {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            padding: 5rem 0;
+            text-align: center;
+            border-top: 3px solid #4ade80;
+        }
+        
+        .stats h2 {
+            color: #4ade80;
+            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .stat {
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 12px;
+            border: 2px solid #2d5a2d;
+            transition: all 0.3s ease;
+        }
+        
+        .stat:hover {
+            transform: translateY(-5px);
+            border-color: #4ade80;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            color: #4ade80;
+            font-weight: 200;
+            text-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, #2d5a2d 0%, #1a4a1a 100%);
+            padding: 5rem 0;
+            text-align: center;
+            color: #f0f0f0;
+        }
+        
+        .cta h2 {
+            color: #4ade80;
+            margin-bottom: 1.5rem;
+            font-size: 2.8rem;
+            font-weight: 300;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+            font-weight: 300;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #4ade80;
+            color: #0a0a0a;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid #4ade80;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: #4ade80;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(74, 222, 128, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #4ade80;
+            border: 2px solid #4ade80;
+        }
+        
+        .btn-secondary:hover {
+            background: #4ade80;
+            color: #0a0a0a;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #b0b0b0;
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 3px solid #4ade80;
+        }
+        
+        footer p:first-child {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+        }
+        
+        footer p:last-child {
+            margin-top: 1rem;
+            font-style: italic;
+            color: #4ade80;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .ascii-art {
+                font-size: 0.6rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .wireframe-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats h2, .cta h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>Nigerian Manufacturing Intelligence</h1>
+            <p>Bot-as-a-Service Platform delivering 15-25% response rates vs industry 0.5%</p>
+            <a href="#wireframes" class="btn">Explore Wireframes</a>
+            <a href="#features" class="btn btn-secondary">See Features</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #1a4a1a; font-size: 2.8rem; font-weight: 300;">System Components</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>NigeriaScout MCP</h3>
+                    <p>Company Discovery Engine</p>
+                    <ul>
+                        <li>314 manufacturing companies discovered</li>
+                        <li>Power infrastructure scoring</li>
+                        <li>Lagos market specialisation</li>
+                        <li>Industry intelligence mapping</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>ProfileSynth MCP</h3>
+                    <p>Intelligence Gathering</p>
+                    <ul>
+                        <li>8-9/10 confidence scoring</li>
+                        <li>Personal pain point mapping</li>
+                        <li>Career motivation analysis</li>
+                        <li>Personalised talking points</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>EmailFirst Enricher</h3>
+                    <p>Contact Generation</p>
+                    <ul>
+                        <li>120 Power Champion emails</li>
+                        <li>3-email sequence automation</li>
+                        <li>Nigerian business context</li>
+                        <li>Role-specific targeting</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Power Champion Strategy</h3>
+                    <p>Targeting Framework</p>
+                    <ul>
+                        <li>Operations/Production Managers</li>
+                        <li>15-25% response rates</li>
+                        <li>Pain point psychology</li>
+                        <li>Career benefit positioning</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Bot-as-a-Service Model</h3>
+                    <p>Monetisation Ready</p>
+                    <ul>
+                        <li>£500-2000 per campaign</li>
+                        <li>White-label dashboard</li>
+                        <li>Recurring revenue streams</li>
+                        <li>Agency-ready packaging</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Performance Analytics</h3>
+                    <p>Results Tracking</p>
+                    <ul>
+                        <li>Real-time campaign monitoring</li>
+                        <li>Response rate optimisation</li>
+                        <li>ROI measurement tools</li>
+                        <li>Success metrics dashboard</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <h2>Performance Metrics</h2>
+            
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-number">314</div>
+                    <div class="stat-label">Companies Discovered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">120</div>
+                    <div class="stat-label">Power Champion Emails</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">25%</div>
+                    <div class="stat-label">Response Rate</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50x</div>
+                    <div class="stat-label">Better Than Generic</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">£2K</div>
+                    <div class="stat-label">Per Campaign Value</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">9/10</div>
+                    <div class="stat-label">Confidence Score</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="wireframe-nav" id="wireframes">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.8rem; color: #4ade80; font-weight: 300;">Interactive Wireframes</h2>
+            <p style="text-align: center; color: #b0b0b0; font-size: 1.1rem;">Explore the complete system architecture and workflows</p>
+            
+            <div class="wireframe-grid">
+                <a href="system-architecture.html" class="wireframe-link">
+                    <h4>System Architecture</h4>
+                    <p>Complete MCP arsenal overview showing intelligence pipeline from discovery to conversion</p>
+                </a>
+                
+                <a href="profilesynth-workflow.html" class="wireframe-link">
+                    <h4>ProfileSynth Workflow</h4>
+                    <p>Deep intelligence gathering process transforming generic contacts into personal conversations</p>
+                </a>
+                
+                <a href="bot-as-a-service-dashboard.html" class="wireframe-link">
+                    <h4>Bot-as-a-Service Dashboard</h4>
+                    <p>Monetisation interface showing £24k+ monthly revenue potential and campaign analytics</p>
+                </a>
+                
+                <a href="power-champion-strategy.html" class="wireframe-link">
+                    <h4>Power Champion Strategy</h4>
+                    <p>Targeting framework explaining why middle management gets 25x better response rates</p>
+                </a>
+                
+                <a href="email-sequence-flow.html" class="wireframe-link">
+                    <h4>Email Sequence Flow</h4>
+                    <p>3-email psychology journey from cold contact to warm conversation with Nigerian context</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Outreach?</h2>
+            <p>Join agencies charging £500-2000 per campaign with 15-25% response rates</p>
+            
+            <a href="https://github.com/yourusername/mcp-lead-gen-arsenal" class="btn">View Source Code</a>
+            <a href="#contact" class="btn btn-secondary">Request Demo</a>
+            <a href="bot-as-a-service-dashboard.html" class="btn btn-secondary">See Pricing</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MCP Lead Generation Arsenal. Built for Nigerian Manufacturing Intelligence.</p>
+            <p>Target the Right People, Not the Highest People</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add some interactivity to stats
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.transform = 'scale(1.08)';
+                    entry.target.style.transition = 'transform 0.6s ease';
+                    setTimeout(() => {
+                        entry.target.style.transform = 'scale(1)';
+                    }, 600);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            observer.observe(stat);
+        });
+    </script>
+</body>
+</html> 

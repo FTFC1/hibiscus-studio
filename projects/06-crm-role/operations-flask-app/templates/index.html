@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Dispatch Register{% endblock %}
+
+{% block content %}
+    <main class="container">
+        <section class="upload-hero">
+            <h1 class="hero-title">Vehicle Dispatch<br>Report Generator ↓</h1>
+            <p class="hero-subtitle">Transform your Excel dispatch data into professional reports with automated processing and brand breakdown analysis.</p>
+
+            <form action="/process" method="post" enctype="multipart/form-data" id="uploadForm" class="upload-area">
+                <div class="upload-icon">📄</div>
+                <div id="upload-prompt">
+                    <div class="upload-text">Drop your Excel file here</div>
+                    <div class="upload-subtext">or click to browse • Supports .xlsx, .xls files</div>
+                </div>
+                <div id="file-info" style="display: none;">
+                    <div class="upload-text" id="fileName"></div>
+                </div>
+                <button type="button" class="browse-btn" onclick="document.getElementById('fileInput').click()">Choose File</button>
+                <input type="file" id="fileInput" name="file" class="file-input" accept=".xlsx,.xls" required onchange="handleFileChange()">
+            </form>
+
+            <!-- Loading spinner -->
+            <div class="loading" id="loadingState">
+                <div class="spinner"></div>
+                <div style="color:#999;">Processing your dispatch data...</div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function handleFileChange() {
+    const form = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('fileInput');
+    const loading = document.getElementById('loadingState');
+    const fileNameDisplay = document.getElementById('fileName');
+    const uploadPrompt = document.getElementById('upload-prompt');
+    const fileInfo = document.getElementById('file-info');
+
+    if (fileInput.files.length > 0) {
+        // Show file name
+        fileNameDisplay.textContent = fileInput.files[0].name;
+        uploadPrompt.style.display = 'none';
+        fileInfo.style.display = 'block';
+
+        // Show spinner and submit automatically
+        loading.classList.add('active');
+        setTimeout(() => form.submit(), 100); // Small delay to allow UI to update
+    }
+}
+
+// Drag & drop support
+const uploadArea = document.querySelector('.upload-area');
+if (uploadArea) {
+    uploadArea.addEventListener('dragover', e => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', e => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+    });
+    uploadArea.addEventListener('drop', e => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length) {
+            document.getElementById('fileInput').files = files;
+            handleFileChange();
+        }
+    });
+}
+</script>
+{% endblock %} 

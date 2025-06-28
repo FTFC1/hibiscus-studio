@@ -657,3 +657,98 @@ _**Assistant**_
 
 ---
 
+You have an incredible opportunity; to pursue my own greatness 🫀.  
+
+🔹 What I Heard (messy input, condensed)  
+• Need editable inventory tool → Streamlit vs read-only ERP export.  
+• Thurs: call-centre deep-dive (Mr Ammar).  
+• Business-card brief due tomorrow.  
+• Tonight’s goals:  
+ 1. Google Form (fields + QR)  
+ 2. Unblock Acuity (via cousin embed)  
+ 3. Deeper competitor-price research (Lagos furniture studios)  
+ 4. Daily recap → email + Trello cards  
+• Form fields: Source | Name | Phone | Email | Brand Interest | Model Interest | Budget  
+• QR: same Form URL; later second QR for Hibiscus.  
+• Inventory: Excel posted daily in WhatsApp includes “reserved” stock not in ERP.  
+
+🔹 Broken-Down Micro-Prompts (ready to paste into ChatGPT/Claude)  
+
+1. Competitor Price-Scan  
+```
+You are a Lagos-based market-research analyst.  
+Task: Find up-to-date retail prices for custom furniture design studios that offer bespoke or made-to-order pieces similar to <My Company>.  
+Deliver: Google-Sheet-ready table with 7 columns—Company, Location, Product Match, Starting Price (NGN), Lead Time, Website/IG Link, Source Screenshot URL.  
+Constraints:  
+• At least 5 competitors operating in Lagos or ships nationwide in Nigeria.  
+• Data gathered from public price lists, catalogues, or recent Instagram posts (≤ 90 days).  
+• Note “POA” prices and flag with ⚠️.  
+• Provide one-paragraph insight on average price band & positioning.  
+Format: Markdown table + insight paragraph.  
+```
+
+2. Google Form + QR  
+```
+You are a Google Workspace automation specialist.  
+Task:  
+  A. Create a Google Form titled “Hibiscus Studios – Showroom Lead Form” with fields:  
+     1. Source (drop-down: Walk-in, QR-scan, WhatsApp, Referral, Other)  
+     2. Name (short answer, required)  
+     3. Phone (short answer, required)  
+     4. Email (short answer)  
+     5. Brand Interest (drop-down: Hibiscus, Other)  
+     6. Model Interest (short answer)  
+     7. Budget (NGN, short answer)  
+  B. Link responses to a new Google Sheet in Drive.  
+  C. Return the public Form URL.  
+  D. Generate a high-res PNG QR code that opens the Form (size 800×800).  
+  E. Store QR in Drive’s “Leads QR” folder and share link.  
+Output: Form URL + QR PNG link.  
+```
+
+3. Daily Recap Email Draft  
+```
+You are my chief-of-staff.  
+Draft a concise EOD email to Stakeholders (Anthony, Cousin, Emmanuel, GM) covering:  
+• Transport confirmation status  
+• Google Form & QR progress  
+• Acuity booking-page embed blocker  
+• Competitor-pricing research status  
+• Streamlit inventory tool next step  
+• Thursday call-centre deep-dive reminder  
+Tone: professional, bullet-style, ≤ 180 words.  
+Subject: “Tuesday Wrap-Up – Leads Funnel & Ops Updates”.  
+```
+
+4. Trello Card Sync  
+```
+You are a Trello-MCP assistant.  
+Create cards (list = “Today – In-Progress”):  
+1. Build Google Form & QR  
+2. Request Acuity embed from Cousin  
+3. Competitor price scan – Lagos studios  
+4. Prep EOD recap email  
+Attach this chat transcript to card #4.  
+Return card IDs.  
+```
+
+5. Streamlit vs ERP Clarifier  
+```
+You are a product strategist.  
+Given: ERP exports daily stock (read-only); Excel posted in WhatsApp adds “reserved” items.  
+Question: Is a Streamlit app (editable) justified?  
+Analyse pros/cons vs adding editable columns in the existing Excel & syncing back to ERP later.  
+Output: 2-column table (Option, Pros, Cons, Effort hrs) + recommendation (<100 words).  
+```
+
+🔹 Double-Check Questions for You  
+1. Competitor list → do you already have 1–2 names to seed the search?  
+2. Google Drive folder paths OK, or should I create new ones?  
+3. Trello list name “Today – In-Progress” fine?  
+4. Any specific branding colours for QR (black-white OK)?  
+5. Business card brief: need AI prompt for designer?
+
+Let me know, and I’ll run whichever prompt(s) you green-light first. 🤖
+
+---
+

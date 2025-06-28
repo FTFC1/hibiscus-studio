@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigerian Industrial Gas Sales Automation Framework</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            margin: 0;
+            padding: 20px;
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <svg width="1000" height="800" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <!-- Process Arrow -->
+            <marker id="processArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#1a202c"/>
+            </marker>
+            <!-- Performance Arrow -->
+            <marker id="performanceArrow" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto">
+                <polygon points="0 0, 6 2.5, 0 5" fill="#4a5568"/>
+            </marker>
+            <!-- Feedback Arrow -->
+            <marker id="feedbackArrow" markerWidth="4" markerHeight="3" refX="3" refY="1.5" orient="auto">
+                <polygon points="0 0, 4 1.5, 0 3" fill="#4a5568"/>
+            </marker>
+        </defs>
+
+        <!-- Clean white background -->
+        <rect width="1000" height="800" fill="white"/>
+        
+        <!-- Title - Centered -->
+        <text x="500" y="50" font-family="Inter" font-size="28" font-weight="600" fill="#1a202c" text-anchor="middle">Nigerian Industrial Gas Sales Automation Framework</text>
+        
+        <!-- Vertical Process Flow -->
+        <g id="vertical-process">
+            <!-- Main Vertical Line -->
+            <line x1="500" y1="100" x2="500" y2="600" stroke="#1a202c" stroke-width="3"/>
+            
+            <!-- Step 1: Discovery -->
+            <g id="step1">
+                <circle cx="500" cy="140" r="15" fill="#1a202c"/>
+                <text x="500" y="147" font-family="Inter" font-size="14" font-weight="600" fill="white" text-anchor="middle">1</text>
+                
+                <!-- Step Content (Left Side) -->
+                <text x="300" y="120" font-family="Inter" font-size="24" font-weight="700" fill="#1a202c" text-anchor="middle">1000</text>
+                <text x="300" y="145" font-family="Inter" font-size="18" font-weight="600" fill="#2d3748" text-anchor="middle">Discovery</text>
+                <text x="300" y="165" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">₦500m+ Power Costs</text>
+                <text x="300" y="180" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">85% Data Accuracy</text>
+                
+                <!-- Market Context (Right Side) -->
+                <text x="700" y="135" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Generator Dependency: 85%</text>
+                <text x="700" y="150" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Diesel Cost: ₦180-250/kWh</text>
+                
+                <!-- Performance to Next Step -->
+                <text x="530" y="185" font-family="Inter" font-size="14" font-weight="500" fill="#4a5568" text-anchor="start">70% progression</text>
+            </g>
+            
+            <!-- Arrow 1->2 -->
+            <line x1="500" y1="190" x2="500" y2="220" stroke="#4a5568" stroke-width="2" marker-end="url(#performanceArrow)"/>
+            
+            <!-- Step 2: Champion Mapping -->
+            <g id="step2">
+                <circle cx="500" cy="250" r="15" fill="#1a202c"/>
+                <text x="500" y="257" font-family="Inter" font-size="14" font-weight="600" fill="white" text-anchor="middle">2</text>
+                
+                <!-- Step Content (Left Side) -->
+                <text x="300" y="230" font-family="Inter" font-size="24" font-weight="700" fill="#1a202c" text-anchor="middle">700</text>
+                <text x="300" y="255" font-family="Inter" font-size="18" font-weight="600" fill="#2d3748" text-anchor="middle">Champion Mapping</text>
+                <text x="300" y="275" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">3-5 Contacts Each</text>
+                <text x="300" y="290" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">Middle Management</text>
+                
+                <!-- Market Context (Right Side) -->
+                <text x="700" y="245" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Hierarchy Respect Required</text>
+                <text x="700" y="260" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Bottom-up Influence</text>
+                
+                <!-- Performance to Next Step -->
+                <text x="530" y="295" font-family="Inter" font-size="14" font-weight="500" fill="#4a5568" text-anchor="start">85% progression</text>
+            </g>
+            
+            <!-- Arrow 2->3 -->
+            <line x1="500" y1="300" x2="500" y2="330" stroke="#4a5568" stroke-width="2" marker-end="url(#performanceArrow)"/>
+            
+            <!-- Step 3: Deep Research -->
+            <g id="step3">
+                <circle cx="500" cy="360" r="15" fill="#1a202c"/>
+                <text x="500" y="367" font-family="Inter" font-size="14" font-weight="600" fill="white" text-anchor="middle">3</text>
+                
+                <!-- Step Content (Left Side) -->
+                <text x="300" y="340" font-family="Inter" font-size="24" font-weight="700" fill="#1a202c" text-anchor="middle">595</text>
+                <text x="300" y="365" font-family="Inter" font-size="18" font-weight="600" fill="#2d3748" text-anchor="middle">Deep Research</text>
+                <text x="300" y="385" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">8-Hour Research</text>
+                <text x="300" y="400" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">Psychology & Persuasion</text>
+                
+                <!-- Market Context (Right Side) -->
+                <text x="700" y="355" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Relationship-First: 5 Touchpoints</text>
+                <text x="700" y="370" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Grid Reliability: 40-70%</text>
+                
+                <!-- Performance to Next Step -->
+                <text x="530" y="405" font-family="Inter" font-size="14" font-weight="500" fill="#4a5568" text-anchor="start">90% progression</text>
+            </g>
+            
+            <!-- Arrow 3->4 -->
+            <line x1="500" y1="410" x2="500" y2="440" stroke="#4a5568" stroke-width="2" marker-end="url(#performanceArrow)"/>
+            
+            <!-- Step 4: Campaign Prep -->
+            <g id="step4">
+                <circle cx="500" cy="470" r="15" fill="#1a202c"/>
+                <text x="500" y="477" font-family="Inter" font-size="14" font-weight="600" fill="white" text-anchor="middle">4</text>
+                
+                <!-- Step Content (Left Side) -->
+                <text x="300" y="450" font-family="Inter" font-size="24" font-weight="700" fill="#1a202c" text-anchor="middle">535</text>
+                <text x="300" y="475" font-family="Inter" font-size="18" font-weight="600" fill="#2d3748" text-anchor="middle">Campaign Prep</text>
+                <text x="300" y="495" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">20-50 Companies/Week</text>
+                <text x="300" y="510" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">Personalised Outreach</text>
+                
+                <!-- Market Context (Right Side) -->
+                <text x="700" y="465" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Trust-Building Required</text>
+                <text x="700" y="480" font-family="Inter" font-size="12" fill="#4a5568" text-anchor="middle">Cultural Navigation</text>
+                
+                <!-- Performance to Results -->
+                <text x="530" y="515" font-family="Inter" font-size="14" font-weight="500" fill="#4a5568" text-anchor="start">8% conversion</text>
+            </g>
+            
+            <!-- Arrow to Results -->
+            <line x1="500" y1="520" x2="500" y2="550" stroke="#4a5568" stroke-width="2" marker-end="url(#performanceArrow)"/>
+            
+            <!-- Current Results -->
+            <g id="current-results">
+                <text x="500" y="575" font-family="Inter" font-size="16" font-weight="600" fill="#718096" text-anchor="middle">CURRENT RESULTS</text>
+                <text x="500" y="600" font-family="Inter" font-size="28" font-weight="700" fill="#1a202c" text-anchor="middle">43 Deals/Year</text>
+                <text x="500" y="620" font-family="Inter" font-size="14" fill="#4a5568" text-anchor="middle">₦2.5bn Avg (actual) • ₦107.5bn Revenue</text>
+            </g>
+        </g>
+        
+        <!-- Targets Section -->
+        <g id="targets">
+            <text x="500" y="680" font-family="Inter" font-size="18" font-weight="600" fill="#2d3748" text-anchor="middle">TARGETS</text>
+            <text x="500" y="710" font-family="Inter" font-size="24" font-weight="700" fill="#1a202c" text-anchor="middle">₦1tn Revenue • 400 Deals/Year • 30% Market Share</text>
+            <text x="500" y="730" font-family="Inter" font-size="12" fill="#718096" text-anchor="middle">₦4bn Target Avg Deal • (9.3× scale required)</text>
+        </g>
+        
+        <!-- Continuous Learning Feedback -->
+        <g id="continuous-learning">
+            <text x="100" y="400" font-family="Inter" font-size="14" font-weight="600" fill="#718096" text-anchor="middle">Continuous Learning</text>
+            
+            <!-- Feedback arrows from left side pointing to process steps -->
+            <line x1="150" y1="140" x2="180" y2="140" stroke="#4a5568" stroke-width="1" marker-end="url(#feedbackArrow)"/>
+            <text x="50" y="145" font-family="Inter" font-size="11" fill="#4a5568" text-anchor="middle">Win/Loss Analysis</text>
+            
+            <line x1="150" y1="250" x2="180" y2="250" stroke="#4a5568" stroke-width="1" marker-end="url(#feedbackArrow)"/>
+            <text x="50" y="255" font-family="Inter" font-size="11" fill="#4a5568" text-anchor="middle">Weekly Reviews</text>
+            
+            <line x1="150" y1="360" x2="180" y2="360" stroke="#4a5568" stroke-width="1" marker-end="url(#feedbackArrow)"/>
+            <text x="50" y="365" font-family="Inter" font-size="11" fill="#4a5568" text-anchor="middle">Monthly Optimisation</text>
+            
+            <line x1="150" y1="470" x2="180" y2="470" stroke="#4a5568" stroke-width="1" marker-end="url(#feedbackArrow)"/>
+            <text x="50" y="475" font-family="Inter" font-size="11" fill="#4a5568" text-anchor="middle">Campaign Analysis</text>
+        </g>
+        
+    </svg>
+</body>
+</html> 

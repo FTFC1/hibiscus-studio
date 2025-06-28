@@ -1,0 +1,54 @@
+function updateFollowUps() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var dataSheet = ss.getSheetByName('DATA');
+  var followUpSheet = ss.getSheetByName('FOLLOW UP');
+
+  if (!dataSheet || !followUpSheet) {
+    Logger.log('One or both sheets not found.');
+    return;
+  }
+
+  var followUpData = followUpSheet.getDataRange().getValues();
+  var dataData = dataSheet.getDataRange().getValues();
+
+  // Find column indexes
+  var followUpHeaders = followUpData[0];
+  var dataHeaders = dataData[3]; // Assuming headers are in row 4
+
+  var followUpCustomerIdIndex = followUpHeaders.indexOf('CUSTOMER ID');
+  var followUpOutcomeIndex = followUpHeaders.indexOf('OUTCOME');
+  var followUpReasonForLossIndex = followUpHeaders.indexOf('REASON FOR LOSS');
+
+  var dataCustomerIdIndex = dataHeaders.indexOf('Customer ID');
+  var dataSalesStatusIndex = dataHeaders.indexOf('Sales Status');
+
+  // Process each row in FOLLOW UP sheet
+  for (var i = 1; i < followUpData.length; i++) {
+    var customerId = followUpData[i][followUpCustomerIdIndex];
+    var outcome = followUpData[i][followUpOutcomeIndex];
+
+    if (!customerId || !outcome) continue;
+
+    // Find matching row in DATA sheet
+    for (var j = 4; j < dataData.length; j++) {
+      if (dataData[j][dataCustomerIdIndex] === customerId) {
+        // Update Sales Status
+        dataSheet.getRange(j + 1, dataSalesStatusIndex + 1).setValue(outcome);
+
+        // Set color based on outcome
+        var color = (outcome === 'Invoiced - Paid') ? 'green' : 
+                    (outcome === 'Closed - Lost' || outcome === 'Closed - Non-deal') ? 'red' : 'black';
+        dataSheet.getRange(j + 1, 1, 1, dataHeaders.length).setFontColor(color);
+
+        // Highlight Reason for Loss if needed
+        if (outcome === 'Closed - Lost' && !followUpData[i][followUpReasonForLossIndex]) {
+          followUpSheet.getRange(i + 1, followUpReasonForLossIndex + 1).setBackground('yellow');
+        }
+
+        break; // Stop searching once we've found and updated the matching row
+      }
+    }
+  }
+  
+  Logger.log("Update completed.");
+}

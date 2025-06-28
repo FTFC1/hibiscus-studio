@@ -1,0 +1,41 @@
+/* IBM-style neutral palette */
+body {
+  background-color: #f4f4f4;
+  color: #161616;
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+}
+
+.stats-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.stats-card h3 {
+  color: #0f62fe; /* IBM blue */
+  font-weight: 600;
+  margin: 0;
+}
+
+.stats-card p {
+  color: #525252;
+  margin: 0;
+}
+
+/* Remove emoji/colour heavy icons by muting */
+.stats-card i {
+  color: #8d8d8d;
+}
+
+.btn-primary, .btn-success, .btn-outline-primary {
+  background-color: #0f62fe !important;
+  border-color: #0f62fe !important;
+}
+
+.btn-outline-primary {
+  color: #0f62fe !important;
+  background: transparent !important;
+} 

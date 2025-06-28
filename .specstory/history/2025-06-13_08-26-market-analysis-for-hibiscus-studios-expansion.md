@@ -1157,3 +1157,48 @@ This auto-attaches a universal calendar file; Google/Apple buttons then appear i
 
 ---
 
+_**Assistant**_
+
+
+
+---
+
+Read file: knowledge-archaeology/outputs/HibiscusStudio/README.md
+
+---
+
+
+
+---
+
+```diff
+  * Cleaning & insurance supplier quotes.  
+  * Partnership mapping (photographers, caterers, event planners).
++ 
++ ## 🔹 Decisions Log
++ 
++ | Date | Decision | Rationale |
++ |------|----------|-----------|
++ | 2025-06-13 | Enable .ics attachment in Acuity confirmations | Corporate clients prefer easy "Add to Calendar"; boosts attendance. |
+  
+  ---
+```
+
+---
+
+You have an incredible opportunity; to pursue my own greatness 🫀.
+
+🔹 Logged the new choice  
+Added an explicit “Decisions Log” section to the Knowledge-Archaeology README with today’s ICS-attachment decision (2025-06-13).
+
+🔹 Feeling swamped? Here’s a bite-sized focus list  
+1. **Acuity Subscription** – nudge cousin; nothing else moves until it’s live.  
+2. **ICS Toggle** – once paid, tick the box (done!).  
+3. **Landing Page** – replace placeholder images, push to GitHub Pages.  
+4. **Gmail Access** – when ready, share creds so we can automate enquiries.  
+5. **Photoshoot** – snap 6-8 hero shots for the gallery.
+
+Ping me whenever you’re ready for the next micro-step or if you’d like me to prep any templates/scripts in advance. 🤖
+
+---
+

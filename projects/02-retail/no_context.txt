@@ -1,0 +1,282 @@
+# FORJE RETAIL TRAINING PLATFORM - COMPREHENSIVE PROJECT CONTEXT
+
+## PROJECT OVERVIEW
+**Status**: Research Phase (Dec 2024)
+**Type**: Mobile-first B2B SaaS training platform for retail sales staff
+**Problem**: Skill gaps in customer engagement, product knowledge, sales conversion
+**Solution**: Bite-sized mobile training modules for retail environments
+**Revenue**: Training licenses per retail location
+
+## 🔹 TELEGRAM BOT ALTERNATIVE
+**User Preference**: Telegram over WhatsApp for training delivery
+**Advantage**: Less intrusive notifications, better bot capabilities
+**Implementation**: 5-10 minute interactive training modules via Telegram bot
+**Features**: Video lessons, voice notes, interactive quizzes, progress tracking
+
+## CURRENT STRUCTURE
+```
+01-CORE/                    # Landing page, deployment files
+02-RESEARCH/                # Interview insights, market research
+├── INTERVIEWS/             # Individual interview files
+├── QUESTION-VERSIONS/      # V1 and V2 interview questions
+03-PARTNERSHIPS/            # FORJE + LBS Fashion Retail Programme
+├── forje-lbs-proposal/     # Converted partnership documents
+04-ASSETS/                  # Brand materials, archived content
+```
+
+## 🔹 DETAILED RESEARCH INSIGHTS
+
+### Sales Staff Interview Part 1
+**Key Findings:**
+- **Cross-selling** most common technique (ranked #1)
+- **Pricing confidence varies** by customer assessment
+- **Time constraints** major issue - fast-paced luxury environment
+- **Knowledge gaps**: Care instructions (#1), Product features improving
+- **Top objections**: "I'll come back later", "I'll think about it", Product availability
+- **Training preference**: 10-minute mobile videos > Workshops > WhatsApp
+- **Success metric**: Daily sales targets most relevant
+
+**Critical Quote**: "Look at the type of client we're attending to" - customer segmentation approach
+
+### Sales Staff Interview Part 2  
+**Key Findings:**
+- **Value-selling approach**: Benefits before price, future utility emphasis
+- **Luxury positioning**: "It's a luxury store. We step into the store, we feel ready"
+- **Follow-up strategy**: Capture details, follow up 2-3 days, create urgency
+- **Operational challenges**: Debt submission, corporate calls interrupt customer time
+- **Device preference**: Personal phones for training content
+- **Data costs concern** - primary barrier to mobile training
+
+**Critical Quote**: "The price will not be an issue since you know the future" - value justification
+
+### Training Constraints & Preferences
+**Mobile Training Barriers**:
+1. Data costs (primary concern)
+2. Internet connectivity 
+3. Work interruptions (stock checks, paperwork)
+
+**Preferred Learning Format**:
+1. **Visual > Audio > Text** (strong preference)
+2. **Personal devices** over company devices
+3. **Observation-based** learning most effective
+4. **Interactive elements** increase retention
+
+**Optimal Session Length**: 5-10 minutes maximum
+
+## 🔹 PARTNERSHIP STATUS - FORJE + LBS
+
+### Programme Overview
+**Title**: On-Demand Fashion Retail & Service Programme
+**Partners**: Lagos Business School (LBS) + FORJE
+**Launch**: Summer 2025 target
+**Focus**: Nigeria's first AI-enhanced fashion retail certification
+
+### 5-Pillar Curriculum
+1. **Nigerian Fashion Retail Landscape & Strategy**
+2. **Merchandising, Range Planning & Visual Execution**  
+3. **Supply-Chain & Inventory Optimisation**
+4. **Sales Leadership, Clienteling & Store Performance**
+5. **Retail Finance, Analytics & Enterprise KPI Management**
+
+### Learning Paths
+- **Functional heads**: Any 2 relevant pillars
+- **Senior leaders**: All 5 pillars for full Certificate  
+- **High-potential supervisors**: Pillar 1 + one career-aligned pillar
+
+### Competitive Advantages
+- Only programme combining local realities (FX, import delays) with best-practice
+- Self-paced for working managers
+- AI-powered interactive activities
+- LBS accreditation + FORJE industry credibility
+
+### Commercial Model
+- Revenue share between LBS & FORJE
+- Corporate licences with volume discounts
+- HR dashboard for progress monitoring
+
+## 🔹 INTERVIEW EVOLUTION (V1 → V2)
+
+### Version 1 Questions
+**Focus**: Basic training needs assessment
+**Target**: Sales staff, HR/Owners, Training managers
+**Approach**: Current state analysis, gap identification
+
+### Version 2 Questions  
+**Focus**: Professional certification & industry standardisation
+**Added Elements**:
+- Certification system appetite
+- Manager capability assessment  
+- Industry standardisation readiness
+- Monthly training commitment evaluation
+- Career progression pathways
+- ROI measurement frameworks
+
+**Key V2 Insights**: 
+- Budget range: ₦200k-₦2M+ per employee annually
+- 2 training days per month feasibility
+- Manager evaluation confidence levels
+- Industry-wide qualification recognition value
+
+## 🔹 TECHNICAL ARCHITECTURE CONSIDERATIONS
+
+### Current Stack
+- HTML/CSS landing page (01-CORE)
+- Netlify deployment ready
+- Mobile-first responsive design
+
+### Telegram Bot Requirements
+- **Message delivery**: Video, audio, text, interactive elements
+- **Progress tracking**: User completion rates, quiz scores
+- **Content scheduling**: Daily/weekly lesson delivery
+- **Analytics**: Engagement metrics, completion rates
+- **Offline capability**: Download for data-conscious users
+
+### Data Considerations
+- **Compression**: Optimise video/audio for Nigerian internet speeds
+- **Caching**: Local storage for repeat viewing
+- **Data usage display**: Show consumption to users
+- **Offline modes**: Download for later viewing
+
+## 🔹 MARKET POSITIONING
+
+### Primary Target Market
+- **Nigerian luxury retail chains** (fashion focus)
+- **5-50 locations** per client
+- **Mid-senior managers** + sales staff
+- **Lagos/Abuja** initial geographic focus
+
+### Value Proposition
+1. **Immediate applicability**: Daily sales situation training
+2. **Mobile-first**: Fits retail work environment  
+3. **Data-conscious**: Optimised for Nigerian connectivity
+4. **Measurable ROI**: Sales performance tracking
+5. **Industry recognition**: Professional certification pathway
+
+### Competitive Landscape
+- **No direct competitors** in Nigerian retail training
+- **International platforms** not Nigeria-specific
+- **In-house training** lacks standardisation
+- **Consultancy workshops** not scalable/ongoing
+
+## 🔹 REVENUE MODEL EVOLUTION
+
+### B2B Licensing (Current)
+- **Per location licensing**: ₦50k-₦200k monthly per store
+- **Staff-based pricing**: ₦10k-₦25k per employee monthly
+- **Certification fees**: ₦500k-₦2M per employee annually
+
+### Potential Telegram Advantages
+- **Lower delivery costs**: No app development needed
+- **Higher engagement**: Familiar platform, push notifications
+- **Easier onboarding**: No downloads required
+- **Rich media**: Video, voice, interactive polls
+- **Groups capability**: Team challenges, peer learning
+
+## 🔹 NEXT IMMEDIATE PRIORITIES
+
+### Research Follow-up
+1. **Partnership response**: LBS programme approval
+2. **Telegram feasibility**: Technical requirements assessment
+3. **Pilot customer**: 1-2 retail chains for MVP testing
+4. **Content creation**: First 10 training modules
+
+### Technical Development
+1. **Telegram bot architecture**: Message flow, content delivery
+2. **Analytics dashboard**: Progress tracking, ROI measurement  
+3. **Content management**: Module creation, scheduling tools
+4. **Payment integration**: Subscription billing system
+
+### Business Development
+1. **Pilot pricing strategy**: Free trial, paid conversion
+2. **Partnership outreach**: Additional retail chain contacts
+3. **Content partnerships**: Industry expert collaborations
+4. **Certification pathway**: Formal qualification structure
+
+## 🔹 SUCCESS METRICS
+
+### User Engagement
+- **Completion rates**: % finishing each module
+- **Session frequency**: Daily/weekly usage patterns
+- **Retention**: 30/60/90-day user return rates
+- **Content preference**: Video vs audio vs text engagement
+
+### Business Impact  
+- **Sales performance**: Before/after training metrics
+- **Customer satisfaction**: Mystery shopper scores
+- **Staff retention**: Turnover reduction in trained locations
+- **Knowledge retention**: Quiz scores, practical assessments
+
+### Platform Growth
+- **Location expansion**: Stores per client growth
+- **Client acquisition**: New retail chain onboarding  
+- **Revenue growth**: Monthly recurring revenue trends
+- **Market penetration**: % of target market using platform
+
+## 🔹 RISK MITIGATION
+
+### Technical Risks
+- **Telegram dependency**: Platform policy changes
+- **Data costs**: User affordability concerns
+- **Internet connectivity**: Offline capability requirements
+- **Content piracy**: Training material protection
+
+### Business Risks
+- **Partnership delays**: LBS programme approval timeline
+- **Market adoption**: Retail industry training culture
+- **Competition**: International platforms localising
+- **Economic factors**: Retail sector investment capacity
+
+## 🔹 FOUNDER CONTEXT INTEGRATION
+
+### Communication Preferences
+- **Terse, actionable insights** over theoretical depth
+- **Visual learner**: Diagrams, flows, mobile-friendly layouts
+- **Execution-first**: MVPs over perfect solutions
+- **Data-driven**: Measurable outcomes focus
+- **British English**: All content and communications
+
+### Technical Approach
+- **"Simply genius" solutions**: Complexity introduces issues
+- **Non-technical friendly**: Product designer background
+- **Debugging support**: AI-digestible problem descriptions
+- **Auto-commit**: Git commits when solutions work
+
+### Business Philosophy  
+- **"Earn from mind, not time"**: Scalable business models
+- **80/20 advantage**: Smart improvement focus
+- **Me-OS building**: Systematic online earning approach
+- **Global value aware**: Nigeria location considerations
+
+### Key Platforms/Tools
+- **Current**: Replit, n8n, Telegram bots
+- **Automation**: AI tools for manual task removal
+- **Collaboration**: AI as thinking partner
+- **Iteration**: Rapid feedback loops preferred
+
+## 🔹 IMPLEMENTATION ROADMAP
+
+### Phase 1: Telegram MVP (Q1 2025)
+- Basic bot with 5 training modules
+- Progress tracking and quiz functionality
+- 1-2 pilot retail locations
+- Manual content delivery and support
+
+### Phase 2: Scaling (Q2 2025)  
+- 20+ training modules across key topics
+- Automated scheduling and reminders
+- 5-10 retail chain clients
+- Basic analytics dashboard
+
+### Phase 3: Certification (Q3 2025)
+- LBS partnership programme launch
+- Formal qualification pathways
+- Advanced analytics and ROI tracking  
+- Industry-wide adoption push
+
+### Phase 4: Expansion (Q4 2025)
+- Additional African markets
+- Advanced AI personalisation
+- Enterprise features and integrations
+- Strategic partnership ecosystem
+
+🤖 

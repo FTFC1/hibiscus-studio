@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 7%; /* Dark background similar to OpenAI platform */
+    --foreground: 0 0% 98%; /* Light text for readability */
+
+    --card: 0 0% 10%; /* Slightly lighter than background for cards */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 210 100% 70%; /* Blue accent color similar to code syntax */
+    --primary-foreground: 0 0% 7%;
+
+    --secondary: 240 5% 15%; /* Subtle secondary background */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 240 5% 15%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 40%; /* Slightly brighter red for better visibility */
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 20%; /* Subtle borders */
+    --input: 240 5% 20%;
+    --ring: 240 5% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  /* Add padding to the bottom of the page on mobile to account for the floating action button */
+  @media (max-width: 768px) {
+    .pb-safe {
+      padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
+    }
+  }
+
+  /* Animation for transit flow */
+  @keyframes transit-flow {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-transit-flow {
+    animation: transit-flow 2s infinite linear;
+  }
+
+  /* Add these new animations for tab content transitions */
+  @keyframes tab-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes tab-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+
+  :root {
+    --tab-transition-duration: 0.2s;
+  }
+
+  [data-state="active"].animate-in {
+    animation: tab-in var(--tab-transition-duration) ease-out forwards;
+  }
+
+  [data-state="inactive"].animate-out {
+    animation: tab-out var(--tab-transition-duration) ease-in forwards;
+  }
+
+  /* Bottom navigation styles */
+  .bottom-nav-trigger {
+    @apply flex-1 flex flex-col items-center justify-center py-2 text-muted-foreground transition-colors;
+  }
+
+  .bottom-nav-trigger[data-state="active"] {
+    @apply text-primary;
+  }
+
+  .bottom-nav-indicator {
+    @apply absolute bottom-0 h-1 bg-primary rounded-t-full transition-all duration-300;
+  }
+}

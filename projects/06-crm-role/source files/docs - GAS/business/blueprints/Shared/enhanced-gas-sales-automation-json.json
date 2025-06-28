@@ -1,0 +1,407 @@
+{
+  "name": "Nigerian Industrial Gas Sales Automation Framework",
+  "version": "2.0",
+  "profile_purpose": "To enable automated, culturally-optimized discovery, research, and campaign targeting of Nigerian industrial companies for high-value gas infrastructure sales.",
+  
+  "nigerian_market_context": {
+    "power_infrastructure_realities": {
+      "grid_reliability_national": "40-60%",
+      "grid_reliability_lagos_abuja": "60-70%",
+      "generator_dependency_rate": "85% of businesses >50 employees",
+      "cost_differential": {
+        "grid_electricity": "₦60-120 per kWh",
+        "diesel_generators": "₦180-250 per kWh", 
+        "gas_generators": "₦80-120 per kWh"
+      },
+      "common_pain_points": [
+        "Voltage fluctuations (180V-250V swings)",
+        "Frequency instability (45-52Hz)",
+        "Complete grid failures (2-8 hours daily)",
+        "Generator fuel theft and security issues"
+      ]
+    },
+    "cultural_communication_patterns": {
+      "relationship_building_sequence": [
+        "mutual_connection_introduction",
+        "technical_credibility_demonstration", 
+        "industry_knowledge_validation",
+        "company_specific_discussion"
+      ],
+      "decision_making_flow": "bottom_up_influence_top_down_approval",
+      "trust_building_touchpoints_required": 5,
+      "preferred_language": "challenges_and_opportunities_not_problems",
+      "hierarchy_respect_mandatory": true
+    },
+    "business_culture": {
+      "relationship_importance": "personal_relationships_trump_efficiency",
+      "local_preference": "nigerian_companies_preferred_when_competence_equal",
+      "government_relations": "critical_for_large_contracts",
+      "family_business_dynamics": "founder_approval_often_required"
+    }
+  },
+
+  "company_discovery_engine": {
+    "objective": "Automated identification of 1000 Nigerian industrial companies with £500k+ annual power costs.",
+    "data_sources": [
+      "Nigerian Corporate Affairs Commission (CAC) registry",
+      "Nigerian Stock Exchange industrial filings",
+      "Industry association member lists (MAN, NACCIMA, etc.)",
+      "Energy utility billing data (where accessible)",
+      "Commercial credit bureaus",
+      "Third-party business data providers (e.g., Dun & Bradstreet, Kompass, LinkedIn)",
+      "Company websites and press releases",
+      "Government contractor databases",
+      "News mentions of expansion/operations"
+    ],
+    "filtering_criteria": {
+      "location": "Nigeria",
+      "priority_locations": ["Lagos", "Abuja", "Port Harcourt", "Kano"],
+      "industry": [
+        "Manufacturing",
+        "Processing", 
+        "Heavy Industry",
+        "Logistics",
+        "Agro-Processing",
+        "Chemical",
+        "Banking",
+        "Healthcare",
+        "Telecommunications"
+      ],
+      "annual_power_cost_min_gbp": 500000,
+      "employee_count_min": 100,
+      "annual_revenue_min_gbp": 2000000,
+      "growth_indicators": [
+        "recent_expansion_news",
+        "new_facility_announcements", 
+        "increased_production_capacity"
+      ]
+    },
+    "priority_scoring_factors": {
+      "annual_power_costs": 40,
+      "operational_criticality": 25,
+      "decision_making_accessibility": 20,
+      "competitive_landscape_position": 15
+    },
+    "technology_requirements": [
+      "Automated web scraping and API integration tools",
+      "Data cleaning and deduplication algorithms", 
+      "Company size and power usage estimation models",
+      "Nigerian business registry integration",
+      "Real-time news monitoring"
+    ],
+    "success_metrics": {
+      "companies_identified": 1000,
+      "accuracy_of_power_cost_estimates_percent": 90,
+      "market_coverage_percent": 80,
+      "data_freshness_days": 30
+    }
+  },
+
+  "power_champion_mapping": {
+    "objective": "Systematic identification of 3-5 middle management contacts per company with operational authority.",
+    "target_roles_by_industry": {
+      "manufacturing": ["Plant Manager", "Production Manager", "Maintenance Manager", "Engineering Manager"],
+      "banking": ["Facilities Manager", "IT Infrastructure Manager", "Operations Manager", "Risk Manager"],
+      "healthcare": ["Facilities Manager", "Biomedical Engineer", "Operations Manager", "Chief Medical Officer"],
+      "telecommunications": ["Network Operations Manager", "Infrastructure Manager", "Site Acquisition Manager"]
+    },
+    "data_sources": [
+      "LinkedIn professional networks",
+      "Company websites and org charts",
+      "Industry conference attendee lists",
+      "Professional association directories (Nigerian Society of Engineers, etc.)",
+      "Referrals from industry networks",
+      "News mentions and press releases",
+      "Government tender documentation"
+    ],
+    "research_methodology": {
+      "linkedin_mapping": {
+        "search_company_plus_power_titles": true,
+        "map_reporting_structures": true,
+        "identify_recent_hires_promotions": true
+      },
+      "industry_network_analysis": {
+        "professional_associations": true,
+        "conference_speakers": true,
+        "publication_quotes": true
+      },
+      "news_mining": {
+        "operational_announcements": true,
+        "staff_appointments": true,
+        "technical_challenges_mentioned": true
+      }
+    },
+    "cultural_sensitivity": {
+      "respect_hierarchies": true,
+      "prioritize_relationship_building": true,
+      "acknowledge_expertise_and_experience": true,
+      "use_proper_titles_mandatory": true
+    },
+    "technology_requirements": [
+      "Contact enrichment APIs",
+      "Relationship mapping tools", 
+      "Verification and validation algorithms",
+      "LinkedIn automation tools",
+      "Nigerian professional network integration"
+    ],
+    "success_metrics": {
+      "average_contacts_per_company": 4,
+      "contact_validity_rate_percent": 85,
+      "engagement_rate_percent": 30,
+      "power_champion_identification_accuracy": 90
+    }
+  },
+
+  "deep_research_and_profiling": {
+    "objective": "8-hour equivalent intelligence gathering per batch including company operations, individual psychology, and persuasion strategies.",
+    "research_stages": {
+      "stage_1_company_overview": {
+        "duration_hours": 2,
+        "focus": "basic operational analysis and power infrastructure",
+        "outputs": ["current_power_setup", "operational_challenges", "growth_indicators"]
+      },
+      "stage_2_decision_mapping": {
+        "duration_hours": 2, 
+        "focus": "stakeholder mapping and decision processes",
+        "outputs": ["budget_cycles", "approval_processes", "key_influencers"]
+      },
+      "stage_3_individual_profiling": {
+        "duration_hours": 2,
+        "focus": "power champion psychology and communication preferences", 
+        "outputs": ["motivation_analysis", "communication_patterns", "influence_tactics"]
+      },
+      "stage_4_persuasion_strategy": {
+        "duration_hours": 2,
+        "focus": "messaging optimization and relationship building approach",
+        "outputs": ["persuasion_angles", "objection_handling", "touchpoint_sequence"]
+      }
+    },
+    "research_methodologies": [
+      "Desk research on company news, financials, and projects",
+      "Social media analysis (LinkedIn, Twitter, local platforms)",
+      "Analysis of public procurement and tender records", 
+      "Stakeholder mapping and relationship history",
+      "Psychographic profiling of key contacts",
+      "Cultural and regional sensitivity analysis",
+      "Competitive landscape assessment",
+      "Regulatory compliance requirements analysis"
+    ],
+    "cultural_sensitivity": {
+      "understand_local_decision_making": true,
+      "incorporate_language_preferences": true,
+      "map_informal_influencers": true,
+      "respect_business_hierarchy": true,
+      "identify_family_business_dynamics": true
+    },
+    "technology_requirements": [
+      "Natural language processing for sentiment detection",
+      "CRM integration",
+      "Automated profiling dashboards",
+      "Nigerian news monitoring tools",
+      "Cultural sensitivity validation algorithms"
+    ],
+    "success_metrics": {
+      "insight_depth_score": "8/10 average across batch",
+      "persuasion_strategy_alignment_percent": 80,
+      "profile_completion_rate_percent": 95,
+      "cultural_sensitivity_score": "9/10",
+      "research_to_campaign_turnaround_days": 3
+    }
+  },
+
+  "campaign_preparation": {
+    "objective": "Weekly batch output of 20-50 companies with personalized email campaigns and engagement strategies.",
+    "batch_composition": {
+      "size_range": [20, 50],
+      "industry_mix": "balanced across target sectors",
+      "priority_weighting": "70% high-priority, 30% medium-priority companies"
+    },
+    "personalization_elements": [
+      "Operational pain points specific to company",
+      "Relationship-based messaging with mutual connections",
+      "Case studies relevant to Nigerian market and industry",
+      "Positioning gas as infrastructure partnership not commodity",
+      "Cultural sensitivity and hierarchy respect",
+      "Technical credibility demonstrations"
+    ],
+    "engagement_strategies": {
+      "relationship_building_phase": [
+        "Introductory emails referencing shared connections",
+        "Technical credibility demonstration with case studies",
+        "Industry knowledge validation through insights sharing"
+      ],
+      "business_discussion_phase": [
+        "Invitations to exclusive industry webinars",
+        "Operational efficiency opportunity discussions", 
+        "Technical assessment proposals"
+      ],
+      "follow_up_sequences": [
+        "Follow-up calls by local business development reps",
+        "Relationship-building events (virtual/physical)",
+        "Gradual transition to company-specific discussions"
+      ]
+    },
+    "email_campaign_assets": {
+      "subject_lines": "personalized with company/industry relevance",
+      "email_sequences": "3-5 touchpoints with cultural sensitivity",
+      "technical_credibility": "case studies and certifications",
+      "pain_point_messaging": "industry-specific operational challenges",
+      "call_to_action": "optimized for technical assessments"
+    },
+    "performance_tracking": {
+      "email_metrics": {
+        "open_rate_percent": null,
+        "response_rate_percent": null,
+        "positive_response_rate_percent": null
+      },
+      "engagement_metrics": {
+        "conversions_to_meetings": null,
+        "technical_assessment_requests": null,
+        "relationship_building_progression": null
+      },
+      "pipeline_progression": {
+        "qualified_opportunities": null,
+        "proposal_requests": null,
+        "contract_negotiations": null
+      }
+    },
+    "technology_requirements": [
+      "Campaign management and automation tools",
+      "Personalization engines with Nigerian context",
+      "Analytics and reporting dashboards",
+      "Cultural sensitivity validation",
+      "Response tracking and engagement analytics"
+    ],
+    "success_metrics": {
+      "weekly_personalized_campaigns": 1,
+      "companies_targeted_per_week": 35,
+      "qualified_meeting_rate_percent": 20,
+      "deal_progression_rate_percent": 10,
+      "cultural_sensitivity_effectiveness": "measured via response quality"
+    }
+  },
+
+  "continuous_learning_system": {
+    "win_loss_database": {
+      "successful_patterns": {
+        "engagement_approaches": [],
+        "messaging_angles": [],
+        "relationship_building_sequences": [],
+        "cultural_sensitivity_factors": []
+      },
+      "failed_approaches": {
+        "ineffective_messaging": [],
+        "cultural_missteps": [],
+        "timing_issues": [],
+        "positioning_failures": []
+      },
+      "industry_specific_learnings": {
+        "manufacturing": [],
+        "banking": [],
+        "healthcare": [],
+        "telecommunications": []
+      },
+      "cultural_insights": {
+        "relationship_building_best_practices": [],
+        "hierarchy_navigation_strategies": [],
+        "trust_building_accelerators": []
+      }
+    },
+    "optimization_triggers": {
+      "weekly_performance_review": {
+        "batch_performance_analysis": true,
+        "messaging_effectiveness_review": true,
+        "cultural_sensitivity_assessment": true
+      },
+      "monthly_strategy_adjustment": {
+        "targeting_criteria_optimization": true,
+        "industry_focus_refinement": true,
+        "relationship_building_process_improvement": true
+      },
+      "quarterly_system_overhaul": {
+        "market_feedback_integration": true,
+        "competitive_landscape_updates": true,
+        "technology_capability_enhancement": true
+      }
+    },
+    "feedback_integration": {
+      "client_response_analysis": "sentiment and content analysis of all responses",
+      "sales_team_insights": "regular feedback from business development reps",
+      "market_intelligence_updates": "continuous monitoring of Nigerian business environment",
+      "cultural_sensitivity_validation": "ongoing assessment of relationship-building effectiveness"
+    }
+  },
+
+  "pipeline_management": {
+    "stage_definitions": {
+      "initial_contact": "First response received from power champion",
+      "relationship_building": "Multiple touchpoints establishing trust and credibility",
+      "technical_interest": "Assessment request made or operational discussion initiated",
+      "proposal_stage": "Formal proposal submitted with technical and commercial terms",
+      "negotiation": "Commercial terms discussion and contract refinement",
+      "contract_signed": "Deal closed and implementation planning initiated"
+    },
+    "conversion_rates_targets": {
+      "contact_to_relationship": "30%",
+      "relationship_to_interest": "40%",
+      "interest_to_proposal": "50%", 
+      "proposal_to_negotiation": "60%",
+      "negotiation_to_contract": "70%"
+    },
+    "deal_progression_tracking": {
+      "average_sales_cycle_months": 6,
+      "relationship_building_duration_weeks": 8,
+      "technical_assessment_to_proposal_weeks": 4,
+      "proposal_to_contract_weeks": 12
+    }
+  },
+
+  "overall_success_criteria": {
+    "annual_contracts_target": 400,
+    "average_contract_size_gbp": 3500000,
+    "annual_revenue_target_gbp": 1000000000,
+    "relationship_quality_index": "Measured via NPS and client feedback surveys",
+    "market_penetration_rate": "40% of identified high-value targets engaged",
+    "cultural_sensitivity_effectiveness": "90% positive relationship building outcomes",
+    "system_learning_efficiency": "20% improvement in conversion rates annually"
+  },
+
+  "implementation_roadmap": {
+    "phase_1_foundation": {
+      "duration_weeks": 4,
+      "deliverables": [
+        "Company discovery engine setup",
+        "Nigerian market knowledge base integration",
+        "Power champion identification process",
+        "Cultural sensitivity framework implementation"
+      ]
+    },
+    "phase_2_automation": {
+      "duration_weeks": 4,
+      "deliverables": [
+        "Research automation and efficiency optimization",
+        "Campaign preparation and execution systems",
+        "Performance tracking and analytics implementation",
+        "Win/loss analysis and learning loop establishment"
+      ]
+    },
+    "phase_3_optimization": {
+      "duration_weeks": 4,
+      "deliverables": [
+        "System refinement based on performance data",
+        "Advanced profiling and persuasion strategy development",
+        "Competitive intelligence and market positioning",
+        "Scale optimization and capacity expansion"
+      ]
+    },
+    "phase_4_scale": {
+      "duration_ongoing": true,
+      "deliverables": [
+        "Full system operation at target capacity",
+        "Continuous optimization and market adaptation",
+        "Advanced analytics and predictive modeling",
+        "Strategic expansion and capability enhancement"
+      ]
+    }
+  }
+} 

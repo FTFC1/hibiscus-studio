@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORJE | Africa's Premier Retail Excellence Institute</title>
+    <meta name="description" content="The definitive platform for retail leadership development across Africa. World-class training, strategic insights, and executive networking for retail professionals.">
+    <meta property="og:title" content="FORJE | Africa's Premier Retail Excellence Institute">
+    <meta property="og:description" content="Where Africa's retail leaders are forged. Executive-level training and strategic development for the continent's retail future.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c2d12;
+            --accent: #047857;
+            --heritage-brown: #92400e;
+            --cream: #faf7f0;
+            --warm-white: #f9f7f4;
+            --background: #0c1220;
+            --surface: #1a202c;
+            --surface-light: #2d3748;
+            --surface-elevated: #4a5568;
+            --text: #f7fafc;
+            --text-muted: #a0aec0;
+            --text-light: #cbd5e0;
+            --border: #2d3748;
+            --border-light: #4a5568;
+            --success: #047857;
+            --warning: #92400e;
+            --glass: rgba(247, 250, 252, 0.02);
+            --glass-border: rgba(160, 174, 192, 0.12);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            --heritage-gradient: linear-gradient(135deg, #2563eb 0%, #7c2d12 50%, #047857 100%);
+            --logo-gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 40%, #047857 100%);
+            --subtle-accent: rgba(37, 99, 235, 0.06);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+            font-weight: 400;
+            padding-bottom: 100px; /* Ensure space for bottom nav */
+        }
+        
+        /* Typography */
+        .heading-xl {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 600;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .heading-lg {
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .heading-md {
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 600;
+            line-height: 1.2;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .text-lg {
+            font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+            line-height: 1.7;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .text-base {
+            font-size: 1rem;
+            line-height: 1.6;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        /* Glassmorphism utilities */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+        }
+        
+        .glass-strong {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(32px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+        
+        /* Animated gradient background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 80%, var(--subtle-accent) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(5, 150, 105, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 40%, rgba(6, 95, 70, 0.03) 0%, transparent 50%);
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            backdrop-filter: blur(24px);
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 16px 0;
+            background: rgba(15, 23, 42, 0.98);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 1.875rem;
+            font-weight: 600;
+            background: var(--logo-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.01em;
+            font-family: 'Crimson Text', serif;
+            z-index: 1001; 
+        }
+        
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: var(--heritage-gradient);
+            transition: width 0.3s ease;
+            z-index: 1001; 
+        }
+        
+        .mobile-nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1002; 
+        }
+        
+        .mobile-nav-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--text);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-menu.mobile-active {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 120px;
+            gap: 32px;
+            z-index: 1001; 
+            overflow-y: auto; 
+        }
+        
+        .nav-menu.mobile-active .nav-link {
+            font-size: 1.2rem;
+            color: var(--text);
+            padding: 16px 32px;
+            border-radius: 8px;
+            margin: 0 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu.mobile-active .nav-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        
+        .nav-menu.mobile-active .btn-nav {
+            font-size: 1rem;
+            padding: 16px 32px;
+            margin: 0 32px;
+            background: var(--primary);
+            color: var(--cream);
+            border: none;
+            border-radius: 8px;
+        }
+        
+        .nav-menu.mobile-active .btn-nav:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .btn-nav {
+            background: var(--glass-strong);
+            color: var(--text-light);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .btn-nav:hover {
+            transform: translateY(-1px);
+            background: var(--primary);
+            color: var(--cream);
+            border-color: var(--primary);
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px; 
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(24px);
+            border-top: 1px solid rgba(160, 174, 192, 0.1);
+            z-index: 1000; 
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            padding: 0 10px; 
+        }
+        
+        .bottom-nav-item {
+            width: 50px; 
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgba(160, 174, 192, 0.7);
+            text-decoration: none;
+            position: relative;
+            border-radius: 12px;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .bottom-nav-item:hover {
+            color: var(--text-light);
+            background: rgba(160, 174, 192, 0.05);
+        }
+        
+        .bottom-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--heritage-gradient);
+            width: var(--progress, 0%);
+            transition: width 0.3s ease;
+            z-index: 1001; 
+        }
+        
+        .hero {
+            padding: 160px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--glass-strong);
+            border: 1px solid var(--glass-border);
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin-bottom: 40px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .hero-badge .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .hero h1 {
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--primary) 70%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+        
+        .hero-ctas {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--cream);
+            padding: 18px 36px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+            background: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background: var(--glass-strong);
+            color: var(--text);
+            padding: 18px 36px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--surface-light);
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+        
+        .authority-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+        
+        .stat-card {
+            background: var(--glass-strong);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            background: var(--surface-elevated);
+            border-color: var(--primary);
+        }
+        
+        .stat-icon {
+            font-size: 2.25rem;
+            margin-bottom: 8px;
+        }
+        
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 600;
+            background: var(--logo-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--glass-strong);
+            border: 1px solid var(--glass-border);
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .section-title {
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+        
+        .section-subtitle {
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 32px;
+            margin: 60px 0;
+        }
+        
+        @media (min-width: 769px) { 
+            .programs-grid {
+                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            }
+        }
+
+        .program-card {
+            background: var(--glass-strong);
+            border-radius: 20px;
+            padding: 0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--heritage-gradient);
+        }
+        
+        .program-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--heritage-gradient);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .program-card:hover::after {
+            opacity: 0.15;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.25);
+            border-color: transparent;
+        }
+        
+        .program-header {
+            padding: 32px 32px 24px;
+            position: relative;
+            background: linear-gradient(145deg, rgba(37, 99, 235, 0.03) 0%, rgba(124, 45, 18, 0.02) 100%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .program-visual {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: var(--heritage-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transform: rotate(8deg);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+        }
+        
+        .program-tier {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(124, 45, 18, 0.9);
+            color: var(--cream);
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-family: 'Source Sans Pro', sans-serif;
+            margin-bottom: 24px;
+            backdrop-filter: blur(8px);
+        }
+        
+        .program-tier.waitlist {
+            background: rgba(4, 120, 87, 0.9);
+        }
+        
+        .program-tier.coming-soon {
+            background: rgba(37, 99, 235, 0.9);
+        }
+        
+        .program-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text);
+            font-family: 'Crimson Text', serif;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+        }
+        
+        .program-content {
+            padding: 0 32px 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .program-description {
+            color: var(--text-muted);
+            margin: 20px 0 32px;
+            line-height: 1.65;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        .program-features {
+            list-style: none;
+            margin-bottom: 32px;
+            flex: 1;
+        }
+        
+        .program-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+        
+        .program-features li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+        
+        .program-cta {
+            margin-top: auto;
+        }
+        
+        .btn-program {
+            width: 100%;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: center;
+            display: block;
+        }
+        
+        .btn-program.primary {
+            background: var(--primary);
+            color: var(--cream);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+        }
+        
+        .btn-program.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+        }
+        
+        .btn-program.secondary {
+            background: var(--glass-strong);
+            color: var(--text-light);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .btn-program.secondary:hover {
+            background: var(--surface-elevated);
+            border-color: var(--primary);
+            color: var(--text);
+        }
+        
+        .excellence-section {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 80px;
+            margin: 120px 0;
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .excellence-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 48px 0;
+            flex-wrap: wrap;
+        }
+        
+        .excellence-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--cream);
+            font-weight: 600;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .excellence-icon:nth-child(2n) {
+            background: var(--secondary);
+        }
+        
+        .excellence-icon:nth-child(3n) {
+            background: var(--accent);
+        }
+        
+        .authority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin: 100px 0;
+        }
+        
+        .authority-card {
+            background: var(--glass-strong);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .authority-card:hover {
+            transform: translateY(-6px);
+            background: var(--surface-elevated);
+            border-color: var(--primary);
+        }
+        
+        .authority-icon {
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+        }
+        
+        .authority-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: var(--logo-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .authority-label {
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .cta-section {
+            background: var(--glass-strong);
+            border-radius: 24px;
+            padding: 100px 60px;
+            text-align: center;
+            margin: 120px 0;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .countdown-timer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            justify-content: center;
+            gap: 12px;
+            margin: 40px 0;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .countdown-item {
+            background: var(--surface-elevated);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .countdown-label {
+            font-size: 0.75rem;
+            /* MODIFICATION FOR CONTRAST: Changed from --text-muted to --text */
+            color: var(--text); 
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Source Sans Pro', sans-serif;
+            margin-top: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-nav-toggle {
+                display: flex;
+            }
+            
+            .nav-menu {
+                display: none; 
+            }
+            
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .hero-container, .container {
+                padding: 0 24px;
+            }
+            
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .program-header {
+                padding: 24px 24px 20px; 
+            }
+            
+            .program-visual {
+                width: 40px; 
+                height: 40px;
+                font-size: 1.1rem;
+                top: 16px;
+                right: 16px;
+            }
+            
+            .program-title {
+                font-size: 1.35rem; 
+            }
+            
+            .program-content {
+                padding: 0 24px 24px; 
+            }
+            
+            .program-description {
+                margin: 16px 0 24px; 
+            }
+            
+            .program-features {
+                margin-bottom: 24px; 
+            }
+            
+            .countdown-timer {
+                gap: 10px; 
+                max-width: 240px; 
+            }
+            
+            .countdown-item {
+                padding: 16px 12px; 
+            }
+            
+            .countdown-number {
+                font-size: 1.75rem; 
+            }
+            
+            .excellence-section {
+                padding: 40px 24px;
+                margin: 80px 0; 
+            }
+            
+            .excellence-icons {
+                gap: 20px;
+            }
+            
+            .excellence-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-header {
+                margin-bottom: 40px;
+            }
+            
+            .programs-grid {
+                margin: 40px 0; 
+            }
+            
+            .authority-grid {
+                margin: 40px 0; 
+                gap: 24px; 
+            }
+            .cta-section {
+                padding: 60px 24px; 
+                margin: 80px 0; 
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Source+Sans+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">FORJE</div>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu">
+                <a href="#institute" class="nav-link" data-section="institute">Training Programs</a>
+                <a href="#expertise" class="nav-link" data-section="expertise">Why FORJE</a>
+                <a href="#leadership" class="nav-link" data-section="leadership">Our Experience</a>
+                <a href="#access" class="btn-nav" data-section="access">Join Early Access</a>
+            </div>
+            <div class="progress-bar"></div>
+        </div>
+    </nav>
+
+    <div class="bottom-nav">
+        <a href="#hero" class="bottom-nav-item" data-target="hero">⌂</a>
+        <a href="#institute" class="bottom-nav-item" data-target="institute">◉</a>
+        <a href="#expertise" class="bottom-nav-item" data-target="expertise">✦</a>
+        <a href="#leadership" class="bottom-nav-item" data-target="leadership">♛</a>
+        <a href="#access" class="bottom-nav-item" data-target="access">⟶</a>
+    </div>
+
+    <section id="hero" class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <div class="badge-dot"></div>
+                Programs Launching Q4 2025
+            </div>
+            <h1 class="heading-xl">Where Retail Teams<br>Drive Real Results</h1>
+            <p class="hero-subtitle text-lg">
+                Practical sales training that actually works in African retail environments. Build stronger teams, increase sales, and deliver better customer experiences.
+            </p>
+            <div class="hero-ctas">
+                <a href="#access" class="btn-primary">Get Started</a>
+                <a href="#institute" class="btn-secondary">See Programs</a>
+            </div>
+            <div class="authority-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📍</div>
+                    <div class="stat-number">Lagos</div>
+                    <div class="stat-label">Starting Location</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-number">100</div>
+                    <div class="stat-label">Early Access Spots</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-number">Q4 2025</div>
+                    <div class="stat-label">Program Launch</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="institute" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Executive Programs</div>
+                <h2 class="section-title heading-lg">Three Pillars of Excellence</h2>
+                <p class="section-subtitle text-lg">
+                    Comprehensive executive development programs designed for Africa's retail leaders and emerging talent.
+                </p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-visual">🎯</div>
+                        <div class="program-tier coming-soon">Coming Soon</div>
+                        <h3 class="program-title">Strategic Sales Leadership</h3>
+                    </div>
+                    <div class="program-content">
+                        <p class="program-description">
+                            Advanced sales strategy and execution for senior retail professionals driving revenue growth across African markets.
+                        </p>
+                        <ul class="program-features">
+                            <li>Strategic sales planning and execution</li>
+                            <li>Cross-cultural market intelligence</li>
+                            <li>Advanced negotiation and influence</li>
+                            <li>Revenue optimization frameworks</li>
+                            <li>Executive peer advisory groups</li>
+                        </ul>
+                        <div class="program-cta">
+                            <button class="btn-program primary">Get Early Access</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-visual">👑</div>
+                        <div class="program-tier waitlist">Waitlist Only</div>
+                        <h3 class="program-title">Retail Leadership Institute</h3>
+                    </div>
+                    <div class="program-content">
+                        <p class="program-description">
+                            Executive leadership development for current and aspiring retail executives across the African continent.
+                        </p>
+                        <ul class="program-features">
+                            <li>C-level strategic thinking</li>
+                            <li>Organizational transformation</li>
+                            <li>Board-level communications</li>
+                            <li>Crisis leadership and resilience</li>
+                            <li>Executive mentorship network</li>
+                        </ul>
+                        <div class="program-cta">
+                            <button class="btn-program secondary">Join Waitlist</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-visual">🚀</div>
+                        <div class="program-tier waitlist">Waitlist Only</div>
+                        <h3 class="program-title">Customer Experience Excellence</h3>
+                    </div>
+                    <div class="program-content">
+                        <p class="program-description">
+                            Strategic customer experience design and implementation for competitive advantage in African retail markets.
+                        </p>
+                        <ul class="program-features">
+                            <li>CX strategy and design thinking</li>
+                            <li>Digital transformation leadership</li>
+                            <li>Omnichannel experience architecture</li>
+                            <li>Customer analytics and insights</li>
+                            <li>Innovation lab partnerships</li>
+                        </ul>
+                        <div class="program-cta">
+                            <button class="btn-program secondary">Join Waitlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="expertise" class="section">
+        <div class="container">
+            <div class="excellence-section">
+                <div class="section-badge">Institute Excellence</div>
+                <h2 class="section-title heading-lg">Setting the Standard for Retail Excellence</h2>
+                <p class="section-subtitle text-lg">
+                    FORJE Institute represents the pinnacle of retail education in Africa, combining world-class methodologies with deep local market expertise.
+                </p>
+                <div class="excellence-icons">
+                    <div class="excellence-icon">S</div>
+                    <div class="excellence-icon">T</div>
+                    <div class="excellence-icon">R</div>
+                    <div class="excellence-icon">A</div>
+                    <div class="excellence-icon">T</div>
+                    <div class="excellence-icon">E</div>
+                    <div class="excellence-icon">G</div>
+                    <div class="excellence-icon">Y</div>
+                </div>
+                <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">
+                    "Our mission is to establish Africa as a global leader in retail innovation and excellence. Every program, every methodology, every partnership is designed to elevate the continent's retail capabilities."
+                    <br><strong style="color: var(--text);">- FORJE Institute Directorate</strong>
+                </p>
+                <button class="btn-primary" style="font-size: 1.1rem; padding: 24px 48px;">
+                    Explore Institute Vision
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="leadership" class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Institute Leadership</div>
+                <h2 class="section-title heading-lg">Proven Expertise, Exceptional Results</h2>
+                <p class="section-subtitle text-lg">
+                    Our institute is founded on decades of proven retail leadership across Africa's most dynamic markets.
+                </p>
+            </div>
+            <div class="authority-grid">
+                <div class="authority-card">
+                    <div class="authority-icon">🏪</div>
+                    <div class="authority-value">20+</div>
+                    <div class="authority-label">Years Retail Experience</div>
+                </div>
+                <div class="authority-card">
+                    <div class="authority-icon">🌍</div>
+                    <div class="authority-value">Lagos</div>
+                    <div class="authority-label">Based in Nigeria</div>
+                </div>
+                <div class="authority-card">
+                    <div class="authority-icon">🎯</div>
+                    <div class="authority-value">100+</div>
+                    <div class="authority-label">Retail Professionals Network</div>
+                </div>
+                <div class="authority-card">
+                    <div class="authority-icon">📈</div>
+                    <div class="authority-value">Q4 2025</div>
+                    <div class="authority-label">Program Launch</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="access" class="section">
+        <div class="container">
+            <div class="cta-section">
+                <div class="section-badge">Exclusive Access</div>
+                <h2 class="section-title heading-lg">Secure Your Institute Position</h2>
+                <p class="section-subtitle text-lg">
+                    Charter membership is limited to 100 senior retail professionals. Priority access for qualified executives and emerging leaders.
+                </p>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">240</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">18</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                </div>
+                <div style="margin: 60px 0;">
+                    <button class="btn-primary" style="font-size: 1.2rem; padding: 24px 56px;">
+                        Request Institute Access
+                    </button>
+                    <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.9rem;">
+                        Executive review process • Invitation only • Charter member benefits
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile Navigation System
+        class MobileNavigation {
+            constructor() {
+                this.toggle = document.querySelector('.mobile-nav-toggle');
+                this.menu = document.querySelector('.nav-menu');
+                this.navbar = document.querySelector('.navbar');
+                this.progressBar = document.querySelector('.progress-bar');
+                this.bottomNav = document.querySelector('.bottom-nav'); 
+                this.navLinks = document.querySelectorAll('.nav-link, .btn-nav');
+                this.bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+                this.sections = document.querySelectorAll('section[id]');
+                this.init();
+            }
+            
+            init() {
+                if (this.toggle && this.menu) { 
+                    this.setupMobileToggle();
+                }
+                if (this.navbar && this.progressBar && this.bottomNav) { 
+                    this.setupScrollTracking();
+                }
+                if (this.sections.length > 0) { 
+                    this.setupSectionObserver();
+                }
+                this.setupSmoothScrolling(); 
+                if (this.bottomNavItems.length > 0) { 
+                    this.setupBottomNavigation();
+                }
+            }
+            
+            setupMobileToggle() {
+                this.toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.toggle.classList.toggle('active');
+                    this.menu.classList.toggle('mobile-active');
+                    if (this.menu.classList.contains('mobile-active')) {
+                        document.body.style.overflow = 'hidden';
+                        document.body.style.position = 'fixed'; 
+                        document.body.style.width = '100%';
+                    } else {
+                        document.body.style.overflow = '';
+                        document.body.style.position = '';
+                        document.body.style.width = '';
+                    }
+                });
+                this.navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (this.menu.classList.contains('mobile-active')) {
+                           this.closeMobileMenu();
+                        }
+                    });
+                });
+                document.addEventListener('click', (e) => {
+                    if (this.menu.classList.contains('mobile-active') && 
+                        !this.toggle.contains(e.target) && 
+                        !this.menu.contains(e.target)) {
+                        this.closeMobileMenu();
+                    }
+                });
+            }
+            
+            closeMobileMenu() {
+                if (this.toggle && this.menu) { 
+                    this.toggle.classList.remove('active');
+                    this.menu.classList.remove('mobile-active');
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                }
+            }
+            
+            setupScrollTracking() {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.scrollY;
+                    const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = (maxHeight > 0) ? (scrolled / maxHeight) * 100 : 0; 
+                    if (this.progressBar) this.progressBar.style.width = `${progress}%`;
+                    if (this.bottomNav) {
+                        this.bottomNav.style.setProperty('--progress', `${progress}%`);
+                    }
+                    if (this.navbar) {
+                        if (scrolled > 100) {
+                            this.navbar.classList.add('scrolled');
+                        } else {
+                            this.navbar.classList.remove('scrolled');
+                        }
+                    }
+                });
+            }
+            
+            setupSectionObserver() {
+                const options = {
+                    root: null,
+                    rootMargin: '-30% 0px -30% 0px', 
+                    threshold: 0.01 
+                };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.updateActiveNavigation(entry.target.id);
+                        }
+                    });
+                }, options);
+                this.sections.forEach(section => {
+                    if (section) observer.observe(section);
+                });
+                 if (this.sections.length > 0 && this.sections[0].id === 'hero') {
+                    setTimeout(() => {
+                        const heroRect = this.sections[0].getBoundingClientRect();
+                        const viewportHeight = window.innerHeight;
+                        if (heroRect.top < viewportHeight * 0.7 && heroRect.bottom > viewportHeight * 0.3) {
+                           this.updateActiveNavigation('hero');
+                        } else if (window.scrollY < 100) { 
+                           this.updateActiveNavigation('hero');
+                        }
+                    }, 100);
+                }
+            }
+            
+            updateActiveNavigation(activeId) {
+                this.navLinks.forEach(link => {
+                    if (link) {
+                        link.classList.remove('active');
+                        const linkTarget = link.getAttribute('href')?.replace('#', '') || link.getAttribute('data-section');
+                        if (linkTarget === activeId) {
+                            link.classList.add('active');
+                        }
+                    }
+                });
+                this.bottomNavItems.forEach(item => {
+                   if (item) {
+                        item.classList.remove('active');
+                        if (item.getAttribute('data-target') === activeId) {
+                            item.classList.add('active');
+                        }
+                    }
+                });
+            }
+            
+            setupSmoothScrolling() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        const targetId = anchor.getAttribute('href')?.replace('#', '');
+                        if (!targetId) return;
+                        const target = document.getElementById(targetId);
+                        if (target) {
+                            e.preventDefault(); 
+                            const navbarHeight = this.navbar ? this.navbar.offsetHeight : 80; 
+                            const desiredGap = 20; 
+                            let scrollPosition = target.offsetTop - navbarHeight - desiredGap;
+                            scrollPosition = Math.max(0, scrollPosition); 
+                            window.scrollTo({
+                                top: scrollPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                        if (this.menu && this.menu.classList.contains('mobile-active') && anchor.closest('.nav-menu')) {
+                           this.closeMobileMenu();
+                        }
+                    });
+                });
+            }
+            
+            setupBottomNavigation() {
+                this.bottomNavItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const targetId = item.getAttribute('data-target');
+                        if (targetId) {
+                           this.updateActiveNavigation(targetId); 
+                        }
+                    });
+                });
+            }
+        }
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const targetDate = new Date('2025-10-01T00:00:00').getTime(); 
+            const distance = targetDate - now;
+            const daysElement = document.getElementById('days');
+            const hoursElement = document.getElementById('hours');
+            if (distance < 0) {
+                if (daysElement) daysElement.textContent = "0";
+                if (hoursElement) hoursElement.textContent = "0";
+                return;
+            }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            if (daysElement) daysElement.textContent = days.toString();
+            if (hoursElement) hoursElement.textContent = hours.toString();
+        }
+        
+        function setupCTAButtons() {
+            document.querySelectorAll('.btn-primary, .btn-secondary, .btn-program').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        if (this.textContent.includes('Get Started') || 
+                            this.textContent.includes('Early Access') ||
+                            this.textContent.includes('Request Institute Access') && !href) {
+                            // Continue to alert
+                        } else {
+                            return; 
+                        }
+                    }
+                    if (this.textContent.includes('See Programs') && href && href.startsWith('#')) {
+                        return;
+                    }
+                    if (!href || !href.startsWith('#') || this.textContent.includes('Early Access') || this.textContent.includes('Get Started') || this.textContent.includes('Request Institute Access')) {
+                        e.preventDefault();
+                    }
+                    let message = "Thank you for your interest!"; 
+                    if (this.textContent.includes('Early Access') || this.textContent.includes('Get Started') || this.textContent.includes('Request Institute Access')) {
+                         message = this.textContent.includes('Early Access') || this.textContent.includes('Get Started')
+                            ? `🎯 Early Access Request\n\nYou're requesting early access to FORJE's retail training programs.\n\nNext steps:\n✓ Review your request\n✓ Send program details\n✓ Provide early access pricing\n✓ Schedule consultation\n\nExpected response: 24-48 hours`
+                            : `🎯 Institute Access Request\n\nYou're requesting access to FORJE Institute programs.\n\nOur team will:\n✓ Review your background\n✓ Schedule consultation\n✓ Provide program details\n✓ Send formal invitation\n\nThis represents the standard for executive development.`;
+                    } else if (this.textContent.includes('Join Waitlist')) {
+                        message = `⏳ Waitlist Joined!\n\nYou've been added to the waitlist for ${this.closest('.program-card')?.querySelector('.program-title')?.textContent || 'this program'}.\nWe'll notify you when spots become available or more information is released.`;
+                    } else if (this.textContent.includes('Explore Institute Vision')) {
+                        message = "Visionary details about FORJE Institute would be displayed here. For now, this is a placeholder.";
+                    }
+                    alert(message);
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            window.mobileNavInstance = new MobileNavigation();
+            updateCountdown(); 
+            setupCTAButtons();
+            setInterval(updateCountdown, 1000 * 60 * 60);
+        });
+        
+        window.addEventListener('resize', function() {
+            const mobileNav = window.mobileNavInstance;
+            if (window.innerWidth > 768 && mobileNav && mobileNav.menu && mobileNav.menu.classList.contains('mobile-active')) {
+                mobileNav.closeMobileMenu();
+            }
+        });
+    </script>
+</body>
+</html>

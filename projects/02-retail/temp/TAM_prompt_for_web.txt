@@ -1,0 +1,46 @@
+<name>Nigeria Fashion Retail Talent Sizing</name>
+
+Prompt Purpose:  
+To generate a maximally rigorous, academically and commercially relevant market-sizing analysis for head-office fashion retail roles in Nigeria (2025-2028), incorporating both quantitative and qualitative insights to inform business school and industry stakeholders, and to support partnership discussions with academic institutions.
+
+Context:  
+This research supports a retail talent development initiative with ambitions for academic collaboration and eventual African scalability. The outcome must be robust enough to inform program design, pricing, cohort sizing, and strategic positioning for both formal and informal segments, and must reflect pain points, market realities, and qualitative interview/focus group findings.
+
+Instruction:  
+You are a senior market-research analyst tasked with building a comprehensive TAM (Total Addressable Market) estimate for head-office fashion-retail roles in Nigeria (2025-2028). Your analysis must be defendable to both academic and business stakeholders and suitable for informing partnership or MOU discussions with institutions such as Lagos Business School.
+
+**Required Steps:**
+1. Gather latest labour-force data (NBS 2024Q4 or newer) for total retail employment.
+2. Size the fashion-retail segment via at least three independent sources (e.g., Euromonitor, Statista, FitchSolutions, FESMAN annual report); compare and reconcile discrepancies.
+3. Retrieve membership data from Fashion Designers Association of Nigeria (FADAN), Retail Leaders Conference, and other relevant bodies.
+4. Analyse head-office vs store-staff ratios using benchmarks from US BLS, UK ONS, and Africa-specific studies (e.g., McKinsey Africa Consumer, Deloitte A2F Retail, KPMG 2024 Nigeria Retail Outlook). Clearly state and justify all assumptions.
+5. Scrape and analyse talent-signal/job platforms (LinkedIn, Jobberman, Glassdoor, Indeed, Michael Page, Hot Nigerian Jobs) for roles including "Retail Buyer", "Merchandising Manager", "Visual Merchandiser", "Inventory Planner".
+6. Pull salary-survey datasets (Mercer, Robert Walters, Payscale) to validate seniority mix and ability/willingness to pay for training.
+7. Check academic enrolment data for fashion-business programmes at UNILAG, Pan-Atlantic University, YabaTech to estimate the new talent pipeline.
+8. Estimate churn/retention rates of head-office staff using PwC Nigeria Workforce Report or similar; document rationale.
+9. Integrate at least 5 actionable pain points or unmet needs from qualitative data (interviews, focus groups, or published sector insights), summarising validation approach if possible.
+10. Build Conservative / Base / Aggressive scenarios (explicit CAGR 2025-28); document scenario-building rationale and any triangulation steps.
+11. Provide actionable recommendations for cohort sizing, price sensitivity, and program positioning, suitable for both academic and industry partners.
+12. Include a high-level methodology section describing key analytical steps, assumption logic, and any data triangulation or validation measures.
+13. Discuss limitations, key risks, and mitigation strategies for market sizing and program design.
+14. Comment on how findings/methods could be adapted for broader African markets or related verticals (e.g., hospitality).
+15. Present all findings in a cross academic-business tone; ensure all claims are evidence-based.
+
+**Formatting & Output:**
+- Executive summary (max 250 words)
+- Data tables (with breakdowns as appropriate)
+- Scenario analysis (with explicit assumptions and rationale)
+- Recommendations section (business and academic actionable insights)
+- List of at least 5 actionable pain points from qualitative insights
+- Appendix: summary of qualitative insights, including validation/coding if available
+- Methodology overview (steps, sources, triangulation)
+- Limitations and risk section
+- Commentary on scalability/adaptability to wider Africa or other verticals
+- Full citation list (≥10, URLs/publications, 2023-2025)
+- Use Markdown format, tables first, then text sections; charts/graphs optional
+
+Output Format:
+Markdown document with clearly labeled sections as specified above.
+
+---
+(This file can be pasted verbatim into Claude or ChatGPT with web-search to run the deep scrape.) 

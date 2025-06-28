@@ -1,0 +1,536 @@
+{
+  "table_of_contents": [
+    {
+      "title": "Lagos Business School \u00d7 FORJE",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          115.9306640625,
+          75.07177734375
+        ],
+        [
+          497.25,
+          75.07177734375
+        ],
+        [
+          497.25,
+          104.86480712890625
+        ],
+        [
+          115.9306640625,
+          104.86480712890625
+        ]
+      ]
+    },
+    {
+      "title": "About FORJE",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          89.7978515625,
+          72.26806640625
+        ],
+        [
+          193.939453125,
+          72.26806640625
+        ],
+        [
+          193.939453125,
+          92.38836669921875
+        ],
+        [
+          89.7978515625,
+          92.38836669921875
+        ]
+      ]
+    },
+    {
+      "title": "1. Executive Summary",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          89.2001953125,
+          73.42822265625
+        ],
+        [
+          237.1201171875,
+          73.42822265625
+        ],
+        [
+          237.1201171875,
+          89.8896484375
+        ],
+        [
+          89.2001953125,
+          89.8896484375
+        ]
+      ]
+    },
+    {
+      "title": "2. Purpose & Positioning",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          89.4990234375,
+          232.998046875
+        ],
+        [
+          252.6591796875,
+          232.998046875
+        ],
+        [
+          252.6591796875,
+          249.9696044921875
+        ],
+        [
+          89.4990234375,
+          249.9696044921875
+        ]
+      ]
+    },
+    {
+      "title": "3. Programme Architecture \u2013 Five Pillars",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          89.2001953125,
+          365.255859375
+        ],
+        [
+          355.60546875,
+          365.255859375
+        ],
+        [
+          355.60546875,
+          382.44964599609375
+        ],
+        [
+          89.2001953125,
+          382.44964599609375
+        ]
+      ]
+    },
+    {
+      "title": "4. Role-Based Learning Paths",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          90.0,
+          431.578125
+        ],
+        [
+          282.69140625,
+          431.578125
+        ],
+        [
+          282.69140625,
+          448.44964599609375
+        ],
+        [
+          90.0,
+          448.44964599609375
+        ]
+      ]
+    },
+    {
+      "title": "5. Learning Experience & Delivery Model",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          89.12548828125,
+          546.046875
+        ],
+        [
+          361.58203125,
+          546.046875
+        ],
+        [
+          361.58203125,
+          563.4096221923828
+        ],
+        [
+          89.12548828125,
+          563.4096221923828
+        ]
+      ]
+    },
+    {
+      "title": "6. Content Development & Facilitators",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          88.67724609375,
+          113.888671875
+        ],
+        [
+          344.25,
+          113.888671875
+        ],
+        [
+          344.25,
+          131.16961669921875
+        ],
+        [
+          88.67724609375,
+          131.16961669921875
+        ]
+      ]
+    },
+    {
+      "title": "7. Commercial Model & Pricing",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          89.349609375,
+          263.162109375
+        ],
+        [
+          294.64453125,
+          263.162109375
+        ],
+        [
+          294.64453125,
+          280.68963623046875
+        ],
+        [
+          89.349609375,
+          280.68963623046875
+        ]
+      ]
+    },
+    {
+      "title": "8. Differentiators",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          89.72314453125,
+          361.775390625
+        ],
+        [
+          204.697265625,
+          361.775390625
+        ],
+        [
+          204.697265625,
+          378.609619140625
+        ],
+        [
+          89.72314453125,
+          378.609619140625
+        ]
+      ]
+    },
+    {
+      "title": "9. Roles & Responsibilities",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          89.6484375,
+          491.51953125
+        ],
+        [
+          263.56640625,
+          491.51953125
+        ],
+        [
+          263.56640625,
+          508.68963623046875
+        ],
+        [
+          89.6484375,
+          508.68963623046875
+        ]
+      ]
+    },
+    {
+      "title": "10. Next Steps",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          90.0,
+          625.32421875
+        ],
+        [
+          189.3076171875,
+          625.32421875
+        ],
+        [
+          189.3076171875,
+          641.1696319580078
+        ],
+        [
+          90.0,
+          641.1696319580078
+        ]
+      ]
+    },
+    {
+      "title": "11. Contact",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          89.57373046875,
+          149.466796875
+        ],
+        [
+          169.435546875,
+          149.466796875
+        ],
+        [
+          169.435546875,
+          165.7296142578125
+        ],
+        [
+          89.57373046875,
+          165.7296142578125
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          19
+        ],
+        [
+          "Line",
+          6
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          45
+        ],
+        [
+          "Line",
+          17
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          117
+        ],
+        [
+          "Line",
+          42
+        ],
+        [
+          "TableCell",
+          12
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          148
+        ],
+        [
+          "Line",
+          53
+        ],
+        [
+          "TableCell",
+          12
+        ],
+        [
+          "Text",
+          8
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "ListItem",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          86
+        ],
+        [
+          "Line",
+          27
+        ],
+        [
+          "ListItem",
+          10
+        ],
+        [
+          "Text",
+          8
+        ],
+        [
+          "SectionHeader",
+          5
+        ],
+        [
+          "ListGroup",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          42
+        ],
+        [
+          "Line",
+          9
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "ListItem",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/forje-lbs-proposal"
+}

@@ -1,0 +1,115 @@
+# Changan Maxus Geely VIN Processor - Product Requirements Document
+
+## Project Overview
+The Changan Maxus Geely VIN Processor is a specialized component of the VIN Inspector 2 system, designed to process and validate Vehicle Identification Numbers (VINs) specifically for Changan, Maxus, and Geely brand vehicles. The processor handles Excel files containing combined Engine-VIN pairs, separates them into distinct fields, validates them against brand-specific patterns, and generates comprehensive reports.
+
+## Core Requirements
+
+### 1. File Processing
+- Process Excel files containing combined Engine-VIN data in a single column
+- Support multiple Excel file formats (xlsx, xls)
+- Automatically detect header rows and relevant columns
+- Handle large files efficiently using pandas
+- Extract and separate Engine numbers and VINs from complex string formats
+
+### 2. Brand Pattern Detection & Validation
+- Identify vehicle brands using Item Description column
+- Process vehicles only from target brands: Changan, Maxus, and Geely
+- Handle complex brand-specific Engine-VIN patterns:
+  * Changan: Standard hyphen-separated format with LJNTGU VIN prefixes
+  * Maxus: Standard format with LS4ASE VIN prefixes
+  * Geely: Complex formats including:
+    - Double hyphen separators (JLH-3G15TD-N6BA5614053--LB37622Z2PX410651)
+    - Asterisk patterns (JLH-3G15TD*N6BA5614053*-LB37622Z2PX410651)
+    - Quoted numbers (JLH- 3G15TD"M5GA5602385")
+    - Spaces after hyphens (JLH- 3G15TD)
+    - Special characters (JL¿-4G15M1UA4900885)
+    - Case sensitivity issues (JL-4G15 vs Jl-4G15)
+- Clean and normalize engine numbers and VINs
+
+### 3. Report Generation
+- Generate a single consolidated Excel report with multiple worksheets:
+  * Summary tab with statistics for each brand
+  * Dedicated tabs for Changan, Maxus, and Geely vehicles
+  * RAW data tab with unmodified original data
+- Include only essential columns: Customer Name, Item Code, Item Description, Engine, VIN
+- Format Excel output with appropriate column widths, headers, and styling
+- Use standardized naming convention: "Dispatch Report MM - YYYY.xlsx"
+
+### 4. Data Cleaning & Normalization
+- Remove artifacts from engine numbers:
+  * Trailing hyphens, dashes, and asterisks
+  * Embedded quotes and special characters
+  * Fix formatting inconsistencies (spaces after hyphens)
+- Normalize engine case patterns:
+  * Convert "Jl-4G15" to "JL-4G15" for consistent engine family identification
+  * Standardize "JLH-3G15TD" nomenclature regardless of case variations
+- Ensure VINs follow proper format (17 characters, starting with 'L')
+- Handle multiple Engine-VIN pairs in a single cell, separated by commas
+
+### 5. Error Handling & Validation
+- Comprehensive error handling for file operations
+- Data validation to ensure proper splitting of Engine-VIN pairs
+- Diagnostic tools for analyzing engine patterns and identifying format issues
+- Graceful handling of edge cases and inconsistent data
+
+### 6. User Experience
+- Non-interactive operation for batch processing
+- Detailed progress feedback during processing
+- Clear error messages and warnings
+- Summary statistics at completion
+
+### 7. Analysis Capabilities
+- Provide specialized tools for analyzing engine data patterns
+- Support for identifying and fixing case sensitivity issues
+- Reporting on engine family distributions and variants
+- Tools to verify normalization effectiveness
+
+## Technical Requirements
+
+### Development
+- Python 3.9+
+- pandas for Excel processing
+- openpyxl for advanced Excel formatting
+- xlrd for legacy .xls file support
+- Regular expressions for complex pattern matching
+
+### Performance
+- Process 1000+ records per second
+- Memory-efficient file handling
+- Graceful handling of large files (4000+ rows)
+- Support for files with complex multi-row headers
+
+### Robustness
+- Handle inconsistent data formats
+- Recover from parsing errors
+- Validate output data integrity
+- Clean invalid characters for Excel compatibility
+- Normalize case sensitivity variations in engine codes
+
+## Deliverables
+1. Python script for automated processing (simpler_processor.py)
+2. Diagnostic tool for data validation (sample_data_analyzer.py)
+3. Engine analysis tools:
+   * geely_engine_analyzer.py - Analyze engine patterns in raw data
+   * fix_engine_case.py - Fix case sensitivity issues in engine numbers
+   * analyze_fixed_file.py - Verify normalization effectiveness
+4. Documentation including README and sample files
+5. Consolidated Excel reports categorized by brand
+
+## Success Criteria
+1. Accurate Engine-VIN pair separation for all formats
+2. Correct brand categorization
+3. Clean, standardized engine numbers without artifacts
+4. Consistent engine case normalization across all reports
+5. Comprehensive consolidated reports
+6. Reliable handling of all edge cases and format variations
+
+## Engine Family Analysis Results
+
+Preliminary analysis shows the following Geely engine family distribution:
+- JL-4G15: 40.12% of all Geely engines
+- JLH-3G15TD: 48.13% of all Geely engines
+- JLD-4G24: 11.24% of all Geely engines
+
+These patterns will be normalized during processing to ensure consistent reporting. 

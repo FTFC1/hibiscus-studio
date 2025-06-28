@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+{% block title %}Report Results{% endblock %}
+
+{% block content %}
+    <main class="container">
+        <section class="results-hero">
+            <h1 class="results-title">Report Generated<br>Successfully ↓</h1>
+            <p class="results-subtitle">Your dispatch register has been processed and formatted into a comprehensive multi-tab Excel report.</p>
+
+            <!-- Stats grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">{{ results.total_vehicles }}</div>
+                    <div class="stat-label">Total Vehicles</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">VIN Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Brands</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ results.changan_unique_vins + results.maxus_unique_vins + results.geely_unique_vins + results.gwm_unique_vins + results.hyundaiforklifts_unique_vins + results.zna_unique_vins }}</div>
+                    <div class="stat-label">Unique VINs</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Breakdown -->
+        <section class="section">
+            <h2 class="section-title">Brand Portfolio Breakdown</h2>
+            <div class="brand-grid">
+                {% set brand_counts = [
+                    ('Changan', results.changan_count),
+                    ('Maxus', results.maxus_count),
+                    ('ZNA', results.zna_count),
+                    ('GWM', results.gwm_count),
+                    ('Hyundai Forklifts', results.hyundaiforklifts_count),
+                    ('Geely', results.geely_count)
+                ] %}
+                {% for brand, count in brand_counts %}
+                    <div class="brand-card">
+                        <div class="brand-header">
+                            <div class="brand-name">{{ brand }}</div>
+                            <div class="brand-count">{{ count }}</div>
+                        </div>
+                        <div class="brand-bar">
+                            <div class="brand-fill" style="width: {{ '%.0f' % ((count / (results.total_vehicles if results.total_vehicles > 0 else 1)) * 100) }}%;"></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="actions">
+                <a href="/download/{{ results.output_file }}" class="btn btn-primary">Download Report</a>
+                <a href="/" class="btn btn-secondary">Process Another File</a>
+            </div>
+        </section>
+
+        <!-- Search & Tabs -->
+        <section class="section">
+            <h2 class="section-title">Data Preview & Validation</h2>
+            <div class="search-container">
+                <input type="text" id="globalSearch" placeholder="Search by any field..." class="search-input">
+                <button class="search-btn" onclick="applyGlobalSearch()">Search</button>
+            </div>
+            <div class="preview-tabs">
+                <button class="tab-btn active" data-filter="">Summary</button>
+                {% for brand, count in brand_counts %}
+                    <button class="tab-btn" data-filter="{{ brand }}">{{ brand }} ({{ count }})</button>
+                {% endfor %}
+            </div>
+            <div style="overflow-x:auto;">
+                <table id="previewTable" class="display" style="width:100%;color:#fff;">
+                    <thead>
+                        <tr>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>VIN</th>
+                            <th>Retail Date</th>
+                            <th>Item Code</th>
+                            <th>Customer Name</th>
+                            <th>Purpose</th>
+                            <th>Quantity</th>
+                            <th>City</th>
+                            <th>Showroom</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+// Brand bar animation on page load
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        document.querySelectorAll('.brand-fill').forEach(fill => {
+            const width = fill.style.width;
+            fill.style.width = '0%';
+            // Force reflow
+            void fill.offsetWidth;
+            fill.style.width = width;
+        });
+    }, 300);
+});
+
+const rows = {{ results.rows_json | safe }};
+const dt = $('#previewTable').DataTable({
+  dom: 'lrtip', // remove default search box (filter)
+  data: rows,
+  columns: [
+    { data: 'Brand' },
+    { data: 'Model' },
+    { data: 'VIN' },
+    { data: 'RetailDate' },
+    { data: 'ItemCode' },
+    { data: 'CustomerName' },
+    { data: 'Purpose' },
+    { data: 'Quantity' },
+    { data: 'City' },
+    { data: 'Showroom' }
+  ],
+  pageLength: 10,
+  order: [[2,'desc']]
+});
+
+// Tabs filtering
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const brand = btn.dataset.filter;
+    dt.search(''); // reset global search
+    
+    // If empty filter (Summary tab), show all data
+    if (!brand || brand === '') {
+      dt.column(0).search('', true, false).draw(); // Clear search
+    } else {
+      // Use regex for an exact, case-insensitive match
+      dt.column(0).search('^' + brand + '$', true, false, true).draw();
+    }
+  });
+});
+
+function applyGlobalSearch(){
+  const term = document.getElementById('globalSearch').value;
+  dt.search(term).draw();
+}
+</script>
+{% endblock %} 
