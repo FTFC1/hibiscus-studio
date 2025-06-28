@@ -225,14 +225,32 @@
         </div>
       </div>
 
-      <!-- Primary CTA -->
-      <div class="space-y-4">
-        <a href="#see-space" class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 hover-scale shadow-lg hover:shadow-xl">
+      <!-- Primary CTA with Scroll Indicator -->
+      <div class="space-y-6">
+        <button onclick="smoothScrollToSpace()" class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 hover-scale shadow-lg hover:shadow-xl">
           See the Space
-        </a>
+        </button>
         <p class="text-base text-gray-500 dark:text-gray-400">
           Watch our virtual tour and real events
         </p>
+        
+        <!-- Desktop Scroll Indicator -->
+        <div class="hidden md:flex flex-col items-center space-y-2 text-gray-400 dark:text-gray-500 animate-bounce">
+          <span class="text-sm font-medium">Scroll to explore</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
+        
+        <!-- Mobile Swipe Indicator -->
+        <div class="md:hidden flex flex-col items-center space-y-2 text-gray-400 dark:text-gray-500">
+          <span class="text-sm font-medium">Tap to see videos below</span>
+          <div class="flex space-x-1">
+            <div class="w-2 h-2 bg-gray-300 rounded-full animate-pulse"></div>
+            <div class="w-2 h-2 bg-gray-300 rounded-full animate-pulse delay-75"></div>
+            <div class="w-2 h-2 bg-gray-300 rounded-full animate-pulse delay-150"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -294,12 +312,12 @@
           </div>
         </div>
         
-        <!-- Desktop: Side by Side -->
-        <div class="hidden md:grid md:grid-cols-2 gap-8">
+        <!-- Desktop: Responsive Grid -->
+        <div class="hidden md:grid md:grid-cols-1 lg:grid-cols-2 gap-8">
           <!-- Video 1: Virtual Tour -->
           <div class="space-y-4">
             <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover-scale">
-              <div class="aspect-[9/16] max-h-[500px]">
+              <div class="aspect-[16/9] lg:aspect-[4/5]">
                 <iframe 
                   src="https://www.youtube.com/embed/CmL7jAPwrm0?autoplay=1&mute=1&loop=1&playlist=CmL7jAPwrm0&controls=0&modestbranding=1&rel=0&disablekb=1"
                   allow="autoplay; encrypted-media"
@@ -317,7 +335,7 @@
           <!-- Video 2: Birthday Event -->
           <div class="space-y-4">
             <div class="bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover-scale">
-              <div class="aspect-[9/16] max-h-[500px]">
+              <div class="aspect-[16/9] lg:aspect-[4/5]">
                 <iframe 
                   src="https://www.youtube.com/embed/9iFztw87Gic?autoplay=1&mute=1&loop=1&playlist=9iFztw87Gic&controls=0&modestbranding=1&rel=0&disablekb=1"
                   allow="autoplay; encrypted-media"
@@ -378,26 +396,26 @@
                     <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£420</div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for corporate events, workshops, and private parties.</p>
-                    <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79362536" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79362536')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                       Book Now
-                    </a>
+                    </button>
                   </div>
                 </div>
                 
                 <!-- Event Full-Day (10AM-10PM) -->
                 <div class="relative border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                  <div class="absolute -top-3 left-6 bg-blue-600 text-white text-sm px-4 py-2 rounded-full font-medium">
-                    Most Popular
-                  </div>
-                  <div class="text-center space-y-3">
+              <div class="absolute -top-3 left-6 bg-blue-600 text-white text-sm px-4 py-2 rounded-full font-medium">
+                Most Popular
+              </div>
+              <div class="text-center space-y-3">
                     <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day</h5>
                     <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
                     <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£840</div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Complete day access for major events and celebrations.</p>
-                    <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                       Book Now
-                    </a>
+                    </button>
                   </div>
                 </div>
                 
@@ -409,9 +427,9 @@
                     <div class="text-2xl font-bold text-gray-900 dark:text-white">£940</div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">13 hours</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Extended hours with £100 late finish premium.</p>
-                    <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80167908/calendar/12355763" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80167908/calendar/12355763')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                       Book Now
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -429,9 +447,9 @@
                     <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£70</div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for teaching workshops and small group sessions on weekdays.</p>
-                    <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163988/calendar/12260380" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                      Book Now
-                    </a>
+                                      <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163988/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
                   </div>
                 </div>
                 
@@ -443,9 +461,9 @@
                     <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£840</div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Weekend-long workshops and intensive training sessions.</p>
-                    <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                      Book Now
-                    </a>
+                                      <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
                   </div>
                 </div>
                 
@@ -457,9 +475,9 @@
                     <div class="text-2xl font-bold text-green-600 dark:text-green-400">£70</div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Content creation and photo shoots during weekday hours.</p>
-                    <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80162472" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                      Book Now
-                    </a>
+                                      <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80162472')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                    Book Now
+                  </button>
                   </div>
                 </div>
                 
@@ -471,28 +489,28 @@
                     <div class="text-2xl font-bold text-green-600 dark:text-green-400">£70</div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">1 hour</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">Weekend morning content creation during peak hours (May-Oct).</p>
-                    <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                      Book Now
-                    </a>
+                                    <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  Book Now
+                </button>
                   </div>
                 </div>
               </div>
             </div>
-
+            
           <!-- Viewings Section -->
           <div class="mb-12">
             <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Studio Viewings</h4>
             <div class="max-w-sm mx-auto">
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-                <div class="text-center space-y-3">
+              <div class="text-center space-y-3">
                   <h5 class="text-lg font-bold text-gray-900 dark:text-white">Studio Viewing</h5>
                   <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(Tues 2-4)</p>
                   <div class="text-2xl font-bold text-gray-600 dark:text-gray-400">Free</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">20 minutes</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Tuesday afternoon viewings to see the space before booking.</p>
-                  <a href="https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164274/calendar/12260380" class="w-full inline-block bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                    Book Now
-                  </a>
+                                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164274/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  Book Now
+                </button>
                 </div>
               </div>
             </div>
@@ -617,6 +635,77 @@
   <div class="mobile-sticky-cta md:hidden fixed bottom-4 inset-x-0 flex justify-center z-50 px-4 opacity-0 pointer-events-none transition-opacity duration-300">
     <a href="#hire" class="flex-1 bg-black dark:bg-white text-white dark:text-black text-center py-4 rounded-xl font-semibold shadow-lg hover:opacity-90 transition">View Options</a>
   </div>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-6xl h-[90vh] relative shadow-2xl">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Book Your Session</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Hibiscus Studio</p>
+          </div>
+        </div>
+        <button onclick="closeBookingModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Modal Content -->
+      <div class="h-[calc(90vh-80px)]">
+        <iframe id="bookingFrame" src="" class="w-full h-full rounded-b-2xl" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll to space section
+    function smoothScrollToSpace() {
+      document.getElementById('see-space').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
+    // Booking modal functions
+    function openBookingModal(url) {
+      const modal = document.getElementById('bookingModal');
+      const iframe = document.getElementById('bookingFrame');
+      iframe.src = url;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('bookingModal');
+      const iframe = document.getElementById('bookingFrame');
+      modal.classList.add('hidden');
+      iframe.src = '';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('bookingModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeBookingModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeBookingModal();
+      }
+    });
+  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
