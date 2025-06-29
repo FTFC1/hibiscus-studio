@@ -258,10 +258,15 @@ def api_info():
     })
 
 if __name__ == '__main__':
+    import os
+    port = int(os.environ.get('PORT', 8000))
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    
     print("🚀 Starting Vehicle Dispatch API Server...")
     print("📊 API Endpoints:")
     print("   POST /api/process - Upload & process files")
     print("   GET  /health - Health check")
     print("   GET  /api/info - API info")
-    print("🌐 Server running at: http://127.0.0.1:8000")
-    app.run(debug=True, host='0.0.0.0', port=8000) 
+    print(f"🌐 Server running on port: {port}")
+    
+    app.run(debug=debug, host='0.0.0.0', port=port) 

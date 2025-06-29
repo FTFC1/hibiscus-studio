@@ -1,150 +1,82 @@
-# Vehicle Dispatch Report Processor
+# Vehicle Dispatch Report API - V4
 
-A Python tool for automatically processing vehicle dispatch reports, specifically designed to:
+**Clean Flask backend API for processing vehicle dispatch/delivery logs**
 
-1. Split Engine-VIN pairs into separate rows for Changan, Maxus, and Geely vehicles
-2. Create a clean, consolidated report with separate tabs for each brand
-3. Handle various complex Engine-VIN formats with robust parsing logic
-4. Normalize engine number case patterns for consistent data analysis
+## Overview
+Processes Excel files containing car dispatch/delivery data, splits Engine-VIN pairs by brand, and generates multi-tab reports. Designed for frontend integration (v0.dev) with clean API endpoints.
 
-## Features
+## Current Status - V4 Clean Build
+- ✅ **Core API**: `api_only.py` with robust auto-detection
+- ✅ **Processing Logic**: `simpler_processor.py` handles 11 brands  
+- ✅ **Dependencies**: Listed in `requirements.txt`
+- ✅ **Test Data**: Available in `Files/` directory
+- ✅ **Legacy Archived**: Previous iterations moved to `archive/`
 
-- **Automatic Format Detection**: Identifies the correct columns and formats in the input file
-- **Multi-Format Support**: Handles various Engine-VIN pair formats:
-  - Standard: `ENGINENUM-VINNUM`
-  - Comma-separated multiple pairs: `ENGINE1-VIN1,ENGINE2-VIN2`
-  - Geely with double hyphens: `JLH-3G15TD-N6BA5614053--LB37622Z2PX410651`
-  - Geely with asterisks: `JLH-3G15TD*N6BA5614053*-LB37622Z2PX410651`
-  - Geely with quotes: `JLH- 3G15TD"M5GA5602385"` → `JLH-3G15TD-M5GA5602385`
-  - Geely with spaces after hyphens: `JLH- 3G15TD` → `JLH-3G15TD`
-  - Geely with special characters: `JL¿-4G15M1UA4900885` → `JL-4G15M1UA4900885`
-- **Consolidated Reporting**: Creates a single Excel file with tabs for:
-  - Summary data (total entries per brand)
-  - Changan vehicles
-  - Maxus vehicles
-  - Geely vehicles
-  - RAW data (unmodified original data)
-- **Advanced Data Cleaning**:
-  - Removes artifacts like trailing hyphens, asterisks, quotes, and invalid characters
-  - Fixes spacing issues between engine components (e.g., `JLH- 3G15TD` → `JLH-3G15TD`)
-  - Normalizes case for Geely engine patterns (e.g., `Jl-4G15` → `JL-4G15`)
-  - Standardizes engine family nomenclature (e.g., `jlh-3g15td` → `JLH-3G15TD`)
-  - Removes non-alphanumeric characters while preserving hyphens
+## Supported Features
+- **File Types**: .xls, .xlsx, .csv
+- **Brands**: CHANGAN, MAXUS, GEELY, GWM, ZNA, DFAC, KMC, HYUNDAI, LOVOL, FOTON, DINGZHOU
+- **Auto-Detection**: Intelligent column mapping for Engine-VIN and brand data
+- **Memory-Only Processing**: No disk persistence for privacy compliance
+- **CORS Enabled**: Ready for frontend integration
 
-## Usage
+## API Endpoints
 
-1. Place your Excel (.xls or .xlsx) dispatch report in the `Files/` directory
-2. Run the script using Python:
+### `POST /api/process`
+Upload Excel file, returns processed multi-brand report
+- **Input**: FormData with 'file' field
+- **Output**: Excel file with Summary + Brand sheets
+- **Max Size**: 16MB
 
-```bash
-python3 simpler_processor.py
-```
+### `GET /health`
+Health check endpoint
+- **Output**: Status + supported brands list
 
-3. The processed report will be saved in `Files/output/` with the naming convention `Dispatch Report MM - YYYY.xlsx`
+### `GET /api/info`
+API information and capabilities
+- **Output**: Service details, formats, endpoints
 
-## Analysis Tools
-
-The package includes specialized analysis tools:
-
-- **geely_engine_analyzer.py**: Analyzes Geely engine patterns in processed reports to identify common families and variants
-- **fix_engine_case.py**: Fixes case sensitivity issues in engine numbers to standardize engine model codes 
-- **analyze_fixed_file.py**: Analyzes the corrected engine data to verify normalization and document engine family distributions
-
-To run the engine analysis tools:
+## Quick Start
 
 ```bash
-# First analyze the raw engine patterns
-python3 geely_engine_analyzer.py
-
-# Fix engine case sensitivity issues
-python3 fix_engine_case.py
-
-# Analyze the fixed engine patterns
-python3 analyze_fixed_file.py
-```
-
-## Requirements
-
-- Python 3.x
-- Pandas
-- Openpyxl
-- xlrd (for .xls files)
-
-Install dependencies using:
-```bash
+# Install dependencies
 pip install -r requirements.txt
+
+# Start server
+python api_only.py
 ```
 
-## Input Format
+Server runs on `http://127.0.0.1:8000`
 
-The script expects an Excel file with columns for:
-- Customer Name
-- Item Description (used to identify vehicle brand)
-- Engine-Alternator No. (containing the Engine-VIN pairs to split)
+## Frontend Integration (v0.dev)
+The API is designed for drag-and-drop frontends:
 
-## Output Format
+```javascript
+// Example upload to /api/process
+const formData = new FormData();
+formData.append('file', file);
 
-The generated report includes only the requested columns:
-- Customer Name
-- Item Code
-- Item Description
-- Engine Number
-- VIN Number
-
-## Known Vehicle Format Patterns
-
-### Changan
-Format: `2TZD 003423-LJNTGU5N6KN117571`
-- Engine: `2TZD 003423`
-- VIN: `LJNTGU5N6KN117571`
-
-### Maxus
-Format: `N9BP015776-LS4ASE2A4RJ100029`
-- Engine: `N9BP015776`
-- VIN: `LS4ASE2A4RJ100029`
-
-### Geely (Multiple Formats)
-Format 1: `JLH-3G15TD-N6BA5614053--LB37622Z2PX410651` (double hyphen)
-- Engine: `JLH-3G15TD-N6BA5614053`
-- VIN: `LB37622Z2PX410651`
-
-Format 2: `JLH-3G15TD*N6BA5614053*-LB37622Z2PX410651` (with asterisks)
-- Engine: `JLH-3G15TD-N6BA5614053`
-- VIN: `LB37622Z2PX410651`
-
-Format 3: `JLH- 3G15TD"M5GA5602385"` (with spaces and quotes)
-- Engine: `JLH-3G15TDM5GA5602385`
-- VIN: `LB37622Z8MX412707` (from matching pair)
-
-Format 4: `JL¿-4G15M1UA4900885` (with special characters)
-- Engine: `JL-4G15M1UA4900885`
-- VIN: `L6T7824Z3MW009095`
-
-Format 5: `Jl-4G15` vs `JL-4G15` (case sensitivity issue)
-- Both normalized to: `JL-4G15`
-
-## Geely Engine Families
-
-Analysis of processed data revealed three main Geely engine families:
-- **JL-4G15**: 40.12% of all Geely engines
-- **JLH-3G15TD**: 48.13% of all Geely engines
-- **JLD-4G24**: 11.24% of all Geely engines
-
-These patterns are automatically normalized during processing to ensure consistency.
-
-## Troubleshooting
-
-If you encounter issues with specific engine number or VIN formats, you can run the specialized analysis tools:
-
-```bash
-# For general data analysis
-python3 sample_data_analyzer.py
-
-# For Geely engine pattern analysis
-python3 geely_engine_analyzer.py
-
-# For fixing engine case issues
-python3 fix_engine_case.py
+fetch('YOUR_API_URL/api/process', {
+    method: 'POST', 
+    body: formData
+})
+.then(response => response.blob())
+.then(blob => {
+    // Handle returned Excel file
+});
 ```
 
-These tools will analyze the most recent output file and highlight any potential formatting problems. 
+## Deployment Ready
+- Environment variables for sensitive data
+- CORS configured for cross-origin requests
+- Error handling for production use
+- Memory-efficient processing
+
+## Architecture Notes
+- **Separation of Concerns**: API (`api_only.py`) + Logic (`simpler_processor.py`)
+- **Auto-Detection**: Handles various Excel formats and column layouts
+- **Brand Processing**: Intelligent splitting of Engine-VIN pairs
+- **Privacy First**: No data persistence, memory-only operations
+
+---
+
+*Previous iterations (Streamlit UI, legacy Flask apps) archived in `archive/` directory* 
