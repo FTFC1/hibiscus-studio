@@ -11,4 +11,5 @@ email_validator
 Werkzeug==2.3.7
 tqdm>=4.67.1
 xlrd==2.0.1
-thefuzz 
+thefuzz
+flask-cors 
