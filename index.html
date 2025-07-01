@@ -297,7 +297,7 @@
               </div>
               <h4 class="text-xl font-bold text-gray-900 dark:text-white">Event Hire</h4>
               <p class="text-sm text-gray-600 dark:text-gray-400">Corporate events, private parties & celebrations</p>
-              <div class="text-sm font-medium text-blue-600 dark:text-blue-400">£100 - £940</div>
+              <div class="text-sm font-medium text-blue-600 dark:text-blue-400">£100 - £840</div>
             </button>
             
             <!-- Workshops & Content Category - THIRD -->
@@ -326,50 +326,83 @@
                 <span class="sm:hidden">Back</span>
               </button>
             </div>
-            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <!-- First Row: Hourly + 4 Hours + 6 Hours -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-6">
               <!-- Event Hourly -->
-              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
                 <div class="text-center space-y-3">
                   <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Hourly</h5>
                   <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(2hr minimum)</p>
                   <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£100</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">per hour</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for corporate events, workshops, and private parties.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79362536')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                    Book Now
-                  </button>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for shorter corporate events and private parties.</p>
                 </div>
+                <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372502')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  Book Now
+                </button>
+              </div>
+
+              <!-- 4 Hours -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">4 Hours</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Half-Day Option</p>
+                  <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£300</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">4 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Ideal for focused events or meetings.</p>
+                </div>
+                <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372609')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  Book Now
+                </button>
+              </div>
+
+              <!-- 6 Hours -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">6 Hours</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm or 4pm-10pm)</p>
+                  <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£420</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Great for workshops or extended celebrations.</p>
+                </div>
+                <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  Book Now
+                </button>
+              </div>
+            </div>
+
+            <!-- Second Row: 8 Hours + Full Day (Centred) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <!-- 8 Hours -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">8 Hours</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Extended Day Option</p>
+                  <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£600</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">8 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">More time for setup, networking, and celebrating.</p>
+                </div>
+                <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372722')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  Book Now
+                </button>
               </div>
               
               <!-- Event Full-Day (Most Popular) -->
-              <div class="relative border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-              <div class="absolute -top-3 left-6 bg-blue-600 text-white text-sm px-4 py-2 rounded-full font-medium">
-                Most Popular
-              </div>
-              <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
-                  <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£840</div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Complete day access for major events and celebrations.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                    Book Now
-                  </button>
-              </div>
-            </div>
-            
-              <!-- Event Full-Day + Late -->
-              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-              <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day + Late</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-11PM)</p>
-                  <div class="text-2xl font-bold text-gray-900 dark:text-white">£940</div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">13 hours</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Extended hours with £100 late finish premium.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80167908/calendar/12355763')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                    Book Now
-                  </button>
+              <div class="border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 relative flex flex-col justify-between">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm px-4 py-1 rounded-full font-semibold whitespace-nowrap">
+                  Most Popular
                 </div>
+                <div class="text-center space-y-3">
+                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day</h5>
+                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">£840</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Complete day access for major events and celebrations.</p>
+                    <p class="text-xs text-amber-600 dark:text-amber-400 font-medium mt-2">+ £200 refundable damage deposit</p>
+                </div>
+                <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79453733')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                      Book Now
+                </button>
               </div>
             </div>
           </div>
@@ -395,7 +428,7 @@
                   <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£60</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">per hour</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for teaching workshops and small group sessions. Up to 20 attendees.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163988/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80163988')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
                 </div>
@@ -409,7 +442,7 @@
                   <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£300</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Extended workshops and training sessions. Up to 20 attendees.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80373390')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
                 </div>
@@ -423,7 +456,7 @@
                   <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£600</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Full-day workshops and intensive training sessions. Up to 20 attendees.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80164478')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
                 </div>
@@ -437,7 +470,7 @@
                   <div class="text-2xl font-bold text-green-600 dark:text-green-400">£45</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">per hour</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Content creation and photo shoots with natural light.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80162472')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80162472')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
                 </div>
@@ -454,7 +487,7 @@
                   <div class="text-2xl font-bold text-green-600 dark:text-green-400">£250</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Extended content creation sessions with kitchen access.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80373283')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
                 </div>
@@ -468,7 +501,7 @@
                   <div class="text-2xl font-bold text-green-600 dark:text-green-400">£500</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Full-day content creation with complete kitchen access.</p>
-                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80373328')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
                 </div>
