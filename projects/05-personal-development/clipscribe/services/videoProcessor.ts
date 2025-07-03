@@ -32,28 +32,31 @@ export const loadFfmpeg = (): Promise<void> => {
         console.log(`🔧 FFmpeg.wasm: ${message}`);
       });
 
-      // Use local files (network-independent)
-      console.log("🌐 Loading FFmpeg from local files...");
+      // Try default loading with timeout (simpler approach)
+      console.log("🌐 Loading FFmpeg with default configuration...");
       
-      console.log("📥 Fetching JS core file...");
-      const coreURL = await toBlobURL('/ffmpeg/ffmpeg-core.js', 'text/javascript');
-      console.log("✅ JS core file converted to blob URL");
-      
-      console.log("📥 Fetching WASM file...");
-      const wasmURL = await toBlobURL('/ffmpeg/ffmpeg-core.wasm', 'application/wasm');
-      console.log("✅ WASM file converted to blob URL");
-      
-      console.log("🔧 Initializing FFmpeg with local files...");
-      const loadPromise = window.ffmpeg.load({
-        coreURL: coreURL,
-        wasmURL: wasmURL,
-      });
+      const loadPromise = window.ffmpeg.load();
       const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error("FFmpeg loading timeout after 30 seconds")), 30000)
+        setTimeout(() => reject(new Error("FFmpeg loading timeout after 15 seconds")), 15000)
       );
       
-      console.log("⏰ Starting load race with 30s timeout...");
-      await Promise.race([loadPromise, timeoutPromise]);
+      console.log("⏰ Starting load with 15s timeout...");
+      try {
+        await Promise.race([loadPromise, timeoutPromise]);
+        console.log("✅ FFmpeg loaded with default CDN");
+      } catch (defaultError) {
+        console.log("⚠️ Default loading failed, trying local files as fallback...");
+        
+        const coreURL = await toBlobURL('/ffmpeg/ffmpeg-core.js', 'text/javascript');
+        const wasmURL = await toBlobURL('/ffmpeg/ffmpeg-core.wasm', 'application/wasm');
+        
+        console.log("🔄 Attempting fallback with local files...");
+        await window.ffmpeg.load({
+          coreURL: coreURL,
+          wasmURL: wasmURL,
+        });
+        console.log("✅ FFmpeg loaded with local files fallback");
+      }
       
       if (!window.ffmpeg.loaded) {
         throw new Error("FFmpeg failed to load completely");
