@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClipScribe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* For a smoother experience */
+      body {
+        overscroll-behavior-y: contain;
+      }
+      @keyframes toast-in-out {
+        0% { transform: translateY(2rem); opacity: 0; }
+        10% { transform: translateY(0); opacity: 1; }
+        90% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(2rem); opacity: 0; }
+      }
+      .toast-animate {
+        /* The AppProvider hides it after 3s, so the animation should match */
+        animation: toast-in-out 3s ease-in-out forwards;
+      }
+      .progress-bar-indeterminate {
+        background-image: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.15) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, 0.15) 50%,
+          rgba(255, 255, 255, 0.15) 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 40px 40px;
+        animation: progress-bar-stripes 2s linear infinite;
+      }
+
+      @keyframes progress-bar-stripes {
+        from {
+          background-position: 40px 0;
+        }
+        to {
+          background-position: 0 0;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.1.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.1.0/client",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.24.1",
+    " @google/genai": "https://esm.sh/@google/genai@0.15.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-900 text-gray-100">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

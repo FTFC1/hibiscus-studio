@@ -1,0 +1,6 @@
+
+{
+  "name": "ClipScribe",
+  "description": "A mobile-first PWA for screen recording analysis using the Google Gemini API. Users upload videos to receive structured markdown reports with granular copy functionality for transcript, key points, and scene breakdowns.",
+  "requestFramePermissions": []
+}
