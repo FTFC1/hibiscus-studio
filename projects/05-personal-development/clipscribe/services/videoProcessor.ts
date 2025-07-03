@@ -32,9 +32,16 @@ export const loadFfmpeg = (): Promise<void> => {
         console.log(`🔧 FFmpeg.wasm: ${message}`);
       });
 
-      // Use default CDN with timeout
-      console.log("🌐 Loading FFmpeg with default configuration...");
-      const loadPromise = window.ffmpeg.load();
+      // Use local files (network-independent)
+      console.log("🌐 Loading FFmpeg from local files...");
+      const coreURL = await toBlobURL('/ffmpeg/ffmpeg-core.js', 'text/javascript');
+      const wasmURL = await toBlobURL('/ffmpeg/ffmpeg-core.wasm', 'application/wasm');
+      console.log("📦 Local FFmpeg files converted to blob URLs");
+      
+      const loadPromise = window.ffmpeg.load({
+        coreURL: coreURL,
+        wasmURL: wasmURL,
+      });
       const timeoutPromise = new Promise((_, reject) => 
         setTimeout(() => reject(new Error("FFmpeg loading timeout after 30 seconds")), 30000)
       );
