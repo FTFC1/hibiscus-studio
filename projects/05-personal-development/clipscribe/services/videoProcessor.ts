@@ -34,10 +34,16 @@ export const loadFfmpeg = (): Promise<void> => {
 
       // Use local files (network-independent)
       console.log("🌐 Loading FFmpeg from local files...");
-      const coreURL = await toBlobURL('/ffmpeg/ffmpeg-core.js', 'text/javascript');
-      const wasmURL = await toBlobURL('/ffmpeg/ffmpeg-core.wasm', 'application/wasm');
-      console.log("📦 Local FFmpeg files converted to blob URLs");
       
+      console.log("📥 Fetching JS core file...");
+      const coreURL = await toBlobURL('/ffmpeg/ffmpeg-core.js', 'text/javascript');
+      console.log("✅ JS core file converted to blob URL");
+      
+      console.log("📥 Fetching WASM file...");
+      const wasmURL = await toBlobURL('/ffmpeg/ffmpeg-core.wasm', 'application/wasm');
+      console.log("✅ WASM file converted to blob URL");
+      
+      console.log("🔧 Initializing FFmpeg with local files...");
       const loadPromise = window.ffmpeg.load({
         coreURL: coreURL,
         wasmURL: wasmURL,
@@ -46,6 +52,7 @@ export const loadFfmpeg = (): Promise<void> => {
         setTimeout(() => reject(new Error("FFmpeg loading timeout after 30 seconds")), 30000)
       );
       
+      console.log("⏰ Starting load race with 30s timeout...");
       await Promise.race([loadPromise, timeoutPromise]);
       
       if (!window.ffmpeg.loaded) {
