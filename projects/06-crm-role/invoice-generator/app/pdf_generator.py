@@ -7,6 +7,13 @@ class MikanoPDF(FPDF):
         super().__init__(*args, **kwargs)
         self.currency_symbol = "NGN " # Default to Naira with space
         
+        # Set margins and calculate content width
+        self.set_margins(15, 20, 15)
+        self.left_margin = 15
+        self.right_margin = 15 
+        self.top_margin = 20
+        self.content_width = 210 - self.left_margin - self.right_margin  # A4 width minus margins
+        
         # Mikano Corporate Colors (CORRECT - RED theme, not blue!)
         self.mikano_red = (220, 38, 38)        # Primary Mikano red 
         self.mikano_dark_red = (185, 28, 28)   # Darker red accent
