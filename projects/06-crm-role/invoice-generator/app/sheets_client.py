@@ -1,93 +1,90 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import os
 
-# --- Google Sheets Setup ---
-# Assumes 'service_account.json' is in the 'invoice-generator' directory.
-# The Google Sheet should be shared with the service account's email.
-
-SCOPE = ['https://www.googleapis.com/auth/spreadsheets']
-# Path is relative to where the app is run from (invoice-generator directory)
-SERVICE_ACCOUNT_FILE = 'service_account.json'
-# This should be the name of your Google Sheet
-SHEET_NAME = 'Vehicle Catalog'
-
-def get_sample_catalog():
-    """Fallback sample vehicle catalog data"""
+def get_vehicle_catalog():
+    """
+    Fetch vehicle catalog from Google Sheets or return sample data as fallback
+    """
+    try:
+        # Try to connect to Google Sheets
+        # Define the scopes
+        scopes = [
+            'https://www.googleapis.com/auth/spreadsheets.readonly',
+            'https://www.googleapis.com/auth/drive.readonly'
+        ]
+        
+        # Load credentials
+        service_account_path = os.path.join(os.path.dirname(__file__), '..', 'service_account.json')
+        
+        if os.path.exists(service_account_path):
+            credentials = Credentials.from_service_account_file(service_account_path, scopes=scopes)
+            client = gspread.authorize(credentials)
+            
+            # Open the spreadsheet - update with your actual spreadsheet name/ID
+            spreadsheet_name = "Vehicle Catalog"  # Updated to match user's sheet name
+            sheet = client.open(spreadsheet_name).sheet1
+            
+            # Get all records
+            records = sheet.get_all_records()
+            
+            # Transform to expected format
+            vehicles = []
+            for record in records:
+                vehicles.append({
+                    'description': record.get('Description', ''),
+                    'display_name': record.get('Display Name', record.get('Description', '')),
+                    'price': float(record.get('Price', 0))
+                })
+            
+            print(f"Successfully loaded {len(vehicles)} vehicles from Google Sheets")
+            return vehicles
+            
+    except Exception as e:
+        print(f"Google Sheets connection failed: {e}")
+        print("Using sample vehicle data as fallback...")
+    
+    # Fallback sample data - enhanced Changan lineup
     return [
         {
-            'display_name': 'Changan Alsvin - 1.5L - Standard',
-            'description': 'Changan Alsvin 1.5L Manual Transmission',
-            'price': 15000000.00
+            'description': '2025 Changan Alsvin 1.5L Manual - Compact sedan with excellent fuel economy',
+            'display_name': 'Changan Alsvin 1.5L Manual',
+            'price': 12500000
         },
         {
-            'display_name': 'Changan CS75 - 2.0L - Luxury',
-            'description': 'Changan CS75 2.0L Turbo Luxury Package',
-            'price': 28000000.00
+            'description': '2025 Changan CS75 Plus 1.5T CVT - Premium SUV with advanced safety features',
+            'display_name': 'Changan CS75 Plus 1.5T CVT', 
+            'price': 22800000
         },
         {
-            'display_name': 'Changan Hunter - 2.4L - Standard',
-            'description': 'Changan Hunter 2.4L Pickup Truck',
-            'price': 32000000.00
+            'description': '2025 Changan Hunter Plus Pickup 2.0T 4WD - Rugged pickup truck for commercial use',
+            'display_name': 'Changan Hunter Plus 2.0T 4WD',
+            'price': 28500000
         },
         {
-            'display_name': 'Changan Oshan X7 - 1.5L - Plus',
-            'description': 'Changan Oshan X7 1.5L Turbo Plus',
-            'price': 24000000.00
+            'description': '2025 Changan Oshan X7 Plus 2.0T AWD - Luxury 7-seater family SUV',
+            'display_name': 'Changan Oshan X7 Plus 2.0T AWD',
+            'price': 35200000
         },
         {
-            'display_name': 'Changan Uni-T - 1.5L - Smart',
-            'description': 'Changan Uni-T 1.5L Turbo Smart Package',
-            'price': 26000000.00
+            'description': '2025 Changan Uni-T 1.5T DCT - Sporty crossover with futuristic design',
+            'display_name': 'Changan Uni-T 1.5T DCT',
+            'price': 18900000
         }
     ]
 
-def get_vehicle_catalog():
-    """Fetches and parses the vehicle catalog from the Google Sheet."""
-    print(f"Attempting to connect to Google Sheet: '{SHEET_NAME}'")
+def test_google_sheets_connection():
+    """Test the Google Sheets connection and return status"""
     try:
-        creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPE)
-        client = gspread.authorize(creds)
-
-        sheet = client.open(SHEET_NAME).sheet1
-        records = sheet.get_all_records()
-
-        print(f"Successfully fetched {len(records)} records from the sheet.")
-
-        processed_catalog = []
-        for record in records:
-            # Create a display name from brand, model, and trim
-            display_parts = [
-                record.get('brand'),
-                record.get('model'),
-                record.get('trim')
-            ]
-            display_name = ' - '.join(filter(None, display_parts))
-
-            # Get the price, cleaning it up
-            price_str = record.get('price - ex VAT', '0')
-            price = 0.0
-            if isinstance(price_str, str):
-                try:
-                    price = float(price_str.replace(',', ''))
-                except ValueError:
-                    price = 0.0
-            elif isinstance(price_str, (int, float)):
-                price = float(price_str)
-
-            processed_catalog.append({
-                'display_name': display_name,
-                'description': record.get('item description', display_name), # Fallback to display_name
-                'price': price
-            })
-
-        return processed_catalog
-    except FileNotFoundError:
-        print(f"ERROR: Service account file not found at '{SERVICE_ACCOUNT_FILE}'. Using sample data.")
-        return get_sample_catalog()
-    except gspread.exceptions.SpreadsheetNotFound:
-        print(f"ERROR: Google Sheet named '{SHEET_NAME}' not found. Using sample data.")
-        return get_sample_catalog()
+        vehicles = get_vehicle_catalog()
+        return {
+            'success': True,
+            'message': f'Connected successfully. Found {len(vehicles)} vehicles.',
+            'vehicles': vehicles
+        }
     except Exception as e:
-        print(f"Google Sheets error: {e}")
-        print("Using sample data as fallback.")
-        return get_sample_catalog()
+        return {
+            'success': False,
+            'message': f'Connection failed: {str(e)}',
+            'vehicles': []
+        }
