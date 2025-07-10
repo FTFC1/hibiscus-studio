@@ -168,7 +168,7 @@ class MikanoPDF(FPDF):
         # Try to use actual Mikano footer image
         if os.path.exists(self.footer_path):
             try:
-                self.set_y(-25)
+                self.set_y(-60)
                 self.image(self.footer_path, x=10, y=self.get_y(), w=190)
             except Exception as e:
                 print(f"Could not load footer image: {e}")
@@ -178,7 +178,7 @@ class MikanoPDF(FPDF):
     
     def _fallback_footer(self):
         """Fallback footer with terms and conditions"""
-        self.set_y(-30)
+        self.set_y(-65)
         self.set_fill_color(*self.mikano_light_gray)
         self.rect(10, self.get_y(), 190, 25, 'F')
         
@@ -636,14 +636,14 @@ class MikanoPDF(FPDF):
 def parse_form_data(form_data):
     # Enhanced parsing with better price handling - fixed string indexing
     parsed = {
-        'invoice_type': form_data.get('invoice_type', 'standard'),
-        'invoice_date': form_data.get('invoice_date', datetime.date.today().strftime('%Y-%m-%d')),
-        'invoice_number': form_data.get('invoice_number', None),
+        'invoice_type': form_data.get('invoice_type', ['standard'])[0],
+        'invoice_date': form_data.get('invoice_date', [datetime.date.today().strftime('%Y-%m-%d')])[0],
+        'invoice_number': form_data.get('invoice_number', [None])[0],
         'customer_info': {
-            'name': form_data.get('customer_name', ''),
-            'phone': form_data.get('customer_phone', ''),
-            'address': form_data.get('customer_address', ''),
-            'email': form_data.get('customer_email', ''),
+            'name': form_data.get('customer_name', [''])[0],
+            'phone': form_data.get('customer_phone', [''])[0],
+            'address': form_data.get('customer_address', [''])[0],
+            'email': form_data.get('customer_email', [''])[0],
         },
         'transport_cost': float(form_data.get('transport_cost', 0) or 0),
         'registration_cost': float(form_data.get('registration_cost', 0) or 0),
@@ -677,8 +677,8 @@ def create_pdf(form_data):
         pdf.set_currency('USD')
     
     pdf.add_page()
-    pdf.create_invoice_content(data)
-
+    
+    # Calculate totals and prepare data for create_invoice_content
     subtotal = 0
     for item in data['items']:
         item['total'] = item['quantity'] * item['unit_price']
@@ -702,11 +702,13 @@ def create_pdf(form_data):
         })
         subtotal += data['registration_cost']
 
-    pdf.invoice_table(data['items'])
-
     vat = 0 if invoice_type == 'government' else subtotal * 0.075
     grand_total = subtotal + vat
 
-    pdf.totals_section(subtotal, vat, grand_total, invoice_type)
+    data['subtotal'] = subtotal
+    data['vat_amount'] = vat
+    data['total'] = grand_total
+
+    pdf.create_invoice_content(data)
 
     return pdf.output(dest='S')
