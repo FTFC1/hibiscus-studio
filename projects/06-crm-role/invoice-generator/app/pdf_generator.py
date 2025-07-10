@@ -99,8 +99,9 @@ class MikanoPDF(FPDF):
                     lines.append(current_line)
                     current_line = word
                 else:
-                    # Single word too long, truncate it
-                    lines.append(word[:15] + "...")
+                    # Single word too long, truncate it safely
+                    truncated = word[:15] if len(word) > 15 else word
+                    lines.append(truncated + ("..." if len(word) > 15 else ""))
                     current_line = ""
         
         if current_line:
@@ -108,7 +109,9 @@ class MikanoPDF(FPDF):
         
         # Limit number of lines if specified
         if max_lines and len(lines) > max_lines:
-            lines = lines[:max_lines-1] + [lines[max_lines-1][:20] + "..."]
+            last_line = lines[max_lines-1] if max_lines > 0 and len(lines) >= max_lines else ""
+            truncated_last = last_line[:20] if len(last_line) > 20 else last_line
+            lines = lines[:max_lines-1] + [truncated_last + ("..." if len(last_line) > 20 else "")]
         
         # Draw the multi-cell
         for i, line in enumerate(lines):
@@ -311,8 +314,9 @@ class MikanoPDF(FPDF):
             # Row border
             self.rect(15, y_pos - 3, 180, 10)
             
-            # Item data with proper formatting
-            description = item.get('description', '')[:35] + ('...' if len(item.get('description', '')) > 35 else '')
+            # Item data with proper formatting - safe truncation
+            desc_text = item.get('description', '')
+            description = (desc_text[:35] if len(desc_text) > 35 else desc_text) + ('...' if len(desc_text) > 35 else '')
             quantity = str(item.get('quantity', 1))
             unit_price = f"{self.currency_symbol}{float(item.get('unit_price', 0)):,.2f}"
             total = f"{self.currency_symbol}{float(item.get('total', 0)):,.2f}"
@@ -630,37 +634,38 @@ class MikanoPDF(FPDF):
             return f"{int(amount):,} Naira"
 
 def parse_form_data(form_data):
-    # Enhanced parsing with better price handling
+    # Enhanced parsing with better price handling - fixed string indexing
     parsed = {
-        'invoice_type': form_data.get('invoice_type', ['standard'])[0],
-        'invoice_date': form_data.get('invoice_date', [datetime.date.today().strftime('%Y-%m-%d')])[0],
-        'invoice_number': form_data.get('invoice_number', [None])[0],
+        'invoice_type': form_data.get('invoice_type', 'standard'),
+        'invoice_date': form_data.get('invoice_date', datetime.date.today().strftime('%Y-%m-%d')),
+        'invoice_number': form_data.get('invoice_number', None),
         'customer_info': {
-            'name': form_data.get('customer_name', [''])[0],
-            'phone': form_data.get('customer_phone', [''])[0],
-            'address': form_data.get('customer_address', [''])[0],
-            'email': form_data.get('customer_email', [''])[0],
+            'name': form_data.get('customer_name', ''),
+            'phone': form_data.get('customer_phone', ''),
+            'address': form_data.get('customer_address', ''),
+            'email': form_data.get('customer_email', ''),
         },
-        'transport_cost': float(form_data.get('transport_cost', [0])[0] or 0),
-        'registration_cost': float(form_data.get('registration_cost', [0])[0] or 0),
+        'transport_cost': float(form_data.get('transport_cost', 0) or 0),
+        'registration_cost': float(form_data.get('registration_cost', 0) or 0),
         'items': []
     }
 
     item_keys = sorted([k for k in form_data if k.startswith('vehicle_')])
     for key in item_keys:
-        index = key.split('_')[1]
-        vehicle_description = form_data.get(f'vehicle_{index}', [''])[0]
-        if vehicle_description:
-            price_str = form_data.get(f'price_{index}', ['0'])[0]
-            # Handle comma-separated numbers
-            if isinstance(price_str, str):
-                price_str = price_str.replace(',', '')
-            
-            parsed['items'].append({
-                'description': vehicle_description,
-                'quantity': int(form_data.get(f'quantity_{index}', [1])[0]),
-                'unit_price': float(price_str) if price_str else 0.0,
-            })
+        if '_' in key:  # Safe check for split operation
+            index = key.split('_')[1]
+            vehicle_description = form_data.get(f'vehicle_{index}', '')
+            if vehicle_description:
+                price_str = form_data.get(f'price_{index}', '0')
+                # Handle comma-separated numbers
+                if isinstance(price_str, str):
+                    price_str = price_str.replace(',', '')
+                
+                parsed['items'].append({
+                    'description': vehicle_description,
+                    'quantity': int(form_data.get(f'quantity_{index}', 1)),
+                    'unit_price': float(price_str) if price_str else 0.0,
+                })
     return parsed
 
 def create_pdf(form_data):
