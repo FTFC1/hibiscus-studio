@@ -8,3 +8,4 @@ gunicorn
 fpdf2
 gspread
 google-auth-oauthlib
+WeasyPrint

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Forma Invoice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact; /* For printing background colors */
+        }
+        .invoice-container {
+            width: 210mm; /* A4 width */
+            min-height: 297mm; /* A4 height */
+            margin: 0 auto;
+            padding: 20mm;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #1f2937; /* mikano_dark_gray */
+        }
+        .header-section {
+            background-color: #dc2626; /* mikano_red */
+            color: #ffffff;
+            padding: 15px 20px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .header-section h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .header-section p {
+            font-size: 12px;
+            margin: 0;
+        }
+        .invoice-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #dc2626; /* mikano_red */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section-header {
+            background-color: #dc2626; /* mikano_red */
+            color: #ffffff;
+            font-weight: bold;
+            padding: 8px 15px;
+            margin-bottom: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background-color: #f3f4f6; /* mikano_light_gray */
+            padding: 10px 15px;
+            border: 1px solid #e5e7eb;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .info-box .label {
+            font-weight: 600;
+            color: #4b5563; /* mikano_gray */
+        }
+        .table-header {
+            background-color: #dc2626; /* mikano_red */
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .table-row:nth-child(even) {
+            background-color: #f9fafb; /* Very light gray */
+        }
+        .table-row td {
+            padding: 8px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .totals-section {
+            width: 300px;
+            margin-left: auto;
+            margin-top: 20px;
+            border: 1px solid #e5e7eb;
+            background-color: #f3f4f6; /* mikano_light_gray */
+            padding: 15px;
+        }
+        .totals-section p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+        .totals-section .grand-total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #dc2626; /* mikano_red */
+            border-top: 1px solid #d1d5db;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .footer-section {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f3f4f6; /* mikano_light_gray */
+            padding: 15px 20mm; /* Match invoice-container padding */
+            box-sizing: border-box;
+            font-size: 10px;
+            color: #4b5563; /* mikano_gray */
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+        .footer-section p {
+            margin: 2px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>MIKANO INTERNATIONAL LIMITED</h1>
+            <p>Plot 34/35, Acme Road, Ogba Industrial Scheme, Ikeja, Lagos</p>
+            <p>Phone: +234-803-123-4567 | Email: motors@mikano-intl.com</p>
+        </div>
+
+        <h2 class="invoice-title">PRO FORMA INVOICE - {{ invoice_data.invoice_type.upper() }}</h2>
+
+        <!-- Invoice Details & Customer Information -->
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="section-header">INVOICE DETAILS</div>
+                <p><span class="label">Invoice No:</span> {{ invoice_data.invoice_number }}</p>
+                <p><span class="label">Date:</span> {{ invoice_data.invoice_date }}</p>
+                <p><span class="label">Valid Until:</span> {{ invoice_data.valid_until }}</p>
+            </div>
+            <div class="info-box">
+                <div class="section-header">CUSTOMER INFORMATION</div>
+                <p><span class="label">Name:</span> {{ invoice_data.customer_info.name }}</p>
+                <p><span class="label">Address:</span> {{ invoice_data.customer_info.address }}</p>
+                <p><span class="label">Phone:</span> {{ invoice_data.customer_info.phone }}</p>
+                {% if invoice_data.customer_info.email %}<p><span class="label">Email:</span> {{ invoice_data.customer_info.email }}</p>{% endif %}
+            </div>
+        </div>
+
+        <!-- Line Items Table -->
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="table-header">
+                    <th class="text-left p-3 w-1/2">VEHICLE DESCRIPTION</th>
+                    <th class="text-center p-3 w-1/6">QTY</th>
+                    <th class="text-right p-3 w-1/6">UNIT PRICE</th>
+                    <th class="text-right p-3 w-1/6">TOTAL AMOUNT</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in invoice_data.line_items %}
+                <tr class="table-row">
+                    <td class="text-left">{{ item.description }}</td>
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-right">{{ invoice_data.currency_symbol }}{{ "%.2f" | format(item.unit_price | float) }}</td>
+                    <td class="text-right">{{ invoice_data.currency_symbol }}{{ "%.2f" | format(item.total | float) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Totals Section -->
+        <div class="totals-section">
+            <p><span>Subtotal:</span> <span>{{ invoice_data.currency_symbol }}{{ "%.2f" | format(invoice_data.subtotal | float) }}</span></p>
+            {% if invoice_data.invoice_type != 'government' %}
+            <p><span>VAT (7.5%):</span> <span>{{ invoice_data.currency_symbol }}{{ "%.2f" | format(invoice_data.vat_amount | float) }}</span></p>
+            {% endif %}
+            <p class="grand-total"><span>GRAND TOTAL:</span> <span>{{ invoice_data.currency_symbol }}{{ "%.2f" | format(invoice_data.total | float) }}</span></p>
+            <p class="text-xs text-gray-500 mt-2">Amount in words: {{ invoice_data.amount_in_words }} only</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer-section">
+        <p>Make all cheques payable to MIKANO INTERNATIONAL LIMITED</p>
+        <p>This is a computer-generated invoice and requires no signature.</p>
+        <p>Page <span class="page-number"></span></p>
+    </div>
+</body>
+</html>
