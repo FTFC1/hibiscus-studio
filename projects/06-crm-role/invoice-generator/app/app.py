@@ -6,6 +6,39 @@ import re
 
 app = Flask(__name__)
 
+def format_phone_display(phone):
+    """Format phone number for better readability"""
+    if not phone:
+        return phone
+    
+    # Remove any existing formatting
+    digits = re.sub(r'[^\d+]', '', phone)
+    
+    if digits.startswith('+234') and len(digits) == 14:
+        # Nigerian format: +234 803 123 4567
+        return f"+234 {digits[4:7]} {digits[7:10]} {digits[10:]}"
+    elif digits.startswith('+44') and len(digits) >= 12:
+        # UK format: +44 20 7946 0958
+        if len(digits) == 13:
+            return f"+44 {digits[3:5]} {digits[5:9]} {digits[9:]}"
+        else:
+            return f"+44 {digits[3:6]} {digits[6:9]} {digits[9:]}"
+    elif digits.startswith('+1') and len(digits) == 12:
+        # US/CA format: +1 555 123 4567
+        return f"+1 {digits[2:5]} {digits[5:8]} {digits[8:]}"
+    elif digits.startswith('+27') and len(digits) == 12:
+        # SA format: +27 82 123 4567
+        return f"+27 {digits[3:5]} {digits[5:8]} {digits[8:]}"
+    elif digits.startswith('+233') and len(digits) == 13:
+        # Ghana format: +233 24 123 4567
+        return f"+233 {digits[4:6]} {digits[6:9]} {digits[9:]}"
+    
+    # Default formatting for other international numbers
+    if digits.startswith('+') and len(digits) > 7:
+        return f"{digits[:4]} {digits[4:7]} {digits[7:10]} {digits[10:]}"
+    
+    return phone
+
 def validate_phone_number(phone):
     """Validate and format international phone numbers"""
     if not phone:
@@ -82,8 +115,6 @@ def validate_form_data(data):
     # Required fields
     required_fields = {
         'customer_name': 'Customer name',
-        'customer_phone': 'Phone number',
-        'customer_email': 'Email address',
         'invoice_date': 'Invoice date',
         'invoice_type': 'Invoice type'
     }
@@ -92,54 +123,63 @@ def validate_form_data(data):
         if not data.get(field, '').strip():
             errors.append(f"{label} is required")
     
-    # Email validation
+    # Email OR phone validation (at least one required)
     email = data.get('customer_email', '').strip()
+    phone = data.get('customer_phone', '').strip()
+    
+    if not email and not phone:
+        errors.append("Either email address or phone number is required")
+    
+    # Email validation (if provided)
     if email and not re.match(r'^[^\s@]+@[^\s@]+\.[^\s@]+$', email):
         errors.append("Please enter a valid email address")
     
-    # Phone validation
-    phone = data.get('customer_phone', '').strip()
+    # Phone validation (if provided)
     if phone:
         formatted_phone, phone_error = validate_phone_number(phone)
         if phone_error:
             errors.append(phone_error)
         else:
-            data['customer_phone'] = formatted_phone
+            # Format for display
+            data['customer_phone'] = format_phone_display(formatted_phone)
     
-    # Line items validation
+    # Line items validation - match frontend field names
     line_items = []
-    item_index = 0
-    while f'description_{item_index}' in data:
-        description = data.get(f'description_{item_index}', '').strip()
+    item_index = 1
+    
+    while f'vehicle_{item_index}' in data:
+        vehicle = data.get(f'vehicle_{item_index}', '').strip()
         quantity = data.get(f'quantity_{item_index}', '').strip()
-        unit_price = data.get(f'unit_price_{item_index}', '').strip()
+        price = data.get(f'price_{item_index}', '').strip()
         
-        if description or quantity or unit_price:  # If any field has data
-            if not description:
-                errors.append(f"Line item {item_index + 1}: Description is required")
+        if vehicle or quantity or price:  # If any field has data
+            if not vehicle:
+                errors.append(f"Vehicle {item_index}: Please select a vehicle")
             if not quantity or not quantity.isdigit() or int(quantity) <= 0:
-                errors.append(f"Line item {item_index + 1}: Valid quantity is required")
-            if not unit_price or not is_valid_price(unit_price):
-                errors.append(f"Line item {item_index + 1}: Valid unit price is required")
+                errors.append(f"Vehicle {item_index}: Valid quantity is required")
+            if not price or not is_valid_price(price.replace(',', '')):
+                errors.append(f"Vehicle {item_index}: Valid price is required")
             
-            if description and quantity and unit_price:
+            if vehicle and quantity and price:
                 try:
                     qty = int(quantity)
-                    price = float(unit_price)
-                    total = qty * price
+                    # Remove formatting from price
+                    price_clean = price.replace(',', '').replace('₦', '').strip()
+                    unit_price = float(price_clean)
+                    total = qty * unit_price
                     line_items.append({
-                        'description': description,
+                        'description': vehicle,
                         'quantity': qty,
-                        'unit_price': price,
+                        'unit_price': unit_price,
                         'total': total
                     })
                 except ValueError:
-                    errors.append(f"Line item {item_index + 1}: Invalid quantity or price format")
+                    errors.append(f"Vehicle {item_index}: Invalid quantity or price format")
         
         item_index += 1
     
     if not line_items:
-        errors.append("At least one line item is required")
+        errors.append("At least one vehicle is required")
     
     data['line_items'] = line_items
     
@@ -174,6 +214,12 @@ def preview_pdf():
         # Calculate totals from validated line items
         line_items = form_data['line_items']
         subtotal = sum(item['total'] for item in line_items)
+        
+        # Add transport and registration costs
+        transport_cost = float(form_data.get('transport_cost', 0) or 0)
+        registration_cost = float(form_data.get('registration_cost', 0) or 0)
+        subtotal += transport_cost + registration_cost
+        
         vat_rate = 7.5
         vat_amount = subtotal * (vat_rate / 100)
         total = subtotal + vat_amount
@@ -225,6 +271,12 @@ def generate_invoice():
         # Calculate totals from validated line items
         line_items = form_data['line_items']
         subtotal = sum(item['total'] for item in line_items)
+        
+        # Add transport and registration costs
+        transport_cost = float(form_data.get('transport_cost', 0) or 0)
+        registration_cost = float(form_data.get('registration_cost', 0) or 0)
+        subtotal += transport_cost + registration_cost
+        
         vat_rate = 7.5
         vat_amount = subtotal * (vat_rate / 100)
         total = subtotal + vat_amount
