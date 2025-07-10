@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Dispatch Report Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f0f0f;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 16px; /* Slightly increased base font size */
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px; /* Adjusted padding for mobile */
+        }
+
+        /* Header */
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            background: #0f0f0f; /* Ensure background is solid when sticky */
+            z-index: 100; /* Ensure it stays on top */
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        /* Page States */
+        .page {
+            display: none;
+            min-height: 80vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Upload Page */
+        .upload-hero {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 8vw, 120px);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #999;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .upload-area {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px dashed rgba(255, 69, 0, 0.3);
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: rgba(255, 69, 0, 0.6);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-area.dragover {
+            border-color: #ff4500;
+            background: rgba(255, 69, 0, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #ff4500;
+            margin-bottom: 20px;
+        }
+
+        .upload-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .browse-btn {
+            background: #ff4500;
+            color: white;
+            border: none;
+            padding: 14px 28px; /* Increased padding */
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .browse-btn:hover {
+            background: #e03d00;
+            transform: translateY(-2px);
+        }
+
+        /* Results Page */
+        .results-hero {
+            padding: 80px 0 60px;
+        }
+
+        .results-title {
+            font-size: clamp(48px, 8vw, 120px);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+        }
+
+        .results-subtitle {
+            font-size: 18px;
+            color: #999;
+            margin-bottom: 60px;
+            max-width: 600px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            color: #ff4500;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Brand Breakdown */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .brand-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .brand-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .brand-category h3 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .brand-count {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff4500;
+        }
+
+        .brand-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .brand-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4500, #ff6b35);
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+
+        .hidden-brand {
+            display: none;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 18px 36px; /* Increased padding */
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #ff4500;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #e03d00;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .error-message {
+            color: #ff4500;
+            background-color: rgba(255, 69, 0, 0.1);
+            border: 1px solid #ff4500;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 14px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 69, 0, 0.3);
+            border-top: 3px solid #ff4500;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Search and Preview */
+        .search-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 18px; /* Increased padding */
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .search-input::placeholder {
+            color: #666;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ff4500;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-btn {
+            padding: 12px 16px;
+            background: #ff4500;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #e03d00;
+        }
+
+        /* Tabs */
+        .preview-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            padding: 14px 22px; /* Increased padding */
+            background: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #ff4500;
+            border-bottom-color: #ff4500;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Data Table */
+        .data-table {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow-x: auto; /* Changed to auto for horizontal scrolling */
+            -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+            margin-bottom: 16px;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1.5fr 1fr;
+            gap: 16px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+            font-size: 14px;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1.5fr 1fr;
+            gap: 16px;
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .table-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .table-footer {
+            padding: 12px 20px;
+            font-size: 14px;
+            color: #999;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .table-footer a {
+            color: #ff4500;
+            text-decoration: none;
+        }
+
+        .table-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Status Indicators */
+        .status-ready {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        .status-dispatched {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        /* Search Results */
+        .search-results {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-info {
+            color: #999;
+            font-size: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .upload-area {
+                padding: 40px 20px; /* Adjusted padding for mobile */
+                max-width: 90%; /* Adjusted max-width for mobile */
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #1a1a1a;
+                padding: 20px 0;
+                border-top: 1px solid #333;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .brand-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .header .btn-primary {
+                padding: 10px 20px; /* Smaller padding for mobile header button */
+                font-size: 14px;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .preview-tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tab-btn {
+                flex-shrink: 0;
+            }
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 8px;
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .table-header div:nth-child(4),
+            .table-header div:nth-child(5),
+            .table-row div:nth-child(4),
+            .table-row div:nth-child(5) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">FleetOps</div>
+                <ul class="nav-links">
+                </ul>
+                <div class="social-links">
+                </div>
+                <button class="btn btn-primary" onclick="generateNewReport()">Upload New Report</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Upload Page -->
+    <div id="uploadPage" class="page active">
+        <main class="container">
+            <section class="upload-hero">
+                <h1 class="hero-title">Vehicle Dispatch<br>Report Generator ↓</h1>
+                <p class="hero-subtitle">Transform your Excel dispatch data into professional reports with automated processing and brand breakdown analysis.</p>
+                
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon"></div>
+                    <div class="upload-text">Drop your Excel file here</div>
+                    <div class="upload-subtext">or click to browse • Supports .xlsx, .xls files</div>
+                    <button class="browse-btn">Choose File</button>
+                    <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls" onchange="handleFileUpload(this)">
+                </div>
+
+                <div class="loading" id="loadingState">
+                    <div class="spinner"></div>
+                    <div class="loading-message" style="color: #999;">Processing your dispatch data...</div>
+                </div>
+                <div id="errorMessage" class="error-message"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Results Page -->
+    <div id="resultsPage" class="page">
+        <main class="container">
+            <section class="results-hero">
+                <h1 class="results-title">Report Generated<br>Successfully ↓</h1>
+                <p class="results-subtitle">Your dispatch register has been processed and formatted into a comprehensive multi-tab Excel report.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">243</div>
+                        <div class="stat-label">Total Vehicles</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Brands</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">243</div>
+                        <div class="stat-label">Unique Models</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Total VINs Processed</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Brand Portfolio Breakdown</h2>
+                <div class="brand-grid">
+                    <!-- Brand cards will be dynamically inserted here -->
+                </div>
+                <div id="showMoreBrandsContainer" style="text-align: center; margin-top: 20px;">
+                    <!-- Show More button will be inserted here -->
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Data Preview & Validation</h2>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search by VIN, Brand, Model, or Customer..." class="search-input">
+                    <button class="search-btn" onclick="searchData()">Search</button>
+                </div>
+
+                <!-- Preview Tabs -->
+                <div class="preview-tabs">
+                    <button class="tab-btn active" onclick="showTab('summary')">Summary</button>
+                    <button class="tab-btn" onclick="showTab('changan')">Changan (199)</button>
+                    <button class="tab-btn" onclick="showTab('maxus')">Maxus (25)</button>
+                    <button class="tab-btn" onclick="showTab('search')">Search Results</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content active" id="summary-tab">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <div>Brand</div>
+                            <div>Model</div>
+                            <div>VIN (Last 6)</div>
+                            <div>Customer</div>
+                            <div>Dispatch Status</div>
+                        </div>
+                        <div class="table-row">
+                            <div>Changan</div>
+                            <div>CS35 Plus</div>
+                            <div>...284751</div>
+                            <div>Lagos Auto Ltd</div>
+                            <div class="status-ready">Ready</div>
+                        </div>
+                        <div class="table-row">
+                            <div>Changan</div>
+                            <div>Uni-V</div>
+                            <div>...639472</div>
+                            <div>Ikeja Motors</div>
+                            <div class="status-dispatched">Dispatched</div>
+                        </div>
+                        <div class="table-row">
+                            <div>Maxus</div>
+                            <div>T90 Pickup</div>
+                            <div>...851639</div>
+                            <div>Fleet Solutions</div>
+                            <div class="status-ready">Ready</div>
+                        </div>
+                        <div class="table-row">
+                            <div>ZNA</div>
+                            <div>Rich 6</div>
+                            <div>...472851</div>
+                            <div>Victoria Island Auto</div>
+                            <div class="status-pending">Pending</div>
+                        </div>
+                        <div class="table-row">
+                            <div>GWM</div>
+                            <div>Haval H6</div>
+                            <div>...194728</div>
+                            <div>Premium Motors</div>
+                            <div class="status-ready">Ready</div>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        Showing 5 of 243 vehicles
+                    </div>
+                </div>
+
+                <div class="tab-content" id="changan-tab">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <div>Model</div>
+                            <div>VIN (Last 6)</div>
+                            <div>Customer</div>
+                            <div>Invoice #</div>
+                            <div>Status</div>
+                        </div>
+                        <div class="table-row">
+                            <div>CS35 Plus</div>
+                            <div>...284751</div>
+                            <div>Lagos Auto Ltd</div>
+                            <div>INV-2025-1847</div>
+                            <div class="status-ready">Ready</div>
+                        </div>
+                        <div class="table-row">
+                            <div>Uni-V</div>
+                            <div>...639472</div>
+                            <div>Ikeja Motors</div>
+                            <div>INV-2025-1848</div>
+                            <div class="status-dispatched">Dispatched</div>
+                        </div>
+                        <div class="table-row">
+                            <div>CS75 Plus</div>
+                            <div>...847263</div>
+                            <div>Abuja Central Motors</div>
+                            <div>INV-2025-1849</div>
+                            <div class="status-ready">Ready</div>
+                        </div>
+                        <div class="table-row">
+                            <div>UNI-K</div>
+                            <div>...592847</div>
+                            <div>Port Harcourt Auto</div>
+                            <div>INV-2025-1850</div>
+                            <div class="status-pending">Pending</div>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        Showing 4 of 199 Changan vehicles
+                    </div>
+                </div>
+
+                <div class="tab-content" id="maxus-tab">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <div>Model</div>
+                            <div>VIN (Last 6)</div>
+                            <div>Customer</div>
+                            <div>Invoice #</div>
+                            <div>Status</div>
+                        </div>
+                        <div class="table-row">
+                            <div>T90 Pickup</div>
+                            <div>...851639</div>
+                            <div>Fleet Solutions</div>
+                            <div>INV-2025-1923</div>
+                            <div class="status-ready">Ready</div>
+                        </div>
+                        <div class="table-row">
+                            <div>T70 Pickup</div>
+                            <div>...739482</div>
+                            <div>Commercial Vehicles Ltd</div>
+                            <div>INV-2025-1924</div>
+                            <div class="status-dispatched">Dispatched</div>
+                        </div>
+                        <div class="table-row">
+                            <div>G10 Van</div>
+                            <div>...629184</div>
+                            <div>Logistics Pro</div>
+                            <div>INV-2025-1925</div>
+                            <div class="status-ready">Ready</div>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        Showing 3 of 25 Maxus vehicles
+                    </div>
+                </div>
+
+                <div class="tab-content" id="search-tab">
+                    <div class="search-results">
+                        <div class="search-info">Enter a search term above to find specific vehicles</div>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-primary" id="downloadReportBtn" onclick="downloadReport()">Download Report</button>
+                    <button class="btn btn-secondary" onclick="generateNewReport()">Process Another File</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        let currentTempDir = null; // To store the temporary directory for cleanup
+
+        // File upload handling
+        async function handleFileUpload(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                // Show loading state
+                document.getElementById('loadingState').classList.add('active');
+                
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // Clear previous error messages
+                displayError('');
+
+                try {
+                    const response = await fetch('/api/process', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Store temp_dir for cleanup
+                        currentTempDir = data.temp_dir;
+                        
+                        // Populate results page with actual data
+                        document.querySelector('.stats-grid .stat-card:nth-child(1) .stat-number').textContent = data.summary_stats.total_vehicles;
+                        document.querySelector('.stats-grid .stat-card:nth-child(2) .stat-number').textContent = data.summary_stats.brands_count;
+                        document.querySelector('.stats-grid .stat-card:nth-child(3) .stat-number').textContent = data.summary_stats.unique_models;
+                        document.querySelector('.stats-grid .stat-card:nth-child(4) .stat-number').textContent = data.summary_stats.total_vins_processed;
+
+                        // Store filename for download
+                        const downloadBtn = document.getElementById('downloadReportBtn');
+                        downloadBtn.dataset.filename = data.filename;
+                        downloadBtn.dataset.tempdir = data.temp_dir;
+
+                        // Dynamically populate brand breakdown with progressive disclosure
+                        const brandSection = document.querySelector('section.section:nth-of-type(2)'); // Assuming this is the brand breakdown section
+                        brandSection.innerHTML = '<h2 class="section-title">Brand Portfolio Breakdown</h2>'; // Reset content
+
+                        for (const category in data.brand_breakdown) {
+                            const brands = data.brand_breakdown[category];
+                            if (brands.length > 0) {
+                                const categoryHtml = `
+                                    <div class="brand-category">
+                                        <h3>${category}</h3>
+                                        <div class="brand-grid" id="${category.replace(/[^a-zA-Z0-9]/g, '')}-grid">
+                                            <!-- Brands will be inserted here -->
+                                        </div>
+                                        <div id="${category.replace(/[^a-zA-Z0-9]/g, '')}-showMoreBrandsContainer" style="text-align: center; margin-top: 20px;">
+                                            <!-- Show More button will be inserted here -->
+                                        </div>
+                                    </div>
+                                `;
+                                brandSection.insertAdjacentHTML('beforeend', categoryHtml);
+
+                                const currentBrandGrid = document.getElementById(`${category.replace(/[^a-zA-Z0-9]/g, '')}-grid`);
+                                const initialDisplayCount = 5; // Show first 5 brands initially
+
+                                brands.forEach((brand, index) => {
+                                    const brandCard = `
+                                        <div class="brand-card ${index >= initialDisplayCount ? 'hidden-brand' : ''}">
+                                            <div class="brand-header">
+                                                <div class="brand-name">${brand.name}</div>
+                                                <div class="brand-count">${brand.count}</div>
+                                            </div>
+                                            <div class="brand-bar">
+                                                <div class="brand-fill" style="width: ${brand.percentage}%;"></div>
+                                            </div>
+                                        </div>
+                                    `;
+                                    currentBrandGrid.insertAdjacentHTML('beforeend', brandCard);
+                                });
+
+                                // Add Show More button if there are more brands than initialDisplayCount
+                                const showMoreBtnContainer = document.getElementById(`${category.replace(/[^a-zA-Z0-9]/g, '')}-showMoreBrandsContainer`);
+                                if (brands.length > initialDisplayCount) {
+                                    showMoreBtnContainer.innerHTML = `<button class="btn btn-secondary" onclick="toggleShowMoreBrands(this)" data-category-id="${category.replace(/[^a-zA-Z0-9]/g, '')}-grid">Show All Brands</button>`;
+                                } else {
+                                    showMoreBtnContainer.innerHTML = ''; // No need for button
+                                }
+                            }
+                        }
+
+                        showResults();
+                    } else {
+                        displayError('Error processing file: ' + data.error);
+                    }
+                } catch (error) {
+                    displayError('Network error or server issue: ' + error.message);
+                } finally {
+                    document.getElementById('loadingState').classList.remove('active');
+                }
+            }
+        }
+
+        // Helper function to display error messages
+        function displayError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            if (message) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }
+
+        // Show results page
+        function showResults() {
+            document.getElementById('uploadPage').classList.remove('active');
+            document.getElementById('resultsPage').classList.add('active');
+            
+            // Animate brand bars
+            setTimeout(() => {
+                document.querySelectorAll('.brand-fill').forEach(fill => {
+                    fill.style.transform = 'scaleX(1)';
+                });
+            }, 300);
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Search functionality
+        function searchData() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchResults = document.querySelector('.search-results');
+            
+            if (!searchTerm) {
+                searchResults.innerHTML = '<div class="search-info">Enter a search term above to find specific vehicles</div>';
+                return;
+            }
+
+            // Mock search results
+            const mockResults = [
+                { brand: 'Changan', model: 'CS35 Plus', vin: '...284751', customer: 'Lagos Auto Ltd', status: 'Ready' },
+                { brand: 'Maxus', model: 'T90 Pickup', vin: '...851639', customer: 'Fleet Solutions', status: 'Ready' },
+                { brand: 'ZNA', model: 'Rich 6', vin: '...472851', customer: 'Victoria Island Auto', status: 'Pending' }
+            ].filter(item => 
+                item.brand.toLowerCase().includes(searchTerm) ||
+                item.model.toLowerCase().includes(searchTerm) ||
+                item.vin.includes(searchTerm) ||
+                item.customer.toLowerCase().includes(searchTerm)
+            );
+
+            if (mockResults.length === 0) {
+                searchResults.innerHTML = '<div class="search-info">No results found for "' + searchTerm + '"</div>';
+            } else {
+                let tableHTML = `
+                    <div class="data-table">
+                        <div class="table-header">
+                            <div>Brand</div>
+                            <div>Model</div>
+                            <div>VIN (Last 6)</div>
+                            <div>Customer</div>
+                            <div>Status</div>
+                        </div>
+                `;
+                
+                mockResults.forEach(result => {
+                    tableHTML += `
+                        <div class="table-row">
+                            <div>${result.brand}</div>
+                            <div>${result.model}</div>
+                            <div>${result.vin}</div>
+                            <div>${result.customer}</div>
+                            <div class="status-${result.status.toLowerCase()}">${result.status}</div>
+                        </div>
+                    `;
+                });
+                
+                tableHTML += '</div>';
+                searchResults.innerHTML = tableHTML;
+            }
+
+            // Switch to search tab
+            showTabByName('search');
+        }
+
+        function showTabByName(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Find and activate the correct tab
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => {
+                if (btn.onclick && btn.onclick.toString().includes(tabName)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Search on Enter key
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchData();
+                }
+            });
+        });
+
+        // Mock functions for "View all" links
+        function showAllData() {
+            // In a real application, this would load and display all 243 vehicles
+            alert('This feature would load and display all 243 vehicles in a paginated view or a dedicated page.');
+        }
+
+        function showAllChangan() {
+            // In a real application, this would load and display all 199 Changan vehicles
+            alert('This feature would load and display all 199 Changan vehicles.');
+        }
+
+        function showAllMaxus() {
+            // In a real application, this would load and display all 25 Maxus vehicles
+            alert('This feature would load and display all 25 Maxus vehicles.');
+        }
+
+        // Download report
+        function downloadReport() {
+            const filename = event.target.dataset.filename;
+            const tempDir = event.target.dataset.tempdir;
+            if (filename && tempDir) {
+                window.location.href = `/api/download/${filename}?temp_dir=${tempDir}`;
+            } else {
+                alert('No report available for download.');
+            }
+        }
+
+        // Generate new report
+        async function generateNewReport() {
+            if (currentTempDir) {
+                try {
+                    await fetch('/api/cleanup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ temp_dir: currentTempDir })
+                    });
+                    currentTempDir = null; // Clear the stored temp directory
+                } catch (error) {
+                    console.error('Error cleaning up temporary directory:', error);
+                }
+            }
+            document.getElementById('resultsPage').classList.remove('active');
+            document.getElementById('uploadPage').classList.add('active');
+            document.getElementById('fileInput').value = '';
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', async () => {
+            if (currentTempDir) {
+                // Use navigator.sendBeacon for best effort cleanup on unload
+                navigator.sendBeacon('/api/cleanup', new Blob([JSON.stringify({ temp_dir: currentTempDir })], {type : 'application/json'}));
+            }
+        });
+
+        // Drag and drop functionality
+        const uploadArea = document.querySelector('.upload-area');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('fileInput').files = files;
+                handleFileUpload(document.getElementById('fileInput'));
+            }
+        });
+
+        // Add loading animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.stat-card, .brand-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Progressive disclosure for brands
+        function toggleShowMoreBrands(button) {
+            const categoryId = button.dataset.categoryId;
+            const brandGrid = document.getElementById(categoryId);
+            const hiddenBrands = brandGrid.querySelectorAll('.hidden-brand');
+            
+            if (button.textContent === 'Show All Brands') {
+                hiddenBrands.forEach(card => {
+                    card.style.display = 'block'; // Or 'grid', depending on your layout
+                });
+                button.textContent = 'Show Less';
+            } else {
+                hiddenBrands.forEach(card => {
+                    card.style.display = 'none';
+                });
+                button.textContent = 'Show All Brands';
+            }
+        }
+    </script>
+</body>
+</html>

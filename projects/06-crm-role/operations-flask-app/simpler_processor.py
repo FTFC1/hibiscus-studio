@@ -401,189 +401,78 @@ def clean_engine_number(engine_str):
 
 def process_engine_vin_cell(raw_value):
     """
-    Intelligently parse engine-VIN data based on known patterns.
+    Splits a raw cell value into multiple (engine, vin) tuples.
+    Handles comma-separated values and various formatting issues.
     Returns a list of (engine, vin) tuples.
     """
-    if pd.isna(raw_value) or not isinstance(raw_value, str):
+    if pd.isna(raw_value) or not isinstance(raw_value, str) or not raw_value.strip():
         return [("", "")]
-    
-    # Split by comma if multiple pairs exist in the cell
-    engine_vin_pairs = [pair.strip() for pair in raw_value.split(',') if pair.strip()]
+
+    # Normalize separators: replace semicolons, newlines, and spaces with commas
+    normalized_value = re.sub(r'[;\n\s]+', ',', raw_value)
+    engine_vin_pairs = [pair.strip() for pair in normalized_value.split(',') if pair.strip()]
     results = []
-    
+
     for pair in engine_vin_pairs:
-        # Default empty values
-        engine = ""
-        vin = ""
+        engine, vin = "", ""
         
-        # Pattern 1: Starts with JL/Jl and has L6UA pattern followed by L6T (Jl4G15-L6UA4927116-L6T7824Z5MW005162)
-        if (pair.startswith(('JL', 'Jl')) and 'L6UA' in pair and '-L6T' in pair):
-            # Find the second occurrence of "L" which should be the start of the real VIN
-            first_l_pos = pair.find('L')  # This will be the "L" in "JL"
-            second_l_pos = pair.find('L', first_l_pos + 1)  # This is likely "L6UA"
-            
-            # Try to find the VIN which typically starts with L6T
-            l6t_pos = pair.find('-L6T')
-            if l6t_pos > 0:
-                engine = pair[:l6t_pos].strip()  # Everything before -L6T
-                vin = pair[l6t_pos+1:].strip()   # Everything after -L6T (including L6T)
+        # General pattern: Engine-VIN or VIN-Engine
+        match = re.search(r'([A-Z0-9]+)[-]([A-Z0-9]+)', pair.upper())
+        if match:
+            part1, part2 = match.groups()
+            # Heuristic: VIN is usually longer (17 chars)
+            if len(part1) > len(part2) and len(part1) > 10:
+                vin, engine = part1, part2
             else:
-                # Fallback - split at the second L position
-                engine = pair[:second_l_pos].strip()
-                vin = pair[second_l_pos:].strip()
-        
-        # Pattern 2: JLH-3G15TD*N6BA5614053*-LB37622Z2PX410651 (double hyphen separator)
-        elif '--' in pair:
-            parts = pair.split('--')
-            engine = parts[0].strip() if len(parts) > 0 else ''
-            vin = parts[1].strip() if len(parts) > 1 else ''
-        
-        # Pattern 3: Standard format with single hyphen
-        elif '-' in pair:
-            # Check if this is Geely with 4G24 or 3G15 engine code
-            if any(code in pair for code in ['4G24', '4G15', '3G15']):
-                # For Geely, we need to identify where the VIN starts
-                # VINs typically start with L and are 17 chars
-                l_positions = [pos for pos, char in enumerate(pair) if char == 'L']
-                
-                # Find the position that is likely the start of the VIN (L followed by alphanumeric)
-                vin_start = -1
-                for pos in l_positions:
-                    if pos > 0 and pos+1 < len(pair) and pair[pos:pos+3].startswith(('L6T', 'LB3')):
-                        vin_start = pos
-                        break
-                
-                if vin_start > 0:
-                    # Found a likely VIN start
-                    engine = pair[:vin_start].strip()
-                    if engine.endswith('-'):
-                        engine = engine[:-1]
-                    vin = pair[vin_start:].strip()
-                else:
-                    # Fallback to regular split
-                    parts = pair.split('-', 1)
-                    engine = parts[0].strip() if len(parts) > 0 else ''
-                    vin = parts[1].strip() if len(parts) > 1 else ''
-            else:
-                # Standard non-Geely format
-                parts = pair.split('-', 1)
-                engine = parts[0].strip() if len(parts) > 0 else ''
-                vin = parts[1].strip() if len(parts) > 1 else ''
+                engine, vin = part1, part2
         else:
-            # No hyphen - just store in engine field
-            engine = pair.strip()
+            # Fallback if no hyphen is found
+            vin = pair # Assume the whole thing is a VIN
+
+        results.append((engine.strip(), vin.strip()))
         
-        # Clean the engine number
-        engine = clean_engine_number(engine)
+    # If no pairs were successfully parsed, return a single empty entry
+    # This ensures the explode function in the caller still works.
+    if not results:
+        return [("", "")]
         
-        # Validation and fixes for common issues
-        
-        # Special handling for case where the VIN contains L6UA pattern followed by a hyphen and the actual VIN
-        # Example: VIN field is "L6UA4927116-L6T7824Z5MW005162"
-        if vin and 'L6UA' in vin and '-L6T' in vin:
-            vin_parts = vin.split('-')
-            if len(vin_parts) >= 2:
-                # The second part is the actual VIN
-                additional_engine_part = vin_parts[0].strip()
-                actual_vin = vin_parts[1].strip()
-                
-                # If the engine is just "JL-4G15" or "Jl-4G15", append the L6UA part to make it complete
-                if engine in ['JL-4G15', 'Jl-4G15', 'JL-4GI5', 'Jl-4GI5', 'JL', 'Jl']:
-                    engine = f"{engine}-{additional_engine_part}" if not engine.endswith('-') else f"{engine}{additional_engine_part}"
-                vin = actual_vin
-        
-        # If engine contains "4G15" and VIN has "L6UA" and "L6T" patterns, try to fix
-        # Example: engine="JL", VIN="4G15L6UA4927116-L6T7824Z5MW005162"
-        if engine in ['JL', 'Jl'] and vin and '4G15' in vin and 'L6T' in vin:
-            l6t_pos = vin.find('-L6T')
-            if l6t_pos > 0:
-                additional_engine = vin[:l6t_pos].strip()
-                actual_vin = vin[l6t_pos+1:].strip()
-                engine = f"{engine}-{additional_engine}"
-                vin = actual_vin
-        
-        # Final check: VIN should ideally start with L (for Chinese vehicles)
-        if not vin.startswith('L'):
-            # This VIN doesn't look right - try to extract a proper VIN
-            l_pos = -1
-            for prefix in ['L6T', 'LB3', 'LJN', 'LS4', 'LS5']:
-                if prefix in pair:
-                    l_pos = pair.find(prefix)
-                    if l_pos >= 0:
-                        break
-            
-            if l_pos > 0:
-                # We found what looks like a VIN starting point
-                new_vin = pair[l_pos:].strip()
-                # If there's a hyphen in the new VIN, only take what's after it
-                if '-' in new_vin and new_vin.index('-') < 5:  # Only look at early hyphens
-                    new_vin = new_vin.split('-', 1)[1].strip()
-                
-                # Recalculate engine
-                new_engine = pair[:l_pos].strip()
-                if new_engine.endswith('-'):
-                    new_engine = new_engine[:-1].strip()
-                
-                engine = clean_engine_number(new_engine)
-                vin = new_vin
-        
-        results.append((engine, vin))
-    
     return results
 
 def process_brands(df, engine_vin_col, brand_col, target_brands):
-    """Process the dataframe to split engine-VIN pairs for each brand."""
+    """
+    Filter the dataframe by brand, process the engine-VIN column, and split into separate rows.
+    """
     processed_data_by_brand = {}
-    
+
     for brand_name, search_terms in target_brands.items():
+        # Filter by brand
         brand_query = '|'.join(search_terms)
-        df_filtered = df[df[brand_col].str.lower().str.contains(brand_query, na=False, regex=True)]
-        
-        # Process the data: split the engine-VIN values into separate rows
-        print(f"Processing {brand_name}...")
-        
-        # Initialize with an empty DataFrame if no matches found
-        if len(df_filtered) == 0:
-            print(f"  No rows found matching '{brand_query.lower()}'")
-            # Create an empty DataFrame with Engine and VIN columns
-            columns = list(df.columns) + ['Engine', 'VIN']
-            processed_data_by_brand[brand_name] = pd.DataFrame(columns=columns)
-            print(f"  Created empty dataframe with Engine and VIN columns")
-            continue
+        brand_df = df[df[brand_col].str.lower().str.contains(brand_query, na=False, regex=True)].copy()
+
+        if not brand_df.empty:
+            # 1. Apply the function to get lists of (engine, vin) tuples
+            split_values = brand_df[engine_vin_col].apply(process_engine_vin_cell)
+
+            # 2. Create an intermediate DataFrame from the lists of tuples
+            split_df = pd.DataFrame(split_values.tolist(), index=brand_df.index).stack().reset_index(level=1, drop=True)
+            split_df.name = 'engine_vin_pair'
             
-        brand_df = df_filtered.copy()
-        
-        # List to hold the expanded rows
-        expanded_rows = []
-        
-        # Iterate through each row in the filtered dataframe
-        for _, row in brand_df.iterrows():
-            # Get the raw value from the engine_vin_col
-            raw_value = row[engine_vin_col]
-            row_dict = row.to_dict()
+            # 3. Merge this back to the original brand_df
+            processed_df = brand_df.drop(columns=[engine_vin_col]).join(split_df)
+
+            # 4. Separate the tuple into 'Engine' and 'VIN' columns
+            processed_df[['Engine', 'VIN']] = pd.DataFrame(processed_df['engine_vin_pair'].tolist(), index=processed_df.index)
+
+            # 5. Clean up and store
+            processed_df = processed_df.drop(columns=['engine_vin_pair'])
             
-            # Use our robust engine-VIN processing function
-            engine_vin_pairs = process_engine_vin_cell(raw_value)
+            # Remove rows where VIN is empty, as they are not useful
+            processed_df = processed_df[processed_df['VIN'].str.strip() != '']
+
+            processed_data_by_brand[brand_name] = processed_df
+            print(f"  Found {len(brand_df)} rows matching '{brand_query.lower()}'")
+            print(f"  Created {len(processed_df)} rows after splitting")
             
-            # Create a new row for each engine-VIN pair
-            for engine, vin in engine_vin_pairs:
-                new_row = row_dict.copy()
-                new_row['Engine'] = engine
-                new_row['VIN'] = vin
-                expanded_rows.append(new_row)
-        
-        # Create a new dataframe from the expanded rows
-        if expanded_rows:
-            processed_df = pd.DataFrame(expanded_rows)
-        else:
-            # If no expanded rows were created, create an empty DataFrame with Engine and VIN columns
-            columns = list(df.columns) + ['Engine', 'VIN']
-            processed_df = pd.DataFrame(columns=columns)
-        
-        processed_data_by_brand[brand_name] = processed_df
-        print(f"  Found {len(brand_df)} rows matching '{brand_query.lower()}'")
-        print(f"  Created {len(processed_df)} rows after splitting")
-    
     return processed_data_by_brand
 
 def main():
