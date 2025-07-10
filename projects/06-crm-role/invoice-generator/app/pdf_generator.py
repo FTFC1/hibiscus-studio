@@ -249,10 +249,25 @@ class MikanoPDF(FPDF):
         """Add customer information in a bordered box"""
         y_start = self.get_y()
         
-        # Customer details box
+        # Prepare customer details
+        details = []
+        if invoice_data.get('customer_name', '').strip():
+            details.append(invoice_data.get('customer_name', ''))
+        if invoice_data.get('customer_address', '').strip():
+            details.append(invoice_data.get('customer_address', ''))
+        if invoice_data.get('customer_phone', '').strip():
+            details.append(f"Phone: {invoice_data.get('customer_phone', '')}")
+        if invoice_data.get('customer_email', '').strip():
+            details.append(f"Email: {invoice_data.get('customer_email', '')}")
+        
+        # Calculate required height (header + details + padding)
+        content_height = 8 + (len(details) * 5) + 10  # Header + lines + padding
+        box_height = max(30, content_height)  # Minimum 30, or calculated height
+        
+        # Customer details box with dynamic height
         self.set_fill_color(*self.mikano_light_gray)
-        self.rect(15, y_start, 180, 30, 'F')
-        self.rect(15, y_start, 180, 30)
+        self.rect(15, y_start, 180, box_height, 'F')
+        self.rect(15, y_start, 180, box_height)
         
         # Header
         self.set_font('Arial', 'B', 12)
@@ -264,19 +279,12 @@ class MikanoPDF(FPDF):
         self.set_text_color(*self.mikano_dark_gray)
         y_pos = y_start + 15
         
-        details = [
-            invoice_data.get('customer_name', ''),
-            invoice_data.get('customer_address', ''),
-            f"Phone: {invoice_data.get('customer_phone', '')}",
-            f"Email: {invoice_data.get('customer_email', '')}"
-        ]
-        
         for detail in details:
-            if detail.strip():
-                self.safe_text(20, y_pos, detail, max_width=170)
-                y_pos += 5
+            self.safe_text(20, y_pos, detail, max_width=170)
+            y_pos += 5
         
-        self.ln(35)
+        # Move to position after the box with proper spacing
+        self.set_y(y_start + box_height + 15)
 
     def _add_line_items_table(self, invoice_data):
         """Add professional table with line items"""
@@ -295,7 +303,7 @@ class MikanoPDF(FPDF):
         self.set_text_color(255, 255, 255)
         
         headers = ['Description', 'Qty', 'Unit Price', 'Total']
-        x_positions = [20, 140, 160, 175]
+        x_positions = [20, 125, 155, 175]  # More space for Unit Price and Total columns
         
         for i, header in enumerate(headers):
             self.text(x_positions[i], y_start + 8, header)
@@ -322,9 +330,9 @@ class MikanoPDF(FPDF):
             total = f"{self.currency_symbol}{float(item.get('total', 0)):,.2f}"
             
             self.text(20, y_pos + 4, description)
-            self.text(145, y_pos + 4, quantity)
-            self.text(160, y_pos + 4, unit_price)
-            self.text(175, y_pos + 4, total)
+            self.text(130, y_pos + 4, quantity)  # Centered in Qty column
+            self.text(155, y_pos + 4, unit_price)  # More space for unit price
+            self.text(175, y_pos + 4, total)  # Aligned with Total header
             
             y_pos += 10
         
@@ -341,27 +349,30 @@ class MikanoPDF(FPDF):
         
         y_start = self.get_y()
         
-        # Totals box
+        # Totals box - wider to accommodate longer amounts
+        box_width = 85  # Increased from 65 to 85
+        box_x = 110    # Moved left to accommodate wider box
+        
         self.set_fill_color(*self.mikano_light_gray)
-        self.rect(130, y_start, 65, 25, 'F')
-        self.rect(130, y_start, 65, 25)
+        self.rect(box_x, y_start, box_width, 25, 'F')
+        self.rect(box_x, y_start, box_width, 25)
         
         self.set_font('Arial', '', 10)
         self.set_text_color(*self.mikano_dark_gray)
         
         # Subtotal
-        self.text(135, y_start + 8, 'Subtotal:')
-        self.text(170, y_start + 8, f"{self.currency_symbol}{subtotal:,.2f}")
+        self.text(box_x + 5, y_start + 8, 'Subtotal:')
+        self.text(box_x + 45, y_start + 8, f"{self.currency_symbol}{subtotal:,.2f}")
         
         # VAT
-        self.text(135, y_start + 14, f'VAT ({vat_rate}%):')
-        self.text(170, y_start + 14, f"{self.currency_symbol}{vat_amount:,.2f}")
+        self.text(box_x + 5, y_start + 14, f'VAT ({vat_rate}%):')
+        self.text(box_x + 45, y_start + 14, f"{self.currency_symbol}{vat_amount:,.2f}")
         
         # Total
         self.set_font('Arial', 'B', 11)
         self.set_text_color(*self.mikano_red)
-        self.text(135, y_start + 21, 'TOTAL:')
-        self.text(170, y_start + 21, f"{self.currency_symbol}{total:,.2f}")
+        self.text(box_x + 5, y_start + 21, 'TOTAL:')
+        self.text(box_x + 45, y_start + 21, f"{self.currency_symbol}{total:,.2f}")
 
     def invoice_details(self, invoice_date, customer_info, invoice_type, invoice_number=None):
         # Enhanced two-column layout with better sizing
