@@ -636,14 +636,14 @@ class MikanoPDF(FPDF):
 def parse_form_data(form_data):
     # Enhanced parsing with better price handling - fixed string indexing
     parsed = {
-        'invoice_type': form_data.get('invoice_type', ['standard'])[0],
-        'invoice_date': form_data.get('invoice_date', [datetime.date.today().strftime('%Y-%m-%d')])[0],
-        'invoice_number': form_data.get('invoice_number', [None])[0],
+        'invoice_type': form_data.get('invoice_type', 'standard'),
+        'invoice_date': form_data.get('invoice_date', datetime.date.today().strftime('%Y-%m-%d')),
+        'invoice_number': form_data.get('invoice_number', None),
         'customer_info': {
-            'name': form_data.get('customer_name', [''])[0],
-            'phone': form_data.get('customer_phone', [''])[0],
-            'address': form_data.get('customer_address', [''])[0],
-            'email': form_data.get('customer_email', [''])[0],
+            'name': form_data.get('customer_name', ''),
+            'phone': form_data.get('customer_phone', ''),
+            'address': form_data.get('customer_address', ''),
+            'email': form_data.get('customer_email', ''),
         },
         'transport_cost': float(form_data.get('transport_cost', 0) or 0),
         'registration_cost': float(form_data.get('registration_cost', 0) or 0),
