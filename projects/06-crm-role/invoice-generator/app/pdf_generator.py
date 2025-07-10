@@ -708,7 +708,23 @@ def create_pdf(form_data):
     data['subtotal'] = subtotal
     data['vat_amount'] = vat
     data['total'] = grand_total
+    
+    # Flatten customer_info for PDF generation compatibility
+    flattened_data = {
+        'invoice_number': data.get('invoice_number') or 'PFI-2025-001',
+        'invoice_date': data.get('invoice_date'),
+        'invoice_type': data.get('invoice_type'),
+        'customer_name': data['customer_info'].get('name', ''),
+        'customer_phone': data['customer_info'].get('phone', ''),
+        'customer_address': data['customer_info'].get('address', ''),
+        'customer_email': data['customer_info'].get('email', ''),
+        'line_items': data.get('items', []),
+        'subtotal': subtotal,
+        'vat_amount': vat,
+        'total': grand_total,
+        'vat_rate': 7.5
+    }
 
-    pdf.create_invoice_content(data)
+    pdf.create_invoice_content(flattened_data)
 
     return pdf.output(dest='S')

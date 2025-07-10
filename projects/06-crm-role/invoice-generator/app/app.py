@@ -253,8 +253,8 @@ def preview_pdf():
             'total': total
         }
         
-        # Generate PDF
-        pdf_content = create_pdf(invoice_data)
+        # Generate PDF - pass raw form data since create_pdf expects that format
+        pdf_content = create_pdf(request.form.to_dict())
         
         # Return PDF for preview in browser
         pdf_file = BytesIO(pdf_content)
@@ -310,8 +310,8 @@ def generate_invoice():
             'total': total
         }
         
-        # Generate PDF
-        pdf_content = create_pdf(invoice_data)
+        # Generate PDF - pass raw form data since create_pdf expects that format
+        pdf_content = create_pdf(request.form.to_dict())
         
         # Return PDF for download
         pdf_file = BytesIO(pdf_content)
