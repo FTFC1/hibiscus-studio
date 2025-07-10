@@ -7,35 +7,41 @@ import re
 app = Flask(__name__)
 
 def format_phone_display(phone):
-    """Format phone number for better readability"""
+    """Format phone number for better readability with safe string indexing"""
     if not phone:
         return phone
     
     # Remove any existing formatting
     digits = re.sub(r'[^\d+]', '', phone)
     
+    # Safe string slicing with bounds checking
+    def safe_slice(text, start, end=None):
+        if end is None:
+            return text[start:] if start < len(text) else ""
+        return text[start:end] if start < len(text) and end <= len(text) else text[start:] if start < len(text) else ""
+    
     if digits.startswith('+234') and len(digits) == 14:
         # Nigerian format: +234 803 123 4567
-        return f"+234 {digits[4:7]} {digits[7:10]} {digits[10:]}"
+        return f"+234 {safe_slice(digits, 4, 7)} {safe_slice(digits, 7, 10)} {safe_slice(digits, 10)}"
     elif digits.startswith('+44') and len(digits) >= 12:
         # UK format: +44 20 7946 0958
         if len(digits) == 13:
-            return f"+44 {digits[3:5]} {digits[5:9]} {digits[9:]}"
+            return f"+44 {safe_slice(digits, 3, 5)} {safe_slice(digits, 5, 9)} {safe_slice(digits, 9)}"
         else:
-            return f"+44 {digits[3:6]} {digits[6:9]} {digits[9:]}"
+            return f"+44 {safe_slice(digits, 3, 6)} {safe_slice(digits, 6, 9)} {safe_slice(digits, 9)}"
     elif digits.startswith('+1') and len(digits) == 12:
         # US/CA format: +1 555 123 4567
-        return f"+1 {digits[2:5]} {digits[5:8]} {digits[8:]}"
+        return f"+1 {safe_slice(digits, 2, 5)} {safe_slice(digits, 5, 8)} {safe_slice(digits, 8)}"
     elif digits.startswith('+27') and len(digits) == 12:
         # SA format: +27 82 123 4567
-        return f"+27 {digits[3:5]} {digits[5:8]} {digits[8:]}"
+        return f"+27 {safe_slice(digits, 3, 5)} {safe_slice(digits, 5, 8)} {safe_slice(digits, 8)}"
     elif digits.startswith('+233') and len(digits) == 13:
         # Ghana format: +233 24 123 4567
-        return f"+233 {digits[4:6]} {digits[6:9]} {digits[9:]}"
+        return f"+233 {safe_slice(digits, 4, 6)} {safe_slice(digits, 6, 9)} {safe_slice(digits, 9)}"
     
     # Default formatting for other international numbers
     if digits.startswith('+') and len(digits) > 7:
-        return f"{digits[:4]} {digits[4:7]} {digits[7:10]} {digits[10:]}"
+        return f"{safe_slice(digits, 0, 4)} {safe_slice(digits, 4, 7)} {safe_slice(digits, 7, 10)} {safe_slice(digits, 10)}"
     
     return phone
 
@@ -47,42 +53,49 @@ def validate_phone_number(phone):
     # Remove all non-digits and plus signs
     cleaned = re.sub(r'[^\d+]', '', phone)
     
+    # Safe string slicing function
+    def safe_format(text, start_idx):
+        return text[start_idx:] if start_idx < len(text) else text
+    
+    def safe_negative_slice(text, neg_idx):
+        return text[neg_idx:] if len(text) >= abs(neg_idx) else text
+
     # International phone number patterns
     patterns = {
         # Nigeria
         'NG': {
             'pattern': r'^\+?234[789]\d{9}$',
-            'format': lambda x: f"+234{x[-10:]}",
+            'format': lambda x: f"+234{safe_negative_slice(x, -10)}",
             'local_pattern': r'^0[789]\d{9}$',
-            'local_format': lambda x: f"+234{x[1:]}"
+            'local_format': lambda x: f"+234{safe_format(x, 1)}"
         },
         # United Kingdom  
         'GB': {
             'pattern': r'^\+?44[17]\d{8,9}$',
-            'format': lambda x: f"+44{x[-10:] if len(x) == 13 else x[-9:]}",
+            'format': lambda x: f"+44{safe_negative_slice(x, -10) if len(x) == 13 else safe_negative_slice(x, -9)}",
             'local_pattern': r'^0[17]\d{8,9}$',
-            'local_format': lambda x: f"+44{x[1:]}"
+            'local_format': lambda x: f"+44{safe_format(x, 1)}"
         },
         # United States/Canada
         'US': {
             'pattern': r'^\+?1[2-9]\d{9}$',
-            'format': lambda x: f"+1{x[-10:]}",
+            'format': lambda x: f"+1{safe_negative_slice(x, -10)}",
             'local_pattern': r'^[2-9]\d{9}$',
             'local_format': lambda x: f"+1{x}"
         },
         # South Africa
         'ZA': {
             'pattern': r'^\+?27[1-9]\d{8}$',
-            'format': lambda x: f"+27{x[-9:]}",
+            'format': lambda x: f"+27{safe_negative_slice(x, -9)}",
             'local_pattern': r'^0[1-9]\d{8}$',
-            'local_format': lambda x: f"+27{x[1:]}"
+            'local_format': lambda x: f"+27{safe_format(x, 1)}"
         },
         # Ghana
         'GH': {
             'pattern': r'^\+?233[25]\d{8}$',
-            'format': lambda x: f"+233{x[-9:]}",
+            'format': lambda x: f"+233{safe_negative_slice(x, -9)}",
             'local_pattern': r'^0[25]\d{8}$',
-            'local_format': lambda x: f"+233{x[1:]}"
+            'local_format': lambda x: f"+233{safe_format(x, 1)}"
         }
     }
     
