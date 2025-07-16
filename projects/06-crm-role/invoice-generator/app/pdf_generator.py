@@ -10,7 +10,7 @@ def create_pdf(html_content, invoice_data):
     # css = CSS(string='body { font-family: sans-serif; }')
 
     # Generate PDF
-    pdf_bytes = HTML(string=html_content).write_pdf()
+    pdf_bytes = HTML(string=html_content, encoding='utf-8').write_pdf()
     return pdf_bytes
 
 def parse_form_data(form_data):
