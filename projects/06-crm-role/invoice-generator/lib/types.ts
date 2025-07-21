@@ -40,6 +40,7 @@ export interface PFI {
   }
   transportCost?: number
   registrationCost?: number
+  discount?: number
   subtotal: number
   vat: number
   total: number

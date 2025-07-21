@@ -97,6 +97,12 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
     }
   }
 
+  // Enhanced currency input handler that preserves cursor position
+  const handleCurrencyInput = (value: string, callback: (amount: number) => void) => {
+    const rawValue = parseCurrencyInput(value);
+    callback(rawValue);
+  }
+
   // Initialize form data with smart defaults
   const initializeFormData = () => {
     const lastUsed = getLastUsedValues()
@@ -121,9 +127,9 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           warranty: "",
           segment: "",
           quantity: 1,
-          unitPrice: 0,
+          unitPrice: 30000000, // Default to 30M instead of 0
           discountedPrice: 0,
-          amount: 0,
+          amount: 30000000,
         },
       ],
       registration: pfi?.registration,
@@ -131,12 +137,14 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       serviceOilChange: pfi?.serviceOilChange,
       transportCost: pfi?.transportCost,
       registrationCost: pfi?.registrationCost,
-      bank: pfi?.bank || "",
+      bank: pfi?.bank || "Access Bank", // Default bank selection
       accountName: pfi?.accountName || "",
       accountNumber: pfi?.accountNumber || "",
       preparedBy: pfi?.preparedBy || lastUsed.preparedBy,
       approvedBy: pfi?.approvedBy || lastUsed.approvedBy,
       paymentTerms: "Payment to be made within 30 days of invoice date. Delivery upon full payment confirmation.",
+      internalNotes: pfi?.internalNotes || "",
+      discount: pfi?.discount || 0,
     }
   }
 
@@ -216,9 +224,9 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           warranty: "",
           segment: "",
           quantity: 1,
-          unitPrice: 0,
+          unitPrice: 30000000,
           discountedPrice: 0,
-          amount: 0,
+          amount: 30000000,
         },
       ],
       registration: undefined,
@@ -232,6 +240,8 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       preparedBy: lastUsed.preparedBy,
       approvedBy: lastUsed.approvedBy,
       paymentTerms: "Payment to be made within 30 days of invoice date. Delivery upon full payment confirmation.",
+      internalNotes: "",
+      discount: 0,
     })
     setShowTransport(false)
     setShowRegistration(false)
@@ -267,7 +277,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
         newLineItems[index].warranty = ""
         newLineItems[index].segment = ""
         // Set default price based on brand
-        newLineItems[index].unitPrice = defaultVehiclePrices[value] || 20000000
+        newLineItems[index].unitPrice = defaultVehiclePrices[value] || 30000000
       }
 
       if (field === "model" && value) {
@@ -300,9 +310,9 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       warranty: "",
       segment: "",
       quantity: 1,
-      unitPrice: 0,
+      unitPrice: 30000000,
       discountedPrice: 0,
-      amount: 0,
+      amount: 30000000,
     }
     setFormData((prev) => ({
       ...prev,
@@ -326,11 +336,13 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
     const regCost = showRegistration ? formData.registrationCost || 0 : 0
 
     const subtotal = lineItemsTotal + registrationCost + insuranceCost + serviceCost + transportCost + regCost
+    const discount = formData.discount || 0
+    const afterDiscount = subtotal - discount
     const vatRate = formData.invoiceType === "Standard" ? 0.075 : 0
-    const vat = subtotal * vatRate
-    const total = subtotal + vat
+    const vat = afterDiscount * vatRate
+    const total = afterDiscount + vat
 
-    return { subtotal, vat, total }
+    return { subtotal, discount, afterDiscount, vat, total }
   }, [
     formData.lineItems,
     formData.registration?.cost,
@@ -339,6 +351,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
     formData.serviceOilChange?.quantity,
     formData.transportCost,
     formData.registrationCost,
+    formData.discount,
     formData.invoiceType,
     showTransport,
     showRegistration,
@@ -731,7 +744,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                       Quantity <span className="text-red-600">*</span>
@@ -745,7 +758,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     />
                   </div>
 
-                  <div className="col-span-3">
+                  <div>
                     <Label className="text-sm font-semibold text-slate-700 mb-2 block">Total Amount</Label>
                     <div className="h-11 px-3 py-2 bg-slate-50 border border-slate-200 rounded-md flex items-center">
                       <span className="text-base font-medium text-slate-800">{formatCurrency(item.amount)}</span>
@@ -764,15 +777,14 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                       type="text"
                       value={item.unitPrice > 0 ? formatCurrencyInput(item.unitPrice.toString()) : ''}
                       onChange={(e) => {
-                        const rawValue = parseCurrencyInput(e.target.value);
-                        updateLineItem(index, "unitPrice", rawValue);
+                        handleCurrencyInput(e.target.value, (rawValue) => updateLineItem(index, "unitPrice", rawValue));
                       }}
                       placeholder="30,000,000.00"
-                      className={`${getDemoInputClasses("")} h-11 text-base pl-8 ${
+                      className={`${getDemoInputClasses("")} h-11 text-base pl-9 ${
                         item.unitPrice > 0 && !validateMinimumPrice(item.unitPrice) ? 'border-red-300 bg-red-50' : ''
                       }`}
                     />
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500">₦</span>
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">₦</span>
                     {item.unitPrice > 0 && !validateMinimumPrice(item.unitPrice) && (
                       <p className="text-xs text-red-600 mt-1">Price must be at least ₦30,000,000.00</p>
                     )}
@@ -789,13 +801,12 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                       type="text"
                       value={(item.discountedPrice || 0) > 0 ? formatCurrencyInput((item.discountedPrice || 0).toString()) : ''}
                       onChange={(e) => {
-                        const rawValue = parseCurrencyInput(e.target.value);
-                        updateLineItem(index, "discountedPrice", rawValue);
+                        handleCurrencyInput(e.target.value, (rawValue) => updateLineItem(index, "discountedPrice", rawValue));
                       }}
                       placeholder="Enter discounted price"
-                      className={`${getDemoInputClasses("")} h-11 text-base pl-8`}
+                      className={`${getDemoInputClasses("")} h-11 text-base pl-9`}
                     />
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500">₦</span>
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">₦</span>
                   </div>
                 </div>
 
@@ -944,33 +955,49 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           </CardContent>
         </Card>
 
-        {/* Totals - Mobile Optimized */}
-        <Card className="shadow-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Invoice Totals</CardTitle>
+        {/* Invoice Totals - Enhanced Visual Hierarchy */}
+        <Card className="shadow-sm border-0 ring-1 ring-gray-200">
+          <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 pb-4">
+            <CardTitle className="text-slate-800 text-xl font-semibold tracking-tight">Invoice Totals</CardTitle>
           </CardHeader>
-          <CardContent className="p-4 space-y-4">
+          <CardContent className="p-6 space-y-6">
             <div>
-              <Label className="text-sm font-medium">Subtotal</Label>
-              <Input
-                value={formatCurrency(calculateTotals.subtotal)}
-                readOnly
-                className="mt-1 bg-gray-50 font-medium"
-              />
+              <Label className="text-sm font-semibold text-slate-700 mb-2 block">Subtotal</Label>
+              <div className="h-11 px-3 py-2 bg-slate-50 border border-slate-200 rounded-md flex items-center">
+                <span className="text-base font-medium text-slate-800">{formatCurrency(calculateTotals.subtotal)}</span>
+              </div>
             </div>
 
             <div>
-              <Label className="text-sm font-medium">VAT (7.5%)</Label>
-              <Input value={formatCurrency(calculateTotals.vat)} readOnly className="mt-1 bg-gray-50 font-medium" />
+              <Label className="text-sm font-semibold text-slate-700 mb-2 block">
+                Discount <span className="text-xs text-slate-500 font-normal">(Optional)</span>
+              </Label>
+              <div className="relative">
+                <Input
+                  type="text"
+                  value={(formData.discount || 0) > 0 ? formatCurrencyInput((formData.discount || 0).toString()) : ''}
+                  onChange={(e) => {
+                    handleCurrencyInput(e.target.value, (rawValue) => setFormData((prev) => ({ ...prev, discount: rawValue })));
+                  }}
+                  placeholder="0.00"
+                  className="h-11 text-base pl-9"
+                />
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">₦</span>
+              </div>
             </div>
 
             <div>
-              <Label className="text-sm font-medium">Total Amount</Label>
-              <Input
-                value={formatCurrency(calculateTotals.total)}
-                readOnly
-                className="mt-1 bg-gray-50 font-bold text-lg text-red-600"
-              />
+              <Label className="text-sm font-semibold text-slate-700 mb-2 block">VAT (7.5%)</Label>
+              <div className="h-11 px-3 py-2 bg-slate-50 border border-slate-200 rounded-md flex items-center">
+                <span className="text-base font-medium text-slate-800">{formatCurrency(calculateTotals.vat)}</span>
+              </div>
+            </div>
+
+            <div>
+              <Label className="text-sm font-semibold text-slate-700 mb-2 block">Total Amount</Label>
+              <div className="h-12 px-3 py-2 bg-gradient-to-r from-slate-100 to-slate-50 border-2 border-slate-300 rounded-md flex items-center">
+                <span className="text-lg font-bold text-slate-900">{formatCurrency(calculateTotals.total)}</span>
+              </div>
             </div>
 
             <div>
