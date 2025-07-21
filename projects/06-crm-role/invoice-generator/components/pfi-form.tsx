@@ -26,7 +26,7 @@ import {
 import { demoData } from "@/lib/demo-data"
 import { formatCurrency, formatCurrencyInput, parseCurrencyInput, validateMinimumPrice, generateInvoiceNumber, numberToWords, addDays, validateEmail } from "@/lib/utils"
 import type { LineItem, PFI } from "@/lib/types"
-import { Plus, Trash2, Mail } from "lucide-react"
+import { Plus, Trash2, Mail, AlertCircle } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 
 interface PFIFormProps {
@@ -36,29 +36,42 @@ interface PFIFormProps {
   onBack: () => void
 }
 
-// Enhanced progress calculation that considers both form completion and scroll position
-const calculateProgress = (formData: Partial<PFI>, scrollPosition?: number) => {
-  let formCompleted = 0
-  const totalSections = 10 // Total sections to complete
+// Validation state interface
+interface ValidationErrors {
+  customerName?: string
+  customerAddress?: string
+  customerPhone?: string
+  customerEmail?: string
+  salesExecutive?: string
+  contactNumber?: string
+  preparedBy?: string
+  approvedBy?: string
+  bank?: string
+  accountName?: string
+  accountNumber?: string
+  lineItems?: { [key: number]: { brand?: string; model?: string; unitPrice?: string; quantity?: string } }
+}
 
-  // Form completion checks
+// Enhanced progress calculation based on form completion
+const calculateProgress = (formData: Partial<PFI>) => {
+  let formCompleted = 0
+  const totalSections = 12 // Total sections to complete
+
+  // Form completion checks - more granular
   if (formData.invoiceNumber && formData.invoiceDate && formData.validUntil && formData.invoiceType) formCompleted++
-  if (formData.customerName && formData.customerAddress && formData.customerPhone && formData.customerEmail)
-    formCompleted++
+  if (formData.customerName && formData.customerAddress) formCompleted++
+  if (formData.customerPhone && formData.customerEmail) formCompleted++
   if (formData.salesExecutive && formData.contactNumber) formCompleted++
   if (formData.lineItems && formData.lineItems.length > 0 && formData.lineItems[0].brand) formCompleted++
   if (formData.lineItems && formData.lineItems.some((item) => item.unitPrice > 0)) formCompleted++
-  if (formData.bank) formCompleted++
+  if (formData.lineItems && formData.lineItems.some((item) => item.quantity > 0)) formCompleted++
+  if (formData.bank && formData.accountName && formData.accountNumber) formCompleted++
+  if (formData.preparedBy && formData.approvedBy) formCompleted++
   if (formData.registration || formData.insurance || formData.serviceOilChange) formCompleted++
   if (formData.paymentTerms && formData.paymentTerms.length > 50) formCompleted++
+  if ((formData.subtotal || 0) > 0 && (formData.total || 0) > 0) formCompleted++
 
-  // Base progress from form completion
-  const baseProgress = (formCompleted / totalSections) * 100
-
-  // Add scroll-based progress for better UX
-  const scrollBonus = scrollPosition ? Math.min(scrollPosition * 0.1, 10) : 0
-
-  return Math.min(baseProgress + scrollBonus, 100)
+  return Math.round((formCompleted / totalSections) * 100)
 }
 
 const defaultVehiclePrices: { [key: string]: number } = {
@@ -149,6 +162,16 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
   }
 
   const [formData, setFormData] = React.useState<Partial<PFI>>(initializeFormData)
+  const [validationErrors, setValidationErrors] = React.useState<ValidationErrors>({})
+
+  // Clear validation error for a specific field
+  const clearValidationError = (field: keyof ValidationErrors) => {
+    setValidationErrors(prev => {
+      const newErrors = { ...prev }
+      delete newErrors[field]
+      return newErrors
+    })
+  }
 
   const [showTransport, setShowTransport] = React.useState(!!pfi?.transportCost)
   const [showRegistration, setShowRegistration] = React.useState(!!pfi?.registrationCost)
@@ -156,8 +179,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
   const [isDemoMode, setIsDemoMode] = React.useState(false)
   const [showDemoNotification, setShowDemoNotification] = React.useState(false)
 
-  // Add scroll tracking state
-  const [scrollProgress, setScrollProgress] = React.useState(0)
+  // Remove scroll tracking - using form completion percentage instead
 
   const brands = [...new Set(vehicleData.map((v) => v.BRAND))].sort()
 
@@ -188,18 +210,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
     })
   }
 
-  // Add scroll effect
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      const currentScroll = window.scrollY
-      const scrollPercentage = totalHeight > 0 ? (currentScroll / totalHeight) * 100 : 0
-      setScrollProgress(Math.min(scrollPercentage, 100))
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  // Removed scroll tracking - using form completion percentage instead
 
   const clearDemoData = () => {
     const lastUsed = getLastUsedValues()
@@ -375,27 +386,76 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
   }, [])
 
   const handleSave = () => {
-    // Validation
-    if (
-      !formData.customerName ||
-      !formData.customerAddress ||
-      !formData.customerPhone ||
-      !formData.customerEmail ||
-      !formData.salesExecutive ||
-      !formData.contactNumber
-    ) {
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      })
-      return
+    let hasErrors = false
+    const newValidationErrors: ValidationErrors = {}
+
+    if (!formData.customerName) {
+      newValidationErrors.customerName = "Customer Name is required."
+      hasErrors = true
+    }
+    if (!formData.customerAddress) {
+      newValidationErrors.customerAddress = "Customer Address is required."
+      hasErrors = true
+    }
+    if (!formData.customerPhone) {
+      newValidationErrors.customerPhone = "Phone Number is required."
+      hasErrors = true
+    }
+    if (!formData.customerEmail) {
+      newValidationErrors.customerEmail = "Email Address is required."
+      hasErrors = true
+    }
+    if (!formData.salesExecutive) {
+      newValidationErrors.salesExecutive = "Sales Executive is required."
+      hasErrors = true
+    }
+    if (!formData.contactNumber) {
+      newValidationErrors.contactNumber = "Contact Number is required."
+      hasErrors = true
+    }
+    if (!formData.preparedBy) {
+      newValidationErrors.preparedBy = "Prepared By is required."
+      hasErrors = true
+    }
+    if (!formData.approvedBy) {
+      newValidationErrors.approvedBy = "Approved By is required."
+      hasErrors = true
+    }
+    if (!formData.bank) {
+      newValidationErrors.bank = "Bank is required."
+      hasErrors = true
+    }
+    if (!formData.accountName) {
+      newValidationErrors.accountName = "Account Name is required."
+      hasErrors = true
+    }
+    if (!formData.accountNumber) {
+      newValidationErrors.accountNumber = "Account Number is required."
+      hasErrors = true
+    }
+    if (formData.lineItems && formData.lineItems.length === 0) {
+      newValidationErrors.lineItems = { 0: { brand: "At least one vehicle item is required." } }
+      hasErrors = true
+    }
+    if (formData.lineItems && formData.lineItems.some((item) => item.brand === "" || item.model === "")) {
+      newValidationErrors.lineItems = { 0: { brand: "Brand and Model are required for each item." } }
+      hasErrors = true
+    }
+    if (formData.lineItems && formData.lineItems.some((item) => item.unitPrice < 30000000)) {
+      newValidationErrors.lineItems = { 0: { unitPrice: "Unit price must be at least ₦30,000,000.00." } }
+      hasErrors = true
+    }
+    if (formData.lineItems && formData.lineItems.some((item) => item.quantity < 1)) {
+      newValidationErrors.lineItems = { 0: { quantity: "Quantity must be at least 1." } }
+      hasErrors = true
     }
 
-    if (!emailValid) {
+    setValidationErrors(newValidationErrors)
+
+    if (hasErrors) {
       toast({
         title: "Validation Error",
-        description: "Please enter a valid email address.",
+        description: "Please fill in all required fields and correct any errors.",
         variant: "destructive",
       })
       return
@@ -443,7 +503,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <ProgressHeader
-        progress={calculateProgress(formData, scrollProgress)}
+        progress={calculateProgress(formData)}
         onPreview={handlePreview}
         title="Create PFI"
         showBackButton={true}
@@ -538,27 +598,43 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
               <Label htmlFor="customerName" className="text-sm font-semibold text-slate-700 mb-2 block">
                 Customer Name <span className="text-red-600">*</span>
               </Label>
-              <Input
-                id="customerName"
-                value={formData.customerName}
-                onChange={(e) => setFormData((prev) => ({ ...prev, customerName: e.target.value }))}
-                placeholder="Enter customer name"
-                className={`${getDemoInputClasses("")} h-11 text-base`}
-              />
+                              <Input
+                  id="customerName"
+                  value={formData.customerName}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, customerName: e.target.value }))
+                    if (e.target.value) clearValidationError('customerName')
+                  }}
+                  placeholder="Enter customer name"
+                  className={`${getDemoInputClasses("")} h-11 text-base ${validationErrors.customerName ? 'border-red-300 bg-red-50' : ''}`}
+                />
+              {validationErrors.customerName && (
+                <p className="text-xs text-red-600 mt-1">
+                  <AlertCircle className="inline-block mr-1" /> {validationErrors.customerName}
+                </p>
+              )}
             </div>
 
             <div>
               <Label htmlFor="customerAddress" className="text-sm font-semibold text-slate-700 mb-2 block">
                 Customer Address <span className="text-red-600">*</span>
               </Label>
-              <Textarea
-                id="customerAddress"
-                value={formData.customerAddress}
-                onChange={(e) => setFormData((prev) => ({ ...prev, customerAddress: e.target.value }))}
-                placeholder="Enter complete address"
-                className={`${getDemoInputClasses("")} min-h-[80px] text-base resize-none`}
-                rows={3}
-              />
+                              <Textarea
+                  id="customerAddress"
+                  value={formData.customerAddress}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, customerAddress: e.target.value }))
+                    if (e.target.value) clearValidationError('customerAddress')
+                  }}
+                  placeholder="Enter complete address"
+                  className={`${getDemoInputClasses("")} min-h-[80px] text-base resize-none ${validationErrors.customerAddress ? 'border-red-300 bg-red-50' : ''}`}
+                  rows={3}
+                />
+              {validationErrors.customerAddress && (
+                <p className="text-xs text-red-600 mt-1">
+                  <AlertCircle className="inline-block mr-1" /> {validationErrors.customerAddress}
+                </p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -572,6 +648,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                   placeholder="Enter phone number"
                   className={getDemoInputClasses("")}
                 />
+                {validationErrors.customerPhone && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1" /> {validationErrors.customerPhone}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -589,6 +670,9 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     />
                   {emailValid && (
                     <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-green-600" />
+                  )}
+                  {validationErrors.customerEmail && (
+                    <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-600" />
                   )}
                 </div>
               </div>
@@ -619,6 +703,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     ))}
                   </SelectContent>
                 </Select>
+                {validationErrors.salesExecutive && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1" /> {validationErrors.salesExecutive}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -631,6 +720,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                   placeholder="Sales executive contact"
                   className={getDemoInputClasses("")}
                 />
+                {validationErrors.contactNumber && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1" /> {validationErrors.contactNumber}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -654,6 +748,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     ))}
                   </SelectContent>
                 </Select>
+                {validationErrors.preparedBy && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1" /> {validationErrors.preparedBy}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -675,6 +774,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     ))}
                   </SelectContent>
                 </Select>
+                {validationErrors.approvedBy && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1" /> {validationErrors.approvedBy}
+                  </p>
+                )}
               </div>
             </div>
           </CardContent>
@@ -718,6 +822,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                         ))}
                       </SelectContent>
                     </Select>
+                    {validationErrors.lineItems?.[index]?.brand && (
+                      <p className="text-xs text-red-600 mt-1">
+                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].brand}
+                      </p>
+                    )}
                   </div>
 
                   {/* Model Selection */}
@@ -741,6 +850,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                         ))}
                       </SelectContent>
                     </Select>
+                    {validationErrors.lineItems?.[index]?.model && (
+                      <p className="text-xs text-red-600 mt-1">
+                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].model}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -756,6 +870,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                       onChange={(e) => updateLineItem(index, "quantity", Number.parseInt(e.target.value) || 1)}
                       className={`${getDemoInputClasses("")} h-11 text-base text-center`}
                     />
+                    {validationErrors.lineItems?.[index]?.quantity && (
+                      <p className="text-xs text-red-600 mt-1">
+                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].quantity}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -787,6 +906,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">₦</span>
                     {item.unitPrice > 0 && !validateMinimumPrice(item.unitPrice) && (
                       <p className="text-xs text-red-600 mt-1">Price must be at least ₦30,000,000.00</p>
+                    )}
+                    {validationErrors.lineItems?.[index]?.unitPrice && (
+                      <p className="text-xs text-red-600 mt-1">
+                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].unitPrice}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -1054,16 +1178,31 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                   ))}
                 </SelectContent>
               </Select>
+              {validationErrors.bank && (
+                <p className="text-xs text-red-600 mt-1">
+                  <AlertCircle className="inline-block mr-1" /> {validationErrors.bank}
+                </p>
+              )}
             </div>
 
             <div>
               <Label className="text-sm font-medium">Account Name</Label>
               <Input value={formData.accountName} readOnly className="mt-1 bg-gray-50" />
+              {validationErrors.accountName && (
+                <p className="text-xs text-red-600 mt-1">
+                  <AlertCircle className="inline-block mr-1" /> {validationErrors.accountName}
+                </p>
+              )}
             </div>
 
             <div>
               <Label className="text-sm font-medium">Account Number</Label>
               <Input value={formData.accountNumber} readOnly className="mt-1 bg-gray-50" />
+              {validationErrors.accountNumber && (
+                <p className="text-xs text-red-600 mt-1">
+                  <AlertCircle className="inline-block mr-1" /> {validationErrors.accountNumber}
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -1077,11 +1216,21 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
             <div>
               <Label className="text-sm font-medium">Prepared By</Label>
               <Input value={formData.preparedBy} readOnly className="mt-1 bg-gray-50" />
+              {validationErrors.preparedBy && (
+                <p className="text-xs text-red-600 mt-1">
+                  <AlertCircle className="inline-block mr-1" /> {validationErrors.preparedBy}
+                </p>
+              )}
             </div>
 
             <div>
               <Label className="text-sm font-medium">Approved By</Label>
               <Input value={formData.approvedBy} readOnly className="mt-1 bg-gray-50" />
+              {validationErrors.approvedBy && (
+                <p className="text-xs text-red-600 mt-1">
+                  <AlertCircle className="inline-block mr-1" /> {validationErrors.approvedBy}
+                </p>
+              )}
             </div>
 
             <div>
