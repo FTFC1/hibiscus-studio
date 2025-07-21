@@ -56,12 +56,12 @@ export function generatePDF(pfi: PFI): void {
       @media print {
         body * {
           visibility: visible !important;
-        }
+      }
         #invoice-print {
           position: static !important;
           width: 210mm !important;
           min-height: 297mm !important;
-        }
+      }
       }
     </style>
   </head>

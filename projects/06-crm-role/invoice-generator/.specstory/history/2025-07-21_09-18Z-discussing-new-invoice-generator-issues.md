@@ -5876,9 +5876,894 @@ Now let me check what specific validation issues exist with the form. I can see 
 
 ---
 
+```diff
+  import { formatCurrency, formatCurrencyInput, parseCurrencyInput, validateMinimumPrice, generateInvoiceNumber, numberToWords, addDays, validateEmail } from "@/lib/utils"
+  import type { LineItem, PFI } from "@/lib/types"
+- import { Plus, Trash2, Mail } from "lucide-react"
++ import { Plus, Trash2, Mail, AlertCircle } from "lucide-react"
+  import { toast } from "@/hooks/use-toast"
+  
+```
+
+```diff
+    onBack: () => void
+  }
++ 
++ // Validation state interface
++ interface ValidationErrors {
++   customerName?: string
++   customerAddress?: string
++   customerPhone?: string
++   customerEmail?: string
++   salesExecutive?: string
++   contactNumber?: string
++   preparedBy?: string
++   approvedBy?: string
++   bank?: string
++   lineItems?: { [key: number]: { brand?: string; model?: string; unitPrice?: string; quantity?: string } }
++ }
+  
+  // Enhanced progress calculation based on form completion
+```
+
+```diff
+  
+    const [formData, setFormData] = React.useState<Partial<PFI>>(initializeFormData)
++   const [validationErrors, setValidationErrors] = React.useState<ValidationErrors>({})
+  
+    const [showTransport, setShowTransport] = React.useState(!!pfi?.transportCost)
+```
+
+```diff
+  
+    const handleSave = () => {
+-     // Validation
+-     if (
+-       !formData.customerName ||
+-       !formData.customerAddress ||
+-       !formData.customerPhone ||
+-       !formData.customerEmail ||
+-       !formData.salesExecutive ||
+-       !formData.contactNumber
+-     ) {
+-       toast({
+-         title: "Validation Error",
+-         description: "Please fill in all required fields.",
+-         variant: "destructive",
+-       })
+-       return
+-     }
+- 
+-     if (!emailValid) {
++     let hasErrors = false
++     const newValidationErrors: ValidationErrors = {}
++ 
++     if (!formData.customerName) {
++       newValidationErrors.customerName = "Customer Name is required."
++       hasErrors = true
++     }
++     if (!formData.customerAddress) {
++       newValidationErrors.customerAddress = "Customer Address is required."
++       hasErrors = true
++     }
++     if (!formData.customerPhone) {
++       newValidationErrors.customerPhone = "Phone Number is required."
++       hasErrors = true
++     }
++     if (!formData.customerEmail) {
++       newValidationErrors.customerEmail = "Email Address is required."
++       hasErrors = true
++     }
++     if (!formData.salesExecutive) {
++       newValidationErrors.salesExecutive = "Sales Executive is required."
++       hasErrors = true
++     }
++     if (!formData.contactNumber) {
++       newValidationErrors.contactNumber = "Contact Number is required."
++       hasErrors = true
++     }
++     if (!formData.preparedBy) {
++       newValidationErrors.preparedBy = "Prepared By is required."
++       hasErrors = true
++     }
++     if (!formData.approvedBy) {
++       newValidationErrors.approvedBy = "Approved By is required."
++       hasErrors = true
++     }
++     if (!formData.bank) {
++       newValidationErrors.bank = "Bank is required."
++       hasErrors = true
++     }
++     if (!formData.accountName) {
++       newValidationErrors.accountName = "Account Name is required."
++       hasErrors = true
++     }
++     if (!formData.accountNumber) {
++       newValidationErrors.accountNumber = "Account Number is required."
++       hasErrors = true
++     }
++     if (formData.lineItems && formData.lineItems.length === 0) {
++       newValidationErrors.lineItems = { 0: { brand: "At least one vehicle item is required." } }
++       hasErrors = true
++     }
++     if (formData.lineItems && formData.lineItems.some((item) => item.brand === "" || item.model === "")) {
++       newValidationErrors.lineItems = { 0: { brand: "Brand and Model are required for each item." } }
++       hasErrors = true
++     }
++     if (formData.lineItems && formData.lineItems.some((item) => item.unitPrice < 30000000)) {
++       newValidationErrors.lineItems = { 0: { unitPrice: "Unit price must be at least ₦30,000,000.00." } }
++       hasErrors = true
++     }
++     if (formData.lineItems && formData.lineItems.some((item) => item.quantity < 1)) {
++       newValidationErrors.lineItems = { 0: { quantity: "Quantity must be at least 1." } }
++       hasErrors = true
++     }
++ 
++     setValidationErrors(newValidationErrors)
++ 
++     if (hasErrors) {
+        toast({
+          title: "Validation Error",
+-         description: "Please enter a valid email address.",
++         description: "Please fill in all required fields and correct any errors.",
+          variant: "destructive",
+        })
+```
+
+```diff
+                  className={`${getDemoInputClasses("")} h-11 text-base`}
+                />
++               {validationErrors.customerName && (
++                 <p className="text-xs text-red-600 mt-1">
++                   <AlertCircle className="inline-block mr-1" /> {validationErrors.customerName}
++                 </p>
++               )}
+              </div>
+  
+```
+
+```diff
+                  rows={3}
+                />
++               {validationErrors.customerAddress && (
++                 <p className="text-xs text-red-600 mt-1">
++                   <AlertCircle className="inline-block mr-1" /> {validationErrors.customerAddress}
++                 </p>
++               )}
+              </div>
+  
+```
+
+```diff
+                    className={getDemoInputClasses("")}
+                  />
++                 {validationErrors.customerPhone && (
++                   <p className="text-xs text-red-600 mt-1">
++                     <AlertCircle className="inline-block mr-1" /> {validationErrors.customerPhone}
++                   </p>
++                 )}
+                </div>
+  
+```
+
+```diff
+                      <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-green-600" />
+                    )}
++                   {validationErrors.customerEmail && (
++                     <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-600" />
++                   )}
+                  </div>
+                </div>
+```
+
+```diff
+                    </SelectContent>
+                  </Select>
++                 {validationErrors.salesExecutive && (
++                   <p className="text-xs text-red-600 mt-1">
++                     <AlertCircle className="inline-block mr-1" /> {validationErrors.salesExecutive}
++                   </p>
++                 )}
+                </div>
+  
+```
+
+```diff
+                    className={getDemoInputClasses("")}
+                  />
++                 {validationErrors.contactNumber && (
++                   <p className="text-xs text-red-600 mt-1">
++                     <AlertCircle className="inline-block mr-1" /> {validationErrors.contactNumber}
++                   </p>
++                 )}
+                </div>
+              </div>
+```
+
+```diff
+                    </SelectContent>
+                  </Select>
++                 {validationErrors.preparedBy && (
++                   <p className="text-xs text-red-600 mt-1">
++                     <AlertCircle className="inline-block mr-1" /> {validationErrors.preparedBy}
++                   </p>
++                 )}
+                </div>
+  
+```
+
+```diff
+                    </SelectContent>
+                  </Select>
++                 {validationErrors.approvedBy && (
++                   <p className="text-xs text-red-600 mt-1">
++                     <AlertCircle className="inline-block mr-1" /> {validationErrors.approvedBy}
++                   </p>
++                 )}
+                </div>
+              </div>
+```
+
+```diff
+                        </SelectContent>
+                      </Select>
++                     {validationErrors.lineItems?.[index]?.brand && (
++                       <p className="text-xs text-red-600 mt-1">
++                         <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].brand}
++                       </p>
++                     )}
+                    </div>
+  
+```
+
+```diff
+                        </SelectContent>
+                      </Select>
++                     {validationErrors.lineItems?.[index]?.model && (
++                       <p className="text-xs text-red-600 mt-1">
++                         <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].model}
++                       </p>
++                     )}
+                    </div>
+                  </div>
+```
+
+```diff
+                        className={`${getDemoInputClasses("")} h-11 text-base text-center`}
+                      />
++                     {validationErrors.lineItems?.[index]?.quantity && (
++                       <p className="text-xs text-red-600 mt-1">
++                         <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].quantity}
++                       </p>
++                     )}
+                    </div>
+  
+```
+
+```diff
+                        <p className="text-xs text-red-600 mt-1">Price must be at least ₦30,000,000.00</p>
+                      )}
++                     {validationErrors.lineItems?.[index]?.unitPrice && (
++                       <p className="text-xs text-red-600 mt-1">
++                         <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].unitPrice}
++                       </p>
++                     )}
+                    </div>
+                  </div>
+```
+
+```diff
+                  </SelectContent>
+                </Select>
++               {validationErrors.bank && (
++                 <p className="text-xs text-red-600 mt-1">
++                   <AlertCircle className="inline-block mr-1" /> {validationErrors.bank}
++                 </p>
++               )}
+              </div>
+  
+              <div>
+                <Label className="text-sm font-medium">Account Name</Label>
+                <Input value={formData.accountName} readOnly className="mt-1 bg-gray-50" />
++               {validationErrors.accountName && (
++                 <p className="text-xs text-red-600 mt-1">
++                   <AlertCircle className="inline-block mr-1" /> {validationErrors.accountName}
++                 </p>
++               )}
+              </div>
+  
+              <div>
+                <Label className="text-sm font-medium">Account Number</Label>
+                <Input value={formData.accountNumber} readOnly className="mt-1 bg-gray-50" />
++               {validationErrors.accountNumber && (
++                 <p className="text-xs text-red-600 mt-1">
++                   <AlertCircle className="inline-block mr-1" /> {validationErrors.accountNumber}
++                 </p>
++               )}
+              </div>
+            </CardContent>
+```
+
+```diff
+                <Label className="text-sm font-medium">Prepared By</Label>
+                <Input value={formData.preparedBy} readOnly className="mt-1 bg-gray-50" />
++               {validationErrors.preparedBy && (
++                 <p className="text-xs text-red-600 mt-1">
++                   <AlertCircle className="inline-block mr-1" /> {validationErrors.preparedBy}
++                 </p>
++               )}
+              </div>
+  
+              <div>
+                <Label className="text-sm font-medium">Approved By</Label>
+                <Input value={formData.approvedBy} readOnly className="mt-1 bg-gray-50" />
++               {validationErrors.approvedBy && (
++                 <p className="text-xs text-red-600 mt-1">
++                   <AlertCircle className="inline-block mr-1" /> {validationErrors.approvedBy}
++                 </p>
++               )}
+              </div>
+  
+```
+
+---
+
+Let me fix the ValidationErrors interface to include the missing properties:
+
+---
+
 
 
 ---
+
+Now let me add a function to clear validation errors when fields are updated and improve the user experience:
+
+---
+
+
+
+---
+
+Now let me update the input handlers to clear validation errors when users start typing:
+
+---
+
+
+
+---
+
+Let me also update a few more key inputs with proper validation styling and error clearing:
+
+---
+
+
+
+---
+
+Now let me update the TODO status and commit this improvement:
+
+---
+
+
+
+---
+
+```bash
+git add . && git commit -m "✨ Enhanced form validation with Shadcn UI design patterns
+
+- Added comprehensive ValidationErrors interface
+- Implemented real-time validation error clearing
+- Added visual error states with red borders and backgrounds
+- Included AlertCircle icons for better error visibility
+- Enhanced user experience with immediate feedback
+- Improved form validation for all required fields including line items"
+```
+
+```
+<dation for all required fields including line items"
+[main 81514c3] ✨ Enhanced form validation with Shadcn UI design patterns
+ 289 files changed, 6681 insertions(+), 2097 deletions(-)
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development-fallback/2
+.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/10.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/11.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/12.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/13.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/14.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/5.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/6.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/7.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/8.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/client-development/9.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/edge-server-development/3.pac
+k.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/edge-server-development/4.pac
+k.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/edge-server-development/5.pac
+k.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/10.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/11.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/12.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/3.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/4.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/5.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/6.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/7.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/8.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/cache/webpack/server-development/9.pack.gz
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/012298f25f90100b.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/06339362a1e034dd.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/0a3ae2b6def02570.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/0e4b0dc25eb12798.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/13d663a5d860516c.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/1426e19e9356253d.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/15f019235152586c.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/16f1c4422935debe.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/18ac30105a50749b.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/26890233ac3c0893.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/37ccebb8ba64a455.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/3ae3e3ac0f36a6bc.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/3b2daa2ff17d5fe0.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/3d77ca8c14368b6a.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/4401ac18a144285f.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/454816d8ad43add2.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/491c2b53434e2f1b.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/4c77d6ac0920c9c3.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/52e7c086e62a5aee.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/534ae6c3358c14c0.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/54e4e5d4bf02ec03.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/55ced8cef56b4efe.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/599a7f9b4c16cf3c.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/5eb7cec12d086cff.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/698d0d6250b920a6.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/6da7b41132338dee.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/6f96b0b9b578e181.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/70c35d57e1f12c9e.webpack.hot
+-update.json
+ rename projects/06-crm-role/invoice-generator/.next/static/webpack/{872e92c2befab721.webpack.hot-update.jso
+n => 7314eb12e6b3ab56.webpack.hot-update.json} (100%)
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/7e134429438d5a5e.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/7f431b5461c54051.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/7f6120b8a1f628ef.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/838d6187a4330b67.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/86eb8d3f013a8fea.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/86f4e3c12e9bfe47.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/88c3a0a9d4774da7.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/8d654cfc1604b57a.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/8e9910bc06c9e9bb.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/8fc0251810851fd6.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/971e497f18e226cc.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/9fc9d00624225f81.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/a2af0c80782cb2f1.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/a40cbd669ce5e492.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/a452e20b13264fe2.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ab347eea320d7d42.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/af6616c1199bf81b.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.0a3ae2b6def02570.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.1426e19e9356253d.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.37ccebb8ba64a455.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.3d77ca8c14368b6a.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.491c2b53434e2f1b.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.55ced8cef56b4efe.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.5eb7cec12d086cff.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.698d0d6250b920a6.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.88c3a0a9d4774da7.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.8d654cfc1604b57a.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.8fc0251810851fd6.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.af6616c1199bf81b.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.b687f805eb25683a.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.b71b7921ede59a4d.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.d54cab5a4edc9ee3.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.d84eba67b1265cd3.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.ddad8714cb09dc43.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.e717af4aff65b53d.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.e7fd3822d673c161.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.ec62fae3ea25faee.
+hot-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/layout.f4f1b1ae6e66db34.
+hot-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.012298f25f90100b.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.06339362a1e034dd.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.0e4b0dc25eb12798.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.13d663a5d860516c.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.1426e19e9356253d.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.15f019235152586c.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.16f1c4422935debe.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.18ac30105a50749b.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.26890233ac3c0893.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.37ccebb8ba64a455.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.3ae3e3ac0f36a6bc.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.3b2daa2ff17d5fe0.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.4401ac18a144285f.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.454816d8ad43add2.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.4c77d6ac0920c9c3.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.52e7c086e62a5aee.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.534ae6c3358c14c0.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.54e4e5d4bf02ec03.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.599a7f9b4c16cf3c.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.6da7b41132338dee.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.6f96b0b9b578e181.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.70c35d57e1f12c9e.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.7e134429438d5a5e.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.7f431b5461c54051.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.838d6187a4330b67.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.86eb8d3f013a8fea.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.86f4e3c12e9bfe47.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.88c3a0a9d4774da7.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.8d654cfc1604b57a.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.8fc0251810851fd6.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.971e497f18e226cc.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.9fc9d00624225f81.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.a2af0c80782cb2f1.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.a40cbd669ce5e492.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.a452e20b13264fe2.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.ab347eea320d7d42.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.b39552d343d1524a.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.b98d8d1b15b17fd1.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.bb71f48b6c838777.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.c7aba45905dc1ed6.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.ca5e81cf6f601203.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.cf9d7f1ef11e15b3.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.d51869f496b802c3.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.d54cab5a4edc9ee3.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.d66f8bfa34d7c071.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.d84eba67b1265cd3.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.d8e92d9f06cf9897.ho
+t-update.js
+ rename projects/06-crm-role/invoice-generator/.next/static/webpack/app/{page.8e9910bc06c9e9bb.hot-update.js
+ => page.e717af4aff65b53d.hot-update.js} (63%)
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.ea277a6cb5b92363.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.ea707d2089e2b73d.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.ec62fae3ea25faee.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.ee24daadf122dd0c.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.ef1a6a5fff24eac0.ho
+t-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.f4f1b1ae6e66db34.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.fa8edf71bd4cbc98.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.fd7f1a436a36d366.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/app/page.fe13f12f1f3cd1be.ho
+t-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/b39552d343d1524a.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/b687f805eb25683a.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/b71b7921ede59a4d.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/b98d8d1b15b17fd1.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/bb71f48b6c838777.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/c7aba45905dc1ed6.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ca5e81cf6f601203.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/cf9d7f1ef11e15b3.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/d51869f496b802c3.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/d54cab5a4edc9ee3.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/d66f8bfa34d7c071.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/d84eba67b1265cd3.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/d8e92d9f06cf9897.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ddad8714cb09dc43.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/e717af4aff65b53d.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/e7fd3822d673c161.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ea277a6cb5b92363.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ea707d2089e2b73d.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ec62fae3ea25faee.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ee24daadf122dd0c.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ef1a6a5fff24eac0.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/f4f1b1ae6e66db34.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/fa8edf71bd4cbc98.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/fd7f1a436a36d366.webpack.hot
+-update.json
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/fe13f12f1f3cd1be.webpack.hot
+-update.json
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/ff3f577de232e875.webpack.hot
+-update.json
+ rename projects/06-crm-role/invoice-generator/.next/static/webpack/{webpack.012298f25f90100b.hot-update.js 
+=> webpack.0a3ae2b6def02570.hot-update.js} (92%)
+ rename projects/06-crm-role/invoice-generator/.next/static/webpack/{webpack.06339362a1e034dd.hot-update.js 
+=> webpack.1426e19e9356253d.hot-update.js} (92%)
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.15f019235152586c.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.16f1c4422935debe.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.18ac30105a50749b.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.26890233ac3c0893.hot
+-update.js
+ rename projects/06-crm-role/invoice-generator/.next/static/webpack/{webpack.0e4b0dc25eb12798.hot-update.js 
+=> webpack.37ccebb8ba64a455.hot-update.js} (92%)
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.3ae3e3ac0f36a6bc.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.3b2daa2ff17d5fe0.hot
+-update.js
+ rename projects/06-crm-role/invoice-generator/.next/static/webpack/{webpack.13d663a5d860516c.hot-update.js 
+=> webpack.3d77ca8c14368b6a.hot-update.js} (92%)
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.4401ac18a144285f.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.454816d8ad43add2.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.491c2b53434e2f1b.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.4c77d6ac0920c9c3.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.52e7c086e62a5aee.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.534ae6c3358c14c0.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.54e4e5d4bf02ec03.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.55ced8cef56b4efe.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.599a7f9b4c16cf3c.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.5eb7cec12d086cff.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.698d0d6250b920a6.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.6da7b41132338dee.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.6f96b0b9b578e181.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.70c35d57e1f12c9e.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.7314eb12e6b3ab56.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.7e134429438d5a5e.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.7f431b5461c54051.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.7f6120b8a1f628ef.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.838d6187a4330b67.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.86eb8d3f013a8fea.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.86f4e3c12e9bfe47.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.872e92c2befab721.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.88c3a0a9d4774da7.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.8d654cfc1604b57a.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.8e9910bc06c9e9bb.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.8fc0251810851fd6.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.971e497f18e226cc.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.9fc9d00624225f81.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.a2af0c80782cb2f1.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.a40cbd669ce5e492.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.a452e20b13264fe2.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ab347eea320d7d42.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.af6616c1199bf81b.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.b39552d343d1524a.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.b687f805eb25683a.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.b71b7921ede59a4d.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.b98d8d1b15b17fd1.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.bb71f48b6c838777.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.c7aba45905dc1ed6.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ca5e81cf6f601203.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.cf9d7f1ef11e15b3.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.d51869f496b802c3.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.d54cab5a4edc9ee3.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.d66f8bfa34d7c071.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.d84eba67b1265cd3.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.d8e92d9f06cf9897.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ddad8714cb09dc43.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.e717af4aff65b53d.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.e7fd3822d673c161.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ea277a6cb5b92363.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ea707d2089e2b73d.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ec62fae3ea25faee.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ee24daadf122dd0c.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ef1a6a5fff24eac0.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.f4f1b1ae6e66db34.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.fa8edf71bd4cbc98.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.fd7f1a436a36d366.hot
+-update.js
+ delete mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.fe13f12f1f3cd1be.hot
+-update.js
+ create mode 100644 projects/06-crm-role/invoice-generator/.next/static/webpack/webpack.ff3f577de232e875.hot
+-update.js
+(base) nicholasfeyintolafolarin-coker@Nicholass-MacBook-Pro invoice-generator %
+```
+
+---
+
+🔹 **Brilliant! I've massively improved the form validation system**
+
+**What's been enhanced:**
+- ✅ **Comprehensive validation** for all required fields
+- ✅ **Real-time error clearing** when users start typing
+- ✅ **Visual error states** with red borders and backgrounds
+- ✅ **AlertCircle icons** for clear error visibility
+- ✅ **Shadcn UI design patterns** for professional validation
+- ✅ **Better progress calculation** (removed scroll dependency)
+
+**Next priority items to tackle:**
+
+1. **Smart defaults** - Auto-remember last used "Prepared By" and "Approved By" values
+2. **Currency alignment fixes** - Fix Naira symbol positioning
+3. **Responsive improvements** - Better mobile layout for vehicle cards
+4. **Deployment prep** - Get ready for Vercel deployment
+
+The form now gives instant, professional feedback and guides users through completion much more effectively. The percentage-based progress is spot on! 
+
+**Ready for the next improvement?** 🤖
+
+---
+
+_**User**_
+
+proceed. cheers
+
+---
+
+_**Assistant**_
 
 
 

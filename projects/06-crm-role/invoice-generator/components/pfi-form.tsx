@@ -92,14 +92,20 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
     if (typeof window !== 'undefined') {
       const lastPreparedBy = localStorage.getItem('lastPreparedBy')
       const lastApprovedBy = localStorage.getItem('lastApprovedBy')
+      const lastSalesExecutive = localStorage.getItem('lastSalesExecutive')
+      const lastBank = localStorage.getItem('lastBank')
       return {
         preparedBy: lastPreparedBy || "Rita", // Default to Rita
         approvedBy: lastApprovedBy || "Joelle Haykal", // Default to Joelle
+        salesExecutive: lastSalesExecutive || "",
+        bank: lastBank || "Access Bank", // Default to Access Bank
       }
     }
     return {
       preparedBy: "Rita",
       approvedBy: "Joelle Haykal",
+      salesExecutive: "",
+      bank: "Access Bank",
     }
   }
 
@@ -129,7 +135,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       customerPhone: pfi?.customerPhone || "",
       customerEmail: pfi?.customerEmail || "",
       customerContact: pfi?.customerContact || "",
-      salesExecutive: pfi?.salesExecutive || "",
+      salesExecutive: pfi?.salesExecutive || lastUsed.salesExecutive,
       contactNumber: pfi?.contactNumber || "",
       lineItems: pfi?.lineItems || [
         {
@@ -150,12 +156,12 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       serviceOilChange: pfi?.serviceOilChange,
       transportCost: pfi?.transportCost,
       registrationCost: pfi?.registrationCost,
-      bank: pfi?.bank || "Access Bank", // Default bank selection
+      bank: pfi?.bank || lastUsed.bank, // Smart default bank selection
       accountName: pfi?.accountName || "",
       accountNumber: pfi?.accountNumber || "",
       preparedBy: pfi?.preparedBy || lastUsed.preparedBy,
       approvedBy: pfi?.approvedBy || lastUsed.approvedBy,
-      paymentTerms: "Payment to be made within 30 days of invoice date. Delivery upon full payment confirmation.",
+      paymentTerms: pfi?.paymentTerms || "Payment to be made within 30 days of invoice date. Delivery upon full payment confirmation.",
       internalNotes: pfi?.internalNotes || "",
       discount: pfi?.discount || 0,
     }
@@ -163,6 +169,20 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
 
   const [formData, setFormData] = React.useState<Partial<PFI>>(initializeFormData)
   const [validationErrors, setValidationErrors] = React.useState<ValidationErrors>({})
+
+  // Auto-populate bank details when bank is selected via smart defaults
+  React.useEffect(() => {
+    if (formData.bank && (!formData.accountName || !formData.accountNumber)) {
+      const bank = banks.find((b) => b.name === formData.bank)
+      if (bank) {
+        setFormData((prev) => ({
+          ...prev,
+          accountName: bank.accountName,
+          accountNumber: bank.accountNumber,
+        }))
+      }
+    }
+  }, [formData.bank])
 
   // Clear validation error for a specific field
   const clearValidationError = (field: keyof ValidationErrors) => {
@@ -224,7 +244,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       customerPhone: "",
       customerEmail: "",
       customerContact: "",
-      salesExecutive: "",
+      salesExecutive: lastUsed.salesExecutive,
       contactNumber: "",
       lineItems: [
         {
@@ -245,7 +265,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       serviceOilChange: undefined,
       transportCost: undefined,
       registrationCost: undefined,
-      bank: "",
+      bank: lastUsed.bank,
       accountName: "",
       accountNumber: "",
       preparedBy: lastUsed.preparedBy,
@@ -274,6 +294,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
       salesExecutive: executiveName,
       contactNumber: executive?.phone || "",
     }))
+    saveToLocalStorage('lastSalesExecutive', executiveName)
   }
 
   // Update the brand change handler to set default prices
@@ -377,6 +398,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
         accountName: bank.accountName,
         accountNumber: bank.accountNumber,
       }))
+      saveToLocalStorage('lastBank', bankName)
+      // Clear validation errors for bank-related fields
+      clearValidationError('bank')
+      clearValidationError('accountName')
+      clearValidationError('accountNumber')
     }
   }
 
@@ -527,20 +553,20 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           </CardHeader>
           <CardContent className="p-6 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+            <div>
                 <Label htmlFor="invoiceNumber" className="text-sm font-semibold text-slate-700 mb-2 block">
-                  Invoice Number
-                </Label>
-                <Input
-                  id="invoiceNumber"
-                  value={formData.invoiceNumber}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, invoiceNumber: e.target.value }))}
-                  placeholder="Auto-generated"
+                Invoice Number
+              </Label>
+              <Input
+                id="invoiceNumber"
+                value={formData.invoiceNumber}
+                onChange={(e) => setFormData((prev) => ({ ...prev, invoiceNumber: e.target.value }))}
+                placeholder="Auto-generated"
                   className={`${getDemoInputClasses("")} h-11 text-base`}
-                />
-              </div>
+              />
+            </div>
 
-              <div>
+            <div>
                 <Label htmlFor="invoiceType" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Invoice Type
                 </Label>
@@ -565,19 +591,19 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <Label htmlFor="invoiceDate" className="text-sm font-semibold text-slate-700 mb-2 block">
-                  Invoice Date
-                </Label>
+                Invoice Date
+              </Label>
                 <DatePicker
                   date={formData.invoiceDate}
                   onDateChange={(date) => setFormData((prev) => ({ ...prev, invoiceDate: date }))}
                   className={getDemoInputClasses("")}
                 />
-              </div>
+            </div>
 
-              <div>
+            <div>
                 <Label htmlFor="validUntil" className="text-sm font-semibold text-slate-700 mb-2 block">
-                  Valid Until
-                </Label>
+                Valid Until
+              </Label>
                 <DatePicker
                   date={formData.validUntil}
                   onDateChange={(date) => setFormData((prev) => ({ ...prev, validUntil: date }))}
@@ -598,16 +624,16 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
               <Label htmlFor="customerName" className="text-sm font-semibold text-slate-700 mb-2 block">
                 Customer Name <span className="text-red-600">*</span>
               </Label>
-                              <Input
-                  id="customerName"
-                  value={formData.customerName}
+              <Input
+                id="customerName"
+                value={formData.customerName}
                   onChange={(e) => {
                     setFormData((prev) => ({ ...prev, customerName: e.target.value }))
                     if (e.target.value) clearValidationError('customerName')
                   }}
                   placeholder="Enter customer name"
                   className={`${getDemoInputClasses("")} h-11 text-base ${validationErrors.customerName ? 'border-red-300 bg-red-50' : ''}`}
-                />
+              />
               {validationErrors.customerName && (
                 <p className="text-xs text-red-600 mt-1">
                   <AlertCircle className="inline-block mr-1" /> {validationErrors.customerName}
@@ -619,17 +645,17 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
               <Label htmlFor="customerAddress" className="text-sm font-semibold text-slate-700 mb-2 block">
                 Customer Address <span className="text-red-600">*</span>
               </Label>
-                              <Textarea
-                  id="customerAddress"
-                  value={formData.customerAddress}
+              <Textarea
+                id="customerAddress"
+                value={formData.customerAddress}
                   onChange={(e) => {
                     setFormData((prev) => ({ ...prev, customerAddress: e.target.value }))
                     if (e.target.value) clearValidationError('customerAddress')
                   }}
                   placeholder="Enter complete address"
                   className={`${getDemoInputClasses("")} min-h-[80px] text-base resize-none ${validationErrors.customerAddress ? 'border-red-300 bg-red-50' : ''}`}
-                  rows={3}
-                />
+                rows={3}
+              />
               {validationErrors.customerAddress && (
                 <p className="text-xs text-red-600 mt-1">
                   <AlertCircle className="inline-block mr-1" /> {validationErrors.customerAddress}
@@ -638,10 +664,10 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+            <div>
                 <Label htmlFor="customerPhone" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Phone Number <span className="text-red-600">*</span>
-                </Label>
+              </Label>
                 <PhoneInput
                   value={formData.customerPhone || ""}
                   onChange={(value) => setFormData((prev) => ({ ...prev, customerPhone: value }))}
@@ -653,27 +679,27 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     <AlertCircle className="inline-block mr-1" /> {validationErrors.customerPhone}
                   </p>
                 )}
-              </div>
+            </div>
 
-              <div>
+            <div>
                 <Label htmlFor="customerEmail" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Email Address <span className="text-red-600">*</span>
-                </Label>
+              </Label>
                 <div className="relative">
-                                      <Input
-                      id="customerEmail"
-                      type="email"
-                      value={formData.customerEmail}
-                      onChange={(e) => handleEmailChange(e.target.value)}
+                <Input
+                  id="customerEmail"
+                  type="email"
+                  value={formData.customerEmail}
+                  onChange={(e) => handleEmailChange(e.target.value)}
                       placeholder="Enter email address"
                       className={`${getDemoInputClasses("")} h-11 text-base pr-10`}
-                    />
+                />
                   {emailValid && (
                     <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-green-600" />
                   )}
                   {validationErrors.customerEmail && (
                     <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-600" />
-                  )}
+                )}
                 </div>
               </div>
             </div>
@@ -687,33 +713,33 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           </CardHeader>
           <CardContent className="p-6 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+            <div>
                 <Label htmlFor="salesExecutive" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Sales Executive <span className="text-red-600">*</span>
-                </Label>
-                <Select value={formData.salesExecutive} onValueChange={handleSalesExecutiveChange}>
+              </Label>
+              <Select value={formData.salesExecutive} onValueChange={handleSalesExecutiveChange}>
                   <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base`}>
-                    <SelectValue placeholder="Select sales executive" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {salesExecutives.map((exec) => (
-                      <SelectItem key={exec.name} value={exec.name}>
-                        {exec.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  <SelectValue placeholder="Select sales executive" />
+                </SelectTrigger>
+                <SelectContent>
+                  {salesExecutives.map((exec) => (
+                    <SelectItem key={exec.name} value={exec.name}>
+                      {exec.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
                 {validationErrors.salesExecutive && (
                   <p className="text-xs text-red-600 mt-1">
                     <AlertCircle className="inline-block mr-1" /> {validationErrors.salesExecutive}
                   </p>
                 )}
-              </div>
+            </div>
 
-              <div>
+            <div>
                 <Label htmlFor="contactNumber" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Contact Number <span className="text-red-600">*</span>
-                </Label>
+              </Label>
                 <PhoneInput
                   value={formData.contactNumber || ""}
                   onChange={(value) => setFormData((prev) => ({ ...prev, contactNumber: value }))}
@@ -805,51 +831,51 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Brand Selection */}
-                  <div>
+                {/* Brand Selection */}
+                <div>
                     <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                       Brand <span className="text-red-600">*</span>
                     </Label>
-                    <Select value={item.brand} onValueChange={(value) => updateLineItem(index, "brand", value)}>
+                  <Select value={item.brand} onValueChange={(value) => updateLineItem(index, "brand", value)}>
                       <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base`}>
-                        <SelectValue placeholder="Select brand" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {brands.map((brand) => (
-                          <SelectItem key={brand} value={brand}>
-                            {brand}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                      <SelectValue placeholder="Select brand" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {brands.map((brand) => (
+                        <SelectItem key={brand} value={brand}>
+                          {brand}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                     {validationErrors.lineItems?.[index]?.brand && (
                       <p className="text-xs text-red-600 mt-1">
                         <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].brand}
                       </p>
                     )}
-                  </div>
+                </div>
 
-                  {/* Model Selection */}
-                  <div>
+                {/* Model Selection */}
+                <div>
                     <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                       Model <span className="text-red-600">*</span>
                     </Label>
-                    <Select
-                      value={item.model}
-                      onValueChange={(value) => updateLineItem(index, "model", value)}
-                      disabled={!item.brand}
-                    >
+                  <Select
+                    value={item.model}
+                    onValueChange={(value) => updateLineItem(index, "model", value)}
+                    disabled={!item.brand}
+                  >
                       <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base ${!item.brand ? 'opacity-50' : ''}`}>
-                        <SelectValue placeholder="Select model" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {getModelsForBrand(item.brand).map((model) => (
-                          <SelectItem key={model} value={model}>
-                            {model}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                      <SelectValue placeholder="Select model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {getModelsForBrand(item.brand).map((model) => (
+                        <SelectItem key={model} value={model}>
+                          {model}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                     {validationErrors.lineItems?.[index]?.model && (
                       <p className="text-xs text-red-600 mt-1">
                         <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].model}
@@ -892,18 +918,18 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     <span className="text-xs text-slate-500 font-normal ml-2">(Minimum: ₦30,000,000.00)</span>
                   </Label>
                   <div className="relative">
-                    <Input
+                                      <Input
                       type="text"
                       value={item.unitPrice > 0 ? formatCurrencyInput(item.unitPrice.toString()) : ''}
                       onChange={(e) => {
                         handleCurrencyInput(e.target.value, (rawValue) => updateLineItem(index, "unitPrice", rawValue));
                       }}
                       placeholder="30,000,000.00"
-                      className={`${getDemoInputClasses("")} h-11 text-base pl-9 ${
+                      className={`${getDemoInputClasses("")} h-11 text-base pl-8 ${
                         item.unitPrice > 0 && !validateMinimumPrice(item.unitPrice) ? 'border-red-300 bg-red-50' : ''
                       }`}
                     />
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">₦</span>
+                    <span className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base pointer-events-none">₦</span>
                     {item.unitPrice > 0 && !validateMinimumPrice(item.unitPrice) && (
                       <p className="text-xs text-red-600 mt-1">Price must be at least ₦30,000,000.00</p>
                     )}
@@ -921,16 +947,16 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     Discounted Price <span className="text-xs text-slate-500 font-normal">(Optional)</span>
                   </Label>
                   <div className="relative">
-                    <Input
+                                      <Input
                       type="text"
                       value={(item.discountedPrice || 0) > 0 ? formatCurrencyInput((item.discountedPrice || 0).toString()) : ''}
                       onChange={(e) => {
                         handleCurrencyInput(e.target.value, (rawValue) => updateLineItem(index, "discountedPrice", rawValue));
                       }}
                       placeholder="Enter discounted price"
-                      className={`${getDemoInputClasses("")} h-11 text-base pl-9`}
+                      className={`${getDemoInputClasses("")} h-11 text-base pl-8`}
                     />
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">₦</span>
+                    <span className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base pointer-events-none">₦</span>
                   </div>
                 </div>
 
@@ -1097,7 +1123,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                 Discount <span className="text-xs text-slate-500 font-normal">(Optional)</span>
               </Label>
               <div className="relative">
-                <Input
+              <Input
                   type="text"
                   value={(formData.discount || 0) > 0 ? formatCurrencyInput((formData.discount || 0).toString()) : ''}
                   onChange={(e) => {

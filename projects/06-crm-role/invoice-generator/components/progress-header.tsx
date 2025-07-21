@@ -114,14 +114,14 @@ export function ProgressHeader({
               )}
 
               {showPreviewButton && (
-                <Button
-                  onClick={onPreview}
-                  className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-sm transition-all duration-200 hover:shadow-md"
-                  size="sm"
-                >
-                  <Eye className="w-4 h-4 mr-2" />
-                  Preview
-                </Button>
+              <Button
+                onClick={onPreview}
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-sm transition-all duration-200 hover:shadow-md"
+                size="sm"
+              >
+                <Eye className="w-4 h-4 mr-2" />
+                Preview
+              </Button>
               )}
             </div>
           </div>
