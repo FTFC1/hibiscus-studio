@@ -1,0 +1,88 @@
+{
+  "pricing": {
+    "event_hire": {
+      "name": "Event Hire",
+      "price": 45,
+      "options": [
+        { "duration": "1 hour", "price": 45 },
+        { "duration": "4 hours", "price": 180 },
+        { "duration": "6 hours", "price": 270 },
+        { "duration": "8 hours", "price": 360 },
+        { "duration": "Full Day", "price": 450 }
+      ]
+    },
+    "workshop_hire": {
+      "name": "Workshop Hire",
+      "price": 45,
+      "options": [
+        { "duration": "1 hour", "price": 45 },
+        { "duration": "Half Day", "price": 225 },
+        { "duration": "Full Day", "price": 450 }
+      ]
+    },
+    "content_creation": {
+      "name": "Content Creation",
+      "price": 45,
+      "options": [
+        { "duration": "1 hour", "price": 45 },
+        { "duration": "Half Day", "price": 225 },
+        { "duration": "Full Day", "price": 450 }
+      ]
+    }
+  },
+  "equipment": {
+    "included": [
+      "40 limewash Chiavari chairs",
+      "10 trestle tables (each 6ft x 2ft)"
+    ]
+  },
+  "faqs": [
+    {
+      "question": "How do I secure my date?",
+      "answer": "Choose your booking type above, book directly into our Acuity calendar, and we'll invoice a 50% deposit within 48 hours. Your date is secured once the deposit is paid."
+    },
+    {
+      "question": "Can I bring my own food & drinks?",
+      "answer": "Absolutely. Our kitchenette is available for your use, and outside catering is welcome, just make sure to leave the space as you found it."
+    },
+    {
+      "question": "What's the cancellation policy?",
+      "answer": "You'll receive a full refund of your deposit if you cancel at least 48 hours before your event. Cancellations made within 48 hours of the event are non-refundable."
+    },
+    {
+      "question": "Is parking available?",
+      "answer": "Parking is the responsibility of the client. Options include:\n\nUnloading:\nYou can park directly outside the venue for up to 30 minutes for loading/unloading.\nImportant: PCNs will be issued if parked beyond 30 minutes.\n\nFree Parking:\n• Huntingdon Street – Free after 6:30 PM and all day Sunday.\n\nNearby Paid Parking:\n• Morrisons Car Park – Free for 2 hours\n• DesParking – 99 Rathbone Street\n• Canning Town Carpark – 1 Terry Spinks Place\n• JustPark – Manor Road"
+    },
+    {
+      "question": "What about setup and pack down time?",
+      "answer": "We include an additional complimentary hour at the end of your booking for pack down. Please ensure your booked slot includes time for setup."
+    },
+    {
+      "question": "What equipment is included?",
+      "answer": "Your hire includes:\n• 40 limewash Chiavari chairs\n• 10 trestle tables (each 6ft x 2ft)"
+    },
+    {
+      "question": "Can I bring a DJ or play music?",
+      "answer": "Yes, DJs are welcome! Please note: we do not supply speakers or a PA system, these must be brought with you."
+    }
+  ],
+  "terms_and_conditions": [
+    {
+      "title": "Deposit and Booking Confirmation",
+      "content": "• A 50% deposit is required upon booking to secure your desired date and time.\n• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame, the booking will be automatically released.\n• A new invoice will be required to re-book the date and time."
+    },
+    {
+      "title": "Booking Start and End Times",
+      "content": "• The hire period begins at the agreed start time and ends at the agreed end time as stated in your booking confirmation.\n• Any setup or breakdown must occur within the booked time frame."
+    },
+    {
+      "title": "Grace Period and Late Fees",
+      "content": "• A 30-minute grace period will be allowed after the agreed end time.\n• After the grace period, a late fee will be charged."
+    }
+  ],
+  "business_info": {
+    "name": "Hibiscus Studio",
+    "tagline": "Creative Event Space in East London",
+    "description": "A beautiful, versatile studio space perfect for workshops, content creation, and intimate events."
+  }
+} 

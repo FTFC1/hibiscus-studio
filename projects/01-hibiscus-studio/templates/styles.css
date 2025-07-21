@@ -1,0 +1,239 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #fff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+    color: #4a5568;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid #f7fafc;
+}
+
+.business-name {
+    color: #2b6cb0;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #718096;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    color: #a0aec0;
+    font-size: 1rem;
+}
+
+/* Sections */
+section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    color: #2b6cb0;
+    margin-bottom: 2rem;
+}
+
+/* Pricing */
+.service-block {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #3182ce;
+}
+
+.service-name {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.duration {
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.price {
+    font-weight: 700;
+    color: #2b6cb0;
+    font-size: 1.1rem;
+}
+
+/* Equipment */
+.equipment-section {
+    background: #f0fff4;
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid #38a169;
+}
+
+.equipment-list {
+    list-style: none;
+}
+
+.equipment-list li {
+    padding: 0.5rem 0;
+    color: #2f855a;
+    font-weight: 500;
+}
+
+.equipment-list li:before {
+    content: "✓ ";
+    color: #38a169;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* FAQ */
+.faq-section {
+    background: #fafafa;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.faq-question {
+    color: #2d3748;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.faq-answer {
+    color: #4a5568;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+/* Terms & Conditions */
+.terms-section {
+    background: #fff5f5;
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid #e53e3e;
+}
+
+.terms-item {
+    margin-bottom: 2rem;
+}
+
+.terms-item:last-child {
+    margin-bottom: 0;
+}
+
+.terms-title {
+    color: #c53030;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.terms-content {
+    color: #4a5568;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+/* PDF Specific Styles */
+@media print {
+    body {
+        font-size: 12px;
+    }
+    
+    .container {
+        max-width: none;
+        padding: 20px;
+    }
+    
+    section {
+        page-break-inside: avoid;
+        margin-bottom: 2rem;
+    }
+    
+    .service-block {
+        page-break-inside: avoid;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+} 

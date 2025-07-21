@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hibiscus Studio - Price List & FAQ</title>
+    <style>/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #fff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+    color: #4a5568;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid #f7fafc;
+}
+
+.business-name {
+    color: #2b6cb0;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #718096;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    color: #a0aec0;
+    font-size: 1rem;
+}
+
+/* Sections */
+section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    color: #2b6cb0;
+    margin-bottom: 2rem;
+}
+
+/* Pricing */
+.service-block {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #3182ce;
+}
+
+.service-name {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.duration {
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.price {
+    font-weight: 700;
+    color: #2b6cb0;
+    font-size: 1.1rem;
+}
+
+/* Equipment */
+.equipment-section {
+    background: #f0fff4;
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid #38a169;
+}
+
+.equipment-list {
+    list-style: none;
+}
+
+.equipment-list li {
+    padding: 0.5rem 0;
+    color: #2f855a;
+    font-weight: 500;
+}
+
+.equipment-list li:before {
+    content: "✓ ";
+    color: #38a169;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* FAQ */
+.faq-section {
+    background: #fafafa;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.faq-question {
+    color: #2d3748;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.faq-answer {
+    color: #4a5568;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+/* Terms & Conditions */
+.terms-section {
+    background: #fff5f5;
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid #e53e3e;
+}
+
+.terms-item {
+    margin-bottom: 2rem;
+}
+
+.terms-item:last-child {
+    margin-bottom: 0;
+}
+
+.terms-title {
+    color: #c53030;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.terms-content {
+    color: #4a5568;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+/* PDF Specific Styles */
+@media print {
+    body {
+        font-size: 12px;
+    }
+    
+    .container {
+        max-width: none;
+        padding: 20px;
+    }
+    
+    section {
+        page-break-inside: avoid;
+        margin-bottom: 2rem;
+    }
+    
+    .service-block {
+        page-break-inside: avoid;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+} </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="business-name">Hibiscus Studio</h1>
+            <p class="tagline">Creative Event Space in East London</p>
+            <p class="description">A beautiful, versatile studio space perfect for workshops, content creation, and intimate events.</p>
+        </header>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <h2 class="section-title">Studio Hire Rates</h2>
+            
+            <!-- Event Hire -->
+            <div class="service-block">
+                <h3 class="service-name">Event Hire</h3>
+                <div class="pricing-grid">
+                    
+                    <div class="price-item">
+                        <span class="duration">1 hour</span>
+                        <span class="price">£45</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">4 hours</span>
+                        <span class="price">£180</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">6 hours</span>
+                        <span class="price">£270</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">8 hours</span>
+                        <span class="price">£360</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">Full Day</span>
+                        <span class="price">£450</span>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Workshop Hire -->
+            <div class="service-block">
+                <h3 class="service-name">Workshop Hire</h3>
+                <div class="pricing-grid">
+                    
+                    <div class="price-item">
+                        <span class="duration">1 hour</span>
+                        <span class="price">£45</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">Half Day</span>
+                        <span class="price">£225</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">Full Day</span>
+                        <span class="price">£450</span>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Content Creation -->
+            <div class="service-block">
+                <h3 class="service-name">Content Creation</h3>
+                <div class="pricing-grid">
+                    
+                    <div class="price-item">
+                        <span class="duration">1 hour</span>
+                        <span class="price">£45</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">Half Day</span>
+                        <span class="price">£225</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span class="duration">Full Day</span>
+                        <span class="price">£450</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Equipment Section -->
+        <section class="equipment-section">
+            <h2 class="section-title">What's Included</h2>
+            <ul class="equipment-list">
+                
+                <li>40 limewash Chiavari chairs</li>
+                
+                <li>10 trestle tables (each 6ft x 2ft)</li>
+                
+            </ul>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">How do I secure my date?</h3>
+                <div class="faq-answer">Choose your booking type above, book directly into our Acuity calendar, and we'll invoice a 50% deposit within 48 hours. Your date is secured once the deposit is paid.</div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">Can I bring my own food & drinks?</h3>
+                <div class="faq-answer">Absolutely. Our kitchenette is available for your use, and outside catering is welcome, just make sure to leave the space as you found it.</div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">What's the cancellation policy?</h3>
+                <div class="faq-answer">You'll receive a full refund of your deposit if you cancel at least 48 hours before your event. Cancellations made within 48 hours of the event are non-refundable.</div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">Is parking available?</h3>
+                <div class="faq-answer">Parking is the responsibility of the client. Options include:
+
+Unloading:
+You can park directly outside the venue for up to 30 minutes for loading/unloading.
+Important: PCNs will be issued if parked beyond 30 minutes.
+
+Free Parking:
+• Huntingdon Street – Free after 6:30 PM and all day Sunday.
+
+Nearby Paid Parking:
+• Morrisons Car Park – Free for 2 hours
+• DesParking – 99 Rathbone Street
+• Canning Town Carpark – 1 Terry Spinks Place
+• JustPark – Manor Road</div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">What about setup and pack down time?</h3>
+                <div class="faq-answer">We include an additional complimentary hour at the end of your booking for pack down. Please ensure your booked slot includes time for setup.</div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">What equipment is included?</h3>
+                <div class="faq-answer">Your hire includes:
+• 40 limewash Chiavari chairs
+• 10 trestle tables (each 6ft x 2ft)</div>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="faq-question">Can I bring a DJ or play music?</h3>
+                <div class="faq-answer">Yes, DJs are welcome! Please note: we do not supply speakers or a PA system, these must be brought with you.</div>
+            </div>
+            
+        </section>
+
+        <!-- Terms & Conditions -->
+        <section class="terms-section">
+            <h2 class="section-title">Terms & Conditions</h2>
+            
+            <div class="terms-item">
+                <h3 class="terms-title">Deposit and Booking Confirmation</h3>
+                <div class="terms-content">• A 50% deposit is required upon booking to secure your desired date and time.
+• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame, the booking will be automatically released.
+• A new invoice will be required to re-book the date and time.</div>
+            </div>
+            
+            <div class="terms-item">
+                <h3 class="terms-title">Booking Start and End Times</h3>
+                <div class="terms-content">• The hire period begins at the agreed start time and ends at the agreed end time as stated in your booking confirmation.
+• Any setup or breakdown must occur within the booked time frame.</div>
+            </div>
+            
+            <div class="terms-item">
+                <h3 class="terms-title">Grace Period and Late Fees</h3>
+                <div class="terms-content">• A 30-minute grace period will be allowed after the agreed end time.
+• After the grace period, a late fee will be charged.</div>
+            </div>
+            
+        </section>
+    </div>
+</body>
+</html> 
