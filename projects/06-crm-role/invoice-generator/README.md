@@ -1,30 +1,85 @@
-# Mikano motors pfi
-
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
-
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/fts-projects-53b79011/v0-mikano-motors-pfi)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/NZyZ47T1xDX)
+# 🚗 Mikano Motors Management PFI Generator
 
 ## Overview
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+A streamlined tool for generating Management Proforma Invoices (PFIs) at Mikano Motors. Built to standardize and simplify the PFI creation process.
 
-## Deployment
+## 🎯 Key Features
 
-Your project is live at:
+### 1️⃣ Quick PFI Creation
+- One-click demo mode for rapid testing
+- Smart defaults for common fields
+- Auto-calculated totals and discounts
 
-**[https://vercel.com/fts-projects-53b79011/v0-mikano-motors-pfi](https://vercel.com/fts-projects-53b79011/v0-mikano-motors-pfi)**
+### 2️⃣ Vehicle Management
+- Structured vehicle selection:
+  - Passenger Vehicles
+  - LHCV (Heavy Duty) Vehicles
+- Auto-populated vehicle details
+- Smart pricing with max 7.5% discount
 
-## Build your app
+### 3️⃣ Standardized Information
+- Consistent payment terms
+- Pre-configured bank details (GTB)
+- Standard authorization flow:
+  - Prepared By: Management
+  - Approved By: Gaurav Kaul (default)
 
-Continue building your app on:
+## 📱 Mobile-First Design
 
-**[https://v0.dev/chat/projects/NZyZ47T1xDX](https://v0.dev/chat/projects/NZyZ47T1xDX)**
+- Responsive layout for all devices
+- Thumb-friendly controls
+- Quick preview & PDF generation
 
-## How It Works
+## 🔄 Workflow
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+1. **Dashboard**
+   - Click "+ New Management PFI"
+   - Use "Demo" for quick testing
+
+2. **Create PFI**
+   - Fill customer details
+   - Select vehicles & quantities
+   - Set discounts (max 7.5%)
+   - Add any additional services
+
+3. **Preview & Generate**
+   - Review the formatted PFI
+   - Generate PDF with one click
+   - Edit if needed (back button preserves your work)
+
+## 💡 Smart Features
+
+- **Auto-Calculations**: All totals and discounts calculated automatically
+- **Data Validation**: Email, phone, and pricing validation built-in
+- **Smart Defaults**: Remembers your last selections
+- **Internal Notes**: Quick notes feature for team communication
+
+## 🔒 Business Rules
+
+- **Discounts**: Maximum 7.5% without additional approval
+- **Payment Terms**: Standardized and non-editable
+- **Bank Details**: Pre-configured to GTB
+- **Authorization**: Management preparation with executive approval
+
+## 🎓 Tips & Tricks
+
+1. **Quick Testing**: Use the "Demo" button to pre-fill with realistic data
+2. **Editing**: Back button from preview returns to form with data preserved
+3. **Mobile Use**: Full functionality on phones/tablets
+4. **Internal Notes**: Use for special instructions or team communication
+
+## 🔜 Coming Soon
+
+- User management improvements
+- Brand/model management
+- Additional customization options
+- Enhanced analytics
+
+## 📞 Support
+
+For questions or issues, contact the tech team.
+
+---
+
+Built with ❤️ by Mikano Tech

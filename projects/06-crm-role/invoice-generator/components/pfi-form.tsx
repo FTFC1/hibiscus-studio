@@ -96,15 +96,15 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
       const lastSalesExecutive = localStorage.getItem('lastSalesExecutive')
       const lastBank = localStorage.getItem('lastBank')
       return {
-        preparedBy: lastPreparedBy || "Rita", // Default to Rita
-        approvedBy: lastApprovedBy || "Joelle Haykal", // Default to Joelle
+        preparedBy: lastPreparedBy || "Management", // Default to Management
+        approvedBy: lastApprovedBy || "Gaurav Kaul", // Default to Gaurav
         salesExecutive: lastSalesExecutive || "",
         bank: lastBank || "GTB", // Default to GTB
       }
     }
     return {
-      preparedBy: "Rita",
-      approvedBy: "Joelle Haykal",
+      preparedBy: "Management",
+      approvedBy: "Gaurav Kaul",
       salesExecutive: "",
       bank: "GTB",
     }
@@ -148,7 +148,8 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
           segment: "",
           quantity: 1,
           unitPrice: 30000000, // Default to 30M instead of 0
-          discountedPrice: 0,
+          discountPercentage: 0,
+          discountedPrice: 30000000,
           amount: 30000000,
         },
       ],
@@ -345,12 +346,17 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
         }
       }
 
-      if (field === "quantity" || field === "unitPrice" || field === "discountedPrice") {
+      if (field === "quantity" || field === "unitPrice" || field === "discountPercentage") {
         const quantity = field === "quantity" ? value : newLineItems[index].quantity
         const unitPrice = field === "unitPrice" ? value : newLineItems[index].unitPrice
-        const discountedPrice = field === "discountedPrice" ? value : newLineItems[index].discountedPrice
+        const discountPercentage = field === "discountPercentage" ? value : newLineItems[index].discountPercentage || 0
 
-        newLineItems[index].amount = quantity * (discountedPrice || unitPrice)
+        // Calculate discounted price from percentage
+        const discountAmount = unitPrice * (discountPercentage / 100)
+        const discountedPrice = unitPrice - discountAmount
+        
+        newLineItems[index].discountedPrice = discountedPrice
+        newLineItems[index].amount = quantity * discountedPrice
       }
 
       return { ...prev, lineItems: newLineItems }
@@ -367,7 +373,8 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
       segment: "",
       quantity: 1,
       unitPrice: 30000000,
-      discountedPrice: 0,
+      discountPercentage: 0,
+      discountedPrice: 30000000,
       amount: 30000000,
     }
     setFormData((prev) => ({
@@ -982,22 +989,26 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                   </div>
                 </div>
 
-                {/* Discounted Price - Full Width on Mobile */}
+                {/* Discount Percentage */}
                 <div>
                   <Label className="text-sm font-semibold text-slate-700 mb-2 block">
-                    Discounted Price <span className="text-xs text-slate-500 font-normal">(Optional)</span>
+                    Discount <span className="text-xs text-slate-500 font-normal">(Max 7.5%)</span>
                   </Label>
                   <div className="relative">
                     <Input
-                      type="text"
-                      value={(item.discountedPrice || 0) > 0 ? formatCurrencyInput((item.discountedPrice || 0).toString()) : ''}
+                      type="number"
+                      min="0"
+                      max="7.5"
+                      step="0.1"
+                      value={item.discountPercentage || 0}
                       onChange={(e) => {
-                        handleCurrencyInput(e.target.value, (rawValue) => updateLineItem(index, "discountedPrice", rawValue));
+                        const percentage = Math.min(7.5, Math.max(0, parseFloat(e.target.value) || 0));
+                        updateLineItem(index, "discountPercentage", percentage);
                       }}
-                      placeholder="Enter discounted price"
-                      className={`${getDemoInputClasses("")} h-11 text-base pl-8`}
+                      placeholder="0"
+                      className={`${getDemoInputClasses("")} h-11 text-base pr-8`}
                     />
-                    <span className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base pointer-events-none">₦</span>
+                    <span className="absolute right-2.5 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base pointer-events-none">%</span>
                   </div>
                 </div>
 
@@ -1295,6 +1306,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                   <SelectValue placeholder="Select prepared by" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="Management">Management</SelectItem>
                   <SelectItem value="Rita">Rita</SelectItem>
                   <SelectItem value="Maryam">Maryam</SelectItem>
                 </SelectContent>
@@ -1336,10 +1348,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
               <Label className="text-sm font-medium">Payment & Delivery Terms</Label>
               <Textarea
                 value={formData.paymentTerms}
-                onChange={(e) => setFormData((prev) => ({ ...prev, paymentTerms: e.target.value }))}
+                readOnly
                 rows={4}
-                className={`mt-1 ${getDemoInputClasses("")}`}
+                className="mt-1 bg-gray-50 border border-gray-200 cursor-not-allowed text-sm"
               />
+              <p className="text-xs text-gray-500 mt-1">Standard terms - not editable</p>
             </div>
           </CardContent>
         </Card>

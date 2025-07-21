@@ -7,6 +7,7 @@ export interface LineItem {
   segment: string
   quantity: number
   unitPrice: number
+  discountPercentage?: number
   discountedPrice?: number
   amount: number
 }

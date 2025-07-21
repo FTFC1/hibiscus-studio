@@ -149,7 +149,7 @@ export default function Home() {
           currentPfi && (
             <PFIPreview
               pfi={currentPfi}
-              onBack={handleBackToDashboard}
+              onBack={() => setView("form")}
               onEdit={handleEdit}
               onDownloadPDF={generatePDF}
             />
