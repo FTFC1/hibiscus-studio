@@ -545,14 +545,14 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
         <DemoNotification onClear={clearDemoData} onDismiss={() => setShowDemoNotification(false)} />
       )}
 
-      <div className="px-4 py-6 space-y-8 pb-24 max-w-3xl mx-auto">
+      <div className="px-3 sm:px-4 py-4 sm:py-6 space-y-6 sm:space-y-8 pb-20 sm:pb-24 max-w-4xl mx-auto">
         {/* Invoice Details - Enhanced Visual Hierarchy */}
         <Card className="shadow-sm border-0 ring-1 ring-gray-200">
           <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 pb-4">
             <CardTitle className="text-slate-800 text-xl font-semibold tracking-tight">Invoice Details</CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
                 <Label htmlFor="invoiceNumber" className="text-sm font-semibold text-slate-700 mb-2 block">
                 Invoice Number
@@ -588,7 +588,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <Label htmlFor="invoiceDate" className="text-sm font-semibold text-slate-700 mb-2 block">
                 Invoice Date
@@ -619,7 +619,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 pb-4">
             <CardTitle className="text-slate-800 text-xl font-semibold tracking-tight">Customer Information</CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             <div>
               <Label htmlFor="customerName" className="text-sm font-semibold text-slate-700 mb-2 block">
                 Customer Name <span className="text-red-600">*</span>
@@ -663,7 +663,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
                 <Label htmlFor="customerPhone" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Phone Number <span className="text-red-600">*</span>
@@ -711,8 +711,8 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 pb-4">
             <CardTitle className="text-slate-800 text-xl font-semibold tracking-tight">Sales Information</CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
                 <Label htmlFor="salesExecutive" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Sales Executive <span className="text-red-600">*</span>
@@ -754,7 +754,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <Label htmlFor="preparedBy" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Prepared By <span className="text-red-600">*</span>
@@ -810,81 +810,84 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
           </CardContent>
         </Card>
 
-        {/* Vehicle Items - Enhanced Visual Hierarchy */}
+        {/* Vehicle Items - Enhanced Visual Hierarchy & Mobile Responsive */}
         <Card className={`shadow-sm border-0 ring-1 ring-gray-200 ${isDemoMode ? "ring-amber-300" : ""}`}>
           <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 pb-4">
             <CardTitle className="text-slate-800 text-xl font-semibold tracking-tight">Vehicle Items</CardTitle>
           </CardHeader>
-          <CardContent className="p-6 space-y-8">
+          <CardContent className="p-4 sm:p-6 space-y-6 sm:space-y-8">
             {formData.lineItems?.map((item, index) => (
               <div
                 key={item.id}
-                className={`border rounded-xl p-6 space-y-6 ${isDemoMode ? "border-amber-300 bg-gradient-to-r from-amber-50/50 to-orange-50/50" : "border-slate-200 bg-white"} shadow-sm`}
+                className={`border rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-6 ${isDemoMode ? "border-amber-300 bg-gradient-to-r from-amber-50/50 to-orange-50/50" : "border-slate-200 bg-white"} shadow-sm`}
               >
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                   <h4 className="font-semibold text-lg text-slate-800">Vehicle {index + 1}</h4>
                   {(formData.lineItems?.length || 0) > 1 && (
-                    <Button variant="outline" size="sm" onClick={() => removeLineItem(index)} className="text-red-600 border-red-200 hover:bg-red-50">
-                      <Trash2 className="w-4 h-4" />
+                    <Button variant="outline" size="sm" onClick={() => removeLineItem(index)} className="text-red-600 border-red-200 hover:bg-red-50 self-start sm:self-center">
+                      <Trash2 className="w-4 h-4 mr-1 sm:mr-0" />
+                      <span className="sm:hidden">Remove Vehicle</span>
                     </Button>
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Brand Selection */}
-                <div>
+                {/* Brand & Model - Mobile Stack */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  {/* Brand Selection */}
+                  <div>
                     <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                       Brand <span className="text-red-600">*</span>
                     </Label>
-                  <Select value={item.brand} onValueChange={(value) => updateLineItem(index, "brand", value)}>
+                    <Select value={item.brand} onValueChange={(value) => updateLineItem(index, "brand", value)}>
                       <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base`}>
-                      <SelectValue placeholder="Select brand" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {brands.map((brand) => (
-                        <SelectItem key={brand} value={brand}>
-                          {brand}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                        <SelectValue placeholder="Select brand" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {brands.map((brand) => (
+                          <SelectItem key={brand} value={brand}>
+                            {brand}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     {validationErrors.lineItems?.[index]?.brand && (
                       <p className="text-xs text-red-600 mt-1">
-                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].brand}
+                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].brand}
                       </p>
                     )}
-                </div>
+                  </div>
 
-                {/* Model Selection */}
-                <div>
+                  {/* Model Selection */}
+                  <div>
                     <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                       Model <span className="text-red-600">*</span>
                     </Label>
-                  <Select
-                    value={item.model}
-                    onValueChange={(value) => updateLineItem(index, "model", value)}
-                    disabled={!item.brand}
-                  >
+                    <Select
+                      value={item.model}
+                      onValueChange={(value) => updateLineItem(index, "model", value)}
+                      disabled={!item.brand}
+                    >
                       <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base ${!item.brand ? 'opacity-50' : ''}`}>
-                      <SelectValue placeholder="Select model" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {getModelsForBrand(item.brand).map((model) => (
-                        <SelectItem key={model} value={model}>
-                          {model}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                        <SelectValue placeholder={!item.brand ? "Select brand first" : "Select model"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {getModelsForBrand(item.brand).map((model) => (
+                          <SelectItem key={model} value={model}>
+                            {model}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     {validationErrors.lineItems?.[index]?.model && (
                       <p className="text-xs text-red-600 mt-1">
-                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].model}
+                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].model}
                       </p>
                     )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Quantity & Total - Mobile Stack */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                       Quantity <span className="text-red-600">*</span>
@@ -898,7 +901,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     />
                     {validationErrors.lineItems?.[index]?.quantity && (
                       <p className="text-xs text-red-600 mt-1">
-                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].quantity}
+                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].quantity}
                       </p>
                     )}
                   </div>
@@ -911,14 +914,14 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                   </div>
                 </div>
 
-                {/* Enhanced Unit Price with Currency Formatting */}
+                {/* Unit Price - Full Width on Mobile */}
                 <div>
                   <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                     Unit Price <span className="text-red-600">*</span>
-                    <span className="text-xs text-slate-500 font-normal ml-2">(Minimum: ₦30,000,000.00)</span>
+                    <span className="text-xs text-slate-500 font-normal ml-2 block sm:inline">(Minimum: ₦30,000,000.00)</span>
                   </Label>
                   <div className="relative">
-                                      <Input
+                    <Input
                       type="text"
                       value={item.unitPrice > 0 ? formatCurrencyInput(item.unitPrice.toString()) : ''}
                       onChange={(e) => {
@@ -935,19 +938,19 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                     )}
                     {validationErrors.lineItems?.[index]?.unitPrice && (
                       <p className="text-xs text-red-600 mt-1">
-                        <AlertCircle className="inline-block mr-1" /> {validationErrors.lineItems[index].unitPrice}
+                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].unitPrice}
                       </p>
                     )}
                   </div>
                 </div>
 
-                {/* Enhanced Discounted Price */}
+                {/* Discounted Price - Full Width on Mobile */}
                 <div>
                   <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                     Discounted Price <span className="text-xs text-slate-500 font-normal">(Optional)</span>
                   </Label>
                   <div className="relative">
-                                      <Input
+                    <Input
                       type="text"
                       value={(item.discountedPrice || 0) > 0 ? formatCurrencyInput((item.discountedPrice || 0).toString()) : ''}
                       onChange={(e) => {
