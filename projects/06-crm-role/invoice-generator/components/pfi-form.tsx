@@ -223,11 +223,35 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
     setShowRegistration(!!demoData.registrationCost)
     setEmailValid(true)
     setIsDemoMode(true)
-    // Remove annoying notification - just silent auto-fill
-    // setShowDemoNotification(true)
+    
+    // Calculate totals for demo data and create complete PFI
+    const lineItemsTotal = (demoData.lineItems || []).reduce((sum, item) => sum + (item.amount || 0), 0)
+    const registrationCost = demoData.registration?.cost || 0
+    const insuranceCost = demoData.insurance?.cost || 0
+    const serviceCost = (demoData.serviceOilChange?.cost || 0) * (demoData.serviceOilChange?.quantity || 0)
+    const transportCost = demoData.transportCost || 0
+    const regCost = demoData.registrationCost || 0
 
-    // Auto-trigger preview for immediate feedback
-    onPreview(demoData as PFI)
+    const subtotal = lineItemsTotal + registrationCost + insuranceCost + serviceCost + transportCost + regCost
+    const discount = demoData.discount || 0
+    const afterDiscount = subtotal - discount
+    const vatRate = demoData.invoiceType === "Standard" ? 0.075 : 0
+    const vat = afterDiscount * vatRate
+    const total = afterDiscount + vat
+
+    const completeDemoData: PFI = {
+      id: demoData.id || "demo-pfi-001",
+      ...demoData,
+      subtotal,
+      vat,
+      total,
+      amountInWords: numberToWords(total),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } as PFI
+
+    // Auto-trigger preview for immediate feedback with calculated totals
+    onPreview(completeDemoData)
   }
 
   // Removed scroll tracking - using form completion percentage instead
@@ -373,6 +397,21 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
     const vatRate = formData.invoiceType === "Standard" ? 0.075 : 0
     const vat = afterDiscount * vatRate
     const total = afterDiscount + vat
+
+    // Debug logging
+    console.log('Calculate Totals Debug:', {
+      lineItemsTotal,
+      registrationCost,
+      insuranceCost,
+      serviceCost,
+      transportCost,
+      regCost,
+      subtotal,
+      discount,
+      afterDiscount,
+      vat,
+      total
+    })
 
     return { subtotal, discount, afterDiscount, vat, total }
   }, [

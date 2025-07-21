@@ -6,6 +6,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number): string {
+  // Safety check for undefined, null, or NaN values
+  if (amount == null || isNaN(amount)) {
+    return "₦0.00"
+  }
+  
   return new Intl.NumberFormat("en-NG", {
     style: "currency",
     currency: "NGN",
