@@ -9,7 +9,7 @@ import type { PFI } from "@/lib/types"
 import { toast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
 
-type View = "dashboard" | "form" | "preview" | "settings"
+type View = "dashboard" | "form" | "preview" | "form-preview" | "settings"
 
 export default function Home() {
   const [view, setView] = React.useState<View>("dashboard")
@@ -97,9 +97,41 @@ export default function Home() {
           <PFIForm 
             pfi={selectedPfi} 
             onSave={handleSavePfi} 
-            onPreview={handleView} 
+            onPreview={(pfi) => {
+              setSelectedPfi(pfi)
+              setView("form-preview")
+            }} 
             onBack={handleBackToDashboard} 
           />
+        )
+      case "form-preview":
+        return (
+          <div className="min-h-screen bg-gray-50">
+            <div className="flex flex-col lg:flex-row">
+              {/* Form Section - Left Side */}
+              <div className="lg:w-1/2 lg:max-h-screen lg:overflow-y-auto">
+                <PFIForm 
+                  pfi={selectedPfi} 
+                  onSave={handleSavePfi} 
+                  onPreview={(pfi) => setSelectedPfi(pfi)} 
+                  onBack={handleBackToDashboard}
+                  isPreviewMode={true}
+                />
+              </div>
+              {/* Preview Section - Right Side */}
+              <div className="lg:w-1/2 lg:max-h-screen lg:overflow-y-auto lg:border-l lg:border-gray-200">
+                {currentPfi && (
+                  <PFIPreview
+                    pfi={currentPfi}
+                    onBack={() => setView("form")}
+                    onEdit={handleEdit}
+                    onDownloadPDF={generatePDF}
+                    isEmbedded={true}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
         )
       case "preview":
         return (

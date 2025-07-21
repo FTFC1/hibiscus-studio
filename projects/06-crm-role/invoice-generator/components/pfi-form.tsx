@@ -34,6 +34,7 @@ interface PFIFormProps {
   onSave: (pfi: PFI) => void
   onPreview: (pfi: PFI) => void
   onBack: () => void
+  isPreviewMode?: boolean
 }
 
 // Validation state interface
@@ -86,7 +87,7 @@ const defaultVehiclePrices: { [key: string]: number } = {
   Kia: 17000000,
 }
 
-export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
+export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false }: PFIFormProps) {
   // Load last used values from localStorage
   const getLastUsedValues = () => {
     if (typeof window !== 'undefined') {
@@ -907,9 +908,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                   </div>
 
                   <div>
-                    <Label className="text-sm font-semibold text-slate-700 mb-2 block">Total Amount</Label>
-                    <div className="h-11 px-3 py-2 bg-slate-50 border border-slate-200 rounded-md flex items-center">
-                      <span className="text-base font-medium text-slate-800">{formatCurrency(item.amount)}</span>
+                    <Label className="text-sm font-semibold text-slate-700 mb-2 block">
+                      Total Amount <span className="text-xs text-slate-500 font-normal">(Auto-calculated)</span>
+                    </Label>
+                    <div className="h-11 px-3 py-2 bg-slate-100 border border-slate-300 rounded-md flex items-center">
+                      <span className="text-base font-semibold text-slate-900">{formatCurrency(item.amount)}</span>
                     </div>
                   </div>
                 </div>
@@ -918,7 +921,6 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
                 <div>
                   <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                     Unit Price <span className="text-red-600">*</span>
-                    <span className="text-xs text-slate-500 font-normal ml-2 block sm:inline">(Minimum: ₦30,000,000.00)</span>
                   </Label>
                   <div className="relative">
                     <Input
@@ -965,11 +967,13 @@ export function PFIForm({ pfi, onSave, onPreview, onBack }: PFIFormProps) {
 
                 {/* Description - Read Only */}
                 <div>
-                  <Label className="text-sm font-semibold text-slate-700 mb-2 block">Description</Label>
+                  <Label className="text-sm font-semibold text-slate-700 mb-2 block">
+                    Description <span className="text-xs text-slate-500 font-normal">(Auto-filled)</span>
+                  </Label>
                   <Textarea 
                     value={item.description} 
                     readOnly 
-                    className="bg-slate-50 border-slate-200 text-sm text-slate-600" 
+                    className="bg-slate-100 border-slate-300 text-sm text-slate-700 cursor-not-allowed" 
                     rows={2} 
                   />
                 </div>

@@ -1,5 +1,6 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { formatCurrency } from "@/lib/utils"
 import type { PFI } from "@/lib/types"
 import { format } from "date-fns"
@@ -10,24 +11,60 @@ interface PFIPreviewProps {
   onBack: () => void
   onEdit: (pfi: PFI) => void
   onDownloadPDF: (pfi: PFI) => void
+  isEmbedded?: boolean
 }
 
-export function PFIPreview({ pfi, onBack, onEdit, onDownloadPDF }: PFIPreviewProps) {
+export function PFIPreview({ pfi, onBack, onEdit, onDownloadPDF, isEmbedded = false }: PFIPreviewProps) {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <ProgressHeader
-        progress={0}
-        onPreview={() => onEdit(pfi)}
-        title="PFI Preview"
-        showBackButton={true}
-        showDownloadButton={true}
-        onBack={onBack}
-        onDownload={() => onDownloadPDF(pfi)}
-      />
+    <div className={isEmbedded ? "h-full bg-gray-50" : "min-h-screen bg-gray-50"}>
+      {!isEmbedded && (
+        <ProgressHeader
+          progress={0}
+          onPreview={() => onEdit(pfi)}
+          title="PFI Preview"
+          showBackButton={true}
+          showDownloadButton={true}
+          onBack={onBack}
+          onDownload={() => onDownloadPDF(pfi)}
+        />
+      )}
+      
+      {isEmbedded && (
+        <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm lg:hidden">
+          <div className="flex items-center justify-between p-3">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-gradient-to-br from-red-600 to-red-700 rounded-md flex items-center justify-center">
+                <span className="text-white font-bold text-xs">M</span>
+              </div>
+              <div>
+                <h1 className="text-sm font-bold text-gray-900">PFI Preview</h1>
+                <p className="text-xs text-gray-500">Mikano Motors PFI System</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={onBack}
+                variant="outline"
+                size="sm"
+                className="text-xs"
+              >
+                Back
+              </Button>
+              <Button
+                onClick={() => onDownloadPDF(pfi)}
+                size="sm"
+                className="bg-red-600 hover:bg-red-700 text-white text-xs"
+              >
+                PDF
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      <div className="max-w-4xl mx-auto p-6 pt-8">
-        <Card className="print:shadow-none" id="invoice-print">
-          <CardContent className="p-8">
+      <div className={`${isEmbedded ? 'p-2 sm:p-4' : 'max-w-4xl mx-auto p-3 sm:p-6 pt-8'}`}>
+        <Card className="print:shadow-none overflow-hidden" id="invoice-print">
+          <CardContent className="p-4 sm:p-6 lg:p-8">
             {/* Header */}
             <div className="mb-8">
               <img src="/images/mkheaderpfi.png" alt="Mikano Motors Header" className="w-full h-auto" />
@@ -80,29 +117,29 @@ export function PFIPreview({ pfi, onBack, onEdit, onDownloadPDF }: PFIPreviewPro
             </div>
 
             {/* Line Items Table */}
-            <div className="mb-8">
-              <table className="w-full border-collapse border border-gray-300 text-sm">
+            <div className="mb-8 overflow-x-auto">
+              <table className="w-full min-w-[600px] border-collapse border border-gray-300 text-sm">
                 <thead>
                   <tr className="bg-red-600 text-white">
-                    <th className="border border-gray-300 p-2 text-left">S/N</th>
-                    <th className="border border-gray-300 p-2 text-left">Description</th>
-                    <th className="border border-gray-300 p-2 text-left">Warranty</th>
-                    <th className="border border-gray-300 p-2 text-center">Qty</th>
-                    <th className="border border-gray-300 p-2 text-right">Unit Price</th>
-                    <th className="border border-gray-300 p-2 text-right">Amount</th>
+                    <th className="border border-gray-300 p-1 sm:p-2 text-left text-xs sm:text-sm">S/N</th>
+                    <th className="border border-gray-300 p-1 sm:p-2 text-left text-xs sm:text-sm">Description</th>
+                    <th className="border border-gray-300 p-1 sm:p-2 text-left text-xs sm:text-sm">Warranty</th>
+                    <th className="border border-gray-300 p-1 sm:p-2 text-center text-xs sm:text-sm">Qty</th>
+                    <th className="border border-gray-300 p-1 sm:p-2 text-right text-xs sm:text-sm">Unit Price</th>
+                    <th className="border border-gray-300 p-1 sm:p-2 text-right text-xs sm:text-sm">Amount</th>
                   </tr>
                 </thead>
                 <tbody>
                   {pfi.lineItems.map((item, index) => (
                     <tr key={item.id}>
-                      <td className="border border-gray-300 p-2">{index + 1}</td>
-                      <td className="border border-gray-300 p-2">{item.description}</td>
-                      <td className="border border-gray-300 p-2 text-xs">{item.warranty}</td>
-                      <td className="border border-gray-300 p-2 text-center">{item.quantity}</td>
-                      <td className="border border-gray-300 p-2 text-right">
+                      <td className="border border-gray-300 p-1 sm:p-2 text-xs sm:text-sm">{index + 1}</td>
+                      <td className="border border-gray-300 p-1 sm:p-2 text-xs sm:text-sm">{item.description}</td>
+                      <td className="border border-gray-300 p-1 sm:p-2 text-xs">{item.warranty}</td>
+                      <td className="border border-gray-300 p-1 sm:p-2 text-center text-xs sm:text-sm">{item.quantity}</td>
+                      <td className="border border-gray-300 p-1 sm:p-2 text-right text-xs sm:text-sm">
                         {formatCurrency(item.discountedPrice || item.unitPrice)}
                       </td>
-                      <td className="border border-gray-300 p-2 text-right font-bold">{formatCurrency(item.amount)}</td>
+                      <td className="border border-gray-300 p-1 sm:p-2 text-right font-bold text-xs sm:text-sm">{formatCurrency(item.amount)}</td>
                     </tr>
                   ))}
 
