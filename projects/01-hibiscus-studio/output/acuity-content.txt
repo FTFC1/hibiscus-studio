@@ -5,21 +5,16 @@ PRICING UPDATES (Copy these into your service descriptions):
 ------------------------------
 
 EVENT HIRE:
-  1 hour: £45
-  4 hours: £180
-  6 hours: £270
-  8 hours: £360
-  Full Day: £450
+  Half-Day: £510
+  Full-Day: £930
+  Full-Day + Late: £1030
 
 WORKSHOP HIRE:
-  1 hour: £45
-  Half Day: £225
-  Full Day: £450
+  Full-Day: £690
 
 CONTENT CREATION:
-  1 hour: £45
-  Half Day: £225
-  Full Day: £450
+  Weekday / Off-Peak: £160
+  Peak Weekend: £160
 
 
 FAQ CONTENT (Copy into Acuity FAQ section):
@@ -41,20 +36,7 @@ A: You'll receive a full refund of your deposit if you cancel at least 48 hours 
 ⸻
 
 Q: Is parking available?
-A: Parking is the responsibility of the client. Options include:
-
-Unloading:
-You can park directly outside the venue for up to 30 minutes for loading/unloading.
-Important: PCNs will be issued if parked beyond 30 minutes.
-
-Free Parking:
-• Huntingdon Street – Free after 6:30 PM and all day Sunday.
-
-Nearby Paid Parking:
-• Morrisons Car Park – Free for 2 hours
-• DesParking – 99 Rathbone Street
-• Canning Town Carpark – 1 Terry Spinks Place
-• JustPark – Manor Road
+A: Parking is the responsibility of the client. Options include:<br><br><strong>Unloading:</strong><br>You can park directly outside the venue for up to 30 minutes for loading/unloading.<br>Important: PCNs will be issued if parked beyond 30 minutes.<br><br><strong>Free Parking:</strong><br>• Huntingdon Street – Free after 6:30 PM and all day Sunday.<br><br><strong>Nearby Paid Parking:</strong><br>• Morrisons Car Park – Free for 2 hours<br>• DesParking – 99 Rathbone Street<br>• Canning Town Carpark – 1 Terry Spinks Place<br>• JustPark – Manor Road
 
 ⸻
 
@@ -64,9 +46,7 @@ A: We include an additional complimentary hour at the end of your booking for pa
 ⸻
 
 Q: What equipment is included?
-A: Your hire includes:
-• 40 limewash Chiavari chairs
-• 10 trestle tables (each 6ft x 2ft)
+A: Your hire includes:<br>• 40 limewash Chiavari chairs<br>• 10 trestle tables (each 6ft x 2ft)
 
 ⸻
 
@@ -78,16 +58,36 @@ A: Yes, DJs are welcome! Please note: we do not supply speakers or a PA system, 
 TERMS & CONDITIONS (Copy into Acuity Terms section):
 ------------------------------
 
-Deposit and Booking Confirmation:
-• A 50% deposit is required upon booking to secure your desired date and time.
-• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame, the booking will be automatically released.
-• A new invoice will be required to re-book the date and time.
+1. Deposit and Booking Confirmation:
+• A 50% deposit is required upon booking to secure your desired date and time.<br>• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame, the booking will be automatically released.<br>• A new invoice will be required to re-book the date and time.
 
-Booking Start and End Times:
-• The hire period begins at the agreed start time and ends at the agreed end time as stated in your booking confirmation.
-• Any setup or breakdown must occur within the booked time frame.
+2. Booking Start and End Times:
+• The hire period begins at the agreed start time and ends at the agreed end time as stated in your booking confirmation.<br>• Any setup or breakdown must occur within the booked time frame.
 
-Grace Period and Late Fees:
-• A 30-minute grace period will be allowed after the agreed end time.
-• After the grace period, a late fee will be charged.
+3. Grace Period and Late Fees:
+• A 30-minute grace period will be allowed after the agreed end time.<br>• After the grace period, a late fee of £50 will be charged for every additional 30 minutes or part thereof.
+
+4. Changes to Booking:
+• Any requests to change the booking date or time must be made at least 7 days in advance and are subject to availability.<br>• Changes may incur additional fees depending on the nature of the request.
+
+5. Cancellations and Refunds by the Client:
+• More than 30 Days Before Booking Date: The deposit will be fully refunded, or the booking can be rescheduled without any fees (subject to availability).<br>• 15 to 30 Days Before Booking Date: 50% of the deposit will be refunded, or one free rescheduling is permitted (must be confirmed within 14 days of the original booking).<br>• 7 to 14 Days Before Booking Date: The deposit is non-refundable. Rescheduling may be allowed for an admin fee of £25 (subject to availability).<br>• Less than 7 Days Before Booking Date: The deposit is forfeited, and no rescheduling is permitted.<br>• No-Show or Same-Day Cancellations: The full booking amount will be charged as a no-show fee.
+
+6. Cancellations by the Studio:
+• If we are required to cancel your booking due to unforeseen circumstances (e.g., technical issues, emergencies, or other reasons outside of our control):<br>• Notification: We will notify you as soon as possible.<br>• Refund or Reschedule: You will be offered a full refund of all payments made or the option to reschedule the booking at no additional cost.<br>• Compensation: We are not liable for any indirect losses or additional expenses incurred due to the cancellation, beyond the refund of payments made to us.
+
+7. Studio Usage:
+• The studio must be left in the condition it was found. Cleaning fees may apply if additional cleaning is required.<br>• All equipment and furniture must be treated with care and returned to their original positions.<br>• Do not move or drag tables, chairs, or heavy furniture. These must only be moved by the Hibiscus Studio team.<br>• Any damage caused from moving items without permission may result in deductions from the damages deposit.<br>• Damages to studio property will result in additional charges.
+
+8. Liability:
+• The studio is not liable for any personal injury, loss, or damage to property incurred during the hire period.
+
+9. Prohibited Activities:
+• Smoking, illegal substances, and any activities deemed unsafe or illegal are strictly prohibited within the studio.
+
+10. Damages Deposit:
+• A £200 refundable damages deposit is required for each booking.<br>• This will be returned within 1–3 working days after the event, pending an inspection of the space.
+
+11. Acceptance of Terms:
+• By paying the deposit, you agree to these Terms and Conditions.
 

@@ -3,70 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{business_info.name}} - Price List & FAQ</title>
+    <title>{{ business_info.name }} - {{ business_info.tagline }}</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1 class="business-name">{{ business_info.name }}</h1>
-            <p class="tagline">{{ business_info.tagline }}</p>
+            <h1 class="business-name">{{ business_info.name }} – {{ business_info.tagline }}</h1>
             <p class="description">{{ business_info.description }}</p>
         </header>
 
         <!-- Pricing Section -->
         <section class="pricing-section">
-            <h2 class="section-title">Studio Hire Rates</h2>
             
             <!-- Event Hire -->
             <div class="service-block">
-                <h3 class="service-name">{{ pricing.event_hire.name }}</h3>
+                <h2 class="service-name">{{ pricing.event_hire.name }}</h2>
+                <div class="hourly-rate">
+                    <strong>Hourly Rate</strong><br>
+                    £{{ pricing.event_hire.hourly_rate }}/hr<br>
+                    <small>{{ pricing.event_hire.minimum_hours }}-hour minimum<br>
+                    Up to {{ pricing.workshop_hire.up_to_attendees }} attendees</small>
+                </div>
                 <div class="pricing-grid">
                     {% for option in pricing.event_hire.options %}
                     <div class="price-item">
-                        <span class="duration">{{ option.duration }}</span>
-                        <span class="price">£{{ option.price }}</span>
+                        <div class="duration">{{ option.duration }}</div>
+                        <div class="price">£{{ option.price }}</div>
+                        <div class="details">{{ option.hours }}<br>{{ option.time }}</div>
                     </div>
                     {% endfor %}
                 </div>
+                <p class="deposit-info">{{ pricing.event_hire.deposit }}</p>
             </div>
 
             <!-- Workshop Hire -->
             <div class="service-block">
-                <h3 class="service-name">{{ pricing.workshop_hire.name }}</h3>
+                <h2 class="service-name">{{ pricing.workshop_hire.name }}</h2>
+                <div class="hourly-rate">
+                    <strong>Hourly Rate</strong><br>
+                    £{{ pricing.workshop_hire.hourly_rate }}/hr<br>
+                    <small>Up to {{ pricing.workshop_hire.up_to_attendees }} attendees</small>
+                </div>
                 <div class="pricing-grid">
                     {% for option in pricing.workshop_hire.options %}
                     <div class="price-item">
-                        <span class="duration">{{ option.duration }}</span>
-                        <span class="price">£{{ option.price }}</span>
+                        <div class="duration">{{ option.duration }}</div>
+                        <div class="price">£{{ option.price }}</div>
+                        <div class="details">{{ option.hours }}<br>{{ option.time }}</div>
                     </div>
                     {% endfor %}
                 </div>
+                <p class="deposit-info">{{ pricing.workshop_hire.deposit }}<br>Tables & chairs included</p>
             </div>
 
             <!-- Content Creation -->
             <div class="service-block">
-                <h3 class="service-name">{{ pricing.content_creation.name }}</h3>
+                <h2 class="service-name">{{ pricing.content_creation.name }}</h2>
                 <div class="pricing-grid">
                     {% for option in pricing.content_creation.options %}
                     <div class="price-item">
-                        <span class="duration">{{ option.duration }}</span>
-                        <span class="price">£{{ option.price }}</span>
+                        <div class="duration">{{ option.duration }}</div>
+                        <div class="price">£{{ option.price }}</div>
+                        <div class="details">{{ option.time }}<br>{{ option.description }}</div>
                     </div>
                     {% endfor %}
+                </div>
+                <p class="deposit-info">{{ pricing.content_creation.deposit }}</p>
+            </div>
+        </section>
+
+        <!-- What's Included Section -->
+        <section class="included-section">
+            <h2 class="section-title">What's Included</h2>
+            
+            <div class="included-grid">
+                <div class="included-item">
+                    <h3>{{ pricing.event_hire.name }}</h3>
+                    <ul>
+                        {% for item in included.event_hire %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="included-item">
+                    <h3>{{ pricing.workshop_hire.name }}</h3>
+                    <ul>
+                        {% for item in included.workshop_hire %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="included-item">
+                    <h3>{{ pricing.content_creation.name }}</h3>
+                    <ul>
+                        {% for item in included.content_creation %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Equipment Section -->
-        <section class="equipment-section">
-            <h2 class="section-title">What's Included</h2>
-            <ul class="equipment-list">
-                {% for item in equipment.included %}
-                <li>{{ item }}</li>
-                {% endfor %}
-            </ul>
+        <!-- Capacity Section -->
+        <section class="capacity-section">
+            <h2 class="section-title">Capacity</h2>
+            <div class="capacity-grid">
+                <div class="capacity-item">
+                    <div class="capacity-number">{{ capacity.seated_dining }}</div>
+                    <div class="capacity-label">Seated Dining</div>
+                </div>
+                <div class="capacity-item">
+                    <div class="capacity-number">{{ capacity.standing_mix_mingle }}</div>
+                    <div class="capacity-label">Standing/<br>Mix & Mingle</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Section -->
+        <section class="youtube-section">
+            <h2 class="section-title">{{ youtube_section.title }}</h2>
+            <p class="youtube-content">{{ youtube_section.content }}</p>
         </section>
 
         <!-- FAQ Section -->
@@ -75,18 +135,18 @@
             {% for faq in faqs %}
             <div class="faq-item">
                 <h3 class="faq-question">{{ faq.question }}</h3>
-                <div class="faq-answer">{{ faq.answer }}</div>
+                <div class="faq-answer">{{ faq.answer|safe }}</div>
             </div>
             {% endfor %}
         </section>
 
-        <!-- Terms & Conditions -->
+        <!-- Terms & Conditions Section -->
         <section class="terms-section">
-            <h2 class="section-title">Terms & Conditions</h2>
+            <h2 class="section-title">Terms & Conditions for Studio Hire</h2>
             {% for term in terms_and_conditions %}
             <div class="terms-item">
                 <h3 class="terms-title">{{ term.title }}</h3>
-                <div class="terms-content">{{ term.content }}</div>
+                <div class="terms-content">{{ term.content|safe }}</div>
             </div>
             {% endfor %}
         </section>

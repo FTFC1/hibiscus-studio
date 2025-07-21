@@ -1,39 +1,63 @@
 {
+  "business_info": {
+    "name": "Hibiscus Studio",
+    "tagline": "Price List & FAQ",
+    "description": "Welcome! This one-pager shows all hire options, what's included and how to book."
+  },
   "pricing": {
     "event_hire": {
       "name": "Event Hire",
-      "price": 45,
+      "hourly_rate": 150,
+      "minimum_hours": 2,
       "options": [
-        { "duration": "1 hour", "price": 45 },
-        { "duration": "4 hours", "price": 180 },
-        { "duration": "6 hours", "price": 270 },
-        { "duration": "8 hours", "price": 360 },
-        { "duration": "Full Day", "price": 450 }
-      ]
+        { "duration": "Half-Day", "hours": "6 hours", "time": "10am-4pm or 4pm-10pm", "price": 510 },
+        { "duration": "Full-Day", "hours": "12 hours", "time": "10am-10pm", "price": 930 },
+        { "duration": "Full-Day + Late", "hours": "13 hours", "time": "10am-11pm", "price": 1030 }
+      ],
+      "deposit": "£200 refundable damage deposit required for all event bookings"
     },
     "workshop_hire": {
-      "name": "Workshop Hire",
-      "price": 45,
+      "name": "Workshop Hire", 
+      "hourly_rate": 150,
+      "up_to_attendees": 20,
       "options": [
-        { "duration": "1 hour", "price": 45 },
-        { "duration": "Half Day", "price": 225 },
-        { "duration": "Full Day", "price": 450 }
-      ]
+        { "duration": "Full-Day", "hours": "12 hours", "time": "10am-10pm", "price": 690 }
+      ],
+      "deposit": "£90 refundable damage deposit required"
     },
     "content_creation": {
       "name": "Content Creation",
-      "price": 45,
       "options": [
-        { "duration": "1 hour", "price": 45 },
-        { "duration": "Half Day", "price": 225 },
-        { "duration": "Full Day", "price": 450 }
-      ]
+        { "duration": "Weekday / Off-Peak", "time": "Monday - Friday", "description": "Full day access", "price": 160 },
+        { "duration": "Peak Weekend", "time": "Saturday - Sunday", "description": "Full day access", "price": 160 }
+      ],
+      "deposit": "£50 refundable damage deposit required"
     }
   },
-  "equipment": {
-    "included": [
-      "40 limewash Chiavari chairs",
-      "10 trestle tables (each 6ft x 2ft)"
+  "capacity": {
+    "seated_dining": 60,
+    "standing_mix_mingle": 80
+  },
+  "included": {
+    "event_hire": [
+      "Full kitchen (oven, stove, microwave, kettle, dishwasher)",
+      "40 limewash Chiavari chairs & 10 tables", 
+      "Toilet access & Wi-Fi",
+      "Natural light throughout",
+      "1 complimentary hour for setup & pack-down"
+    ],
+    "workshop_hire": [
+      "Open-plan kitchen (oven, stove, microwave, kettle, fridge, sink)",
+      "Up to 4 tables & 20 Chiavari chairs",
+      "Wi-Fi & toilet access", 
+      "Natural light",
+      "1 complimentary hour for setup & pack-down"
+    ],
+    "content_creation": [
+      "Access to kitchen space",
+      "40 limewash Chiavari chairs & 10 tables",
+      "Natural light",
+      "Wi-Fi & toilet access"
     ]
   },
   "faqs": [
@@ -51,7 +75,7 @@
     },
     {
       "question": "Is parking available?",
-      "answer": "Parking is the responsibility of the client. Options include:\n\nUnloading:\nYou can park directly outside the venue for up to 30 minutes for loading/unloading.\nImportant: PCNs will be issued if parked beyond 30 minutes.\n\nFree Parking:\n• Huntingdon Street – Free after 6:30 PM and all day Sunday.\n\nNearby Paid Parking:\n• Morrisons Car Park – Free for 2 hours\n• DesParking – 99 Rathbone Street\n• Canning Town Carpark – 1 Terry Spinks Place\n• JustPark – Manor Road"
+      "answer": "Parking is the responsibility of the client. Options include:<br><br><strong>Unloading:</strong><br>You can park directly outside the venue for up to 30 minutes for loading/unloading.<br>Important: PCNs will be issued if parked beyond 30 minutes.<br><br><strong>Free Parking:</strong><br>• Huntingdon Street – Free after 6:30 PM and all day Sunday.<br><br><strong>Nearby Paid Parking:</strong><br>• Morrisons Car Park – Free for 2 hours<br>• DesParking – 99 Rathbone Street<br>• Canning Town Carpark – 1 Terry Spinks Place<br>• JustPark – Manor Road"
     },
     {
       "question": "What about setup and pack down time?",
@@ -59,7 +83,7 @@
     },
     {
       "question": "What equipment is included?",
-      "answer": "Your hire includes:\n• 40 limewash Chiavari chairs\n• 10 trestle tables (each 6ft x 2ft)"
+      "answer": "Your hire includes:<br>• 40 limewash Chiavari chairs<br>• 10 trestle tables (each 6ft x 2ft)"
     },
     {
       "question": "Can I bring a DJ or play music?",
@@ -68,21 +92,52 @@
   ],
   "terms_and_conditions": [
     {
-      "title": "Deposit and Booking Confirmation",
-      "content": "• A 50% deposit is required upon booking to secure your desired date and time.\n• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame, the booking will be automatically released.\n• A new invoice will be required to re-book the date and time."
+      "title": "1. Deposit and Booking Confirmation",
+      "content": "• A 50% deposit is required upon booking to secure your desired date and time.<br>• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame, the booking will be automatically released.<br>• A new invoice will be required to re-book the date and time."
     },
     {
-      "title": "Booking Start and End Times",
-      "content": "• The hire period begins at the agreed start time and ends at the agreed end time as stated in your booking confirmation.\n• Any setup or breakdown must occur within the booked time frame."
+      "title": "2. Booking Start and End Times", 
+      "content": "• The hire period begins at the agreed start time and ends at the agreed end time as stated in your booking confirmation.<br>• Any setup or breakdown must occur within the booked time frame."
     },
     {
-      "title": "Grace Period and Late Fees",
-      "content": "• A 30-minute grace period will be allowed after the agreed end time.\n• After the grace period, a late fee will be charged."
+      "title": "3. Grace Period and Late Fees",
+      "content": "• A 30-minute grace period will be allowed after the agreed end time.<br>• After the grace period, a late fee of £50 will be charged for every additional 30 minutes or part thereof."
+    },
+    {
+      "title": "4. Changes to Booking",
+      "content": "• Any requests to change the booking date or time must be made at least 7 days in advance and are subject to availability.<br>• Changes may incur additional fees depending on the nature of the request."
+    },
+    {
+      "title": "5. Cancellations and Refunds by the Client",
+      "content": "• More than 30 Days Before Booking Date: The deposit will be fully refunded, or the booking can be rescheduled without any fees (subject to availability).<br>• 15 to 30 Days Before Booking Date: 50% of the deposit will be refunded, or one free rescheduling is permitted (must be confirmed within 14 days of the original booking).<br>• 7 to 14 Days Before Booking Date: The deposit is non-refundable. Rescheduling may be allowed for an admin fee of £25 (subject to availability).<br>• Less than 7 Days Before Booking Date: The deposit is forfeited, and no rescheduling is permitted.<br>• No-Show or Same-Day Cancellations: The full booking amount will be charged as a no-show fee."
+    },
+    {
+      "title": "6. Cancellations by the Studio",
+      "content": "• If we are required to cancel your booking due to unforeseen circumstances (e.g., technical issues, emergencies, or other reasons outside of our control):<br>• Notification: We will notify you as soon as possible.<br>• Refund or Reschedule: You will be offered a full refund of all payments made or the option to reschedule the booking at no additional cost.<br>• Compensation: We are not liable for any indirect losses or additional expenses incurred due to the cancellation, beyond the refund of payments made to us."
+    },
+    {
+      "title": "7. Studio Usage",
+      "content": "• The studio must be left in the condition it was found. Cleaning fees may apply if additional cleaning is required.<br>• All equipment and furniture must be treated with care and returned to their original positions.<br>• Do not move or drag tables, chairs, or heavy furniture. These must only be moved by the Hibiscus Studio team.<br>• Any damage caused from moving items without permission may result in deductions from the damages deposit.<br>• Damages to studio property will result in additional charges."
+    },
+    {
+      "title": "8. Liability",
+      "content": "• The studio is not liable for any personal injury, loss, or damage to property incurred during the hire period."
+    },
+    {
+      "title": "9. Prohibited Activities",
+      "content": "• Smoking, illegal substances, and any activities deemed unsafe or illegal are strictly prohibited within the studio."
+    },
+    {
+      "title": "10. Damages Deposit",
+      "content": "• A £200 refundable damages deposit is required for each booking.<br>• This will be returned within 1–3 working days after the event, pending an inspection of the space."
+    },
+    {
+      "title": "11. Acceptance of Terms",
+      "content": "• By paying the deposit, you agree to these Terms and Conditions."
     }
   ],
-  "business_info": {
-    "name": "Hibiscus Studio",
-    "tagline": "Creative Event Space in East London",
-    "description": "A beautiful, versatile studio space perfect for workshops, content creation, and intimate events."
+  "youtube_section": {
+    "title": "Virtual Tour",
+    "content": "Coming soon"
   }
 } 
