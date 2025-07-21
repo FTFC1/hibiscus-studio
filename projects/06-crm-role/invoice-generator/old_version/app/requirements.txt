@@ -1,0 +1,11 @@
+Flask
+flask-cors
+pandas
+numpy
+openpyxl
+xlrd
+gunicorn
+fpdf2
+gspread
+google-auth-oauthlib
+WeasyPrint

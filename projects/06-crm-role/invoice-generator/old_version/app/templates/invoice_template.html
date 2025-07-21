@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Forma Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact; /* For printing background colors */
+            font-size: 10pt;
+        }
+        .invoice-page {
+            width: 210mm; /* A4 width */
+            min-height: 297mm; /* A4 height */
+            margin: 0 auto;
+            padding: 10mm 15mm;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #000000;
+            position: relative;
+        }
+        .header-image {
+            width: 100%;
+            max-width: 180mm; /* Adjust based on actual image width and desired scale */
+            height: auto;
+            display: block;
+            margin: 0 auto 5mm auto;
+        }
+        .invoice-title {
+            font-size: 14pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10mm;
+        }
+        .info-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10mm;
+        }
+        .info-column {
+            width: 48%; /* Adjust as needed */
+        }
+        .info-column p {
+            margin: 1mm 0;
+        }
+        .info-column strong {
+            display: inline-block;
+            width: 30mm; /* Align labels */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10mm;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 2mm 3mm;
+            text-align: left;
+            font-size: 9pt;
+        }
+        th {
+            background-color: #D9D9D9; /* Light gray from PDF */
+            font-weight: bold;
+            text-align: center;
+        }
+        .text-left { text-align: left; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .amount-col { width: 25mm; }
+        .price-col { width: 25mm; }
+        .qty-col { width: 15mm; }
+        .description-col { width: auto; }
+
+        .totals-section {
+            width: 70mm;
+            margin-left: auto;
+            border: 1px solid #000000;
+            margin-bottom: 10mm;
+        }
+        .totals-section p {
+            display: flex;
+            justify-content: space-between;
+            padding: 1mm 3mm;
+            margin: 0;
+            font-size: 9pt;
+        }
+        .totals-section .total-row {
+            font-weight: bold;
+            background-color: #D9D9D9;
+        }
+        .payment-info, .warranty-info, .terms-info {
+            font-size: 9pt;
+            margin-bottom: 8mm;
+        }
+        .payment-info strong, .warranty-info strong, .terms-info strong {
+            display: block;
+            margin-bottom: 2mm;
+        }
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15mm;
+            font-size: 9pt;
+        }
+        .signature-block {
+            width: 45%;
+            text-align: center;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 10mm;
+            padding-top: 2mm;
+        }
+        .footer-section {
+            position: absolute;
+            bottom: 10mm;
+            left: 15mm;
+            right: 15mm;
+            text-align: center;
+            font-size: 8pt;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-page">
+        <!-- Header Section -->
+        <img src="../assets/Header Mikano.png" class="header-image" alt="Mikano International Limited">
+
+        <h1 class="invoice-title">PRO-FORMA INVOICE</h1>
+
+        <!-- Invoice Details & Customer Information -->
+        <div class="info-grid">
+            <div class="info-column">
+                <p><strong>DATE:</strong> {{ invoice_data.invoice_date }}</p>
+                <p><strong>INVOICE NO:</strong> {{ invoice_data.invoice_number }}</p>
+                <p><strong>Sales Executive:</strong> {{ invoice_data.sales_executive }}</p>
+                <p><strong>CONTACT NO:</strong> {{ invoice_data.contact_number }}</p>
+                <p><strong>EMAIL ID:</strong> {{ invoice_data.email_id }}</p>
+            </div>
+            <div class="info-column">
+                <p><strong>Cleanergy Innovation Limited (CIL)</strong></p>
+                <p>29b Ndjamena Crescent</p>
+                <p>0818 973 0000</p>
+                <p>admin@cleanergygas.com</p>
+            </div>
+        </div>
+
+        <!-- Line Items Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th class="text-left description-col">Brand</th>
+                    <th class="text-left description-col">Model</th>
+                    <th class="text-center qty-col">QTY</th>
+                    <th class="text-right price-col">UNIT PRICE</th>
+                    <th class="text-right price-col">DISCOUNTED PRICE</th>
+                    <th class="text-right amount-col">AMOUNT (=N=)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in invoice_data.line_items %}
+                <tr>
+                    <td class="text-left">{{ item.brand }}</td>
+                    <td class="text-left">{{ item.model }}</td>
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-right">{{ invoice_data.currency_symbol }}{{ "%.2f" | format(item.unit_price | float) }}</td>
+                    <td class="text-right">{{ invoice_data.currency_symbol }}{{ "%.2f" | format(item.discounted_price | float) }}</td>
+                    <td class="text-right">{{ invoice_data.currency_symbol }}{{ "%.2f" | format(item.total | float) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p style="font-size: 9pt; margin-bottom: 5mm;">Note: Proforma invoice is valid for 24 hours from date of issue.</p>
+
+        <!-- Totals Section -->
+        <div class="totals-section">
+            <p><span>AMOUNT IN WORDS:</span></p>
+            <p style="font-weight: bold;">{{ invoice_data.amount_in_words }}</p>
+            <p><span>Subtotal:</span> <span>{{ invoice_data.currency_symbol }}{{ "%.2f" | format(invoice_data.subtotal | float) }}</span></p>
+            <p><span>7.5% VAT:</span> <span>{{ invoice_data.currency_symbol }}{{ "%.2f" | format(invoice_data.vat_amount | float) }}</span></p>
+            <p class="total-row"><span>TOTAL:</span> <span>{{ invoice_data.currency_symbol }}{{ "%.2f" | format(invoice_data.total | float) }}</span></p>
+        </div>
+
+        <!-- Important Warranty & Aftersales Information -->
+        <div class="warranty-info">
+            <strong>IMPORTANT! WARRANTY & AFTERSALES INFORMATION</strong>
+            <p>CHANGAN: 6 YEARS / 200,000KM WHICHEVER COMES FIRST</p>
+            <p>GEELY: 5 YEARS / 150,000KM WHICHEVER COMES FIRST</p>
+            <p>MAXUS: 5 YEARS / 130,000KM WHICHEVER COMES FIRST</p>
+            <p>Additional Information may be required to activate warranty.</p>
+            <p>Contact No. 07015286045</p>
+            <p>Courtesy VIP service & 24/7 Roadside Assistance</p>
+            <p>Mikano Motors is on Pioneer Status (Tax Holiday), Withholding Tax (WHT) is Non-Deductible.</p>
+        </div>
+
+        <!-- Payment Info -->
+        <div class="payment-info">
+            <strong>Kindly pay into:</strong>
+            <p>Account Name: MIKANO INTERNATIONAL LTD (MOTORS)</p>
+            <p>Account No: 1450866387</p>
+            <p>Bank Name: ACCESS BANK PLC</p>
+        </div>
+
+        <!-- Payment & Delivery Terms -->
+        <div class="terms-info">
+            <strong>Payment & Delivery Terms</strong>
+            <p>-100% Payment in advance</p>
+            <p>-Vehicle Registration fee: 100,000NGN per unit</p>
+            <p>-Vehicle pick-up at any of Mikano Motors showroom in Lagos is free</p>
+            <p>-Delivery will come at a cost based on Location (Lagos Included)</p>
+        </div>
+
+        <!-- Signatures -->
+        <div class="signature-section">
+            <div class="signature-block">
+                <p>Prepared By: {{ invoice_data.prepared_by }}</p>
+                <div class="signature-line"></div>
+            </div>
+            <div class="signature-block">
+                <p>Approved By: {{ invoice_data.approved_by }}</p>
+                <div class="signature-line"></div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer-section">
+            <img src="../assets/Footer Mikano.png" style="width: 100%; max-width: 180mm; height: auto; display: block; margin: 0 auto 2mm auto;" alt="Mikano Footer">
+            <p>This is a computer-generated invoice and requires no signature.</p>
+        </div>
+    </div>
+</body>
+</html>
