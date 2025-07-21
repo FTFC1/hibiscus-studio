@@ -99,14 +99,14 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
         preparedBy: lastPreparedBy || "Rita", // Default to Rita
         approvedBy: lastApprovedBy || "Joelle Haykal", // Default to Joelle
         salesExecutive: lastSalesExecutive || "",
-        bank: lastBank || "Access Bank", // Default to Access Bank
+        bank: lastBank || "GTB", // Default to GTB
       }
     }
     return {
       preparedBy: "Rita",
       approvedBy: "Joelle Haykal",
       salesExecutive: "",
-      bank: "Access Bank",
+      bank: "GTB",
     }
   }
 
@@ -223,12 +223,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
     setShowRegistration(!!demoData.registrationCost)
     setEmailValid(true)
     setIsDemoMode(true)
-    setShowDemoNotification(true)
+    // Remove annoying notification - just silent auto-fill
+    // setShowDemoNotification(true)
 
-    toast({
-      title: "Demo Data Loaded",
-      description: "All fields have been populated with sample data for demonstration.",
-    })
+    // Auto-trigger preview for immediate feedback
+    onPreview(demoData as PFI)
   }
 
   // Removed scroll tracking - using form completion percentage instead
@@ -542,9 +541,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
         onLogoClick={onBack}
       />
 
-      {showDemoNotification && (
-        <DemoNotification onClear={clearDemoData} onDismiss={() => setShowDemoNotification(false)} />
-      )}
+      {/* Removed annoying demo notification that won't dismiss */}
 
       <div className="px-3 sm:px-4 py-4 sm:py-6 space-y-6 sm:space-y-8 pb-20 sm:pb-24 max-w-4xl mx-auto">
         {/* Invoice Details - Enhanced Visual Hierarchy */}
@@ -1248,7 +1245,21 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
           <CardContent className="p-4 space-y-4">
             <div>
               <Label className="text-sm font-medium">Prepared By</Label>
-              <Input value={formData.preparedBy} readOnly className="mt-1 bg-gray-50" />
+              <Select
+                value={formData.preparedBy}
+                onValueChange={(value) => {
+                  setFormData((prev) => ({ ...prev, preparedBy: value }))
+                  localStorage.setItem('lastPreparedBy', value)
+                }}
+              >
+                <SelectTrigger className={`mt-1 ${getDemoInputClasses("")}`}>
+                  <SelectValue placeholder="Select prepared by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Rita">Rita</SelectItem>
+                  <SelectItem value="Maryam">Maryam</SelectItem>
+                </SelectContent>
+              </Select>
               {validationErrors.preparedBy && (
                 <p className="text-xs text-red-600 mt-1">
                   <AlertCircle className="inline-block mr-1" /> {validationErrors.preparedBy}
@@ -1258,7 +1269,23 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
 
             <div>
               <Label className="text-sm font-medium">Approved By</Label>
-              <Input value={formData.approvedBy} readOnly className="mt-1 bg-gray-50" />
+              <Select
+                value={formData.approvedBy}
+                onValueChange={(value) => {
+                  setFormData((prev) => ({ ...prev, approvedBy: value }))
+                  localStorage.setItem('lastApprovedBy', value)
+                }}
+              >
+                <SelectTrigger className={`mt-1 ${getDemoInputClasses("")}`}>
+                  <SelectValue placeholder="Select approved by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Joelle Haykal">Joelle Haykal</SelectItem>
+                  <SelectItem value="Gaurav Kaul">Gaurav Kaul</SelectItem>
+                  <SelectItem value="Syam Abdukadir">Syam Abdukadir</SelectItem>
+                  <SelectItem value="Omar Karameh">Omar Karameh</SelectItem>
+                </SelectContent>
+              </Select>
               {validationErrors.approvedBy && (
                 <p className="text-xs text-red-600 mt-1">
                   <AlertCircle className="inline-block mr-1" /> {validationErrors.approvedBy}

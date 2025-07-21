@@ -4,7 +4,7 @@ import * as React from "react"
 import { PFIForm } from "@/components/pfi-form"
 import { PFIPreview } from "@/components/pfi-preview"
 import { PFIDashboard } from "@/components/pfi-dashboard"
-import { MobilePreviewSheet } from "@/components/mobile-preview-sheet"
+import { FloatingPreviewButton } from "@/components/floating-preview-button"
 import { generatePDF } from "@/lib/pdf-generator"
 import type { PFI } from "@/lib/types"
 import { toast } from "@/hooks/use-toast"
@@ -18,9 +18,7 @@ export default function Home() {
   const [selectedPfi, setSelectedPfi] = React.useState<PFI | undefined>()
   const [appLoading, setAppLoading] = React.useState(false)
   
-  // Mobile preview sheet state
-  const [showMobilePreview, setShowMobilePreview] = React.useState(false)
-  const [mobileSheetHeight, setMobileSheetHeight] = React.useState<"collapsed" | "half" | "full">("collapsed")
+  // Mobile preview now uses direct navigation
 
   const handleSavePfi = async (pfiData: PFI) => {
     setAppLoading(true)
@@ -105,28 +103,16 @@ export default function Home() {
               onSave={handleSavePfi} 
               onPreview={(pfi) => {
                 setSelectedPfi(pfi)
-                // On mobile, show bottom sheet. On desktop, go to side-by-side view
+                // On mobile, go directly to preview modal. On desktop, go to side-by-side view
                 if (window.innerWidth < 1024) {
-                  setShowMobilePreview(true)
-                  setMobileSheetHeight("collapsed")
+                  setView("preview")
                 } else {
                   setView("form-preview")
                 }
               }} 
               onBack={handleBackToDashboard} 
             />
-            
-            {/* Mobile Preview Sheet */}
-            {selectedPfi && (
-              <MobilePreviewSheet
-                pfi={selectedPfi}
-                isOpen={showMobilePreview}
-                onClose={() => setShowMobilePreview(false)}
-                onDownloadPDF={generatePDF}
-                sheetHeight={mobileSheetHeight}
-                onSheetHeightChange={setMobileSheetHeight}
-              />
-            )}
+            {/* Removed floating button - direct preview flow now */}
           </>
         )
       case "form-preview":

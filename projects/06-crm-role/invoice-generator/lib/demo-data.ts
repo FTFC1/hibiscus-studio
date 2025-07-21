@@ -2,6 +2,7 @@ import { addDays } from "./utils"
 import type { PFI } from "./types"
 
 export const demoData: Partial<PFI> = {
+  id: "demo-pfi-001",
   invoiceNumber: "20241217001",
   invoiceDate: new Date(),
   validUntil: addDays(new Date(), 30),

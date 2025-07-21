@@ -1,10 +1,5 @@
 {
   "pages": {
-    "/api/test-supabase/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/test-supabase/route.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

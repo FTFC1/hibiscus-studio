@@ -17,50 +17,52 @@ interface PFIPreviewProps {
 export function PFIPreview({ pfi, onBack, onEdit, onDownloadPDF, isEmbedded = false }: PFIPreviewProps) {
   return (
     <div className={isEmbedded ? "h-full bg-gray-50" : "min-h-screen bg-gray-50"}>
+      {/* Desktop header only */}
       {!isEmbedded && (
-        <ProgressHeader
-          progress={0}
-          onPreview={() => onEdit(pfi)}
-          title="PFI Preview"
-          showBackButton={true}
-          showDownloadButton={true}
-          onBack={onBack}
-          onDownload={() => onDownloadPDF(pfi)}
-        />
-      )}
-      
-      {isEmbedded && (
-        <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm lg:hidden">
-          <div className="flex items-center justify-between p-3">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-gradient-to-br from-red-600 to-red-700 rounded-md flex items-center justify-center">
-                <span className="text-white font-bold text-xs">M</span>
-              </div>
-              <div>
-                <h1 className="text-sm font-bold text-gray-900">PFI Preview</h1>
-                <p className="text-xs text-gray-500">Mikano Motors PFI System</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                onClick={onBack}
-                variant="outline"
-                size="sm"
-                className="text-xs"
-              >
-                Back
-              </Button>
-              <Button
-                onClick={() => onDownloadPDF(pfi)}
-                size="sm"
-                className="bg-red-600 hover:bg-red-700 text-white text-xs"
-              >
-                PDF
-              </Button>
-            </div>
-          </div>
+        <div className="hidden lg:block">
+          <ProgressHeader
+            progress={0}
+            onPreview={() => onEdit(pfi)}
+            title="PFI Preview"
+            showBackButton={true}
+            showDownloadButton={true}
+            onBack={onBack}
+            onDownload={() => onDownloadPDF(pfi)}
+          />
         </div>
       )}
+      
+      {/* Mobile header - show on mobile screens */}
+      <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm lg:hidden">
+        <div className="flex items-center justify-between p-3">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-gradient-to-br from-red-600 to-red-700 rounded-md flex items-center justify-center">
+              <span className="text-white font-bold text-xs">M</span>
+            </div>
+            <div>
+              <h1 className="text-sm font-bold text-gray-900">PFI Preview</h1>
+              <p className="text-xs text-gray-500">{pfi.invoiceNumber}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={onBack}
+              variant="outline"
+              size="sm"
+              className="text-xs"
+            >
+              Back
+            </Button>
+            <Button
+              onClick={() => onDownloadPDF(pfi)}
+              size="sm"
+              className="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold"
+            >
+              📄 PDF
+            </Button>
+          </div>
+        </div>
+      </div>
 
       <div className={`${isEmbedded ? 'p-2 sm:p-4' : 'max-w-4xl mx-auto p-3 sm:p-6 pt-8'}`}>
         <Card className="print:shadow-none overflow-hidden" id="invoice-print">
@@ -117,8 +119,8 @@ export function PFIPreview({ pfi, onBack, onEdit, onDownloadPDF, isEmbedded = fa
             </div>
 
             {/* Line Items Table */}
-            <div className="mb-8 overflow-x-auto">
-              <table className="w-full min-w-[600px] border-collapse border border-gray-300 text-sm">
+                      <div className="mb-8 overflow-x-auto">
+            <table className="w-full min-w-[280px] sm:min-w-[600px] border-collapse border border-gray-300 text-sm">
                 <thead>
                   <tr className="bg-red-600 text-white">
                     <th className="border border-gray-300 p-1 sm:p-2 text-left text-xs sm:text-sm">S/N</th>
