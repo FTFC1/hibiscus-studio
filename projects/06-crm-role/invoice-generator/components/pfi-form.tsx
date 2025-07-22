@@ -471,21 +471,10 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
     setEmailValid(validation.isValid)
     setEmailErrors(validation.errors)
     
-    // Show errors only after user stops typing (punish late)
-    const timeoutId = setTimeout(() => {
-      if (!validation.isValid && email.length > 0) {
-        setShowEmailErrors(true)
-      } else {
-        setShowEmailErrors(false)
-      }
-    }, 1000)
-    
     // Clear errors immediately if email becomes valid (reward early)
     if (validation.isValid) {
       setShowEmailErrors(false)
     }
-    
-    return () => clearTimeout(timeoutId)
   }, [])
 
   const handlePhoneChange = React.useCallback((phone: string) => {
@@ -495,22 +484,33 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
     const validation = validatePhone(phone)
     setPhoneErrors(validation.errors)
     
-    // Show errors only after user stops typing (punish late)
-    const timeoutId = setTimeout(() => {
-      if (!validation.isValid && phone.length > 0) {
-        setShowPhoneErrors(true)
-      } else {
-        setShowPhoneErrors(false)
-      }
-    }, 1000)
-    
     // Clear errors immediately if phone becomes valid (reward early)
     if (validation.isValid) {
       setShowPhoneErrors(false)
     }
+  }, [])
+
+  // Debounced validation for email errors (punish late pattern)
+  React.useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (emailErrors.length > 0 && formData.customerEmail && formData.customerEmail.length > 0) {
+        setShowEmailErrors(true)
+      }
+    }, 1000)
     
     return () => clearTimeout(timeoutId)
-  }, [])
+  }, [emailErrors, formData.customerEmail])
+
+  // Debounced validation for phone errors (punish late pattern)
+  React.useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (phoneErrors.length > 0 && formData.customerPhone && formData.customerPhone.length > 0) {
+        setShowPhoneErrors(true)
+      }
+    }, 1000)
+    
+    return () => clearTimeout(timeoutId)
+  }, [phoneErrors, formData.customerPhone])
 
   const handleSave = () => {
     let hasErrors = false
