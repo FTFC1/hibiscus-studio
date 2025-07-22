@@ -130,14 +130,77 @@ export function addDays(date: Date, days: number): Date {
   return result
 }
 
-export function validateEmail(email: string): boolean {
+// Enhanced email validation with multiple criteria
+export function validateEmail(email: string): { isValid: boolean; errors: string[] } {
+  const errors: string[] = []
+  
+  if (!email) {
+    return { isValid: false, errors: ["Email is required"] }
+  }
+  
+  // Basic format check
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
+  if (!emailRegex.test(email)) {
+    errors.push("Invalid email format")
+  }
+  
+  // Check for common issues
+  if (email.includes("..")) {
+    errors.push("Email cannot contain consecutive dots")
+  }
+  
+  if (email.startsWith(".") || email.endsWith(".")) {
+    errors.push("Email cannot start or end with a dot")
+  }
+  
+  if (email.length > 254) {
+    errors.push("Email address is too long")
+  }
+  
+  const [localPart, domain] = email.split("@")
+  if (localPart && localPart.length > 64) {
+    errors.push("Email username is too long")
+  }
+  
+  return { isValid: errors.length === 0, errors }
 }
 
-export function validatePhone(phone: string): boolean {
-  const phoneRegex = /^\+?[\d\s\-$$$$]{10,}$/
-  return phoneRegex.test(phone)
+// Enhanced phone validation for Nigerian numbers
+export function validatePhone(phone: string): { isValid: boolean; errors: string[] } {
+  const errors: string[] = []
+  
+  if (!phone) {
+    return { isValid: false, errors: ["Phone number is required"] }
+  }
+  
+  // Remove all non-digit characters for validation
+  const digitsOnly = phone.replace(/\D/g, '')
+  
+  // Check length
+  if (digitsOnly.length < 10) {
+    errors.push("Phone number is too short")
+  } else if (digitsOnly.length > 14) {
+    errors.push("Phone number is too long")
+  }
+  
+  // Nigerian phone patterns
+  const nigerianMobileRegex = /^(\+234|234|0)([789]\d{9})$/
+  const cleanPhone = phone.replace(/[\s\-$$$$]/g, '')
+  
+  if (!nigerianMobileRegex.test(digitsOnly) && !cleanPhone.startsWith('+')) {
+    errors.push("Invalid Nigerian phone number format")
+  }
+  
+  return { isValid: errors.length === 0, errors }
+}
+
+// Backward compatibility - simple boolean versions
+export function isValidEmail(email: string): boolean {
+  return validateEmail(email).isValid
+}
+
+export function isValidPhone(phone: string): boolean {
+  return validatePhone(phone).isValid
 }
 
 export function getCountryFlag(countryCode: string): string {

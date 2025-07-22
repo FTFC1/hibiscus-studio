@@ -9,6 +9,10 @@ export const demoData: Partial<PFI> = {
   invoiceType: "Standard",
   customerName: "Lagos State Transport Corporation",
   customerAddress: "Plot 15, Alausa Secretariat Road, Ikeja, Lagos State, Nigeria",
+  customerStreet: "Plot 15, Alausa Secretariat Road",
+  customerArea: "Ikeja",
+  customerState: "Lagos State",
+  customerPostcode: "100001",
   customerPhone: "+234 803 456 7890",
   customerEmail: "procurement@lagostransport.gov.ng",
   customerContact: "Mr. Adebayo Johnson",
@@ -17,6 +21,7 @@ export const demoData: Partial<PFI> = {
   lineItems: [
     {
       id: "demo-1",
+      vehicleType: "PASSENGER",
       brand: "CHANGAN",
       model: "CS35 PLUS LUXURY",
       description: "CHANGAN CS35 PLUS LUXURY",
@@ -29,6 +34,7 @@ export const demoData: Partial<PFI> = {
     },
     {
       id: "demo-2",
+      vehicleType: "PASSENGER",
       brand: "CHANGAN",
       model: "EADO PLUS LUXURY",
       description: "CHANGAN EADO PLUS LUXURY",
@@ -41,6 +47,7 @@ export const demoData: Partial<PFI> = {
     },
     {
       id: "demo-3",
+      vehicleType: "PASSENGER",
       brand: "MAXUS",
       model: "D60 EXECUTIVE",
       description: "MAXUS D60 EXECUTIVE",

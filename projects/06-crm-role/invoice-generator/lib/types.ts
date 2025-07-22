@@ -1,5 +1,6 @@
 export interface LineItem {
   id: string
+  vehicleType: string
   brand: string
   model: string
   description: string
@@ -20,6 +21,10 @@ export interface PFI {
   invoiceType: string
   customerName: string
   customerAddress: string
+  customerStreet?: string
+  customerArea?: string
+  customerState?: string
+  customerPostcode?: string
   customerPhone: string
   customerEmail: string
   customerContact?: string

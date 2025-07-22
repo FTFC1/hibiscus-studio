@@ -8,10 +8,12 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { DatePicker } from "@/components/ui/date-picker"
 import { PhoneInput } from "@/components/ui/phone-input"
 import { ProgressHeader } from "@/components/ui/progress-header"
 import { DemoNotification } from "@/components/demo-notification"
+import { VehicleSelector } from "@/components/vehicle-selector"
 import {
   vehicleData,
   banks,
@@ -24,9 +26,9 @@ import {
   approvedByOptions,
 } from "@/lib/data"
 import { demoData } from "@/lib/demo-data"
-import { formatCurrency, formatCurrencyInput, parseCurrencyInput, validateMinimumPrice, generateInvoiceNumber, numberToWords, addDays, validateEmail } from "@/lib/utils"
+import { formatCurrency, formatCurrencyInput, parseCurrencyInput, validateMinimumPrice, generateInvoiceNumber, numberToWords, addDays, validateEmail, validatePhone, isValidEmail, isValidPhone } from "@/lib/utils"
 import type { LineItem, PFI } from "@/lib/types"
-import { Plus, Trash2, Mail, AlertCircle } from "lucide-react"
+import { Plus, Trash2, Mail, AlertCircle, ChevronDown } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 
 interface PFIFormProps {
@@ -50,7 +52,7 @@ interface ValidationErrors {
   bank?: string
   accountName?: string
   accountNumber?: string
-  lineItems?: { [key: number]: { brand?: string; model?: string; unitPrice?: string; quantity?: string } }
+  lineItems?: { [key: number]: { vehicleType?: string; brand?: string; model?: string; unitPrice?: string; quantity?: string } }
 }
 
 // Enhanced progress calculation based on form completion
@@ -141,6 +143,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
       lineItems: pfi?.lineItems || [
         {
           id: "1",
+          vehicleType: "",
           brand: "",
           model: "",
           description: "",
@@ -198,6 +201,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
   const [showTransport, setShowTransport] = React.useState(!!pfi?.transportCost)
   const [showRegistration, setShowRegistration] = React.useState(!!pfi?.registrationCost)
   const [emailValid, setEmailValid] = React.useState(false)
+  const [emailErrors, setEmailErrors] = React.useState<string[]>([])
+  const [phoneErrors, setPhoneErrors] = React.useState<string[]>([])
+  const [showEmailErrors, setShowEmailErrors] = React.useState(false)
+  const [showPhoneErrors, setShowPhoneErrors] = React.useState(false)
+  const [showAdditionalServices, setShowAdditionalServices] = React.useState(false)
   const [isDemoMode, setIsDemoMode] = React.useState(false)
   const [showDemoNotification, setShowDemoNotification] = React.useState(false)
 
@@ -274,6 +282,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
       lineItems: [
         {
           id: "1",
+          vehicleType: "",
           brand: "",
           model: "",
           description: "",
@@ -366,6 +375,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
   const addLineItem = () => {
     const newLineItem: LineItem = {
       id: Date.now().toString(),
+      vehicleType: "",
       brand: "",
       model: "",
       description: "",
@@ -454,7 +464,51 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
 
   const handleEmailChange = React.useCallback((email: string) => {
     setFormData((prev) => ({ ...prev, customerEmail: email }))
-    setEmailValid(validateEmail(email))
+    
+    // Enhanced validation with reward-early/punish-late pattern
+    const validation = validateEmail(email)
+    setEmailValid(validation.isValid)
+    setEmailErrors(validation.errors)
+    
+    // Show errors only after user stops typing (punish late)
+    const timeoutId = setTimeout(() => {
+      if (!validation.isValid && email.length > 0) {
+        setShowEmailErrors(true)
+      } else {
+        setShowEmailErrors(false)
+      }
+    }, 1000)
+    
+    // Clear errors immediately if email becomes valid (reward early)
+    if (validation.isValid) {
+      setShowEmailErrors(false)
+    }
+    
+    return () => clearTimeout(timeoutId)
+  }, [])
+
+  const handlePhoneChange = React.useCallback((phone: string) => {
+    setFormData((prev) => ({ ...prev, customerPhone: phone }))
+    
+    // Enhanced validation with reward-early/punish-late pattern
+    const validation = validatePhone(phone)
+    setPhoneErrors(validation.errors)
+    
+    // Show errors only after user stops typing (punish late)
+    const timeoutId = setTimeout(() => {
+      if (!validation.isValid && phone.length > 0) {
+        setShowPhoneErrors(true)
+      } else {
+        setShowPhoneErrors(false)
+      }
+    }, 1000)
+    
+    // Clear errors immediately if phone becomes valid (reward early)
+    if (validation.isValid) {
+      setShowPhoneErrors(false)
+    }
+    
+    return () => clearTimeout(timeoutId)
   }, [])
 
   const handleSave = () => {
@@ -685,24 +739,149 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
               )}
             </div>
 
-            <div>
-              <Label htmlFor="customerAddress" className="text-sm font-semibold text-slate-700 mb-2 block">
+            {/* Customer Address - Structured Fields */}
+            <div className="space-y-4">
+              <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                 Customer Address <span className="text-red-600">*</span>
               </Label>
-              <Textarea
-                id="customerAddress"
-                value={formData.customerAddress}
-                  onChange={(e) => {
-                    setFormData((prev) => ({ ...prev, customerAddress: e.target.value }))
-                    if (e.target.value) clearValidationError('customerAddress')
-                  }}
-                  placeholder="Enter complete address"
-                  className={`${getDemoInputClasses("")} min-h-[80px] text-base resize-none ${validationErrors.customerAddress ? 'border-red-300 bg-red-50' : ''}`}
-                rows={3}
-              />
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="customerStreet" className="text-xs font-medium text-slate-600 mb-1 block">
+                    Street/Building
+                  </Label>
+                  <Input
+                    id="customerStreet"
+                    value={formData.customerStreet || ""}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      setFormData((prev) => {
+                        const newData = { ...prev, customerStreet: value }
+                        // Auto-generate full address
+                        const fullAddress = [
+                          value,
+                          prev.customerArea,
+                          prev.customerState,
+                          prev.customerPostcode
+                        ].filter(Boolean).join(", ")
+                        newData.customerAddress = fullAddress
+                        return newData
+                      })
+                      if (value) clearValidationError('customerAddress')
+                    }}
+                    placeholder="e.g. Plot 15, Alausa Secretariat Road"
+                    className={`${getDemoInputClasses("")} h-11 text-base`}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="customerArea" className="text-xs font-medium text-slate-600 mb-1 block">
+                    Area/District
+                  </Label>
+                  <Input
+                    id="customerArea"
+                    value={formData.customerArea || ""}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      setFormData((prev) => {
+                        const newData = { ...prev, customerArea: value }
+                        // Auto-generate full address
+                        const fullAddress = [
+                          prev.customerStreet,
+                          value,
+                          prev.customerState,
+                          prev.customerPostcode
+                        ].filter(Boolean).join(", ")
+                        newData.customerAddress = fullAddress
+                        return newData
+                      })
+                      if (value) clearValidationError('customerAddress')
+                    }}
+                    placeholder="e.g. Ikeja"
+                    className={`${getDemoInputClasses("")} h-11 text-base`}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="customerState" className="text-xs font-medium text-slate-600 mb-1 block">
+                    State
+                  </Label>
+                  <Select
+                    value={formData.customerState || ""}
+                    onValueChange={(value) => {
+                      setFormData((prev) => {
+                        const newData = { ...prev, customerState: value }
+                        // Auto-generate full address
+                        const fullAddress = [
+                          prev.customerStreet,
+                          prev.customerArea,
+                          value,
+                          prev.customerPostcode
+                        ].filter(Boolean).join(", ")
+                        newData.customerAddress = fullAddress
+                        return newData
+                      })
+                      if (value) clearValidationError('customerAddress')
+                    }}
+                  >
+                    <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base`}>
+                      <SelectValue placeholder="Select state" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Lagos State">Lagos State</SelectItem>
+                      <SelectItem value="Abuja (FCT)">Abuja (FCT)</SelectItem>
+                      <SelectItem value="Kano State">Kano State</SelectItem>
+                      <SelectItem value="Rivers State">Rivers State</SelectItem>
+                      <SelectItem value="Oyo State">Oyo State</SelectItem>
+                      <SelectItem value="Kaduna State">Kaduna State</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="customerPostcode" className="text-xs font-medium text-slate-600 mb-1 block">
+                    Postcode <span className="text-xs text-slate-500">(Optional)</span>
+                  </Label>
+                  <Input
+                    id="customerPostcode"
+                    value={formData.customerPostcode || ""}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      setFormData((prev) => {
+                        const newData = { ...prev, customerPostcode: value }
+                        // Auto-generate full address
+                        const fullAddress = [
+                          prev.customerStreet,
+                          prev.customerArea,
+                          prev.customerState,
+                          value
+                        ].filter(Boolean).join(", ")
+                        newData.customerAddress = fullAddress
+                        return newData
+                      })
+                    }}
+                    placeholder="e.g. 100001"
+                    className={`${getDemoInputClasses("")} h-11 text-base`}
+                  />
+                </div>
+              </div>
+
+              {/* Generated Full Address Preview */}
+              <div>
+                <Label className="text-xs font-medium text-slate-600 mb-1 block">
+                  Generated Address <span className="text-xs text-slate-500">(Auto-generated)</span>
+                </Label>
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-md min-h-[60px]">
+                  <p className="text-sm text-slate-700">
+                    {formData.customerAddress || "Complete the fields above to see the generated address"}
+                  </p>
+                </div>
+              </div>
+
               {validationErrors.customerAddress && (
-                <p className="text-xs text-red-600 mt-1">
-                  <AlertCircle className="inline-block mr-1" /> {validationErrors.customerAddress}
+                <p className="text-xs text-red-600">
+                  <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.customerAddress}
                 </p>
               )}
             </div>
@@ -712,12 +891,28 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                 <Label htmlFor="customerPhone" className="text-sm font-semibold text-slate-700 mb-2 block">
                   Phone Number <span className="text-red-600">*</span>
               </Label>
-                <PhoneInput
-                  value={formData.customerPhone || ""}
-                  onChange={(value) => setFormData((prev) => ({ ...prev, customerPhone: value }))}
-                  placeholder="Enter phone number"
-                  className={getDemoInputClasses("")}
-                />
+                <div className="relative">
+                  <PhoneInput
+                    value={formData.customerPhone || ""}
+                    onChange={handlePhoneChange}
+                    placeholder="Enter phone number"
+                    className={`${getDemoInputClasses("")} ${showPhoneErrors && phoneErrors.length > 0 ? 'border-red-300 bg-red-50' : ''}`}
+                  />
+                  {isValidPhone(formData.customerPhone || "") && (
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-green-600">
+                      ✓
+                    </div>
+                  )}
+                </div>
+                {showPhoneErrors && phoneErrors.length > 0 && (
+                  <div className="mt-1">
+                    {phoneErrors.map((error, index) => (
+                      <p key={index} className="text-xs text-red-600">
+                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {error}
+                      </p>
+                    ))}
+                  </div>
+                )}
                 {validationErrors.customerPhone && (
                   <p className="text-xs text-red-600 mt-1">
                     <AlertCircle className="inline-block mr-1" /> {validationErrors.customerPhone}
@@ -736,15 +931,29 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                   value={formData.customerEmail}
                   onChange={(e) => handleEmailChange(e.target.value)}
                       placeholder="Enter email address"
-                      className={`${getDemoInputClasses("")} h-11 text-base pr-10`}
+                      className={`${getDemoInputClasses("")} h-11 text-base pr-10 ${showEmailErrors && emailErrors.length > 0 ? 'border-red-300 bg-red-50' : ''}`}
                 />
                   {emailValid && (
                     <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-green-600" />
                   )}
-                  {validationErrors.customerEmail && (
+                  {showEmailErrors && emailErrors.length > 0 && (
                     <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-600" />
                 )}
                 </div>
+                {showEmailErrors && emailErrors.length > 0 && (
+                  <div className="mt-1">
+                    {emailErrors.map((error, index) => (
+                      <p key={index} className="text-xs text-red-600">
+                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {error}
+                      </p>
+                    ))}
+                  </div>
+                )}
+                {validationErrors.customerEmail && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1" /> {validationErrors.customerEmail}
+                  </p>
+                )}
               </div>
             </div>
           </CardContent>
@@ -875,60 +1084,35 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                   )}
                 </div>
 
-                {/* Brand & Model - Mobile Stack */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                  {/* Brand Selection */}
-                  <div>
-                    <Label className="text-sm font-semibold text-slate-700 mb-2 block">
-                      Brand <span className="text-red-600">*</span>
-                    </Label>
-                    <Select value={item.brand} onValueChange={(value) => updateLineItem(index, "brand", value)}>
-                      <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base`}>
-                        <SelectValue placeholder="Select brand" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {brands.map((brand) => (
-                          <SelectItem key={brand} value={brand}>
-                            {brand}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {validationErrors.lineItems?.[index]?.brand && (
-                      <p className="text-xs text-red-600 mt-1">
-                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].brand}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Model Selection */}
-                  <div>
-                    <Label className="text-sm font-semibold text-slate-700 mb-2 block">
-                      Model <span className="text-red-600">*</span>
-                    </Label>
-                    <Select
-                      value={item.model}
-                      onValueChange={(value) => updateLineItem(index, "model", value)}
-                      disabled={!item.brand}
-                    >
-                      <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base ${!item.brand ? 'opacity-50' : ''}`}>
-                        <SelectValue placeholder={!item.brand ? "Select brand first" : "Select model"} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {getModelsForBrand(item.brand).map((model) => (
-                          <SelectItem key={model} value={model}>
-                            {model}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {validationErrors.lineItems?.[index]?.model && (
-                      <p className="text-xs text-red-600 mt-1">
-                        <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].model}
-                      </p>
-                    )}
-                  </div>
-                </div>
+                {/* Vehicle Selection - Progressive Disclosure: Vehicle Type → Brand → Model */}
+                <VehicleSelector
+                  defaultType={item.vehicleType as any}
+                  defaultBrand={item.brand}
+                  defaultModel={item.model}
+                  onSelect={(vehicle) => {
+                    updateLineItem(index, "vehicleType", vehicle.type)
+                    updateLineItem(index, "brand", vehicle.brand)
+                    updateLineItem(index, "model", vehicle.model)
+                    updateLineItem(index, "description", vehicle.description)
+                    updateLineItem(index, "warranty", vehicle.warranty)
+                    updateLineItem(index, "segment", vehicle.segment)
+                  }}
+                />
+                {validationErrors.lineItems?.[index]?.vehicleType && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].vehicleType}
+                  </p>
+                )}
+                {validationErrors.lineItems?.[index]?.brand && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].brand}
+                  </p>
+                )}
+                {validationErrors.lineItems?.[index]?.model && (
+                  <p className="text-xs text-red-600 mt-1">
+                    <AlertCircle className="inline-block mr-1 w-3 h-3" /> {validationErrors.lineItems[index].model}
+                  </p>
+                )}
 
                 {/* Quantity & Total - Mobile Stack */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -1034,12 +1218,26 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
           </CardContent>
         </Card>
 
-        {/* Additional Services - Mobile Optimized */}
+        {/* Additional Services - Collapsible by Default */}
         <Card className={`shadow-sm ${isDemoMode ? "border-orange-200" : ""}`}>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Additional Services</CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 space-y-4">
+          <Collapsible open={showAdditionalServices} onOpenChange={setShowAdditionalServices}>
+            <CollapsibleTrigger asChild>
+              <CardHeader className="pb-3 cursor-pointer hover:bg-slate-50 transition-colors">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg">Additional Services</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-slate-500">
+                      {showAdditionalServices ? "Hide" : "Show"} optional services
+                    </span>
+                    <ChevronDown 
+                      className={`w-4 h-4 text-slate-500 transition-transform ${showAdditionalServices ? "rotate-180" : ""}`}
+                    />
+                  </div>
+                </div>
+              </CardHeader>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <CardContent className="p-4 space-y-4">
             <div>
               <Label className="text-sm font-medium">Registration</Label>
               <Select
@@ -1156,7 +1354,9 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                 />
               )}
             </div>
-          </CardContent>
+              </CardContent>
+            </CollapsibleContent>
+          </Collapsible>
         </Card>
 
         {/* Invoice Totals - Enhanced Visual Hierarchy */}
