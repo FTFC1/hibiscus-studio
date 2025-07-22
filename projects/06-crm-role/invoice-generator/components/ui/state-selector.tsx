@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
-import { US_STATES, searchStates, type USState } from "@/lib/us-states"
+import { NIGERIAN_STATES, searchNigerianStates, type NigerianState } from "@/lib/nigerian-states"
 
 interface StateSelectorProps {
   value?: string
@@ -36,15 +36,15 @@ export function StateSelector({
   const [searchQuery, setSearchQuery] = React.useState("")
   
   const selectedState = React.useMemo(() => {
-    return US_STATES.find(state => state.name === value || state.abbreviation === value)
+    return NIGERIAN_STATES.find(state => state.name === value || state.abbreviation === value)
   }, [value])
 
   const filteredStates = React.useMemo(() => {
-    return searchStates(searchQuery)
+    return searchNigerianStates(searchQuery)
   }, [searchQuery])
 
   const handleSelect = (stateName: string) => {
-    const state = US_STATES.find(s => s.name === stateName)
+    const state = NIGERIAN_STATES.find(s => s.name === stateName)
     if (state) {
       onValueChange?.(state.name)
       setOpen(false)
@@ -103,7 +103,7 @@ export function StateSelector({
                 >
                   <div className="flex items-center gap-2">
                     <span className="font-medium">{state.name}</span>
-                    <span className="text-sm text-muted-foreground">({state.abbreviation})</span>
+                    <span className="text-sm text-muted-foreground">({state.geopoliticalZone})</span>
                   </div>
                   {state.capital && (
                     <span className="text-xs text-muted-foreground">{state.capital}</span>
