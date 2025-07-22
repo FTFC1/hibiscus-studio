@@ -206,7 +206,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
   const [phoneErrors, setPhoneErrors] = React.useState<string[]>([])
   const [showEmailErrors, setShowEmailErrors] = React.useState(false)
   const [showPhoneErrors, setShowPhoneErrors] = React.useState(false)
-  const [showAdditionalServices, setShowAdditionalServices] = React.useState(false)
+  const [showAdditionalServices, setShowAdditionalServices] = React.useState(false) // Closed by default
   const [isDemoMode, setIsDemoMode] = React.useState(false)
   const [showDemoNotification, setShowDemoNotification] = React.useState(false)
 
