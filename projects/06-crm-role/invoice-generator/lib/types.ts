@@ -17,7 +17,6 @@ export interface PFI {
   id: string
   invoiceNumber: string
   invoiceDate: Date
-  validUntil: Date
   invoiceType: string
   customerName: string
   customerAddress: string
@@ -27,30 +26,15 @@ export interface PFI {
   customerPostcode?: string
   customerPhone: string
   customerEmail: string
-  customerContact?: string
+  customerContact: string
   salesExecutive: string
   contactNumber: string
   lineItems: LineItem[]
-  registration?: {
-    type: string
-    cost: number
-  }
-  insurance?: {
-    type: string
-    cost: number
-  }
-  serviceOilChange?: {
-    type: string
-    cost: number
-    quantity: number
-  }
+  registration?: { type: string; cost: number }
+  insurance?: { type: string; cost: number }
+  serviceOilChange?: { type: string; cost: number; quantity: number }
   transportCost?: number
   registrationCost?: number
-  discount?: number
-  subtotal: number
-  vat: number
-  total: number
-  amountInWords: string
   bank: string
   accountName: string
   accountNumber: string
@@ -58,6 +42,12 @@ export interface PFI {
   approvedBy: string
   paymentTerms: string
   internalNotes?: string
+  discount?: number
+  discountType?: "percentage" | "amount"
+  subtotal: number
+  vat: number
+  total: number
+  amountInWords: string
   createdAt: Date
   updatedAt: Date
 }

@@ -206,9 +206,9 @@ export function PFIDashboard({
             <p className="text-gray-600">Manage your proforma invoices</p>
           </div>
           <div className="flex gap-2">
-            <Button onClick={onSettings} variant="outline">
+            <Button variant="outline" onClick={onSettings}>
               <Settings className="w-4 h-4 mr-2" />
-              User Management
+              System Settings
             </Button>
             <Button onClick={handleSignOut} variant="outline">
               <LogOut className="w-4 h-4 mr-2" />
@@ -351,7 +351,7 @@ export function PFIDashboard({
         <div className="md:hidden grid grid-cols-2 gap-2">
           <Button onClick={onSettings} variant="outline" className="bg-transparent">
             <Settings className="w-4 h-4 mr-2" />
-            User Management
+            System Settings
           </Button>
           <Button onClick={handleSignOut} variant="outline" className="bg-transparent">
             <LogOut className="w-4 h-4 mr-2" />

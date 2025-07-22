@@ -15,6 +15,7 @@ import { ProgressHeader } from "@/components/ui/progress-header"
 import { DemoNotification } from "@/components/demo-notification"
 import { VehicleSelector } from "@/components/vehicle-selector"
 import { StateSelector } from "@/components/ui/state-selector"
+import { InternalNotesFAB } from "@/components/ui/internal-notes-fab"
 import {
   vehicleData,
   banks,
@@ -62,7 +63,7 @@ const calculateProgress = (formData: Partial<PFI>) => {
   const totalSections = 12 // Total sections to complete
 
   // Form completion checks - more granular
-  if (formData.invoiceNumber && formData.invoiceDate && formData.validUntil && formData.invoiceType) formCompleted++
+  if (formData.invoiceNumber && formData.invoiceDate && formData.invoiceType) formCompleted++
   if (formData.customerName && formData.customerAddress) formCompleted++
   if (formData.customerPhone && formData.customerEmail) formCompleted++
   if (formData.salesExecutive && formData.contactNumber) formCompleted++
@@ -132,7 +133,6 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
     return {
       invoiceNumber: pfi?.invoiceNumber || generateInvoiceNumber(),
       invoiceDate: pfi?.invoiceDate || new Date(),
-      validUntil: pfi?.validUntil || addDays(new Date(), 30),
       invoiceType: pfi?.invoiceType || "Standard",
       customerName: pfi?.customerName || "",
       customerAddress: pfi?.customerAddress || "",
@@ -168,8 +168,8 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
       preparedBy: pfi?.preparedBy || lastUsed.preparedBy,
       approvedBy: pfi?.approvedBy || lastUsed.approvedBy,
       paymentTerms: pfi?.paymentTerms || "Payment to be made within 30 days of invoice date. Delivery upon full payment confirmation.",
-      internalNotes: pfi?.internalNotes || "",
       discount: pfi?.discount || 0,
+      internalNotes: pfi?.internalNotes || "",
     }
   }
 
@@ -209,6 +209,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
   const [showAdditionalServices, setShowAdditionalServices] = React.useState(false) // Closed by default
   const [isDemoMode, setIsDemoMode] = React.useState(false)
   const [showDemoNotification, setShowDemoNotification] = React.useState(false)
+  const [discountType, setDiscountType] = React.useState<"percentage" | "amount">("amount")
 
   // Remove scroll tracking - using form completion percentage instead
 
@@ -271,7 +272,6 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
     setFormData({
       invoiceNumber: generateInvoiceNumber(),
       invoiceDate: new Date(),
-      validUntil: addDays(new Date(), 30),
       invoiceType: "Standard",
       customerName: "",
       customerAddress: "",
@@ -306,8 +306,8 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
       preparedBy: lastUsed.preparedBy,
       approvedBy: lastUsed.approvedBy,
       paymentTerms: "Payment to be made within 30 days of invoice date. Delivery upon full payment confirmation.",
-      internalNotes: "",
       discount: 0,
+      internalNotes: "",
     })
     setShowTransport(false)
     setShowRegistration(false)
@@ -634,10 +634,10 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
         onPreview={handlePreview}
         title="Create PFI"
         showBackButton={true}
-        showSaveButton={true}
+        showSaveButton={false} // REMOVED: "Save" button removed per user feedback
         showDemoButton={true}
         onBack={onBack}
-        onSave={handleSave}
+        onSave={handleSave} // This prop is unused now but kept for type safety
         onDemo={loadDemoData}
         onLogoClick={onBack}
       />
@@ -699,16 +699,7 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                 />
             </div>
 
-            <div>
-                <Label htmlFor="validUntil" className="text-sm font-semibold text-slate-700 mb-2 block">
-                Valid Until
-              </Label>
-                <DatePicker
-                  date={formData.validUntil}
-                  onDateChange={(date) => setFormData((prev) => ({ ...prev, validUntil: date }))}
-                  className={getDemoInputClasses("")}
-                />
-              </div>
+              {/* REMOVED: "Valid Until" Date Picker per user feedback */}
             </div>
           </CardContent>
         </Card>
@@ -1366,17 +1357,54 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
               <Label className="text-sm font-semibold text-slate-700 mb-2 block">
                 Discount <span className="text-xs text-slate-500 font-normal">(Optional)</span>
               </Label>
-              <div className="relative">
-              <Input
-                  type="text"
-                  value={(formData.discount || 0) > 0 ? formatCurrencyInput((formData.discount || 0).toString()) : ''}
-                  onChange={(e) => {
-                    handleCurrencyInput(e.target.value, (rawValue) => setFormData((prev) => ({ ...prev, discount: rawValue })));
-                  }}
-                  placeholder="0.00"
-                  className="h-11 text-base pl-9"
-                />
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">₦</span>
+              <div className="flex items-center gap-2">
+                <div className="relative flex-grow">
+                  <Input
+                    type="text"
+                    value={
+                      discountType === "amount"
+                        ? (formData.discount || 0) > 0 ? formatCurrencyInput((formData.discount || 0).toString()) : ""
+                        : formData.discount || 0
+                    }
+                    onChange={(e) => {
+                      if (discountType === "amount") {
+                        handleCurrencyInput(e.target.value, (rawValue) => setFormData((prev) => ({ ...prev, discount: rawValue })));
+                      } else {
+                        const percentage = Math.min(100, Math.max(0, parseFloat(e.target.value) || 0));
+                        setFormData((prev) => ({ ...prev, discount: percentage }));
+                      }
+                    }}
+                    placeholder={discountType === "amount" ? "0.00" : "0"}
+                    className="h-11 text-base pl-9"
+                  />
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-600 font-medium text-base">
+                    {discountType === "amount" ? "₦" : "%"}
+                  </span>
+                </div>
+                <Select value={discountType} onValueChange={(value) => setDiscountType(value as any)}>
+                  <SelectTrigger className="w-[100px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="amount">Amount (₦)</SelectItem>
+                    <SelectItem value="percentage">Percent (%)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex gap-2 mt-2">
+                {[5, 10, 15, 20].map((p) => (
+                  <Button
+                    key={p}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setDiscountType("percentage");
+                      setFormData((prev) => ({ ...prev, discount: p }));
+                    }}
+                  >
+                    {p}%
+                  </Button>
+                ))}
               </div>
             </div>
 
@@ -1401,28 +1429,6 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                 readOnly
                 className="mt-1 bg-gray-50 text-sm"
                 rows={2}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Internal Notes - Enhanced Visual Hierarchy */}
-        <Card className="shadow-sm border-0 ring-1 ring-gray-200">
-          <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 pb-4">
-            <CardTitle className="text-slate-800 text-xl font-semibold tracking-tight">Internal Notes</CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div>
-              <Label htmlFor="internalNotes" className="text-sm font-semibold text-slate-700 mb-2 block">
-                Notes <span className="text-xs text-slate-500 font-normal">(For internal team communication)</span>
-              </Label>
-              <Textarea
-                id="internalNotes"
-                value={formData.internalNotes || ""}
-                onChange={(e) => setFormData((prev) => ({ ...prev, internalNotes: e.target.value }))}
-                placeholder="Add any internal notes, status updates, or team communications..."
-                className={`${getDemoInputClasses("")} min-h-[100px] text-base resize-none`}
-                rows={4}
               />
             </div>
           </CardContent>
@@ -1547,6 +1553,11 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
           </CardContent>
         </Card>
       </div>
+
+      <InternalNotesFAB
+        notes={formData.internalNotes || ""}
+        onNotesChange={(notes) => setFormData((prev) => ({ ...prev, internalNotes: notes }))}
+      />
     </div>
   )
 }

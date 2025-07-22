@@ -1,49 +1,45 @@
 # 📋 USER REQUEST TRACKER
 
-## ✅ FIXED: INFINITE LOOP BUG
-- **Status**: COMPLETED  
-- **Issue**: React "Maximum update depth exceeded" error in PFI form
-- **Cause**: useCallback returning cleanup function (should be useEffect)
-- **Solution**: Fixed email/phone validation with proper useEffect debouncing
+## 🎯 CURRENT PLAN: Final Transcript Requirements
+
+This plan is based on a full re-review of the user transcript. These are the final changes required.
+
+### 📋 Remaining Tasks (In Progress)
+
+1.  **[ ] "User Management" Button → "System Settings"**
+    -   **Reason**: The button will manage more than just users (brands, models, etc.).
+    -   **File**: `components/pfi-dashboard.tsx`
+
+2.  **[ ] Remove "Valid Until" Date Picker**
+    -   **Reason**: Not needed for management PFIs; validity is immediate.
+    -   **File**: `components/pfi-form.tsx`
+
+3.  **[ ] Flexible Discount Input (% or ₦)**
+    -   **Reason**: Allow discount as a percentage OR a fixed Naira amount with quick selects.
+    -   **Files**: `components/pfi-form.tsx`, `lib/types.ts`
+
+4.  **[ ] "Internal Notes" → Floating Action Button (FAB)**
+    -   **Reason**: Notes are secondary; should not be a main form section.
+    -   **Files**: `components/pfi-form.tsx`, `components/ui/internal-notes-fab.tsx` (new)
+
+5.  **[ ] Remove Duplicate "Prepared By" & "Approved By"**
+    -   **Reason**: These fields only belong in the final "Terms & Authorization" section.
+    -   **File**: `components/pfi-form.tsx`
+
+6.  **[ ] Remove "Save" Button**
+    -   **Reason**: The primary actions are "Preview" and "Download"; saving state is not required for this workflow.
+    -   **File**: `components/pfi-form.tsx`
 
 ---
 
-## 📝 PENDING USER REQUESTS
+## ✅ PREVIOUSLY COMPLETED
 
-### 🔍 Screenshot Reference Implementation
-- **Request**: "You forgot that each screenshot in @/another was either documentation or reference for you to improve something"  
-- **File**: `collected/another/feature-reference.png` (renamed from CleanShot)
-- **Status**: PENDING - Need user to describe what screenshot shows
-- **Action Needed**: Ask user what the screenshot demonstrates for implementation
-
-### 🇳🇬 Nigerian Demo Data Update
-- **Request**: "All demo data must be Nigerian. Mikano is a Lagos-based Nigerian company"
-- **Status**: IN PROGRESS
-- **Action**: Updating all demo data to use Nigerian companies, addresses, names, contacts
-
-### ✅ COMPLETED REQUESTS  
-- ✅ Modern 2025 vehicle selection (replaced 2008-style dropdowns)
-- ✅ All 50 US states with search autofill
-- ✅ Additional services collapsed by default  
-- ✅ Enhanced email/phone validation
-- ✅ Sales executive auto-fill
-- ✅ Customer address restructure (Street/Building, Area/District, State, Postcode)
+-   **React Infinite Loop Bug**: Fixed.
+-   **Nigerian Localization**: Completed.
+-   **Screenshot Organization**: Completed.
+-   **Modern Vehicle Selector**: Completed.
+-   **Core Form Logic**: Address structure, validation, auto-fills, collapsible sections all completed.
 
 ---
 
-## 🎯 SYSTEM IMPROVEMENTS NEEDED
-- [x] ~~Fix React infinite loop bug (CRITICAL)~~ ✅ COMPLETED
-- [ ] Implement screenshot reference requirements  
-- [x] ~~Better error handling and validation~~ ✅ COMPLETED (Enhanced email/phone validation)
-- [x] ~~Performance optimizations~~ ✅ COMPLETED (Modern 2025 UX patterns)
-
----
-
-## 📱 CURRENT DEV STATUS
-- **Server**: Running on http://localhost:3000
-- **Status**: ✅ WORKING PERFECTLY - All bugs fixed!
-- **Last Action**: Fixed React infinite loop bug with proper useEffect patterns
-
----
-
-*Last Updated: 2025-01-21 - Never forgetting requests again!* 🤖 
+*Last Updated: 2025-01-21 23:10 - Executing final requirements.* 🤖 
