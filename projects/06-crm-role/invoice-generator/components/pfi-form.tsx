@@ -14,6 +14,7 @@ import { PhoneInput } from "@/components/ui/phone-input"
 import { ProgressHeader } from "@/components/ui/progress-header"
 import { DemoNotification } from "@/components/demo-notification"
 import { VehicleSelector } from "@/components/vehicle-selector"
+import { StateSelector } from "@/components/ui/state-selector"
 import {
   vehicleData,
   banks,
@@ -804,9 +805,9 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
 
                 <div>
                   <Label htmlFor="customerState" className="text-xs font-medium text-slate-600 mb-1 block">
-                    State
+                    State <span className="text-red-600">*</span>
                   </Label>
-                  <Select
+                  <StateSelector
                     value={formData.customerState || ""}
                     onValueChange={(value) => {
                       setFormData((prev) => {
@@ -823,20 +824,9 @@ export function PFIForm({ pfi, onSave, onPreview, onBack, isPreviewMode = false 
                       })
                       if (value) clearValidationError('customerAddress')
                     }}
-                  >
-                    <SelectTrigger className={`${getDemoInputClasses("")} h-11 text-base`}>
-                      <SelectValue placeholder="Select state" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Lagos State">Lagos State</SelectItem>
-                      <SelectItem value="Abuja (FCT)">Abuja (FCT)</SelectItem>
-                      <SelectItem value="Kano State">Kano State</SelectItem>
-                      <SelectItem value="Rivers State">Rivers State</SelectItem>
-                      <SelectItem value="Oyo State">Oyo State</SelectItem>
-                      <SelectItem value="Kaduna State">Kaduna State</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
+                    placeholder="Search states..."
+                    className={getDemoInputClasses("")}
+                  />
                 </div>
 
                 <div>
