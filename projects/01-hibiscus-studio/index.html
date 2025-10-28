@@ -12,7 +12,7 @@
   <link rel="dns-prefetch" href="//www.youtube.com">
   <link rel="dns-prefetch" href="//maps.googleapis.com">
   
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?v=1"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -243,7 +243,7 @@
       <div class="text-center space-y-6">
         <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md mx-auto shadow-lg">
           <h3 class="font-semibold text-gray-900 dark:text-white mb-6">Follow Our Journey</h3>
-          <div class="flex justify-center gap-8">
+          <div class="flex justify-center gap-6">
             <a href="https://www.instagram.com/hibiscusstudiosuk" target="_blank" class="flex flex-col items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors group">
               <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -252,6 +252,15 @@
               </div>
               <span class="text-sm font-medium">Instagram</span>
             </a>
+            <div class="flex flex-col items-center gap-2 text-gray-400 dark:text-gray-500 group">
+              <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </div>
+              <span class="text-sm font-medium">YouTube</span>
+              <span class="text-xs text-gray-400">Coming Soon</span>
+            </div>
             <a href="https://www.tiktok.com/@hibiscusstudiouk" target="_blank" class="flex flex-col items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors group">
               <div class="w-12 h-12 bg-black dark:bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-6 h-6 text-white dark:text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -297,7 +306,7 @@
               </div>
               <h4 class="text-xl font-bold text-gray-900 dark:text-white">Event Hire</h4>
               <p class="text-sm text-gray-600 dark:text-gray-400">Corporate events, private parties & celebrations</p>
-              <div class="text-sm font-medium text-blue-600 dark:text-blue-400">£145 - £885</div>
+              <div class="text-sm font-medium text-blue-600 dark:text-blue-400">£345 - £885</div>
             </button>
             
             <!-- Workshops & Content Category - THIRD -->
@@ -327,56 +336,42 @@
               </button>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              <!-- Event Hourly -->
+              <!-- 4hrs Flexi -->
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
                 <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Hourly</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(2hr minimum)</p>
-                  <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£145</div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">per hour</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Perfect for shorter corporate events and private parties.</p>
-                </div>
-                <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79362536')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                  Book Now
-                </button>
-              </div>
-
-              <!-- 4 Hours -->
-              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
-                <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">4 Hours</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Half-Day Option</p>
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">4hrs Flexi</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Can be booked anytime</p>
                   <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£345</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">4 hours</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Ideal for focused events or meetings.</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Ideal for focused events or meetings with flexible timing.</p>
                 </div>
                 <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80372609?appointmentTypeIds%5B%5D=80372609')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                   Book Now
                 </button>
               </div>
 
-              <!-- 6 Hours -->
+              <!-- Half-Day -->
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
                 <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">6 Hours</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm or 4pm-10pm)</p>
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Half-Day</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm OR 4pm-10pm)</p>
                   <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£465</div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Great for workshops or extended celebrations.</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">6 hours + bonus hour</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Great for workshops or extended celebrations. Includes complimentary bonus hour for setup/pack down.</p>
                 </div>
                 <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                   Book Now
                 </button>
               </div>
 
-              <!-- 8 Hours -->
+              <!-- 8hrs Flexi -->
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
                 <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">8 Hours</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Extended Day Option</p>
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">8hrs Flexi</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Can be booked anytime</p>
                   <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£645</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">8 hours</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">More time for setup, networking, and celebrating.</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">More time for setup, networking, and celebrating with flexible timing.</p>
                 </div>
                 <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372722')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                   Book Now
@@ -389,14 +384,28 @@
                   Most Popular
                 </div>
                 <div class="text-center space-y-3">
-                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Event Full-Day</h5>
+                    <h5 class="text-lg font-bold text-gray-900 dark:text-white">Full-Day</h5>
                     <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
                     <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£885</div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Complete day access for major events and celebrations.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">12 hours + bonus hour</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Complete day access for major events and celebrations. Includes complimentary bonus hour for setup/pack down.</p>
                 </div>
                 <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                       Book Now
+                </button>
+              </div>
+
+              <!-- Late Finish -->
+              <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
+                <div class="text-center space-y-3">
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Late Finish</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(4pm-midnight)</p>
+                  <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£845</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">8 hours</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Perfect for evening events with extended celebration time until midnight.</p>
+                </div>
+                <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
+                  Book Now
                 </button>
               </div>
             </div>
@@ -415,28 +424,28 @@
               </button>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              <!-- Workshop Hourly -->
+              <!-- Workshop 2 Hours -->
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
                 <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Hourly</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(2hr minimum)</p>
-                  <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£105</div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">per hour</p>
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">2 Hours</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Workshop Session</p>
+                  <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£120</div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">2 hours</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for teaching workshops and small group sessions. Up to 20 attendees.</p>
                   <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163988/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
                 </div>
               </div>
-              
+
               <!-- Workshop Half-Day -->
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
                 <div class="text-center space-y-3">
                   <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Half-Day</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10-4 / 4-10)</p>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm OR 4pm-10pm)</p>
                   <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£345</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Extended workshops and training sessions. Up to 20 attendees.</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Morning slot 10am-4pm OR Evening slot 4pm-10pm. Up to 20 attendees.</p>
                   <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
@@ -460,10 +469,10 @@
               <!-- Content Creation Hourly -->
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
                 <div class="text-center space-y-3">
-                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Hourly</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(2hr minimum)</p>
+                  <h5 class="text-lg font-bold text-gray-900 dark:text-white">2 Hours</h5>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Content Creation</p>
                   <div class="text-2xl font-bold text-green-600 dark:text-green-400">£90</div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">per hour</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">2 hours</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Content creation and photo shoots with natural light.</p>
                   <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80162472')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
@@ -478,10 +487,10 @@
               <div class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
                 <div class="text-center space-y-3">
                   <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Half-Day</h5>
-                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10-4 / 4-10)</p>
-                  <div class="text-2xl font-bold text-green-600 dark:text-green-400">£295</div>
+                  <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm OR 4pm-10pm)</p>
+                  <div class="text-2xl font-bold text-green-600 dark:text-green-400">£250</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Extended content creation sessions with kitchen access.</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Morning slot 10am-4pm OR Evening slot 4pm-10pm. Extended content creation sessions with kitchen access.</p>
                   <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
                     Book Now
                   </button>
@@ -493,7 +502,7 @@
                 <div class="text-center space-y-3">
                   <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Full-Day</h5>
                   <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
-                  <div class="text-2xl font-bold text-green-600 dark:text-green-400">£545</div>
+                  <div class="text-2xl font-bold text-green-600 dark:text-green-400">£500</div>
                   <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">Full-day content creation with complete kitchen access.</p>
                   <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163518/calendar/12260380')" class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
@@ -573,13 +582,22 @@
       <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-center fade-in">Frequently Asked Questions</h2>
 
       <div class="space-y-4">
+        <!-- FAQ Item - Capacity (NEW) -->
+        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
+            What's the capacity?
+            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">40 people seated. 70 standing.</p>
+        </details>
+
         <!-- FAQ Item -->
         <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
           <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            How do I secure my date?
+            How to secure my booking
             <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
           </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Choose your booking type above, book directly into our Acuity calendar, and we'll invoice 50% deposit within 48 hours. Your date is secured upon booking.</p>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Choose your booking type. Reserve your date on our calendar. We will invoice you within 48 hours. Once your 50% deposit is received your booking is confirmed. If we do not receive your deposit within 48 hours we will cancel your booking.</p>
         </details>
 
         <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
@@ -587,7 +605,7 @@
             Can I bring my own food & drinks?
             <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
           </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Absolutely. Our kitchenette is yours to use. Outside catering is welcome—just leave the space as you found it.</p>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Absolutely. Our kitchenette is yours to use and includes a fridge, 5-hob stove, microwave, and double oven. Outside catering is welcome. Please note: we do not provide any cooking utensils or equipment, and the space must be left as you found it.</p>
         </details>
 
         <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
@@ -595,7 +613,7 @@
             What's the cancellation policy?
             <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
           </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Full refund of the deposit if you cancel at least 48&nbsp;hours before your event. Within 48&nbsp;hours the deposit becomes non-refundable.</p>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">• More than 30 days before: Full refund of the deposit, or reschedule without fees (subject to availability). • 15–30 days before: 50% of the deposit refunded, or one free reschedule (must be confirmed within 14 days of the original booking). • 7–14 days before: The deposit is non-refundable. Rescheduling may be allowed for a £25 admin fee (subject to availability). • Less than 7 days before: The deposit is forfeited, and no rescheduling is permitted. • No-show or same-day cancellations: The full booking amount will be charged as a no-show fee.</p>
         </details>
 
         <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
@@ -603,7 +621,7 @@
             Is parking available?
             <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
           </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Parking is the client's responsibility. Paid parking is available nearby. There's a 30-minute loading zone at the entrance for drop-offs.</p>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Parking is the client's responsibility. Paid parking is available on nearby streets. Parking is free after 6:30 PM and all day on Sundays. There's also a 30-minute loading zone at the entrance for drop-offs and collections.</p>
         </details>
 
         <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
@@ -611,8 +629,115 @@
             What about setup and pack down time?
             <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
           </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">For Event Hire we offer a complimentary hour at the end of your booking. Please include enough time to set up when booking your slot.</p>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">For Event Hire, we offer a complimentary hour at the end of your booking. Please include enough time for setup when reserving your slot.</p>
         </details>
+
+        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
+            Your hire includes:
+            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Your hire includes:<br>• 40 limewash Chiavari chairs<br>• 10 trestle tables (each 6ft x 2ft)</p>
+        </details>
+
+        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
+            Can I bring a DJ or play music?
+            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Yes, DJs are welcome! Please note we do not supply speakers or a PA system — these must be brought with you. Please also ensure noise levels are respectful; excessively loud music or any noise complaints will result in the loss of your damages deposit.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms & Conditions Section -->
+  <section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Terms & Conditions</h2>
+        <p class="text-gray-600 dark:text-gray-400">Please review our terms before booking</p>
+      </div>
+      
+      <div class="space-y-6 max-w-3xl mx-auto">
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">1. Deposit and Booking Confirmation</h3>
+          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+            <li>• A 50% deposit is required upon booking to secure your desired date and time.</li>
+            <li>• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame, the booking will be automatically released.</li>
+            <li>• A new invoice will be required to re-book the date and time.</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">2. Booking Start and End Times</h3>
+          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+            <li>• The hire period begins at the agreed start time and ends at the agreed end time as stated in your booking confirmation.</li>
+            <li>• Any setup or breakdown must occur within the booked time frame.</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">3. Grace Period and Late Fees</h3>
+          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+            <li>• A 30-minute grace period is allowed after the agreed end time.</li>
+            <li>• After the grace period, a late fee of £50 will be charged for every additional 30 minutes (or part thereof).</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">4. Changes to Booking</h3>
+          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+            <li>• Requests to change the booking date or time must be made at least 7 days in advance and are subject to availability.</li>
+            <li>• Changes may incur additional fees depending on the nature of the request.</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">5. Cancellations and Refunds by the Client</h3>
+          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+            <li>• <strong>More than 30 Days Before Booking Date:</strong> The deposit will be fully refunded, or the booking can be rescheduled without fees (subject to availability).</li>
+            <li>• <strong>15–30 Days Before Booking Date:</strong> 50% of the deposit will be refunded, or one free reschedule is permitted (must be confirmed within 14 days of the original booking).</li>
+            <li>• <strong>7–14 Days Before Booking Date:</strong> The deposit is non-refundable. Rescheduling may be allowed for an admin fee of £25 (subject to availability).</li>
+            <li>• <strong>Less than 7 Days Before Booking Date:</strong> The deposit is forfeited, and no rescheduling is permitted.</li>
+            <li>• <strong>No-Show or Same-Day Cancellations:</strong> The full booking amount will be charged as a no-show fee.</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">6. Studio Usage</h3>
+          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+            <li>• The studio must be left in the condition it was found. Cleaning fees may apply if additional cleaning is required.</li>
+            <li>• All equipment and furniture must be treated with care and returned to their original positions.</li>
+            <li>• Do not move or drag tables, chairs, or heavy furniture — these must only be moved by the Hibiscus Studio team.</li>
+            <li>• Any damage caused from moving items without permission may result in deductions from the damages deposit.</li>
+            <li>• Excessively loud music, noise complaints, or damages to studio property will result in additional charges and/or the loss of your damages deposit.</li>
+            <li>• Any rubbish found left behind, inside or outside the studio, will result in a £50 fee automatically deducted from your damages deposit.</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">7. Liability</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">Hibiscus Studio is not liable for any personal injury, loss, or damage to property incurred during the hire period.</p>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">8. Prohibited Activities</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">Smoking, illegal substances, and any unsafe or illegal activities are strictly prohibited within the studio.</p>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">9. Damages Deposit</h3>
+          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+            <li>• A £200 refundable damages deposit is required for each booking.</li>
+            <li>• This will be returned within 1–3 working days after the event, pending an inspection of the space.</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">10. Acceptance of Terms</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">By paying the deposit, you agree to these Terms & Conditions.</p>
+        </div>
       </div>
     </div>
   </section>
