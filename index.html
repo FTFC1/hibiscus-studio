@@ -13,6 +13,7 @@
   <link rel="dns-prefetch" href="//maps.googleapis.com">
   
   <script src="https://cdn.tailwindcss.com?v=1"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -285,9 +286,10 @@
 
         <!-- Video Container with Responsive Aspect Ratio -->
         <div class="max-w-sm mx-auto">
-          <div class="media-container">
+          <div class="media-container" id="youtube-short-container">
             <iframe
-              src="https://www.youtube.com/embed/Qkyqb8bXjr0"
+              id="youtube-short-video"
+              src="https://www.youtube.com/embed/Qkyqb8bXjr0?enablejsapi=1&mute=1&loop=1&playlist=Qkyqb8bXjr0"
               title="Hibiscus Studio Tour"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen>
@@ -922,6 +924,47 @@
   </script>
 
   <script>
+    // YouTube Autoplay on Scroll
+    let youtubePlayer;
+    let playerReady = false;
+
+    // YouTube iframe API callback
+    function onYouTubeIframeAPIReady() {
+      youtubePlayer = new YT.Player('youtube-short-video', {
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      playerReady = true;
+
+      // Set up Intersection Observer for autoplay
+      const videoContainer = document.getElementById('youtube-short-container');
+
+      if (videoContainer) {
+        const observerOptions = {
+          threshold: 0.5, // Trigger when 50% of video is visible
+          rootMargin: '0px'
+        };
+
+        const videoObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && playerReady) {
+              // Video is in view, play it
+              youtubePlayer.playVideo();
+            } else if (!entry.isIntersecting && playerReady) {
+              // Video is out of view, pause it
+              youtubePlayer.pauseVideo();
+            }
+          });
+        }, observerOptions);
+
+        videoObserver.observe(videoContainer);
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
 
 
