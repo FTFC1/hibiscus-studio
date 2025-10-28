@@ -287,7 +287,8 @@
         <div class="max-w-sm mx-auto">
           <div class="media-container">
             <iframe
-              src="https://www.youtube.com/embed/Qkyqb8bXjr0"
+              id="youtube-video"
+              src="https://www.youtube.com/embed/Qkyqb8bXjr0?enablejsapi=1"
               title="Hibiscus Studio Tour"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen>
@@ -986,6 +987,49 @@
         });
       },{threshold:0});
       io.observe(heroSection);
+    }
+  </script>
+
+  <!-- YouTube iframe API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    // YouTube Player setup for scroll-based autoplay
+    let youtubePlayer;
+
+    // This function is called by the YouTube API when it's ready
+    function onYouTubeIframeAPIReady() {
+      youtubePlayer = new YT.Player('youtube-video', {
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      // Set up Intersection Observer for scroll-based autoplay
+      const videoContainer = document.querySelector('#youtube-video');
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5 // Video must be 50% visible
+      };
+
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Video is in viewport - play it
+            youtubePlayer.playVideo();
+          } else {
+            // Video is out of viewport - pause it
+            youtubePlayer.pauseVideo();
+          }
+        });
+      }, observerOptions);
+
+      if (videoContainer) {
+        videoObserver.observe(videoContainer);
+      }
     }
   </script>
 
