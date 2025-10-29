@@ -288,26 +288,23 @@
           <div class="media-container relative">
             <iframe
               id="videoIframe"
-              src="https://www.youtube.com/embed/Qkyqb8bXjr0?autoplay=1&mute=1&playsinline=1&loop=1&playlist=Qkyqb8bXjr0&enablejsapi=1"
+              src="https://www.youtube.com/embed/Qkyqb8bXjr0?mute=1&playsinline=1&loop=1&playlist=Qkyqb8bXjr0&enablejsapi=1"
               title="Hibiscus Studio Tour"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen>
             </iframe>
 
-            <!-- Unmute Prompt Overlay -->
-            <div id="unmutePrompt" class="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer z-10 transition-opacity duration-300">
-              <div class="bg-white/95 dark:bg-gray-800/95 rounded-2xl px-8 py-6 flex flex-col items-center gap-3 shadow-2xl animate-pulse">
-                <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                </svg>
-                <span class="text-lg font-bold text-gray-900 dark:text-white text-center">
-                  Tap to Enable Sound 🔊
-                </span>
-                <span class="text-sm text-gray-600 dark:text-gray-400 text-center">
-                  Virtual tour with audio
-                </span>
-              </div>
-            </div>
+            <!-- Apple-Style Minimal Unmute Button -->
+            <button id="unmuteButton" class="absolute bottom-4 right-4 w-11 h-11 rounded-full flex items-center justify-center z-10 transition-all duration-300 opacity-0 backdrop-blur-xl bg-white/30 dark:bg-black/30 border border-white/40 dark:border-white/20 shadow-lg hover:scale-110 active:scale-95" aria-label="Tap to unmute">
+              <!-- Muted Speaker Icon (with slash) -->
+              <svg id="mutedIcon" class="w-6 h-6 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+              </svg>
+              <!-- Unmuted Speaker Icon (hidden by default) -->
+              <svg id="unmutedIcon" class="w-6 h-6 text-white drop-shadow-md hidden" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -940,20 +937,42 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      // YouTube Video Unmute Functionality
-      const unmutePrompt = document.getElementById('unmutePrompt');
-      const videoIframe = document.getElementById('videoIframe');
+      // Apple-Style Unmute Button Functionality
+      const unmuteButton = document.getElementById('unmuteButton');
+      const mutedIcon = document.getElementById('mutedIcon');
+      const unmutedIcon = document.getElementById('unmutedIcon');
 
-      if (unmutePrompt && videoIframe) {
-        unmutePrompt.addEventListener('click', function() {
-          // Send unmute command to YouTube iframe
-          videoIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+      if (unmuteButton) {
+        unmuteButton.addEventListener('click', function() {
+          if (isVideoMuted) {
+            // Unmute the video
+            if (youtubePlayer && youtubePlayer.unMute) {
+              youtubePlayer.unMute();
+            }
+            isVideoMuted = false;
 
-          // Fade out and hide the prompt
-          this.style.opacity = '0';
-          setTimeout(() => {
-            this.style.display = 'none';
-          }, 300);
+            // Swap icons with smooth transition
+            mutedIcon.classList.add('hidden');
+            unmutedIcon.classList.remove('hidden');
+
+            // Optional: Hide button after unmuting (Apple-like behavior)
+            setTimeout(() => {
+              this.style.opacity = '0';
+              setTimeout(() => {
+                this.style.display = 'none';
+              }, 300);
+            }, 2000);
+          } else {
+            // Mute the video (toggle behavior)
+            if (youtubePlayer && youtubePlayer.mute) {
+              youtubePlayer.mute();
+            }
+            isVideoMuted = true;
+
+            // Swap icons
+            unmutedIcon.classList.add('hidden');
+            mutedIcon.classList.remove('hidden');
+          }
         });
       }
 
@@ -1024,21 +1043,33 @@
   <!-- YouTube iframe API -->
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
+    // Prevent scroll restoration on page refresh
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.addEventListener('beforeunload', () => {
+      window.scrollTo(0, 0);
+    });
+
     // YouTube Player setup for scroll-based autoplay
     let youtubePlayer;
+    let isVideoMuted = true;
+    let hasVideoStartedPlaying = false;
 
     // This function is called by the YouTube API when it's ready
     function onYouTubeIframeAPIReady() {
-      youtubePlayer = new YT.Player('youtube-video', {
+      youtubePlayer = new YT.Player('videoIframe', {
         events: {
-          'onReady': onPlayerReady
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
         }
       });
     }
 
     function onPlayerReady(event) {
       // Set up Intersection Observer for scroll-based autoplay
-      const videoContainer = document.querySelector('#youtube-video');
+      const videoContainer = document.querySelector('#videoIframe');
+      const unmuteButton = document.getElementById('unmuteButton');
 
       const observerOptions = {
         root: null,
@@ -1051,15 +1082,32 @@
           if (entry.isIntersecting) {
             // Video is in viewport - play it
             youtubePlayer.playVideo();
+            // Show unmute button with gentle fade-in
+            if (unmuteButton && isVideoMuted) {
+              setTimeout(() => {
+                unmuteButton.style.opacity = '1';
+              }, 500);
+            }
           } else {
             // Video is out of viewport - pause it
             youtubePlayer.pauseVideo();
+            // Hide unmute button
+            if (unmuteButton) {
+              unmuteButton.style.opacity = '0';
+            }
           }
         });
       }, observerOptions);
 
       if (videoContainer) {
         videoObserver.observe(videoContainer);
+      }
+    }
+
+    function onPlayerStateChange(event) {
+      // Track if video has started playing
+      if (event.data === YT.PlayerState.PLAYING) {
+        hasVideoStartedPlaying = true;
       }
     }
   </script>
