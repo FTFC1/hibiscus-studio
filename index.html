@@ -288,23 +288,32 @@
           <div class="media-container relative">
             <iframe
               id="videoIframe"
-              src="https://www.youtube.com/embed/Qkyqb8bXjr0?mute=1&playsinline=1&loop=1&playlist=Qkyqb8bXjr0&enablejsapi=1"
+              src="https://www.youtube.com/embed/Qkyqb8bXjr0?autoplay=1&mute=1&playsinline=1&loop=1&playlist=Qkyqb8bXjr0&enablejsapi=1&rel=0&modestbranding=1"
               title="Hibiscus Studio Tour"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
+              allowfullscreen
+              style="pointer-events: auto;">
             </iframe>
 
-            <!-- Apple-Style Minimal Unmute Button -->
-            <button id="unmuteButton" class="absolute bottom-4 right-4 w-11 h-11 rounded-full flex items-center justify-center z-10 transition-all duration-300 opacity-0 backdrop-blur-xl bg-white/30 dark:bg-black/30 border border-white/40 dark:border-white/20 shadow-lg hover:scale-110 active:scale-95" aria-label="Tap to unmute">
-              <!-- Muted Speaker Icon (with slash) -->
-              <svg id="mutedIcon" class="w-6 h-6 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-              </svg>
-              <!-- Unmuted Speaker Icon (hidden by default) -->
-              <svg id="unmutedIcon" class="w-6 h-6 text-white drop-shadow-md hidden" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-              </svg>
-            </button>
+            <!-- Apple-Style Centered Unmute Prompt -->
+            <div id="unmutePrompt" class="absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-500 opacity-0 pointer-events-none">
+              <button id="unmuteButton" class="flex flex-col items-center gap-3 px-6 py-4 rounded-2xl backdrop-blur-2xl bg-black/40 dark:bg-black/50 border border-white/20 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 pointer-events-auto" aria-label="Tap to unmute">
+                <!-- Muted Speaker Icon -->
+                <div id="mutedIcon" class="transition-all duration-300">
+                  <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                  </svg>
+                </div>
+                <!-- Unmuted Speaker Icon (hidden by default) -->
+                <div id="unmutedIcon" class="hidden transition-all duration-300">
+                  <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  </svg>
+                </div>
+                <!-- Apple-style minimalist copy -->
+                <span id="promptText" class="text-sm font-medium text-white/95 tracking-wide">Tap for sound</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -938,9 +947,11 @@
     document.addEventListener('DOMContentLoaded', () => {
 
       // Apple-Style Unmute Button Functionality
+      const unmutePrompt = document.getElementById('unmutePrompt');
       const unmuteButton = document.getElementById('unmuteButton');
       const mutedIcon = document.getElementById('mutedIcon');
       const unmutedIcon = document.getElementById('unmutedIcon');
+      const promptText = document.getElementById('promptText');
 
       if (unmuteButton) {
         unmuteButton.addEventListener('click', function() {
@@ -955,13 +966,17 @@
             mutedIcon.classList.add('hidden');
             unmutedIcon.classList.remove('hidden');
 
-            // Optional: Hide button after unmuting (Apple-like behavior)
+            // Update text (Apple-style confirmation)
+            if (promptText) {
+              promptText.textContent = 'Sound on';
+            }
+
+            // Fade out prompt after unmuting (Apple-like behavior)
             setTimeout(() => {
-              this.style.opacity = '0';
-              setTimeout(() => {
-                this.style.display = 'none';
-              }, 300);
-            }, 2000);
+              if (unmutePrompt) {
+                unmutePrompt.style.opacity = '0';
+              }
+            }, 1500);
           } else {
             // Mute the video (toggle behavior)
             if (youtubePlayer && youtubePlayer.mute) {
@@ -969,9 +984,14 @@
             }
             isVideoMuted = true;
 
-            // Swap icons
+            // Swap icons back
             unmutedIcon.classList.add('hidden');
             mutedIcon.classList.remove('hidden');
+
+            // Update text
+            if (promptText) {
+              promptText.textContent = 'Tap for sound';
+            }
           }
         });
       }
@@ -1067,9 +1087,12 @@
     }
 
     function onPlayerReady(event) {
+      // Pause immediately on load (even though autoplay=1 is set)
+      youtubePlayer.pauseVideo();
+
       // Set up Intersection Observer for scroll-based autoplay
       const videoContainer = document.querySelector('#videoIframe');
-      const unmuteButton = document.getElementById('unmuteButton');
+      const unmutePrompt = document.getElementById('unmutePrompt');
 
       const observerOptions = {
         root: null,
@@ -1082,18 +1105,18 @@
           if (entry.isIntersecting) {
             // Video is in viewport - play it
             youtubePlayer.playVideo();
-            // Show unmute button with gentle fade-in
-            if (unmuteButton && isVideoMuted) {
+            // Show unmute prompt with gentle fade-in
+            if (unmutePrompt && isVideoMuted) {
               setTimeout(() => {
-                unmuteButton.style.opacity = '1';
-              }, 500);
+                unmutePrompt.style.opacity = '1';
+              }, 800);
             }
           } else {
             // Video is out of viewport - pause it
             youtubePlayer.pauseVideo();
-            // Hide unmute button
-            if (unmuteButton) {
-              unmuteButton.style.opacity = '0';
+            // Hide unmute prompt
+            if (unmutePrompt) {
+              unmutePrompt.style.opacity = '0';
             }
           }
         });
