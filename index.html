@@ -285,14 +285,29 @@
 
         <!-- Video Container with Responsive Aspect Ratio -->
         <div class="max-w-sm mx-auto">
-          <div class="media-container">
+          <div class="media-container relative">
             <iframe
-              id="youtube-video"
-              src="https://www.youtube.com/embed/Qkyqb8bXjr0?enablejsapi=1"
+              id="videoIframe"
+              src="https://www.youtube.com/embed/Qkyqb8bXjr0?autoplay=1&mute=1&playsinline=1&loop=1&playlist=Qkyqb8bXjr0&enablejsapi=1"
               title="Hibiscus Studio Tour"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen>
             </iframe>
+
+            <!-- Unmute Prompt Overlay -->
+            <div id="unmutePrompt" class="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer z-10 transition-opacity duration-300">
+              <div class="bg-white/95 dark:bg-gray-800/95 rounded-2xl px-8 py-6 flex flex-col items-center gap-3 shadow-2xl animate-pulse">
+                <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+                <span class="text-lg font-bold text-gray-900 dark:text-white text-center">
+                  Tap to Enable Sound 🔊
+                </span>
+                <span class="text-sm text-gray-600 dark:text-gray-400 text-center">
+                  Virtual tour with audio
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -925,17 +940,33 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
+      // YouTube Video Unmute Functionality
+      const unmutePrompt = document.getElementById('unmutePrompt');
+      const videoIframe = document.getElementById('videoIframe');
+
+      if (unmutePrompt && videoIframe) {
+        unmutePrompt.addEventListener('click', function() {
+          // Send unmute command to YouTube iframe
+          videoIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+
+          // Fade out and hide the prompt
+          this.style.opacity = '0';
+          setTimeout(() => {
+            this.style.display = 'none';
+          }, 300);
+        });
+      }
 
       // Mobile video carousel functionality
       const mobileVideoContainer = document.getElementById('mobile-video-container');
       const indicators = document.querySelectorAll('[id^="indicator-"]');
-      
+
       if (mobileVideoContainer && indicators.length > 0) {
         mobileVideoContainer.addEventListener('scroll', () => {
           const scrollLeft = mobileVideoContainer.scrollLeft;
           const containerWidth = mobileVideoContainer.offsetWidth;
           const currentIndex = Math.round(scrollLeft / (containerWidth * 0.85)); // 85vw per slide
-          
+
           // Update indicators
           indicators.forEach((indicator, index) => {
             if (index === currentIndex) {
