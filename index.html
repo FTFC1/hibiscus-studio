@@ -327,7 +327,7 @@
           <p class="text-gray-600 dark:text-gray-400 mb-8">Select your category below to get started. A 50% deposit invoice will be emailed within 48 hours to confirm your booking.</p>
           
           <!-- Category Selection (Progressive Disclosure Step 1) -->
-          <div id="categorySelection" class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-8 px-4 md:px-0">
+          <div id="categorySelection" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-8 px-4 md:px-0">
             <!-- Studio Viewing Category - FIRST (Direct booking) -->
             <button onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164274/calendar/12260380')" class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
               <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-2xl flex items-center justify-center mx-auto">
@@ -338,9 +338,9 @@
               </div>
               <h4 class="text-xl font-bold text-gray-900 dark:text-white">Studio Viewing</h4>
               <p class="text-sm text-gray-600 dark:text-gray-400">See the space before booking</p>
-              <div class="text-sm font-medium text-green-600 dark:text-green-400">Free • 20 mins • Tues 2-4</div>
+              <div class="text-sm font-medium text-green-600 dark:text-green-400">Free • 20 mins</div>
             </button>
-            
+
             <!-- Event Hire Category - SECOND -->
             <button onclick="showCategory('event')" class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
               <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center mx-auto">
@@ -349,10 +349,10 @@
                 </svg>
               </div>
               <h4 class="text-xl font-bold text-gray-900 dark:text-white">Event Hire</h4>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Corporate events, private parties & celebrations</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Corporate events & celebrations</p>
               <div class="text-sm font-medium text-blue-600 dark:text-blue-400">£345 - £885</div>
             </button>
-            
+
             <!-- Workshops & Content Category - THIRD -->
             <button onclick="showCategory('workshop')" class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
               <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-2xl flex items-center justify-center mx-auto">
@@ -361,8 +361,21 @@
                 </svg>
               </div>
               <h4 class="text-xl font-bold text-gray-900 dark:text-white">Workshops & Content</h4>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Teaching workshops (up to 20 people) and content creation with kitchen access</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Classes & photo shoots</p>
               <div class="text-sm font-medium text-purple-600 dark:text-purple-400">£90 - £645</div>
+            </button>
+
+            <!-- Proposal Packages Category - FOURTH (NEW) -->
+            <button onclick="showCategory('proposal')" class="category-btn border-2 border-pink-200 dark:border-pink-600 bg-gradient-to-br from-pink-50 to-red-50 dark:from-pink-900/20 dark:to-red-900/20 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-pink-100 to-red-100 dark:from-pink-900 dark:to-red-900 rounded-2xl flex items-center justify-center mx-auto">
+                <svg class="w-8 h-8 text-pink-600 dark:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+              </div>
+              <h4 class="text-xl font-bold text-gray-900 dark:text-white">Proposal Packages</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Romance styled to perfection</p>
+              <div class="text-sm font-medium text-pink-600 dark:text-pink-400">£770 - £1,700</div>
+              <span class="inline-block bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold px-3 py-1 rounded-full">Launch Offer</span>
             </button>
           </div>
           
@@ -564,7 +577,202 @@
               </div>
             </div>
           </div>
-          
+
+          <!-- Proposal Packages Options (NEW) -->
+          <div id="proposalOptions" class="category-options hidden px-4 md:px-0">
+            <div class="mb-6 flex items-center justify-between">
+              <h4 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Proposal Packages</h4>
+              <button onclick="showCategories()" class="flex items-center space-x-1 md:space-x-2 bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-400 px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors">
+                <svg class="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span class="hidden sm:inline">Back to categories</span>
+                <span class="sm:hidden">Back</span>
+              </button>
+            </div>
+
+            <div class="mb-6 p-6 bg-gradient-to-r from-pink-50 to-red-50 dark:from-pink-900/20 dark:to-red-900/20 rounded-xl border-2 border-pink-200 dark:border-pink-700">
+              <div class="text-center space-y-3">
+                <h5 class="text-xl font-bold text-gray-900 dark:text-white">Romance, Styled to Perfection</h5>
+                <p class="text-sm text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+                  Create an unforgettable moment with our beautifully curated proposal packages. Each package includes venue setup, professional photography, and personalized touches to make your special moment magical.
+                </p>
+                <div class="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm font-semibold px-4 py-2 rounded-full">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+                  </svg>
+                  Limited Time Launch Offers – Save up to £400!
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <!-- Heart Package -->
+              <div class="relative border-2 border-pink-300 dark:border-pink-600 bg-gradient-to-br from-white to-pink-50 dark:from-gray-800 dark:to-pink-900/20 rounded-2xl p-8 hover-scale shadow-xl transition-all duration-300">
+                <!-- Savings Badge -->
+                <div class="absolute -top-3 -right-3 bg-red-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg transform rotate-12">
+                  Save £400
+                </div>
+
+                <div class="text-center space-y-4">
+                  <div class="w-20 h-20 bg-gradient-to-br from-pink-100 to-red-100 dark:from-pink-900 dark:to-red-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-pink-600 dark:text-pink-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+
+                  <h5 class="text-2xl font-bold text-gray-900 dark:text-white">Heart Package</h5>
+
+                  <div class="space-y-2">
+                    <div class="flex items-center justify-center gap-3">
+                      <span class="text-4xl font-bold text-pink-600 dark:text-pink-400">£1,700</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 line-through">Was: £2,100</p>
+                  </div>
+
+                  <div class="text-left space-y-3 mt-6 bg-white/50 dark:bg-gray-800/50 rounded-xl p-6">
+                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-4">Package Includes:</p>
+                    <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Heart-shaped romantic decor setup</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>2-hour venue hire</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>20 professionally edited photos</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>1 content reel (30-60s, delivered in 72hrs)</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Custom wording & flower colours (Red, White, or Rose)</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Standard board (non-custom)</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Full setup + on-site staff (6 hours)</span>
+                      </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                      <p class="text-xs text-gray-600 dark:text-gray-400">
+                        <span class="font-semibold">Delivery:</span> 14 working days |
+                        <span class="font-semibold">Express:</span> +£150
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- PLACEHOLDER: Replace this URL with your Tally form link -->
+                  <button onclick="openBookingModal('REPLACE_WITH_TALLY_FORM_URL')" class="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl mt-6">
+                    Contact to Book
+                  </button>
+                </div>
+              </div>
+
+              <!-- White Whimsical Package -->
+              <div class="relative border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300">
+                <!-- Savings Badge -->
+                <div class="absolute -top-3 -right-3 bg-amber-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg transform rotate-12">
+                  Save £180
+                </div>
+
+                <div class="text-center space-y-4">
+                  <div class="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  </div>
+
+                  <h5 class="text-2xl font-bold text-gray-900 dark:text-white">White Whimsical</h5>
+
+                  <div class="space-y-2">
+                    <div class="flex items-center justify-center gap-3">
+                      <span class="text-4xl font-bold text-gray-900 dark:text-white">£770</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 line-through">Was: £950</p>
+                  </div>
+
+                  <p class="text-sm text-gray-600 dark:text-gray-400 italic">Perfect for proposals or intimate moments</p>
+
+                  <div class="text-left space-y-3 mt-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
+                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-4">Package Includes:</p>
+                    <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Elegant decor setup</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>2-hour venue hire</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Custom flower colour (Red, White, or Rose)</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Personalised wording</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Standard board (non-custom)</span>
+                      </div>
+                      <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Full setup + staff (6 hours)</span>
+                      </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                      <p class="text-xs text-gray-600 dark:text-gray-400">
+                        <span class="font-semibold">Delivery:</span> 14 working days |
+                        <span class="font-semibold">Express:</span> +£150
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- PLACEHOLDER: Replace this URL with your Tally form link -->
+                  <button onclick="openBookingModal('REPLACE_WITH_TALLY_FORM_URL')" class="w-full bg-black dark:bg-white text-white dark:text-black py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:bg-gray-800 dark:hover:bg-gray-200 mt-6">
+                    Contact to Book
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Payment Info -->
           <div class="mt-8 space-y-6">
             <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg p-4 max-w-md mx-auto">
@@ -852,36 +1060,42 @@
       if (categorySelection) {
         categorySelection.style.display = 'none';
       }
-      
-      // Get category option divs (only event and workshop now)
+
+      // Get category option divs
       const eventOptions = document.getElementById('eventOptions');
       const workshopOptions = document.getElementById('workshopOptions');
-      
+      const proposalOptions = document.getElementById('proposalOptions');
+
       // Hide all options first
       if (eventOptions) eventOptions.classList.add('hidden');
       if (workshopOptions) workshopOptions.classList.add('hidden');
-      
+      if (proposalOptions) proposalOptions.classList.add('hidden');
+
       // Show the selected category
       if (category === 'event' && eventOptions) {
         eventOptions.classList.remove('hidden');
       } else if (category === 'workshop' && workshopOptions) {
         workshopOptions.classList.remove('hidden');
+      } else if (category === 'proposal' && proposalOptions) {
+        proposalOptions.classList.remove('hidden');
       }
     }
-    
+
     function showCategories() {
       // Show category selection
       const categorySelection = document.getElementById('categorySelection');
       if (categorySelection) {
         categorySelection.style.display = 'grid';
       }
-      
-      // Hide category options (only event and workshop now)
+
+      // Hide all category options
       const eventOptions = document.getElementById('eventOptions');
       const workshopOptions = document.getElementById('workshopOptions');
-      
+      const proposalOptions = document.getElementById('proposalOptions');
+
       if (eventOptions) eventOptions.classList.add('hidden');
       if (workshopOptions) workshopOptions.classList.add('hidden');
+      if (proposalOptions) proposalOptions.classList.add('hidden');
     }
     
     // Updated smooth scroll function
