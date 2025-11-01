@@ -1017,9 +1017,9 @@
 
   <!-- Booking Modal -->
   <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-6xl h-[90vh] relative shadow-2xl">
+    <div class="bg-white rounded-2xl w-full max-w-6xl h-[90vh] relative shadow-2xl">
       <!-- Modal Header -->
-      <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+      <div class="flex items-center justify-between p-4 md:p-6 border-b border-gray-200">
         <div class="flex items-center space-x-3">
           <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1027,24 +1027,24 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Book Your Session</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Hibiscus Studio</p>
+            <h3 class="text-lg font-semibold text-gray-900">Book Your Session</h3>
+            <p class="text-sm text-gray-500">Hibiscus Studio</p>
           </div>
         </div>
-        <button onclick="closeBookingModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+        <button onclick="closeBookingModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
       </div>
-      
+
       <!-- Modal Content -->
       <div class="h-[calc(90vh-80px)] relative">
         <!-- Loading Spinner -->
-        <div id="loadingSpinner" class="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900 rounded-b-2xl">
+        <div id="loadingSpinner" class="absolute inset-0 flex items-center justify-center bg-white rounded-b-2xl">
           <div class="flex flex-col items-center space-y-4">
             <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">Loading booking calendar...</p>
+            <p class="text-gray-600 text-sm">Loading booking calendar...</p>
           </div>
         </div>
         <iframe id="bookingFrame" src="" class="w-full h-full rounded-b-2xl opacity-0 transition-opacity duration-300" frameborder="0"></iframe>
