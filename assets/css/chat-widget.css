@@ -116,12 +116,13 @@
 
 .message {
     max-width: 80%;
-    padding: 10px 14px;
+    padding: 12px 16px;
     border-radius: 16px;
     font-size: 14px;
     line-height: 1.5;
     word-wrap: break-word;
     white-space: pre-wrap;
+    text-align: left;
 }
 
 .message a {

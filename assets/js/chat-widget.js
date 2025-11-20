@@ -19,9 +19,6 @@
                 </button>
             </div>
             <div id="chat-messages" class="chat-messages">
-                <div class="message bot-message">
-                    Hello! 👋 I'm the Hibiscus Studio assistant. How can I help you with your booking today?
-                </div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chat-input" placeholder="Type a message..." aria-label="Type a message">
