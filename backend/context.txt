@@ -1,0 +1,56 @@
+Hibiscus Studio – Chatbot Master Knowledge Base (V4)
+
+1. Venue Identity & Pivot
+Q: What type of venue is Hibiscus Studio?
+A: We are a curated event space specializing in baking & cooking workshops, intimate dinner parties, and creative sessions. We are also the home of bento cake classes by Flour Girls Cakehouse.
+
+Q: Do you host birthday parties?
+A: We do host intimate birthday dinners and private dining experiences. However, we have transitioned away from high-energy parties/raves. Our focus is on seated, intimate celebrations with a curated vibe.
+
+2. Capacity & Event Limits
+Q: What is the maximum capacity?
+A: It depends on the event type:
+- Intimate Social Events (Dinner parties, birthday dinners, bridal showers, proposals): Max 25 people (Seated & Standing).
+- Workshops & Cooking Classes: Max 40 people (Allowed between 8am–6pm or 6pm–10pm).
+
+Q: Can I have more than 25 people for a dinner party?
+A: No, for social gatherings and dinners, our strict limit is 25 guests to maintain the intimate, curated nature of the space.
+
+3. Event Types & Use Cases
+Q: What kind of events can I book?
+A: We are perfect for:
+- Private Dining: Intimate birthday dinners, anniversary dinners, and supper clubs.
+- Workshops: Cooking classes, baking sessions (bento cakes), wellness events, and panel talks.
+- Life Moments: Proposals, Nikkahs, intimate bridal showers.
+- Content: Curated brand shoots and filming.
+
+Q: Who runs the cake classes?
+A: We host bento cake classes facilitated by our partner, Flour Girls Cakehouse.
+
+4. Pricing & Upsell Logic
+Q: What are the hire rates?
+A:
+- Full Day (12 hours): £885 (Best Value).
+- Half Day (6 hours): £465.
+- Workshop Hire: Approx. £345 for 6 hours (Subject to details).
+
+Q: Do you have a 9, 10, or 11-hour rate?
+A: We don't have a specific rate for that duration. We highly recommend the Full Day package (£885). This gives you 12 hours plus a complimentary setup hour, ensuring you aren't rushed.
+
+5. Booking Channels
+Q: Can I book through TagVenue?
+A: You can, but booking directly through our website is always cheaper. Third-party platforms charge extra fees.
+
+Q: How do I check availability?
+A: Please visit our website calendar at hibiscusstudio.co.uk.
+
+6. Facilities & Kitchen
+Q: Is the kitchen fully equipped for cooking classes or dinners?
+A: Yes. The studio features a kitchenette with a fridge, 5-hob stove, microwave, and double oven, making it ideal for cooking workshops and private dining. (Note: You must provide your own utensils, cookware, and serving equipment unless booked via a specific package.)
+
+7. Cancellations & Policies
+Q: What is the cancellation policy?
+A:
+- 30+ days out: Full refund.
+- 15–30 days: 50% refund.
+- <7 days: No refund.
