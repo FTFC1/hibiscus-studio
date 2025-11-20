@@ -1,4 +1,4 @@
-Hibiscus Studio – Chatbot Master Knowledge Base (V4)
+Hibiscus Studio – Chatbot Master Knowledge Base (V5)
 
 1. Venue Identity & Pivot
 Q: What type of venue is Hibiscus Studio?
@@ -47,6 +47,9 @@ A: Please visit our website calendar at hibiscusstudio.co.uk.
 6. Facilities & Kitchen
 Q: Is the kitchen fully equipped for cooking classes or dinners?
 A: Yes. The studio features a kitchenette with a fridge, 5-hob stove, microwave, and double oven, making it ideal for cooking workshops and private dining. (Note: You must provide your own utensils, cookware, and serving equipment unless booked via a specific package.)
+
+Q: How many chairs and tables do you have?
+A: We have 40 chairs and 10 tables available for use.
 
 7. Cancellations & Policies
 Q: What is the cancellation policy?
