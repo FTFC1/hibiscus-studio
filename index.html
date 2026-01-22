@@ -15,6 +15,9 @@
   <link rel="dns-prefetch" href="//www.youtube.com">
   <link rel="dns-prefetch" href="//maps.googleapis.com">
 
+  <!-- Umami Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="74dc1e62-3fbf-4bbc-b14e-59d92fe85dd3"></script>
+
   <script src="https://cdn.tailwindcss.com?v=1"></script>
   <script>
     tailwind.config = {
@@ -73,6 +76,22 @@
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    /* Slide left animation for funnel steps */
+    .slide-left {
+      animation: slideLeft 0.3s ease-out;
+    }
+
+    @keyframes slideLeft {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
       }
     }
 
@@ -1324,6 +1343,11 @@
   <script>
     // Progressive Disclosure Functions - Updated for direct Studio Viewing
     function showCategory(category) {
+      // Track category selection with Umami
+      if (typeof umami !== 'undefined') {
+        umami.track('selected-category', { category: category });
+      }
+
       // Hide category selection
       const categorySelection = document.getElementById('categorySelection');
       if (categorySelection) {
@@ -1369,6 +1393,11 @@
 
     // Updated smooth scroll function
     function smoothScrollToHire() {
+      // Track scroll to booking section
+      if (typeof umami !== 'undefined') {
+        umami.track('scrolled-to-booking');
+      }
+
       document.getElementById('hire').scrollIntoView({
         behavior: 'smooth',
         block: 'start'
@@ -1377,6 +1406,11 @@
 
     // Booking modal functions
     function openBookingModal(url) {
+      // Track booking intent with Umami
+      if (typeof umami !== 'undefined') {
+        umami.track('clicked-book-now', { url: url });
+      }
+
       const modal = document.getElementById('bookingModal');
       const iframe = document.getElementById('bookingFrame');
       const spinner = document.getElementById('loadingSpinner');
