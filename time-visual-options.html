@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Visual Options — Round 4</title>
+    <title>Time Visual Options — Round 5 (Comparison Focus)</title>
     <style>
         :root {
             --accent: #ec4899;
             --accent-light: #f472b6;
             --gradient: linear-gradient(135deg, #ec4899, #f472b6);
+            --blue: #3b82f6;
+            --blue-light: #60a5fa;
+            --purple: #7c3aed;
+            --purple-light: #c084fc;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -27,6 +31,11 @@
             margin: 30px 0 12px;
             padding-top: 20px;
             border-top: 1px solid #222;
+        }
+        .section-label:first-of-type {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 0;
         }
         .option {
             background: #111118;
@@ -60,341 +69,91 @@
             font-size: 0.75rem;
         }
 
-        /* ========== R1: REASSURANCE IMPROVED ========== */
-        /* Show the relationship: 6hrs → minus setup/exit → 4.5 yours */
-
-        .r1 .flow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 0;
-            font-size: 0.85rem;
-        }
-        .r1 .flow-item {
+        /* Comparison base styles */
+        .compare {
             text-align: center;
+            padding: 12px 0;
         }
-        .r1 .flow-num {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #888;
-        }
-        .r1 .flow-num.yours {
-            font-size: 1.4rem;
+        .compare-main {
+            font-size: 1.6rem;
+            font-weight: 700;
             color: var(--accent-light);
         }
-        .r1 .flow-label {
-            font-size: 0.6rem;
-            color: #555;
+        .compare-label {
+            font-size: 0.8rem;
+            color: #888;
             margin-top: 2px;
         }
-        .r1 .flow-arrow {
-            color: #444;
-            font-size: 0.8rem;
-        }
-        .r1 .flow-minus {
-            color: #666;
-            font-size: 0.7rem;
-        }
-        .r1 .trust-badge {
+        .compare-examples {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
             gap: 6px;
-            background: #1a2f1a;
-            color: #4ade80;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.7rem;
             margin-top: 12px;
         }
-        .r1 .trust-badge .check {
-            font-weight: 700;
-        }
-
-        /* ========== R2: REASSURANCE ALT ========== */
-        /* Simpler: just show "of your 6 hours, 4.5 are yours" */
-
-        .r2 .statement {
-            text-align: center;
-            padding: 16px 0 8px;
-        }
-        .r2 .statement-line {
-            font-size: 0.95rem;
+        .compare-example {
+            background: #1a1a1f;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
             color: #888;
-            line-height: 1.6;
+            display: flex;
+            justify-content: space-between;
         }
-        .r2 .statement-line strong {
-            color: var(--accent-light);
-            font-size: 1.2rem;
+        .compare-example .thing {
+            color: #aaa;
         }
-        .r2 .statement-line .dim {
-            color: #555;
+
+        /* Blue theme for workshop */
+        .workshop .compare-main {
+            color: var(--blue-light);
         }
-        .r2 .trust-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #1a2f1a;
-            color: #4ade80;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 0.65rem;
+        .workshop .badge {
+            background: color-mix(in srgb, var(--blue) 20%, transparent);
+            color: var(--blue-light);
+        }
+
+        /* Purple theme for private */
+        .private .compare-main {
+            color: var(--purple-light);
+        }
+        .private .badge {
+            background: color-mix(in srgb, var(--purple) 20%, transparent);
+            color: var(--purple-light);
+        }
+
+        /* Interactive style - clickable feel */
+        .compare-example.interactive {
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .compare-example.interactive:hover {
+            background: #222;
+            border-color: #333;
+        }
+
+        /* With subtle CTA */
+        .compare-cta {
             margin-top: 10px;
-        }
-
-        /* ========== C1: COMPARISON — BRIDAL ========== */
-
-        .c1-bridal .compare {
-            text-align: center;
-            padding: 12px 0;
-        }
-        .c1-bridal .compare-main {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent-light);
-        }
-        .c1-bridal .compare-label {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 2px;
-        }
-        .c1-bridal .compare-examples {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 12px;
-        }
-        .c1-bridal .compare-example {
-            background: #1a1a1f;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            color: #888;
-            display: flex;
-            justify-content: space-between;
-        }
-        .c1-bridal .compare-example .thing {
-            color: #aaa;
-        }
-
-        /* ========== C2: COMPARISON — PRIVATE ========== */
-
-        .c2-private .compare {
-            text-align: center;
-            padding: 12px 0;
-        }
-        .c2-private .compare-main {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent-light);
-        }
-        .c2-private .compare-label {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 2px;
-        }
-        .c2-private .compare-examples {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 12px;
-        }
-        .c2-private .compare-example {
-            background: #1a1a1f;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            color: #888;
-            display: flex;
-            justify-content: space-between;
-        }
-        .c2-private .compare-example .thing {
-            color: #aaa;
-        }
-
-        /* ========== C3: COMPARISON — WORKSHOP ========== */
-
-        .c3-workshop .compare {
-            text-align: center;
-            padding: 12px 0;
-        }
-        .c3-workshop .compare-main {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #60a5fa; /* blue for workshop */
-        }
-        .c3-workshop .compare-label {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 2px;
-        }
-        .c3-workshop .compare-examples {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 12px;
-        }
-        .c3-workshop .compare-example {
-            background: #1a1a1f;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            color: #888;
-            display: flex;
-            justify-content: space-between;
-        }
-        .c3-workshop .compare-example .thing {
-            color: #aaa;
-        }
-
-        /* ========== N1: NEW — THE SPLIT ========== */
-        /* What you handle vs what we handle */
-
-        .n1 .split {
-            display: flex;
-            gap: 8px;
-            padding: 8px 0;
-        }
-        .n1 .split-card {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .n1 .split-card.yours {
-            background: var(--gradient);
-        }
-        .n1 .split-card.ours {
-            background: #1a1a1f;
-        }
-        .n1 .split-card .time {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-        }
-        .n1 .split-card.ours .time {
-            color: #666;
-            font-size: 1rem;
-        }
-        .n1 .split-card .label {
             font-size: 0.65rem;
-            color: rgba(255,255,255,0.8);
-            margin-top: 2px;
-        }
-        .n1 .split-card.ours .label {
             color: #555;
         }
-        .n1 .trust-line {
-            text-align: center;
-            font-size: 0.65rem;
-            color: #4ade80;
-            margin-top: 8px;
-        }
-
-        /* ========== N2: NEW — THE RECEIPT ========== */
-        /* Like a simple receipt breakdown */
-
-        .n2 .receipt {
-            background: #0d0d12;
-            border-radius: 10px;
-            padding: 14px 16px;
-        }
-        .n2 .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            font-size: 0.8rem;
-            border-bottom: 1px dashed #222;
-        }
-        .n2 .receipt-row:last-child {
-            border-bottom: none;
-        }
-        .n2 .receipt-row .label {
-            color: #666;
-        }
-        .n2 .receipt-row .value {
-            color: #888;
-        }
-        .n2 .receipt-row.total {
-            border-top: 1px solid #333;
-            margin-top: 4px;
-            padding-top: 10px;
-            border-bottom: none;
-        }
-        .n2 .receipt-row.total .label {
+        .compare-cta a {
             color: var(--accent-light);
-            font-weight: 600;
-        }
-        .n2 .receipt-row.total .value {
-            color: var(--accent-light);
-            font-weight: 700;
-            font-size: 1rem;
+            text-decoration: none;
         }
 
     </style>
 </head>
 <body>
-    <h1>Round 4 — Refined</h1>
-    <p class="subtitle">Based on C2 (Reassurance) + C4 (Comparison) feedback</p>
+    <h1>Round 5 — Comparison Variations</h1>
+    <p class="subtitle">Interactive, fun, event-specific — no false promises</p>
 
-    <div class="section-label">Reassurance — Improved</div>
+    <div class="section-label">Bridal / Hen Party</div>
 
-    <!-- R1: Reassurance with flow -->
-    <div class="option r1">
-        <div class="option-label">R1 — Show the math</div>
-        <div class="slot-header">
-            <span class="time-range">12pm → 6pm</span>
-            <span class="badge">6 hours</span>
-        </div>
-        <div class="flow">
-            <div class="flow-item">
-                <div class="flow-num">6h</div>
-                <div class="flow-label">booked</div>
-            </div>
-            <div class="flow-minus">−</div>
-            <div class="flow-item">
-                <div class="flow-num">1.5h</div>
-                <div class="flow-label">setup + exit</div>
-            </div>
-            <div class="flow-arrow">=</div>
-            <div class="flow-item">
-                <div class="flow-num yours">4.5h</div>
-                <div class="flow-label">yours</div>
-            </div>
-        </div>
-        <div class="trust-badge">
-            <span class="check">✓</span>
-            <span>Setup time doesn't cut into your event</span>
-        </div>
-    </div>
-
-    <!-- R2: Reassurance simpler -->
-    <div class="option r2">
-        <div class="option-label">R2 — Plain statement</div>
-        <div class="slot-header">
-            <span class="time-range">12pm → 6pm</span>
-            <span class="badge">6 hours</span>
-        </div>
-        <div class="statement">
-            <div class="statement-line">
-                Of your 6 hours, <strong>4.5 are yours</strong>
-            </div>
-            <div class="statement-line dim">
-                <span class="dim">We handle the 1.5h setup and packdown</span>
-            </div>
-            <div class="trust-badge">
-                <span>✓</span>
-                <span>Protected event time</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-label">Comparison — Event-Specific</div>
-
-    <!-- C1: Bridal -->
-    <div class="option c1-bridal">
-        <div class="option-label">C1 — Bridal / Hen Party</div>
+    <!-- Bridal V1: Activities -->
+    <div class="option">
+        <div class="option-label">Bridal V1 — Activities you'll actually do</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
@@ -408,20 +167,76 @@
                     <span>~15</span>
                 </div>
                 <div class="compare-example">
-                    <span class="thing">Embarrassing bride stories</span>
+                    <span class="thing">Embarrassing bride stories shared</span>
                     <span>~45</span>
                 </div>
                 <div class="compare-example">
-                    <span class="thing">Bottles of prosecco</span>
-                    <span>~9</span>
+                    <span class="thing">Outfit changes for photos</span>
+                    <span>~3</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- C2: Private / Birthday -->
-    <div class="option c2-private">
-        <div class="option-label">C2 — Private Event / Birthday</div>
+    <!-- Bridal V2: Emotional moments -->
+    <div class="option">
+        <div class="option-label">Bridal V2 — The emotional angle</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of memories</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Tearful speeches</span>
+                    <span>at least 2</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">"Remember when..." stories</span>
+                    <span>dozens</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Group photos you'll actually frame</span>
+                    <span>~20</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bridal V3: The chaos -->
+    <div class="option">
+        <div class="option-label">Bridal V3 — The fun chaos</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of celebration</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Songs everyone screams along to</span>
+                    <span>~25</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Times someone says "one more drink"</span>
+                    <span>~12</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Bridesmaids crying (happy tears)</span>
+                    <span>inevitable</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-label">Private Event / Birthday</div>
+
+    <!-- Private V1: Social moments -->
+    <div class="option private">
+        <div class="option-label">Private V1 — The social energy</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
@@ -431,93 +246,183 @@
             <div class="compare-label">to celebrate</div>
             <div class="compare-examples">
                 <div class="compare-example">
-                    <span class="thing">Happy Birthday singalongs</span>
-                    <span>~135</span>
+                    <span class="thing">"Happy Birthday" singalongs</span>
+                    <span>~3</span>
                 </div>
                 <div class="compare-example">
-                    <span class="thing">Dance floor moments</span>
-                    <span>endless</span>
+                    <span class="thing">Times you'll say "so glad you came"</span>
+                    <span>~30</span>
                 </div>
                 <div class="compare-example">
-                    <span class="thing">Photo booth takes</span>
-                    <span>~90</span>
+                    <span class="thing">Dance floor moments captured</span>
+                    <span>countless</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- C3: Workshop -->
-    <div class="option c3-workshop">
-        <div class="option-label">C3 — Workshop / Creative</div>
+    <!-- Private V2: The vibe -->
+    <div class="option private">
+        <div class="option-label">Private V2 — The birthday vibe</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
         <div class="compare">
             <div class="compare-main">4.5 hours</div>
-            <div class="compare-label">of focused creative time</div>
+            <div class="compare-label">of your day</div>
             <div class="compare-examples">
                 <div class="compare-example">
-                    <span class="thing">Complete projects</span>
+                    <span class="thing">Friends finally in one room</span>
+                    <span>all of them</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Playlist songs that hit different</span>
+                    <span>~50</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Cake cutting retakes</span>
+                    <span>~5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Private V3: Baby shower specific -->
+    <div class="option private">
+        <div class="option-label">Private V3 — Baby Shower</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of celebration</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Gifts to unwrap</span>
+                    <span>~20</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">"Awww" moments</span>
+                    <span>constant</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Parenting advice (wanted or not)</span>
+                    <span>plenty</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-label">Workshop / Creative</div>
+
+    <!-- Workshop V1: Output focused -->
+    <div class="option workshop">
+        <div class="option-label">Workshop V1 — What you'll create</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of focused creation</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Finished pieces to take home</span>
                     <span>2-3</span>
                 </div>
                 <div class="compare-example">
-                    <span class="thing">New techniques learned</span>
+                    <span class="thing">New techniques mastered</span>
                     <span>5+</span>
                 </div>
                 <div class="compare-example">
-                    <span class="thing">Tea breaks included</span>
-                    <span>yes</span>
+                    <span class="thing">"I made this!" moments</span>
+                    <span>guaranteed</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="section-label">New Concepts</div>
-
-    <!-- N1: The Split -->
-    <div class="option n1">
-        <div class="option-label">N1 — Your time vs Our time</div>
+    <!-- Workshop V2: Team building -->
+    <div class="option workshop">
+        <div class="option-label">Workshop V2 — Team Building</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="split">
-            <div class="split-card yours">
-                <div class="time">4.5h</div>
-                <div class="label">Your event</div>
-            </div>
-            <div class="split-card ours">
-                <div class="time">1.5h</div>
-                <div class="label">We handle this</div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">together</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Colleagues actually chatting</span>
+                    <span>finally</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Creative breakthroughs</span>
+                    <span>several</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Slack messages avoided</span>
+                    <span>~200</span>
+                </div>
             </div>
         </div>
-        <div class="trust-line">✓ Setup and packdown included</div>
     </div>
 
-    <!-- N2: The Receipt -->
-    <div class="option n2">
-        <div class="option-label">N2 — The breakdown</div>
+    <div class="section-label">Generic (works for any event)</div>
+
+    <!-- Generic V1 -->
+    <div class="option">
+        <div class="option-label">Generic V1 — Universal fun</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="receipt">
-            <div class="receipt-row">
-                <span class="label">Total booking</span>
-                <span class="value">6 hours</span>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">for your event</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Conversations you've been meaning to have</span>
+                    <span>finally</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Songs on your playlist</span>
+                    <span>~90</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Moments you'll remember</span>
+                    <span>plenty</span>
+                </div>
             </div>
-            <div class="receipt-row">
-                <span class="label">Setup (we handle)</span>
-                <span class="value">−45 min</span>
-            </div>
-            <div class="receipt-row">
-                <span class="label">Packdown (we handle)</span>
-                <span class="value">−45 min</span>
-            </div>
-            <div class="receipt-row total">
-                <span class="label">Your event time</span>
-                <span class="value">4.5 hours</span>
+        </div>
+    </div>
+
+    <!-- Generic V2: Time perspective -->
+    <div class="option">
+        <div class="option-label">Generic V2 — Time in perspective</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">that's yours</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Longer than most weddings</span>
+                    <span>yes</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">More time than a festival set</span>
+                    <span>3x</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Enough for everything you planned</span>
+                    <span>definitely</span>
+                </div>
             </div>
         </div>
     </div>
