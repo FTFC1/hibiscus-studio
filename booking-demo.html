@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Event | Hibiscus Studio</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e5e5e5;
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #c084fc, #7c3aed);
+            border-radius: 50%;
+            margin: 0 auto 12px;
+        }
+        h1 {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        /* Progress indicator */
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 24px 0;
+        }
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #333;
+            transition: all 0.3s;
+        }
+        .progress-dot.active {
+            background: #c084fc;
+            width: 24px;
+            border-radius: 4px;
+        }
+        .progress-dot.done {
+            background: #4ade80;
+        }
+
+        /* Steps */
+        .step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            color: #c084fc;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* Choice cards */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .choice-card {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .choice-card:hover {
+            border-color: #7c3aed;
+        }
+        .choice-card.selected {
+            border-color: #7c3aed;
+            background: #7c3aed15;
+        }
+        .choice-card .title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .choice-card .desc {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* Date cards */
+        .date-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-width: 360px;
+            margin: 16px auto 0;
+        }
+        .date-card {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .date-card:hover {
+            border-color: #7c3aed;
+        }
+        .date-card.selected {
+            border-color: #7c3aed;
+            background: #7c3aed15;
+        }
+        .date-card .day-name {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+        .date-card .day-num {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 4px 0;
+        }
+        .date-card .month {
+            font-size: 0.8rem;
+            color: #c084fc;
+        }
+
+        /* Time slots - ticket style */
+        .time-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .time-slot {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .time-slot:hover {
+            border-color: #7c3aed;
+        }
+        .time-slot.selected {
+            border-color: #7c3aed;
+            background: #7c3aed10;
+        }
+        .time-slot-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+        }
+        .time-slot .time-range {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .time-slot .time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .time-slot .arrow {
+            color: #7c3aed;
+            font-size: 1.2rem;
+        }
+        .time-slot .badge {
+            background: #7c3aed33;
+            color: #c084fc;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .time-slot .badge.late {
+            background: #fbbf2433;
+            color: #fbbf24;
+        }
+        .time-breakdown {
+            display: none;
+            background: #0a0a0f;
+            padding: 12px 20px;
+            border-top: 1px solid #222;
+        }
+        .time-slot.expanded .time-breakdown {
+            display: block;
+        }
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.8rem;
+        }
+        .breakdown-row .label {
+            color: #888;
+        }
+        .breakdown-row .value {
+            color: #fff;
+        }
+        .breakdown-row.event {
+            background: #7c3aed22;
+            margin: 4px -20px;
+            padding: 8px 20px;
+        }
+        .breakdown-row.event .label,
+        .breakdown-row.event .value {
+            color: #c084fc;
+            font-weight: 500;
+        }
+        .expand-hint {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #555;
+            padding: 8px;
+            border-top: 1px solid #1a1a1a;
+        }
+        .time-slot.expanded .expand-hint {
+            display: none;
+        }
+        .select-time-btn {
+            display: none;
+            background: #7c3aed;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .time-slot.expanded .select-time-btn {
+            display: block;
+        }
+
+        /* Social proof */
+        .social-proof {
+            max-width: 360px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .social-proof-img {
+            width: 100%;
+            height: 180px;
+            background: #1a1a2e;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .social-proof-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .social-proof-caption {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .social-proof-caption strong {
+            color: #c084fc;
+        }
+
+        /* Guest selector - 2x2 grid */
+        .guest-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .guest-btn {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .guest-btn:hover {
+            border-color: #7c3aed;
+        }
+        .guest-btn.selected {
+            border-color: #7c3aed;
+            background: #7c3aed15;
+        }
+        .guest-btn .num {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .guest-btn .label {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Form fields */
+        .form-group {
+            margin-bottom: 16px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+        .form-label {
+            display: block;
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            padding-right: 40px;
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+        .form-input.valid {
+            border-color: #4ade80;
+        }
+        .input-check {
+            position: absolute;
+            right: 14px;
+            top: 36px;
+            color: #4ade80;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .input-check.show {
+            opacity: 1;
+        }
+
+        /* Summary card */
+        .summary {
+            background: #111118;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+        .summary-label {
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .summary-value {
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Excitement banner */
+        .excitement {
+            background: linear-gradient(135deg, #7c3aed, #c084fc);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .excitement .emoji {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        .excitement .countdown {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .excitement .date-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 4px;
+        }
+
+        /* FAQ section */
+        .faq {
+            max-width: 360px;
+            margin: 20px auto;
+        }
+        .faq-title {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .faq-item {
+            background: #111118;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+        }
+        .faq-q {
+            font-size: 0.85rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .faq-a {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* Deposit info */
+        .deposit-info {
+            background: #14532d;
+            border: 1px solid #166534;
+            border-radius: 12px;
+            padding: 16px;
+            max-width: 360px;
+            margin: 16px auto;
+        }
+        .deposit-info .main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .deposit-info .label {
+            color: #4ade80;
+            font-size: 0.9rem;
+        }
+        .deposit-info .amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .deposit-info .note {
+            font-size: 0.75rem;
+            color: #86efac;
+            margin-top: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            margin: 20px auto 0;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #7c3aed;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #6d28d9;
+        }
+        .btn-primary:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+            margin-top: 12px;
+        }
+        .btn-ghost {
+            background: transparent;
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        /* Confirmation */
+        .confirmation {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .confirm-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        .confirm-title {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .confirm-text {
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Demo banner - iOS native style */
+        .demo-banner {
+            background: #1c1c1e;
+            padding: 6px 0;
+            text-align: center;
+            margin: -20px -20px 20px -20px;
+        }
+        .demo-banner-text {
+            color: #636366;
+            font-size: 0.7rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* Viewing option */
+        .viewing-link {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #222;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .viewing-link a {
+            color: #888;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+        .viewing-link a:hover {
+            color: #c084fc;
+        }
+
+        /* Viewing step */
+        .viewing-info {
+            background: #111118;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 360px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+        .viewing-info .icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .viewing-info .title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .viewing-info .desc {
+            font-size: 0.85rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <div class="demo-banner-text">Demo Mode — dates are for preview only</div>
+    </div>
+
+    <div class="header">
+        <div class="logo"></div>
+        <h1>Hibiscus Studio</h1>
+        <p class="subtitle">Private Event Booking</p>
+    </div>
+
+    <div class="progress" id="progressBar">
+        <div class="progress-dot active" id="dot1"></div>
+        <div class="progress-dot" id="dot2"></div>
+        <div class="progress-dot" id="dot3"></div>
+        <div class="progress-dot" id="dot4"></div>
+        <div class="progress-dot" id="dot5"></div>
+        <div class="progress-dot" id="dot6"></div>
+        <div class="progress-dot" id="dot7"></div>
+    </div>
+
+    <!-- Step 1: When are you looking? -->
+    <div class="step active" id="step1">
+        <p class="step-title">When are you looking to book?</p>
+        <div class="choices">
+            <div class="choice-card" onclick="selectMonth('thisMonth')">
+                <div class="title">This month</div>
+                <div class="desc" id="thisMonthLabel">January 2026</div>
+            </div>
+            <div class="choice-card" onclick="selectMonth('nextMonth')">
+                <div class="title">Next month</div>
+                <div class="desc" id="nextMonthLabel">February 2026</div>
+            </div>
+            <div class="choice-card" onclick="selectMonth('later')">
+                <div class="title">Later</div>
+                <div class="desc">March onwards</div>
+            </div>
+        </div>
+        <div class="viewing-link">
+            <a href="#" onclick="goToViewing(); return false;">Just want to see the space? Book a viewing →</a>
+        </div>
+    </div>
+
+    <!-- Step 2: Weekday or Weekend -->
+    <div class="step" id="step2">
+        <p class="step-title">Weekend or weekday?</p>
+        <div class="choices">
+            <div class="choice-card" onclick="selectDayType('weekend')">
+                <div class="title">Weekend</div>
+                <div class="desc">Saturday or Sunday — perfect for celebrations</div>
+            </div>
+            <div class="choice-card" onclick="selectDayType('weekday')">
+                <div class="title">Weekday</div>
+                <div class="desc">Monday to Friday — more availability</div>
+            </div>
+        </div>
+        <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+    </div>
+
+    <!-- Step 3: Pick a Date -->
+    <div class="step" id="step3">
+        <p class="step-title">Pick your date</p>
+        <div class="date-cards" id="dateCards"></div>
+        <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+    </div>
+
+    <!-- Step 4: Select Time -->
+    <div class="step" id="step4">
+        <p class="step-title">Choose your time</p>
+
+        <div class="social-proof">
+            <div class="social-proof-img">[Recent event photo]</div>
+            <div class="social-proof-caption"><strong>Bridal shower</strong> · 2 days ago</div>
+        </div>
+
+        <div class="time-slots">
+            <div class="time-slot" onclick="expandTime(this)">
+                <div class="time-slot-main">
+                    <div class="time-range">
+                        <span class="time">12pm</span>
+                        <span class="arrow">→</span>
+                        <span class="time">6pm</span>
+                    </div>
+                    <span class="badge">6 hours</span>
+                </div>
+                <div class="time-breakdown">
+                    <div class="breakdown-row">
+                        <span class="label">Setup & arrival</span>
+                        <span class="value">12:00 – 12:30</span>
+                    </div>
+                    <div class="breakdown-row event">
+                        <span class="label">Your event</span>
+                        <span class="value">12:30 – 5:30</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="label">Pack down & leave</span>
+                        <span class="value">5:30 – 6:00</span>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see time breakdown</div>
+                <button class="select-time-btn" onclick="confirmTime(event, '12:00', '18:00', 'Afternoon')">Select this time</button>
+            </div>
+
+            <div class="time-slot" onclick="expandTime(this)">
+                <div class="time-slot-main">
+                    <div class="time-range">
+                        <span class="time">2pm</span>
+                        <span class="arrow">→</span>
+                        <span class="time">8pm</span>
+                    </div>
+                    <span class="badge">6 hours</span>
+                </div>
+                <div class="time-breakdown">
+                    <div class="breakdown-row">
+                        <span class="label">Setup & arrival</span>
+                        <span class="value">2:00 – 2:30</span>
+                    </div>
+                    <div class="breakdown-row event">
+                        <span class="label">Your event</span>
+                        <span class="value">2:30 – 7:30</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="label">Pack down & leave</span>
+                        <span class="value">7:30 – 8:00</span>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see time breakdown</div>
+                <button class="select-time-btn" onclick="confirmTime(event, '14:00', '20:00', 'Afternoon-Evening')">Select this time</button>
+            </div>
+
+            <div class="time-slot" onclick="expandTime(this)">
+                <div class="time-slot-main">
+                    <div class="time-range">
+                        <span class="time">4pm</span>
+                        <span class="arrow">→</span>
+                        <span class="time">10pm</span>
+                    </div>
+                    <span class="badge">6 hours</span>
+                </div>
+                <div class="time-breakdown">
+                    <div class="breakdown-row">
+                        <span class="label">Setup & arrival</span>
+                        <span class="value">4:00 – 4:30</span>
+                    </div>
+                    <div class="breakdown-row event">
+                        <span class="label">Your event</span>
+                        <span class="value">4:30 – 9:30</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="label">Pack down & leave</span>
+                        <span class="value">9:30 – 10:00</span>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see time breakdown</div>
+                <button class="select-time-btn" onclick="confirmTime(event, '16:00', '22:00', 'Evening')">Select this time</button>
+            </div>
+
+            <div class="time-slot" onclick="expandTime(this)">
+                <div class="time-slot-main">
+                    <div class="time-range">
+                        <span class="time">6pm</span>
+                        <span class="arrow">→</span>
+                        <span class="time">12am</span>
+                    </div>
+                    <span class="badge late">+£50 late</span>
+                </div>
+                <div class="time-breakdown">
+                    <div class="breakdown-row">
+                        <span class="label">Setup & arrival</span>
+                        <span class="value">6:00 – 6:30</span>
+                    </div>
+                    <div class="breakdown-row event">
+                        <span class="label">Your event</span>
+                        <span class="value">6:30 – 11:30</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="label">Pack down & leave</span>
+                        <span class="value">11:30 – 12:00</span>
+                    </div>
+                </div>
+                <div class="expand-hint">Tap to see time breakdown</div>
+                <button class="select-time-btn" onclick="confirmTime(event, '18:00', '00:00', 'Night')">Select this time</button>
+            </div>
+        </div>
+        <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+    </div>
+
+    <!-- Step 5: Guest Count -->
+    <div class="step" id="step5">
+        <p class="step-title">How many guests?</p>
+        <div class="guest-selector">
+            <div class="guest-btn" onclick="selectGuests(this, '1-10')">
+                <div class="num">1-10</div>
+                <div class="label">intimate</div>
+            </div>
+            <div class="guest-btn" onclick="selectGuests(this, '11-20')">
+                <div class="num">11-20</div>
+                <div class="label">small</div>
+            </div>
+            <div class="guest-btn" onclick="selectGuests(this, '21-30')">
+                <div class="num">21-30</div>
+                <div class="label">medium</div>
+            </div>
+            <div class="guest-btn" onclick="selectGuests(this, '31-40')">
+                <div class="num">31-40</div>
+                <div class="label">max</div>
+            </div>
+        </div>
+        <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
+    </div>
+
+    <!-- Step 6: Your Details -->
+    <div class="step" id="step6">
+        <p class="step-title">Your details</p>
+        <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" id="inputName" placeholder="Your name" oninput="validateField(this, 'name')">
+            <span class="input-check" id="checkName">✓</span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" id="inputEmail" placeholder="you@email.com" oninput="validateField(this, 'email')">
+            <span class="input-check" id="checkEmail">✓</span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" class="form-input" id="inputPhone" placeholder="07xxx xxx xxx" inputmode="numeric" oninput="validateField(this, 'phone')">
+            <span class="input-check" id="checkPhone">✓</span>
+        </div>
+        <button class="btn btn-primary" id="btn6" disabled onclick="goToStep(7)">Review Booking</button>
+        <button class="btn btn-secondary" onclick="goToStep(5)">← Back</button>
+    </div>
+
+    <!-- Step 7: Confirm & Pay -->
+    <div class="step" id="step7">
+        <div class="excitement">
+            <div class="emoji">🎉</div>
+            <div class="countdown" id="countdownText">Your celebration is in 3 weeks!</div>
+            <div class="date-text" id="dateText">Saturday 25th January</div>
+        </div>
+
+        <div class="summary">
+            <div class="summary-row">
+                <span class="summary-label">Date</span>
+                <span class="summary-value" id="summaryDate">—</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Time</span>
+                <span class="summary-value" id="summaryTime">—</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Guests</span>
+                <span class="summary-value" id="summaryGuests">—</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Name</span>
+                <span class="summary-value" id="summaryName">—</span>
+            </div>
+        </div>
+
+        <div class="deposit-info">
+            <div class="main">
+                <span class="label">50% deposit to confirm</span>
+                <span class="amount">£150</span>
+            </div>
+            <div class="note">Remaining £150 due 7 days before your event</div>
+        </div>
+
+        <div class="social-proof" style="margin-top: 20px;">
+            <div class="social-proof-img">[Happy guests photo]</div>
+            <div class="social-proof-caption"><strong>100+ events</strong> hosted at Hibiscus Studio</div>
+        </div>
+
+        <div class="faq">
+            <div class="faq-title">Before you book</div>
+            <div class="faq-item">
+                <div class="faq-q">What if I need to cancel?</div>
+                <div class="faq-a">Full refund up to 14 days before. 50% refund after that.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Can I bring my own food & drinks?</div>
+                <div class="faq-a">Yes! No corkage fee. Catering can also be arranged.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What's included?</div>
+                <div class="faq-a">Tables, chairs, speaker, basic decor, kitchen access.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="showConfirmation()">Pay £150 Deposit</button>
+        <button class="btn btn-secondary" onclick="goToStep(6)">← Back</button>
+    </div>
+
+    <!-- Step 8: Confirmed -->
+    <div class="step" id="step8">
+        <div class="confirmation">
+            <div class="confirm-icon">✓</div>
+            <h2 class="confirm-title">Booking Confirmed!</h2>
+            <p class="confirm-text">
+                We've sent a confirmation to your email.<br>
+                See you at Hibiscus Studio! 💜
+            </p>
+        </div>
+    </div>
+
+    <!-- Viewing Flow -->
+    <div class="step" id="stepViewing">
+        <div class="viewing-info">
+            <div class="icon">👀</div>
+            <div class="title">Book a Viewing</div>
+            <div class="desc">20 minutes · Weekdays only</div>
+        </div>
+        <p class="step-title">Pick a day</p>
+        <div class="date-cards" id="viewingDates"></div>
+        <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+    </div>
+
+    <script>
+        // ===== LIGHTWEIGHT TRACKING (3 events only) =====
+        // Configure: Set WEBHOOK_URL to your Google Sheet webhook
+        const WEBHOOK_URL = ''; // Leave empty to disable tracking
+        const SESSION_ID = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+
+        function track(event) {
+            if (!WEBHOOK_URL) return;
+            const data = { event, session: SESSION_ID, ts: new Date().toISOString() };
+            navigator.sendBeacon(WEBHOOK_URL, JSON.stringify(data));
+        }
+
+        // Track: page loaded
+        track('demo_start');
+        // ================================================
+
+        // State
+        let selectedMonth = null;
+        let selectedDayType = null;
+        let selectedDate = null;
+        let selectedDateObj = null;
+        let selectedTimeStart = null;
+        let selectedTimeEnd = null;
+        let selectedTimeLabel = null;
+        let selectedGuests = null;
+        let isViewing = false;
+
+        // Demo available dates by month
+        const datesByMonth = {
+            thisMonth: {
+                weekend: [
+                    { date: '2026-01-25', day: 'Sat', num: 25, month: 'Jan' },
+                    { date: '2026-01-26', day: 'Sun', num: 26, month: 'Jan' },
+                ],
+                weekday: [
+                    { date: '2026-01-27', day: 'Mon', num: 27, month: 'Jan' },
+                    { date: '2026-01-28', day: 'Tue', num: 28, month: 'Jan' },
+                    { date: '2026-01-29', day: 'Wed', num: 29, month: 'Jan' },
+                    { date: '2026-01-30', day: 'Thu', num: 30, month: 'Jan' },
+                ]
+            },
+            nextMonth: {
+                weekend: [
+                    { date: '2026-02-01', day: 'Sun', num: 1, month: 'Feb' },
+                    { date: '2026-02-07', day: 'Sat', num: 7, month: 'Feb' },
+                    { date: '2026-02-08', day: 'Sun', num: 8, month: 'Feb' },
+                    { date: '2026-02-14', day: 'Sat', num: 14, month: 'Feb' },
+                    { date: '2026-02-15', day: 'Sun', num: 15, month: 'Feb' },
+                    { date: '2026-02-21', day: 'Sat', num: 21, month: 'Feb' },
+                ],
+                weekday: [
+                    { date: '2026-02-02', day: 'Mon', num: 2, month: 'Feb' },
+                    { date: '2026-02-03', day: 'Tue', num: 3, month: 'Feb' },
+                    { date: '2026-02-04', day: 'Wed', num: 4, month: 'Feb' },
+                    { date: '2026-02-09', day: 'Mon', num: 9, month: 'Feb' },
+                    { date: '2026-02-10', day: 'Tue', num: 10, month: 'Feb' },
+                ]
+            },
+            later: {
+                weekend: [
+                    { date: '2026-03-07', day: 'Sat', num: 7, month: 'Mar' },
+                    { date: '2026-03-08', day: 'Sun', num: 8, month: 'Mar' },
+                    { date: '2026-03-14', day: 'Sat', num: 14, month: 'Mar' },
+                    { date: '2026-03-15', day: 'Sun', num: 15, month: 'Mar' },
+                    { date: '2026-03-21', day: 'Sat', num: 21, month: 'Mar' },
+                    { date: '2026-03-22', day: 'Sun', num: 22, month: 'Mar' },
+                ],
+                weekday: [
+                    { date: '2026-03-02', day: 'Mon', num: 2, month: 'Mar' },
+                    { date: '2026-03-03', day: 'Tue', num: 3, month: 'Mar' },
+                    { date: '2026-03-09', day: 'Mon', num: 9, month: 'Mar' },
+                    { date: '2026-03-10', day: 'Tue', num: 10, month: 'Mar' },
+                ]
+            }
+        };
+
+        function selectMonth(month) {
+            selectedMonth = month;
+            document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            setTimeout(() => goToStep(2), 250);
+        }
+
+        function selectDayType(type) {
+            selectedDayType = type;
+            document.querySelectorAll('#step2 .choice-card').forEach(c => c.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+
+            // Render date cards for selected month + day type
+            const dates = datesByMonth[selectedMonth][type];
+            renderDateCards(dates, 'dateCards');
+
+            setTimeout(() => goToStep(3), 250);
+        }
+
+        function renderDateCards(dates, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = dates.map(d => `
+                <div class="date-card" onclick="selectDate(this, '${d.date}', '${d.day}', ${d.num}, '${d.month}')">
+                    <div class="day-name">${d.day}</div>
+                    <div class="day-num">${d.num}</div>
+                    <div class="month">${d.month}</div>
+                </div>
+            `).join('');
+        }
+
+        function selectDate(el, dateStr, day, num, month) {
+            selectedDate = dateStr;
+            selectedDateObj = { day, num, month };
+            document.querySelectorAll('.date-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+
+            // Auto-advance after short delay
+            if (isViewing) {
+                // For viewings, skip time and guests, go straight to details
+                setTimeout(() => goToStep(6), 250);
+            } else {
+                setTimeout(() => goToStep(4), 250);
+            }
+        }
+
+        function expandTime(el) {
+            // If clicking on the button, don't toggle
+            if (event.target.classList.contains('select-time-btn')) return;
+
+            // Collapse others, expand this one
+            document.querySelectorAll('.time-slot').forEach(s => {
+                if (s !== el) s.classList.remove('expanded');
+            });
+            el.classList.toggle('expanded');
+        }
+
+        function confirmTime(e, start, end, label) {
+            e.stopPropagation();
+
+            document.querySelectorAll('.time-slot').forEach(s => {
+                s.classList.remove('selected', 'expanded');
+            });
+            event.target.closest('.time-slot').classList.add('selected');
+
+            selectedTimeStart = start;
+            selectedTimeEnd = end;
+            selectedTimeLabel = label;
+
+            // Now advance to guests
+            setTimeout(() => goToStep(5), 200);
+        }
+
+        function selectGuests(el, count) {
+            selectedGuests = count;
+            document.querySelectorAll('.guest-btn').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+
+            // Auto-advance
+            setTimeout(() => goToStep(6), 250);
+        }
+
+        function validateField(input, type) {
+            const value = input.value.trim();
+            let valid = false;
+
+            if (type === 'name') valid = value.length >= 2;
+            if (type === 'email') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            if (type === 'phone') valid = value.replace(/\D/g, '').length >= 10;
+
+            const checkEl = document.getElementById('check' + type.charAt(0).toUpperCase() + type.slice(1));
+            if (valid) {
+                input.classList.add('valid');
+                checkEl.classList.add('show');
+            } else {
+                input.classList.remove('valid');
+                checkEl.classList.remove('show');
+            }
+
+            checkFormComplete();
+        }
+
+        function checkFormComplete() {
+            const name = document.getElementById('inputName').classList.contains('valid');
+            const email = document.getElementById('inputEmail').classList.contains('valid');
+            const phone = document.getElementById('inputPhone').classList.contains('valid');
+            document.getElementById('btn6').disabled = !(name && email && phone);
+        }
+
+        function goToStep(step) {
+            // Update progress dots
+            for (let i = 1; i <= 7; i++) {
+                const dot = document.getElementById(`dot${i}`);
+                if (dot) {
+                    dot.classList.remove('active', 'done');
+                    if (i < step) dot.classList.add('done');
+                    if (i === step) dot.classList.add('active');
+                }
+            }
+
+            // Show/hide steps
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+
+            // Update summary on step 7
+            if (step === 7) {
+                updateSummary();
+                track('demo_complete'); // Track: reached final step
+            }
+        }
+
+        function updateSummary() {
+            const dateStr = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month}`;
+            const timeStr = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)}`;
+
+            document.getElementById('summaryDate').textContent = dateStr;
+            document.getElementById('summaryTime').textContent = timeStr;
+            document.getElementById('summaryGuests').textContent = selectedGuests + ' guests';
+            document.getElementById('summaryName').textContent = document.getElementById('inputName').value;
+            document.getElementById('dateText').textContent = dateStr + ' 2026';
+
+            // Calculate countdown
+            const eventDate = new Date(selectedDate);
+            const today = new Date();
+            const diffDays = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+
+            let countdownText = '';
+            if (diffDays > 14) {
+                const weeks = Math.floor(diffDays / 7);
+                countdownText = `Your celebration is in ${weeks} week${weeks > 1 ? 's' : ''}!`;
+            } else {
+                countdownText = `Your celebration is in ${diffDays} days!`;
+            }
+            document.getElementById('countdownText').textContent = countdownText;
+        }
+
+        function formatTime(time) {
+            const [h, m] = time.split(':');
+            const hour = parseInt(h);
+            if (hour === 0 || hour === 24) return '12am';
+            if (hour === 12) return '12pm';
+            return hour > 12 ? `${hour - 12}pm` : `${hour}am`;
+        }
+
+        function showConfirmation() {
+            track('cta_click'); // Track: clicked book button
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step8').classList.add('active');
+            document.getElementById('progressBar').style.display = 'none';
+        }
+
+        function goToViewing() {
+            isViewing = true;
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stepViewing').classList.add('active');
+            // Use weekday dates for viewings
+            renderDateCards(datesByMonth.thisMonth.weekday.concat(datesByMonth.nextMonth.weekday), 'viewingDates');
+        }
+    </script>
+</body>
+</html>
