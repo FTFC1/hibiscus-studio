@@ -39,28 +39,6 @@
             font-size: 0.85rem;
         }
 
-        /* Progress indicator */
-        .progress {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 24px 0;
-        }
-        .progress-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #333;
-            transition: all 0.3s;
-        }
-        .progress-dot.active {
-            background: #c084fc;
-            width: 24px;
-            border-radius: 4px;
-        }
-        .progress-dot.done {
-            background: #4ade80;
-        }
 
         /* Steps */
         .step {
@@ -557,17 +535,34 @@
             line-height: 1.6;
         }
 
-        /* Demo banner - iOS native style */
+        /* Demo banner - more visible */
         .demo-banner {
-            background: #1c1c1e;
-            padding: 6px 0;
+            background: #7c3aed;
+            padding: 10px 0;
             text-align: center;
             margin: -20px -20px 20px -20px;
         }
         .demo-banner-text {
-            color: #636366;
-            font-size: 0.7rem;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 500;
             letter-spacing: 0.02em;
+        }
+
+        /* Progress bar (percentage) */
+        .progress-bar {
+            max-width: 360px;
+            margin: 24px auto;
+            background: #222;
+            border-radius: 8px;
+            height: 6px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #c084fc);
+            border-radius: 8px;
+            transition: width 0.3s ease;
         }
 
         /* Viewing option */
@@ -625,18 +620,34 @@
         <p class="subtitle">Private Event Booking</p>
     </div>
 
-    <div class="progress" id="progressBar">
-        <div class="progress-dot active" id="dot1"></div>
-        <div class="progress-dot" id="dot2"></div>
-        <div class="progress-dot" id="dot3"></div>
-        <div class="progress-dot" id="dot4"></div>
-        <div class="progress-dot" id="dot5"></div>
-        <div class="progress-dot" id="dot6"></div>
-        <div class="progress-dot" id="dot7"></div>
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
     </div>
 
-    <!-- Step 1: When are you looking? -->
+    <!-- Step 1: What type of event? -->
     <div class="step active" id="step1">
+        <p class="step-title">What are you planning?</p>
+        <div class="choices">
+            <div class="choice-card" onclick="selectEventType('private')">
+                <div class="title">🎂 Private Event</div>
+                <div class="desc">Birthday, baby shower, bridal party</div>
+            </div>
+            <div class="choice-card" onclick="selectEventType('friday')">
+                <div class="title">🍾 Friday Party</div>
+                <div class="desc">After-work drinks, networking, celebrations</div>
+            </div>
+            <div class="choice-card" onclick="selectEventType('workshop')">
+                <div class="title">🎨 Workshop</div>
+                <div class="desc">Creative sessions, team activities, classes</div>
+            </div>
+        </div>
+        <div class="viewing-link">
+            <a href="#" onclick="goToViewing(); return false;">Just want to see the space? Book a viewing →</a>
+        </div>
+    </div>
+
+    <!-- Step 2: When are you looking? -->
+    <div class="step" id="step2">
         <p class="step-title">When are you looking to book?</p>
         <div class="choices">
             <div class="choice-card" onclick="selectMonth('thisMonth')">
@@ -649,16 +660,14 @@
             </div>
             <div class="choice-card" onclick="selectMonth('later')">
                 <div class="title">Later</div>
-                <div class="desc">March onwards</div>
+                <div class="desc">March onwards — DM us for dates</div>
             </div>
         </div>
-        <div class="viewing-link">
-            <a href="#" onclick="goToViewing(); return false;">Just want to see the space? Book a viewing →</a>
-        </div>
+        <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
     </div>
 
-    <!-- Step 2: Weekday or Weekend -->
-    <div class="step" id="step2">
+    <!-- Step 3: Weekday or Weekend -->
+    <div class="step" id="step3">
         <p class="step-title">Weekend or weekday?</p>
         <div class="choices">
             <div class="choice-card" onclick="selectDayType('weekend')">
@@ -670,24 +679,19 @@
                 <div class="desc">Monday to Friday — more availability</div>
             </div>
         </div>
-        <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
-    </div>
-
-    <!-- Step 3: Pick a Date -->
-    <div class="step" id="step3">
-        <p class="step-title">Pick your date</p>
-        <div class="date-cards" id="dateCards"></div>
         <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
     </div>
 
-    <!-- Step 4: Select Time -->
+    <!-- Step 4: Pick a Date -->
     <div class="step" id="step4">
-        <p class="step-title">Choose your time</p>
+        <p class="step-title">Pick your date</p>
+        <div class="date-cards" id="dateCards"></div>
+        <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+    </div>
 
-        <div class="social-proof">
-            <div class="social-proof-img">[Recent event photo]</div>
-            <div class="social-proof-caption"><strong>Bridal shower</strong> · 2 days ago</div>
-        </div>
+    <!-- Step 5: Select Time -->
+    <div class="step" id="step5">
+        <p class="step-title">Choose your time</p>
 
         <div class="time-slots">
             <div class="time-slot" onclick="expandTime(this)">
@@ -701,16 +705,16 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">12:00 – 12:30</span>
+                        <span class="label">Setup & arrival (45 min)</span>
+                        <span class="value">12:00 – 12:45</span>
                     </div>
                     <div class="breakdown-row event">
-                        <span class="label">Your event</span>
-                        <span class="value">12:30 – 5:30</span>
+                        <span class="label">Your event (4.5 hrs)</span>
+                        <span class="value">12:45 – 5:15</span>
                     </div>
                     <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">5:30 – 6:00</span>
+                        <span class="label">Pack down & leave (45 min)</span>
+                        <span class="value">5:15 – 6:00</span>
                     </div>
                 </div>
                 <div class="expand-hint">Tap to see time breakdown</div>
@@ -728,16 +732,16 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">2:00 – 2:30</span>
+                        <span class="label">Setup & arrival (45 min)</span>
+                        <span class="value">2:00 – 2:45</span>
                     </div>
                     <div class="breakdown-row event">
-                        <span class="label">Your event</span>
-                        <span class="value">2:30 – 7:30</span>
+                        <span class="label">Your event (4.5 hrs)</span>
+                        <span class="value">2:45 – 7:15</span>
                     </div>
                     <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">7:30 – 8:00</span>
+                        <span class="label">Pack down & leave (45 min)</span>
+                        <span class="value">7:15 – 8:00</span>
                     </div>
                 </div>
                 <div class="expand-hint">Tap to see time breakdown</div>
@@ -755,16 +759,16 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">4:00 – 4:30</span>
+                        <span class="label">Setup & arrival (45 min)</span>
+                        <span class="value">4:00 – 4:45</span>
                     </div>
                     <div class="breakdown-row event">
-                        <span class="label">Your event</span>
-                        <span class="value">4:30 – 9:30</span>
+                        <span class="label">Your event (4.5 hrs)</span>
+                        <span class="value">4:45 – 9:15</span>
                     </div>
                     <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">9:30 – 10:00</span>
+                        <span class="label">Pack down & leave (45 min)</span>
+                        <span class="value">9:15 – 10:00</span>
                     </div>
                 </div>
                 <div class="expand-hint">Tap to see time breakdown</div>
@@ -782,27 +786,27 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">6:00 – 6:30</span>
+                        <span class="label">Setup & arrival (45 min)</span>
+                        <span class="value">6:00 – 6:45</span>
                     </div>
                     <div class="breakdown-row event">
-                        <span class="label">Your event</span>
-                        <span class="value">6:30 – 11:30</span>
+                        <span class="label">Your event (4.5 hrs)</span>
+                        <span class="value">6:45 – 11:15</span>
                     </div>
                     <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">11:30 – 12:00</span>
+                        <span class="label">Pack down & leave (45 min)</span>
+                        <span class="value">11:15 – 12:00</span>
                     </div>
                 </div>
                 <div class="expand-hint">Tap to see time breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '18:00', '00:00', 'Night')">Select this time</button>
             </div>
         </div>
-        <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+        <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
     </div>
 
-    <!-- Step 5: Guest Count -->
-    <div class="step" id="step5">
+    <!-- Step 6: Guest Count -->
+    <div class="step" id="step6">
         <p class="step-title">How many guests?</p>
         <div class="guest-selector">
             <div class="guest-btn" onclick="selectGuests(this, '1-10')">
@@ -822,11 +826,11 @@
                 <div class="label">max</div>
             </div>
         </div>
-        <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
+        <button class="btn btn-secondary" onclick="goToStep(5)">← Back</button>
     </div>
 
-    <!-- Step 6: Your Details -->
-    <div class="step" id="step6">
+    <!-- Step 7: Your Details -->
+    <div class="step" id="step7">
         <p class="step-title">Your details</p>
         <div class="form-group">
             <label class="form-label">Name</label>
@@ -843,12 +847,12 @@
             <input type="tel" class="form-input" id="inputPhone" placeholder="07xxx xxx xxx" inputmode="numeric" oninput="validateField(this, 'phone')">
             <span class="input-check" id="checkPhone">✓</span>
         </div>
-        <button class="btn btn-primary" id="btn6" disabled onclick="goToStep(7)">Review Booking</button>
-        <button class="btn btn-secondary" onclick="goToStep(5)">← Back</button>
+        <button class="btn btn-primary" id="btn7" disabled onclick="goToStep(8)">Review Booking</button>
+        <button class="btn btn-secondary" onclick="goToStep(6)">← Back</button>
     </div>
 
-    <!-- Step 7: Confirm & Pay -->
-    <div class="step" id="step7">
+    <!-- Step 8: Confirm & Pay -->
+    <div class="step" id="step8">
         <div class="excitement">
             <div class="emoji">🎉</div>
             <div class="countdown" id="countdownText">Your celebration is in 3 weeks!</div>
@@ -856,6 +860,10 @@
         </div>
 
         <div class="summary">
+            <div class="summary-row">
+                <span class="summary-label">Event</span>
+                <span class="summary-value" id="summaryEvent">—</span>
+            </div>
             <div class="summary-row">
                 <span class="summary-label">Date</span>
                 <span class="summary-value" id="summaryDate">—</span>
@@ -882,11 +890,6 @@
             <div class="note">Remaining £150 due 7 days before your event</div>
         </div>
 
-        <div class="social-proof" style="margin-top: 20px;">
-            <div class="social-proof-img">[Happy guests photo]</div>
-            <div class="social-proof-caption"><strong>100+ events</strong> hosted at Hibiscus Studio</div>
-        </div>
-
         <div class="faq">
             <div class="faq-title">Before you book</div>
             <div class="faq-item">
@@ -899,16 +902,16 @@
             </div>
             <div class="faq-item">
                 <div class="faq-q">What's included?</div>
-                <div class="faq-a">Tables, chairs, speaker, basic decor, kitchen access.</div>
+                <div class="faq-a">2 tables · 40 chairs · Bluetooth speaker · Basic decor · Kitchen access</div>
             </div>
         </div>
 
         <button class="btn btn-primary" onclick="showConfirmation()">Pay £150 Deposit</button>
-        <button class="btn btn-secondary" onclick="goToStep(6)">← Back</button>
+        <button class="btn btn-secondary" onclick="goToStep(7)">← Back</button>
     </div>
 
-    <!-- Step 8: Confirmed -->
-    <div class="step" id="step8">
+    <!-- Step 9: Confirmed -->
+    <div class="step" id="step9">
         <div class="confirmation">
             <div class="confirm-icon">✓</div>
             <h2 class="confirm-title">Booking Confirmed!</h2>
@@ -916,7 +919,26 @@
                 We've sent a confirmation to your email.<br>
                 See you at Hibiscus Studio! 💜
             </p>
+            <div class="summary" style="margin-top: 24px; text-align: left;">
+                <div class="summary-row">
+                    <span class="summary-label">Event</span>
+                    <span class="summary-value" id="receiptEvent">—</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Date</span>
+                    <span class="summary-value" id="receiptDate">—</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Time</span>
+                    <span class="summary-value" id="receiptTime">—</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Deposit Paid</span>
+                    <span class="summary-value">£150</span>
+                </div>
+            </div>
         </div>
+        <button class="btn btn-secondary" onclick="resetDemo()">Start Over</button>
     </div>
 
     <!-- Viewing Flow -->
@@ -948,6 +970,7 @@
         // ================================================
 
         // State
+        let selectedEventType = null;
         let selectedMonth = null;
         let selectedDayType = null;
         let selectedDate = null;
@@ -957,6 +980,19 @@
         let selectedTimeLabel = null;
         let selectedGuests = null;
         let isViewing = false;
+
+        const eventTypeLabels = {
+            'private': 'Private Event',
+            'friday': 'Friday Party',
+            'workshop': 'Workshop'
+        };
+
+        function selectEventType(type) {
+            selectedEventType = type;
+            document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            setTimeout(() => goToStep(2), 250);
+        }
 
         // Demo available dates by month
         const datesByMonth = {
@@ -1009,21 +1045,21 @@
 
         function selectMonth(month) {
             selectedMonth = month;
-            document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('#step2 .choice-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
-            setTimeout(() => goToStep(2), 250);
+            setTimeout(() => goToStep(3), 250);
         }
 
         function selectDayType(type) {
             selectedDayType = type;
-            document.querySelectorAll('#step2 .choice-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('#step3 .choice-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
 
             // Render date cards for selected month + day type
             const dates = datesByMonth[selectedMonth][type];
             renderDateCards(dates, 'dateCards');
 
-            setTimeout(() => goToStep(3), 250);
+            setTimeout(() => goToStep(4), 250);
         }
 
         function renderDateCards(dates, containerId) {
@@ -1046,9 +1082,9 @@
             // Auto-advance after short delay
             if (isViewing) {
                 // For viewings, skip time and guests, go straight to details
-                setTimeout(() => goToStep(6), 250);
+                setTimeout(() => goToStep(7), 250);
             } else {
-                setTimeout(() => goToStep(4), 250);
+                setTimeout(() => goToStep(5), 250);
             }
         }
 
@@ -1076,7 +1112,7 @@
             selectedTimeLabel = label;
 
             // Now advance to guests
-            setTimeout(() => goToStep(5), 200);
+            setTimeout(() => goToStep(6), 200);
         }
 
         function selectGuests(el, count) {
@@ -1085,7 +1121,7 @@
             el.classList.add('selected');
 
             // Auto-advance
-            setTimeout(() => goToStep(6), 250);
+            setTimeout(() => goToStep(7), 250);
         }
 
         function validateField(input, type) {
@@ -1112,26 +1148,20 @@
             const name = document.getElementById('inputName').classList.contains('valid');
             const email = document.getElementById('inputEmail').classList.contains('valid');
             const phone = document.getElementById('inputPhone').classList.contains('valid');
-            document.getElementById('btn6').disabled = !(name && email && phone);
+            document.getElementById('btn7').disabled = !(name && email && phone);
         }
 
         function goToStep(step) {
-            // Update progress dots
-            for (let i = 1; i <= 7; i++) {
-                const dot = document.getElementById(`dot${i}`);
-                if (dot) {
-                    dot.classList.remove('active', 'done');
-                    if (i < step) dot.classList.add('done');
-                    if (i === step) dot.classList.add('active');
-                }
-            }
+            // Update progress bar (8 steps total, step 9 is confirmation)
+            const progress = Math.min((step / 8) * 100, 100);
+            document.getElementById('progressFill').style.width = progress + '%';
 
             // Show/hide steps
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById(`step${step}`).classList.add('active');
 
-            // Update summary on step 7
-            if (step === 7) {
+            // Update summary on step 8
+            if (step === 8) {
                 updateSummary();
                 track('demo_complete'); // Track: reached final step
             }
@@ -1141,6 +1171,7 @@
             const dateStr = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month}`;
             const timeStr = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)}`;
 
+            document.getElementById('summaryEvent').textContent = eventTypeLabels[selectedEventType] || '—';
             document.getElementById('summaryDate').textContent = dateStr;
             document.getElementById('summaryTime').textContent = timeStr;
             document.getElementById('summaryGuests').textContent = selectedGuests + ' guests';
@@ -1172,8 +1203,14 @@
 
         function showConfirmation() {
             track('cta_click'); // Track: clicked book button
+
+            // Copy values to receipt
+            document.getElementById('receiptEvent').textContent = eventTypeLabels[selectedEventType] || '—';
+            document.getElementById('receiptDate').textContent = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month} 2026`;
+            document.getElementById('receiptTime').textContent = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)}`;
+
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            document.getElementById('step8').classList.add('active');
+            document.getElementById('step9').classList.add('active');
             document.getElementById('progressBar').style.display = 'none';
         }
 
@@ -1183,6 +1220,35 @@
             document.getElementById('stepViewing').classList.add('active');
             // Use weekday dates for viewings
             renderDateCards(datesByMonth.thisMonth.weekday.concat(datesByMonth.nextMonth.weekday), 'viewingDates');
+        }
+
+        function resetDemo() {
+            // Reset state
+            selectedEventType = null;
+            selectedMonth = null;
+            selectedDayType = null;
+            selectedDate = null;
+            selectedDateObj = null;
+            selectedTimeStart = null;
+            selectedTimeEnd = null;
+            selectedTimeLabel = null;
+            selectedGuests = null;
+            isViewing = false;
+
+            // Reset UI
+            document.querySelectorAll('.choice-card, .date-card, .time-slot, .guest-btn').forEach(el => {
+                el.classList.remove('selected', 'expanded');
+            });
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('valid');
+            });
+            document.querySelectorAll('.input-check').forEach(el => el.classList.remove('show'));
+            document.getElementById('btn7').disabled = true;
+
+            // Show progress bar and go to step 1
+            document.getElementById('progressBar').style.display = 'block';
+            goToStep(1);
         }
     </script>
 </body>
