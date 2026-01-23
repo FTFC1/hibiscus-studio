@@ -83,24 +83,7 @@
             text-align: center;
         }
 
-        /* Dramatic theme bar - shows active theme */
-        .theme-bar {
-            display: none;
-            max-width: 360px;
-            margin: 0 auto 20px;
-            padding: 10px 16px;
-            background: var(--gradient);
-            border-radius: 12px;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .theme-bar.visible {
-            display: block;
-        }
+        /* Theme bar - REMOVED per user feedback */
 
         /* Themed background glow effect */
         body.themed::before {
@@ -826,12 +809,14 @@
             text-align: center;
         }
         .amenity-item .icon {
-            font-size: 1.3rem;
+            font-size: 1rem;
             margin-bottom: 4px;
+            opacity: 0.4;
+            filter: grayscale(70%);
         }
         .amenity-item .label {
             font-size: 0.65rem;
-            color: #888;
+            color: #555;
             line-height: 1.2;
         }
 
@@ -856,11 +841,11 @@
             background: #333;
         }
         .extra-option {
-            background: #111118;
-            border: 2px solid #222;
+            background: #0d0d12;
+            border: 1px solid #1a1a1f;
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 10px;
+            padding: 14px 16px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -868,29 +853,33 @@
             transition: all 0.2s;
         }
         .extra-option:hover {
-            border-color: #444;
+            background: #111118;
+            border-color: #333;
         }
         .extra-option.selected {
             border-color: var(--accent);
-            background: color-mix(in srgb, var(--accent) 8%, transparent);
+            background: color-mix(in srgb, var(--accent) 6%, transparent);
         }
         .extra-info {
             flex: 1;
         }
         .extra-info .name {
-            font-size: 0.9rem;
-            color: #fff;
+            font-size: 0.85rem;
+            color: #ccc;
             font-weight: 500;
         }
         .extra-info .desc {
-            font-size: 0.75rem;
-            color: #888;
+            font-size: 0.7rem;
+            color: #666;
             margin-top: 2px;
         }
         .extra-price {
+            color: #888;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        .extra-option.selected .extra-price {
             color: var(--accent-light);
-            font-weight: 600;
-            font-size: 0.9rem;
         }
         .extra-check {
             width: 24px;
@@ -993,7 +982,6 @@
 
     <!-- Step 2: When are you looking? -->
     <div class="step" id="step2">
-        <div class="theme-bar" id="themeBar">🌸 Bridal / Hen Party</div>
         <p class="step-title">When are you looking to book?</p>
         <div class="choices">
             <div class="choice-card" onclick="selectMonth('thisMonth')">
@@ -1394,16 +1382,6 @@
             document.documentElement.style.setProperty('--accent-light', theme.light);
             document.documentElement.style.setProperty('--gradient', theme.gradient);
 
-            // Update theme bar with event type label
-            const themeLabels = {
-                'bridal': '💍 Bridal / Hen Party',
-                'private': '🎉 Private Event',
-                'workshop': '📸 Workshop / Content'
-            };
-            const themeBar = document.getElementById('themeBar');
-            themeBar.textContent = themeLabels[type];
-            themeBar.classList.add('visible');
-
             // Add themed glow to body
             document.body.classList.add('themed');
 
@@ -1774,8 +1752,7 @@
             document.documentElement.style.setProperty('--accent-light', '#c084fc');
             document.documentElement.style.setProperty('--gradient', 'linear-gradient(135deg, #7c3aed, #c084fc)');
 
-            // Hide theme bar and remove body glow
-            document.getElementById('themeBar').classList.remove('visible');
+            // Remove body glow
             document.body.classList.remove('themed');
 
             // Reset UI

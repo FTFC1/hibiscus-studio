@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Visual Options</title>
+    <style>
+        :root {
+            --accent: #ec4899;
+            --accent-light: #f472b6;
+            --gradient: linear-gradient(135deg, #ec4899, #f472b6);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0f;
+            color: #e5e5e5;
+            padding: 20px;
+        }
+        h1 { font-size: 1.2rem; color: #fff; margin-bottom: 8px; }
+        .subtitle { color: #666; font-size: 0.8rem; margin-bottom: 30px; }
+        .option {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            max-width: 360px;
+        }
+        .option-label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .slot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+        .time-range { font-size: 1rem; font-weight: 600; color: #fff; }
+        .badge {
+            background: color-mix(in srgb, var(--accent) 20%, transparent);
+            color: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        /* ========== OPTION 1: Current (numbers heavy) ========== */
+        .v1 .time-bar {
+            display: flex;
+            height: 48px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .v1 .seg {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .v1 .seg.side { width: 12.5%; background: #2a2a30; }
+        .v1 .seg.main { width: 75%; background: var(--gradient); color: #fff; font-size: 0.85rem; font-weight: 600; flex-direction: row; }
+
+        /* ========== OPTION 2: No numbers, just words ========== */
+        .v2 .time-bar {
+            display: flex;
+            height: 44px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .v2 .seg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .v2 .seg.side { width: 12.5%; background: #2a2a30; color: #666; }
+        .v2 .seg.main { width: 75%; background: var(--gradient); color: #fff; font-size: 0.8rem; font-weight: 600; }
+
+        /* ========== OPTION 3: Minimal - just proportional colors ========== */
+        .v3 .time-bar {
+            display: flex;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .v3 .seg.side { width: 12.5%; background: #333; }
+        .v3 .seg.main { width: 75%; background: var(--gradient); }
+        .v3 .label {
+            font-size: 0.75rem;
+            color: #888;
+            text-align: center;
+        }
+        .v3 .label strong { color: var(--accent-light); }
+
+        /* ========== OPTION 4: Icons instead of text ========== */
+        .v4 .time-bar {
+            display: flex;
+            height: 48px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .v4 .seg {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .v4 .seg.side { width: 12.5%; background: #2a2a30; }
+        .v4 .seg.main { width: 75%; background: var(--gradient); }
+        .v4 .seg .icon { font-size: 1.2rem; }
+        .v4 .seg .txt { font-size: 0.55rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
+        .v4 .seg.main .txt { color: #fff; font-size: 0.7rem; font-weight: 600; }
+
+        /* ========== OPTION 5: Just the event, simple ========== */
+        .v5 .time-bar {
+            background: var(--gradient);
+            border-radius: 10px;
+            padding: 14px 20px;
+            text-align: center;
+        }
+        .v5 .main-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .v5 .sub-text {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+        }
+
+        /* ========== OPTION 6: Timeline dots ========== */
+        .v6 .timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+        .v6 .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #444;
+        }
+        .v6 .dot.active { background: var(--accent); width: 14px; height: 14px; }
+        .v6 .line {
+            flex: 1;
+            height: 3px;
+            background: #333;
+            margin: 0 4px;
+        }
+        .v6 .line.active { background: var(--gradient); }
+        .v6 .labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.65rem;
+            color: #666;
+        }
+        .v6 .labels .main { color: var(--accent-light); font-weight: 600; }
+
+        /* ========== OPTION 7: Stacked cards ========== */
+        .v7 .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .v7 .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+        .v7 .row.side { background: #1a1a1f; color: #666; }
+        .v7 .row.main { background: var(--gradient); color: #fff; font-weight: 600; }
+
+        /* ========== OPTION 8: Big number focus ========== */
+        .v8 .focus {
+            text-align: center;
+            padding: 16px;
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
+            border-radius: 12px;
+            border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+        }
+        .v8 .big { font-size: 2rem; font-weight: 700; color: var(--accent-light); }
+        .v8 .label { font-size: 0.8rem; color: #888; margin-top: 4px; }
+        .v8 .small { font-size: 0.7rem; color: #555; margin-top: 8px; }
+
+        /* ========== OPTION 9: Pill tags ========== */
+        .v9 .pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .v9 .pill {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        .v9 .pill.side { background: #1a1a1f; color: #666; }
+        .v9 .pill.main { background: var(--gradient); color: #fff; font-weight: 600; padding: 10px 20px; }
+
+        /* ========== OPTION 10: Clean proportion bar ========== */
+        .v10 .bar-wrap {
+            background: #1a1a1f;
+            border-radius: 10px;
+            padding: 4px;
+        }
+        .v10 .bar-inner {
+            display: flex;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .v10 .seg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        .v10 .seg.side { width: 12.5%; color: #555; }
+        .v10 .seg.main { width: 75%; background: var(--gradient); color: #fff; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <h1>Time Breakdown Variations</h1>
+    <p class="subtitle">Pick the one(s) you like. All show the same info: setup (short) → your event (long) → exit (short)</p>
+
+    <!-- OPTION 1 -->
+    <div class="option v1">
+        <div class="option-label">Option 1 — Current (numbers heavy)</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="time-bar">
+            <div class="seg side">45m<br>setup</div>
+            <div class="seg main">4.5 hrs YOUR EVENT</div>
+            <div class="seg side">45m<br>exit</div>
+        </div>
+    </div>
+
+    <!-- OPTION 2 -->
+    <div class="option v2">
+        <div class="option-label">Option 2 — Words only, no numbers</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="time-bar">
+            <div class="seg side">setup</div>
+            <div class="seg main">YOUR EVENT</div>
+            <div class="seg side">exit</div>
+        </div>
+    </div>
+
+    <!-- OPTION 3 -->
+    <div class="option v3">
+        <div class="option-label">Option 3 — Minimal bar + text below</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="time-bar">
+            <div class="seg side"></div>
+            <div class="seg main"></div>
+            <div class="seg side"></div>
+        </div>
+        <div class="label"><strong>4.5 hrs</strong> for your event · 45 min setup/exit each side</div>
+    </div>
+
+    <!-- OPTION 4 -->
+    <div class="option v4">
+        <div class="option-label">Option 4 — Icons</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="time-bar">
+            <div class="seg side"><span class="icon">📦</span><span class="txt">setup</span></div>
+            <div class="seg main"><span class="icon">🎉</span><span class="txt">YOUR EVENT</span></div>
+            <div class="seg side"><span class="icon">👋</span><span class="txt">exit</span></div>
+        </div>
+    </div>
+
+    <!-- OPTION 5 -->
+    <div class="option v5">
+        <div class="option-label">Option 5 — Event focused, simple</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="time-bar">
+            <div class="main-text">4.5 hours for your event</div>
+            <div class="sub-text">+ 45 min setup · + 45 min packdown</div>
+        </div>
+    </div>
+
+    <!-- OPTION 6 -->
+    <div class="option v6">
+        <div class="option-label">Option 6 — Timeline dots</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="timeline">
+            <div class="dot"></div>
+            <div class="line"></div>
+            <div class="dot active"></div>
+            <div class="line active"></div>
+            <div class="dot active"></div>
+            <div class="line"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="labels">
+            <span>12:00</span>
+            <span class="main">12:45 → 5:15</span>
+            <span>6:00</span>
+        </div>
+    </div>
+
+    <!-- OPTION 7 -->
+    <div class="option v7">
+        <div class="option-label">Option 7 — Stacked rows</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="stack">
+            <div class="row side"><span>Setup</span><span>45 min</span></div>
+            <div class="row main"><span>Your Event</span><span>4.5 hrs</span></div>
+            <div class="row side"><span>Pack down</span><span>45 min</span></div>
+        </div>
+    </div>
+
+    <!-- OPTION 8 -->
+    <div class="option v8">
+        <div class="option-label">Option 8 — Big number focus</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="focus">
+            <div class="big">4.5 hrs</div>
+            <div class="label">for your event</div>
+            <div class="small">+ 45 min setup & packdown</div>
+        </div>
+    </div>
+
+    <!-- OPTION 9 -->
+    <div class="option v9">
+        <div class="option-label">Option 9 — Pill tags</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="pills">
+            <div class="pill side">setup</div>
+            <div class="pill main">4.5 hrs YOUR EVENT</div>
+            <div class="pill side">exit</div>
+        </div>
+    </div>
+
+    <!-- OPTION 10 -->
+    <div class="option v10">
+        <div class="option-label">Option 10 — Clean proportion bar</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="bar-wrap">
+            <div class="bar-inner">
+                <div class="seg side">setup</div>
+                <div class="seg main">your event</div>
+                <div class="seg side">exit</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
