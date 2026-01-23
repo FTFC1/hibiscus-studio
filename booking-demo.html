@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Event | Hibiscus Studio</title>
     <style>
+        :root {
+            --accent: #7c3aed;
+            --accent-light: #c084fc;
+            --gradient: linear-gradient(135deg, #7c3aed, #c084fc);
+        }
         * {
             box-sizing: border-box;
             margin: 0;
@@ -23,11 +28,18 @@
             margin-bottom: 24px;
         }
         .logo {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #c084fc, #7c3aed);
-            border-radius: 50%;
+            width: 56px;
+            height: 56px;
             margin: 0 auto 12px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         h1 {
             font-size: 1.3rem;
@@ -55,7 +67,7 @@
 
         .step-title {
             font-size: 1.1rem;
-            color: #c084fc;
+            color: var(--accent-light, #c084fc);
             margin-bottom: 16px;
             text-align: center;
         }
@@ -77,11 +89,15 @@
             transition: all 0.2s;
         }
         .choice-card:hover {
-            border-color: #7c3aed;
+            border-color: var(--accent);
         }
         .choice-card.selected {
-            border-color: #7c3aed;
-            background: #7c3aed15;
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
+        }
+        .viewing-card {
+            border-style: dashed;
+            opacity: 0.9;
         }
         .choice-card .title {
             font-size: 1.1rem;
@@ -112,11 +128,11 @@
             transition: all 0.2s;
         }
         .date-card:hover {
-            border-color: #7c3aed;
+            border-color: var(--accent);
         }
         .date-card.selected {
-            border-color: #7c3aed;
-            background: #7c3aed15;
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
         }
         .date-card .day-name {
             font-size: 0.75rem;
@@ -131,7 +147,7 @@
         }
         .date-card .month {
             font-size: 0.8rem;
-            color: #c084fc;
+            color: var(--accent-light, #c084fc);
         }
 
         /* Time slots - ticket style */
@@ -151,11 +167,11 @@
             transition: all 0.2s;
         }
         .time-slot:hover {
-            border-color: #7c3aed;
+            border-color: var(--accent);
         }
         .time-slot.selected {
-            border-color: #7c3aed;
-            background: #7c3aed10;
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 6%, transparent);
         }
         .time-slot-main {
             display: flex;
@@ -174,12 +190,12 @@
             color: #fff;
         }
         .time-slot .arrow {
-            color: #7c3aed;
+            color: var(--accent);
             font-size: 1.2rem;
         }
         .time-slot .badge {
-            background: #7c3aed33;
-            color: #c084fc;
+            background: color-mix(in srgb, var(--accent) 20%, transparent);
+            color: var(--accent-light, #c084fc);
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.75rem;
@@ -211,13 +227,13 @@
             color: #fff;
         }
         .breakdown-row.event {
-            background: #7c3aed22;
+            background: color-mix(in srgb, var(--accent) 13%, transparent);
             margin: 4px -20px;
             padding: 8px 20px;
         }
         .breakdown-row.event .label,
         .breakdown-row.event .value {
-            color: #c084fc;
+            color: var(--accent-light, #c084fc);
             font-weight: 500;
         }
         .expand-hint {
@@ -232,7 +248,7 @@
         }
         .select-time-btn {
             display: none;
-            background: #7c3aed;
+            background: var(--accent);
             color: #fff;
             border: none;
             padding: 12px;
@@ -274,7 +290,7 @@
             color: #888;
         }
         .social-proof-caption strong {
-            color: #c084fc;
+            color: var(--accent-light, #c084fc);
         }
 
         /* Guest selector - 2x2 grid */
@@ -295,11 +311,11 @@
             transition: all 0.2s;
         }
         .guest-btn:hover {
-            border-color: #7c3aed;
+            border-color: var(--accent);
         }
         .guest-btn.selected {
-            border-color: #7c3aed;
-            background: #7c3aed15;
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
         }
         .guest-btn .num {
             font-size: 1.5rem;
@@ -341,7 +357,7 @@
         }
         .form-input:focus {
             outline: none;
-            border-color: #7c3aed;
+            border-color: var(--accent);
         }
         .form-input.valid {
             border-color: #4ade80;
@@ -389,7 +405,7 @@
 
         /* Excitement banner */
         .excitement {
-            background: linear-gradient(135deg, #7c3aed, #c084fc);
+            background: var(--gradient);
             border-radius: 16px;
             padding: 20px;
             text-align: center;
@@ -484,16 +500,37 @@
             transition: all 0.2s;
         }
         .btn-primary {
-            background: #7c3aed;
+            background: var(--gradient);
             color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
         }
         .btn-primary:hover {
-            background: #6d28d9;
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+            transform: translateY(-1px);
         }
         .btn-primary:disabled {
             background: #333;
             color: #666;
             cursor: not-allowed;
+            box-shadow: none;
+        }
+        .btn-primary:disabled::before {
+            display: none;
         }
         .btn-secondary {
             background: transparent;
@@ -537,7 +574,7 @@
 
         /* Demo banner - more visible */
         .demo-banner {
-            background: #7c3aed;
+            background: var(--accent);
             padding: 10px 0;
             text-align: center;
             margin: -20px -20px 20px -20px;
@@ -560,7 +597,7 @@
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #7c3aed, #c084fc);
+            background: var(--gradient);
             border-radius: 8px;
             transition: width 0.3s ease;
         }
@@ -581,7 +618,7 @@
             text-decoration: none;
         }
         .viewing-link a:hover {
-            color: #c084fc;
+            color: var(--accent-light, #c084fc);
         }
 
         /* Viewing step */
@@ -615,7 +652,25 @@
     </div>
 
     <div class="header">
-        <div class="logo"></div>
+        <div class="logo">
+            <svg viewBox="0 0 100 100" fill="none">
+                <defs>
+                    <linearGradient id="petalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:var(--accent)"/>
+                        <stop offset="100%" style="stop-color:var(--accent-light, #c084fc)"/>
+                    </linearGradient>
+                </defs>
+                <!-- 5 petals arranged in a flower -->
+                <ellipse cx="50" cy="25" rx="18" ry="25" fill="url(#petalGrad)" transform="rotate(0 50 50)"/>
+                <ellipse cx="50" cy="25" rx="18" ry="25" fill="url(#petalGrad)" transform="rotate(72 50 50)"/>
+                <ellipse cx="50" cy="25" rx="18" ry="25" fill="url(#petalGrad)" transform="rotate(144 50 50)"/>
+                <ellipse cx="50" cy="25" rx="18" ry="25" fill="url(#petalGrad)" transform="rotate(216 50 50)"/>
+                <ellipse cx="50" cy="25" rx="18" ry="25" fill="url(#petalGrad)" transform="rotate(288 50 50)"/>
+                <!-- Center -->
+                <circle cx="50" cy="50" r="12" fill="#fbbf24"/>
+                <circle cx="50" cy="50" r="6" fill="#f59e0b"/>
+            </svg>
+        </div>
         <h1>Hibiscus Studio</h1>
         <p class="subtitle">Private Event Booking</p>
     </div>
@@ -628,21 +683,22 @@
     <div class="step active" id="step1">
         <p class="step-title">What are you planning?</p>
         <div class="choices">
+            <div class="choice-card" onclick="selectEventType('bridal')">
+                <div class="title">💍 Bridal Party</div>
+                <div class="desc">Hen do, bridal shower, engagement celebration</div>
+            </div>
             <div class="choice-card" onclick="selectEventType('private')">
                 <div class="title">🎂 Private Event</div>
-                <div class="desc">Birthday, baby shower, bridal party</div>
-            </div>
-            <div class="choice-card" onclick="selectEventType('friday')">
-                <div class="title">🍾 Friday Party</div>
-                <div class="desc">After-work drinks, networking, celebrations</div>
+                <div class="desc">Birthday, baby shower, anniversary</div>
             </div>
             <div class="choice-card" onclick="selectEventType('workshop')">
                 <div class="title">🎨 Workshop</div>
                 <div class="desc">Creative sessions, team activities, classes</div>
             </div>
-        </div>
-        <div class="viewing-link">
-            <a href="#" onclick="goToViewing(); return false;">Just want to see the space? Book a viewing →</a>
+            <div class="choice-card viewing-card" onclick="goToViewing()">
+                <div class="title">👀 Book a Viewing</div>
+                <div class="desc">20 mins · See the space first</div>
+            </div>
         </div>
     </div>
 
@@ -982,15 +1038,29 @@
         let isViewing = false;
 
         const eventTypeLabels = {
+            'bridal': 'Bridal Party',
             'private': 'Private Event',
-            'friday': 'Friday Party',
             'workshop': 'Workshop'
+        };
+
+        // Theme colors per event type
+        const eventThemes = {
+            'bridal': { primary: '#ec4899', light: '#f472b6', gradient: 'linear-gradient(135deg, #ec4899, #f472b6)' }, // pink
+            'private': { primary: '#7c3aed', light: '#c084fc', gradient: 'linear-gradient(135deg, #7c3aed, #c084fc)' }, // purple (default)
+            'workshop': { primary: '#f59e0b', light: '#fbbf24', gradient: 'linear-gradient(135deg, #f59e0b, #fbbf24)' }  // amber
         };
 
         function selectEventType(type) {
             selectedEventType = type;
             document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
+
+            // Apply theme
+            const theme = eventThemes[type];
+            document.documentElement.style.setProperty('--accent', theme.primary);
+            document.documentElement.style.setProperty('--accent-light', theme.light);
+            document.documentElement.style.setProperty('--gradient', theme.gradient);
+
             setTimeout(() => goToStep(2), 250);
         }
 
