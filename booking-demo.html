@@ -279,6 +279,40 @@
             background: #2a2a30;
         }
 
+        /* Comparison examples */
+        .compare-section {
+            margin-top: 16px;
+            text-align: center;
+        }
+        .compare-main {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+        .compare-label {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 2px;
+        }
+        .compare-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .compare-example {
+            background: #1a1a1f;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+        }
+        .compare-example .thing {
+            color: #aaa;
+        }
+
         .breakdown-row {
             display: flex;
             justify-content: space-between;
@@ -1057,6 +1091,7 @@
                         <div class="time-segment event">4.5 hrs YOUR EVENT</div>
                         <div class="time-segment packdown">45m<br>exit</div>
                     </div>
+                    <div class="compare-section"></div>
                 </div>
                 <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '12:00', '18:00', 'Afternoon')">Select this time</button>
@@ -1077,6 +1112,7 @@
                         <div class="time-segment event">4.5 hrs YOUR EVENT</div>
                         <div class="time-segment packdown">45m<br>exit</div>
                     </div>
+                    <div class="compare-section"></div>
                 </div>
                 <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '14:00', '20:00', 'Afternoon-Evening')">Select this time</button>
@@ -1097,6 +1133,7 @@
                         <div class="time-segment event">4.5 hrs YOUR EVENT</div>
                         <div class="time-segment packdown">45m<br>exit</div>
                     </div>
+                    <div class="compare-section"></div>
                 </div>
                 <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '16:00', '22:00', 'Evening')">Select this time</button>
@@ -1117,6 +1154,7 @@
                         <div class="time-segment event">4.5 hrs YOUR EVENT</div>
                         <div class="time-segment packdown">45m<br>exit</div>
                     </div>
+                    <div class="compare-section"></div>
                 </div>
                 <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '18:00', '00:00', 'Night')">Select this time</button>
@@ -1371,6 +1409,54 @@
             'workshop': { primary: '#3b82f6', light: '#60a5fa', gradient: 'linear-gradient(135deg, #3b82f6, #60a5fa)' }  // blue
         };
 
+        // Comparison content per event type
+        const eventComparisons = {
+            'bridal': {
+                label: 'of memories',
+                examples: [
+                    { thing: 'Tearful speeches', value: 'at least 2' },
+                    { thing: '"Remember when..." stories', value: 'dozens' },
+                    { thing: 'Group photos you\'ll frame', value: '~20' }
+                ]
+            },
+            'private': {
+                label: 'of your day',
+                examples: [
+                    { thing: 'Friends finally in one room', value: 'all of them' },
+                    { thing: 'Songs that hit different', value: '~50' },
+                    { thing: 'Cake cutting retakes', value: '~5' }
+                ]
+            },
+            'workshop': {
+                label: 'of teaching time',
+                examples: [
+                    { thing: 'Students you can teach', value: 'up to 20' },
+                    { thing: 'Lightbulb moments to witness', value: 'several' },
+                    { thing: 'Time to answer questions', value: 'plenty' }
+                ]
+            }
+        };
+
+        function renderComparisonSections() {
+            const comparison = eventComparisons[selectedEventType];
+            if (!comparison) return;
+
+            document.querySelectorAll('.compare-section').forEach(section => {
+                section.innerHTML = `
+                    <div class="compare-main">4.5 hours</div>
+                    <div class="compare-label">${comparison.label}</div>
+                    <div class="compare-examples">
+                        ${comparison.examples.map(ex => `
+                            <div class="compare-example">
+                                <span class="thing">${ex.thing}</span>
+                                <span>${ex.value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+        }
+
         function selectEventType(type) {
             selectedEventType = type;
             document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
@@ -1553,6 +1639,11 @@
             // Show/hide steps
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById(`step${step}`).classList.add('active');
+
+            // Render comparison content when reaching time selection
+            if (step === 5) {
+                renderComparisonSections();
+            }
 
             // Update summary on step 8
             if (step === 8) {
