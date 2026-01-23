@@ -131,11 +131,22 @@
             font-weight: 600;
             color: #fff;
             margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .choice-card .desc {
             font-size: 0.85rem;
             color: #888;
         }
+        .event-icon {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .event-icon.bridal { color: #ec4899; }
+        .event-icon.private { color: #c084fc; }
+        .event-icon.workshop { color: #60a5fa; }
+        .event-icon.viewing { color: #888; }
 
         /* Date cards */
         .date-cards {
@@ -984,7 +995,7 @@
     </div>
 
     <div class="header">
-        <div class="logo">
+        <div class="logo" onclick="resetDemo()" style="cursor: pointer;" title="Start over">
             <svg viewBox="0 0 100 100" fill="none">
                 <defs>
                     <linearGradient id="petalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1016,19 +1027,19 @@
         <p class="step-title">What are you planning?</p>
         <div class="choices">
             <div class="choice-card" onclick="selectEventType('bridal')">
-                <div class="title">💍 Bridal Party</div>
+                <div class="title"><span class="event-icon bridal">◇</span> Bridal Party</div>
                 <div class="desc">Hen do, bridal shower, engagement celebration</div>
             </div>
             <div class="choice-card" onclick="selectEventType('private')">
-                <div class="title">🎂 Private Event</div>
+                <div class="title"><span class="event-icon private">●</span> Private Event</div>
                 <div class="desc">Birthday, baby shower, anniversary</div>
             </div>
             <div class="choice-card" onclick="selectEventType('workshop')">
-                <div class="title">🎨 Workshop</div>
+                <div class="title"><span class="event-icon workshop">▣</span> Workshop</div>
                 <div class="desc">Creative sessions, team activities, classes</div>
             </div>
             <div class="choice-card viewing-card" onclick="goToViewing()">
-                <div class="title">👀 Book a Viewing</div>
+                <div class="title"><span class="event-icon viewing">◎</span> Book a Viewing</div>
                 <div class="desc">20 mins · See the space first</div>
             </div>
         </div>
@@ -1366,6 +1377,69 @@
         <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
     </div>
 
+    <!-- Viewing Details (Step 7 for viewings) -->
+    <div class="step" id="stepViewingDetails">
+        <p class="step-title">Your details</p>
+        <div class="demo-autofill">
+            <button class="demo-autofill-btn" onclick="autoFillDemo()">✨ Auto-fill for demo</button>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" id="viewingInputName" placeholder="Your name" oninput="validateViewingField(this, 'name')">
+            <span class="input-check" id="viewingCheckName">✓</span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" id="viewingInputEmail" placeholder="you@email.com" oninput="validateViewingField(this, 'email')">
+            <span class="input-check" id="viewingCheckEmail">✓</span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" class="form-input" id="viewingInputPhone" placeholder="07xxx xxx xxx" inputmode="numeric" oninput="validateViewingField(this, 'phone')">
+            <span class="input-check" id="viewingCheckPhone">✓</span>
+        </div>
+        <button class="btn btn-primary" id="btnViewingConfirm" disabled onclick="goToViewingConfirm()">Confirm Viewing</button>
+        <button class="btn btn-secondary" onclick="goToViewingStep()">← Back</button>
+    </div>
+
+    <!-- Viewing Confirmation -->
+    <div class="step" id="stepViewingConfirm">
+        <div class="viewing-info" style="background: #14532d; border: 1px solid #166534;">
+            <div class="icon">✓</div>
+            <div class="title" style="color: #4ade80;">Viewing Booked</div>
+            <div class="desc" style="color: #86efac;">We'll see you at Hibiscus Studio</div>
+        </div>
+
+        <div class="summary">
+            <div class="summary-row">
+                <span class="summary-label">Date</span>
+                <span class="summary-value" id="viewingSummaryDate">—</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Time</span>
+                <span class="summary-value">20 mins</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Name</span>
+                <span class="summary-value" id="viewingSummaryName">—</span>
+            </div>
+        </div>
+
+        <div class="faq" style="margin-top: 24px;">
+            <div class="faq-title">What to expect</div>
+            <div class="faq-item">
+                <div class="faq-q">Where is the studio?</div>
+                <div class="faq-a">We'll send the address to your email once confirmed.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What will I see?</div>
+                <div class="faq-a">Full tour of the space, amenities, and a chance to ask questions.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="resetDemo()">Start Over</button>
+    </div>
+
     <script>
         // ===== LIGHTWEIGHT TRACKING (3 events only) =====
         // Configure: Set WEBHOOK_URL to your Google Sheet webhook
@@ -1559,11 +1633,64 @@
 
             // Auto-advance after short delay
             if (isViewing) {
-                // For viewings, skip time and guests, go straight to details
-                setTimeout(() => goToStep(7), 250);
+                // For viewings, go to viewing details (not booking details)
+                setTimeout(() => goToViewingDetails(), 250);
             } else {
                 setTimeout(() => goToStep(5), 250);
             }
+        }
+
+        // ===== VIEWING FLOW FUNCTIONS =====
+        function goToViewingDetails() {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stepViewingDetails').classList.add('active');
+        }
+
+        function goToViewingStep() {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stepViewing').classList.add('active');
+        }
+
+        function validateViewingField(input, type) {
+            const value = input.value.trim();
+            let valid = false;
+
+            if (type === 'name') valid = value.length >= 2;
+            if (type === 'email') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            if (type === 'phone') valid = value.replace(/\D/g, '').length >= 10;
+
+            const checkEl = document.getElementById('viewingCheck' + type.charAt(0).toUpperCase() + type.slice(1));
+            if (valid) {
+                input.classList.add('valid');
+                checkEl.classList.add('show');
+            } else {
+                input.classList.remove('valid');
+                checkEl.classList.remove('show');
+            }
+
+            checkViewingFormComplete();
+        }
+
+        function checkViewingFormComplete() {
+            const name = document.getElementById('viewingInputName').classList.contains('valid');
+            const email = document.getElementById('viewingInputEmail').classList.contains('valid');
+            const phone = document.getElementById('viewingInputPhone').classList.contains('valid');
+            document.getElementById('btnViewingConfirm').disabled = !(name && email && phone);
+        }
+
+        function goToViewingConfirm() {
+            // Update viewing summary
+            const dateStr = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month}`;
+            document.getElementById('viewingSummaryDate').textContent = dateStr;
+            document.getElementById('viewingSummaryName').textContent = document.getElementById('viewingInputName').value;
+
+            // Track
+            track('viewing_complete');
+
+            // Show confirmation
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stepViewingConfirm').classList.add('active');
+            document.getElementById('progressBar').style.display = 'none';
         }
 
         function expandTime(el) {
@@ -1786,16 +1913,28 @@
             const names = ['Sarah Johnson', 'Jessica Williams', 'Ama Mensah', 'Chioma Obi', 'Priya Patel'];
             const randomName = names[Math.floor(Math.random() * names.length)];
             const emailName = randomName.toLowerCase().replace(' ', '.');
+            const phone = '07' + Math.floor(100000000 + Math.random() * 900000000);
 
-            document.getElementById('inputName').value = randomName;
-            document.getElementById('inputEmail').value = `${emailName}@demo.test`;
-            document.getElementById('inputPhone').value = '07' + Math.floor(100000000 + Math.random() * 900000000);
+            // Check if we're in viewing flow or booking flow
+            if (isViewing) {
+                document.getElementById('viewingInputName').value = randomName;
+                document.getElementById('viewingInputEmail').value = `${emailName}@demo.test`;
+                document.getElementById('viewingInputPhone').value = phone;
 
-            // Trigger validation
-            ['name', 'email', 'phone'].forEach(field => {
-                const input = document.getElementById('input' + field.charAt(0).toUpperCase() + field.slice(1));
-                validateField(input, field);
-            });
+                ['name', 'email', 'phone'].forEach(field => {
+                    const input = document.getElementById('viewingInput' + field.charAt(0).toUpperCase() + field.slice(1));
+                    validateViewingField(input, field);
+                });
+            } else {
+                document.getElementById('inputName').value = randomName;
+                document.getElementById('inputEmail').value = `${emailName}@demo.test`;
+                document.getElementById('inputPhone').value = phone;
+
+                ['name', 'email', 'phone'].forEach(field => {
+                    const input = document.getElementById('input' + field.charAt(0).toUpperCase() + field.slice(1));
+                    validateField(input, field);
+                });
+            }
         }
 
         // ===== OPTIONAL EXTRAS =====
@@ -1858,6 +1997,7 @@
             });
             document.querySelectorAll('.input-check').forEach(el => el.classList.remove('show'));
             document.getElementById('btn7').disabled = true;
+            document.getElementById('btnViewingConfirm').disabled = true;
 
             // Reset deposit display
             document.querySelector('.deposit-info .amount').textContent = '£150';
