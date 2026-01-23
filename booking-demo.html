@@ -500,35 +500,47 @@
             text-align: right;
         }
 
-        /* Excitement banner - compact */
-        .excitement {
-            background: var(--gradient);
+        /* Event comparison banner - replaces countdown */
+        .event-vibe {
+            background: #111118;
+            border: 1px solid #222;
             border-radius: 12px;
-            padding: 12px 16px;
-            text-align: center;
+            padding: 16px;
             margin-bottom: 16px;
             max-width: 360px;
             margin-left: auto;
             margin-right: auto;
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
-        .excitement .emoji {
-            font-size: 1.2rem;
+        .event-vibe .vibe-header {
+            text-align: center;
+            margin-bottom: 12px;
         }
-        .excitement .text-content {
-            text-align: left;
+        .event-vibe .vibe-time {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-light);
         }
-        .excitement .countdown {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #fff;
-        }
-        .excitement .date-text {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.7);
+        .event-vibe .vibe-label {
+            font-size: 0.7rem;
+            color: #666;
             margin-top: 2px;
+        }
+        .event-vibe .vibe-items {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .event-vibe .vibe-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #555;
+            padding: 6px 10px;
+            background: #0a0a0f;
+            border-radius: 6px;
+        }
+        .event-vibe .vibe-item .thing {
+            color: #777;
         }
 
         /* FAQ section */
@@ -1202,12 +1214,8 @@
 
     <!-- Step 8: Confirm & Pay -->
     <div class="step" id="step8">
-        <div class="excitement">
-            <div class="emoji">🎉</div>
-            <div class="text-content">
-                <div class="countdown" id="countdownText">Your celebration is in 3 weeks!</div>
-                <div class="date-text" id="dateText">Saturday 25th January</div>
-            </div>
+        <div class="event-vibe" id="eventVibe">
+            <!-- Dynamically populated based on event type -->
         </div>
 
         <div class="summary">
@@ -1651,21 +1659,25 @@
             document.getElementById('summaryTime').textContent = timeStr;
             document.getElementById('summaryGuests').textContent = selectedGuests + ' guests';
             document.getElementById('summaryName').textContent = document.getElementById('inputName').value;
-            document.getElementById('dateText').textContent = dateStr + ' 2026';
 
-            // Calculate countdown
-            const eventDate = new Date(selectedDate);
-            const today = new Date();
-            const diffDays = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
-
-            let countdownText = '';
-            if (diffDays > 14) {
-                const weeks = Math.floor(diffDays / 7);
-                countdownText = `Your celebration is in ${weeks} week${weeks > 1 ? 's' : ''}!`;
-            } else {
-                countdownText = `Your celebration is in ${diffDays} days!`;
+            // Render event vibe content
+            const comparison = eventComparisons[selectedEventType];
+            if (comparison) {
+                document.getElementById('eventVibe').innerHTML = `
+                    <div class="vibe-header">
+                        <div class="vibe-time">4.5 hours</div>
+                        <div class="vibe-label">${comparison.label}</div>
+                    </div>
+                    <div class="vibe-items">
+                        ${comparison.examples.map(ex => `
+                            <div class="vibe-item">
+                                <span class="thing">${ex.thing}</span>
+                                <span>${ex.value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
             }
-            document.getElementById('countdownText').textContent = countdownText;
         }
 
         function formatTime(time) {
