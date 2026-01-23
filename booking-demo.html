@@ -500,30 +500,35 @@
             text-align: right;
         }
 
-        /* Excitement banner */
+        /* Excitement banner - compact */
         .excitement {
             background: var(--gradient);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 12px 16px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             max-width: 360px;
             margin-left: auto;
             margin-right: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         .excitement .emoji {
-            font-size: 2rem;
-            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        .excitement .text-content {
+            text-align: left;
         }
         .excitement .countdown {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: #fff;
         }
         .excitement .date-text {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            margin-top: 4px;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 2px;
         }
 
         /* FAQ section */
@@ -539,18 +544,19 @@
         }
         .faq-item {
             background: #111118;
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
         }
         .faq-q {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #fff;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         .faq-a {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #888;
+            line-height: 1.4;
         }
 
         /* Deposit info */
@@ -877,9 +883,9 @@
         .extra-option {
             background: #0d0d12;
             border: 1px solid #1a1a1f;
-            border-radius: 12px;
-            padding: 14px 16px;
-            margin-bottom: 8px;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -898,33 +904,35 @@
             flex: 1;
         }
         .extra-info .name {
-            font-size: 0.85rem;
-            color: #ccc;
+            font-size: 0.8rem;
+            color: #666;
             font-weight: 500;
         }
         .extra-info .desc {
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 2px;
+            display: none;
         }
         .extra-price {
-            color: #888;
+            color: #555;
             font-weight: 500;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         .extra-option.selected .extra-price {
             color: var(--accent-light);
         }
+        .extra-option.selected .extra-info .name {
+            color: #aaa;
+        }
         .extra-check {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #444;
-            border-radius: 6px;
-            margin-left: 12px;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            margin-left: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: transparent;
+            font-size: 0.7rem;
             transition: all 0.2s;
         }
         .extra-option.selected .extra-check {
@@ -1196,8 +1204,10 @@
     <div class="step" id="step8">
         <div class="excitement">
             <div class="emoji">🎉</div>
-            <div class="countdown" id="countdownText">Your celebration is in 3 weeks!</div>
-            <div class="date-text" id="dateText">Saturday 25th January</div>
+            <div class="text-content">
+                <div class="countdown" id="countdownText">Your celebration is in 3 weeks!</div>
+                <div class="date-text" id="dateText">Saturday 25th January</div>
+            </div>
         </div>
 
         <div class="summary">
