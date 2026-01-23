@@ -644,6 +644,215 @@
             font-size: 0.85rem;
             color: #888;
         }
+
+        /* Month picker */
+        .month-picker {
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .month-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .month-nav-btn {
+            background: #111118;
+            border: 1px solid #333;
+            color: #888;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+        .month-nav-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+        .month-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .month-display {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+        .month-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .month-btn {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .month-btn:hover {
+            border-color: var(--accent);
+        }
+        .month-btn.selected {
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
+        }
+        .month-btn .month-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .month-btn .month-year {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        /* Demo auto-fill */
+        .demo-autofill {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .demo-autofill-btn {
+            background: transparent;
+            border: 1px dashed #444;
+            color: #888;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .demo-autofill-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        /* Visual amenities */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 16px 0;
+        }
+        .amenity-item {
+            background: #111118;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+        .amenity-item .icon {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+        .amenity-item .label {
+            font-size: 0.65rem;
+            color: #888;
+            line-height: 1.2;
+        }
+
+        /* Optional extras */
+        .extras-section {
+            max-width: 360px;
+            margin: 20px auto;
+        }
+        .extras-title {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .extras-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #333;
+        }
+        .extra-option {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .extra-option:hover {
+            border-color: #444;
+        }
+        .extra-option.selected {
+            border-color: var(--accent);
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
+        }
+        .extra-info {
+            flex: 1;
+        }
+        .extra-info .name {
+            font-size: 0.9rem;
+            color: #fff;
+            font-weight: 500;
+        }
+        .extra-info .desc {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 2px;
+        }
+        .extra-price {
+            color: var(--accent-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .extra-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #444;
+            border-radius: 6px;
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            transition: all 0.2s;
+        }
+        .extra-option.selected .extra-check {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* Time breakdown visual emphasis */
+        .breakdown-row.event {
+            background: color-mix(in srgb, var(--accent) 15%, transparent);
+            margin: 8px -20px;
+            padding: 12px 20px;
+            border-left: 3px solid var(--accent);
+            position: relative;
+        }
+        .breakdown-row.event::before {
+            content: '★';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 0.7rem;
+        }
+        .breakdown-row.event .label {
+            font-size: 0.85rem;
+        }
+        .breakdown-row.event .value {
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
@@ -714,12 +923,26 @@
                 <div class="title">Next month</div>
                 <div class="desc" id="nextMonthLabel">February 2026</div>
             </div>
-            <div class="choice-card" onclick="selectMonth('later')">
+            <div class="choice-card" onclick="showMonthPicker()">
                 <div class="title">Later</div>
-                <div class="desc">March onwards — DM us for dates</div>
+                <div class="desc">Pick a month from March onwards</div>
             </div>
         </div>
         <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+    </div>
+
+    <!-- Step 2b: Month Picker (for "Later") -->
+    <div class="step" id="stepMonthPicker">
+        <p class="step-title">Pick a month</p>
+        <div class="month-picker">
+            <div class="month-nav">
+                <button class="month-nav-btn" id="monthPrevBtn" onclick="changeMonthPage(-1)">←</button>
+                <span class="month-display" id="monthPageLabel">2026</span>
+                <button class="month-nav-btn" id="monthNextBtn" onclick="changeMonthPage(1)">→</button>
+            </div>
+            <div class="month-grid" id="monthGrid"></div>
+        </div>
+        <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
     </div>
 
     <!-- Step 3: Weekday or Weekend -->
@@ -888,6 +1111,9 @@
     <!-- Step 7: Your Details -->
     <div class="step" id="step7">
         <p class="step-title">Your details</p>
+        <div class="demo-autofill">
+            <button class="demo-autofill-btn" onclick="autoFillDemo()">✨ Auto-fill for demo</button>
+        </div>
         <div class="form-group">
             <label class="form-label">Name</label>
             <input type="text" class="form-input" id="inputName" placeholder="Your name" oninput="validateField(this, 'name')">
@@ -947,6 +1173,64 @@
         </div>
 
         <div class="faq">
+            <div class="faq-title">What's included</div>
+            <div class="amenities-grid">
+                <div class="amenity-item">
+                    <div class="icon">🪑</div>
+                    <div class="label">40 chairs</div>
+                </div>
+                <div class="amenity-item">
+                    <div class="icon">🪵</div>
+                    <div class="label">2 tables</div>
+                </div>
+                <div class="amenity-item">
+                    <div class="icon">🔊</div>
+                    <div class="label">Bluetooth speaker</div>
+                </div>
+                <div class="amenity-item">
+                    <div class="icon">📶</div>
+                    <div class="label">Wi-Fi</div>
+                </div>
+                <div class="amenity-item">
+                    <div class="icon">🍳</div>
+                    <div class="label">Kitchen access</div>
+                </div>
+                <div class="amenity-item">
+                    <div class="icon">🚻</div>
+                    <div class="label">Private toilet</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="extras-section" id="extrasSection">
+            <div class="extras-title">Add extras</div>
+            <div class="extra-option" onclick="toggleExtra(this, 'catering', 150)">
+                <div class="extra-info">
+                    <div class="name">🍽️ Catering</div>
+                    <div class="desc">Nigerian small chops platter for your guests</div>
+                </div>
+                <span class="extra-price">+£150</span>
+                <div class="extra-check">✓</div>
+            </div>
+            <div class="extra-option" onclick="toggleExtra(this, 'dj', 100)">
+                <div class="extra-info">
+                    <div class="name">🎧 DJ Setup</div>
+                    <div class="desc">Full DJ equipment with decks & mixer</div>
+                </div>
+                <span class="extra-price">+£100</span>
+                <div class="extra-check">✓</div>
+            </div>
+            <div class="extra-option" onclick="toggleExtra(this, 'photographer', 200)">
+                <div class="extra-info">
+                    <div class="name">📸 Photographer</div>
+                    <div class="desc">2 hour session with edited photos</div>
+                </div>
+                <span class="extra-price">+£200</span>
+                <div class="extra-check">✓</div>
+            </div>
+        </div>
+
+        <div class="faq" style="margin-top: 0;">
             <div class="faq-title">Before you book</div>
             <div class="faq-item">
                 <div class="faq-q">What if I need to cancel?</div>
@@ -954,11 +1238,7 @@
             </div>
             <div class="faq-item">
                 <div class="faq-q">Can I bring my own food & drinks?</div>
-                <div class="faq-a">Yes! No corkage fee. Catering can also be arranged.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">What's included?</div>
-                <div class="faq-a">2 tables · 40 chairs · Bluetooth speaker · Basic decor · Kitchen access</div>
+                <div class="faq-a">Yes! No corkage fee. No outside alcohol.</div>
             </div>
         </div>
 
@@ -1047,7 +1327,7 @@
         const eventThemes = {
             'bridal': { primary: '#ec4899', light: '#f472b6', gradient: 'linear-gradient(135deg, #ec4899, #f472b6)' }, // pink
             'private': { primary: '#7c3aed', light: '#c084fc', gradient: 'linear-gradient(135deg, #7c3aed, #c084fc)' }, // purple (default)
-            'workshop': { primary: '#f59e0b', light: '#fbbf24', gradient: 'linear-gradient(135deg, #f59e0b, #fbbf24)' }  // amber
+            'workshop': { primary: '#3b82f6', light: '#60a5fa', gradient: 'linear-gradient(135deg, #3b82f6, #60a5fa)' }  // blue
         };
 
         function selectEventType(type) {
@@ -1292,6 +1572,122 @@
             renderDateCards(datesByMonth.thisMonth.weekday.concat(datesByMonth.nextMonth.weekday), 'viewingDates');
         }
 
+        // ===== MONTH PICKER =====
+        let monthPickerYear = 2026;
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        function showMonthPicker() {
+            monthPickerYear = 2026;
+            renderMonthGrid();
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stepMonthPicker').classList.add('active');
+        }
+
+        function renderMonthGrid() {
+            const grid = document.getElementById('monthGrid');
+            document.getElementById('monthPageLabel').textContent = monthPickerYear;
+            document.getElementById('monthPrevBtn').disabled = monthPickerYear <= 2026;
+
+            // For 2026, start from March (index 2)
+            const startMonth = monthPickerYear === 2026 ? 2 : 0;
+
+            let html = '';
+            for (let i = startMonth; i < 12; i++) {
+                html += `
+                    <div class="month-btn" onclick="selectLaterMonth(${i}, ${monthPickerYear})">
+                        <div class="month-name">${monthNames[i]}</div>
+                        <div class="month-year">${monthPickerYear}</div>
+                    </div>
+                `;
+            }
+            grid.innerHTML = html;
+        }
+
+        function changeMonthPage(dir) {
+            monthPickerYear += dir;
+            renderMonthGrid();
+        }
+
+        function selectLaterMonth(monthIndex, year) {
+            // Store the selected later month
+            selectedMonth = `${year}-${String(monthIndex + 1).padStart(2, '0')}`;
+
+            // Generate dates for that month
+            const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+            const weekendDates = [];
+            const weekdayDates = [];
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const date = new Date(year, monthIndex, d);
+                const dayOfWeek = date.getDay();
+                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const dateObj = {
+                    date: `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`,
+                    day: dayNames[dayOfWeek],
+                    num: d,
+                    month: monthNames[monthIndex]
+                };
+
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    weekendDates.push(dateObj);
+                } else {
+                    weekdayDates.push(dateObj);
+                }
+            }
+
+            // Store for later use
+            datesByMonth.selectedLater = { weekend: weekendDates, weekday: weekdayDates };
+            selectedMonth = 'selectedLater';
+
+            // Go to day type selection
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step3').classList.add('active');
+        }
+
+        // ===== AUTO-FILL DEMO =====
+        function autoFillDemo() {
+            const names = ['Sarah Johnson', 'Jessica Williams', 'Ama Mensah', 'Chioma Obi', 'Priya Patel'];
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const emailName = randomName.toLowerCase().replace(' ', '.');
+
+            document.getElementById('inputName').value = randomName;
+            document.getElementById('inputEmail').value = `${emailName}@demo.test`;
+            document.getElementById('inputPhone').value = '07' + Math.floor(100000000 + Math.random() * 900000000);
+
+            // Trigger validation
+            ['name', 'email', 'phone'].forEach(field => {
+                const input = document.getElementById('input' + field.charAt(0).toUpperCase() + field.slice(1));
+                validateField(input, field);
+            });
+        }
+
+        // ===== OPTIONAL EXTRAS =====
+        let selectedExtras = {};
+        let extrasTotal = 0;
+
+        function toggleExtra(el, type, price) {
+            el.classList.toggle('selected');
+            if (selectedExtras[type]) {
+                delete selectedExtras[type];
+                extrasTotal -= price;
+            } else {
+                selectedExtras[type] = price;
+                extrasTotal += price;
+            }
+            updateDepositAmount();
+        }
+
+        function updateDepositAmount() {
+            const basePrice = 300;
+            const total = basePrice + extrasTotal;
+            const deposit = Math.ceil(total / 2);
+            const remaining = total - deposit;
+
+            document.querySelector('.deposit-info .amount').textContent = `£${deposit}`;
+            document.querySelector('.deposit-info .note').textContent = `Remaining £${remaining} due 7 days before your event`;
+            document.querySelector('.btn-primary[onclick="showConfirmation()"]').textContent = `Pay £${deposit} Deposit`;
+        }
+
         function resetDemo() {
             // Reset state
             selectedEventType = null;
@@ -1304,9 +1700,16 @@
             selectedTimeLabel = null;
             selectedGuests = null;
             isViewing = false;
+            selectedExtras = {};
+            extrasTotal = 0;
+
+            // Reset theme to default purple
+            document.documentElement.style.setProperty('--accent', '#7c3aed');
+            document.documentElement.style.setProperty('--accent-light', '#c084fc');
+            document.documentElement.style.setProperty('--gradient', 'linear-gradient(135deg, #7c3aed, #c084fc)');
 
             // Reset UI
-            document.querySelectorAll('.choice-card, .date-card, .time-slot, .guest-btn').forEach(el => {
+            document.querySelectorAll('.choice-card, .date-card, .time-slot, .guest-btn, .extra-option').forEach(el => {
                 el.classList.remove('selected', 'expanded');
             });
             document.querySelectorAll('.form-input').forEach(input => {
@@ -1315,6 +1718,11 @@
             });
             document.querySelectorAll('.input-check').forEach(el => el.classList.remove('show'));
             document.getElementById('btn7').disabled = true;
+
+            // Reset deposit display
+            document.querySelector('.deposit-info .amount').textContent = '£150';
+            document.querySelector('.deposit-info .note').textContent = 'Remaining £150 due 7 days before your event';
+            document.querySelector('.btn-primary[onclick="showConfirmation()"]').textContent = 'Pay £150 Deposit';
 
             // Show progress bar and go to step 1
             document.getElementById('progressBar').style.display = 'block';
