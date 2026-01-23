@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Visual Options — Round 3 (Conceptual)</title>
+    <title>Time Visual Options — Round 4</title>
     <style>
         :root {
             --accent: #ec4899;
@@ -18,9 +18,16 @@
             padding: 20px;
         }
         h1 { font-size: 1.2rem; color: #fff; margin-bottom: 8px; }
-        .subtitle { color: #666; font-size: 0.8rem; margin-bottom: 12px; }
-        .concept { color: #888; font-size: 0.75rem; margin-bottom: 30px; padding: 12px; background: #111; border-radius: 8px; line-height: 1.5; }
-        .concept strong { color: var(--accent-light); }
+        .subtitle { color: #666; font-size: 0.8rem; margin-bottom: 30px; }
+        .section-label {
+            font-size: 0.65rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 30px 0 12px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+        }
         .option {
             background: #111118;
             border: 2px solid #222;
@@ -53,524 +60,464 @@
             font-size: 0.75rem;
         }
 
-        /* ========== CONCEPT 1: THE RATIO ========== */
-        /* User thinks: "What fraction of my booking is actual event?" */
-        /* Answer: Show them 75% visually and numerically */
+        /* ========== R1: REASSURANCE IMPROVED ========== */
+        /* Show the relationship: 6hrs → minus setup/exit → 4.5 yours */
 
-        .c1 .ratio-display {
+        .r1 .flow {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 16px 0;
+            gap: 8px;
+            padding: 12px 0;
+            font-size: 0.85rem;
         }
-        .c1 .ratio-big {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-light);
+        .r1 .flow-item {
+            text-align: center;
         }
-        .c1 .ratio-label {
-            font-size: 0.9rem;
+        .r1 .flow-num {
+            font-size: 1.1rem;
+            font-weight: 600;
             color: #888;
         }
-        .c1 .ratio-sub {
-            text-align: center;
-            font-size: 0.7rem;
+        .r1 .flow-num.yours {
+            font-size: 1.4rem;
+            color: var(--accent-light);
+        }
+        .r1 .flow-label {
+            font-size: 0.6rem;
             color: #555;
-        }
-
-        /* ========== CONCEPT 2: THE REASSURANCE ========== */
-        /* User thinks: "Will setup eat into my party?" */
-        /* Answer: Explicitly say "no, it's separate" */
-
-        .c2 .reassure {
-            text-align: center;
-            padding: 12px 0;
-        }
-        .c2 .reassure-main {
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-        .c2 .reassure-main strong {
-            color: var(--accent-light);
-            font-size: 1.3rem;
-        }
-        .c2 .reassure-sub {
-            font-size: 0.75rem;
-            color: #666;
-        }
-        .c2 .reassure-badge {
-            display: inline-block;
-            background: #1a2f1a;
-            color: #4ade80;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            margin-top: 8px;
-        }
-
-        /* ========== CONCEPT 3: THE TIMELINE STORY ========== */
-        /* User thinks: "What actually happens during the 6 hours?" */
-        /* Answer: Narrative with verbs (arrive, celebrate, wrap up) */
-
-        .c3 .story {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 12px 0;
-        }
-        .c3 .story-phase {
-            text-align: center;
-            flex: 1;
-        }
-        .c3 .story-phase.main {
-            flex: 3;
-        }
-        .c3 .story-icon {
-            font-size: 1.2rem;
-            margin-bottom: 4px;
-            opacity: 0.5;
-        }
-        .c3 .story-phase.main .story-icon {
-            opacity: 1;
-            font-size: 1.5rem;
-        }
-        .c3 .story-verb {
-            font-size: 0.65rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .c3 .story-phase.main .story-verb {
-            color: var(--accent-light);
-            font-weight: 600;
-        }
-        .c3 .story-time {
-            font-size: 0.7rem;
-            color: #444;
             margin-top: 2px;
         }
-        .c3 .story-phase.main .story-time {
-            color: #888;
-            font-weight: 500;
+        .r1 .flow-arrow {
+            color: #444;
+            font-size: 0.8rem;
+        }
+        .r1 .flow-minus {
+            color: #666;
+            font-size: 0.7rem;
+        }
+        .r1 .trust-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #1a2f1a;
+            color: #4ade80;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            margin-top: 12px;
+        }
+        .r1 .trust-badge .check {
+            font-weight: 700;
         }
 
-        /* ========== CONCEPT 4: THE COMPARISON ========== */
-        /* User thinks: "Is 4.5 hours enough?" */
-        /* Answer: Compare to something familiar */
+        /* ========== R2: REASSURANCE ALT ========== */
+        /* Simpler: just show "of your 6 hours, 4.5 are yours" */
 
-        .c4 .compare {
+        .r2 .statement {
+            text-align: center;
+            padding: 16px 0 8px;
+        }
+        .r2 .statement-line {
+            font-size: 0.95rem;
+            color: #888;
+            line-height: 1.6;
+        }
+        .r2 .statement-line strong {
+            color: var(--accent-light);
+            font-size: 1.2rem;
+        }
+        .r2 .statement-line .dim {
+            color: #555;
+        }
+        .r2 .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #1a2f1a;
+            color: #4ade80;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            margin-top: 10px;
+        }
+
+        /* ========== C1: COMPARISON — BRIDAL ========== */
+
+        .c1-bridal .compare {
+            text-align: center;
             padding: 12px 0;
         }
-        .c4 .compare-main {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        .c4 .compare-big {
-            font-size: 1.8rem;
+        .c1-bridal .compare-main {
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--accent-light);
         }
-        .c4 .compare-label {
+        .c1-bridal .compare-label {
             font-size: 0.8rem;
             color: #888;
+            margin-top: 2px;
         }
-        .c4 .compare-examples {
+        .c1-bridal .compare-examples {
             display: flex;
-            gap: 8px;
-            justify-content: center;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 12px;
         }
-        .c4 .compare-example {
+        .c1-bridal .compare-example {
             background: #1a1a1f;
             padding: 8px 12px;
             border-radius: 8px;
-            font-size: 0.65rem;
-            color: #666;
-        }
-        .c4 .compare-example span {
+            font-size: 0.75rem;
             color: #888;
+            display: flex;
+            justify-content: space-between;
+        }
+        .c1-bridal .compare-example .thing {
+            color: #aaa;
         }
 
-        /* ========== CONCEPT 5: THE POSSESSIVE ========== */
-        /* User thinks: "Is this really my time?" */
-        /* Answer: Use "yours" language, make it personal */
+        /* ========== C2: COMPARISON — PRIVATE ========== */
 
-        .c5 .yours {
+        .c2-private .compare {
             text-align: center;
-            padding: 16px 0;
+            padding: 12px 0;
         }
-        .c5 .yours-time {
-            font-size: 2rem;
-            font-weight: 300;
-            color: #fff;
-            letter-spacing: -1px;
-        }
-        .c5 .yours-time strong {
+        .c2-private .compare-main {
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--accent-light);
         }
-        .c5 .yours-label {
-            font-size: 0.85rem;
+        .c2-private .compare-label {
+            font-size: 0.8rem;
             color: #888;
             margin-top: 2px;
         }
-        .c5 .yours-fine {
-            font-size: 0.6rem;
-            color: #444;
-            margin-top: 8px;
-        }
-
-        /* ========== CONCEPT 6: THE VISUAL DOMINANCE ========== */
-        /* Pure visual: event segment so large it speaks for itself */
-
-        .c6 .visual {
-            position: relative;
-        }
-        .c6 .bar {
+        .c2-private .compare-examples {
             display: flex;
-            height: 40px;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .c2-private .compare-example {
+            background: #1a1a1f;
+            padding: 8px 12px;
             border-radius: 8px;
-            overflow: hidden;
-        }
-        .c6 .bar .side {
-            width: 12.5%;
-            background: #2a2a30;
-        }
-        .c6 .bar .main {
-            width: 75%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .c6 .labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 6px;
-            padding: 0 4px;
-        }
-        .c6 .labels span {
-            font-size: 0.6rem;
-            color: #444;
-        }
-        .c6 .labels .center {
+            font-size: 0.75rem;
             color: #888;
-        }
-
-        /* ========== CONCEPT 7: THE MATH ========== */
-        /* User thinks: "Let me verify: 6hrs - setup - exit = ?" */
-        /* Answer: Show the simple calculation */
-
-        .c7 .math {
-            font-family: monospace;
-            padding: 12px 16px;
-            background: #0d0d12;
-            border-radius: 8px;
-        }
-        .c7 .math-row {
             display: flex;
             justify-content: space-between;
-            padding: 4px 0;
-            font-size: 0.8rem;
         }
-        .c7 .math-row.dim {
-            color: #555;
-        }
-        .c7 .math-row.result {
-            border-top: 1px solid #333;
-            margin-top: 4px;
-            padding-top: 8px;
-            color: var(--accent-light);
-            font-weight: 600;
+        .c2-private .compare-example .thing {
+            color: #aaa;
         }
 
-        /* ========== CONCEPT 8: THE CONFIDENCE ========== */
-        /* No explanation needed - just state it boldly */
+        /* ========== C3: COMPARISON — WORKSHOP ========== */
 
-        .c8 .bold-statement {
+        .c3-workshop .compare {
             text-align: center;
-            padding: 20px 0;
+            padding: 12px 0;
         }
-        .c8 .bold-num {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
+        .c3-workshop .compare-main {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #60a5fa; /* blue for workshop */
         }
-        .c8 .bold-label {
-            font-size: 1rem;
-            color: #fff;
-            font-weight: 500;
-            margin-top: 4px;
+        .c3-workshop .compare-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 2px;
+        }
+        .c3-workshop .compare-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .c3-workshop .compare-example {
+            background: #1a1a1f;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+        }
+        .c3-workshop .compare-example .thing {
+            color: #aaa;
         }
 
-        /* ========== CONCEPT 9: THE SANDWICH ========== */
-        /* Visual metaphor: event is the filling, setup/exit are thin bread */
+        /* ========== N1: NEW — THE SPLIT ========== */
+        /* What you handle vs what we handle */
 
-        .c9 .sandwich {
+        .n1 .split {
+            display: flex;
+            gap: 8px;
             padding: 8px 0;
         }
-        .c9 .layer {
-            display: flex;
-            align-items: center;
-            padding: 6px 12px;
-            border-radius: 6px;
-            margin: 2px 0;
-        }
-        .c9 .layer.bread {
-            background: #1a1a1f;
-            font-size: 0.7rem;
-            color: #555;
-            justify-content: space-between;
-        }
-        .c9 .layer.filling {
-            background: var(--gradient);
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 16px;
-            justify-content: center;
-        }
-
-        /* ========== CONCEPT 10: THE TICKET STUB ========== */
-        /* Metaphor: Like a movie ticket showing runtime */
-
-        .c10 .ticket {
-            background: #1a1a1f;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .c10 .ticket-top {
-            background: var(--gradient);
-            padding: 12px 16px;
+        .n1 .split-card {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
             text-align: center;
         }
-        .c10 .ticket-title {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .n1 .split-card.yours {
+            background: var(--gradient);
         }
-        .c10 .ticket-time {
-            font-size: 1.5rem;
+        .n1 .split-card.ours {
+            background: #1a1a1f;
+        }
+        .n1 .split-card .time {
+            font-size: 1.3rem;
             font-weight: 700;
             color: #fff;
         }
-        .c10 .ticket-bottom {
-            padding: 10px 16px;
+        .n1 .split-card.ours .time {
+            color: #666;
+            font-size: 1rem;
+        }
+        .n1 .split-card .label {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 2px;
+        }
+        .n1 .split-card.ours .label {
+            color: #555;
+        }
+        .n1 .trust-line {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #4ade80;
+            margin-top: 8px;
+        }
+
+        /* ========== N2: NEW — THE RECEIPT ========== */
+        /* Like a simple receipt breakdown */
+
+        .n2 .receipt {
+            background: #0d0d12;
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .n2 .receipt-row {
             display: flex;
             justify-content: space-between;
-            font-size: 0.65rem;
+            padding: 6px 0;
+            font-size: 0.8rem;
+            border-bottom: 1px dashed #222;
+        }
+        .n2 .receipt-row:last-child {
+            border-bottom: none;
+        }
+        .n2 .receipt-row .label {
             color: #666;
         }
-        .c10 .ticket-bottom span {
+        .n2 .receipt-row .value {
             color: #888;
+        }
+        .n2 .receipt-row.total {
+            border-top: 1px solid #333;
+            margin-top: 4px;
+            padding-top: 10px;
+            border-bottom: none;
+        }
+        .n2 .receipt-row.total .label {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+        .n2 .receipt-row.total .value {
+            color: var(--accent-light);
+            font-weight: 700;
+            font-size: 1rem;
         }
 
     </style>
 </head>
 <body>
-    <h1>Round 3 — Conceptual Approaches</h1>
-    <p class="subtitle">Same information, different mental models</p>
-    <div class="concept">
-        <strong>What users are actually asking:</strong><br>
-        1. What fraction of my booking is actual event? (Ratio)<br>
-        2. Will setup eat into my party? (Reassurance)<br>
-        3. What happens during the 6 hours? (Story)<br>
-        4. Is 4.5 hours enough? (Comparison)<br>
-        5. Is this really my time? (Ownership)
-    </div>
+    <h1>Round 4 — Refined</h1>
+    <p class="subtitle">Based on C2 (Reassurance) + C4 (Comparison) feedback</p>
 
-    <!-- C1: The Ratio -->
-    <div class="option c1">
-        <div class="option-label">C1 — The Ratio</div>
+    <div class="section-label">Reassurance — Improved</div>
+
+    <!-- R1: Reassurance with flow -->
+    <div class="option r1">
+        <div class="option-label">R1 — Show the math</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="ratio-display">
-            <span class="ratio-big">75%</span>
-            <span class="ratio-label">is your event</span>
+        <div class="flow">
+            <div class="flow-item">
+                <div class="flow-num">6h</div>
+                <div class="flow-label">booked</div>
+            </div>
+            <div class="flow-minus">−</div>
+            <div class="flow-item">
+                <div class="flow-num">1.5h</div>
+                <div class="flow-label">setup + exit</div>
+            </div>
+            <div class="flow-arrow">=</div>
+            <div class="flow-item">
+                <div class="flow-num yours">4.5h</div>
+                <div class="flow-label">yours</div>
+            </div>
         </div>
-        <div class="ratio-sub">4.5 of 6 hours · setup & exit built in</div>
+        <div class="trust-badge">
+            <span class="check">✓</span>
+            <span>Setup time doesn't cut into your event</span>
+        </div>
     </div>
 
-    <!-- C2: The Reassurance -->
-    <div class="option c2">
-        <div class="option-label">C2 — The Reassurance</div>
+    <!-- R2: Reassurance simpler -->
+    <div class="option r2">
+        <div class="option-label">R2 — Plain statement</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="reassure">
-            <div class="reassure-main">You get <strong>4.5 hours</strong> for your event</div>
-            <div class="reassure-sub">Setup and packdown don't cut into your time</div>
-            <div class="reassure-badge">✓ Protected event time</div>
-        </div>
-    </div>
-
-    <!-- C3: The Timeline Story -->
-    <div class="option c3">
-        <div class="option-label">C3 — The Story</div>
-        <div class="slot-header">
-            <span class="time-range">12pm → 6pm</span>
-            <span class="badge">6 hours</span>
-        </div>
-        <div class="story">
-            <div class="story-phase">
-                <div class="story-icon">📦</div>
-                <div class="story-verb">Arrive</div>
-                <div class="story-time">45 min</div>
+        <div class="statement">
+            <div class="statement-line">
+                Of your 6 hours, <strong>4.5 are yours</strong>
             </div>
-            <div class="story-phase main">
-                <div class="story-icon">🎉</div>
-                <div class="story-verb">Celebrate</div>
-                <div class="story-time">4.5 hours</div>
+            <div class="statement-line dim">
+                <span class="dim">We handle the 1.5h setup and packdown</span>
             </div>
-            <div class="story-phase">
-                <div class="story-icon">👋</div>
-                <div class="story-verb">Wrap up</div>
-                <div class="story-time">45 min</div>
+            <div class="trust-badge">
+                <span>✓</span>
+                <span>Protected event time</span>
             </div>
         </div>
     </div>
 
-    <!-- C4: The Comparison -->
-    <div class="option c4">
-        <div class="option-label">C4 — The Comparison</div>
+    <div class="section-label">Comparison — Event-Specific</div>
+
+    <!-- C1: Bridal -->
+    <div class="option c1-bridal">
+        <div class="option-label">C1 — Bridal / Hen Party</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
         <div class="compare">
-            <div class="compare-main">
-                <div class="compare-big">4.5 hours</div>
-                <div class="compare-label">for your event</div>
-            </div>
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">for your celebration</div>
             <div class="compare-examples">
-                <div class="compare-example">That's <span>3 movies</span></div>
-                <div class="compare-example">Or <span>270 songs</span></div>
+                <div class="compare-example">
+                    <span class="thing">Rounds of "Never Have I Ever"</span>
+                    <span>~15</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Embarrassing bride stories</span>
+                    <span>~45</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Bottles of prosecco</span>
+                    <span>~9</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- C5: The Possessive -->
-    <div class="option c5">
-        <div class="option-label">C5 — The Ownership</div>
+    <!-- C2: Private / Birthday -->
+    <div class="option c2-private">
+        <div class="option-label">C2 — Private Event / Birthday</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="yours">
-            <div class="yours-time"><strong>4.5 hours</strong> are yours</div>
-            <div class="yours-label">to celebrate however you want</div>
-            <div class="yours-fine">We handle the 45 min setup and 45 min packdown</div>
-        </div>
-    </div>
-
-    <!-- C6: The Visual Dominance -->
-    <div class="option c6">
-        <div class="option-label">C6 — Pure Visual</div>
-        <div class="slot-header">
-            <span class="time-range">12pm → 6pm</span>
-            <span class="badge">6 hours</span>
-        </div>
-        <div class="visual">
-            <div class="bar">
-                <div class="side"></div>
-                <div class="main">4.5 hrs</div>
-                <div class="side"></div>
-            </div>
-            <div class="labels">
-                <span>setup</span>
-                <span class="center">your event</span>
-                <span>exit</span>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">to celebrate</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Happy Birthday singalongs</span>
+                    <span>~135</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Dance floor moments</span>
+                    <span>endless</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Photo booth takes</span>
+                    <span>~90</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- C7: The Math -->
-    <div class="option c7">
-        <div class="option-label">C7 — The Calculation</div>
+    <!-- C3: Workshop -->
+    <div class="option c3-workshop">
+        <div class="option-label">C3 — Workshop / Creative</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="math">
-            <div class="math-row">
-                <span>Total booking</span>
-                <span>6:00</span>
-            </div>
-            <div class="math-row dim">
-                <span>− Setup</span>
-                <span>0:45</span>
-            </div>
-            <div class="math-row dim">
-                <span>− Packdown</span>
-                <span>0:45</span>
-            </div>
-            <div class="math-row result">
-                <span>Your event</span>
-                <span>4:30</span>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of focused creative time</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Complete projects</span>
+                    <span>2-3</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">New techniques learned</span>
+                    <span>5+</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Tea breaks included</span>
+                    <span>yes</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- C8: The Confidence -->
-    <div class="option c8">
-        <div class="option-label">C8 — Bold Statement</div>
+    <div class="section-label">New Concepts</div>
+
+    <!-- N1: The Split -->
+    <div class="option n1">
+        <div class="option-label">N1 — Your time vs Our time</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="bold-statement">
-            <div class="bold-num">4.5h</div>
-            <div class="bold-label">your event time</div>
+        <div class="split">
+            <div class="split-card yours">
+                <div class="time">4.5h</div>
+                <div class="label">Your event</div>
+            </div>
+            <div class="split-card ours">
+                <div class="time">1.5h</div>
+                <div class="label">We handle this</div>
+            </div>
         </div>
+        <div class="trust-line">✓ Setup and packdown included</div>
     </div>
 
-    <!-- C9: The Sandwich -->
-    <div class="option c9">
-        <div class="option-label">C9 — The Layers</div>
+    <!-- N2: The Receipt -->
+    <div class="option n2">
+        <div class="option-label">N2 — The breakdown</div>
         <div class="slot-header">
             <span class="time-range">12pm → 6pm</span>
             <span class="badge">6 hours</span>
         </div>
-        <div class="sandwich">
-            <div class="layer bread">
-                <span>Setup</span>
-                <span>45 min</span>
+        <div class="receipt">
+            <div class="receipt-row">
+                <span class="label">Total booking</span>
+                <span class="value">6 hours</span>
             </div>
-            <div class="layer filling">4.5 hours — YOUR EVENT</div>
-            <div class="layer bread">
-                <span>Packdown</span>
-                <span>45 min</span>
+            <div class="receipt-row">
+                <span class="label">Setup (we handle)</span>
+                <span class="value">−45 min</span>
             </div>
-        </div>
-    </div>
-
-    <!-- C10: The Ticket -->
-    <div class="option c10">
-        <div class="option-label">C10 — The Ticket</div>
-        <div class="slot-header">
-            <span class="time-range">12pm → 6pm</span>
-            <span class="badge">6 hours</span>
-        </div>
-        <div class="ticket">
-            <div class="ticket-top">
-                <div class="ticket-title">Event Runtime</div>
-                <div class="ticket-time">4 hrs 30 min</div>
+            <div class="receipt-row">
+                <span class="label">Packdown (we handle)</span>
+                <span class="value">−45 min</span>
             </div>
-            <div class="ticket-bottom">
-                <span>Setup: 45m</span>
-                <span>Exit: 45m</span>
+            <div class="receipt-row total">
+                <span class="label">Your event time</span>
+                <span class="value">4.5 hours</span>
             </div>
         </div>
     </div>
