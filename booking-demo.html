@@ -262,33 +262,38 @@
         /* Visual time bar - shows proportions */
         .time-visual {
             display: flex;
-            height: 32px;
-            border-radius: 8px;
+            height: 48px;
+            border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 12px;
             background: #1a1a1f;
         }
         .time-segment {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 500;
-            color: rgba(255,255,255,0.9);
-            transition: all 0.3s;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.2;
+            text-align: center;
         }
         .time-segment.setup {
             width: 12.5%;
-            background: #333;
+            background: #2a2a30;
         }
         .time-segment.event {
             width: 75%;
             background: var(--gradient);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            flex-direction: row;
+            letter-spacing: 0.02em;
         }
         .time-segment.packdown {
             width: 12.5%;
-            background: #333;
+            background: #2a2a30;
         }
 
         .breakdown-row {
@@ -1060,24 +1065,12 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="time-visual">
-                        <div class="time-segment setup">45m</div>
-                        <div class="time-segment event">★ 4.5 hrs YOUR EVENT</div>
-                        <div class="time-segment packdown">45m</div>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">12:00 – 12:45</span>
-                    </div>
-                    <div class="breakdown-row event-row">
-                        <span class="label">Your event</span>
-                        <span class="value">12:45 – 5:15</span>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">5:15 – 6:00</span>
+                        <div class="time-segment setup">45m<br>setup</div>
+                        <div class="time-segment event">4.5 hrs YOUR EVENT</div>
+                        <div class="time-segment packdown">45m<br>exit</div>
                     </div>
                 </div>
-                <div class="expand-hint">Tap to see time breakdown</div>
+                <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '12:00', '18:00', 'Afternoon')">Select this time</button>
             </div>
 
@@ -1092,24 +1085,12 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="time-visual">
-                        <div class="time-segment setup">45m</div>
-                        <div class="time-segment event">★ 4.5 hrs YOUR EVENT</div>
-                        <div class="time-segment packdown">45m</div>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">2:00 – 2:45</span>
-                    </div>
-                    <div class="breakdown-row event-row">
-                        <span class="label">Your event</span>
-                        <span class="value">2:45 – 7:15</span>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">7:15 – 8:00</span>
+                        <div class="time-segment setup">45m<br>setup</div>
+                        <div class="time-segment event">4.5 hrs YOUR EVENT</div>
+                        <div class="time-segment packdown">45m<br>exit</div>
                     </div>
                 </div>
-                <div class="expand-hint">Tap to see time breakdown</div>
+                <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '14:00', '20:00', 'Afternoon-Evening')">Select this time</button>
             </div>
 
@@ -1124,24 +1105,12 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="time-visual">
-                        <div class="time-segment setup">45m</div>
-                        <div class="time-segment event">★ 4.5 hrs YOUR EVENT</div>
-                        <div class="time-segment packdown">45m</div>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">4:00 – 4:45</span>
-                    </div>
-                    <div class="breakdown-row event-row">
-                        <span class="label">Your event</span>
-                        <span class="value">4:45 – 9:15</span>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">9:15 – 10:00</span>
+                        <div class="time-segment setup">45m<br>setup</div>
+                        <div class="time-segment event">4.5 hrs YOUR EVENT</div>
+                        <div class="time-segment packdown">45m<br>exit</div>
                     </div>
                 </div>
-                <div class="expand-hint">Tap to see time breakdown</div>
+                <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '16:00', '22:00', 'Evening')">Select this time</button>
             </div>
 
@@ -1156,24 +1125,12 @@
                 </div>
                 <div class="time-breakdown">
                     <div class="time-visual">
-                        <div class="time-segment setup">45m</div>
-                        <div class="time-segment event">★ 4.5 hrs YOUR EVENT</div>
-                        <div class="time-segment packdown">45m</div>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Setup & arrival</span>
-                        <span class="value">6:00 – 6:45</span>
-                    </div>
-                    <div class="breakdown-row event-row">
-                        <span class="label">Your event</span>
-                        <span class="value">6:45 – 11:15</span>
-                    </div>
-                    <div class="breakdown-row">
-                        <span class="label">Pack down & leave</span>
-                        <span class="value">11:15 – 12:00</span>
+                        <div class="time-segment setup">45m<br>setup</div>
+                        <div class="time-segment event">4.5 hrs YOUR EVENT</div>
+                        <div class="time-segment packdown">45m<br>exit</div>
                     </div>
                 </div>
-                <div class="expand-hint">Tap to see time breakdown</div>
+                <div class="expand-hint">Tap to see breakdown</div>
                 <button class="select-time-btn" onclick="confirmTime(event, '18:00', '00:00', 'Night')">Select this time</button>
             </div>
         </div>
