@@ -211,6 +211,15 @@
             border-color: var(--accent);
             background: color-mix(in srgb, var(--accent) 6%, transparent);
         }
+        .time-slot.unavailable {
+            opacity: 0.4;
+            pointer-events: none;
+            cursor: not-allowed;
+            border-color: #333;
+        }
+        .time-slot.unavailable:hover {
+            border-color: #333;
+        }
         .time-slot-main {
             display: flex;
             justify-content: space-between;
@@ -1702,6 +1711,9 @@
             // If clicking on the button, don't toggle
             if (event.target.classList.contains('select-time-btn')) return;
 
+            // Don't expand if slot is unavailable/booked
+            if (el.classList.contains('unavailable')) return;
+
             // Collapse others, expand this one
             document.querySelectorAll('.time-slot').forEach(s => {
                 if (s !== el) s.classList.remove('expanded');
@@ -1712,10 +1724,14 @@
         function confirmTime(e, start, end, label) {
             e.stopPropagation();
 
+            // Don't allow selecting unavailable slots
+            const slot = event.target.closest('.time-slot');
+            if (slot.classList.contains('unavailable')) return;
+
             document.querySelectorAll('.time-slot').forEach(s => {
                 s.classList.remove('selected', 'expanded');
             });
-            event.target.closest('.time-slot').classList.add('selected');
+            slot.classList.add('selected');
 
             selectedTimeStart = start;
             selectedTimeEnd = end;
