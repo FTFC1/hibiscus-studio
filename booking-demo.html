@@ -1456,19 +1456,19 @@
         track('demo_start');
         // ================================================
 
-        // State
-        let selectedEventType = null;
-        let selectedMonth = null;
-        let selectedDayType = null;
-        let selectedDate = null;
-        let selectedDateObj = null;
-        let selectedTimeStart = null;
-        let selectedTimeEnd = null;
-        let selectedTimeLabel = null;
-        let selectedGuests = null;
-        let isViewing = false;
+        // State (var for global access by frontend-integration.js)
+        var selectedEventType = null;
+        var selectedMonth = null;
+        var selectedDayType = null;
+        var selectedDate = null;
+        var selectedDateObj = null;
+        var selectedTimeStart = null;
+        var selectedTimeEnd = null;
+        var selectedTimeLabel = null;
+        var selectedGuests = null;
+        var isViewing = false;
 
-        const eventTypeLabels = {
+        var eventTypeLabels = {
             'bridal': 'Bridal Party',
             'private': 'Private Event',
             'workshop': 'Workshop'
