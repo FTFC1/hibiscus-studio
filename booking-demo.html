@@ -1473,6 +1473,7 @@
             'private': 'Private Event',
             'workshop': 'Workshop'
         };
+        window.eventTypeLabels = eventTypeLabels;
 
         // Theme colors per event type
         const eventThemes = {
@@ -1531,6 +1532,7 @@
 
         function selectEventType(type) {
             selectedEventType = type;
+            window.selectedEventType = type;
             document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
 
@@ -1628,6 +1630,9 @@
         function selectDate(el, dateStr, day, num, month) {
             selectedDate = dateStr;
             selectedDateObj = { day, num, month };
+            // Explicit window assignment for integration.js access
+            window.selectedDate = dateStr;
+            window.selectedDateObj = { day, num, month };
             document.querySelectorAll('.date-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
 
@@ -1715,6 +1720,9 @@
             selectedTimeStart = start;
             selectedTimeEnd = end;
             selectedTimeLabel = label;
+            window.selectedTimeStart = start;
+            window.selectedTimeEnd = end;
+            window.selectedTimeLabel = label;
 
             // Now advance to guests
             setTimeout(() => goToStep(6), 200);
@@ -1722,6 +1730,7 @@
 
         function selectGuests(el, count) {
             selectedGuests = count;
+            window.selectedGuests = count;
             document.querySelectorAll('.guest-btn').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
 
