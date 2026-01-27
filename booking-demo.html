@@ -1488,10 +1488,10 @@
 
         <div class="deposit-info">
             <div class="main">
-                <span class="label">50% deposit to confirm</span>
-                <span class="amount">£150</span>
+                <span class="label">50% reservation fee to confirm</span>
+                <span class="amount">£233</span>
             </div>
-            <div class="note">Remaining £150 due 7 days before your event</div>
+            <div class="note">Remaining £232 due 7 days before your event</div>
         </div>
 
         <div class="faq">
@@ -1503,7 +1503,7 @@
                 </div>
                 <div class="amenity-item">
                     <div class="icon">▭</div>
-                    <div class="label">2 tables</div>
+                    <div class="label">10 tables</div>
                 </div>
                 <div class="amenity-item">
                     <div class="icon">♪</div>
@@ -1524,6 +1524,7 @@
             </div>
         </div>
 
+        <!-- HIDDEN: Extras section temporarily disabled per business decision
         <div class="extras-section" id="extrasSection">
             <div class="extras-title">Add extras</div>
             <div class="extra-option" onclick="toggleExtra(this, 'catering', 150)">
@@ -1551,16 +1552,31 @@
                 <div class="extra-check">✓</div>
             </div>
         </div>
+        -->
 
         <div class="faq" style="margin-top: 0;">
             <div class="faq-title">Before you book</div>
             <div class="faq-item">
+                <div class="faq-q">What if I run over my booking time?</div>
+                <div class="faq-a">You will be charged £100 for every hour (or part thereof) that you exceed your booked time.</div>
+            </div>
+            <div class="faq-item">
                 <div class="faq-q">What if I need to cancel?</div>
-                <div class="faq-a">Full refund up to 14 days before. 50% refund after that.</div>
+                <div class="faq-a">
+                    • 30+ days: Full refund of reservation fee, or free reschedule<br>
+                    • 15–30 days: 50% refunded, or 1 free reschedule (confirm within 14 days)<br>
+                    • 7–14 days: Non-refundable. £25 admin fee for reschedule<br>
+                    • Less than 7 days: Forfeited, no reschedule<br>
+                    • No-show/same-day: Full booking charged
+                </div>
             </div>
             <div class="faq-item">
                 <div class="faq-q">Can I bring my own food & drinks?</div>
-                <div class="faq-a">Yes! No corkage fee. No outside alcohol.</div>
+                <div class="faq-a">
+                    Yes! Kitchenette includes fridge, 5-hob stove, microwave, double oven.
+                    Outside catering welcome. No deep fat fryers.
+                    We do not provide cooking utensils. Space must be left as found.
+                </div>
             </div>
         </div>
 
@@ -1718,11 +1734,13 @@
             localStorage.setItem('hb-booking-theme', newTheme);
         }
 
-        // Initialize theme from localStorage
+        // Initialize theme from localStorage - default to light if no preference
         (function initTheme() {
             const savedTheme = localStorage.getItem('hb-booking-theme');
             if (savedTheme) {
                 document.documentElement.setAttribute('data-theme', savedTheme);
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
             }
         })();
 
@@ -2205,14 +2223,22 @@
         }
 
         function updateDepositAmount() {
-            const basePrice = 300;
+            // Dynamic pricing based on duration (Half-Day 6hr = £465 is the default for this demo)
+            const durationPrices = {
+                '4': 345,   // 4 Hours Flexi
+                '6': 465,   // Half-Day (default for 6hr slots)
+                '8': 645,   // 8 Hours Flexi
+                '12': 885   // Full-Day
+            };
+            // Default to Half-Day pricing (6 hours) for the time slots in this demo
+            const basePrice = durationPrices['6'];
             const total = basePrice + extrasTotal;
             const deposit = Math.ceil(total / 2);
             const remaining = total - deposit;
 
             document.querySelector('.deposit-info .amount').textContent = `£${deposit}`;
             document.querySelector('.deposit-info .note').textContent = `Remaining £${remaining} due 7 days before your event`;
-            document.querySelector('.btn-primary[onclick="showConfirmation()"]').textContent = `Pay £${deposit} Deposit`;
+            document.querySelector('.btn-primary[onclick="showConfirmation()"]').textContent = `Pay £${deposit} Reservation Fee`;
         }
 
         function resetDemo() {
@@ -2242,16 +2268,23 @@
             document.getElementById('btn7').disabled = true;
             document.getElementById('btnViewingConfirm').disabled = true;
 
-            // Reset deposit display
-            document.querySelector('.deposit-info .amount').textContent = '£150';
-            document.querySelector('.deposit-info .note').textContent = 'Remaining £150 due 7 days before your event';
-            document.querySelector('.btn-primary[onclick="showConfirmation()"]').textContent = 'Pay £150 Deposit';
+            // Reset deposit display (Half-Day £465 = £233 deposit)
+            document.querySelector('.deposit-info .amount').textContent = '£233';
+            document.querySelector('.deposit-info .note').textContent = 'Remaining £232 due 7 days before your event';
+            document.querySelector('.btn-primary[onclick="showConfirmation()"]').textContent = 'Pay £233 Reservation Fee';
 
             // Show progress bar and go to step 1
             document.getElementById('progressBar').style.display = 'block';
             goToStep(1);
         }
     </script>
+
+    <!-- Address Footer -->
+    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 24px 16px; text-align: center; margin-top: 32px;">
+        <p style="color: var(--text-secondary); font-size: 14px; margin: 0;">
+            19a Peto Street North, London E16 1DP
+        </p>
+    </footer>
 
     <!-- Live API Integration -->
     <script src="https://hb-booking.nicholasfcoker.workers.dev/integration.js"></script>

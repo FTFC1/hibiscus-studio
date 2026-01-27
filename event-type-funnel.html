@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event-Type-First Booking Funnel - Hibiscus Studio</title>
+
+  <!-- Umami Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="74dc1e62-3fbf-4bbc-b14e-59d92fe85dd3"></script>
+
+  <script src="https://cdn.tailwindcss.com?v=1"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <style>
+    * { transition: all 0.2s ease-in-out; }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 0.4s ease-out forwards; }
+    @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    .slide-left { animation: slideLeft 0.3s ease-out; }
+    @keyframes slideLeft { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-4 md:p-8">
+
+  <div class="max-w-2xl mx-auto">
+    <!-- Progress Bar -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-sm text-gray-400" id="stepIndicator">Step 1 of 3</span>
+        <span class="text-sm text-gray-400" id="progressPercent">33%</span>
+      </div>
+      <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-blue-500 transition-all duration-300" style="width: 33%"></div>
+      </div>
+    </div>
+
+    <!-- Funnel Container -->
+    <div id="funnelContainer" class="bg-gray-800 rounded-2xl p-6 md:p-8 shadow-2xl">
+
+      <!-- Step 1: Event Type -->
+      <div id="step1" class="fade-in">
+        <h2 class="text-2xl md:text-3xl font-bold mb-2">What are you celebrating?</h2>
+        <p class="text-gray-400 mb-6">This helps us recommend the perfect package for your event</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <button onclick="selectEventType('bridal-shower', 'Bridal Shower')" class="event-type-btn p-4 bg-gray-700 hover:bg-blue-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-blue-400">
+            <div class="text-lg font-semibold">🎉 Bridal Shower</div>
+            <div class="text-sm text-gray-400 mt-1">Most popular</div>
+          </button>
+
+          <button onclick="selectEventType('baby-shower', 'Baby Shower')" class="event-type-btn p-4 bg-gray-700 hover:bg-pink-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-pink-400">
+            <div class="text-lg font-semibold">👶 Baby Shower</div>
+            <div class="text-sm text-gray-400 mt-1">Intimate celebrations</div>
+          </button>
+
+          <button onclick="selectEventType('birthday-milestone', 'Birthday (Milestone)')" class="event-type-btn p-4 bg-gray-700 hover:bg-purple-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-purple-400">
+            <div class="text-lg font-semibold">🎂 Birthday (Milestone)</div>
+            <div class="text-sm text-gray-400 mt-1">30th, 40th, 50th...</div>
+          </button>
+
+          <button onclick="selectEventType('birthday-casual', 'Birthday (Casual)')" class="event-type-btn p-4 bg-gray-700 hover:bg-yellow-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-yellow-400">
+            <div class="text-lg font-semibold">🎈 Birthday (Casual)</div>
+            <div class="text-sm text-gray-400 mt-1">Friends & family</div>
+          </button>
+
+          <button onclick="selectEventType('corporate', 'Corporate Event')" class="event-type-btn p-4 bg-gray-700 hover:bg-green-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-green-400">
+            <div class="text-lg font-semibold">💼 Corporate Event</div>
+            <div class="text-sm text-gray-400 mt-1">Meetings, team building</div>
+          </button>
+
+          <button onclick="selectEventType('other', 'Other')" class="event-type-btn p-4 bg-gray-700 hover:bg-gray-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-gray-500">
+            <div class="text-lg font-semibold">✨ Other</div>
+            <div class="text-sm text-gray-400 mt-1">Tell us more</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Guest Count -->
+      <div id="step2" class="hidden">
+        <button onclick="goBack(1)" class="text-gray-400 hover:text-white mb-4 flex items-center text-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back
+        </button>
+
+        <h2 class="text-2xl md:text-3xl font-bold mb-2">How many guests?</h2>
+        <p class="text-gray-400 mb-6">We can accommodate up to 50 guests</p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Number of guests</label>
+            <input
+              type="number"
+              id="guestCount"
+              min="1"
+              max="50"
+              value="25"
+              class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              onchange="validateGuestCount()"
+            />
+            <p class="text-sm text-gray-400 mt-2 text-center">Studio capacity: up to 50 guests</p>
+            <p id="guestWarning" class="text-sm text-yellow-400 mt-2 text-center hidden">
+              For 40-50 guests, we have flexible options. We'll help you make it work!
+            </p>
+          </div>
+
+          <button onclick="nextStep(2)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg">
+            Continue →
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Date Selection -->
+      <div id="step3" class="hidden">
+        <button onclick="goBack(2)" class="text-gray-400 hover:text-white mb-4 flex items-center text-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back
+        </button>
+
+        <h2 class="text-2xl md:text-3xl font-bold mb-2">When is your event?</h2>
+        <p class="text-gray-400 mb-6">Most people book 2-3 months in advance</p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Event date</label>
+            <input
+              type="date"
+              id="eventDate"
+              class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div class="flex items-start space-x-2">
+            <input type="checkbox" id="flexibleDate" class="mt-1 w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+            <label for="flexibleDate" class="text-sm text-gray-400">I'm flexible on the exact date</label>
+          </div>
+
+          <button onclick="showRecommendation()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg">
+            See My Recommendation →
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Recommendation -->
+      <div id="step4" class="hidden">
+        <button onclick="goBack(3)" class="text-gray-400 hover:text-white mb-4 flex items-center text-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back
+        </button>
+
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">Perfect! Here's our recommendation:</h2>
+
+        <!-- Recommended Package (Populated by JS) -->
+        <div id="recommendedPackage" class="border-2 border-blue-500 bg-blue-900/20 rounded-2xl p-6 mb-6 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm px-4 py-1 rounded-full font-semibold whitespace-nowrap">
+            ⭐ Recommended for You
+          </div>
+
+          <div class="mt-2 text-center space-y-3">
+            <h3 id="pkgName" class="text-2xl font-bold">Half-Day Package</h3>
+            <p id="pkgTime" class="text-gray-300">4:00 PM – 10:00 PM</p>
+            <div id="pkgPrice" class="text-4xl font-bold text-blue-400">£465</div>
+            <p id="pkgDuration" class="text-gray-400">6 hours</p>
+
+            <div class="border-t border-gray-700 pt-4 mt-4">
+              <p class="font-semibold text-blue-300 mb-2">Why we recommend this:</p>
+              <div id="pkgReasoning" class="text-sm text-gray-300 space-y-1">
+                <p>✓ 8 of 12 bridal showers chose this package</p>
+                <p>✓ Allows time for setup, food, games, photos, and cleanup</p>
+                <p>✓ 2 customers who booked 4 hours asked for more time — don't make that mistake!</p>
+              </div>
+            </div>
+
+            <button id="bookRecommended" onclick="bookPackage('recommended')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg text-lg mt-4">
+              Book This Package
+            </button>
+          </div>
+        </div>
+
+        <!-- Alternative Options -->
+        <div class="space-y-4">
+          <h4 class="text-lg font-semibold text-gray-300">Also available:</h4>
+
+          <div id="alternativeOptions" class="space-y-3">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Funnel State
+    const funnelState = {
+      eventType: '',
+      eventTypeLabel: '',
+      guestCount: 25,
+      eventDate: '',
+      flexible: false,
+      currentStep: 1
+    };
+
+    // Recommendation Logic (Based on ACTUAL booking data from HB-STUDIO-CAPACITY-SNAPSHOT.md)
+    const recommendations = {
+      'bridal-shower': {
+        1-35: {
+          name: 'Half-Day Package',
+          time: '10am-4pm OR 4pm-10pm',
+          price: '£465',
+          duration: '6 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536',
+          reasoning: [
+            '✓ 8 of 12 bridal showers chose this package',
+            '✓ Allows time for setup, food, games, photos, and cleanup',
+            '✓ 2 customers who booked 4 hours asked for more time — avoid that mistake!'
+          ],
+          socialProof: '67% of bridal shower bookings'
+        },
+        36-50: {
+          name: '8hrs Flexi',
+          time: 'Can be booked anytime',
+          price: '£645',
+          duration: '8 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372722',
+          reasoning: [
+            '✓ Larger events need more setup time',
+            '✓ Flexible timing for your schedule',
+            '✓ Most comfortable for 35+ guests'
+          ],
+          socialProof: 'Best for larger celebrations'
+        }
+      },
+      'baby-shower': {
+        1-30: {
+          name: 'Half-Day Package',
+          time: '10am-4pm OR 4pm-10pm',
+          price: '£465',
+          duration: '6 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536',
+          reasoning: [
+            '✓ Perfect for intimate baby showers',
+            '✓ Time for games, food, and gift opening',
+            '✓ Most popular choice for showers'
+          ],
+          socialProof: 'Most popular for baby showers'
+        },
+        31-50: {
+          name: '8hrs Flexi',
+          time: 'Can be booked anytime',
+          price: '£645',
+          duration: '8 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372722',
+          reasoning: [
+            '✓ More guests need more time',
+            '✓ Flexible for your schedule',
+            '✓ Extra space for activities'
+          ],
+          socialProof: 'Great for larger gatherings'
+        }
+      },
+      'birthday-milestone': {
+        1-50: {
+          name: 'Half-Day Package',
+          time: '10am-4pm OR 4pm-10pm',
+          price: '£465',
+          duration: '6 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536',
+          reasoning: [
+            '✓ Perfect for milestone celebrations',
+            '✓ Time for dining, music, and memories',
+            '✓ Most versatile option'
+          ],
+          socialProof: 'Popular for birthdays'
+        }
+      },
+      'birthday-casual': {
+        1-50: {
+          name: '4 Hours',
+          time: 'Flexible timing',
+          price: '£345',
+          duration: '4 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135',
+          reasoning: [
+            '✓ Great for casual gatherings',
+            '✓ Budget-friendly option',
+            '✓ Perfect for afternoon or evening'
+          ],
+          socialProof: 'Best value for casual events'
+        }
+      },
+      'corporate': {
+        1-50: {
+          name: 'Full-Day',
+          time: '10AM-10PM',
+          price: '£885',
+          duration: '12 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135',
+          reasoning: [
+            '✓ Corporate events need full-day access',
+            '✓ Time for setup, meetings, and networking',
+            '✓ Professional environment for all-day events'
+          ],
+          socialProof: 'Standard for corporate bookings'
+        }
+      },
+      'other': {
+        1-50: {
+          name: 'Half-Day Package',
+          time: '10am-4pm OR 4pm-10pm',
+          price: '£465',
+          duration: '6 hours',
+          acuityUrl: 'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536',
+          reasoning: [
+            '✓ Our most flexible option',
+            '✓ Works for most event types',
+            '✓ Great value for the time'
+          ],
+          socialProof: 'Most popular choice overall'
+        }
+      }
+    };
+
+    // Alternative packages
+    const alternatives = [
+      { name: '4 Hours', price: '£345', warning: '⚠️ Often not enough for events with 20+ guests', acuityUrl: 'https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135' },
+      { name: 'Full-Day (10am-10pm)', price: '£885', note: 'Great if you need morning setup time + evening event', acuityUrl: 'https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135' },
+      { name: '8hrs Flexi', price: '£645', note: 'More time for setup, networking, celebrating with flexible timing', acuityUrl: 'https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372722' }
+    ];
+
+    function selectEventType(type, label) {
+      funnelState.eventType = type;
+      funnelState.eventTypeLabel = label;
+
+      // Track with Umami
+      if (typeof umami !== 'undefined') {
+        umami.track('funnel-event-type', { eventType: type });
+      }
+
+      nextStep(1);
+    }
+
+    function validateGuestCount() {
+      const count = parseInt(document.getElementById('guestCount').value);
+      const warning = document.getElementById('guestWarning');
+
+      if (count >= 40 && count <= 50) {
+        warning.classList.remove('hidden');
+      } else {
+        warning.classList.add('hidden');
+      }
+    }
+
+    function nextStep(currentStep) {
+      // Hide current step
+      document.getElementById(`step${currentStep}`).classList.add('hidden');
+
+      // Show next step
+      const nextStepNum = currentStep + 1;
+      funnelState.currentStep = nextStepNum;
+      document.getElementById(`step${nextStepNum}`).classList.remove('hidden');
+      document.getElementById(`step${nextStepNum}`).classList.add('slide-left');
+
+      // Update progress
+      updateProgress(nextStepNum);
+
+      // Track step
+      if (typeof umami !== 'undefined') {
+        umami.track('funnel-step', { step: nextStepNum });
+      }
+
+      // Capture data
+      if (currentStep === 2) {
+        funnelState.guestCount = parseInt(document.getElementById('guestCount').value);
+      }
+    }
+
+    function goBack(currentStep) {
+      document.getElementById(`step${currentStep + 1}`).classList.add('hidden');
+      document.getElementById(`step${currentStep}`).classList.remove('hidden');
+      funnelState.currentStep = currentStep;
+      updateProgress(currentStep);
+
+      if (typeof umami !== 'undefined') {
+        umami.track('funnel-back', { fromStep: currentStep + 1 });
+      }
+    }
+
+    function updateProgress(step) {
+      const progress = (step / 3) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+      document.getElementById('stepIndicator').textContent = `Step ${step} of 3`;
+      document.getElementById('progressPercent').textContent = `${Math.round(progress)}%`;
+    }
+
+    function showRecommendation() {
+      // Capture data
+      funnelState.eventDate = document.getElementById('eventDate').value;
+      funnelState.flexible = document.getElementById('flexibleDate').checked;
+
+      // Track
+      if (typeof umami !== 'undefined') {
+        umami.track('funnel-date-selected', {
+          eventType: funnelState.eventType,
+          guestCount: funnelState.guestCount
+        });
+      }
+
+      // Get recommendation
+      const eventRecs = recommendations[funnelState.eventType];
+      let recommendation;
+
+      if (eventRecs['1-50']) {
+        recommendation = eventRecs['1-50'];
+      } else if (funnelState.guestCount <= 35 && eventRecs['1-35']) {
+        recommendation = eventRecs['1-35'];
+      } else if (funnelState.guestCount >= 36 && eventRecs['36-50']) {
+        recommendation = eventRecs['36-50'];
+      } else if (funnelState.guestCount <= 30 && eventRecs['1-30']) {
+        recommendation = eventRecs['1-30'];
+      } else if (funnelState.guestCount >= 31 && eventRecs['31-50']) {
+        recommendation = eventRecs['31-50'];
+      }
+
+      // Populate recommendation
+      document.getElementById('pkgName').textContent = recommendation.name;
+      document.getElementById('pkgTime').textContent = recommendation.time;
+      document.getElementById('pkgPrice').textContent = recommendation.price;
+      document.getElementById('pkgDuration').textContent = recommendation.duration;
+
+      const reasoningHtml = recommendation.reasoning.map(r => `<p>${r}</p>`).join('');
+      document.getElementById('pkgReasoning').innerHTML = reasoningHtml;
+
+      document.getElementById('bookRecommended').setAttribute('data-url', recommendation.acuityUrl);
+
+      // Populate alternatives (filter out the recommended one)
+      const altHtml = alternatives
+        .filter(alt => alt.name !== recommendation.name)
+        .map(alt => `
+          <div class="border border-gray-700 bg-gray-800 rounded-lg p-4 flex justify-between items-center">
+            <div>
+              <div class="font-semibold">${alt.name} — ${alt.price}</div>
+              ${alt.warning ? `<div class="text-sm text-yellow-400 mt-1">${alt.warning}</div>` : ''}
+              ${alt.note ? `<div class="text-sm text-gray-400 mt-1">${alt.note}</div>` : ''}
+            </div>
+            <button onclick="bookPackage('${alt.acuityUrl}')" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap">
+              Book
+            </button>
+          </div>
+        `).join('');
+
+      document.getElementById('alternativeOptions').innerHTML = altHtml;
+
+      // Show step 4
+      document.getElementById('step3').classList.add('hidden');
+      document.getElementById('step4').classList.remove('hidden');
+      document.getElementById('step4').classList.add('slide-left');
+
+      // Track recommendation shown
+      if (typeof umami !== 'undefined') {
+        umami.track('funnel-recommendation-shown', {
+          eventType: funnelState.eventType,
+          guestCount: funnelState.guestCount,
+          recommended: recommendation.name
+        });
+      }
+    }
+
+    function bookPackage(source) {
+      let url;
+      if (source === 'recommended') {
+        url = document.getElementById('bookRecommended').getAttribute('data-url');
+      } else {
+        url = source; // URL passed directly
+      }
+
+      // Track booking click
+      if (typeof umami !== 'undefined') {
+        umami.track('funnel-book-clicked', {
+          eventType: funnelState.eventType,
+          guestCount: funnelState.guestCount,
+          wasRecommended: source === 'recommended',
+          url: url
+        });
+      }
+
+      // Open in new tab
+      window.open(url, '_blank');
+    }
+
+    // Set minimum date to today
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('eventDate').setAttribute('min', today);
+
+      // Track page load
+      if (typeof umami !== 'undefined') {
+        umami.track('funnel-page-loaded');
+      }
+    });
+  </script>
+
+</body>
+</html>
