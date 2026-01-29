@@ -119,6 +119,8 @@
       border-radius: 8px;
       overflow: hidden;
       margin-bottom: 12px;
+      position: relative;
+      cursor: pointer;
     }
     .screenshot-container img {
       width: 100%;
@@ -224,12 +226,12 @@
     }
     .accordion-panel {
       display: none;
-      padding: 12px 16px;
-      font-size: 12px;
-      line-height: 1.5;
-      color: #aaa;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #bbb;
       white-space: pre-wrap;
-      max-height: 25vh;
+      max-height: 35vh;
       overflow-y: auto;
     }
     .accordion-panel.active { display: block; }
@@ -247,6 +249,55 @@
       color: #4a9;
       text-decoration: none;
       font-size: 14px;
+    }
+
+    /* Fullscreen overlay for screenshots */
+    .fullscreen-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 200;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .fullscreen-overlay.active { display: block; }
+    .fullscreen-close {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: #333;
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 201;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fullscreen-img {
+      width: 100%;
+      display: block;
+      padding-top: 60px;
+    }
+    .tap-hint {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: #888;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -321,6 +372,12 @@
   </div>
 </div>
 
+<!-- Fullscreen Overlay -->
+<div class="fullscreen-overlay" id="fullscreenOverlay">
+  <button class="fullscreen-close" onclick="closeFullscreen()">&times;</button>
+  <img class="fullscreen-img" id="fullscreenImg" src="" alt="Fullscreen view">
+</div>
+
 <!-- Bottom Bar: Nav + Accordion -->
 <div class="bottom-bar" id="bottomBar">
   <div class="nav-controls">
@@ -388,9 +445,9 @@ var trees = {
     <text x="195" y="30" text-anchor="middle" class="label">LOGIN FLOW</text>
     <a href="javascript:jumpToScreen(0)"><g class="node"><rect x="95" y="45" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="70" text-anchor="middle">Enter Email</text></g></a>
     <line x1="195" y1="85" x2="195" y2="100" class="connector"/>
-    <a href="javascript:jumpToScreen(1)"><g class="node"><rect x="95" y="100" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="125" text-anchor="middle">Enter OTP</text></g></a>
+    <a href="javascript:jumpToScreen(1)"><g class="node"><rect x="95" y="100" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="125" text-anchor="middle">Code Sent</text></g></a>
     <line x1="195" y1="140" x2="195" y2="155" class="connector"/>
-    <a href="javascript:jumpToScreen(2)"><g class="node"><rect x="95" y="155" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="180" text-anchor="middle">OTP Verified</text></g></a>
+    <a href="javascript:jumpToScreen(2)"><g class="node"><rect x="95" y="155" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="180" text-anchor="middle">Enter Code</text></g></a>
     <line x1="195" y1="195" x2="195" y2="210" class="connector"/>
 
     <!-- Dashboard -->
@@ -479,8 +536,8 @@ var flows = {
     name: 'Admin Dashboard',
     steps: [
       { name: 'Enter Email', file: 'CleanShot 2026-01-29 at 11.49.21@2x.png', copy: 'Admin Login - Email Entry\n\nMagic link authentication:\n- Enter admin email address\n- System sends OTP code\n- No password required\n\nField: Email address\nButton: "Send Code"', design: 'Minimal login form\nEmail input centered\nHibiscus branding\nDark theme matching customer site', logic: 'Validates email format\nChecks against admin whitelist\nSends OTP via Cloudflare Email\nOTP valid for 10 minutes' },
-      { name: 'Enter OTP', file: 'CleanShot 2026-01-29 at 11.50.04@2x.png', copy: 'Admin Login - OTP Entry\n\nEnter 6-digit code sent to email.\n\nField: OTP code (6 digits)\nButton: "Verify"\nLink: "Resend code"', design: 'OTP input field\nAuto-focus on load\nResend option visible\nError state for wrong code', logic: 'Validates 6-digit code\nExpires after 10 minutes\n3 attempts max\nLogs all attempts' },
-      { name: 'OTP Verified', file: 'CleanShot 2026-01-29 at 11.50.29@2x.png', copy: 'Admin Login - Verification Success\n\nOTP verified successfully.\nRedirecting to dashboard...\n\nShows success state before redirect.', design: 'Success checkmark\nGreen confirmation\nBrief transition screen\nAuto-redirect', logic: 'Sets auth session cookie\nLogged in for 7 days\nRedirects to dashboard\nLogs successful login' },
+      { name: 'Code Sent', file: 'CleanShot 2026-01-29 at 11.50.04@2x.png', copy: 'Admin Login - Code Sent\n\nMessage: "A code has been emailed to you"\n\nConfirmation screen showing:\n- Email successfully sent\n- Check your inbox\n- Code expires in 10 minutes\n\nButton: "Continue" or auto-advance', design: 'Confirmation message\nCloudflare Access branding\nEmail icon or checkmark\nTransition to code entry', logic: 'OTP sent via Cloudflare Email\nValid for 10 minutes\nUser checks inbox\nAuto-advances or tap to continue' },
+      { name: 'Enter Code', file: 'CleanShot 2026-01-29 at 11.50.29@2x.png', copy: 'Admin Login - Enter Code\n\nMessage: "A code has been emailed to you"\n\nField: Enter code (6 digits)\nButton: "Sign in"\nLinks: "Resend email", "Didn\'t receive an email?"\n\nCloudflare Access authentication flow.', design: 'Code input field\nCloudflare Access branding\nResend option visible\nBack button available', logic: 'Validates code format\nSubmits to Cloudflare Access\nExpires after 10 minutes\n3 attempts before lockout' },
       { name: 'Dashboard', file: 'CleanShot 2026-01-29 at 11.51.04@2x.png', copy: 'Main Admin Dashboard\n\nOne-page interface showing:\n- Pending bookings requiring action\n- This week\'s calendar\n- Quick stats\n\nActions available per booking:\n- [Change] Reschedule booking\n- [Cancel] Cancel with policy\n- [Confirm] Confirm payment', design: 'Single-page dashboard\nCard-based layout\nBookings with action buttons\nStatus badges (pending/confirmed)', logic: 'All actions in one view\nNo separate pages\nModals for Change/Cancel\nInline updates for Confirm' },
       { name: 'Change Action', file: 'CleanShot 2026-01-29 at 11.51.30@2x.png', copy: 'Reschedule Booking\n\nShows:\n- Current booking details\n- Date picker for new date\n- Time slot selection\n- Rescheduling notice\n\nButtons: [Keep Date] [Save Changes]', design: 'Modal overlay\nDate picker component\nCurrent vs new comparison\nPolicy reminder', logic: 'Triggered by [Change] button\nValidates new date available\nSends reschedule email\nUpdates calendar' },
       { name: 'Cancel Action', file: 'CleanShot 2026-01-29 at 11.51.50@2x.png', copy: 'Cancel Booking\n\nShows:\n- Booking details\n- Days until event\n- Cancellation policy applied\n- Refund calculation\n\nButtons: [Keep Booking] [Cancel Booking]', design: 'Modal overlay\nPolicy breakdown\nRefund amount highlighted\nWarning for <7 days', logic: 'Triggered by [Cancel] button\nCalculates refund by policy\nSends cancellation email\nRemoves from calendar' },
@@ -605,10 +662,29 @@ function loadScreen() {
     return;
   }
 
-  screenshotContainer.innerHTML = '<img id="screenshot" src="' + path + '" alt="' + step.name + '">';
+  screenshotContainer.innerHTML = '<img id="screenshot" src="' + path + '" alt="' + step.name + '" onclick="openFullscreen(this.src)"><span class="tap-hint">Tap to fullscreen</span>';
   updateNavigation();
   updatePanels();
 }
+
+function openFullscreen(src) {
+  document.getElementById('fullscreenImg').src = src;
+  document.getElementById('fullscreenOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFullscreen() {
+  document.getElementById('fullscreenOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close fullscreen on tap outside image or Escape key
+document.getElementById('fullscreenOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeFullscreen();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeFullscreen();
+});
 
 function updateNavigation() {
   var total = flows[currentFlow].steps.length;
