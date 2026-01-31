@@ -1791,14 +1791,15 @@
         };
 
         // Recommendation engine - maps event type to recommended duration
+        // Updated 2026-01-31: Owner-validated durations (voice note in brain.db)
         var durationRecommendations = {
-            'bridal': 6,      // Bridal parties typically need 6 hours
+            'bridal': 8,      // Bridal: 8 hours (6h overruns constantly)
             'baby': 6,        // Baby showers typically need 6 hours
             'birthday': 4,    // Casual birthdays can be shorter
-            'private': 6,     // Default to half-day
-            'corporate': 12,  // Corporate events often need full day
-            'workshop': 6,    // Workshops typically half-day
-            'content': 4      // Content creation can be shorter
+            'private': 6,     // Intimate dinners: 6 hours (chef 2h + dining 2.5h + reset 1.5h)
+            'corporate': 12,  // Corporate/bespoke: full day
+            'workshop': 6,    // Workshops: 6 hours
+            'content': 2      // Content creation: 2 hours
         };
 
         // Theme toggle function
