@@ -422,6 +422,88 @@
             color: var(--text-secondary);
         }
 
+        /* Step subtitle */
+        .step-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: -12px;
+            margin-bottom: 20px;
+        }
+
+        /* Duration picker */
+        .duration-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .duration-card {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .duration-card:hover {
+            border-color: var(--accent);
+        }
+        .duration-card.selected {
+            border-color: var(--accent);
+            background: var(--bg-elevated);
+        }
+        .duration-card.recommended {
+            border-color: var(--success);
+            box-shadow: 0 0 0 1px var(--success);
+        }
+        .duration-card.recommended::before {
+            content: 'Recommended';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .duration-hours {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .duration-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .duration-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .popular-badge {
+            display: inline-block;
+            margin-top: 8px;
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
         /* Time slots - ticket style */
         .time-slots {
             display: flex;
@@ -1336,76 +1418,45 @@
         <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
     </div>
 
-    <!-- Step 5: Select Time -->
-    <div class="step" id="step5">
-        <p class="step-title">Choose your time</p>
-
-        <div class="time-slots">
-            <div class="time-slot" data-start="12:00" onclick="expandTime(this)">
-                <div class="time-slot-main">
-                    <div class="time-range">
-                        <span class="time">12pm</span>
-                        <span class="arrow">→</span>
-                        <span class="time">6pm</span>
-                    </div>
-                    <span class="badge">6 hours</span>
-                </div>
-                <div class="time-breakdown">
-                    <div class="compare-section"></div>
-                </div>
-                <div class="expand-hint">Tap to see breakdown</div>
-                <button class="select-time-btn" onclick="confirmTime(event, '12:00', '18:00', 'Afternoon')">Select this time</button>
+    <!-- Step 4b: Select Duration -->
+    <div class="step" id="stepDuration">
+        <p class="step-title">How long do you need?</p>
+        <p class="step-subtitle" id="durationRecommendation"></p>
+        <div class="duration-options">
+            <div class="duration-card" data-hours="4" onclick="selectDuration(4, 345)">
+                <div class="duration-hours">4 hours</div>
+                <div class="duration-price">£345</div>
+                <div class="duration-desc">Flexi timing</div>
             </div>
-
-            <div class="time-slot" data-start="14:00" onclick="expandTime(this)">
-                <div class="time-slot-main">
-                    <div class="time-range">
-                        <span class="time">2pm</span>
-                        <span class="arrow">→</span>
-                        <span class="time">8pm</span>
-                    </div>
-                    <span class="badge">6 hours</span>
-                </div>
-                <div class="time-breakdown">
-                    <div class="compare-section"></div>
-                </div>
-                <div class="expand-hint">Tap to see breakdown</div>
-                <button class="select-time-btn" onclick="confirmTime(event, '14:00', '20:00', 'Afternoon-Evening')">Select this time</button>
+            <div class="duration-card" data-hours="6" onclick="selectDuration(6, 465)">
+                <div class="duration-hours">6 hours</div>
+                <div class="duration-price">£465</div>
+                <div class="duration-desc">Half-day</div>
+                <span class="popular-badge">Most popular</span>
             </div>
-
-            <div class="time-slot" data-start="16:00" onclick="expandTime(this)">
-                <div class="time-slot-main">
-                    <div class="time-range">
-                        <span class="time">4pm</span>
-                        <span class="arrow">→</span>
-                        <span class="time">10pm</span>
-                    </div>
-                    <span class="badge">6 hours</span>
-                </div>
-                <div class="time-breakdown">
-                    <div class="compare-section"></div>
-                </div>
-                <div class="expand-hint">Tap to see breakdown</div>
-                <button class="select-time-btn" onclick="confirmTime(event, '16:00', '22:00', 'Evening')">Select this time</button>
+            <div class="duration-card" data-hours="8" onclick="selectDuration(8, 645)">
+                <div class="duration-hours">8 hours</div>
+                <div class="duration-price">£645</div>
+                <div class="duration-desc">Flexi timing</div>
             </div>
-
-            <div class="time-slot" data-start="18:00" onclick="expandTime(this)">
-                <div class="time-slot-main">
-                    <div class="time-range">
-                        <span class="time">6pm</span>
-                        <span class="arrow">→</span>
-                        <span class="time">12am</span>
-                    </div>
-                    <span class="badge late">+£50 late</span>
-                </div>
-                <div class="time-breakdown">
-                    <div class="compare-section"></div>
-                </div>
-                <div class="expand-hint">Tap to see breakdown</div>
-                <button class="select-time-btn" onclick="confirmTime(event, '18:00', '00:00', 'Night')">Select this time</button>
+            <div class="duration-card" data-hours="12" onclick="selectDuration(12, 885)">
+                <div class="duration-hours">12 hours</div>
+                <div class="duration-price">£885</div>
+                <div class="duration-desc">Full day (10am-10pm)</div>
             </div>
         </div>
         <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
+    </div>
+
+    <!-- Step 5: Select Time -->
+    <div class="step" id="step5">
+        <p class="step-title">Choose your start time</p>
+        <p class="step-subtitle" id="selectedDurationDisplay"></p>
+
+        <div class="time-slots" id="timeSlotsContainer">
+            <!-- Time slots will be dynamically generated based on duration -->
+        </div>
+        <button class="btn btn-secondary" onclick="goToDuration()">← Back</button>
     </div>
 
     <!-- Step 6: Guest Count -->
@@ -1712,6 +1763,8 @@
         var selectedDayType = null;
         var selectedDate = null;
         var selectedDateObj = null;
+        var selectedDuration = null;
+        var selectedDurationPrice = 0;
         var selectedTimeStart = null;
         var selectedTimeEnd = null;
         var selectedTimeLabel = null;
@@ -1720,10 +1773,33 @@
 
         var eventTypeLabels = {
             'bridal': 'Bridal Party',
+            'baby': 'Baby Shower',
+            'birthday': 'Birthday Party',
             'private': 'Private Event',
-            'workshop': 'Workshop'
+            'corporate': 'Corporate Event',
+            'workshop': 'Workshop',
+            'content': 'Content Creation'
         };
         window.eventTypeLabels = eventTypeLabels;
+
+        // Duration options with pricing
+        var durationOptions = {
+            4: { hours: 4, price: 345, label: '4 hours', desc: 'Flexi timing' },
+            6: { hours: 6, price: 465, label: '6 hours', desc: 'Half-day' },
+            8: { hours: 8, price: 645, label: '8 hours', desc: 'Flexi timing' },
+            12: { hours: 12, price: 885, label: '12 hours', desc: 'Full day (10am-10pm)' }
+        };
+
+        // Recommendation engine - maps event type to recommended duration
+        var durationRecommendations = {
+            'bridal': 6,      // Bridal parties typically need 6 hours
+            'baby': 6,        // Baby showers typically need 6 hours
+            'birthday': 4,    // Casual birthdays can be shorter
+            'private': 6,     // Default to half-day
+            'corporate': 12,  // Corporate events often need full day
+            'workshop': 6,    // Workshops typically half-day
+            'content': 4      // Content creation can be shorter
+        };
 
         // Theme toggle function
         function toggleTheme() {
@@ -1894,7 +1970,8 @@
                 // For viewings, go to viewing details (not booking details)
                 setTimeout(() => goToViewingDetails(), 250);
             } else {
-                setTimeout(() => goToStep(5), 250);
+                // Go to duration picker (HOOK 1: Date → Duration)
+                setTimeout(() => goToDuration(), 250);
             }
         }
 
@@ -1949,6 +2026,115 @@
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('stepViewingConfirm').classList.add('active');
             document.getElementById('progressBar').style.display = 'none';
+        }
+
+        // ===== DURATION PICKER FUNCTIONS =====
+
+        function goToDuration() {
+            // Get recommended duration based on event type
+            const recommended = durationRecommendations[selectedEventType] || 6;
+
+            // Update recommendation text
+            const eventLabel = eventTypeLabels[selectedEventType] || 'your event';
+            document.getElementById('durationRecommendation').textContent =
+                `For ${eventLabel.toLowerCase()}, we recommend ${recommended} hours`;
+
+            // Highlight recommended duration card
+            document.querySelectorAll('.duration-card').forEach(card => {
+                card.classList.remove('recommended', 'selected');
+                if (parseInt(card.dataset.hours) === recommended) {
+                    card.classList.add('recommended');
+                }
+            });
+
+            // Show duration step
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stepDuration').classList.add('active');
+
+            // Update progress bar (duration is ~step 4.5 of 8)
+            document.getElementById('progressFill').style.width = '56%';
+        }
+
+        function selectDuration(hours, price) {
+            selectedDuration = hours;
+            selectedDurationPrice = price;
+            window.selectedDuration = hours;
+            window.selectedDurationPrice = price;
+
+            // Update selection UI
+            document.querySelectorAll('.duration-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            // Generate time slots for this duration (HOOK 2: Duration → Time Slots)
+            generateTimeSlots(hours);
+
+            // Update the time step subtitle
+            document.getElementById('selectedDurationDisplay').textContent =
+                `${hours} hours · £${price}`;
+
+            // Go to time slot selection
+            setTimeout(() => goToStep(5), 250);
+        }
+
+        function generateTimeSlots(hours) {
+            const container = document.getElementById('timeSlotsContainer');
+
+            // Define available start times based on duration
+            // Studio operates 10am-10pm (12 hours total)
+            // End time must be by 10pm (22:00) unless it's a full day
+            let slots = [];
+
+            if (hours === 12) {
+                // Full day - only one option: 10am-10pm
+                slots = [
+                    { start: '10:00', end: '22:00', label: 'Full Day', startDisplay: '10am', endDisplay: '10pm' }
+                ];
+            } else if (hours === 8) {
+                // 8 hours - a few options
+                slots = [
+                    { start: '10:00', end: '18:00', label: 'Morning-Afternoon', startDisplay: '10am', endDisplay: '6pm' },
+                    { start: '12:00', end: '20:00', label: 'Midday-Evening', startDisplay: '12pm', endDisplay: '8pm' },
+                    { start: '14:00', end: '22:00', label: 'Afternoon-Night', startDisplay: '2pm', endDisplay: '10pm' }
+                ];
+            } else if (hours === 6) {
+                // 6 hours (half-day) - most options
+                slots = [
+                    { start: '10:00', end: '16:00', label: 'Morning', startDisplay: '10am', endDisplay: '4pm' },
+                    { start: '12:00', end: '18:00', label: 'Midday', startDisplay: '12pm', endDisplay: '6pm' },
+                    { start: '14:00', end: '20:00', label: 'Afternoon', startDisplay: '2pm', endDisplay: '8pm' },
+                    { start: '16:00', end: '22:00', label: 'Evening', startDisplay: '4pm', endDisplay: '10pm' }
+                ];
+            } else if (hours === 4) {
+                // 4 hours - most flexible
+                slots = [
+                    { start: '10:00', end: '14:00', label: 'Morning', startDisplay: '10am', endDisplay: '2pm' },
+                    { start: '12:00', end: '16:00', label: 'Midday', startDisplay: '12pm', endDisplay: '4pm' },
+                    { start: '14:00', end: '18:00', label: 'Afternoon', startDisplay: '2pm', endDisplay: '6pm' },
+                    { start: '16:00', end: '20:00', label: 'Late Afternoon', startDisplay: '4pm', endDisplay: '8pm' },
+                    { start: '18:00', end: '22:00', label: 'Evening', startDisplay: '6pm', endDisplay: '10pm' }
+                ];
+            }
+
+            // Generate HTML for time slots
+            container.innerHTML = slots.map(slot => `
+                <div class="time-slot" data-start="${slot.start}" onclick="expandTime(this)">
+                    <div class="time-slot-main">
+                        <div class="time-range">
+                            <span class="time">${slot.startDisplay}</span>
+                            <span class="arrow">→</span>
+                            <span class="time">${slot.endDisplay}</span>
+                        </div>
+                        <span class="badge">${slot.label}</span>
+                    </div>
+                    <div class="time-breakdown">
+                        <div class="compare-section"></div>
+                    </div>
+                    <div class="expand-hint">Tap to select</div>
+                    <button class="select-time-btn" onclick="confirmTime(event, '${slot.start}', '${slot.end}', '${slot.label}')">Select this time</button>
+                </div>
+            `).join('');
         }
 
         function expandTime(el) {
@@ -2048,7 +2234,7 @@
 
         function updateSummary() {
             const dateStr = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month}`;
-            const timeStr = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)}`;
+            const timeStr = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)} (${selectedDuration}hrs)`;
 
             document.getElementById('summaryEvent').textContent = eventTypeLabels[selectedEventType] || '—';
             document.getElementById('summaryDate').textContent = dateStr;
@@ -2056,12 +2242,15 @@
             document.getElementById('summaryGuests').textContent = selectedGuests + ' guests';
             document.getElementById('summaryName').textContent = document.getElementById('inputName').value;
 
+            // Update deposit amount with selected duration price
+            updateDepositAmount();
+
             // Render event vibe content
             const comparison = eventComparisons[selectedEventType];
             if (comparison) {
                 document.getElementById('eventVibe').innerHTML = `
                     <div class="vibe-header">
-                        <div class="vibe-time">4.5 hours</div>
+                        <div class="vibe-time">${selectedDuration} hours</div>
                         <div class="vibe-label">${comparison.label}</div>
                     </div>
                     <div class="vibe-items">
@@ -2090,7 +2279,7 @@
             // Copy values to receipt
             document.getElementById('receiptEvent').textContent = eventTypeLabels[selectedEventType] || '—';
             document.getElementById('receiptDate').textContent = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month} 2026`;
-            document.getElementById('receiptTime').textContent = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)}`;
+            document.getElementById('receiptTime').textContent = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)} (${selectedDuration}hrs)`;
 
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('step9').classList.add('active');
@@ -2223,15 +2412,9 @@
         }
 
         function updateDepositAmount() {
-            // Dynamic pricing based on duration (Half-Day 6hr = £465 is the default for this demo)
-            const durationPrices = {
-                '4': 345,   // 4 Hours Flexi
-                '6': 465,   // Half-Day (default for 6hr slots)
-                '8': 645,   // 8 Hours Flexi
-                '12': 885   // Full-Day
-            };
-            // Default to Half-Day pricing (6 hours) for the time slots in this demo
-            const basePrice = durationPrices['6'];
+            // Use selected duration price (HOOK 4: Pricing uses selected duration)
+            // Default to Half-Day (6hr = £465) if no duration selected yet
+            const basePrice = selectedDurationPrice || 465;
             const total = basePrice + extrasTotal;
             const deposit = Math.ceil(total / 2);
             const remaining = total - deposit;
@@ -2248,6 +2431,8 @@
             selectedDayType = null;
             selectedDate = null;
             selectedDateObj = null;
+            selectedDuration = null;
+            selectedDurationPrice = 0;
             selectedTimeStart = null;
             selectedTimeEnd = null;
             selectedTimeLabel = null;
@@ -2257,8 +2442,8 @@
             extrasTotal = 0;
 
             // Reset UI
-            document.querySelectorAll('.choice-card, .date-card, .time-slot, .guest-btn, .extra-option').forEach(el => {
-                el.classList.remove('selected', 'expanded');
+            document.querySelectorAll('.choice-card, .date-card, .time-slot, .guest-btn, .extra-option, .duration-card').forEach(el => {
+                el.classList.remove('selected', 'expanded', 'recommended');
             });
             document.querySelectorAll('.form-input').forEach(input => {
                 input.value = '';
