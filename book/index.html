@@ -1013,20 +1013,6 @@
             line-height: 1.6;
         }
 
-        /* Demo banner - more visible */
-        .demo-banner {
-            background: var(--accent);
-            padding: 10px 0;
-            text-align: center;
-            margin: -20px -20px 20px -20px;
-        }
-        .demo-banner-text {
-            color: var(--bg-base);
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-
         /* Progress bar (percentage) */
         .progress-bar {
             max-width: 420px;
@@ -1153,26 +1139,6 @@
             margin-top: 4px;
         }
 
-        /* Demo auto-fill */
-        .demo-autofill {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .demo-autofill-btn {
-            background: transparent;
-            border: 1px dashed var(--border-color);
-            color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .demo-autofill-btn:hover {
-            border-color: var(--accent);
-            color: var(--text-primary);
-        }
-
         /* Visual amenities */
         .amenities-grid {
             display: grid;
@@ -1296,10 +1262,6 @@
     </style>
 </head>
 <body>
-    <div class="demo-banner">
-        <div class="demo-banner-text">Demo Mode — dates are for preview only</div>
-    </div>
-
     <!-- Decorative flower pattern (sides) -->
     <div class="flower-pattern left" aria-hidden="true">
         <img src="assets/hibiscus-flower.png" alt="">
@@ -1329,7 +1291,7 @@
         </button>
         <div class="header-content">
             <div class="header-decor"></div>
-            <span class="brand-mark" onclick="resetDemo()" title="Start over">Book Your Event</span>
+            <span class="brand-mark" onclick="startOver()" title="Start over">Book Your Event</span>
             <div class="header-decor right"></div>
         </div>
     </div>
@@ -1486,9 +1448,6 @@
     <!-- Step 7: Your Details -->
     <div class="step" id="step7">
         <p class="step-title">Your details</p>
-        <div class="demo-autofill">
-            <button class="demo-autofill-btn" onclick="autoFillDemo()">✨ Auto-fill for demo</button>
-        </div>
         <div class="form-group">
             <label class="form-label">Name</label>
             <input type="text" class="form-input" id="inputName" placeholder="Your name" oninput="validateField(this, 'name')">
@@ -1663,7 +1622,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-secondary" onclick="resetDemo()">Start Over</button>
+        <button class="btn btn-secondary" onclick="startOver()">Start Over</button>
     </div>
 
     <!-- Viewing Flow -->
@@ -1681,9 +1640,6 @@
     <!-- Viewing Details (Step 7 for viewings) -->
     <div class="step" id="stepViewingDetails">
         <p class="step-title">Your details</p>
-        <div class="demo-autofill">
-            <button class="demo-autofill-btn" onclick="autoFillDemo()">✨ Auto-fill for demo</button>
-        </div>
         <div class="form-group">
             <label class="form-label">Name</label>
             <input type="text" class="form-input" id="viewingInputName" placeholder="Your name" oninput="validateViewingField(this, 'name')">
@@ -1738,7 +1694,7 @@
             </div>
         </div>
 
-        <button class="btn btn-secondary" onclick="resetDemo()">Start Over</button>
+        <button class="btn btn-secondary" onclick="startOver()">Start Over</button>
     </div>
 
     <script>
@@ -1754,7 +1710,7 @@
         }
 
         // Track: page loaded
-        track('demo_start');
+        track('booking_start');
         // ================================================
 
         // State (var for global access by frontend-integration.js)
@@ -1878,7 +1834,7 @@
             setTimeout(() => goToStep(2), 250);
         }
 
-        // Demo available dates by month
+        // Available dates by month
         const datesByMonth = {
             thisMonth: {
                 weekend: [
@@ -2229,7 +2185,7 @@
             // Update summary on step 8
             if (step === 8) {
                 updateSummary();
-                track('demo_complete'); // Track: reached final step
+                track('booking_complete'); // Track: reached final step
             }
         }
 
@@ -2367,35 +2323,6 @@
             document.getElementById('step3').classList.add('active');
         }
 
-        // ===== AUTO-FILL DEMO =====
-        function autoFillDemo() {
-            const names = ['Sarah Johnson', 'Jessica Williams', 'Ama Mensah', 'Chioma Obi', 'Priya Patel'];
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const emailName = randomName.toLowerCase().replace(' ', '.');
-            const phone = '07' + Math.floor(100000000 + Math.random() * 900000000);
-
-            // Check if we're in viewing flow or booking flow
-            if (isViewing) {
-                document.getElementById('viewingInputName').value = randomName;
-                document.getElementById('viewingInputEmail').value = `${emailName}@demo.test`;
-                document.getElementById('viewingInputPhone').value = phone;
-
-                ['name', 'email', 'phone'].forEach(field => {
-                    const input = document.getElementById('viewingInput' + field.charAt(0).toUpperCase() + field.slice(1));
-                    validateViewingField(input, field);
-                });
-            } else {
-                document.getElementById('inputName').value = randomName;
-                document.getElementById('inputEmail').value = `${emailName}@demo.test`;
-                document.getElementById('inputPhone').value = phone;
-
-                ['name', 'email', 'phone'].forEach(field => {
-                    const input = document.getElementById('input' + field.charAt(0).toUpperCase() + field.slice(1));
-                    validateField(input, field);
-                });
-            }
-        }
-
         // ===== OPTIONAL EXTRAS =====
         let selectedExtras = {};
         let extrasTotal = 0;
@@ -2425,7 +2352,7 @@
             document.querySelector('.btn-primary[onclick="showConfirmation()"]').textContent = `Pay £${deposit} Reservation Fee`;
         }
 
-        function resetDemo() {
+        function startOver() {
             // Reset state
             selectedEventType = null;
             selectedMonth = null;
