@@ -1378,15 +1378,15 @@
         <div class="choices">
             <div class="choice-card" onclick="selectMonth('thisMonth')">
                 <div class="title">This month</div>
-                <div class="desc" id="thisMonthLabel">January 2026</div>
+                <div class="desc" id="thisMonthLabel">February 2026</div>
             </div>
             <div class="choice-card" onclick="selectMonth('nextMonth')">
                 <div class="title">Next month</div>
-                <div class="desc" id="nextMonthLabel">February 2026</div>
+                <div class="desc" id="nextMonthLabel">March 2026</div>
             </div>
             <div class="choice-card" onclick="showMonthPicker()">
                 <div class="title">Later</div>
-                <div class="desc">Pick a month from March onwards</div>
+                <div class="desc">Pick a month from April onwards</div>
             </div>
         </div>
         <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
@@ -1917,38 +1917,30 @@
             setTimeout(() => goToStep(2), 250);
         }
 
-        // Available dates by month
+        // Available dates by month (Updated: February 2026)
         const datesByMonth = {
             thisMonth: {
+                // February 2026 (starting from Feb 7 onwards - allow booking lead time)
                 weekend: [
-                    { date: '2026-01-25', day: 'Sat', num: 25, month: 'Jan' },
-                    { date: '2026-01-26', day: 'Sun', num: 26, month: 'Jan' },
-                ],
-                weekday: [
-                    { date: '2026-01-27', day: 'Mon', num: 27, month: 'Jan' },
-                    { date: '2026-01-28', day: 'Tue', num: 28, month: 'Jan' },
-                    { date: '2026-01-29', day: 'Wed', num: 29, month: 'Jan' },
-                    { date: '2026-01-30', day: 'Thu', num: 30, month: 'Jan' },
-                ]
-            },
-            nextMonth: {
-                weekend: [
-                    { date: '2026-02-01', day: 'Sun', num: 1, month: 'Feb' },
                     { date: '2026-02-07', day: 'Sat', num: 7, month: 'Feb' },
                     { date: '2026-02-08', day: 'Sun', num: 8, month: 'Feb' },
                     { date: '2026-02-14', day: 'Sat', num: 14, month: 'Feb' },
                     { date: '2026-02-15', day: 'Sun', num: 15, month: 'Feb' },
                     { date: '2026-02-21', day: 'Sat', num: 21, month: 'Feb' },
+                    { date: '2026-02-22', day: 'Sun', num: 22, month: 'Feb' },
+                    { date: '2026-02-28', day: 'Sat', num: 28, month: 'Feb' },
                 ],
                 weekday: [
-                    { date: '2026-02-02', day: 'Mon', num: 2, month: 'Feb' },
-                    { date: '2026-02-03', day: 'Tue', num: 3, month: 'Feb' },
-                    { date: '2026-02-04', day: 'Wed', num: 4, month: 'Feb' },
                     { date: '2026-02-09', day: 'Mon', num: 9, month: 'Feb' },
                     { date: '2026-02-10', day: 'Tue', num: 10, month: 'Feb' },
+                    { date: '2026-02-11', day: 'Wed', num: 11, month: 'Feb' },
+                    { date: '2026-02-12', day: 'Thu', num: 12, month: 'Feb' },
+                    { date: '2026-02-16', day: 'Mon', num: 16, month: 'Feb' },
+                    { date: '2026-02-17', day: 'Tue', num: 17, month: 'Feb' },
                 ]
             },
-            later: {
+            nextMonth: {
+                // March 2026
                 weekend: [
                     { date: '2026-03-07', day: 'Sat', num: 7, month: 'Mar' },
                     { date: '2026-03-08', day: 'Sun', num: 8, month: 'Mar' },
@@ -1956,12 +1948,30 @@
                     { date: '2026-03-15', day: 'Sun', num: 15, month: 'Mar' },
                     { date: '2026-03-21', day: 'Sat', num: 21, month: 'Mar' },
                     { date: '2026-03-22', day: 'Sun', num: 22, month: 'Mar' },
+                    { date: '2026-03-28', day: 'Sat', num: 28, month: 'Mar' },
+                    { date: '2026-03-29', day: 'Sun', num: 29, month: 'Mar' },
                 ],
                 weekday: [
                     { date: '2026-03-02', day: 'Mon', num: 2, month: 'Mar' },
                     { date: '2026-03-03', day: 'Tue', num: 3, month: 'Mar' },
+                    { date: '2026-03-04', day: 'Wed', num: 4, month: 'Mar' },
                     { date: '2026-03-09', day: 'Mon', num: 9, month: 'Mar' },
                     { date: '2026-03-10', day: 'Tue', num: 10, month: 'Mar' },
+                    { date: '2026-03-11', day: 'Wed', num: 11, month: 'Mar' },
+                ]
+            },
+            later: {
+                // April 2026 (placeholder - month picker handles this dynamically)
+                weekend: [
+                    { date: '2026-04-04', day: 'Sat', num: 4, month: 'Apr' },
+                    { date: '2026-04-05', day: 'Sun', num: 5, month: 'Apr' },
+                    { date: '2026-04-11', day: 'Sat', num: 11, month: 'Apr' },
+                    { date: '2026-04-12', day: 'Sun', num: 12, month: 'Apr' },
+                ],
+                weekday: [
+                    { date: '2026-04-06', day: 'Mon', num: 6, month: 'Apr' },
+                    { date: '2026-04-07', day: 'Tue', num: 7, month: 'Apr' },
+                    { date: '2026-04-08', day: 'Wed', num: 8, month: 'Apr' },
                 ]
             }
         };
@@ -2350,8 +2360,8 @@
             document.getElementById('monthPageLabel').textContent = monthPickerYear;
             document.getElementById('monthPrevBtn').disabled = monthPickerYear <= 2026;
 
-            // For 2026, start from March (index 2)
-            const startMonth = monthPickerYear === 2026 ? 2 : 0;
+            // For 2026, start from April (index 3) since Feb is "this month" and Mar is "next month"
+            const startMonth = monthPickerYear === 2026 ? 3 : 0;
 
             let html = '';
             for (let i = startMonth; i < 12; i++) {
