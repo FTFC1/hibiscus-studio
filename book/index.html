@@ -58,8 +58,7 @@
             transition: background 0.3s, color 0.3s, font-family 0.3s;
         }
         [data-theme="light"] body {
-            font-size: 1.05rem;
-            letter-spacing: 0.01em;
+            /* Same font styling as dark mode */
         }
         .header {
             text-align: center;
@@ -114,21 +113,15 @@
         .brand-mark:hover {
             color: var(--text-secondary);
         }
-        /* Light mode: elegant serif branding */
+        /* Light mode: keep same modern font as dark mode */
         [data-theme="light"] .brand-mark {
-            font-size: 1.8rem;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            font-style: italic;
-            text-transform: none;
+            /* Same as dark mode - no italic */
         }
         [data-theme="light"] .choice-card .title {
-            font-weight: 500;
-            font-size: 1.35rem;
+            /* Same as dark mode */
         }
         [data-theme="light"] .step-title {
-            font-size: 1.4rem;
-            font-style: italic;
+            /* Same as dark mode - no italic */
         }
 
         /* Decorative flower pattern - heavy spaced */
@@ -649,6 +642,62 @@
         }
         .compare-example .thing {
             color: var(--text-secondary);
+        }
+
+        /* Timeline visual for setup/packdown */
+        .timeline-visual {
+            display: flex;
+            align-items: stretch;
+            margin: 12px 0 16px;
+            padding: 12px;
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            gap: 6px;
+        }
+        .timeline-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .timeline-segment.setup,
+        .timeline-segment.packdown {
+            flex: 0 0 60px;
+        }
+        .timeline-segment.event {
+            flex: 1;
+        }
+        .segment-icon {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .segment-bar {
+            height: 6px;
+            border-radius: 3px;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+        .timeline-segment.setup .segment-bar,
+        .timeline-segment.packdown .segment-bar {
+            background: var(--border-color);
+        }
+        .timeline-segment.event .segment-bar {
+            background: var(--accent);
+        }
+        .segment-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        .segment-time {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .timeline-segment.event .segment-time {
+            color: var(--accent);
+            font-weight: 500;
         }
 
         .breakdown-row {
@@ -1809,9 +1858,43 @@
             const comparison = eventComparisons[selectedEventType];
             if (!comparison) return;
 
+            // Calculate actual event time (total - 2.5h setup/packdown)
+            const totalHours = selectedDuration || 6;
+            const setupTime = 1.25; // 1h 15m
+            const packdownTime = 1.25; // 1h 15m
+            const eventTime = totalHours - setupTime - packdownTime;
+            const eventTimeDisplay = eventTime % 1 === 0 ? eventTime : eventTime.toFixed(1);
+
+            // Format times for display
+            const formatTime = (hours) => {
+                const h = Math.floor(hours);
+                const m = Math.round((hours - h) * 60);
+                return m > 0 ? `${h}h ${m}m` : `${h}h`;
+            };
+
             document.querySelectorAll('.compare-section').forEach(section => {
                 section.innerHTML = `
-                    <div class="compare-main">4.5 hours</div>
+                    <div class="timeline-visual">
+                        <div class="timeline-segment setup">
+                            <div class="segment-icon">🎬</div>
+                            <div class="segment-bar"></div>
+                            <div class="segment-label">Setup</div>
+                            <div class="segment-time">${formatTime(setupTime)}</div>
+                        </div>
+                        <div class="timeline-segment event">
+                            <div class="segment-icon">🎉</div>
+                            <div class="segment-bar"></div>
+                            <div class="segment-label">Your Event</div>
+                            <div class="segment-time">${formatTime(eventTime)}</div>
+                        </div>
+                        <div class="timeline-segment packdown">
+                            <div class="segment-icon">🧹</div>
+                            <div class="segment-bar"></div>
+                            <div class="segment-label">Clear</div>
+                            <div class="segment-time">${formatTime(packdownTime)}</div>
+                        </div>
+                    </div>
+                    <div class="compare-main">${eventTimeDisplay} hours</div>
                     <div class="compare-label">${comparison.label}</div>
                     <div class="compare-examples">
                         ${comparison.examples.map(ex => `
