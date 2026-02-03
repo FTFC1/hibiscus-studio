@@ -1378,15 +1378,15 @@
         <div class="choices">
             <div class="choice-card" onclick="selectMonth('thisMonth')">
                 <div class="title">This month</div>
-                <div class="desc" id="thisMonthLabel">February 2026</div>
+                <div class="desc" id="thisMonthLabel">Loading...</div>
             </div>
             <div class="choice-card" onclick="selectMonth('nextMonth')">
                 <div class="title">Next month</div>
-                <div class="desc" id="nextMonthLabel">March 2026</div>
+                <div class="desc" id="nextMonthLabel">Loading...</div>
             </div>
             <div class="choice-card" onclick="showMonthPicker()">
                 <div class="title">Later</div>
-                <div class="desc">Pick a month from April onwards</div>
+                <div class="desc" id="laterMonthLabel">Loading...</div>
             </div>
         </div>
         <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
@@ -1917,64 +1917,74 @@
             setTimeout(() => goToStep(2), 250);
         }
 
-        // Available dates by month (Updated: February 2026)
-        const datesByMonth = {
-            thisMonth: {
-                // February 2026 (starting from Feb 7 onwards - allow booking lead time)
-                weekend: [
-                    { date: '2026-02-07', day: 'Sat', num: 7, month: 'Feb' },
-                    { date: '2026-02-08', day: 'Sun', num: 8, month: 'Feb' },
-                    { date: '2026-02-14', day: 'Sat', num: 14, month: 'Feb' },
-                    { date: '2026-02-15', day: 'Sun', num: 15, month: 'Feb' },
-                    { date: '2026-02-21', day: 'Sat', num: 21, month: 'Feb' },
-                    { date: '2026-02-22', day: 'Sun', num: 22, month: 'Feb' },
-                    { date: '2026-02-28', day: 'Sat', num: 28, month: 'Feb' },
-                ],
-                weekday: [
-                    { date: '2026-02-09', day: 'Mon', num: 9, month: 'Feb' },
-                    { date: '2026-02-10', day: 'Tue', num: 10, month: 'Feb' },
-                    { date: '2026-02-11', day: 'Wed', num: 11, month: 'Feb' },
-                    { date: '2026-02-12', day: 'Thu', num: 12, month: 'Feb' },
-                    { date: '2026-02-16', day: 'Mon', num: 16, month: 'Feb' },
-                    { date: '2026-02-17', day: 'Tue', num: 17, month: 'Feb' },
-                ]
-            },
-            nextMonth: {
-                // March 2026
-                weekend: [
-                    { date: '2026-03-07', day: 'Sat', num: 7, month: 'Mar' },
-                    { date: '2026-03-08', day: 'Sun', num: 8, month: 'Mar' },
-                    { date: '2026-03-14', day: 'Sat', num: 14, month: 'Mar' },
-                    { date: '2026-03-15', day: 'Sun', num: 15, month: 'Mar' },
-                    { date: '2026-03-21', day: 'Sat', num: 21, month: 'Mar' },
-                    { date: '2026-03-22', day: 'Sun', num: 22, month: 'Mar' },
-                    { date: '2026-03-28', day: 'Sat', num: 28, month: 'Mar' },
-                    { date: '2026-03-29', day: 'Sun', num: 29, month: 'Mar' },
-                ],
-                weekday: [
-                    { date: '2026-03-02', day: 'Mon', num: 2, month: 'Mar' },
-                    { date: '2026-03-03', day: 'Tue', num: 3, month: 'Mar' },
-                    { date: '2026-03-04', day: 'Wed', num: 4, month: 'Mar' },
-                    { date: '2026-03-09', day: 'Mon', num: 9, month: 'Mar' },
-                    { date: '2026-03-10', day: 'Tue', num: 10, month: 'Mar' },
-                    { date: '2026-03-11', day: 'Wed', num: 11, month: 'Mar' },
-                ]
-            },
-            later: {
-                // April 2026 (placeholder - month picker handles this dynamically)
-                weekend: [
-                    { date: '2026-04-04', day: 'Sat', num: 4, month: 'Apr' },
-                    { date: '2026-04-05', day: 'Sun', num: 5, month: 'Apr' },
-                    { date: '2026-04-11', day: 'Sat', num: 11, month: 'Apr' },
-                    { date: '2026-04-12', day: 'Sun', num: 12, month: 'Apr' },
-                ],
-                weekday: [
-                    { date: '2026-04-06', day: 'Mon', num: 6, month: 'Apr' },
-                    { date: '2026-04-07', day: 'Tue', num: 7, month: 'Apr' },
-                    { date: '2026-04-08', day: 'Wed', num: 8, month: 'Apr' },
-                ]
+        // ===== DYNAMIC DATE GENERATION =====
+        // Automatically generates available dates based on current date
+        // No more manual updates needed each month!
+
+        const BOOKING_LEAD_DAYS = 5; // Minimum days ahead for booking
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const monthNamesShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const monthNamesFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Generate dates for a given month, filtering out past dates and lead time
+        function generateMonthDates(year, monthIndex, minDate) {
+            const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+            const weekendDates = [];
+            const weekdayDates = [];
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const date = new Date(year, monthIndex, d);
+                // Skip dates before minimum booking date
+                if (date < minDate) continue;
+
+                const dayOfWeek = date.getDay();
+                const dateStr = `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const dateObj = {
+                    date: dateStr,
+                    day: dayNames[dayOfWeek],
+                    num: d,
+                    month: monthNamesShort[monthIndex]
+                };
+
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    weekendDates.push(dateObj);
+                } else {
+                    weekdayDates.push(dateObj);
+                }
             }
+
+            return { weekend: weekendDates, weekday: weekdayDates };
+        }
+
+        // Calculate minimum booking date (today + lead time)
+        const today = new Date();
+        const minBookingDate = new Date(today);
+        minBookingDate.setDate(today.getDate() + BOOKING_LEAD_DAYS);
+
+        // Current month info
+        const currentYear = today.getFullYear();
+        const currentMonth = today.getMonth(); // 0-indexed
+        const nextMonthIndex = (currentMonth + 1) % 12;
+        const nextMonthYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+        const laterMonthIndex = (currentMonth + 2) % 12;
+        const laterMonthYear = currentMonth >= 10 ? currentYear + 1 : currentYear;
+
+        // Generate dates dynamically
+        const datesByMonth = {
+            thisMonth: generateMonthDates(currentYear, currentMonth, minBookingDate),
+            nextMonth: generateMonthDates(nextMonthYear, nextMonthIndex, new Date(nextMonthYear, nextMonthIndex, 1)),
+            later: generateMonthDates(laterMonthYear, laterMonthIndex, new Date(laterMonthYear, laterMonthIndex, 1))
         };
+
+        // Update UI labels on page load
+        function initializeDynamicDates() {
+            document.getElementById('thisMonthLabel').textContent = `${monthNamesFull[currentMonth]} ${currentYear}`;
+            document.getElementById('nextMonthLabel').textContent = `${monthNamesFull[nextMonthIndex]} ${nextMonthYear}`;
+            document.getElementById('laterMonthLabel').textContent = `Pick a month from ${monthNamesFull[laterMonthIndex]} onwards`;
+        }
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', initializeDynamicDates);
 
         function selectMonth(month) {
             selectedMonth = month;
@@ -2345,11 +2355,10 @@
         }
 
         // ===== MONTH PICKER =====
-        let monthPickerYear = 2026;
-        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        let monthPickerYear = currentYear; // Uses dynamic currentYear from above
 
         function showMonthPicker() {
-            monthPickerYear = 2026;
+            monthPickerYear = laterMonthYear; // Start at the "later" year dynamically
             renderMonthGrid();
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('stepMonthPicker').classList.add('active');
@@ -2358,16 +2367,16 @@
         function renderMonthGrid() {
             const grid = document.getElementById('monthGrid');
             document.getElementById('monthPageLabel').textContent = monthPickerYear;
-            document.getElementById('monthPrevBtn').disabled = monthPickerYear <= 2026;
+            document.getElementById('monthPrevBtn').disabled = monthPickerYear <= currentYear;
 
-            // For 2026, start from April (index 3) since Feb is "this month" and Mar is "next month"
-            const startMonth = monthPickerYear === 2026 ? 3 : 0;
+            // Dynamic: start from "later" month (current + 2) for current year, 0 for future years
+            const startMonth = monthPickerYear === laterMonthYear ? laterMonthIndex : 0;
 
             let html = '';
             for (let i = startMonth; i < 12; i++) {
                 html += `
                     <div class="month-btn" onclick="selectLaterMonth(${i}, ${monthPickerYear})">
-                        <div class="month-name">${monthNames[i]}</div>
+                        <div class="month-name">${monthNamesShort[i]}</div>
                         <div class="month-year">${monthPickerYear}</div>
                     </div>
                 `;
@@ -2397,7 +2406,7 @@
                     date: `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`,
                     day: dayNames[dayOfWeek],
                     num: d,
-                    month: monthNames[monthIndex]
+                    month: monthNamesShort[monthIndex]
                 };
 
                 if (dayOfWeek === 0 || dayOfWeek === 6) {
