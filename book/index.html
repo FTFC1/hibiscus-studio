@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Event | Hibiscus Studio</title>
-    <!-- Luxury serif font for light mode -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Black & White Theme - Dark Mode (default) */
@@ -39,8 +35,8 @@
             --accent: #1a1a1a;
             --accent-light: #333333;
             --gradient: linear-gradient(135deg, #e8e4dd, #f5f2ed);
-            --font-body: 'Cormorant Garamond', Georgia, serif;
-            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-display: var(--font-body);
         }
 
         * {
@@ -454,7 +450,7 @@
             box-shadow: 0 0 0 1px var(--success);
         }
         .duration-card.recommended::before {
-            content: 'Recommended';
+            content: 'Popular';
             position: absolute;
             top: -10px;
             left: 50%;
@@ -483,18 +479,6 @@
         .duration-desc {
             font-size: 0.85rem;
             color: var(--text-muted);
-        }
-        .popular-badge {
-            display: inline-block;
-            margin-top: 8px;
-            background: var(--bg-elevated);
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            font-weight: 500;
-            padding: 3px 8px;
-            border-radius: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
 
         /* Time slots - ticket style */
@@ -1309,6 +1293,9 @@
             font-size: 0.85rem;
         }
     </style>
+
+    <!-- Cloudflare Turnstile (invisible bot protection) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
     <!-- Decorative flower pattern (sides) -->
@@ -1364,6 +1351,10 @@
             <div class="choice-card" onclick="selectEventType('workshop')">
                 <div class="title"><span class="event-icon workshop">▣</span> Workshop</div>
                 <div class="desc">Creative sessions, team activities, classes</div>
+            </div>
+            <div class="choice-card" onclick="selectEventType('content')">
+                <div class="title"><span class="event-icon content">◐</span> Content Creation</div>
+                <div class="desc">Photography, filming, podcasts, brand shoots</div>
             </div>
             <div class="choice-card viewing-card" onclick="goToViewing()">
                 <div class="title"><span class="event-icon viewing">◎</span> Book a Viewing</div>
@@ -1434,27 +1425,7 @@
         <p class="step-title">How long do you need?</p>
         <p class="step-subtitle" id="durationRecommendation"></p>
         <div class="duration-options">
-            <div class="duration-card" data-hours="4" onclick="selectDuration(4, 345)">
-                <div class="duration-hours">4 hours</div>
-                <div class="duration-price">£345</div>
-                <div class="duration-desc">Flexi timing</div>
-            </div>
-            <div class="duration-card" data-hours="6" onclick="selectDuration(6, 465)">
-                <div class="duration-hours">6 hours</div>
-                <div class="duration-price">£465</div>
-                <div class="duration-desc">Half-day</div>
-                <span class="popular-badge">Most popular</span>
-            </div>
-            <div class="duration-card" data-hours="8" onclick="selectDuration(8, 645)">
-                <div class="duration-hours">8 hours</div>
-                <div class="duration-price">£645</div>
-                <div class="duration-desc">Flexi timing</div>
-            </div>
-            <div class="duration-card" data-hours="12" onclick="selectDuration(12, 885)">
-                <div class="duration-hours">12 hours</div>
-                <div class="duration-price">£885</div>
-                <div class="duration-desc">Full day (10am-10pm)</div>
-            </div>
+            <!-- Duration cards dynamically rendered based on event type -->
         </div>
         <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
     </div>
@@ -1512,7 +1483,11 @@
             <input type="tel" class="form-input" id="inputPhone" placeholder="07xxx xxx xxx" inputmode="numeric" oninput="validateField(this, 'phone')">
             <span class="input-check" id="checkPhone">✓</span>
         </div>
-        <button class="btn btn-primary" id="btn7" disabled onclick="goToStep(8)">Review Booking</button>
+
+        <!-- Cloudflare Turnstile (invisible bot protection) -->
+        <div id="turnstile-widget"></div>
+
+        <button class="btn btn-primary" id="btn7" disabled onclick="submitWithTurnstile()">Review Booking</button>
         <button class="btn btn-secondary" onclick="goToStep(6)">← Back</button>
     </div>
 
@@ -1679,11 +1654,21 @@
         <div class="viewing-info">
             <div class="icon">👀</div>
             <div class="title">Book a Viewing</div>
-            <div class="desc">20 minutes · Weekdays only</div>
+            <div class="desc">20 minutes · Tuesdays only</div>
         </div>
         <p class="step-title">Pick a day</p>
         <div class="date-cards" id="viewingDates"></div>
         <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+    </div>
+
+    <!-- Viewing Time Selection -->
+    <div class="step" id="stepViewingTime">
+        <p class="step-title">Choose your time</p>
+        <p class="step-subtitle">20 minute viewing slot</p>
+        <div class="time-slots" id="viewingTimeSlots">
+            <!-- Time slots for viewings -->
+        </div>
+        <button class="btn btn-secondary" onclick="goToViewingStep()">← Back</button>
     </div>
 
     <!-- Viewing Details (Step 7 for viewings) -->
@@ -1787,13 +1772,34 @@
         };
         window.eventTypeLabels = eventTypeLabels;
 
-        // Duration options with pricing
-        var durationOptions = {
+        // Event pricing (for bridal, private, birthday, baby, corporate)
+        var eventPricing = {
             4: { hours: 4, price: 345, label: '4 hours', desc: 'Flexi timing' },
             6: { hours: 6, price: 465, label: '6 hours', desc: 'Half-day' },
             8: { hours: 8, price: 645, label: '8 hours', desc: 'Flexi timing' },
             12: { hours: 12, price: 885, label: '12 hours', desc: 'Full day (10am-10pm)' }
         };
+
+        // Workshop pricing (education-focused, lower rates)
+        var workshopPricing = {
+            2: { hours: 2, price: 120, label: '2 hours', desc: 'Quick session' },
+            6: { hours: 6, price: 345, label: '6 hours', desc: 'Half-day workshop' },
+            12: { hours: 12, price: 645, label: '12 hours', desc: 'Full-day workshop' }
+        };
+
+        // Content creation pricing (fast turnaround, lowest rates)
+        var contentPricing = {
+            2: { hours: 2, price: 90, label: '2 hours', desc: 'Quick shoot' },
+            6: { hours: 6, price: 250, label: '6 hours', desc: 'Half-day shoot' },
+            12: { hours: 12, price: 500, label: '12 hours', desc: 'Full-day shoot' }
+        };
+
+        // Get pricing tier based on event type
+        function getPricingForEventType(eventType) {
+            if (eventType === 'workshop') return workshopPricing;
+            if (eventType === 'content') return contentPricing;
+            return eventPricing; // Default for bridal, private, birthday, baby, corporate
+        }
 
         // Recommendation engine - maps event type to recommended duration
         // Updated 2026-01-31: Owner-validated durations (voice note in brain.db)
@@ -1850,6 +1856,14 @@
                     { thing: 'Students you can teach', value: 'up to 20' },
                     { thing: 'Lightbulb moments to witness', value: 'several' },
                     { thing: 'Time to answer questions', value: 'plenty' }
+                ]
+            },
+            'content': {
+                label: 'of creative time',
+                examples: [
+                    { thing: 'Product angles captured', value: '~50' },
+                    { thing: 'Lighting setups tried', value: '3-5' },
+                    { thing: 'Social-ready clips', value: '~10' }
                 ]
             }
         };
@@ -1911,6 +1925,7 @@
         function selectEventType(type) {
             selectedEventType = type;
             window.selectedEventType = type;
+            isViewing = false; // Reset viewing flag for regular events
             document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
 
@@ -2027,8 +2042,8 @@
 
             // Auto-advance after short delay
             if (isViewing) {
-                // For viewings, go to viewing details (not booking details)
-                setTimeout(() => goToViewingDetails(), 250);
+                // For viewings, go to time selection first
+                setTimeout(() => goToViewingTimeSelection(), 250);
             } else {
                 // Go to duration picker (HOOK 1: Date → Duration)
                 setTimeout(() => goToDuration(), 250);
@@ -2036,7 +2051,55 @@
         }
 
         // ===== VIEWING FLOW FUNCTIONS =====
+        function goToViewingTimeSelection() {
+            // Generate 20-minute viewing slots (10am-6pm, every 30 mins)
+            const viewingSlots = [
+                { start: '10:00', end: '10:20', label: '10:00am' },
+                { start: '10:30', end: '10:50', label: '10:30am' },
+                { start: '11:00', end: '11:20', label: '11:00am' },
+                { start: '11:30', end: '11:50', label: '11:30am' },
+                { start: '12:00', end: '12:20', label: '12:00pm' },
+                { start: '12:30', end: '12:50', label: '12:30pm' },
+                { start: '13:00', end: '13:20', label: '1:00pm' },
+                { start: '13:30', end: '13:50', label: '1:30pm' },
+                { start: '14:00', end: '14:20', label: '2:00pm' },
+                { start: '14:30', end: '14:50', label: '2:30pm' },
+                { start: '15:00', end: '15:20', label: '3:00pm' },
+                { start: '15:30', end: '15:50', label: '3:30pm' },
+                { start: '16:00', end: '16:20', label: '4:00pm' },
+                { start: '16:30', end: '16:50', label: '4:30pm' },
+                { start: '17:00', end: '17:20', label: '5:00pm' },
+                { start: '17:30', end: '17:50', label: '5:30pm' }
+            ];
+
+            const container = document.getElementById('viewingTimeSlots');
+            container.innerHTML = viewingSlots.map(slot => `
+                <div class="time-slot" onclick="selectViewingTime('${slot.start}', '${slot.end}', '${slot.label}')">
+                    <div class="time-slot-main">
+                        <div class="time-range">
+                            <span class="time">${slot.label}</span>
+                        </div>
+                        <span class="badge">20 mins</span>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('progressFill').style.width = '50%'; // Step 2 of 4
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stepViewingTime').classList.add('active');
+        }
+
+        function selectViewingTime(start, end, label) {
+            selectedTimeStart = start;
+            selectedTimeEnd = end;
+            selectedTimeLabel = label;
+
+            // Go to viewing details form
+            setTimeout(() => goToViewingDetails(), 250);
+        }
+
         function goToViewingDetails() {
+            document.getElementById('progressFill').style.width = '75%'; // Step 3 of 4
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('stepViewingDetails').classList.add('active');
         }
@@ -2090,22 +2153,37 @@
 
         // ===== DURATION PICKER FUNCTIONS =====
 
-        function goToDuration() {
-            // Get recommended duration based on event type
-            const recommended = durationRecommendations[selectedEventType] || 6;
+        // Dynamically render duration options based on event type
+        function renderDurationOptions(eventType) {
+            const pricing = getPricingForEventType(eventType);
+            const recommended = durationRecommendations[eventType] || 6;
+            const eventLabel = eventTypeLabels[eventType] || 'your event';
 
             // Update recommendation text
-            const eventLabel = eventTypeLabels[selectedEventType] || 'your event';
             document.getElementById('durationRecommendation').textContent =
                 `For ${eventLabel.toLowerCase()}, we recommend ${recommended} hours`;
 
-            // Highlight recommended duration card
-            document.querySelectorAll('.duration-card').forEach(card => {
-                card.classList.remove('recommended', 'selected');
-                if (parseInt(card.dataset.hours) === recommended) {
-                    card.classList.add('recommended');
-                }
-            });
+            // Generate duration cards HTML
+            const container = document.querySelector('.duration-options');
+            container.innerHTML = Object.entries(pricing)
+                .map(([hours, data]) => {
+                    const isRecommended = parseInt(hours) === recommended;
+
+                    return `
+                        <div class="duration-card ${isRecommended ? 'recommended' : ''}"
+                             data-hours="${hours}"
+                             onclick="selectDuration(${hours}, ${data.price})">
+                            <div class="duration-hours">${data.label}</div>
+                            <div class="duration-price">£${data.price}</div>
+                            <div class="duration-desc">${data.desc}</div>
+                        </div>
+                    `;
+                }).join('');
+        }
+
+        function goToDuration() {
+            // Render duration cards dynamically based on event type
+            renderDurationOptions(selectedEventType);
 
             // Show duration step
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
@@ -2174,6 +2252,16 @@
                     { start: '14:00', end: '18:00', label: 'Afternoon', startDisplay: '2pm', endDisplay: '6pm' },
                     { start: '16:00', end: '20:00', label: 'Late Afternoon', startDisplay: '4pm', endDisplay: '8pm' },
                     { start: '18:00', end: '22:00', label: 'Evening', startDisplay: '6pm', endDisplay: '10pm' }
+                ];
+            } else if (hours === 2) {
+                // 2 hours - very flexible (content/workshop)
+                slots = [
+                    { start: '10:00', end: '12:00', label: 'Morning', startDisplay: '10am', endDisplay: '12pm' },
+                    { start: '12:00', end: '14:00', label: 'Midday', startDisplay: '12pm', endDisplay: '2pm' },
+                    { start: '14:00', end: '16:00', label: 'Early Afternoon', startDisplay: '2pm', endDisplay: '4pm' },
+                    { start: '16:00', end: '18:00', label: 'Late Afternoon', startDisplay: '4pm', endDisplay: '6pm' },
+                    { start: '18:00', end: '20:00', label: 'Early Evening', startDisplay: '6pm', endDisplay: '8pm' },
+                    { start: '20:00', end: '22:00', label: 'Evening', startDisplay: '8pm', endDisplay: '10pm' }
                 ];
             }
 
@@ -2348,10 +2436,18 @@
 
         function goToViewing() {
             isViewing = true;
+            document.getElementById('progressFill').style.width = '25%'; // Step 1 of 4
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('stepViewing').classList.add('active');
-            // Use weekday dates for viewings
-            renderDateCards(datesByMonth.thisMonth.weekday.concat(datesByMonth.nextMonth.weekday), 'viewingDates');
+            // Filter for Tuesdays only (dayOfWeek === 2)
+            const allWeekdays = datesByMonth.thisMonth.weekday.concat(datesByMonth.nextMonth.weekday);
+            const tuesdaysOnly = allWeekdays.filter(d => {
+                // Parse date string and check if it's a Tuesday
+                const [year, month, day] = d.date.split('-').map(Number);
+                const date = new Date(year, month - 1, day);
+                return date.getDay() === 2; // Tuesday
+            });
+            renderDateCards(tuesdaysOnly, 'viewingDates');
         }
 
         // ===== MONTH PICKER =====
@@ -2491,6 +2587,49 @@
             // Show progress bar and go to step 1
             document.getElementById('progressBar').style.display = 'block';
             goToStep(1);
+        }
+
+        // ===== CLOUDFLARE TURNSTILE (INVISIBLE BOT PROTECTION) =====
+
+        // Initialize Turnstile on page load
+        window.addEventListener('load', function() {
+            // Only initialize if turnstile is loaded
+            if (typeof turnstile !== 'undefined') {
+                turnstile.render('#turnstile-widget', {
+                    sitekey: '0x4AAAAAACXZcRnRnZG9rA0a',
+                    theme: 'light',
+                    size: 'invisible',
+                    callback: function(token) {
+                        // Token verified, store it
+                        window.turnstileToken = token;
+                        console.log('Turnstile verified');
+                    },
+                    'error-callback': function() {
+                        console.warn('Turnstile verification failed');
+                        window.turnstileToken = null;
+                    },
+                    'expired-callback': function() {
+                        console.warn('Turnstile token expired');
+                        window.turnstileToken = null;
+                    }
+                });
+            }
+        });
+
+        // Submit with Turnstile verification
+        function submitWithTurnstile() {
+            if (window.turnstileToken) {
+                // Token verified, proceed to review
+                goToStep(8);
+            } else {
+                // No token yet, show alert
+                alert('Please wait, verifying you\'re human...');
+
+                // Try to execute turnstile if available
+                if (typeof turnstile !== 'undefined' && turnstile.execute) {
+                    turnstile.execute('#turnstile-widget');
+                }
+            }
         }
     </script>
 
