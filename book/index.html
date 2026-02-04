@@ -1872,10 +1872,19 @@
             const comparison = eventComparisons[selectedEventType];
             if (!comparison) return;
 
-            // Calculate actual event time (total - 2.5h setup/packdown)
+            // Calculate actual event time with duration-based setup/packdown
             const totalHours = selectedDuration || 6;
-            const setupTime = 1.25; // 1h 15m
-            const packdownTime = 1.25; // 1h 15m
+
+            // 2-hour slots need shorter setup/pack times (20 min each)
+            // Longer events keep 1h 15m for complex setups
+            let setupTime, packdownTime;
+            if (totalHours === 2) {
+                setupTime = 0.33;   // 20 min
+                packdownTime = 0.33; // 20 min
+            } else {
+                setupTime = 1.25;   // 1h 15m (4h, 6h, 8h, 12h events)
+                packdownTime = 1.25; // 1h 15m
+            }
             const eventTime = totalHours - setupTime - packdownTime;
             const eventTimeDisplay = eventTime % 1 === 0 ? eventTime : eventTime.toFixed(1);
 
