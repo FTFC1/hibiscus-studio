@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Workshop Profitability Calculator — Hibiscus Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --glass-bg: rgba(255,255,255,0.12);
+  --glass-border: rgba(255,255,255,0.18);
+  --glass-blur: 20px;
+  --text: #fff;
+  --text-muted: rgba(255,255,255,0.7);
+  --accent: #E91E8C;
+  --accent-glow: rgba(233,30,140,0.4);
+  --green: #4ADE80;
+  --red: #F87171;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #0a0a0a;
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(72px + var(--safe-bottom));
+}
+
+/* ═══════════════════════════════════════ */
+/*  STICKY BOTTOM BAR                     */
+/* ═══════════════════════════════════════ */
+.sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 12px 20px calc(12px + var(--safe-bottom));
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.sticky-bar.visible {
+  transform: translateY(0);
+}
+
+.sticky-bar .bar-info {
+  min-width: 0;
+}
+
+.sticky-bar .bar-name {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-bar .bar-addr {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.sticky-bar .bar-cta {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(255,255,255,0.9);
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.sticky-bar .bar-cta:active {
+  transform: scale(0.96);
+}
+
+/* ═══════════════════════════════════════ */
+/*  PAGE                                  */
+/* ═══════════════════════════════════════ */
+.page {
+  padding-top: 0;
+}
+
+/* ═══════════════════════════════════════ */
+/*  HERO                                  */
+/* ═══════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 20px 32px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.6) 30%,
+    rgba(0,0,0,0.1) 55%,
+    transparent 70%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.hero .subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+  max-width: 340px;
+}
+
+/* ═══════════════════════════════════════ */
+/*  GLASS PANELS                          */
+/* ═══════════════════════════════════════ */
+.glass {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+}
+
+.glass-subtle {
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+}
+
+/* ═══════════════════════════════════════ */
+/*  MINI CALCULATOR                       */
+/* ═══════════════════════════════════════ */
+.calc-mini {
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.calc-mini .input-step {
+  margin-bottom: 16px;
+}
+
+.calc-mini .input-step:last-of-type {
+  margin-bottom: 10px;
+}
+
+.calc-mini .step-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.calc-mini .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.5);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.calc-mini input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.calc-mini input:focus {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.12);
+}
+
+.calc-mini input::placeholder { color: rgba(255,255,255,0.25); }
+
+.input-prefix {
+  position: relative;
+}
+
+.input-prefix::before {
+  content: '\00A3';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  pointer-events: none;
+}
+
+.input-prefix input { padding-left: 28px; }
+
+/* Attendee chips */
+.chip-row {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.chip:active { transform: scale(0.96); }
+
+.chip.selected {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+/* Venue anchored display */
+.venue-anchor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.venue-anchor .venue-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+}
+
+.venue-anchor .venue-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+}
+
+.venue-edit-link {
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 6px 14px;
+  transition: all 0.2s;
+}
+
+.venue-edit-link:active {
+  background: rgba(255,255,255,0.2);
+}
+
+.venue-custom {
+  display: none;
+  margin-top: 8px;
+}
+
+.venue-custom.show { display: block; }
+
+.calc-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(255,255,255,0.9);
+  color: #1a1a1a;
+  margin-top: 4px;
+  transition: all 0.2s;
+}
+
+.calc-btn:active {
+  transform: scale(0.98);
+  background: #fff;
+}
+
+.calc-sub {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+}
+
+/* ═══════════════════════════════════════ */
+/*  EXPANDED RESULTS                      */
+/* ═══════════════════════════════════════ */
+.calc-results {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, padding 0.4s ease, margin 0.4s ease, opacity 0.4s ease;
+  border-radius: var(--radius);
+  margin-top: 0;
+  opacity: 0;
+}
+
+.calc-results.open {
+  max-height: 900px;
+  margin-top: 16px;
+  padding: 20px;
+  opacity: 1;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.result-hero-num {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.result-hero-num.positive { color: var(--green); }
+.result-hero-num.negative { color: var(--red); }
+
+.result-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.result-card {
+  padding: 14px;
+}
+
+.result-card .val {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.result-card .desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Comparison bars */
+.compare-section { margin-top: 16px; }
+
+.compare-section h3 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.compare-bar { margin-bottom: 10px; }
+
+.compare-bar .bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.compare-bar .bar-track {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.compare-bar .bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.bar-fill.yours { background: rgba(255,255,255,0.4); }
+.bar-fill.hbs { background: rgba(255,255,255,0.85); }
+
+/* BOOKING CTA (inside results) */
+.book-cta {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  background: var(--accent);
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.book-cta:active {
+  transform: scale(0.98);
+  filter: brightness(1.1);
+}
+
+.book-sub {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+
+/* Save / share CTA pair */
+.result-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.result-actions button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.result-actions button:active {
+  background: rgba(255,255,255,0.1);
+}
+
+/* ═══════════════════════════════════════ */
+/*  SECTION DIVIDER                       */
+/* ═══════════════════════════════════════ */
+.section-divider {
+  height: 1px;
+  margin: 0 20px;
+  background: rgba(255,255,255,0.05);
+}
+
+/* ═══════════════════════════════════════ */
+/*  VIDEO STRIP                           */
+/* ═══════════════════════════════════════ */
+.section-header {
+  padding: 40px 20px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.video-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 20px 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.video-strip::-webkit-scrollbar { display: none; }
+
+.video-card {
+  scroll-snap-align: center;
+  min-width: 200px;
+  max-width: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 9/16;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.video-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-card .video-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 14px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════ */
+/*  SCENE SECTIONS                        */
+/* ═══════════════════════════════════════ */
+.scenes { padding: 20px 0; }
+
+.scene {
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- BLURRED BG mode --- */
+.bg-blurred .scene {
+  min-height: 65vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px 20px;
+}
+
+.bg-blurred .scene-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.bg-blurred .scene-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.bg-blurred .scene-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.9) 0%,
+    rgba(0,0,0,0.65) 25%,
+    rgba(0,0,0,0.1) 50%,
+    transparent 60%
+  );
+}
+
+.bg-blurred .scene::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  z-index: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.bg-blurred .scene-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.bg-blurred .scene-img-card { display: none; }
+
+/* --- PHOTO CARDS mode --- */
+.bg-cards .scene {
+  padding: 16px 20px;
+}
+
+.bg-cards .scene-bg,
+.bg-cards .scene-overlay { display: none; }
+
+.bg-cards .scene-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bg-cards .scene-img-card {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  max-height: 380px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.bg-cards .scene-img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- HYBRID mode --- */
+.bg-hybrid .scene:first-child {
+  min-height: 55vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px 20px;
+}
+
+.bg-hybrid .scene:first-child .scene-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.bg-hybrid .scene:first-child .scene-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.bg-hybrid .scene:first-child .scene-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.7) 25%,
+    rgba(0,0,0,0.15) 50%,
+    transparent 60%
+  );
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+/* Blur only the bottom portion where text sits */
+.bg-hybrid .scene:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  z-index: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.bg-hybrid .scene:first-child .scene-content {
+  position: relative;
+  z-index: 2;
+}
+
+.bg-hybrid .scene:first-child .scene-img-card { display: none; }
+
+.bg-hybrid .scene:not(:first-child) {
+  padding: 14px 20px;
+}
+
+.bg-hybrid .scene:not(:first-child) .scene-bg,
+.bg-hybrid .scene:not(:first-child) .scene-overlay { display: none; }
+
+.bg-hybrid .scene:not(:first-child) .scene-content {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.bg-hybrid .scene:not(:first-child) .scene-img-card {
+  display: block;
+  width: 110px;
+  min-width: 110px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.bg-hybrid .scene:not(:first-child) .scene-img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scene text elements */
+.scene-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.scene[data-scene="floral"] .scene-tag { background: rgba(233,30,140,0.25); color: #F9A8D4; }
+.scene[data-scene="cake"] .scene-tag { background: rgba(152,212,187,0.25); color: #98D4BB; }
+.scene[data-scene="event"] .scene-tag { background: rgba(212,168,71,0.25); color: #D4A847; }
+.scene[data-scene="venue"] .scene-tag { background: rgba(139,26,74,0.25); color: #F472B6; }
+
+.scene-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.scene-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.scene-quote {
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255,255,255,0.5);
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(255,255,255,0.15);
+}
+
+/* ═══════════════════════════════════════ */
+/*  FEATURES                              */
+/* ═══════════════════════════════════════ */
+.features-strip {
+  padding: 24px 20px 32px;
+}
+
+.features-strip h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.feature-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feature-pill {
+  padding: 7px 13px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+}
+
+/* ═══════════════════════════════════════ */
+/*  BEFORE / AFTER                        */
+/* ═══════════════════════════════════════ */
+.before-after {
+  padding: 40px 20px;
+}
+
+.before-after h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ba-card {
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.ba-card.before {
+  background: rgba(248,113,113,0.08);
+  border: 1px solid rgba(248,113,113,0.15);
+}
+
+.ba-card.after {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.15);
+}
+
+.ba-card .ba-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.ba-card.before .ba-label { color: var(--red); }
+.ba-card.after .ba-label { color: var(--green); }
+
+.ba-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ba-card li {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════ */
+/*  FINAL CTA                             */
+/* ═══════════════════════════════════════ */
+.cta-section {
+  padding: 48px 20px 60px;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.cta-section p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.cta-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.2s;
+}
+
+.cta-ig:active {
+  background: rgba(255,255,255,0.18);
+  transform: scale(0.97);
+}
+
+.ig-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* ═══════════════════════════════════════ */
+/*  DESKTOP                               */
+/* ═══════════════════════════════════════ */
+@media (min-width: 768px) {
+  .hero { min-height: 100vh; padding: 60px 48px; }
+  .hero h1 { font-size: 44px; }
+  .hero .subtitle { font-size: 17px; max-width: 440px; }
+  .calc-mini { max-width: 520px; }
+  .cta-section h2 { font-size: 32px; }
+  .result-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .video-strip { padding: 0 48px 32px; }
+  .video-card { min-width: 180px; max-width: 200px; }
+  .scenes { padding: 40px 0; }
+  .bg-cards .scene { padding: 16px 48px; }
+  .bg-cards .scene-content { flex-direction: row; align-items: center; gap: 28px; }
+  .bg-cards .scene-img-card { max-width: 280px; max-height: 360px; min-width: 280px; }
+  .cta-section { padding: 60px 48px; }
+  .cta-section h2 { font-size: 30px; }
+  .features-strip { padding: 24px 48px 40px; }
+  .before-after { padding: 40px 48px; }
+  .sticky-bar { display: none; } /* Desktop doesn't need sticky bar */
+  body { padding-bottom: 0; }
+}
+</style>
+</head>
+<body class="bg-hybrid">
+
+<!-- STICKY BOTTOM BAR (mobile) -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="bar-info">
+    <div class="bar-name">Hibiscus Studio</div>
+    <div class="bar-addr">E16 1DP, London</div>
+  </div>
+  <a href="#calc" class="bar-cta" id="stickyBtn">Book the Studio</a>
+</div>
+
+<div class="page">
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section class="hero" id="calc">
+    <div class="hero-bg">
+      <video autoplay muted loop playsinline id="hero-video" poster="ref/clips/poster1.jpg">
+        <source src="ref/clips/v1-web.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="brand-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+        Hibiscus Studio
+      </div>
+
+      <h1>See exactly what your<br>next workshop makes</h1>
+      <p class="subtitle">Enter your numbers. See your profit. Compare it against our workshop-ready venue in East London.</p>
+
+      <!-- MINI CALCULATOR -->
+      <div class="calc-mini glass">
+        <div class="input-step">
+          <div class="step-label"><span class="step-number">1</span> Your ticket price</div>
+          <div class="input-prefix">
+            <input type="number" id="c-ticket" placeholder="300" inputmode="decimal" pattern="[0-9]*">
+          </div>
+        </div>
+
+        <div class="input-step">
+          <div class="step-label"><span class="step-number">2</span> Number of attendees</div>
+          <div class="chip-row" id="attendeeChips">
+            <button class="chip" data-val="9" data-label="8–10">8–10</button>
+            <button class="chip selected" data-val="12" data-label="10–15">10–15</button>
+            <button class="chip" data-val="17" data-label="15–20">15–20</button>
+            <button class="chip" data-val="25" data-label="20+">20+</button>
+          </div>
+        </div>
+
+        <div class="input-step">
+          <div class="step-label"><span class="step-number">3</span> Workshop duration</div>
+          <div class="chip-row" id="durationChips">
+            <button class="chip" data-val="6" data-label="6 hours">6 hours</button>
+            <button class="chip selected" data-val="8" data-label="8 hours">8 hours</button>
+            <button class="chip" data-val="12" data-label="12 hours">12 hours</button>
+          </div>
+        </div>
+
+        <div class="input-step">
+          <div class="step-label"><span class="step-number">4</span> Typical venue cost</div>
+          <div class="venue-anchor" id="venueAnchor">
+            <div>
+              <div class="venue-val" id="venueDisplay">£750</div>
+              <div class="venue-hint">Suggested for comparison</div>
+            </div>
+            <button class="venue-edit-link" onclick="toggleVenueEdit()">Edit</button>
+          </div>
+          <div class="venue-custom" id="venueCustom">
+            <div class="input-prefix">
+              <input type="number" id="c-venue" value="750" inputmode="decimal" pattern="[0-9]*">
+            </div>
+          </div>
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Yes, Show Me My Profit</button>
+        <div class="calc-sub">Free. No signup. Takes 10 seconds.</div>
+      </div>
+
+      <!-- EXPANDED RESULTS -->
+      <div class="calc-results" id="results">
+        <div class="result-hero-num positive" id="r-profit">£1,900</div>
+        <div class="result-label">Your estimated profit per workshop <span id="r-costs-hint" style="display:block;font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;"></span></div>
+
+        <div class="result-grid">
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-margin">63%</div>
+            <div class="desc">Profit margin</div>
+          </div>
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-per">£238</div>
+            <div class="desc">You keep per head</div>
+          </div>
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-break">4</div>
+            <div class="desc">Guests to break even</div>
+          </div>
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-yearly">£22.8K</div>
+            <div class="desc">If monthly (per year)</div>
+          </div>
+        </div>
+
+        <div class="compare-section">
+          <h3>What if you used Hibiscus Studio?</h3>
+          <div class="compare-bar">
+            <div class="bar-label">
+              <span>Your current venue</span>
+              <span id="r-your-venue">£900</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill yours" id="bar-yours" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="compare-bar">
+            <div class="bar-label">
+              <span style="font-weight:600">Hibiscus Studio</span>
+              <span style="font-weight:600">£510</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill hbs" id="bar-hbs" style="width: 0%"></div>
+            </div>
+          </div>
+          <div id="savings-line" style="font-size:13px; color:var(--green); margin-top:8px; font-weight:600; display:none;"></div>
+        </div>
+
+        <!-- BOOKING CTA -->
+        <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="book-cta">
+          Book Hibiscus Studio
+        </a>
+        <div class="book-sub">Check availability instantly. Cancel or reschedule anytime.</div>
+
+        <div class="result-actions">
+          <button onclick="shareResults()">Share results</button>
+          <button onclick="recalculate()">Recalculate</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ VIDEO STRIP ═══════════════════════ -->
+  <div class="section-header">What happens at our studio</div>
+  <div class="video-strip">
+    <div class="video-card">
+      <video src="ref/clips/v1-web.mp4" poster="ref/clips/poster1.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Floral Workshops</div>
+    </div>
+    <div class="video-card">
+      <video src="ref/clips/v2-web.mp4" poster="ref/clips/poster2.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Cake Decorating</div>
+    </div>
+    <div class="video-card">
+      <video src="ref/clips/v3-web.mp4" poster="ref/clips/poster3.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Brand Events</div>
+    </div>
+    <div class="video-card">
+      <video src="ref/clips/v4-web.mp4" poster="ref/clips/poster4.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Community</div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ SCENES ═══════════════════════ -->
+  <div class="scenes">
+    <div class="scene" data-scene="floral">
+      <div class="scene-bg"><img src="ref/selected/floral-wide.jpg" alt="" loading="lazy"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content">
+        <div class="scene-img-card"><img src="ref/selected/floral-close.jpg" alt="" loading="lazy"></div>
+        <div>
+          <span class="scene-tag">Floral Workshops</span>
+          <h2 class="scene-title">From bouquet to business</h2>
+          <p class="scene-desc">Natural light. Professional workspace. Everything your attendees need to create and photograph.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" data-scene="cake">
+      <div class="scene-bg"><img src="ref/selected/cake-setup.jpg" alt="" loading="lazy"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content">
+        <div class="scene-img-card"><img src="ref/selected/cake-action.jpg" alt="" loading="lazy"></div>
+        <div>
+          <span class="scene-tag">Baking Workshops</span>
+          <h2 class="scene-title">Individual stations, zero stress</h2>
+          <p class="scene-desc">Each guest gets their own setup. You focus on teaching, we handle everything else.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" data-scene="event">
+      <div class="scene-bg"><img src="ref/selected/event-decor.jpg" alt="" loading="lazy"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content">
+        <div class="scene-img-card"><img src="ref/selected/event-group.jpg" alt="" loading="lazy"></div>
+        <div>
+          <span class="scene-tag">Brand Events</span>
+          <h2 class="scene-title">Your brand, our space</h2>
+          <p class="scene-desc">Product launches, brand activations, community pop-ups. We've done the setup before.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" data-scene="venue">
+      <div class="scene-bg"><img src="ref/selected/venue-windows.jpg" alt="" loading="lazy"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content">
+        <div class="scene-img-card"><img src="ref/selected/cake-show.jpg" alt="" loading="lazy"></div>
+        <div>
+          <span class="scene-tag">The Space</span>
+          <h2 class="scene-title">19a Peto Street North</h2>
+          <p class="scene-desc">Large windows. Natural light. Instagram-ready without trying. London E16 1DP.</p>
+          <a href="https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;border-radius:100px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);text-decoration:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            View on Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ BEFORE / AFTER ═══════════════════════ -->
+  <div class="before-after">
+    <h3>What changes when you host with us</h3>
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <div class="ba-label">Typical venue</div>
+        <ul>
+          <li>No kitchen access</li>
+          <li>Setup is on you</li>
+          <li>Generic event space</li>
+          <li>Hidden surcharges</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">Hibiscus Studio</div>
+        <ul>
+          <li>Professional kitchen included</li>
+          <li>Setup help on the day</li>
+          <li>Built for workshops</li>
+          <li>One price, no surprises</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ FEATURES ═══════════════════════ -->
+  <div class="features-strip">
+    <h3>Included with every booking</h3>
+    <div class="feature-pills">
+      <span class="feature-pill">Professional kitchen</span>
+      <span class="feature-pill">Tables & seating</span>
+      <span class="feature-pill">Natural lighting</span>
+      <span class="feature-pill">WiFi</span>
+      <span class="feature-pill">Sound system</span>
+      <span class="feature-pill">Photography-ready</span>
+      <span class="feature-pill">Setup help</span>
+      <span class="feature-pill">Parking nearby</span>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
+  <section class="cta-section">
+    <h2>Ready to run your<br>next workshop here?</h2>
+    <p>Our calculator shows you the numbers.<br>Our booking page gets you the date.</p>
+    <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="cta-ig">
+      <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      Check Availability
+    </a>
+  </section>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  ATTENDEE CHIP SELECTION
+// ═══════════════════════════════════════
+let selectedAttendees = 12; // default: 10-15 range midpoint
+
+document.querySelectorAll('#attendeeChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#attendeeChips .chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    selectedAttendees = parseInt(chip.dataset.val);
+  });
+});
+
+// ═══════════════════════════════════════
+//  DURATION CHIP SELECTION
+// ═══════════════════════════════════════
+let selectedDuration = 8; // default: 8 hours
+
+// Actual HBS pricing from deployed backend (index.js lines 608-627)
+// WORKSHOP_PRICES: { 2: 120, 6: 345, 12: 645 }
+// EVENT_HIRE_PRICES: { 4: 345, 6: 465, 8: 645, 12: 885 }
+// For workshops: 6hr/12hr use WORKSHOP table, 8hr falls back to EVENT_HIRE[6]=465
+const hbsWorkshopPrices = { 6: 345, 8: 465, 12: 645 };
+// Suggested competitor venue costs per duration
+const venueSuggestions = { 6: 550, 8: 750, 12: 1100 };
+let venueManuallyEdited = false;
+
+document.querySelectorAll('#durationChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#durationChips .chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    selectedDuration = parseInt(chip.dataset.val);
+    // Auto-update venue cost if user hasn't manually edited it
+    if (!venueManuallyEdited) {
+      const suggested = venueSuggestions[selectedDuration] || 750;
+      document.getElementById('c-venue').value = suggested;
+      document.getElementById('venueDisplay').textContent = '\u00A3' + suggested.toLocaleString();
+    }
+  });
+});
+
+// ═══════════════════════════════════════
+//  VENUE EDIT TOGGLE
+// ═══════════════════════════════════════
+function toggleVenueEdit() {
+  const custom = document.getElementById('venueCustom');
+  if (custom.classList.contains('show')) {
+    custom.classList.remove('show');
+    // Update anchor display with custom value
+    const val = parseInt(document.getElementById('c-venue').value) || 750;
+    document.getElementById('venueDisplay').textContent = '\u00A3' + val.toLocaleString();
+    venueManuallyEdited = true;
+  } else {
+    custom.classList.add('show');
+    document.getElementById('c-venue').focus();
+  }
+}
+
+// ═══════════════════════════════════════
+//  STICKY BAR
+// ═══════════════════════════════════════
+const stickyBar = document.getElementById('stickyBar');
+const heroSection = document.querySelector('.hero');
+let stickyShown = false;
+
+const stickyObserver = new IntersectionObserver(([entry]) => {
+  if (!entry.isIntersecting && !stickyShown) {
+    stickyBar.classList.add('visible');
+    stickyShown = true;
+  }
+  if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+    stickyBar.classList.remove('visible');
+    stickyShown = false;
+  }
+}, { threshold: [0, 0.5] });
+
+stickyObserver.observe(heroSection);
+
+// Update sticky CTA text based on calc state
+let hasCalculated = false;
+
+function updateStickyBtn() {
+  const btn = document.getElementById('stickyBtn');
+  if (hasCalculated) {
+    btn.textContent = 'Book the Studio';
+    btn.href = 'https://hibiscusstudio.co.uk/book/';
+  } else {
+    btn.textContent = 'Try Calculator';
+    btn.href = '#calc';
+  }
+}
+
+// ═══════════════════════════════════════
+//  CALCULATOR
+// ═══════════════════════════════════════
+function calculate() {
+  const ticket = parseFloat(document.getElementById('c-ticket').value) || 300;
+  const attend = selectedAttendees;
+  const venue = parseFloat(document.getElementById('c-venue').value) || 750;
+  const duration = selectedDuration;
+  const ingredients = attend * 50;
+  const gross = ticket * attend;
+  const costs = venue + ingredients;
+  const profit = gross - costs;
+  const margin = gross > 0 ? ((profit / gross) * 100) : 0;
+  const perAttendee = attend > 0 ? profit / attend : 0;
+  const breakEven = ticket > 0 ? Math.ceil(costs / ticket) : 0;
+  const yearly = profit * 12;
+
+  const el = (id) => document.getElementById(id);
+  const profitEl = el('r-profit');
+  profitEl.textContent = (profit >= 0 ? '\u00A3' : '-\u00A3') + Math.abs(profit).toLocaleString();
+  profitEl.className = 'result-hero-num ' + (profit >= 0 ? 'positive' : 'negative');
+
+  el('r-costs-hint').textContent = 'Revenue \u00A3' + gross.toLocaleString() + ' \u2212 Venue \u00A3' + venue.toLocaleString() + ' \u2212 Materials \u00A3' + ingredients.toLocaleString();
+  el('r-margin').textContent = Math.round(margin) + '%';
+  el('r-per').textContent = '\u00A3' + Math.round(perAttendee).toLocaleString();
+  el('r-break').textContent = breakEven;
+  el('r-yearly').textContent = '\u00A3' + (yearly / 1000).toFixed(1) + 'K';
+  el('r-your-venue').textContent = '\u00A3' + venue.toLocaleString();
+
+  // HBS pricing from actual backend pricing tables
+  const hbsCost = hbsWorkshopPrices[duration] || 645;
+
+  // Savings line
+  const savings = venue - hbsCost;
+  const savingsEl = el('savings-line');
+  if (savings > 0) {
+    savingsEl.textContent = 'You\u2019d save \u00A3' + savings.toLocaleString() + ' per workshop with us';
+    savingsEl.style.color = 'var(--green)';
+    savingsEl.style.display = 'block';
+  } else if (savings === 0) {
+    savingsEl.textContent = 'Same price \u2014 but purpose-built for workshops';
+    savingsEl.style.color = 'var(--text-muted)';
+    savingsEl.style.display = 'block';
+  } else {
+    savingsEl.textContent = 'Our studio is purpose-built for workshops \u2014 kitchen, lighting, setup included';
+    savingsEl.style.color = 'var(--text-muted)';
+    savingsEl.style.display = 'block';
+  }
+
+  // Update HBS bar label
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:last-child').textContent = '\u00A3' + hbsCost;
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:first-child').innerHTML = '<span style="font-weight:600">Hibiscus Studio</span> <span style="font-size:11px;color:var(--text-muted)">(' + duration + 'hrs)</span>';
+
+  // Bars
+  const maxVenue = Math.max(venue, hbsCost) * 1.2;
+  setTimeout(() => {
+    el('bar-yours').style.width = ((venue / maxVenue) * 100) + '%';
+    el('bar-hbs').style.width = ((hbsCost / maxVenue) * 100) + '%';
+  }, 100);
+
+  // Open results
+  el('results').classList.add('open');
+
+  // Update sticky
+  hasCalculated = true;
+  updateStickyBtn();
+
+  // Scroll to results
+  setTimeout(() => {
+    el('results').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 250);
+}
+
+function recalculate() {
+  document.getElementById('results').classList.remove('open');
+  setTimeout(() => {
+    document.getElementById('c-ticket').focus();
+    document.querySelector('.calc-mini').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 300);
+}
+
+function shareResults() {
+  const profit = document.getElementById('r-profit').textContent;
+  const margin = document.getElementById('r-margin').textContent;
+  const text = 'My workshop profit: ' + profit + ' (' + margin + ' margin). Try it: hibiscusstudio.co.uk/calculator';
+
+  if (navigator.share) {
+    navigator.share({ title: 'Workshop Profit Calculator', text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Share results', 2000);
+    });
+  }
+}
+
+// ═══════════════════════════════════════
+//  VIDEO PAUSE/PLAY ON VISIBILITY
+// ═══════════════════════════════════════
+const videoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const video = entry.target.querySelector('video') || entry.target;
+    if (video.tagName === 'VIDEO' || video.querySelector?.('video')) {
+      const v = video.tagName === 'VIDEO' ? video : video.querySelector('video');
+      if (v) {
+        entry.isIntersecting ? v.play().catch(()=>{}) : v.pause();
+      }
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.video-card, .hero-bg').forEach(el => videoObserver.observe(el));
+
+// Init sticky state
+updateStickyBtn();
+</script>
+</body>
+</html>
