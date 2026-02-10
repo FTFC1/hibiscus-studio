@@ -509,14 +509,14 @@ body {
 
 .price-chip-row {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .price-chip {
   flex: 1;
-  min-width: 65px;
-  padding: 12px 8px;
+  min-width: 60px;
+  padding: 12px 6px;
   border-radius: var(--radius-sm);
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
@@ -2006,7 +2006,7 @@ function generatePriceChips(type) {
     btn.className = 'price-chip';
     btn.dataset.val = price;
     if (price === data.suggest) {
-      btn.innerHTML = '\u00A3' + price + '<br><span style="font-size:10px;font-weight:400;color:rgba(255,255,255,0.4)">recommended</span>';
+      btn.innerHTML = '\u00A3' + price + '<br><span style="font-size:9px;font-weight:500;letter-spacing:0.04em;color:rgba(255,255,255,0.4)">popular</span>';
     } else {
       btn.textContent = '\u00A3' + price;
     }
