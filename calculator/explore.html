@@ -85,17 +85,18 @@ body {
 
 .sticky-bar .bar-cta {
   flex-shrink: 0;
-  padding: 10px 22px;
+  padding: 12px 24px;
   border: none;
   border-radius: 100px;
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  background: rgba(255,255,255,0.9);
-  color: #1a1a1a;
+  background: var(--accent);
+  color: #fff;
   text-decoration: none;
   transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(233,30,140,0.3);
 }
 
 .sticky-bar .bar-cta:active {
@@ -179,10 +180,11 @@ body {
 }
 
 .step-progress {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 400;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  font-weight: 500;
   display: none;
+  letter-spacing: 0.03em;
 }
 
 .hero h1 {
@@ -433,25 +435,28 @@ body {
   display: none;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
   cursor: pointer;
   transition: background 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .wizard-step.done .step-summary { display: flex; }
 
-.step-summary:active { background: rgba(255,255,255,0.1); }
+.step-summary:active { background: rgba(255,255,255,0.18); }
 
 .step-summary .edit-hint {
   margin-left: auto;
   font-size: 11px;
-  color: rgba(255,255,255,0.3);
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
 }
 
 .wizard-label {
@@ -1455,7 +1460,7 @@ body {
     <div class="bar-name">Hibiscus Studio</div>
     <div class="bar-addr">E16 1DP, London</div>
   </div>
-  <a href="#calc" class="bar-cta" id="stickyBtn">Book the Studio</a>
+  <a href="#calc" class="bar-cta" id="stickyBtn">Try Calculator &#8593;</a>
 </div>
 
 <div class="page">
@@ -1928,9 +1933,9 @@ function activateStep(n) {
   wiz.step = n;
 
   const prog = document.getElementById('stepProgress');
-  if (n > 0 && n <= 4) {
+  if (n >= 0 && n <= 3) {
     prog.style.display = 'inline';
-    prog.textContent = n + ' of 4';
+    prog.textContent = (n + 1) + ' of 4';
   } else {
     prog.style.display = 'none';
   }
@@ -2182,12 +2187,18 @@ let hasCalculated = false;
 
 function updateStickyBtn() {
   const btn = document.getElementById('stickyBtn');
+  const barName = document.querySelector('.sticky-bar .bar-name');
+  const barAddr = document.querySelector('.sticky-bar .bar-addr');
   if (hasCalculated) {
-    btn.textContent = 'Book the Studio';
-    btn.href = 'https://hibiscusstudio.co.uk/book/';
+    btn.textContent = 'See Your Results \u2191';
+    btn.href = '#results';
+    barName.textContent = 'Your estimate is ready';
+    barAddr.textContent = 'Scroll up to see your profit breakdown';
   } else {
-    btn.textContent = 'Try Calculator';
+    btn.textContent = 'Try Calculator \u2191';
     btn.href = '#calc';
+    barName.textContent = 'Hibiscus Studio';
+    barAddr.textContent = 'See what your workshop could make';
   }
 }
 
@@ -2252,6 +2263,11 @@ function calculate() {
   }, 100);
 
   el('results').classList.add('open');
+
+  // Update step counter to show results state
+  const prog = document.getElementById('stepProgress');
+  prog.style.display = 'inline';
+  prog.textContent = 'Results';
 
   hasCalculated = true;
   updateStickyBtn();
