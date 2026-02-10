@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Your Workshop Breakdown — Hibiscus Studio</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --glass-bg: rgba(255,255,255,0.12);
+  --glass-border: rgba(255,255,255,0.18);
+  --text: #fff;
+  --text-muted: rgba(255,255,255,0.7);
+  --accent: #E91E8C;
+  --green: #4ADE80;
+  --red: #F87171;
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #0a0a0a;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  padding: 24px 20px 48px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+.brand .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.profit-num {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.profit-num.positive { color: var(--green); }
+.profit-num.negative { color: var(--red); }
+
+.profit-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat {
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+
+.stat .val {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stat .desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 14px;
+}
+
+.row:last-child { border-bottom: none; }
+
+.row .label { color: var(--text-muted); }
+.row .value { font-weight: 600; }
+
+.included-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 7px 13px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+}
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  background: var(--accent);
+  color: #fff;
+  margin-top: 24px;
+  transition: all 0.2s;
+}
+
+.cta-btn:active {
+  transform: scale(0.98);
+  filter: brightness(1.1);
+}
+
+.cta-sub {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 8px;
+}
+
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.error-state h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.error-state p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.loading {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  body { max-width: 560px; margin: 0 auto; padding: 48px 20px 60px; }
+  h1 { font-size: 36px; }
+  .profit-num { font-size: 56px; }
+  .grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="content">
+  <div class="loading">Loading your breakdown...</div>
+</div>
+
+<script>
+const hbsWorkshopPrices = { 6: 345, 8: 465, 12: 645 };
+
+async function loadBreakdown() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  if (!id) {
+    showError();
+    return;
+  }
+
+  try {
+    const resp = await fetch('https://hb-booking.nicholasfcoker.workers.dev/api/calculator-lead/' + id);
+    if (!resp.ok) {
+      showError();
+      return;
+    }
+
+    const data = await resp.json();
+    render(data);
+  } catch (e) {
+    showError();
+  }
+}
+
+function render(d) {
+  const revenue = d.ticket * d.attendees;
+  const materialsCost = d.materials * d.attendees;
+  const totalCosts = d.venue + materialsCost;
+  const profit = revenue - totalCosts;
+  const margin = revenue > 0 ? Math.round((profit / revenue) * 100) : 0;
+  const perHead = d.attendees > 0 ? Math.round(profit / d.attendees) : 0;
+  const breakEven = d.ticket > 0 ? Math.ceil(totalCosts / d.ticket) : 0;
+  const hbsCost = hbsWorkshopPrices[d.duration] || 645;
+  const savings = d.venue - hbsCost;
+
+  const emoji = { baking: '\u{1F9C1}', beauty: '\u{1F485}', floristry: '\u{1F338}', art: '\u{1F3A8}', content: '\u{1F4F8}', other: '\u2728' };
+
+  document.getElementById('content').innerHTML = `
+    <div class="brand">
+      <span class="dot"></span>
+      Hibiscus Studio
+    </div>
+
+    <h1>Your ${d.typeLabel || d.type} workshop breakdown</h1>
+    <div class="sub">${emoji[d.type] || '\u2728'} ${d.typeLabel || d.type} \u00B7 \u00A3${d.ticket}/person \u00B7 ${d.attendees} attendees \u00B7 ${d.duration}hrs</div>
+
+    <div class="card">
+      <div class="profit-num ${profit >= 0 ? 'positive' : 'negative'}">${profit >= 0 ? '\u00A3' : '-\u00A3'}${Math.abs(profit).toLocaleString()}</div>
+      <div class="profit-label">Your estimated profit per workshop</div>
+    </div>
+
+    <div class="grid">
+      <div class="stat">
+        <div class="val">${margin}%</div>
+        <div class="desc">Profit margin</div>
+      </div>
+      <div class="stat">
+        <div class="val">\u00A3${perHead.toLocaleString()}</div>
+        <div class="desc">You keep per head</div>
+      </div>
+      <div class="stat">
+        <div class="val">${breakEven}</div>
+        <div class="desc">Guests to break even</div>
+      </div>
+      <div class="stat">
+        <div class="val">\u00A3${(profit * 12 / 1000).toFixed(1)}K</div>
+        <div class="desc">If monthly (per year)</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">Cost breakdown</div>
+      <div class="row">
+        <span class="label">Revenue (${d.attendees} \u00D7 \u00A3${d.ticket})</span>
+        <span class="value">\u00A3${revenue.toLocaleString()}</span>
+      </div>
+      <div class="row">
+        <span class="label">Venue cost (${d.duration}hrs)</span>
+        <span class="value">\u00A3${d.venue.toLocaleString()}</span>
+      </div>
+      <div class="row">
+        <span class="label">Materials (${d.attendees} \u00D7 \u00A3${d.materials})</span>
+        <span class="value">\u00A3${materialsCost.toLocaleString()}</span>
+      </div>
+      <div class="row" style="font-weight:700; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 12px;">
+        <span>Profit</span>
+        <span style="color: ${profit >= 0 ? 'var(--green)' : 'var(--red)'}">${profit >= 0 ? '\u00A3' : '-\u00A3'}${Math.abs(profit).toLocaleString()}</span>
+      </div>
+    </div>
+
+    ${savings > 0 ? `
+    <div class="card">
+      <div class="card-title">Venue comparison</div>
+      <div class="row">
+        <span class="label">Most venues start from (${d.duration}hrs)</span>
+        <span class="value">\u00A3${d.venue.toLocaleString()}</span>
+      </div>
+      <div class="row">
+        <span class="label" style="font-weight:600;">Hibiscus Studio (${d.duration}hrs)</span>
+        <span class="value" style="color:var(--green);">\u00A3${hbsCost} all-inclusive</span>
+      </div>
+      <div style="font-size:13px; color:var(--green); margin-top:8px; font-weight:600;">
+        Save \u00A3${savings.toLocaleString()}/workshop \u2014 kitchen, setup & lighting all included
+      </div>
+    </div>
+    ` : ''}
+
+    <div class="card">
+      <div class="card-title">What\u2019s included at Hibiscus Studio</div>
+      <div class="included-pills">
+        <span class="pill">Professional kitchen</span>
+        <span class="pill">Tables & seating</span>
+        <span class="pill">Natural lighting</span>
+        <span class="pill">WiFi</span>
+        <span class="pill">Sound system</span>
+        <span class="pill">Photography-ready</span>
+        <span class="pill">Setup help</span>
+        <span class="pill">Parking nearby</span>
+      </div>
+    </div>
+
+    <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="cta-btn">I Want to Host Here</a>
+    <div class="cta-sub">Check availability for your date. No commitment.</div>
+  `;
+
+  document.title = 'Your ' + (d.typeLabel || d.type) + ' Workshop Breakdown \u2014 Hibiscus Studio';
+}
+
+function showError() {
+  document.getElementById('content').innerHTML = `
+    <div class="error-state">
+      <h2>Breakdown not found</h2>
+      <p>This breakdown may have expired or the link is invalid.</p>
+      <a href="https://hibiscusstudio.co.uk/calculator/" class="cta-btn" style="display:inline-block;width:auto;padding:14px 28px;">Try the Calculator</a>
+    </div>
+  `;
+}
+
+loadBreakdown();
+</script>
+</body>
+</html>

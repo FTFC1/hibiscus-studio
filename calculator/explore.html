@@ -719,6 +719,131 @@ body {
   margin-top: 6px;
 }
 
+/* Profit nudge (smart coaching) */
+.profit-nudge {
+  text-align: center;
+  font-size: 13px;
+  padding: 10px 16px;
+  margin-top: 8px;
+  border-radius: var(--radius-sm);
+  line-height: 1.45;
+}
+.profit-nudge.tip {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.12);
+  color: rgba(74,222,128,0.9);
+}
+.profit-nudge.strong {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.12);
+  color: var(--green);
+}
+.profit-nudge.warning {
+  background: rgba(248,113,113,0.08);
+  border: 1px solid rgba(248,113,113,0.12);
+  color: var(--red);
+}
+
+/* DM capture */
+.dm-capture {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+}
+.dm-capture h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.dm-capture p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  line-height: 1.45;
+}
+.dm-capture-form {
+  display: flex;
+  gap: 8px;
+}
+.dm-capture-input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 15px;
+  color: #fff;
+  outline: none;
+  transition: all 0.2s;
+}
+.dm-capture-input:focus {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.12);
+}
+.dm-capture-input::placeholder { color: rgba(255,255,255,0.25); }
+.dm-capture-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.dm-capture-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+.dm-capture-skip {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+.dm-capture-success .check {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+/* Social proof strip */
+.social-proof {
+  padding: 32px 20px;
+  text-align: center;
+}
+.social-proof-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.proof-stat {
+  text-align: center;
+}
+.proof-stat .num {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.proof-stat .label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
 /* Save / share CTA pair */
 .result-actions {
   display: flex;
@@ -1428,12 +1553,10 @@ body {
   .result-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
   .video-strip { padding: 0 48px 32px; justify-content: center; }
   .video-card { min-width: 180px; max-width: 200px; }
-  .scenes { padding: 40px 0; }
-  .bg-cards .scene { padding: 16px 48px; }
-  .bg-cards .scene-content { flex-direction: row; align-items: center; gap: 28px; }
-  .bg-cards .scene-img-card { max-width: 280px; max-height: 360px; min-width: 280px; }
-  .bg-hybrid .scene:not(:first-child) .scene-content { max-width: 900px; margin: 0 auto; gap: 32px; }
-  .bg-hybrid .scene:not(:first-child) .scene-img-card { width: 160px; min-width: 160px; height: 200px; }
+  .social-proof { padding: 40px 48px; }
+  .social-proof-row { gap: 48px; }
+  .proof-stat .num { font-size: 32px; }
+  .dm-capture { max-width: 480px; margin-left: auto; margin-right: auto; }
   .cta-section { padding: 60px 48px; max-width: 700px; margin: 0 auto; }
   .cta-section h2 { font-size: 30px; }
   .features-strip { padding: 24px 48px 40px; }
@@ -1582,7 +1705,9 @@ body {
       <!-- EXPANDED RESULTS -->
       <div class="calc-results" id="results" aria-live="polite">
         <div class="result-hero-num positive" id="r-profit">£1,900</div>
-        <div class="result-label">Your estimated profit per workshop <span id="r-costs-hint" style="display:block;font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;"></span></div>
+        <div class="result-label">Your estimated profit per workshop</div>
+        <div id="r-costs-hint" style="font-size:13px;color:rgba(255,255,255,0.55);margin-top:6px;font-weight:500;letter-spacing:-0.01em;"></div>
+        <div id="profit-nudge" class="profit-nudge" style="display:none;"></div>
 
         <div class="result-grid">
           <div class="result-card glass-subtle">
@@ -1710,12 +1835,23 @@ body {
           <button class="edit-update-btn" onclick="updateFromEdit()">Update results</button>
         </div>
 
+        <!-- DM CAPTURE (earn the comparison) -->
+        <div class="dm-capture" id="dmCapture">
+          <h4>Want your personalised cost breakdown?</h4>
+          <p>We'll DM you a detailed breakdown including what's included at the studio.</p>
+          <div class="dm-capture-form" id="dmForm">
+            <input type="text" class="dm-capture-input" id="dmHandle" placeholder="@your_instagram" autocomplete="off" autocapitalize="off" spellcheck="false">
+            <button class="dm-capture-btn" onclick="submitDmCapture()">Send it</button>
+          </div>
+          <button class="dm-capture-skip" onclick="skipDmCapture()">No thanks, show me the comparison</button>
+        </div>
+
         <!-- COMPARISON (earned — after they've validated numbers) -->
         <div class="compare-section">
-          <h3>What if you used Hibiscus Studio?</h3>
+          <h3>See how we compare</h3>
           <div class="compare-bar">
             <div class="bar-label">
-              <span>Your current venue</span>
+              <span>Most venues start from</span>
               <span id="r-your-venue">£900</span>
             </div>
             <div class="bar-track">
@@ -1766,63 +1902,20 @@ body {
     </div>
   </div>
 
-  <div class="section-divider"></div>
-
-  <!-- ═══════════════════════ SCENES ═══════════════════════ -->
-  <div class="scenes">
-    <div class="scene" data-scene="floral">
-      <div class="scene-bg"><img src="ref/selected/floral-wide.jpg" alt="Floral workshop in progress at Hibiscus Studio" loading="lazy"></div>
-      <div class="scene-overlay"></div>
-      <div class="scene-content">
-        <div class="scene-img-card"><img src="ref/selected/floral-close.jpg" alt="Close-up of floral arrangement" loading="lazy"></div>
-        <div>
-          <span class="scene-tag">Floral Workshops</span>
-          <h2 class="scene-title">From bouquet to business</h2>
-          <p class="scene-desc">Natural light. Professional workspace. Everything your attendees need to create and photograph.</p>
-        </div>
+  <!-- ═══════════════════════ SOCIAL PROOF ═══════════════════════ -->
+  <div class="social-proof">
+    <div class="social-proof-row">
+      <div class="proof-stat">
+        <div class="num">50+</div>
+        <div class="label">Workshops hosted</div>
       </div>
-    </div>
-
-    <div class="scene" data-scene="cake">
-      <div class="scene-bg"><img src="ref/selected/cake-setup.jpg" alt="Individual baking stations set up for a workshop" loading="lazy"></div>
-      <div class="scene-overlay"></div>
-      <div class="scene-content">
-        <div class="scene-img-card"><img src="ref/selected/cake-action.jpg" alt="Cake decorating in action" loading="lazy"></div>
-        <div>
-          <span class="scene-tag">Baking Workshops</span>
-          <h2 class="scene-title">Individual stations, zero stress</h2>
-          <p class="scene-desc">Each guest gets their own setup. You focus on teaching, we handle everything else.</p>
-        </div>
+      <div class="proof-stat">
+        <div class="num">250+</div>
+        <div class="label">Hours of events</div>
       </div>
-    </div>
-
-    <div class="scene" data-scene="event">
-      <div class="scene-bg"><img src="ref/selected/event-decor.jpg" alt="Brand event setup with decorations" loading="lazy"></div>
-      <div class="scene-overlay"></div>
-      <div class="scene-content">
-        <div class="scene-img-card"><img src="ref/selected/event-group.jpg" alt="Group at a brand event" loading="lazy"></div>
-        <div>
-          <span class="scene-tag">Brand Events</span>
-          <h2 class="scene-title">Your brand, our space</h2>
-          <p class="scene-desc">Product launches, brand activations, community pop-ups. We've done the setup before.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="scene" data-scene="venue">
-      <div class="scene-bg"><img src="ref/selected/venue-windows.jpg" alt="Hibiscus Studio interior with large windows" loading="lazy"></div>
-      <div class="scene-overlay"></div>
-      <div class="scene-content">
-        <div class="scene-img-card"><img src="ref/selected/cake-show.jpg" alt="Finished cakes on display" loading="lazy"></div>
-        <div>
-          <span class="scene-tag">The Space</span>
-          <h2 class="scene-title">19a Peto Street North</h2>
-          <p class="scene-desc">Large windows. Natural light. Instagram-ready without trying. London E16 1DP.</p>
-          <a href="https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;border-radius:100px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);text-decoration:none;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            View on Google Maps
-          </a>
-        </div>
+      <div class="proof-stat">
+        <div class="num">500+</div>
+        <div class="label">Happy customers</div>
       </div>
     </div>
   </div>
@@ -1858,7 +1951,7 @@ body {
 
   <!-- ═══════════════════════ FEATURES ═══════════════════════ -->
   <div class="features-strip">
-    <h3>Included with every booking</h3>
+    <h3 id="featuresHeading">Included with every booking</h3>
     <div class="feature-pills">
       <span class="feature-pill">Professional kitchen</span>
       <span class="feature-pill">Tables & seating</span>
@@ -1875,11 +1968,10 @@ body {
 
   <!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
   <section class="cta-section">
-    <h2>Ready to run your<br>next workshop here?</h2>
-    <p>Our calculator shows you the numbers.<br>Our booking page gets you the date.</p>
+    <h2>Your numbers.<br>Your workshop. Your call.</h2>
+    <p>You've seen the profit. You've seen what's included.<br>All that's left is picking a date.</p>
     <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="cta-ig">
-      <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Check Availability
+      I Want to Host Here
     </a>
   </section>
 
@@ -2236,7 +2328,7 @@ function calculate() {
   const savings = venue - hbsCost;
   const savingsEl = el('savings-line');
   if (savings > 0) {
-    savingsEl.textContent = 'You\u2019d save \u00A3' + savings.toLocaleString() + ' per workshop with us';
+    savingsEl.innerHTML = 'Save \u00A3' + savings.toLocaleString() + '/workshop \u2014 kitchen, setup & lighting all included';
     savingsEl.style.color = 'var(--green)';
     savingsEl.style.display = 'block';
   } else if (savings === 0) {
@@ -2249,7 +2341,7 @@ function calculate() {
     savingsEl.style.display = 'block';
   }
 
-  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:last-child').textContent = '\u00A3' + hbsCost;
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:last-child').textContent = '\u00A3' + hbsCost + ' all-inclusive';
   document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:first-child').innerHTML = '<span style="font-weight:600">Hibiscus Studio</span> <span style="font-size:11px;color:var(--text-muted)">(' + duration + 'hrs)</span>';
 
   const maxVenue = Math.max(venue, hbsCost) * 1.2;
@@ -2264,6 +2356,33 @@ function calculate() {
   const prog = document.getElementById('stepProgress');
   prog.style.display = 'inline';
   prog.textContent = 'Results';
+
+  // Smart nudge
+  const nudgeEl = el('profit-nudge');
+  if (profit < 0) {
+    nudgeEl.innerHTML = 'Your costs exceed revenue. <span style="opacity:0.7">Tap Edit inputs to adjust ticket price or attendees.</span>';
+    nudgeEl.className = 'profit-nudge warning';
+    nudgeEl.style.display = 'block';
+  } else if (margin < 20) {
+    const delta = 20 * attend;
+    nudgeEl.innerHTML = 'Tip: Raising your ticket by \u00A320 would add \u00A3' + delta.toLocaleString() + ' to your profit. <span style="opacity:0.7">Tap Edit inputs to adjust.</span>';
+    nudgeEl.className = 'profit-nudge tip';
+    nudgeEl.style.display = 'block';
+  } else if (margin > 50) {
+    nudgeEl.textContent = 'Strong margins \u2014 you\u2019re ready to host.';
+    nudgeEl.className = 'profit-nudge strong';
+    nudgeEl.style.display = 'block';
+  } else {
+    nudgeEl.style.display = 'none';
+  }
+
+  // Dynamic features heading
+  const fh = document.getElementById('featuresHeading');
+  if (fh) fh.textContent = 'What your \u00A3' + venue.toLocaleString() + ' at HBS includes';
+
+  // Reset DM capture form for new calculation
+  const dmEl = document.getElementById('dmCapture');
+  if (dmEl) dmEl.style.display = '';
 
   hasCalculated = true;
   updateStickyBtn();
@@ -2438,7 +2557,7 @@ function updateFromEdit() {
   const savings = venue - hbsCost;
   const savingsEl = el('savings-line');
   if (savings > 0) {
-    savingsEl.textContent = 'You\u2019d save \u00A3' + savings.toLocaleString() + ' per workshop with us';
+    savingsEl.innerHTML = 'Save \u00A3' + savings.toLocaleString() + '/workshop \u2014 kitchen, setup & lighting all included';
     savingsEl.style.color = 'var(--green)';
     savingsEl.style.display = 'block';
   } else if (savings === 0) {
@@ -2451,7 +2570,7 @@ function updateFromEdit() {
     savingsEl.style.display = 'block';
   }
 
-  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:last-child').textContent = '\u00A3' + hbsCost;
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:last-child').textContent = '\u00A3' + hbsCost + ' all-inclusive';
   document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:first-child').innerHTML = '<span style="font-weight:600">Hibiscus Studio</span> <span style="font-size:11px;color:var(--text-muted)">(' + duration + 'hrs)</span>';
 
   const maxVenue = Math.max(venue, hbsCost) * 1.2;
@@ -2470,6 +2589,29 @@ function updateFromEdit() {
       ' \u00B7 ' + attend + ' people' +
       ' \u00B7 ' + duration + 'hrs';
   }
+
+  // Smart nudge
+  const nudgeEl = el('profit-nudge');
+  if (profit < 0) {
+    nudgeEl.innerHTML = 'Your costs exceed revenue. <span style="opacity:0.7">Tap Edit inputs to adjust ticket price or attendees.</span>';
+    nudgeEl.className = 'profit-nudge warning';
+    nudgeEl.style.display = 'block';
+  } else if (margin < 20) {
+    const delta = 20 * attend;
+    nudgeEl.innerHTML = 'Tip: Raising your ticket by \u00A320 would add \u00A3' + delta.toLocaleString() + ' to your profit. <span style="opacity:0.7">Tap Edit inputs to adjust.</span>';
+    nudgeEl.className = 'profit-nudge tip';
+    nudgeEl.style.display = 'block';
+  } else if (margin > 50) {
+    nudgeEl.textContent = 'Strong margins \u2014 you\u2019re ready to host.';
+    nudgeEl.className = 'profit-nudge strong';
+    nudgeEl.style.display = 'block';
+  } else {
+    nudgeEl.style.display = 'none';
+  }
+
+  // Dynamic features heading
+  const fh = document.getElementById('featuresHeading');
+  if (fh) fh.textContent = 'What your \u00A3' + venue.toLocaleString() + ' at HBS includes';
 
   // Collapse edit panel after update
   document.getElementById('editPanel').classList.remove('open');
@@ -2495,6 +2637,55 @@ function shareResults() {
       setTimeout(() => btn.textContent = 'Share results', 2000);
     });
   }
+}
+
+// ═══════════════════════════════════════
+//  DM CAPTURE
+// ═══════════════════════════════════════
+async function submitDmCapture() {
+  const input = document.getElementById('dmHandle');
+  let handle = input.value.trim();
+  if (!handle) { input.focus(); return; }
+  if (!handle.startsWith('@')) handle = '@' + handle;
+
+  const btn = document.querySelector('.dm-capture-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const typeData = workshopTypes[wiz.type || 'other'];
+    const payload = {
+      igHandle: handle,
+      type: wiz.type || 'other',
+      typeLabel: typeData.label,
+      ticket: wiz.ticket || editState.ticket,
+      attendees: wiz.attendees || editState.attendees,
+      duration: wiz.duration || editState.duration,
+      venue: wiz.venue || editState.venue,
+      materials: typeData.materialsCost,
+      profit: parseInt(document.getElementById('r-profit').textContent.replace(/[^0-9-]/g, '')) || 0,
+      timestamp: new Date().toISOString()
+    };
+
+    const resp = await fetch('https://hb-booking.nicholasfcoker.workers.dev/api/calculator-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await resp.json();
+
+    // Show success
+    const capture = document.getElementById('dmCapture');
+    capture.innerHTML = '<div class="dm-capture-success"><div class="check">\u2713</div><div style="font-size:14px;font-weight:600;">We\u2019ll DM your breakdown to ' + handle + ' shortly</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;">Keep scrolling to see how we compare</div></div>';
+  } catch (e) {
+    btn.textContent = 'Send it';
+    btn.disabled = false;
+  }
+}
+
+function skipDmCapture() {
+  document.getElementById('dmCapture').style.display = 'none';
 }
 
 // ═══════════════════════════════════════
