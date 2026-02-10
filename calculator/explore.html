@@ -1603,37 +1603,14 @@ body {
           </div>
         </div>
 
-        <div class="compare-section">
-          <h3>What if you used Hibiscus Studio?</h3>
-          <div class="compare-bar">
-            <div class="bar-label">
-              <span>Your current venue</span>
-              <span id="r-your-venue">£900</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill yours" id="bar-yours" style="width: 0%"></div>
-            </div>
-          </div>
-          <div class="compare-bar">
-            <div class="bar-label">
-              <span style="font-weight:600">Hibiscus Studio</span>
-              <span style="font-weight:600">£510</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill hbs" id="bar-hbs" style="width: 0%"></div>
-            </div>
-          </div>
-          <div id="savings-line" style="font-size:13px; color:var(--green); margin-top:8px; font-weight:600; display:none;"></div>
+        <!-- EDIT + RESTART (grouped — validation actions) -->
+        <div class="result-actions" style="margin-top:16px;">
+          <button onclick="toggleEditPanel()" id="editToggleBtn">Edit inputs</button>
+          <button onclick="startFresh()">Start fresh</button>
         </div>
 
         <!-- EDIT INPUTS (collapsible) -->
-        <div class="edit-toggle" id="editToggle" onclick="toggleEditPanel()" aria-expanded="false" aria-controls="editPanel">
-          <div>
-            <div class="edit-toggle-label">Edit your inputs</div>
-            <div class="edit-toggle-hint">Tweak numbers without starting over</div>
-          </div>
-          <span class="edit-toggle-arrow">&#9660;</span>
-        </div>
+        <div class="edit-toggle" id="editToggle" style="display:none;"></div>
         <div class="edit-panel" id="editPanel">
 
           <!-- Ticket price -->
@@ -1733,16 +1710,35 @@ body {
           <button class="edit-update-btn" onclick="updateFromEdit()">Update results</button>
         </div>
 
-        <!-- BOOKING CTA -->
-        <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="book-cta">
-          Book Hibiscus Studio
-        </a>
-        <div class="book-sub">Check availability instantly. Cancel or reschedule anytime.</div>
-
-        <div class="result-actions">
-          <button onclick="shareResults()">Share results</button>
-          <button onclick="startFresh()">Start fresh</button>
+        <!-- COMPARISON (earned — after they've validated numbers) -->
+        <div class="compare-section">
+          <h3>What if you used Hibiscus Studio?</h3>
+          <div class="compare-bar">
+            <div class="bar-label">
+              <span>Your current venue</span>
+              <span id="r-your-venue">£900</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill yours" id="bar-yours" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="compare-bar">
+            <div class="bar-label">
+              <span style="font-weight:600">Hibiscus Studio</span>
+              <span style="font-weight:600">£510</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill hbs" id="bar-hbs" style="width: 0%"></div>
+            </div>
+          </div>
+          <div id="savings-line" style="font-size:13px; color:var(--green); margin-top:8px; font-weight:600; display:none;"></div>
         </div>
+
+        <!-- BOOKING CTA (conversion — earned after comparison) -->
+        <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="book-cta">
+          I Want to Host Here
+        </a>
+        <div class="book-sub">Check availability for your date. No commitment.</div>
       </div>
     </div>
   </section>
@@ -2281,8 +2277,7 @@ function startFresh() {
   document.getElementById('results').classList.remove('open');
   // Close edit panel if open
   document.getElementById('editPanel').classList.remove('open');
-  document.getElementById('editToggle').classList.remove('open');
-  document.getElementById('editToggle').setAttribute('aria-expanded', 'false');
+  document.getElementById('editToggleBtn').textContent = 'Edit inputs';
   goToStep(0);
   setTimeout(() => {
     document.querySelector('.calc-mini').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -2298,13 +2293,12 @@ let activeEditField = null;
 
 function toggleEditPanel() {
   const panel = document.getElementById('editPanel');
-  const toggle = document.getElementById('editToggle');
+  const btn = document.getElementById('editToggleBtn');
   const isOpen = panel.classList.contains('open');
 
   if (isOpen) {
     panel.classList.remove('open');
-    toggle.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
+    btn.textContent = 'Edit inputs';
     activeEditField = null;
     // Close any open steppers
     document.querySelectorAll('.edit-stepper.open, .edit-options.open').forEach(el => el.classList.remove('open'));
@@ -2312,10 +2306,9 @@ function toggleEditPanel() {
   } else {
     populateEditPanel();
     panel.classList.add('open');
-    toggle.classList.add('open');
-    toggle.setAttribute('aria-expanded', 'true');
-    // Scroll edit toggle into view
-    setTimeout(() => toggle.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    btn.textContent = 'Close editor';
+    // Scroll panel into view
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
   }
 }
 
@@ -2480,8 +2473,7 @@ function updateFromEdit() {
 
   // Collapse edit panel after update
   document.getElementById('editPanel').classList.remove('open');
-  document.getElementById('editToggle').classList.remove('open');
-  document.getElementById('editToggle').setAttribute('aria-expanded', 'false');
+  document.getElementById('editToggleBtn').textContent = 'Edit inputs';
 
   // Scroll to profit number
   setTimeout(() => {
