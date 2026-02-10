@@ -85,12 +85,12 @@ body {
 
 .sticky-bar .bar-cta {
   flex-shrink: 0;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border: none;
   border-radius: 100px;
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
   background: rgba(255,255,255,0.9);
   color: #1a1a1a;
@@ -183,6 +183,7 @@ body {
   line-height: 1.5;
   margin-bottom: 24px;
   max-width: 340px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 /* ═══════════════════════════════════════ */
@@ -547,8 +548,8 @@ body {
 /* ═══════════════════════════════════════ */
 .section-divider {
   height: 1px;
-  margin: 0 20px;
-  background: rgba(255,255,255,0.05);
+  margin: 16px 20px;
+  background: rgba(255,255,255,0.08);
 }
 
 /* ═══════════════════════════════════════ */
@@ -757,7 +758,7 @@ body {
 .bg-hybrid .scene:first-child .scene-img-card { display: none; }
 
 .bg-hybrid .scene:not(:first-child) {
-  padding: 14px 20px;
+  padding: 18px 20px;
 }
 
 .bg-hybrid .scene:not(:first-child) .scene-bg,
@@ -771,9 +772,9 @@ body {
 
 .bg-hybrid .scene:not(:first-child) .scene-img-card {
   display: block;
-  width: 110px;
-  min-width: 110px;
-  height: 140px;
+  width: 120px;
+  min-width: 120px;
+  height: 150px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0,0,0,0.3);
@@ -846,6 +847,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  justify-content: center;
 }
 
 .feature-pill {
@@ -877,7 +879,7 @@ body {
 
 .ba-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 12px;
 }
 
@@ -897,11 +899,11 @@ body {
 }
 
 .ba-card .ba-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .ba-card.before .ba-label { color: var(--red); }
@@ -915,9 +917,9 @@ body {
 }
 
 .ba-card li {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 /* ═══════════════════════════════════════ */
@@ -995,7 +997,7 @@ body {
   .features-strip { padding: 24px 48px 40px; }
   .feature-pills { max-width: 900px; margin: 0 auto; justify-content: center; }
   .before-after { padding: 40px 48px; }
-  .ba-grid { max-width: 800px; margin: 0 auto; }
+  .ba-grid { grid-template-columns: 1fr 1fr; max-width: 800px; margin: 0 auto; }
   .section-header { max-width: 900px; margin: 0 auto; padding-left: 48px; }
   .sticky-bar { display: none; }
   body { padding-bottom: 0; }
