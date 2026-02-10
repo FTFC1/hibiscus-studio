@@ -597,7 +597,7 @@ body {
 }
 
 .calc-results.open {
-  max-height: 900px;
+  max-height: 2000px;
   margin-top: 16px;
   padding: 20px;
   opacity: 1;
@@ -744,7 +744,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
+  padding: 12px 14px;
   margin-top: 16px;
   border-radius: var(--radius-sm);
   background: rgba(255,255,255,0.06);
@@ -780,81 +780,200 @@ body {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
+  transition: max-height 0.5s ease, opacity 0.3s ease;
 }
 
 .edit-panel.open {
-  max-height: 500px;
+  max-height: 1200px;
   opacity: 1;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
-.edit-row {
+/* Each edit field: tappable row that opens a stepper */
+.edit-field {
+  margin-bottom: 6px;
+}
+
+.edit-field-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.edit-row:last-child { border-bottom: none; }
+.edit-field-btn:active {
+  background: rgba(255,255,255,0.1);
+}
 
-.edit-row label {
-  font-size: 13px;
-  color: var(--text-muted);
+.edit-field-btn.active {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+}
+
+.edit-field-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+.edit-field-value {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Stepper that opens below tapped field */
+.edit-stepper {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.edit-stepper.open {
+  max-height: 140px;
+  opacity: 1;
+  padding: 10px 0 4px;
+}
+
+.stepper-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stepper-minus, .stepper-plus {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stepper-minus:active, .stepper-plus:active {
+  background: rgba(255,255,255,0.18);
+  transform: scale(0.92);
+}
+
+.stepper-display {
+  min-width: 90px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+/* Quick increment chips (+10, +50, etc.) */
+.stepper-chips {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stepper-chip {
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.6);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stepper-chip:active {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  transform: scale(0.95);
+}
+
+/* Option chips for attendees/duration (instead of stepper) */
+.edit-options {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.edit-options.open {
+  max-height: 80px;
+  opacity: 1;
+  padding: 10px 0 4px;
+}
+
+.edit-option-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.edit-option {
   flex: 1;
-}
-
-.edit-row input {
-  width: 90px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.08);
+  padding: 10px 4px;
+  border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.6);
   font-family: inherit;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: #fff;
-  text-align: right;
-  outline: none;
-  transition: border-color 0.2s;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.edit-row input:focus {
-  border-color: rgba(255,255,255,0.3);
+.edit-option:active {
+  transform: scale(0.95);
 }
 
-.edit-row select {
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
+.edit-option.selected {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.25);
   color: #fff;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
 .edit-update-btn {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 14px;
+  margin-top: 12px;
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  background: rgba(255,255,255,0.12);
+  background: var(--accent);
   color: #fff;
   transition: all 0.2s;
 }
 
 .edit-update-btn:active {
-  background: rgba(255,255,255,0.2);
+  opacity: 0.85;
   transform: scale(0.98);
 }
 
@@ -1511,35 +1630,101 @@ body {
           <span class="edit-toggle-arrow">&#9660;</span>
         </div>
         <div class="edit-panel" id="editPanel">
-          <div class="edit-row">
-            <label for="e-ticket">Ticket price</label>
-            <input type="number" id="e-ticket" inputmode="decimal" pattern="[0-9]*">
+
+          <!-- Ticket price -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('ticket')">
+              <span class="edit-field-label">Ticket price</span>
+              <span class="edit-field-value" id="ef-ticket">&#163;120</span>
+            </button>
+            <div class="edit-stepper" id="es-ticket">
+              <div class="stepper-row">
+                <button class="stepper-minus" onclick="stepValue('ticket',-10)">&#8722;</button>
+                <div class="stepper-display" id="ed-ticket">&#163;120</div>
+                <button class="stepper-plus" onclick="stepValue('ticket',10)">+</button>
+              </div>
+              <div class="stepper-chips">
+                <button class="stepper-chip" onclick="stepValue('ticket',-50)">&#8722;50</button>
+                <button class="stepper-chip" onclick="stepValue('ticket',-10)">&#8722;10</button>
+                <button class="stepper-chip" onclick="stepValue('ticket',10)">+10</button>
+                <button class="stepper-chip" onclick="stepValue('ticket',50)">+50</button>
+              </div>
+            </div>
           </div>
-          <div class="edit-row">
-            <label for="e-attendees">Attendees</label>
-            <select id="e-attendees">
-              <option value="9">8&#8211;10</option>
-              <option value="12">10&#8211;15</option>
-              <option value="17">15&#8211;20</option>
-              <option value="25">20+</option>
-            </select>
+
+          <!-- Attendees -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('attendees')">
+              <span class="edit-field-label">Attendees</span>
+              <span class="edit-field-value" id="ef-attendees">10&#8211;15</span>
+            </button>
+            <div class="edit-options" id="es-attendees">
+              <div class="edit-option-row">
+                <button class="edit-option" data-field="attendees" data-val="9" data-label="8&#8211;10" onclick="pickOption(this)">8&#8211;10</button>
+                <button class="edit-option" data-field="attendees" data-val="12" data-label="10&#8211;15" onclick="pickOption(this)">10&#8211;15</button>
+                <button class="edit-option" data-field="attendees" data-val="17" data-label="15&#8211;20" onclick="pickOption(this)">15&#8211;20</button>
+                <button class="edit-option" data-field="attendees" data-val="25" data-label="20+" onclick="pickOption(this)">20+</button>
+              </div>
+            </div>
           </div>
-          <div class="edit-row">
-            <label for="e-duration">Duration</label>
-            <select id="e-duration">
-              <option value="6">6 hours</option>
-              <option value="8">8 hours</option>
-              <option value="12">12 hours</option>
-            </select>
+
+          <!-- Duration -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('duration')">
+              <span class="edit-field-label">Duration</span>
+              <span class="edit-field-value" id="ef-duration">8 hours</span>
+            </button>
+            <div class="edit-options" id="es-duration">
+              <div class="edit-option-row">
+                <button class="edit-option" data-field="duration" data-val="6" data-label="6 hours" onclick="pickOption(this)">6 hours</button>
+                <button class="edit-option" data-field="duration" data-val="8" data-label="8 hours" onclick="pickOption(this)">8 hours</button>
+                <button class="edit-option" data-field="duration" data-val="12" data-label="12 hours" onclick="pickOption(this)">12 hours</button>
+              </div>
+            </div>
           </div>
-          <div class="edit-row">
-            <label for="e-venue">Venue cost</label>
-            <input type="number" id="e-venue" inputmode="decimal" pattern="[0-9]*">
+
+          <!-- Venue cost -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('venue')">
+              <span class="edit-field-label">Venue cost</span>
+              <span class="edit-field-value" id="ef-venue">&#163;750</span>
+            </button>
+            <div class="edit-stepper" id="es-venue">
+              <div class="stepper-row">
+                <button class="stepper-minus" onclick="stepValue('venue',-50)">&#8722;</button>
+                <div class="stepper-display" id="ed-venue">&#163;750</div>
+                <button class="stepper-plus" onclick="stepValue('venue',50)">+</button>
+              </div>
+              <div class="stepper-chips">
+                <button class="stepper-chip" onclick="stepValue('venue',-100)">&#8722;100</button>
+                <button class="stepper-chip" onclick="stepValue('venue',-50)">&#8722;50</button>
+                <button class="stepper-chip" onclick="stepValue('venue',50)">+50</button>
+                <button class="stepper-chip" onclick="stepValue('venue',100)">+100</button>
+              </div>
+            </div>
           </div>
-          <div class="edit-row">
-            <label for="e-materials">Materials per head</label>
-            <input type="number" id="e-materials" inputmode="decimal" pattern="[0-9]*">
+
+          <!-- Materials per head -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('materials')">
+              <span class="edit-field-label">Materials per head</span>
+              <span class="edit-field-value" id="ef-materials">&#163;40</span>
+            </button>
+            <div class="edit-stepper" id="es-materials">
+              <div class="stepper-row">
+                <button class="stepper-minus" onclick="stepValue('materials',-5)">&#8722;</button>
+                <div class="stepper-display" id="ed-materials">&#163;40</div>
+                <button class="stepper-plus" onclick="stepValue('materials',5)">+</button>
+              </div>
+              <div class="stepper-chips">
+                <button class="stepper-chip" onclick="stepValue('materials',-10)">&#8722;10</button>
+                <button class="stepper-chip" onclick="stepValue('materials',-5)">&#8722;5</button>
+                <button class="stepper-chip" onclick="stepValue('materials',5)">+5</button>
+                <button class="stepper-chip" onclick="stepValue('materials',10)">+10</button>
+              </div>
+            </div>
           </div>
+
           <button class="edit-update-btn" onclick="updateFromEdit()">Update results</button>
         </div>
 
@@ -2091,6 +2276,10 @@ function startFresh() {
 // ═══════════════════════════════════════
 //  EDIT PANEL (in results)
 // ═══════════════════════════════════════
+// Edit panel state
+const editState = { ticket: 120, attendees: 12, duration: 8, venue: 750, materials: 40, attendeeLabel: '10\u201315', durationLabel: '8 hours' };
+let activeEditField = null;
+
 function toggleEditPanel() {
   const panel = document.getElementById('editPanel');
   const toggle = document.getElementById('editToggle');
@@ -2100,31 +2289,110 @@ function toggleEditPanel() {
     panel.classList.remove('open');
     toggle.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
+    activeEditField = null;
+    // Close any open steppers
+    document.querySelectorAll('.edit-stepper.open, .edit-options.open').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.edit-field-btn.active').forEach(el => el.classList.remove('active'));
   } else {
     populateEditPanel();
     panel.classList.add('open');
     toggle.classList.add('open');
     toggle.setAttribute('aria-expanded', 'true');
+    // Scroll edit toggle into view
+    setTimeout(() => toggle.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+  }
+}
+
+function toggleField(field) {
+  const stepper = document.getElementById('es-' + field);
+  const btn = stepper.previousElementSibling;
+  const wasOpen = stepper.classList.contains('open');
+
+  // Close all others
+  document.querySelectorAll('.edit-stepper.open, .edit-options.open').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.edit-field-btn.active').forEach(el => el.classList.remove('active'));
+
+  if (!wasOpen) {
+    stepper.classList.add('open');
+    btn.classList.add('active');
+    activeEditField = field;
+  } else {
+    activeEditField = null;
+  }
+}
+
+function stepValue(field, delta) {
+  editState[field] = Math.max(0, (editState[field] || 0) + delta);
+  const val = editState[field];
+  const formatted = (field === 'attendees' || field === 'duration') ? val : '\u00A3' + val.toLocaleString();
+  document.getElementById('ed-' + field).textContent = formatted;
+  document.getElementById('ef-' + field).textContent = formatted;
+}
+
+function pickOption(el) {
+  const field = el.dataset.field;
+  const val = parseInt(el.dataset.val);
+  const label = el.dataset.label;
+
+  // Update state
+  editState[field === 'attendees' ? 'attendees' : 'duration'] = val;
+  if (field === 'attendees') editState.attendeeLabel = label;
+  if (field === 'duration') editState.durationLabel = label;
+
+  // Highlight selected
+  el.parentElement.querySelectorAll('.edit-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+
+  // Update button display
+  document.getElementById('ef-' + field).textContent = label;
+
+  // Auto-update venue suggestion on duration change
+  if (field === 'duration') {
+    const suggested = venueSuggestions[val] || 750;
+    if (!wiz.venueEdited) {
+      editState.venue = suggested;
+      document.getElementById('ef-venue').textContent = '\u00A3' + suggested.toLocaleString();
+      document.getElementById('ed-venue').textContent = '\u00A3' + suggested.toLocaleString();
+    }
   }
 }
 
 function populateEditPanel() {
-  document.getElementById('e-ticket').value = wiz.ticket || '';
-  document.getElementById('e-attendees').value = wiz.attendees || 12;
-  document.getElementById('e-duration').value = wiz.duration || 8;
-  document.getElementById('e-venue').value = wiz.venue || parseFloat(document.getElementById('c-venue').value) || 750;
-
+  editState.ticket = wiz.ticket || 120;
+  editState.attendees = wiz.attendees || 12;
+  editState.duration = wiz.duration || 8;
+  editState.venue = wiz.venue || parseFloat(document.getElementById('c-venue').value) || 750;
   const typeData = workshopTypes[wiz.type || 'other'];
-  document.getElementById('e-materials').value = typeData.materialsCost;
+  editState.materials = typeData.materialsCost;
+  editState.attendeeLabel = wiz.attendeeLabel || '10\u201315';
+  editState.durationLabel = (editState.duration + ' hours');
+
+  // Update all display values
+  document.getElementById('ef-ticket').textContent = '\u00A3' + editState.ticket;
+  document.getElementById('ed-ticket').textContent = '\u00A3' + editState.ticket;
+  document.getElementById('ef-attendees').textContent = editState.attendeeLabel;
+  document.getElementById('ef-duration').textContent = editState.durationLabel;
+  document.getElementById('ef-venue').textContent = '\u00A3' + editState.venue.toLocaleString();
+  document.getElementById('ed-venue').textContent = '\u00A3' + editState.venue.toLocaleString();
+  document.getElementById('ef-materials').textContent = '\u00A3' + editState.materials;
+  document.getElementById('ed-materials').textContent = '\u00A3' + editState.materials;
+
+  // Highlight current attendee + duration options
+  document.querySelectorAll('[data-field="attendees"]').forEach(o => {
+    o.classList.toggle('selected', parseInt(o.dataset.val) === editState.attendees);
+  });
+  document.querySelectorAll('[data-field="duration"]').forEach(o => {
+    o.classList.toggle('selected', parseInt(o.dataset.val) === editState.duration);
+  });
 }
 
 function updateFromEdit() {
-  // Read edited values
-  const ticket = parseInt(document.getElementById('e-ticket').value) || wiz.ticket || 120;
-  const attend = parseInt(document.getElementById('e-attendees').value) || 12;
-  const duration = parseInt(document.getElementById('e-duration').value) || 8;
-  const venue = parseInt(document.getElementById('e-venue').value) || 750;
-  const materialsPerHead = parseInt(document.getElementById('e-materials').value) || 40;
+  // Read from editState
+  const ticket = editState.ticket || wiz.ticket || 120;
+  const attend = editState.attendees || 12;
+  const duration = editState.duration || 8;
+  const venue = editState.venue || 750;
+  const materialsPerHead = editState.materials || 40;
 
   // Update wizard state
   wiz.ticket = ticket;
