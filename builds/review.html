@@ -537,6 +537,59 @@
             margin: 0 10px;
         }
         footer a:hover { color: var(--rose); }
+        footer { padding-bottom: 72px; }
+
+        /* ── Bottom Nav (mobile sticky) ── */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(254,249,244,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            z-index: 60;
+            padding: 10px 16px;
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .bnav-btn {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--chocolate);
+            cursor: pointer;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .bnav-btn:active { background: var(--cream-deep); }
+        .bnav-label {
+            text-align: center;
+            flex: 1;
+            min-width: 0;
+        }
+        .bnav-chapter {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--chocolate);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .bnav-sub {
+            font-size: 10px;
+            color: var(--chocolate-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
@@ -592,7 +645,7 @@
         <div class="chapter-num">Chapter One</div>
         <h2 class="chapter-title">Someone Finds You</h2>
         <p class="chapter-story">
-            Someone searches "event space East London" or sees your Instagram. They click through. Instead of a Linktree and a "DM for pricing" — they land on a <strong>proper website</strong> that shows them exactly what you offer, what the space looks like, and how to book.
+            Someone searches "event space East London" or sees your Instagram. They click through. Instead of a Linktree and a "DM for pricing" — they land on <strong>your booking page</strong> and can see exactly what you offer, pick a date, and book themselves in.
         </p>
 
         <div class="before-after">
@@ -602,14 +655,14 @@
             </div>
             <div class="ba-card ba-after">
                 <div class="ba-label">Now</div>
-                Professional site. Prices visible. Book button. They help themselves.
+                Booking page. Prices visible. They pick a date and book. No DMs needed.
             </div>
         </div>
 
-        <a href="../index.html" target="_blank" class="live-link">
+        <a href="../book/" target="_blank" class="live-link">
             <div>
-                <h3>Your Website</h3>
-                <p>Full marketing site with packages, gallery, FAQs</p>
+                <h3>Your Booking Page</h3>
+                <p>Where customers land, see availability, and book &middot; live now</p>
             </div>
             <span class="live-link-arrow">&rarr;</span>
         </a>
@@ -654,13 +707,6 @@
             </div>
         </div>
 
-        <a href="../book/" target="_blank" class="live-link">
-            <div>
-                <h3>Try It Live</h3>
-                <p>Open the actual booking page and go through it yourself</p>
-            </div>
-            <span class="live-link-arrow">&rarr;</span>
-        </a>
     </div>
 
     <!-- ═══ CHAPTER 3: AUTOMATION ═══ -->
@@ -807,11 +853,21 @@
 
     <footer>
         <div class="brand">Flour Girls Cakehouse</div>
-        <div class="built">Built with care by Aloe Labs</div>
+        <div class="built">🌿 Built with care by Aloe Labs</div>
         <a href="../index.html">Website</a>
         <a href="../book/">Book</a>
         <a href="https://www.instagram.com/flourgirlscakehouse" target="_blank">Instagram</a>
     </footer>
+</div>
+
+<!-- ═══ BOTTOM NAV (mobile sticky) ═══ -->
+<div class="bottom-nav" id="bottomNav">
+    <button class="bnav-btn" id="bnavPrev" onclick="navChapter(-1)">&larr;</button>
+    <div class="bnav-label">
+        <div class="bnav-chapter" id="bnavTitle">Your Business, Running Itself</div>
+        <div class="bnav-sub" id="bnavSub">Scroll to explore</div>
+    </div>
+    <button class="bnav-btn" id="bnavNext" onclick="navChapter(1)">&rarr;</button>
 </div>
 
 <!-- ═══ DETAIL OVERLAY ═══ -->
@@ -831,8 +887,29 @@
 </div>
 
 <script>
+// ── CHAPTER DATA ────────────────────────────────
+var chapterNames = [
+    'Your Business, Running Itself',
+    'Someone Finds You',
+    'They Book in 3 Minutes',
+    "You Don't Lift a Finger",
+    'Your Command Centre',
+    'Know Your Numbers',
+    'Every Event, Same Standard'
+];
+var chapterSubs = [
+    'Scroll to explore',
+    'Chapter 1 of 6',
+    'Chapter 2 of 6',
+    'Chapter 3 of 6',
+    'Chapter 4 of 6',
+    'Chapter 5 of 6',
+    'Chapter 6 of 6'
+];
+
 // ── CHAPTER SCROLL TRACKING ────────────────────
 var chapters = [];
+var currentChapter = 0;
 function initChapters() {
     for (var i = 0; i <= 6; i++) {
         var el = document.getElementById('ch' + i);
@@ -848,15 +925,26 @@ function updateDots() {
     for (var i = chapters.length - 1; i >= 0; i--) {
         if (chapters[i].offsetTop <= scrollY) { active = i; break; }
     }
+    currentChapter = active;
     dots.forEach(function(d, idx) {
         d.classList.toggle('active', idx === active);
     });
+    // Update bottom nav
+    document.getElementById('bnavTitle').textContent = chapterNames[active] || '';
+    document.getElementById('bnavSub').textContent = chapterSubs[active] || '';
 }
 
 function scrollToChapter(idx) {
     if (chapters[idx]) {
         var y = chapters[idx].offsetTop - 50;
         window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+}
+
+function navChapter(dir) {
+    var next = currentChapter + dir;
+    if (next >= 0 && next < chapters.length) {
+        scrollToChapter(next);
     }
 }
 
@@ -930,7 +1018,7 @@ var details = {
     },
     studioops: {
         title: 'Setup & Packdown',
-        html: '<div class="detail-text"><h3>Everything Covered</h3><p>A step-by-step guide anyone can follow — so the studio is ready the same way every time:</p><ul><li><strong>Kitchen</strong> — equipment check, surfaces cleaned, stock verified</li><li><strong>Tables & chairs</strong> — layout by event size (10, 20, 30, 40 guests)</li><li><strong>AV equipment</strong> — speaker, projector, screen setup</li><li><strong>End of event</strong> — cleaning checklist, rubbish, surfaces</li><li><strong>Key handover</strong> — lock-up procedure, alarm codes</li></ul><h3>Why It Matters</h3><p>You can\'t be at every event. But the person who is can follow this guide and deliver <em>your</em> standard. Same quality, every time, without you being there.</p><p style="margin-top:16px;"><a href="studio-ops.html">View the full guide &rarr;</a></p></div>'
+        html: '<div class="detail-text"><h3>Everything Covered</h3><p>A step-by-step guide anyone can follow — so the studio is ready the same way every time:</p><ul><li><strong>Kitchen</strong> — equipment check, surfaces cleaned, stock verified</li><li><strong>Tables & chairs</strong> — layout by event size (10, 20, 30, 40 guests)</li><li><strong>AV equipment</strong> — speaker, projector, screen setup</li><li><strong>End of event</strong> — cleaning checklist, rubbish, surfaces</li><li><strong>Key handover</strong> — lock-up procedure, alarm codes</li></ul><h3>Why It Matters</h3><p>You can\'t be at every event. But the person who is can follow this guide and deliver <em>your</em> standard. Same quality, every time, without you being there.</p></div>'
     },
     invoicing: {
         title: 'Invoicing',
