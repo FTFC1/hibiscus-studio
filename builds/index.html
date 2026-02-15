@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flour Girls Cakehouse — Project Portfolio</title>
+    <meta name="description" content="Digital foundation for Flour Girls Cakehouse — business analysis, operations, and live booking pages built since January 2025.">
+    <meta property="og:title" content="Flour Girls Cakehouse — Project Portfolio">
+    <meta property="og:description" content="Digital foundation for Flour Girls Cakehouse — business analysis, operations, and live booking pages built since January 2025.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fef9f4;
+            --rose: #c77d6a;
+            --rose-soft: #e8b4a2;
+            --chocolate: #2d1f1a;
+            --chocolate-mid: #5a4139;
+            --peach: #f5e1d4;
+            --sage: #e2ebe4;
+            --white: #ffffff;
+            --border: #e8ddd4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--chocolate);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .flourish {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--rose);
+            margin-bottom: 16px;
+            letter-spacing: 12px;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--chocolate-mid);
+            font-weight: 500;
+        }
+
+        /* Intro */
+        .intro {
+            max-width: 700px;
+            margin: 0 auto 80px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--chocolate-mid);
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 600px;
+            margin: 0 auto 80px;
+            padding: 40px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            background: var(--rose);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--cream), 0 0 0 6px var(--border);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 12px);
+            background: var(--border);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--rose);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 15px;
+            color: var(--chocolate-mid);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            text-align: center;
+            margin: 80px 0 60px;
+            position: relative;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-divider::before {
+            left: 0;
+        }
+
+        .section-divider::after {
+            right: 0;
+        }
+
+        .section-divider span {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--rose);
+            padding: 0 20px;
+            background: var(--cream);
+            position: relative;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(45, 31, 26, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(45, 31, 26, 0.12);
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--sage);
+            color: var(--chocolate);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 15px;
+            color: var(--chocolate-mid);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--rose);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: gap 0.3s ease;
+        }
+
+        .card-link:hover {
+            gap: 12px;
+        }
+
+        .card-link::after {
+            content: '→';
+            font-size: 18px;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            background: var(--sage);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .coming-soon h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 12px;
+        }
+
+        .coming-soon p {
+            font-size: 16px;
+            color: var(--chocolate-mid);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 20px;
+            color: var(--chocolate);
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--chocolate-mid);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--rose);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            header {
+                margin-bottom: 60px;
+            }
+
+            .flourish {
+                font-size: 20px;
+                letter-spacing: 8px;
+            }
+
+            .intro {
+                font-size: 16px;
+                margin-bottom: 60px;
+            }
+
+            .timeline {
+                margin-bottom: 60px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .section-divider {
+                margin: 60px 0 40px;
+            }
+
+            .section-divider::before,
+            .section-divider::after {
+                width: 30%;
+            }
+
+            .coming-soon {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="flourish">~ ~ ~</div>
+            <h1 class="brand-name">Flour Girls Cakehouse</h1>
+            <p class="tagline">What We've Built Together</p>
+        </header>
+
+        <section class="intro">
+            <p>Since January 2025, we've been building the digital foundation for Flour Girls Cakehouse — from business analysis and operational systems to a live masterclass booking page. Here's the story of what we've created together.</p>
+        </section>
+
+        <section class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">Jan 2025</div>
+                <div class="timeline-title">Business Analysis & Strategy</div>
+                <div class="timeline-desc">Deep dive into workshop economics and growth opportunities</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Feb 2025</div>
+                <div class="timeline-title">Payment Research & Studio Operations</div>
+                <div class="timeline-desc">Professional pricing systems and workflow documentation</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Feb 2025</div>
+                <div class="timeline-title">Ganache Masterclass Landing Page</div>
+                <div class="timeline-desc">Live booking page for private 1-2-1 masterclasses</div>
+            </div>
+        </section>
+
+        <div class="section-divider">
+            <span>~ ~ ~</span>
+        </div>
+
+        <section class="cards-grid">
+            <div class="card">
+                <h3 class="card-title">Business Analysis</h3>
+                <p class="card-desc">Deep dive into workshop economics, pricing strategy, and growth opportunities for Flour Girls Cakehouse.</p>
+                <a href="analysis.html" class="card-link">View</a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Price List & FAQ</h3>
+                <p class="card-desc">Professional pricing reference for studio hire and workshops, with common questions answered.</p>
+                <a href="pricing.html" class="card-link">View</a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Studio Operations</h3>
+                <p class="card-desc">Setup and packdown workflow for smooth event management at the Flour Girls studio.</p>
+                <a href="studio-ops.html" class="card-link">View</a>
+            </div>
+
+            <div class="card">
+                <span class="card-badge">LIVE</span>
+                <h3 class="card-title">Ganache Masterclass</h3>
+                <p class="card-desc">Live booking page for private 1-2-1 chocolate ganache masterclasses with Rochelle.</p>
+                <a href="../fg-ganache-landing.html" class="card-link">View</a>
+            </div>
+        </section>
+
+        <section class="coming-soon">
+            <h3>More in the works</h3>
+            <p>We're continuing to build — next up are booking system improvements and a workshop pricing calculator to help streamline enquiries and bookings.</p>
+        </section>
+
+        <footer>
+            <div class="footer-brand">Flour Girls Cakehouse</div>
+            <div class="footer-links">
+                <a href="https://www.instagram.com/flourgirlscakehouse" target="_blank">Instagram</a>
+                <a href="../index.html">Main Site</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe timeline items
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(item);
+        });
+
+        // Observe cards
+        document.querySelectorAll('.card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
