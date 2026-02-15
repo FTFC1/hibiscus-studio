@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Ganache Masterclasses | Flour Girls Cakehouse</title>
+    <meta name="description" content="Private 1-2-1 ganache masterclasses at Hibiscus Studio, East London. Learn from an instructor trained by one of the UK's leading ganache experts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ─── RESET + BASE ─── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --cream: #fef9f4;
+            --cream-deep: #fdf0e6;
+            --peach: #f5e1d4;
+            --rose: #c77d6a;
+            --rose-soft: #e8b4a2;
+            --rose-hover: #b56a58;
+            --chocolate: #2d1f1a;
+            --chocolate-mid: #5a4139;
+            --chocolate-light: #8b7068;
+            --white: #ffffff;
+            --sage: #e2ebe4;
+            --sage-deep: #c8d8cc;
+            --border: #e8ddd4;
+            --shadow-sm: 0 1px 3px rgba(45,31,26,0.06);
+            --shadow-md: 0 4px 12px rgba(45,31,26,0.08);
+            --shadow-lg: 0 8px 30px rgba(45,31,26,0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--chocolate);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ─── TYPOGRAPHY ─── */
+        h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.2; }
+        h1 { font-size: clamp(2rem, 5vw, 3rem); }
+        h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: 1rem; }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+        p { font-size: 1rem; color: var(--chocolate-mid); line-height: 1.7; }
+
+        /* ─── LAYOUT ─── */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        /* ─── SECTION 1: HERO ─── */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: var(--cream);
+        }
+
+        .hero-brand-bar {
+            text-align: center;
+            padding: 48px 20px 24px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 55vh;
+            min-height: 320px;
+            background: url('fg-images/hero-smoothing.jpg') center/cover no-repeat;
+            background-color: var(--chocolate);
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px 48px;
+        }
+
+        /* Desktop: hero image + text side by side */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                flex-wrap: wrap;
+                min-height: 80vh;
+            }
+            .hero-brand-bar {
+                width: 100%;
+                padding: 32px 20px 16px;
+            }
+            .hero-image {
+                width: 55%;
+                height: auto;
+                min-height: 60vh;
+            }
+            .hero-text {
+                width: 45%;
+                padding: 48px 40px;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-text {
+                padding: 60px 60px;
+            }
+            .hero-text h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        /* Decorative flourish */
+        .flourish {
+            display: block;
+            text-align: center;
+            font-size: 1.6rem;
+            color: var(--rose-soft);
+            letter-spacing: 0.3em;
+            margin: 0 auto;
+            opacity: 0.6;
+        }
+
+        .hero .flourish {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 40px;
+            margin: 0 auto;
+            max-width: 300px;
+        }
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .section-divider span {
+            color: var(--rose-soft);
+            font-size: 1rem;
+        }
+
+        .hero-brand {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--rose);
+            margin-bottom: 24px;
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin-bottom: 20px;
+            color: var(--chocolate);
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--rose);
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            max-width: 480px;
+            margin: 0 auto 36px;
+            color: var(--chocolate-mid);
+            position: relative;
+            z-index: 1;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--rose);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background: var(--rose-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--rose);
+            border: 1.5px solid var(--rose);
+        }
+        .btn-secondary:hover {
+            background: var(--rose);
+            color: var(--white);
+        }
+
+        /* Scroll hint */
+        .hero-scroll {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--chocolate-light);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+        .hero-scroll .arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 1.5px solid var(--chocolate-light);
+            border-bottom: 1.5px solid var(--chocolate-light);
+            transform: rotate(45deg);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
+            40% { transform: rotate(45deg) translateY(6px); }
+            60% { transform: rotate(45deg) translateY(3px); }
+        }
+
+        /* ─── SECTION 2: WHAT MAKES THIS DIFFERENT ─── */
+        .different {
+            background: var(--white);
+        }
+
+        .different-label {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--rose);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 520px) {
+            .diff-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .diff-card {
+            padding: 28px 24px;
+            background: var(--cream);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .diff-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(199,125,106,0.08);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .diff-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--rose);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .diff-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            color: var(--chocolate);
+        }
+
+        .diff-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .quote-block {
+            text-align: center;
+            padding: 32px 20px;
+            position: relative;
+        }
+
+        .quote-block blockquote {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: var(--chocolate);
+            max-width: 500px;
+            margin: 0 auto 12px;
+            line-height: 1.6;
+        }
+
+        .quote-block cite {
+            font-family: var(--font-body);
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--chocolate-light);
+        }
+
+        /* ─── SECTION 3: CHOOSE YOUR MASTERCLASS ─── */
+        .tiers {
+            background: var(--cream);
+        }
+
+        .tiers h2 {
+            text-align: center;
+        }
+
+        .tiers-sub {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .tier-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 640px) {
+            .tier-cards { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .tier-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card:hover {
+            border-color: var(--rose-soft);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .tier-card.popular {
+            border-color: var(--rose);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tier-card.popular::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 16px;
+            right: -30px;
+            background: var(--rose);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 4px 40px;
+            transform: rotate(45deg);
+        }
+
+        .tier-name {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            color: var(--chocolate);
+            margin-bottom: 4px;
+        }
+
+        .tier-price {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--rose);
+            margin-bottom: 4px;
+        }
+
+        .tier-duration {
+            font-size: 0.85rem;
+            color: var(--chocolate-light);
+            margin-bottom: 20px;
+        }
+
+        .tier-learn {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--chocolate-mid);
+            margin-bottom: 10px;
+        }
+
+        .tier-list {
+            list-style: none;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tier-list li {
+            font-size: 0.9rem;
+            color: var(--chocolate-mid);
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tier-list li::before {
+            content: '·';
+            position: absolute;
+            left: 4px;
+            color: var(--rose);
+            font-weight: bold;
+            font-size: 1.4rem;
+            line-height: 1;
+            top: 4px;
+        }
+
+        .tier-result {
+            font-size: 0.9rem;
+            color: var(--chocolate);
+            font-weight: 500;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        .tier-perfect {
+            font-size: 0.82rem;
+            color: var(--chocolate-light);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .tier-card .btn {
+            width: 100%;
+            padding: 12px 24px;
+            font-size: 0.9rem;
+        }
+
+        /* ─── SECTION 4: WHAT'S INCLUDED ─── */
+        .included {
+            background: var(--white);
+        }
+
+        .included h2 {
+            text-align: center;
+        }
+
+        .included-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        @media (min-width: 480px) {
+            .included-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .included-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+
+        .included-item:hover {
+            transform: translateY(-1px);
+        }
+
+        .included-check {
+            width: 32px;
+            height: 32px;
+            background: rgba(199,125,106,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .included-item span {
+            font-size: 0.92rem;
+            color: var(--chocolate-mid);
+        }
+
+        .included-note {
+            text-align: center;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--chocolate);
+            margin-top: 8px;
+        }
+
+        /* ─── MEET ROCHELLE (credibility) ─── */
+        .teacher {
+            background: var(--cream-deep);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teacher::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, var(--peach) 0%, transparent 70%);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .teacher-inner {
+            max-width: 520px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .teacher h2 { text-align: center; }
+
+        .teacher-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 3px solid var(--white);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .teacher-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .teacher-bio {
+            font-size: 0.92rem;
+            color: var(--chocolate-mid);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            text-align: left;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .teacher-bio strong {
+            color: var(--chocolate);
+        }
+
+        .teacher-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .teacher-stat {
+            text-align: center;
+        }
+
+        .teacher-stat-number {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--rose);
+            display: block;
+        }
+
+        .teacher-stat-label {
+            font-size: 0.78rem;
+            color: var(--chocolate-light);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ─── SECTION 5: THE STUDIO ─── */
+        .studio {
+            background: var(--cream);
+        }
+
+        .studio h2 {
+            text-align: center;
+        }
+
+        .studio-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .studio-visual {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .studio-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 40%;
+        }
+
+        .studio-info {
+            padding: 28px 24px;
+        }
+
+        .studio-name {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .studio-address {
+            font-size: 0.9rem;
+            color: var(--chocolate-mid);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .studio-transport {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            color: var(--chocolate-mid);
+            padding: 10px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .studio-transport-icon {
+            font-size: 1.1rem;
+        }
+
+        .studio-hours {
+            font-size: 0.88rem;
+            color: var(--chocolate-light);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ─── SECTION 6: WHO THIS IS FOR ─── */
+        .audience {
+            background: var(--white);
+        }
+
+        .audience h2 {
+            text-align: center;
+        }
+
+        .audience-tabs {
+            display: flex;
+            gap: 8px;
+            max-width: 520px;
+            margin: 0 auto 24px;
+            justify-content: center;
+        }
+
+        .audience-tab {
+            padding: 10px 24px;
+            border: 1.5px solid var(--border);
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--chocolate-mid);
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .audience-tab.active {
+            border-color: var(--rose);
+            background: rgba(199,125,106,0.08);
+            color: var(--rose);
+        }
+
+        .audience-group {
+            max-width: 520px;
+            margin: 0 auto 32px;
+            display: none;
+        }
+
+        .audience-group.active {
+            display: block;
+        }
+
+        .audience-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .audience-list li {
+            padding: 14px 16px;
+            padding-left: 44px;
+            position: relative;
+            font-size: 0.93rem;
+            color: var(--chocolate-mid);
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .audience-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 16px;
+            color: var(--rose);
+            font-size: 0.9rem;
+            font-weight: 600;
+            top: 14px;
+        }
+
+        .audience-closer {
+            text-align: center;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--chocolate);
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        /* ─── SECTION 7: BOOKING ─── */
+        .booking {
+            background: var(--cream-deep);
+        }
+
+        .booking h2 {
+            text-align: center;
+        }
+
+        .booking-sub {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .booking-form {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 32px 24px;
+            max-width: 520px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-step {
+            margin-bottom: 28px;
+        }
+
+        .form-step:last-of-type { margin-bottom: 0; }
+
+        .step-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--rose);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tier-radios {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tier-radio {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tier-radio:hover {
+            border-color: var(--rose-soft);
+            background: var(--cream);
+        }
+
+        .tier-radio.selected {
+            border-color: var(--rose);
+            background: rgba(199, 125, 106, 0.05);
+        }
+
+        .tier-radio input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--border);
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tier-radio input[type="radio"]:checked {
+            border-color: var(--rose);
+        }
+
+        .tier-radio input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 10px;
+            height: 10px;
+            background: var(--rose);
+            border-radius: 50%;
+        }
+
+        .tier-radio-info {
+            flex-grow: 1;
+        }
+
+        .tier-radio-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--chocolate);
+        }
+
+        .tier-radio-detail {
+            font-size: 0.82rem;
+            color: var(--chocolate-light);
+        }
+
+        .tier-radio-price {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--rose);
+            flex-shrink: 0;
+        }
+
+        /* Form fields */
+        .form-row {
+            margin-bottom: 16px;
+        }
+
+        .form-row label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--chocolate-mid);
+            margin-bottom: 6px;
+        }
+
+        .form-row input,
+        .form-row textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--chocolate);
+            background: var(--cream);
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-row input:focus,
+        .form-row textarea:focus {
+            border-color: var(--rose);
+            background: var(--white);
+        }
+
+        .form-row textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row input::placeholder,
+        .form-row textarea::placeholder {
+            color: var(--chocolate-light);
+            font-style: italic;
+        }
+
+        /* Date field */
+        .date-note {
+            font-size: 0.8rem;
+            color: var(--chocolate-light);
+            font-style: italic;
+            margin-top: 6px;
+        }
+
+        /* Form divider */
+        .form-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 24px 0;
+        }
+
+        /* Summary */
+        .booking-summary {
+            background: var(--cream);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .booking-summary.visible { display: block; }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.88rem;
+        }
+
+        .summary-label {
+            color: var(--chocolate-light);
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--chocolate);
+        }
+
+        .summary-total {
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+            padding-top: 10px;
+        }
+
+        .summary-total .summary-value {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--rose);
+        }
+
+        .payment-note {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--chocolate-light);
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+
+        .booking-form .btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1rem;
+        }
+
+        /* Success state */
+        .booking-success {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .booking-success.visible { display: block; }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .booking-success h3 {
+            margin-bottom: 12px;
+        }
+
+        /* ─── SECTION 8: FAQ ─── */
+        .faq {
+            background: var(--white);
+        }
+
+        .faq h2 {
+            text-align: center;
+        }
+
+        .faq-list {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 18px 0;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--chocolate);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .faq-question:hover { color: var(--rose); }
+
+        .faq-chevron {
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+            color: var(--chocolate-light);
+        }
+
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 0 18px;
+            font-size: 0.9rem;
+            color: var(--chocolate-mid);
+            line-height: 1.6;
+        }
+
+        /* ─── SECTION 9: FOOTER ─── */
+        .footer {
+            background: var(--chocolate);
+            color: var(--peach);
+            padding: 48px 20px 32px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--peach);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--white); }
+
+        .footer-note {
+            font-size: 0.78rem;
+            color: var(--chocolate-light);
+            margin-top: 20px;
+        }
+
+        /* ─── WARM TEXTURE (paper-like) ─── */
+        .textured {
+            position: relative;
+        }
+        .textured::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c77d6a' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+        .textured > .container { position: relative; z-index: 1; }
+
+        /* Enhanced card depth */
+        .diff-card {
+            box-shadow: 0 1px 3px rgba(45,31,26,0.04), 0 4px 12px rgba(45,31,26,0.03);
+            transition: all 0.3s ease;
+        }
+        .diff-card:hover {
+            box-shadow: 0 4px 16px rgba(45,31,26,0.08), 0 1px 4px rgba(45,31,26,0.04);
+            transform: translateY(-2px);
+        }
+
+        .tier-card {
+            box-shadow: 0 2px 8px rgba(45,31,26,0.04), 0 8px 24px rgba(45,31,26,0.03);
+        }
+
+        /* Scarcity line */
+        .scarcity {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--chocolate-light);
+            margin-top: 24px;
+            font-style: italic;
+        }
+
+        /* Micro CTA */
+        .micro-cta {
+            text-align: center;
+            margin-top: 24px;
+        }
+        .micro-cta a {
+            font-size: 0.88rem;
+            color: var(--rose);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .micro-cta a:hover {
+            border-bottom-color: var(--rose);
+        }
+
+        /* ─── IMAGE GALLERY STRIP ─── */
+        .gallery-strip {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .gallery-strip-inner {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .gallery-strip-inner::-webkit-scrollbar { display: none; }
+
+        .gallery-strip-item {
+            flex: 0 0 75%;
+            min-width: 280px;
+            max-width: 400px;
+            aspect-ratio: 1 / 1;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            scroll-snap-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .gallery-strip-item {
+                flex: 1;
+                max-width: none;
+                aspect-ratio: 1 / 1;
+            }
+        }
+
+        .gallery-strip-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ─── SECTION IMAGE (included, etc.) ─── */
+        .section-image {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 32px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .section-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ─── UTILITIES ─── */
+        .text-center { text-align: center; }
+        .mt-sm { margin-top: 12px; }
+        .mb-md { margin-bottom: 24px; }
+
+        /* ─── ANIMATIONS ─── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── GIFT BANNER ─── */
+        .gift-banner {
+            background: linear-gradient(135deg, var(--sage), var(--cream-deep));
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            text-align: center;
+            max-width: 500px;
+            margin: 32px auto 0;
+            border: 1px solid var(--sage-deep);
+        }
+
+        .gift-banner-icon {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .gift-banner h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        .gift-banner p {
+            font-size: 0.88rem;
+        }
+
+        /* ─── MOBILE ADJUSTMENTS ─── */
+        @media (max-width: 480px) {
+            section { padding: 44px 0; }
+
+            .hero-brand-bar {
+                padding: 32px 20px 12px;
+            }
+            .hero-text {
+                padding: 32px 20px 40px;
+            }
+            .hero-image {
+                height: 40vh;
+            }
+
+            .tier-card {
+                padding: 24px 20px;
+            }
+
+            .booking-form {
+                padding: 24px 18px;
+            }
+
+            .diff-card {
+                padding: 22px 18px;
+            }
+        }
+
+        /* Desktop: wider containers */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+            .diff-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+            .tier-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── SECTION 1: HERO ─── -->
+<section class="hero">
+    <div class="hero-brand-bar">
+        <span class="flourish">~ ~ ~</span>
+        <div class="hero-brand">Flour Girls Cakehouse</div>
+    </div>
+    <div class="hero-image"></div>
+    <div class="hero-text">
+        <h1>One Day. One Teacher.<br><em>Real Ganache.</em></h1>
+        <p class="hero-sub">
+            Private 1-2-1 masterclasses at Hibiscus Studio, East London.
+            Just you and your instructor — trained by one of the UK's top ganache experts.<br>
+            <em style="font-size: 0.9rem; color: var(--rose);">Also the perfect experience gift.</em>
+        </p>
+        <div class="hero-ctas">
+            <a href="#tiers" class="btn btn-primary">See What You'll Learn</a>
+            <a href="#booking" class="btn btn-secondary">Book Your Session</a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"><span>~</span></div>
+
+<!-- ─── SECTION 2: WHAT MAKES THIS DIFFERENT ─── -->
+<section class="different textured" id="different">
+    <div class="container">
+        <p class="different-label">Not a group class. Not a video course.</p>
+
+        <div class="diff-grid">
+            <div class="diff-card fade-in">
+                <span class="diff-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
+                <h3>Just You and Your Instructor</h3>
+                <p>No sharing attention with a group of 12. Every minute is focused on your technique.</p>
+            </div>
+            <div class="diff-card fade-in">
+                <span class="diff-icon"><svg viewBox="0 0 24 24"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/><line x1="6" y1="17" x2="18" y2="17"/></svg></span>
+                <h3>Professional Kitchen</h3>
+                <p>All equipment provided — piping tips, turntables, scrapers, buttercream. You bring yourself. That's it.</p>
+            </div>
+            <div class="diff-card fade-in">
+                <span class="diff-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+                <h3>Walk Out With a Cake</h3>
+                <p>You don't just learn theory. You make a finished cake and take it home.</p>
+            </div>
+            <div class="diff-card fade-in">
+                <span class="diff-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                <h3>Years of Learning in One Day</h3>
+                <p>Ganache is unforgiving. The right teacher saves you hundreds of hours of YouTube trial and error. Rochelle trained under Tabby — one of the UK's leading ganache experts.</p>
+            </div>
+        </div>
+
+        <div class="quote-block fade-in">
+            <blockquote>
+                "I have no desire really to be selling cakes to clients.
+                I would prefer to focus on teaching it."
+            </blockquote>
+            <cite>— Rochelle, Flour Girls Cakehouse</cite>
+        </div>
+
+        <div class="micro-cta"><a href="#tiers">See the masterclass options &rarr;</a></div>
+    </div>
+</section>
+
+<!-- ─── SECTION 3: CHOOSE YOUR MASTERCLASS ─── -->
+<section class="tiers" id="tiers">
+    <div class="container">
+        <h2>Choose Your Masterclass</h2>
+        <p class="tiers-sub">Three levels. Each one, just you and your instructor in the studio.</p>
+
+        <div class="tier-cards">
+            <div class="tier-card fade-in">
+                <div class="tier-name">Ganache Basics</div>
+                <div class="tier-price">£350</div>
+                <div class="tier-duration">~3 hours</div>
+                <div class="tier-learn">What you'll learn</div>
+                <ul class="tier-list">
+                    <li>Crumb coating technique</li>
+                    <li>Smooth ganache finish</li>
+                    <li>Colour matching and mixing</li>
+                    <li>Basic piping and decoration</li>
+                </ul>
+                <div class="tier-result">You'll make: one stunning 1-tier cake</div>
+                <div class="tier-perfect">Perfect for first-time ganache bakers</div>
+                <a href="#booking" class="btn btn-secondary" data-tier="basics">Book Basics</a>
+            </div>
+
+            <div class="tier-card popular fade-in">
+                <div class="tier-name">Advanced Ganache</div>
+                <div class="tier-price">£650</div>
+                <div class="tier-duration">~5 hours</div>
+                <div class="tier-learn">What you'll learn</div>
+                <ul class="tier-list">
+                    <li>Two-tier stacking and structure</li>
+                    <li>Sugar flower techniques</li>
+                    <li>Advanced piping patterns</li>
+                    <li>Structural support and dowelling</li>
+                </ul>
+                <div class="tier-result">You'll make: a 2-tier showpiece cake</div>
+                <div class="tier-perfect">Perfect for bakers ready to level up</div>
+                <a href="#booking" class="btn btn-primary" data-tier="advanced">Book Advanced</a>
+            </div>
+
+            <div class="tier-card fade-in">
+                <div class="tier-name">Wedding Cake Masterclass</div>
+                <div class="tier-price">£900</div>
+                <div class="tier-duration">~6–8 hours (full day)</div>
+                <div class="tier-learn">What you'll learn</div>
+                <ul class="tier-list">
+                    <li>3-tier construction from scratch</li>
+                    <li>Sugar flowers and lace work</li>
+                    <li>Ganache drip technique</li>
+                    <li>Professional finish and presentation</li>
+                </ul>
+                <div class="tier-result">You'll make: a full 3-tier wedding cake</div>
+                <div class="tier-perfect">Perfect for bakers wanting to take on wedding orders</div>
+                <a href="#booking" class="btn btn-secondary" data-tier="wedding">Book Wedding Masterclass</a>
+            </div>
+        </div>
+
+        <p class="scarcity">Sessions are private and limited — book early to secure your preferred date.</p>
+
+        <!-- Gift banner -->
+        <div class="gift-banner fade-in">
+            <div class="gift-banner-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+            <h3>Looking for the perfect gift?</h3>
+            <p>A private masterclass makes an unforgettable experience gift. Book for someone you love — we'll send a beautiful confirmation they can unwrap. Valid for 3 months.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ─── IMAGE GALLERY STRIP ─── -->
+<div class="gallery-strip">
+    <div class="gallery-strip-inner">
+        <div class="gallery-strip-item">
+            <img src="fg-images/teaching-closeup.jpg" alt="Rochelle teaching cake icing technique" loading="lazy">
+        </div>
+        <div class="gallery-strip-item">
+            <img src="fg-images/group-finished-cakes.jpg" alt="Workshop participants with their finished cakes" loading="lazy">
+        </div>
+        <div class="gallery-strip-item">
+            <img src="fg-images/studio-flowers-setup.jpg" alt="Flour Girls Cakehouse studio setup" loading="lazy">
+        </div>
+    </div>
+</div>
+
+<!-- ─── SECTION 4: WHAT'S INCLUDED ─── -->
+<section class="included textured" id="included">
+    <div class="container">
+        <h2>Everything's Taken Care Of</h2>
+
+        <div class="section-image fade-in">
+            <img src="fg-images/workshop-table-setup.jpg" alt="Workshop table with all equipment laid out — piping tips, scrapers, turntables, bowls" loading="lazy">
+        </div>
+
+        <div class="included-grid fade-in">
+            <div class="included-item">
+                <span class="included-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>All ingredients (ganache, buttercream, fondant, colours)</span>
+            </div>
+            <div class="included-item">
+                <span class="included-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>All equipment (piping tips, bags, scrapers, turntables)</span>
+            </div>
+            <div class="included-item">
+                <span class="included-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Practice piping sheets</span>
+            </div>
+            <div class="included-item">
+                <span class="included-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Protective gear (overalls, foot covers)</span>
+            </div>
+            <div class="included-item">
+                <span class="included-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Tea and coffee throughout</span>
+            </div>
+            <div class="included-item">
+                <span class="included-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Your finished cake to take home</span>
+            </div>
+            <div class="included-item">
+                <span class="included-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                <span>Photos of your work for your portfolio</span>
+            </div>
+        </div>
+
+        <p class="included-note">You bring yourself. We handle the rest.</p>
+
+        <div class="micro-cta"><a href="#booking">Ready to book? &rarr;</a></div>
+    </div>
+</section>
+
+<div class="section-divider"><span>~</span></div>
+
+<!-- ─── MEET ROCHELLE ─── -->
+<section class="teacher" id="teacher">
+    <div class="container">
+        <div class="teacher-inner fade-in">
+            <div class="teacher-avatar"><img src="fg-images/rochelle-with-cake.jpg" alt="Rochelle from Flour Girls Cakehouse" loading="lazy"></div>
+            <h2>Meet Rochelle</h2>
+            <div class="teacher-bio">
+                <p><strong>13+ years</strong> of baking and trained under Tabby of Tabby's Cakes — one of the UK's most respected ganache specialists.</p>
+                <p style="margin-top: 12px;">She founded Flour Girls Cakehouse because she'd rather <strong>teach than sell cakes</strong>.</p>
+                <p style="margin-top: 12px;">Her workshops at Hibiscus Studio have drawn bakers from across London and beyond — making even complete beginners feel confident with ganache.</p>
+            </div>
+            <div class="teacher-stats">
+                <div class="teacher-stat">
+                    <span class="teacher-stat-number">13+</span>
+                    <span class="teacher-stat-label">Years baking</span>
+                </div>
+                <div class="teacher-stat">
+                    <span class="teacher-stat-number">1-2-1</span>
+                    <span class="teacher-stat-label">Private tuition</span>
+                </div>
+                <div class="teacher-stat">
+                    <span class="teacher-stat-number">E16</span>
+                    <span class="teacher-stat-label">East London</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── SECTION 5: THE STUDIO ─── -->
+<section class="studio" id="studio">
+    <div class="container">
+        <h2>Where You'll Be</h2>
+
+        <div class="studio-card fade-in">
+            <div class="studio-visual">
+                <img src="fg-images/workshop-atmosphere.jpg" alt="Inside Hibiscus Studio during a workshop" loading="lazy">
+            </div>
+            <div class="studio-info">
+                <div class="studio-name">Hibiscus Studio</div>
+                <div class="studio-address">
+                    19a Peto Street North<br>
+                    London E16 1DP
+                </div>
+                <div class="studio-transport">
+                    <span class="studio-transport-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--chocolate-mid)" stroke-width="1.5"><rect x="4" y="3" width="16" height="14" rx="2"/><circle cx="8.5" cy="13.5" r="1.5"/><circle cx="15.5" cy="13.5" r="1.5"/><path d="M6 19l-2 2"/><path d="M18 19l2 2"/><line x1="8" y1="7" x2="16" y2="7"/></svg></span>
+                    <span>400m walk from Canning Town station</span>
+                </div>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=19a+Peto+Street+North+London+E16+1DP" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--rose); text-decoration: none; padding: 8px 0; border-top: 1px solid var(--border);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Open in Google Maps &rarr;
+                </a>
+                <div class="studio-hours">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--chocolate-light)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Monday – Friday, 10am–4pm
+                    </span>
+                    <span style="display: block; margin-top: 4px; padding-left: 24px;">Weekend sessions on request.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── SECTION 6: WHO THIS IS FOR ─── -->
+<section class="audience textured" id="audience">
+    <div class="container">
+        <h2>Is This For You?</h2>
+
+        <div class="audience-tabs">
+            <button class="audience-tab active" onclick="document.querySelectorAll('.audience-group').forEach(g=>g.classList.remove('active'));document.querySelectorAll('.audience-tab').forEach(t=>t.classList.remove('active'));document.getElementById('forYou').classList.add('active');this.classList.add('active');">I want to learn</button>
+            <button class="audience-tab" onclick="document.querySelectorAll('.audience-group').forEach(g=>g.classList.remove('active'));document.querySelectorAll('.audience-tab').forEach(t=>t.classList.remove('active'));document.getElementById('forGift').classList.add('active');this.classList.add('active');">I'm buying a gift</button>
+        </div>
+
+        <div class="audience-group active" id="forYou">
+            <ul class="audience-list fade-in">
+                <li>Home bakers who want to go pro</li>
+                <li>Cake decorators expanding into ganache</li>
+                <li>Aspiring wedding cake bakers</li>
+                <li>Anyone who's watched ganache tutorials and still can't get a smooth finish</li>
+                <li>Bakers from outside London who want a focused intensive (worth the trip)</li>
+            </ul>
+        </div>
+
+        <div class="audience-group" id="forGift">
+            <ul class="audience-list fade-in">
+                <li>Someone buying an experience gift for a baker they love</li>
+                <li>Gift-givers looking for something more personal than a voucher</li>
+                <li>A birthday, anniversary, or "just because" they deserve it</li>
+                <li>Valid for 3 months — they choose their own date</li>
+            </ul>
+        </div>
+
+        <p class="audience-closer">
+            If you've ever thought "I wish someone would just show me" — this is that.
+        </p>
+
+        <div class="micro-cta"><a href="#booking">Book your session &rarr;</a></div>
+    </div>
+</section>
+
+<div class="section-divider"><span>~</span></div>
+
+<!-- ─── SECTION 7: BOOK YOUR SESSION ─── -->
+<section class="booking" id="booking">
+    <div class="container">
+        <h2>Ready? Let's Get You Booked In</h2>
+        <p class="booking-sub">Pick your masterclass, choose a date, and we'll sort the rest.</p>
+
+        <div class="booking-form" id="bookingForm">
+            <!-- Step 1: Tier -->
+            <div class="form-step">
+                <span class="step-label">Step 1 — Choose your masterclass</span>
+                <div class="tier-radios">
+                    <label class="tier-radio" data-price="350">
+                        <input type="radio" name="tier" value="basics">
+                        <div class="tier-radio-info">
+                            <div class="tier-radio-name">Ganache Basics</div>
+                            <div class="tier-radio-detail">~3 hours</div>
+                        </div>
+                        <div class="tier-radio-price">£350</div>
+                    </label>
+                    <label class="tier-radio" data-price="650">
+                        <input type="radio" name="tier" value="advanced">
+                        <div class="tier-radio-info">
+                            <div class="tier-radio-name">Advanced Ganache</div>
+                            <div class="tier-radio-detail">~5 hours</div>
+                        </div>
+                        <div class="tier-radio-price">£650</div>
+                    </label>
+                    <label class="tier-radio" data-price="900">
+                        <input type="radio" name="tier" value="wedding">
+                        <div class="tier-radio-info">
+                            <div class="tier-radio-name">Wedding Cake Masterclass</div>
+                            <div class="tier-radio-detail">~6–8 hours (full day)</div>
+                        </div>
+                        <div class="tier-radio-price">£900</div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2: Preferred date -->
+            <div class="form-step">
+                <span class="step-label">Step 2 — When works for you?</span>
+                <div class="form-row">
+                    <label for="preferred-date">Preferred date</label>
+                    <input type="date" id="preferred-date" name="preferred-date" min="">
+                    <p class="date-note">Sessions run Monday–Friday, 10am start. We'll confirm availability within 24 hours.</p>
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Step 3: Details -->
+            <div class="form-step">
+                <span class="step-label">Step 3 — Your details</span>
+                <div class="form-row">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-row">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="07xxx xxxxxx" inputmode="tel" autocomplete="tel">
+                </div>
+                <div class="form-row">
+                    <label>Any dietary requirements?</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                        <label style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--chocolate-mid);"><input type="checkbox" name="dietary" value="none" style="display: none;" onchange="this.parentElement.style.borderColor=this.checked?'var(--rose)':''; this.parentElement.style.background=this.checked?'rgba(199,125,106,0.08)':'';">None</label>
+                        <label style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--chocolate-mid);"><input type="checkbox" name="dietary" value="vegetarian" style="display: none;" onchange="this.parentElement.style.borderColor=this.checked?'var(--rose)':''; this.parentElement.style.background=this.checked?'rgba(199,125,106,0.08)':'';">Vegetarian</label>
+                        <label style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--chocolate-mid);"><input type="checkbox" name="dietary" value="vegan" style="display: none;" onchange="this.parentElement.style.borderColor=this.checked?'var(--rose)':''; this.parentElement.style.background=this.checked?'rgba(199,125,106,0.08)':'';">Vegan</label>
+                        <label style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--chocolate-mid);"><input type="checkbox" name="dietary" value="gluten-free" style="display: none;" onchange="this.parentElement.style.borderColor=this.checked?'var(--rose)':''; this.parentElement.style.background=this.checked?'rgba(199,125,106,0.08)':'';">Gluten-free</label>
+                        <label style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--chocolate-mid);"><input type="checkbox" name="dietary" value="nut-allergy" style="display: none;" onchange="this.parentElement.style.borderColor=this.checked?'var(--rose)':''; this.parentElement.style.background=this.checked?'rgba(199,125,106,0.08)':'';">Nut allergy</label>
+                        <label style="display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--chocolate-mid);"><input type="checkbox" name="dietary" value="halal" style="display: none;" onchange="this.parentElement.style.borderColor=this.checked?'var(--rose)':''; this.parentElement.style.background=this.checked?'rgba(199,125,106,0.08)':'';">Halal</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="notes">Anything else Rochelle should know?</label>
+                    <textarea id="notes" name="notes" placeholder="Skill level, special occasion, anything that helps..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Summary -->
+            <div class="booking-summary" id="bookingSummary">
+                <div class="summary-row">
+                    <span class="summary-label">Masterclass</span>
+                    <span class="summary-value" id="summaryTier">—</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Date</span>
+                    <span class="summary-value" id="summaryDate">—</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Location</span>
+                    <span class="summary-value">Hibiscus Studio, E16</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span class="summary-label">Total</span>
+                    <span class="summary-value" id="summaryPrice">—</span>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="submitBooking">
+                Confirm My Booking
+            </button>
+
+            <p class="payment-note">
+                You'll receive an invoice within 24 hours.<br>
+                Payment by bank transfer secures your date.
+            </p>
+        </div>
+
+        <!-- Success message -->
+        <div class="booking-success" id="bookingSuccess">
+            <div class="success-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <h3>You're booked in!</h3>
+            <p>Check your email for your invoice and session details.<br>Rochelle's looking forward to it.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ─── SECTION 8: FAQ ─── -->
+<section class="faq" id="faq">
+    <div class="container">
+        <h2>Questions?</h2>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">
+                    Do I need any experience?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Not at all. The Basics session starts from zero. Rochelle adapts to your level — whether you've never touched ganache or you've been baking for years.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can I bring someone with me?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        These are 1-2-1 sessions — just you and Rochelle, so you get her full attention. If you'd like to learn together with a friend, ask about duo sessions.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What should I wear?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Whatever you're comfortable in. Overalls and foot covers are provided.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can I book on a weekend?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Weekend sessions are available on request. Weekdays (Mon–Fri) are standard.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can I book this as a gift?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Absolutely — it's one of our most popular gifts. Book the session, and we'll send a beautiful confirmation you can give to the lucky person. Valid for 3 months.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do I pay?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        You'll receive a professional invoice after booking. Payment is by bank transfer to secure your date. Full payment is due before your session.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What if I need to cancel?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Free cancellation with 7 days' notice. Cancellations within 7 days may forfeit the deposit. We understand things come up — just get in touch.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do I get there?
+                    <span class="faq-chevron">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Hibiscus Studio is at 19a Peto Street North, London E16 1DP. It's a 5-minute walk from Canning Town tube station.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── SECTION 9: FOOTER ─── -->
+<footer class="footer">
+    <div class="footer-brand">Flour Girls Cakehouse</div>
+    <div class="footer-links">
+        <a href="https://www.instagram.com/flourgirlscakehouse" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:hello@flourgirlscakehouse.com">Email</a>
+        <a href="#booking">Book a Session</a>
+    </div>
+    <p class="footer-note">Part of the Hibiscus Studio family</p>
+</footer>
+
+<script>
+(function() {
+    'use strict';
+
+    // ─── Set min date for date picker ───
+    const dateInput = document.getElementById('preferred-date');
+    if (dateInput) {
+        const today = new Date();
+        today.setDate(today.getDate() + 3); // At least 3 days ahead
+        dateInput.min = today.toISOString().split('T')[0];
+    }
+
+    // ─── Tier radio selection ───
+    const radios = document.querySelectorAll('.tier-radio');
+    const summary = document.getElementById('bookingSummary');
+    const summaryTier = document.getElementById('summaryTier');
+    const summaryPrice = document.getElementById('summaryPrice');
+
+    const tierNames = {
+        basics: 'Ganache Basics',
+        advanced: 'Advanced Ganache',
+        wedding: 'Wedding Cake Masterclass'
+    };
+
+    const tierPrices = {
+        basics: 350,
+        advanced: 650,
+        wedding: 900
+    };
+
+    radios.forEach(radio => {
+        radio.addEventListener('click', function() {
+            radios.forEach(r => r.classList.remove('selected'));
+            this.classList.add('selected');
+            const input = this.querySelector('input');
+            input.checked = true;
+            updateSummary();
+        });
+    });
+
+    // ─── Pre-select tier from card buttons ───
+    document.querySelectorAll('[data-tier]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const tier = this.dataset.tier;
+            const radio = document.querySelector(`input[value="${tier}"]`);
+            if (radio) {
+                radio.checked = true;
+                radios.forEach(r => r.classList.remove('selected'));
+                radio.closest('.tier-radio').classList.add('selected');
+                updateSummary();
+            }
+        });
+    });
+
+    // ─── Date change ───
+    if (dateInput) {
+        dateInput.addEventListener('change', updateSummary);
+    }
+
+    function updateSummary() {
+        const selected = document.querySelector('input[name="tier"]:checked');
+        if (!selected) return;
+
+        const tier = selected.value;
+        summaryTier.textContent = tierNames[tier];
+        summaryPrice.textContent = '£' + tierPrices[tier];
+
+        const date = dateInput?.value;
+        const summaryDate = document.getElementById('summaryDate');
+        if (date) {
+            const d = new Date(date + 'T00:00:00');
+            summaryDate.textContent = d.toLocaleDateString('en-GB', {
+                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+            });
+        }
+
+        summary.classList.add('visible');
+    }
+
+    // ─── Form submission ───
+    const submitBtn = document.getElementById('submitBooking');
+    const form = document.getElementById('bookingForm');
+    const success = document.getElementById('bookingSuccess');
+
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function() {
+            const selected = document.querySelector('input[name="tier"]:checked');
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!selected) {
+                alert('Please choose a masterclass.');
+                return;
+            }
+            if (!name || !email) {
+                alert('Please fill in your name and email.');
+                return;
+            }
+
+            // In production: POST to CF Worker API
+            // For now: show success
+            form.style.display = 'none';
+            success.classList.add('visible');
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    }
+
+    // ─── FAQ accordion ───
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const item = this.parentElement;
+            const answer = item.querySelector('.faq-answer');
+            const isOpen = item.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                openItem.classList.remove('open');
+                openItem.querySelector('.faq-answer').style.maxHeight = '0';
+            });
+
+            if (!isOpen) {
+                item.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // ─── Fade-in on scroll ───
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+})();
+</script>
+</body>
+</html>
