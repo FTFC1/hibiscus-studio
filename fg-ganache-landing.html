@@ -167,17 +167,24 @@
 
         .hero-brand {
             font-family: var(--font-display);
-            font-size: 1.4rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--rose);
-            margin-bottom: 24px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: 0.06em;
+            color: var(--chocolate);
+            margin-bottom: 8px;
             font-weight: 500;
+            font-style: italic;
             position: relative;
             display: inline-block;
             padding: 0 24px;
-            position: relative;
             z-index: 1;
+        }
+        .hero-brand-tagline {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--rose);
+            margin-bottom: 24px;
         }
 
         .hero h1 {
@@ -1369,6 +1376,7 @@
     <div class="hero-brand-bar">
         <span class="flourish">~ ~ ~</span>
         <div class="hero-brand">Flour Girls Cakehouse</div>
+        <div class="hero-brand-tagline">Private Masterclasses &middot; East London</div>
     </div>
     <div class="hero-image"></div>
     <div class="hero-text">
