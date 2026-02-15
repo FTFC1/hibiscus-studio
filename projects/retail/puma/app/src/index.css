@@ -1,0 +1,59 @@
+:root {
+  --bg-body: #17262B;
+  --bg-card-primary: #FFFFFF;
+  --bg-card-secondary: #E8EB5C;
+  --bg-card-tertiary: #4A89D8;
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-glass-stroke: rgba(255, 255, 255, 0.1);
+
+  --text-on-dark: #FFFFFF;
+  --text-on-dark-sub: #8E9BA0;
+  --text-on-light: #17262B;
+  --text-on-light-sub: #6B787C;
+
+  --accent-lime: #DCEE56;
+
+  --radius-lg: 28px;
+  --radius-md: 16px;
+  --radius-sm: 8px;
+  --radius-pill: 100px;
+
+  --space-page: 20px;
+  --space-gap: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-on-dark);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 110px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 2: Kill "Can I Help You?"</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            background: #e5dcd3;
+        }
+
+        /* Header badges row */
+        .badge-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .badge-dark {
+            background: #1a1a1a;
+            color: #e5dcd3;
+        }
+        .badge-outline {
+            background: transparent;
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.15;
+        }
+
+        /* Learning outcome card */
+        .learning-card {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+        }
+        .learning-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .learning-card-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        p {
+            margin-bottom: 16px;
+        }
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: 600;
+        }
+
+        /* Quote styling */
+        blockquote {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            color: #1a1a1a;
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+        }
+        blockquote::before {
+            content: '"';
+            font-size: 48px;
+            font-family: Georgia, serif;
+            color: #cfc5ba;
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            line-height: 1;
+        }
+        blockquote p {
+            margin: 0;
+            padding-left: 24px;
+        }
+        .quote-source {
+            font-size: 13px;
+            font-style: normal;
+            color: #666;
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        /* Cost calculation card */
+        .cost-card {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin: 32px 0;
+        }
+        .cost-card-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+        }
+        .cost-row:last-of-type {
+            border-bottom: none;
+            padding-top: 16px;
+            margin-top: 8px;
+            border-top: 2px solid #444;
+        }
+        .cost-label {
+            font-size: 14px;
+            color: #aaa;
+        }
+        .cost-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .cost-value-big {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e5dcd3;
+        }
+        .cost-note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        .divider {
+            height: 2px;
+            background: #cfc5ba;
+            margin: 40px 0;
+        }
+
+        /* Opening cards - 5 methods */
+        .opening-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 20px 0;
+        }
+        .opening-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+        .opening-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .opening-phrase {
+            font-size: 19px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .opening-why {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            padding-left: 0;
+        }
+        .opening-example {
+            background: #f5f2ef;
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-size: 14px;
+        }
+        .opening-example-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .dialogue-line {
+            margin: 6px 0;
+            line-height: 1.5;
+        }
+        .dialogue-you {
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+        .dialogue-customer {
+            color: #555;
+        }
+
+        /* Do/Don't lists */
+        .do-dont-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .do-item, .dont-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+        .dont-item {
+            background: #f5e6e0;
+        }
+        .do-item {
+            background: #e0ebe6;
+        }
+        .do-icon, .dont-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .do-text, .dont-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Speech bubble */
+        .speech-bubble {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            position: relative;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 32px;
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 14px solid #fff;
+        }
+        .speech-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        /* Why This Works - highlighted cards */
+        .insight-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .insight-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .insight-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .insight-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Quick reference box */
+        .quick-ref {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin: 36px 0;
+        }
+        .quick-ref-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .quick-ref ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .quick-ref li {
+            color: #d9cfc5;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            font-size: 15px;
+        }
+        .quick-ref li:last-child {
+            border-bottom: none;
+        }
+        .quick-ref strong {
+            color: #fff;
+        }
+
+        /* Today's Action card */
+        .action-card {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d28 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .action-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        .action-card-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .action-card-metric {
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 16px;
+        }
+        .action-card-metric-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 4px;
+        }
+        .action-card-metric-value {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        /* Telegram CTA */
+        .telegram-cta {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 24px 28px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .telegram-cta-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .telegram-cta-action {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 2px solid #cfc5ba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+        .page-footer .brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name {
+            color: #8b6914;
+        }
+
+        /* Scene card - The Problem */
+        .scene-card {
+            background: #2a2a2a;
+            color: #e5dcd3;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin: 24px 0;
+        }
+        .scene-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .scene-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .scene-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+        }
+        .scene-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+        .scene-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #d9cfc5;
+        }
+        .scene-text strong {
+            color: #fff;
+        }
+        .scene-arrow {
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: #555;
+            font-size: 18px;
+        }
+        .scene-result {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .scene-result-icon {
+            font-size: 28px;
+        }
+        .scene-result-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Consequence cards */
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .consequence-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 18px;
+            text-align: center;
+        }
+        .consequence-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .consequence-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .consequence-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Tip box */
+        .tip-box {
+            background: #fff8e6;
+            border-left: 4px solid #d4a017;
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            margin: 28px 0;
+        }
+        .tip-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #9a7b0a;
+            margin-bottom: 8px;
+        }
+        .tip-text {
+            font-size: 15px;
+            color: #5a4a0a;
+            line-height: 1.5;
+        }
+
+        /* Print styles */
+        @media print {
+            @page {
+                margin: 2cm 1.5cm;
+                size: A4;
+            }
+            body {
+                padding: 0;
+                font-size: 11pt;
+                background: white;
+                max-width: 100%;
+            }
+            .badge, .learning-card, blockquote, .cost-card, .do-item, .dont-item, .opening-card, .insight-card, .speech-bubble, .quick-ref, .action-card, .telegram-cta, .scene-card, .consequence-card, .tip-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+            h1 { font-size: 22pt; }
+            h2 {
+                font-size: 14pt;
+                page-break-after: avoid;
+            }
+            h3 {
+                page-break-after: avoid;
+            }
+            .divider {
+                page-break-after: avoid;
+            }
+            .consequence-grid {
+                page-break-inside: avoid;
+            }
+            .page-break-before {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="badge-row">
+    <span class="badge badge-dark">Module 1 · Mission 2 of 6</span>
+    <span class="badge badge-outline">⏱️ 6-8 min</span>
+</div>
+
+<h1>Kill "Can I Help You?"</h1>
+
+<div class="learning-card">
+    <div class="learning-card-label">What You'll Learn</div>
+    <div class="learning-card-text">The exact opening lines that invite conversation — instead of getting shut down with "just looking."</div>
+</div>
+
+<h2>⚠️ The Problem</h2>
+
+<div class="scene-card">
+    <div class="scene-title">What's Actually Happening</div>
+    <div class="scene-flow">
+        <div class="scene-step">
+            <span class="scene-icon">✅</span>
+            <span class="scene-text">You nailed the 5-30-60 Rule. You acknowledged them. You approached.</span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">🗣️</span>
+            <span class="scene-text">Then you say: <strong>"Can I help you?"</strong></span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">🙅</span>
+            <span class="scene-text">They say: <strong>"No thanks, just looking."</strong></span>
+        </div>
+        <div class="scene-result">
+            <span class="scene-result-icon">🚪</span>
+            <span class="scene-result-text">Now what? You walk away. They browse alone. They leave.</span>
+        </div>
+    </div>
+</div>
+
+<p>This happens <strong>hundreds of times per week</strong> to retail staff. And most don't realize: it's not your fault — it's the question.</p>
+
+<div class="divider"></div>
+
+<h2>💰 Why This Costs You Sales</h2>
+
+<p><strong>"Can I help you?"</strong> is a closed question — customers shut it down with one word: "No."</p>
+
+<p>But here's the deeper issue. When you ask this, you're asking them to do one of these things — and none of them feel good:</p>
+
+<div class="do-dont-grid">
+    <div class="dont-item">
+        <span class="dont-icon">😬</span>
+        <span class="dont-text"><strong>Admit weakness</strong> — "I need help" feels vulnerable. Most people don't want to say it.</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">😰</span>
+        <span class="dont-text"><strong>Commit to a stranger</strong> — They don't know you yet. Committing feels like pressure.</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">⏱️</span>
+        <span class="dont-text"><strong>Decide in 0.5 seconds</strong> — Too fast. Saying "no" is easier than thinking it through.</span>
+    </div>
+</div>
+
+<h3>What Happens After "Just Looking"</h3>
+
+<div class="consequence-grid">
+    <div class="consequence-card">
+        <div class="consequence-number">1</div>
+        <div class="consequence-title">They Built a Wall</div>
+        <div class="consequence-desc">They said no. Now asking for help later feels awkward.</div>
+    </div>
+    <div class="consequence-card">
+        <div class="consequence-number">2</div>
+        <div class="consequence-title">You Feel Rejected</div>
+        <div class="consequence-desc">Do that 20x a day, and you start avoiding customers entirely.</div>
+    </div>
+    <div class="consequence-card">
+        <div class="consequence-number">3</div>
+        <div class="consequence-title">Sale Dies</div>
+        <div class="consequence-desc">30 seconds of interaction. They leave. You never connected.</div>
+    </div>
+</div>
+
+<blockquote>
+    <p>There's a lack of structure in the way a lot of our staff go about making their sales. It's quite detrimental... it leads to a lot of lost sales.</p>
+    <div class="quote-source">— Manager, Major Sportswear Store</div>
+</blockquote>
+
+<div class="cost-card">
+    <div class="cost-card-title">💸 Real Cost Calculation</div>
+    <div class="cost-row">
+        <span class="cost-label">Sales killed by "Can I help you?" per week</span>
+        <span class="cost-value">5 sales</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Average basket value</span>
+        <span class="cost-value">₦25,000</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Lost revenue per week</span>
+        <span class="cost-value">₦125,000</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Lost revenue per year</span>
+        <span class="cost-value-big">₦6.5M</span>
+    </div>
+    <div class="cost-note">Just from using the wrong opening question.</div>
+</div>
+
+<div class="divider"></div>
+
+<h2 class="page-break-before">✅ The Method: 5 Warm Openings</h2>
+
+<p>These are the lines that actually work. They're open-ended, conversational, and impossible to shut down with "no."</p>
+
+<div class="opening-card">
+    <div class="opening-label"><span class="opening-number">1</span> The Occasion Question</div>
+    <div class="opening-phrase">"What brings you in today?"</div>
+    <div class="opening-why">Open-ended. Invites them to explain their need. Feels conversational, not salesy.</div>
+    <div class="opening-example">
+        <div class="opening-example-label">Example Dialogue</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Hey! What brings you in today?"</div>
+        <div class="dialogue-line"><span class="dialogue-customer">Customer:</span> "Just looking for running shoes."</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Nice — what kind of running do you do?"</div>
+    </div>
+</div>
+
+<div class="opening-card">
+    <div class="opening-label"><span class="opening-number">2</span> The Choice Frame</div>
+    <div class="opening-phrase">"Are you looking for something specific, or just seeing what's new?"</div>
+    <div class="opening-why">Gives them two options — both involve engagement. There's no "no" option.</div>
+    <div class="opening-example">
+        <div class="opening-example-label">Example Dialogue</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Looking for something specific, or just seeing what's new?"</div>
+        <div class="dialogue-line"><span class="dialogue-customer">Customer:</span> "Just seeing what you have."</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Cool — we just got new arrivals this week. What style do you usually go for?"</div>
+    </div>
+</div>
+
+<div class="opening-card">
+    <div class="opening-label"><span class="opening-number">3</span> The Product Hook</div>
+    <div class="opening-phrase">"That [item] is one of our most popular — [feature] is what people love. Would you like to try?"</div>
+    <div class="opening-why">You're giving useful info + inviting action. Not asking if they need help.</div>
+    <div class="opening-example">
+        <div class="opening-example-label">Example Dialogue</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "That Suede Classic is one of our best sellers — super versatile, goes with everything. What size are you?"</div>
+        <div class="dialogue-line"><span class="dialogue-customer">Customer:</span> "10."</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Let me grab you a 10 to try."</div>
+    </div>
+</div>
+
+<div class="opening-card">
+    <div class="opening-label"><span class="opening-number">4</span> The Self/Gift Question</div>
+    <div class="opening-phrase">"Are you shopping for yourself or looking for a gift?"</div>
+    <div class="opening-why">Everyone is doing one or the other. Forces them to engage.</div>
+    <div class="opening-example">
+        <div class="opening-example-label">Example Dialogue</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Are you shopping for yourself or a gift?"</div>
+        <div class="dialogue-line"><span class="dialogue-customer">Customer:</span> "Gift for my brother."</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Nice! What's the occasion — birthday?"</div>
+    </div>
+</div>
+
+<div class="opening-card">
+    <div class="opening-label"><span class="opening-number">5</span> The Compliment Bridge</div>
+    <div class="opening-phrase">"I love those [shoes/jacket] — are you looking for something similar or something different?"</div>
+    <div class="opening-why">Compliments build instant rapport. Then you're giving them a choice, not yes/no.</div>
+    <div class="opening-example">
+        <div class="opening-example-label">Example Dialogue</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "Those RS-Xs are clean — looking for more sneakers or something different today?"</div>
+        <div class="dialogue-line"><span class="dialogue-customer">Customer:</span> "More sneakers, yeah."</div>
+        <div class="dialogue-line"><span class="dialogue-you">You:</span> "What's your style — classic or the new stuff?"</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>🚧 What If They Still Say "Just Looking"?</h2>
+
+<p>Even with warm openings, sometimes people say "just browsing." Here's your response:</p>
+
+<div class="speech-bubble">
+    "No problem at all — I'll be right over here. My name's [X]. Come grab me if you need anything or have questions."
+</div>
+
+<div class="speech-label">Then:</div>
+
+<div class="do-dont-grid">
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>Stay visible</strong> — Don't disappear to the back room or your phone</span>
+    </div>
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>Check back in 3-4 min:</strong> "How are you doing? Found anything interesting?"</span>
+    </div>
+</div>
+
+<p>The second approach almost always goes better. They've had time to browse, they're more comfortable, and now they might actually need help.</p>
+
+<div class="divider"></div>
+
+<h2>🧠 Why This Works</h2>
+
+<div class="learning-card" style="margin-bottom: 20px;">
+    <div class="learning-card-text"><strong>Customers aren't saying "just looking" because they don't want help.</strong> They're saying it because:</div>
+</div>
+
+<div class="insight-grid">
+    <div class="insight-card">
+        <span class="insight-icon">❓</span>
+        <span class="insight-text">You're asking the <strong>wrong question</strong> (closed, not open)</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">😤</span>
+        <span class="insight-text">They feel <strong>pressured</strong> by yes/no questions</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">🤷</span>
+        <span class="insight-text">They don't <strong>trust you yet</strong> (you're still a stranger)</span>
+    </div>
+</div>
+
+<p>Warm openings bypass all of that. You're not asking for permission to help. You're starting a <strong>conversation</strong> about what they need.</p>
+
+<p>That's what changes everything.</p>
+
+<div class="divider"></div>
+
+<div class="quick-ref">
+    <div class="quick-ref-title">📋 The 5 Warm Openings</div>
+    <ol>
+        <li><strong>"What brings you in today?"</strong></li>
+        <li><strong>"Are you looking for something specific, or just seeing what's new?"</strong></li>
+        <li><strong>"That [item] is one of our most popular — [feature] is what people love. Would you like to try?"</strong></li>
+        <li><strong>"Are you shopping for yourself or a gift?"</strong></li>
+        <li><strong>"I love those [item they're wearing] — looking for something similar or different?"</strong></li>
+    </ol>
+</div>
+
+<div class="action-card">
+    <div class="action-card-label">🎯 Today's Action</div>
+    <div class="action-card-text">Pick ONE opening to use all day.<br>My recommendation: "What brings you in today?"<br>It's simple. It's natural. It works.</div>
+    <div class="action-card-metric">
+        <div class="action-card-metric-label">Track This Number</div>
+        <div class="action-card-metric-value">How many customers did you engage with today using your chosen opening?</div>
+    </div>
+</div>
+
+<div class="tip-box">
+    <div class="tip-label">💡 Quick Tip</div>
+    <div class="tip-text">If a customer gives you a one-word answer and turns away, they want space. Don't push. Say "Cool, I'll be right over here if you need me" and give them 5 minutes. Then check back.</div>
+</div>
+
+<div class="telegram-cta">
+    <div class="telegram-cta-text"><strong>📱 End of Day: Share Your Win</strong></div>
+    <div class="telegram-cta-action">What opening did you use? How many people did you engage with using the opening? Post in the group chat.</div>
+</div>
+
+<div class="page-footer">
+    <div class="brand"><span class="brand-name">FORJE</span> Retail Training</div>
+    <div class="next">➡️ Next: Mission 3 — The 70/30 Rule</div>
+</div>
+
+</body>
+</html>

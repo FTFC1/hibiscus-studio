@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 1: The 5-30-60 Rule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            background: #e5dcd3;
+        }
+
+        /* Header badges row */
+        .badge-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .badge-dark {
+            background: #1a1a1a;
+            color: #e5dcd3;
+        }
+        .badge-outline {
+            background: transparent;
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.15;
+        }
+
+        /* Learning outcome card */
+        .learning-card {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+        }
+        .learning-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .learning-card-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        p {
+            margin-bottom: 16px;
+        }
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: 600;
+        }
+
+        /* Quote styling */
+        blockquote {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            color: #1a1a1a;
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+        }
+        blockquote::before {
+            content: '"';
+            font-size: 48px;
+            font-family: Georgia, serif;
+            color: #cfc5ba;
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            line-height: 1;
+        }
+        blockquote p {
+            margin: 0;
+            padding-left: 24px;
+        }
+        .quote-source {
+            font-size: 13px;
+            font-style: normal;
+            color: #666;
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        /* Cost calculation card */
+        .cost-card {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin: 32px 0;
+        }
+        .cost-card-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+        }
+        .cost-row:last-of-type {
+            border-bottom: none;
+            padding-top: 16px;
+            margin-top: 8px;
+            border-top: 2px solid #444;
+        }
+        .cost-label {
+            font-size: 14px;
+            color: #aaa;
+        }
+        .cost-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .cost-value-big {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e5dcd3;
+        }
+        .cost-note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        .divider {
+            height: 2px;
+            background: #cfc5ba;
+            margin: 40px 0;
+        }
+
+        /* 3-Step Method Cards */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 28px 0;
+        }
+        .step-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+        .step-number {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        .step-time {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .step-time span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .step-action {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Step details */
+        .step-detail {
+            background: #ddd4ca;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+        }
+        .step-detail-header {
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .step-detail ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .step-detail li {
+            margin-bottom: 4px;
+        }
+        .step-detail p {
+            margin: 10px 0 0 0;
+            font-size: 15px;
+            color: #555;
+        }
+
+        /* Do/Don't lists */
+        .do-dont-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .do-item, .dont-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+        .dont-item {
+            background: #f5e6e0;
+        }
+        .do-item {
+            background: #e0ebe6;
+        }
+        .do-icon, .dont-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .do-text, .dont-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Speech bubble */
+        .speech-bubble {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            position: relative;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 32px;
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 14px solid #fff;
+        }
+        .speech-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        /* Why This Works - highlighted cards */
+        .insight-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .insight-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .insight-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .insight-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Quick reference box */
+        .quick-ref {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin: 36px 0;
+        }
+        .quick-ref-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .quick-ref ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .quick-ref li {
+            color: #d9cfc5;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            font-size: 15px;
+        }
+        .quick-ref li:last-child {
+            border-bottom: none;
+        }
+        .quick-ref strong {
+            color: #fff;
+        }
+
+        /* Today's Action card */
+        .action-card {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d28 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .action-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        .action-card-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .action-card-metric {
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 16px;
+        }
+        .action-card-metric-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 4px;
+        }
+        .action-card-metric-value {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        /* Telegram CTA */
+        .telegram-cta {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 24px 28px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .telegram-cta-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .telegram-cta-action {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 2px solid #cfc5ba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+        .page-footer .brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name {
+            color: #8b6914;
+        }
+
+        /* Scene card - The Problem */
+        .scene-card {
+            background: #2a2a2a;
+            color: #e5dcd3;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin: 24px 0;
+        }
+        .scene-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .scene-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .scene-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+        }
+        .scene-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+        .scene-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #d9cfc5;
+        }
+        .scene-text strong {
+            color: #fff;
+        }
+        .scene-arrow {
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: #555;
+            font-size: 18px;
+        }
+        .scene-result {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .scene-result-icon {
+            font-size: 28px;
+        }
+        .scene-result-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Consequence cards - Three Things Happen */
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .consequence-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 18px;
+            text-align: center;
+        }
+        .consequence-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .consequence-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .consequence-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Print styles */
+        @media print {
+            @page {
+                margin: 2cm 1.5cm;
+                size: A4;
+            }
+            body {
+                padding: 0;
+                font-size: 11pt;
+                background: white;
+                max-width: 100%;
+            }
+            .badge, .learning-card, blockquote, .cost-card, .do-item, .dont-item, .step-card, .step-detail, .insight-card, .speech-bubble, .quick-ref, .action-card, .telegram-cta, .scene-card, .consequence-card {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+            h1 { font-size: 22pt; }
+            h2 {
+                font-size: 14pt;
+                page-break-after: avoid;
+            }
+            h3 {
+                page-break-after: avoid;
+            }
+            .divider {
+                page-break-after: avoid;
+            }
+            .steps-grid, .consequence-grid {
+                page-break-inside: avoid;
+            }
+            /* Force page breaks at key sections */
+            .page-break-before {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="badge-row">
+    <span class="badge badge-dark">Module 1 · Mission 1 of 6</span>
+    <span class="badge badge-outline">⏱️ 5-7 min</span>
+</div>
+
+<h1>The 5-30-60 Rule</h1>
+
+<div class="learning-card">
+    <div class="learning-card-label">What You'll Learn</div>
+    <div class="learning-card-text">How to acknowledge and approach customers in a way that feels welcoming, not aggressive — so they actually want to talk to you.</div>
+</div>
+
+<h2>⚠️ The Problem</h2>
+
+<div class="scene-card">
+    <div class="scene-title">What's Actually Happening</div>
+    <div class="scene-flow">
+        <div class="scene-step">
+            <span class="scene-icon">🚶</span>
+            <span class="scene-text"><strong>Customer walks in</strong></span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">📦</span>
+            <span class="scene-text">You're busy restocking... or chatting... or checking your phone</span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">⏱️</span>
+            <span class="scene-text">3-4 minutes pass. They browse alone. Pick things up. Put them back.</span>
+        </div>
+        <div class="scene-result">
+            <span class="scene-result-icon">👋</span>
+            <span class="scene-result-text">They leave. You never even spoke to them.</span>
+        </div>
+    </div>
+</div>
+
+<p>This happens <strong>all day, every day</strong> in retail stores. And it's killing your sales before they even start.</p>
+
+<div class="divider"></div>
+
+<h2>💰 Why This Costs You Sales</h2>
+
+<blockquote>
+    <p>A lot of times we have staff on the shop floor that's actually not serving customers. They're physically present, but not engaging.</p>
+    <div class="quote-source">— Manager, Major Sportswear Store</div>
+</blockquote>
+
+<p>When customers browse alone for too long, three things happen:</p>
+
+<div class="consequence-grid">
+    <div class="consequence-card">
+        <div class="consequence-number">1</div>
+        <div class="consequence-title">They Decide Alone</div>
+        <div class="consequence-desc">No one to answer questions or show alternatives. Most people guess "no."</div>
+    </div>
+    <div class="consequence-card">
+        <div class="consequence-number">2</div>
+        <div class="consequence-title">They Feel Ignored</div>
+        <div class="consequence-desc">Your store feels like staff's break room. Why come back?</div>
+    </div>
+    <div class="consequence-card">
+        <div class="consequence-number">3</div>
+        <div class="consequence-title">You Lose The Sale</div>
+        <div class="consequence-desc">3-5 min window to engage. Miss it, and they sell themselves out.</div>
+    </div>
+</div>
+
+<div class="cost-card">
+    <div class="cost-card-title">💸 Real Cost Calculation</div>
+    <div class="cost-row">
+        <span class="cost-label">Lost sales per day</span>
+        <span class="cost-value">2 sales</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Lost sales per week (×6 days)</span>
+        <span class="cost-value">12 sales</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Average basket value</span>
+        <span class="cost-value">₦25,000</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Lost revenue per week</span>
+        <span class="cost-value">₦300,000</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Lost revenue per year</span>
+        <span class="cost-value-big">₦15.6M</span>
+    </div>
+    <div class="cost-note">Just from customers who weren't greeted properly.</div>
+</div>
+
+<div class="divider"></div>
+
+<h2 class="page-break-before">✅ The Method: 5-30-60</h2>
+
+<p>This is your new standard for every customer who walks through the door:</p>
+
+<div class="steps-grid">
+    <div class="step-card">
+        <div class="step-number">Step 1</div>
+        <div class="step-time">5<span>sec</span></div>
+        <div class="step-action">Acknowledge</div>
+    </div>
+    <div class="step-card">
+        <div class="step-number">Step 2</div>
+        <div class="step-time">30<span>sec</span></div>
+        <div class="step-action">Approach</div>
+    </div>
+    <div class="step-card">
+        <div class="step-number">Step 3</div>
+        <div class="step-time">60<span>sec</span></div>
+        <div class="step-action">Engage</div>
+    </div>
+</div>
+
+<div class="step-detail">
+    <div class="step-detail-header">⚡ 5 Seconds: Acknowledge</div>
+    <ul>
+        <li>Make eye contact</li>
+        <li>Smile</li>
+        <li>Nod slightly</li>
+    </ul>
+    <p>That's it. Don't rush over yet. Just show them: <em>"I see you. You're welcome here."</em></p>
+</div>
+
+<div class="step-detail">
+    <div class="step-detail-header">👋 30 Seconds: Approach (if browsing)</div>
+    <ul>
+        <li>If they're looking around, touching products → approach now</li>
+        <li>If they're walking with purpose to a specific spot → give them 10 more seconds</li>
+    </ul>
+</div>
+
+<div class="step-detail">
+    <div class="step-detail-header">🎯 60 Seconds: Engage (no matter what)</div>
+    <ul>
+        <li>Everyone gets engaged within 60 seconds</li>
+        <li>No customer should browse alone for more than a minute</li>
+    </ul>
+</div>
+
+<div class="divider"></div>
+
+<h2>💬 What To Say</h2>
+
+<h3>What Doesn't Work</h3>
+<div class="do-dont-grid">
+    <div class="dont-item">
+        <span class="dont-icon">✗</span>
+        <span class="dont-text"><strong>"Can I help you?"</strong> — Gets "No, just looking" 90% of the time</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">✗</span>
+        <span class="dont-text"><strong>Standing silently next to them</strong> — Feels creepy, not helpful</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">✗</span>
+        <span class="dont-text"><strong>Aggressive immediate approach</strong> — Makes them feel hunted</span>
+    </div>
+</div>
+
+<h3>What Does Work</h3>
+<div class="do-dont-grid">
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>The Warm Welcome:</strong> "Hey! Welcome. I'm [Your Name]. What brings you in today?"</span>
+    </div>
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>The Compliment Bridge:</strong> "I love those shoes you're wearing—are you looking for something similar or something different?"</span>
+    </div>
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>The Occasion Opener:</strong> "Are you shopping for yourself or looking for a gift?"</span>
+    </div>
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>The Product Hook:</strong> "That's one of our most popular items—the [specific feature] is what people love about it. Trying it on?"</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>🚧 What If They Say "Just Looking"?</h2>
+
+<p>Don't disappear. Say this:</p>
+
+<div class="speech-bubble">
+    "No problem at all—I'll be right over here. My name's [X]. Come find me when you're ready or if you have any questions."
+</div>
+
+<div class="speech-label">Then:</div>
+<p><strong>Stay visible.</strong> Don't vanish to the back room or your phone.</p>
+<p>Check back in 3-4 minutes: <em>"How are you doing? Found anything you like?"</em></p>
+
+<div class="divider"></div>
+
+<h2>🧠 Why This Works</h2>
+
+<p>Customers aren't avoiding you because they're rude. They're avoiding you because:</p>
+
+<div class="insight-grid">
+    <div class="insight-card">
+        <span class="insight-icon">😰</span>
+        <span class="insight-text">They don't want to feel <strong>pressured</strong> into buying something</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">🙈</span>
+        <span class="insight-text">They don't want to <strong>waste your time</strong> if they're "just browsing"</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">😤</span>
+        <span class="insight-text">They've had <strong>bad experiences</strong> with pushy salespeople before</span>
+    </div>
+</div>
+
+<p>The 5-30-60 Rule respects their space while showing you're <strong>available, not aggressive.</strong></p>
+
+<p>It signals: <em>"I'm here to help when you're ready, not to force you to buy."</em></p>
+
+<div class="divider"></div>
+
+<div class="quick-ref">
+    <div class="quick-ref-title">📋 Quick Reference</div>
+    <ul>
+        <li><strong>5 seconds:</strong> Eye contact + smile + nod (acknowledge)</li>
+        <li><strong>30 seconds:</strong> Approach if they're browsing openly</li>
+        <li><strong>60 seconds:</strong> Approach no matter what</li>
+        <li><strong>If "just looking":</strong> Give name, stay visible, check back in 3-4 min</li>
+    </ul>
+</div>
+
+<div class="action-card">
+    <div class="action-card-label">🎯 Today's Action</div>
+    <div class="action-card-text">Acknowledge every customer within 5 seconds.<br>Approach within 60 seconds.<br>Kill "Can I help you?" from your vocabulary.</div>
+    <div class="action-card-metric">
+        <div class="action-card-metric-label">Track This Number</div>
+        <div class="action-card-metric-value">How many customers did you acknowledge within 30 seconds?</div>
+    </div>
+</div>
+
+<div class="telegram-cta">
+    <div class="telegram-cta-text"><strong>📱 End of Day: Share Your Win</strong></div>
+    <div class="telegram-cta-action">Post your count in the group chat. Tomorrow, beat that number.</div>
+</div>
+
+<div class="page-footer">
+    <div class="brand"><span class="brand-name">FORJE</span> Retail Training</div>
+    <div class="next">➡️ Next: Mission 2 — Kill "Can I Help You?"</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                    HIBISCUS STUDIO BOOKING SYSTEM                        ║
+║                         Documentation HUD                                ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ HORIZONTAL FLOW — Event-Type-First Funnel                              │
+└─────────────────────────────────────────────────────────────────────────┘
+
+     EVENT TYPE          GUESTS           DATE           RECOMMENDATION
+  ┌──────────────┐   ┌──────────┐   ┌──────────┐   ┌──────────────────┐
+  │ bridal shower│──▶│   25     │──▶│ feb 15   │──▶│ ★ HALF-DAY 6hrs  │──▶ ACUITY
+  │ baby shower  │   │ (slider) │   │ flexible?│   │   £465           │
+  │ birthday     │   └──────────┘   └──────────┘   │   8/12 chose this│
+  │ corporate    │                                  │                  │
+  │ workshop     │                                  │ ○ 4hrs — £345    │
+  │ other        │                                  │ ○ full day — £885│
+  └──────────────┘                                  └──────────────────┘
+   [← Back]         [← Back]         [← Back]         [← Back]  [Book →]
+
+analytics          analytics          analytics          analytics
+ event-type         funnel-step        date-selected      book-clicked
+ selected           (step 2)           (guest+type)       (was_recommended)
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ HORIZONTAL FLOW — Category-First (Main Site)                           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+     HERO                 CATEGORIES           PACKAGES            MODAL
+  ┌──────────┐       ┌────────────────┐   ┌──────────────┐   ┌──────────┐
+  │ "40 seats│       │ ◇ Studio View  │──▶│ FREE viewing │──▶│ ACUITY   │
+  │  tables  │──────▶│ ◇ Event Hire   │   │ 20min slot   │   │ iframe   │
+  │  kitchen"│ [CTA] │ ◇ Workshops    │   ├──────────────┤   │ (spinner)│
+  │          │       │ ◇ Proposal Pkg │   │ 4hrs — £345  │   │          │
+  └──────────┘       └────────────────┘   │ 6hrs — £465  │   └──────────┘
+                                           │ 8hrs — £645  │
+                                           │ full — £885  │
+                                           └──────────────┘
+                     analytics              analytics        analytics
+                     selected-category      N/A              clicked-book-now
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ HORIZONTAL FLOW — Proposal Packages (Tally Form)                       │
+└─────────────────────────────────────────────────────────────────────────┘
+
+     LANDING              TALLY FORM                EMAIL
+  ┌──────────┐       ┌────────────────────┐   ┌──────────────────┐
+  │[PROPOSAL]│       │ package [dropdown] │──▶│ TO: studio gmail │
+  │ heart pkg│──────▶│ name     [text]    │   │ SUBJ: 💍 enquiry │
+  │ £1,700   │       │ email    [email]   │   │                  │
+  │          │       │ phone    [tel]     │   │ respond < 48hrs  │
+  │ white pkg│       │ date     [optional]│   │                  │
+  │ £770     │       │ details  [optional]│   └──────────────────┘
+  └──────────┘       └────────────────────┘
+                           ✓ success message
+                           "Response in 48hrs"
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ ACTORS FLOW                                                              ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ CUSTOMER JOURNEY ──────────────────────────────────────────────────────┐
+│                                                                          │
+│  AWARENESS           CONSIDERATION        ACTION            FULFILLMENT │
+│  ──────────          ─────────────        ──────            ───────────│
+│  Instagram  ──┐                                                         │
+│  TikTok       ├──▶  landing page  ──▶  select package  ──▶  pay 50%   │
+│  Vendor tag ──┘     ↓                   ↓                   ↓           │
+│  Linktree           scroll              book via acuity     invoice     │
+│                     view options        choose date         (48hrs)    │
+│                     progressive         enter details       ↓           │
+│                     disclosure          confirm             receive     │
+│                                                             confirmation│
+│                                                                          │
+│  PAIN POINTS:                                                            │
+│  ○ DM inquiries (black hole — can't measure)                            │
+│  ○ Time-first selection confuses customers                              │
+│  ○ Underbook 4hrs when they need 6hrs                                   │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ STUDIO OWNER FLOW ─────────────────────────────────────────────────────┐
+│                                                                          │
+│  [BOOKING COMES IN via Acuity]                                          │
+│           ↓                                                              │
+│  → Check Acuity dashboard                                               │
+│  → Manually create invoice (50% deposit)                                │
+│  → Send invoice within 48hrs                                            │
+│  → If unpaid after 48hrs → auto-release slot                            │
+│  → Respond to Tally form inquiries (proposal packages)                  │
+│  → Monitor email: hibiscusstudiouk@gmail.com                            │
+│                                                                          │
+│  PAIN POINTS:                                                            │
+│  ○ Manual invoice generation (not automated)                            │
+│  ○ Can't see abandoned bookings in Acuity                               │
+│  ○ No visibility into landing page drop-off                             │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ VISUALS                                                                  ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ EMAILS ────────────────────────────────────────────────────────────────┐
+│                                                                          │
+│  [1] PROPOSAL PACKAGE INQUIRY (Tally → Studio Gmail)                    │
+│      ─────────────────────────────────────────────────                  │
+│      TRIGGER: Tally form submit                                         │
+│      TO: hibiscusstudiouk@gmail.com                                     │
+│      SUBJECT: 💍 New Proposal Package Enquiry - {{Full Name}}           │
+│      BODY:                                                               │
+│        Package: {{dropdown selection}}                                  │
+│        Name: {{Full Name}}                                              │
+│        Email: {{Email Address}}                                         │
+│        Phone: {{Phone Number}}                                          │
+│        Preferred Date: {{Date}}                                         │
+│        Details: {{Additional details}}                                  │
+│        → Respond within 48 hours! ⏰                                     │
+│                                                                          │
+│  [2] BOOKING CONFIRMATION (Acuity → Customer)                           │
+│      ─────────────────────────────────────────                          │
+│      TRIGGER: Acuity booking complete                                   │
+│      MANAGED BY: Acuity Scheduling (external)                           │
+│      CONTAINS: Date, time, package, studio details                      │
+│                                                                          │
+│  [3] INVOICE (Manual → Customer)                                        │
+│      ─────────────────────────────────                                  │
+│      TRIGGER: Manual (within 48hrs of booking)                          │
+│      AMOUNT: 50% reservation fee                                        │
+│      VALIDITY: 48 hours (then slot auto-released)                       │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ BOOKING FLOW UI STATES ────────────────────────────────────────────────┐
+│                                                                          │
+│  [EVENT SELECTOR CARD]                                                   │
+│  ┌─────────────────────────────────────────────────────┐                │
+│  │  What are you celebrating?                          │                │
+│  │                                                      │                │
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐               │                │
+│  │  │ BRIDAL  │ │  BABY   │ │BIRTHDAY │  ← cards      │                │
+│  │  │ SHOWER  │ │ SHOWER  │ │         │     hover     │                │
+│  │  └─────────┘ └─────────┘ └─────────┘     scale     │                │
+│  │                                                      │                │
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐               │                │
+│  │  │WORKSHOP │ │ CONTENT │ │ OTHER   │               │                │
+│  │  └─────────┘ └─────────┘ └─────────┘               │                │
+│  │                                                      │                │
+│  │                               [Next →]              │                │
+│  └─────────────────────────────────────────────────────┘                │
+│                                                                          │
+│  [GUEST COUNT INPUT]                                                     │
+│  ┌─────────────────────────────────────────────────────┐                │
+│  │  How many guests?                                   │                │
+│  │                                                      │                │
+│  │      ┌────────────────────────┐                     │                │
+│  │      │       25               │  ← number input     │                │
+│  │      └────────────────────────┘                     │                │
+│  │                                                      │                │
+│  │  ⚠️  For 40-50 guests: flexible options available   │ ← warning      │
+│  │      Studio capacity: up to 50 guests              │    (40-50 only)│
+│  │                                                      │                │
+│  │  [← Back]                      [Next →]            │                │
+│  └─────────────────────────────────────────────────────┘                │
+│                                                                          │
+│  [RECOMMENDATION DISPLAY]                                                │
+│  ┌─────────────────────────────────────────────────────┐                │
+│  │  Perfect! Based on your bridal shower for 25:      │                │
+│  │                                                      │                │
+│  │  ╔═══════════════════════════════════════════╗      │                │
+│  │  ║ ★ RECOMMENDED                             ║      │                │
+│  │  ║                                           ║      │                │
+│  │  ║  Half-Day Package (6 hours)              ║      │                │
+│  │  ║  4:00 PM – 10:00 PM                      ║      │                │
+│  │  ║                                           ║      │                │
+│  │  ║  £465                                     ║      │                │
+│  │  ║                                           ║      │                │
+│  │  ║  ─────────────────────────────────────    ║      │                │
+│  │  ║  Why we recommend this:                   ║      │                │
+│  │  ║  • 8 of 12 bridal showers chose this     ║      │ ← social proof│
+│  │  ║  • Time for setup, food, games, photos   ║      │                │
+│  │  ║  • 2 customers who booked 4hrs needed    ║      │                │
+│  │  ║    more time — don't make that mistake   ║      │                │
+│  │  ║                                           ║      │                │
+│  │  ║  [Book This Package]                      ║      │                │
+│  │  ╚═══════════════════════════════════════════╝      │                │
+│  │                                                      │                │
+│  │  ────────────────────────────────────────────       │                │
+│  │  Also available:                                    │                │
+│  │                                                      │                │
+│  │  ○ 4 Hours — £345                                  │                │
+│  │    ⚠️ Often not enough for events this size        │ ← discourage   │
+│  │                                                      │                │
+│  │  ○ Full Day (10am-10pm) — £885                    │                │
+│  │    Great if you need morning setup time            │                │
+│  │                                                      │                │
+│  │  [← Back to questions]                             │                │
+│  └─────────────────────────────────────────────────────┘                │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ ERROR STATES ──────────────────────────────────────────────────────────┐
+│                                                                          │
+│  [GUEST COUNT WARNING — 40-50 guests]                                   │
+│  ⚠️  For 40-50 guests, we have flexible options.                        │
+│      We'll help you make it work!                                       │
+│                                                                          │
+│  [DATE VALIDATION]                                                       │
+│  → HTML5 date picker with min=today                                     │
+│  → Past dates not selectable                                            │
+│                                                                          │
+│  [MODAL STATES]                                                          │
+│  LOADING:                                                                │
+│    ┌────────────────────┐                                              │
+│    │   ⟳ spinner        │                                              │
+│    │   "Loading booking │                                              │
+│    │    calendar..."    │                                              │
+│    └────────────────────┘                                              │
+│                                                                          │
+│  LOADED:                                                                 │
+│    [Acuity iframe visible, spinner hidden]                             │
+│                                                                          │
+│  [NO EXPLICIT ERROR MESSAGES]                                           │
+│  → Soft validation (warnings, constraints)                             │
+│  → No aggressive "field required" alerts                               │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ COPY                                                                     ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ TERMS & CONDITIONS ────────────────────────────────────────────────────┐
+│                                                                          │
+│  PAYMENT                                                                 │
+│  ───────                                                                 │
+│  ○ 50% reservation fee invoiced within 48 hours                         │
+│  ○ Book now, pay later                                                  │
+│  ○ Invoices valid for 48 hours (auto-release if unpaid)                │
+│  ○ £200 refundable damages deposit required                             │
+│                                                                          │
+│  CANCELLATION POLICY                                                     │
+│  ────────────────────                                                    │
+│  30+ days before    → Full refund OR free reschedule                    │
+│  15-30 days before  → 50% refund OR one free reschedule                 │
+│  7-14 days before   → Non-refundable, £25 reschedule fee                │
+│  <7 days before     → Deposit forfeited, no reschedule                  │
+│  No-show/same-day   → Full booking amount charged                       │
+│                                                                          │
+│  STUDIO RULES                                                            │
+│  ────────────                                                            │
+│  ✓ 40 limewash Chiavari chairs included                                 │
+│  ✓ 10 trestle tables (6ft x 2ft) included                               │
+│  ✓ Kitchen: fridge, oven, 5-hob stove, microwave, double oven          │
+│  ✓ Light background music OK (must end by 10 PM)                        │
+│  ✓ Up to 25 seated (larger on request)                                  │
+│                                                                          │
+│  ✗ No moving furniture without permission                               │
+│  ✗ No smoking/illegal substances                                        │
+│  ✗ Space must be left as found                                          │
+│  ✗ £50 fee for rubbish left behind                                      │
+│                                                                          │
+│  LATE FEES                                                               │
+│  ─────────                                                               │
+│  → 30-minute grace period after booking end time                        │
+│  → £50 per additional 30 minutes (or part thereof)                      │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ FORM LABELS & HELP TEXT ───────────────────────────────────────────────┐
+│                                                                          │
+│  EVENT-TYPE FUNNEL                                                       │
+│  ─────────────────                                                       │
+│  Step 1: "What are you celebrating?"                                    │
+│  Step 2: "How many guests are you expecting?"                           │
+│          → "Studio capacity: up to 50 guests"                           │
+│  Step 3: "When is your event?"                                          │
+│          → "□ I'm flexible on the exact date"                           │
+│  Step 4: "Perfect! Based on your [event] for [X guests]:"              │
+│          → "Why we recommend this:"                                     │
+│          → "[X] of [Y] [event type] chose this"                        │
+│          → "Also available:"                                            │
+│                                                                          │
+│  TALLY FORM (PROPOSAL PACKAGES)                                          │
+│  ──────────────────────────────                                          │
+│  "Which package are you interested in? ❤️🤍"                             │
+│  "Full Name"                  → placeholder: "e.g., John Smith"         │
+│  "Email Address"              → placeholder: "e.g., john.smith@..."     │
+│  "Phone Number"               → placeholder: "e.g., 07123 456789"       │
+│  "Preferred Date (optional)"  → DD/MM/YYYY, no past dates              │
+│  "Any additional details?"    → "Tell us about your special moment..."  │
+│                                                                          │
+│  SUCCESS MESSAGE:                                                        │
+│  "✨ Thank you for your enquiry!                                         │
+│   We've received your Proposal Package enquiry...                       │
+│   📧 Response within 48 hours                                           │
+│   📞 Contact at provided number"                                        │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ KEY PAGES                                                                ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ PAYMENT PAGE ──────────────────────────────────────────────────────────┐
+│                                                                          │
+│  STATUS: External (Acuity Scheduling handles payment)                   │
+│  ─────────────────────────────────────────────────────                  │
+│                                                                          │
+│  FLOW:                                                                   │
+│  1. Customer completes booking in Acuity modal                          │
+│  2. Acuity generates confirmation                                       │
+│  3. Studio owner manually creates invoice (within 48hrs)                │
+│  4. Customer pays 50% via invoice link                                  │
+│                                                                          │
+│  NOTE: No automated checkout on hibiscusstudio.co.uk                    │
+│        Payment happens via manual invoice delivery                      │
+│                                                                          │
+│  FUTURE CONSIDERATION:                                                   │
+│  → Replace Acuity with Whop for payment                                 │
+│  → Google Calendar API for scheduling                                   │
+│  → Custom confirmation emails                                           │
+│  → Full control, but higher development effort                          │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ TERMS PAGE ────────────────────────────────────────────────────────────┐
+│                                                                          │
+│  STATUS: Embedded in main site, not separate page                       │
+│  ─────────────────────────────────────────────────────                  │
+│                                                                          │
+│  LOCATION: index.html (scroll section)                                  │
+│                                                                          │
+│  CONTAINS:                                                               │
+│  ○ Payment terms (50% deposit, 48hr validity)                           │
+│  ○ Cancellation policy (sliding scale by days)                          │
+│  ○ Studio rules (furniture, music, capacity)                            │
+│  ○ Late fees (£50 per 30min overage)                                    │
+│  ○ Damages deposit (£200 refundable)                                    │
+│  ○ Clean-up requirements (£50 fee if not met)                           │
+│                                                                          │
+│  FORMAT: Progressive disclosure cards (click to expand)                 │
+│                                                                          │
+│  IMPROVEMENT OPPORTUNITY:                                                │
+│  → Create standalone /terms page for linking from invoices/emails       │
+│  → Add "I agree to terms" checkbox in booking flow                      │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ RECOMMENDATION ENGINE LOOKUP TABLE                                      ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌────────────────┬──────────┬─────────────────┬─────────────────────────┐
+│ Event Type     │ Guests   │ Recommended     │ Reason                  │
+├────────────────┼──────────┼─────────────────┼─────────────────────────┤
+│ Bridal Shower  │ 1-35     │ Half-Day (6hrs) │ 8/12 chose this         │
+│ Bridal Shower  │ 36-50    │ 8hrs Flexi      │ Larger = more setup     │
+│ Baby Shower    │ 1-30     │ Half-Day (6hrs) │ Pattern from data       │
+│ Baby Shower    │ 31-50    │ 8hrs Flexi      │ More guests = more time │
+│ Birthday (mile)│ Any      │ Half-Day (6hrs) │ Standard                │
+│ Workshop       │ 1-20     │ Half-Day (6hrs) │ Workshop standard       │
+│ Workshop       │ 21+      │ Full-Day        │ Needs breaks, setup     │
+│ Content        │ 1-5      │ Half-Day (6hrs) │ Content standard        │
+│ Corporate      │ Any      │ Full-Day        │ Corporate expectations  │
+└────────────────┴──────────┴─────────────────┴─────────────────────────┘
+
+ ALTERNATIVES ALWAYS SHOWN:
+ ○ 4 Hours (£345)      — with warning for 20+ guests
+ ○ 8hrs Flexi (£645)   — flexible timing
+ ○ Full-Day (£885)     — for morning setup needs
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ ANALYTICS COVERAGE                                                       ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+ TOOL: Umami Analytics (umami.track)
+
+ EVENT-TYPE FUNNEL:
+ ──────────────────
+ ✓ funnel-page-loaded
+ ✓ funnel-event-type           (with: eventType)
+ ✓ funnel-step                 (with: step number)
+ ✓ funnel-back                 (with: fromStep)
+ ✓ funnel-date-selected        (with: eventType, guestCount)
+ ✓ funnel-recommendation-shown (with: eventType, guestCount, recommended)
+ ✓ funnel-book-clicked         (with: eventType, guestCount, wasRecommended)
+
+ MAIN SITE:
+ ──────────
+ ✓ selected-category           (with: category)
+ ✓ scrolled-to-booking
+ ✓ clicked-book-now            (with: url)
+
+ GAPS:
+ ─────
+ ✗ DM inquiries (Instagram/TikTok — can't export)
+ ✗ Abandoned Acuity bookings (Acuity limitation)
+ ✗ Linktree click-through (external platform)
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ FILE MAP                                                                 ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+/2_Areas/01-Hibiscus-Studio/hibiscus-studio-deploy/
+├── index.html                  ← Main landing (category-first)
+├── event-type-funnel.html      ← Smart recommendation engine
+├── booking-demo.html           ← Demo flow with theme switcher
+├── TALLY_FORM_SETUP.md         ← Proposal package setup guide
+├── assets/                     ← Images, icons
+└── backend/                    ← (Chatbot on Render, if used)
+
+EXTERNAL DEPENDENCIES:
+→ Acuity Scheduling (calendar, payment gateway)
+→ Tally (contact forms for proposal packages)
+→ Umami Analytics (tracking)
+→ Linktree (social bio links)
+
+
+───────────────────────────────────────────────────────────────────────────
+ Generated: 2026-01-28 | Source: Live code extraction from deploy folder

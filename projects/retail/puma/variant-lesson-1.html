@@ -1,0 +1,445 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">PUMA Training - Mission 3</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" vid="6">
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="7">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" vid="9">
+    <script vid="10">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        puma: {
+                            bg: '#17262B',
+                            lime: '#DCEE56',
+                            glass: 'rgba(255, 255, 255, 0.05)',
+                            glassStroke: 'rgba(255, 255, 255, 0.1)',
+                            textSub: '#8E9BA0',
+                            textBody: '#C8CDD0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'lg': '28px',
+                        'md': '16px',
+                        'sm': '8px',
+                        'pill': '100px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style vid="11">
+        body {
+            background-color: #17262B;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+
+        .slide-container {
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .checkbox-custom {
+            transition: all 0.2s;
+        }
+
+
+        #quick-ref-overlay {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="w-screen h-screen flex justify-center items-center bg-[#0d1619]" vid="12">
+
+
+    <div class="relative w-full h-full max-w-[375px] bg-puma-bg flex flex-col overflow-hidden shadow-2xl" vid="13">
+
+
+        <header class="flex-none h-[56px] w-full flex items-center justify-between px-4 bg-puma-bg border-b border-white/10 z-20" vid="14">
+
+            <button class="w-[36px] h-[36px] rounded-full glass-btn flex items-center justify-center active:bg-white/10 transition-colors" vid="15">
+                <i class="ri-arrow-left-line text-white text-lg" vid="16"></i>
+            </button>
+
+
+            <span class="text-[13px] font-medium text-white tracking-wide" vid="17">Mission 3 of 6</span>
+
+
+            <div class="flex items-center gap-1.5 text-puma-textSub" vid="18">
+                <i class="ri-time-line text-[14px]" vid="19"></i>
+                <span class="text-[13px] font-medium" vid="20">2 min</span>
+            </div>
+        </header>
+
+
+        <div class="flex-none w-full flex justify-center items-center gap-2 pt-3 pb-4 z-10" id="progress-container" vid="21">
+
+        </div>
+
+
+        <div class="flex-1 relative w-full overflow-hidden" vid="22">
+            <div id="slides-wrapper" class="absolute top-0 left-0 w-full h-full flex slide-container" vid="23">
+
+
+                <div class="w-full h-full flex-none px-5 pb-4 flex flex-col" vid="24">
+                    <div class="w-full h-full glass-card rounded-lg p-7 flex flex-col justify-center relative overflow-hidden" vid="25">
+
+                        <div class="flex items-center gap-2.5 mb-5" vid="26">
+                            <i class="ri-alarm-warning-line text-2xl text-puma-textSub" vid="27"></i>
+                            <h2 class="text-[18px] font-semibold text-white" vid="28">The Problem</h2>
+                        </div>
+                        <p class="text-[15px] leading-[1.7] text-puma-textBody font-normal" vid="29">
+                            Customer says 'I need running shoes.' You rattle off every feature. Their eyes glaze over. They leave. <span class="text-white font-semibold" vid="30">You feature-dumped instead of solving their problem.</span>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="w-full h-full flex-none px-5 pb-4 flex flex-col" vid="31">
+                    <div class="w-full h-full rounded-lg p-7 flex flex-col justify-center relative overflow-hidden" style="background: rgba(220,238,86,0.08); border: 1px solid rgba(220,238,86,0.25);" vid="32">
+
+
+                        <div class="flex items-center gap-2.5 mb-5" vid="33">
+                            <i class="ri-scales-3-line text-2xl text-puma-lime" vid="34"></i>
+                            <h2 class="text-[18px] font-semibold text-white" vid="35">The 70/30 Rule</h2>
+                        </div>
+
+
+                        <div class="flex w-full items-start gap-8 mb-6" vid="36">
+                            <div class="flex flex-col gap-1" vid="37">
+                                <span class="text-[36px] font-bold text-puma-lime leading-none" vid="38">70%</span>
+                                <span class="text-[12px] font-medium text-puma-textSub uppercase tracking-wide" vid="39">Customer talks</span>
+                            </div>
+                            <div class="flex flex-col gap-1" vid="40">
+                                <span class="text-[36px] font-bold text-puma-lime leading-none" vid="41">30%</span>
+                                <span class="text-[12px] font-medium text-puma-textSub uppercase tracking-wide" vid="42">You talk</span>
+                            </div>
+                        </div>
+
+                        <p class="text-[15px] leading-[1.7] text-white font-normal" vid="43">
+                            If you're doing most of the talking, you're doing it wrong.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="w-full h-full flex-none px-5 pb-4 flex flex-col" vid="44">
+                    <div class="w-full h-full glass-card rounded-lg p-7 flex flex-col justify-center relative" vid="45">
+                        <div class="flex items-center gap-2.5 mb-5" vid="46">
+                            <i class="ri-questionnaire-line text-2xl text-puma-textSub" vid="47"></i>
+                            <h2 class="text-[18px] font-semibold text-white" vid="48">Ask These 4 Questions</h2>
+                        </div>
+
+                        <div class="space-y-3.5" vid="49">
+                            <div class="flex gap-3 items-baseline" vid="50">
+                                <span class="text-puma-lime font-semibold text-[15px]" vid="51">1.</span>
+                                <span class="text-white text-[15px]" vid="52">What are you buying for?</span>
+                            </div>
+                            <div class="flex gap-3 items-baseline" vid="53">
+                                <span class="text-puma-lime font-semibold text-[15px]" vid="54">2.</span>
+                                <span class="text-white text-[15px]" vid="55">What's not working now?</span>
+                            </div>
+                            <div class="flex gap-3 items-baseline" vid="56">
+                                <span class="text-puma-lime font-semibold text-[15px]" vid="57">3.</span>
+                                <span class="text-white text-[15px]" vid="58">What matters most?</span>
+                            </div>
+                            <div class="flex gap-3 items-baseline" vid="59">
+                                <span class="text-puma-lime font-semibold text-[15px]" vid="60">4.</span>
+                                <span class="text-white text-[15px]" vid="61">Buying today or browsing?</span>
+                            </div>
+                        </div>
+
+                        <p class="mt-6 text-[13px] italic text-puma-textSub" vid="62">
+                            Only show products after all 4.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="w-full h-full flex-none px-5 pb-4 flex flex-col" vid="63">
+                    <div class="w-full h-full glass-card rounded-lg p-7 flex flex-col justify-center relative" vid="64">
+                        <div class="flex items-center gap-2.5 mb-6" vid="65">
+                            <i class="ri-chat-smile-3-line text-2xl text-puma-textSub" vid="66"></i>
+                            <h2 class="text-[18px] font-semibold text-white" vid="67">Spot the Difference</h2>
+                        </div>
+
+                        <div class="flex flex-col gap-4" vid="68">
+
+                            <div class="flex flex-col items-start gap-2" vid="69">
+                                <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider" style="background: rgba(255,100,100,0.15); color: #FF6464;" vid="70">Don't</span>
+                                <p class="text-[14px] italic text-puma-textSub leading-snug" vid="71">
+                                    "You show 5 shoes and list features. They leave."
+                                </p>
+                            </div>
+
+
+                            <div class="flex flex-col items-start gap-2 pt-2" vid="72">
+                                <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider" style="background: rgba(220,238,86,0.15); color: #DCEE56;" vid="73">Do</span>
+                                <p class="text-[14px] italic text-white leading-snug" vid="74">
+                                    "You ask 4 questions, show 2 options that match. They buy."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="w-full h-full flex-none px-5 pb-4 flex flex-col" vid="75">
+                    <div class="w-full h-full glass-card rounded-lg p-7 flex flex-col justify-center relative" vid="76">
+                        <div class="flex items-center gap-2.5 mb-6" vid="77">
+                            <i class="ri-focus-3-line text-2xl text-puma-lime" vid="78"></i>
+                            <h2 class="text-[18px] font-semibold text-white" vid="79">Try This Today</h2>
+                        </div>
+
+                        <div class="space-y-4" vid="80">
+
+                            <div class="flex items-start gap-3 cursor-pointer group" onclick="toggleCheck(this)" vid="81">
+                                <div class="w-5 h-5 rounded-full bg-puma-lime flex items-center justify-center flex-none mt-0.5 checkbox-circle" vid="82">
+                                    <i class="ri-check-line text-[#17262B] text-sm" vid="83"></i>
+                                </div>
+                                <span class="text-[14px] text-white opacity-60 line-through transition-all checkbox-text" vid="84">Pick 3 customers — use all 4 questions</span>
+                            </div>
+
+
+                            <div class="flex items-start gap-3 cursor-pointer group" onclick="toggleCheck(this)" vid="85">
+                                <div class="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center flex-none mt-0.5 checkbox-circle" vid="86">
+                                    <i class="ri-check-line text-[#17262B] text-sm opacity-0" vid="87"></i>
+                                </div>
+                                <span class="text-[14px] text-white transition-all checkbox-text" vid="88">Count: are they talking more than you?</span>
+                            </div>
+
+
+                            <div class="flex items-start gap-3 cursor-pointer group" onclick="toggleCheck(this)" vid="89">
+                                <div class="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center flex-none mt-0.5 checkbox-circle" vid="90">
+                                    <i class="ri-check-line text-[#17262B] text-sm opacity-0" vid="91"></i>
+                                </div>
+                                <span class="text-[14px] text-white transition-all checkbox-text" vid="92">Write down what you learned at end of shift</span>
+                            </div>
+                        </div>
+
+                        <p class="mt-8 text-[14px] font-medium text-puma-lime" vid="93">
+                            You've got this.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <button onclick="toggleQuickRef()" class="absolute bottom-[92px] right-5 z-30 glass-btn rounded-full px-3 py-2 flex items-center gap-2 shadow-lg active:scale-95 transition-transform" vid="94">
+            <i class="ri-bookmark-3-line text-white text-sm" vid="95"></i>
+            <span class="text-[12px] font-medium text-white" vid="96">Quick Ref</span>
+        </button>
+
+
+        <div class="flex-none h-[100px] w-full glass-card border-t border-white/10 flex items-start justify-between px-4 pt-4 pb-8 z-20" vid="97">
+
+            <button id="prev-btn" onclick="changeSlide(-1)" class="w-[44px] h-[44px] rounded-full glass-btn flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed active:bg-white/10 transition-all" vid="98">
+                <i class="ri-arrow-left-line text-white text-xl" vid="99"></i>
+            </button>
+
+
+            <span id="slide-counter" class="text-[13px] font-medium text-puma-textSub self-center h-[44px] flex items-center" vid="100">
+                1 / 5
+            </span>
+
+
+            <div id="next-container" class="h-[44px]" vid="101">
+
+                <button id="next-btn" onclick="changeSlide(1)" class="w-[44px] h-[44px] rounded-full glass-btn flex items-center justify-center active:bg-white/10 transition-all" vid="102">
+                    <i class="ri-arrow-right-line text-white text-xl" vid="103"></i>
+                </button>
+
+
+                <button id="quiz-btn" class="hidden h-[48px] bg-puma-lime text-puma-bg px-8 rounded-full font-semibold text-[15px] items-center gap-2 active:scale-95 transition-transform" vid="104">
+                    Take Quiz <i class="ri-arrow-right-line" vid="105"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <div id="quick-ref-overlay" class="absolute inset-0 z-50 bg-black/60 translate-y-full flex items-end" onclick="if(event.target === this) toggleQuickRef()" vid="106">
+            <div class="w-full h-[60%] bg-[#1c2c32] rounded-t-[28px] border-t border-white/10 p-6 relative flex flex-col" vid="107">
+
+                <div class="w-10 h-1 bg-white/10 rounded-full mx-auto mb-4 absolute top-3 left-1/2 -translate-x-1/2" vid="108"></div>
+
+
+                <div class="flex justify-between items-center mb-6 mt-2" vid="109">
+                    <h3 class="text-[16px] font-semibold text-white" vid="110">Quick Reference</h3>
+                    <button onclick="toggleQuickRef()" class="w-8 h-8 rounded-full glass-btn flex items-center justify-center active:bg-white/10" vid="111">
+                        <i class="ri-close-line text-white text-lg" vid="112"></i>
+                    </button>
+                </div>
+
+
+                <div class="grid grid-cols-2 gap-3 overflow-y-auto" vid="113">
+
+                    <div class="glass-card rounded-xl p-3 flex flex-col gap-1" vid="114">
+                        <span class="text-puma-lime text-2xl font-bold" vid="115">1</span>
+                        <span class="text-white text-[10px] font-bold tracking-wider" vid="116">OCCASION</span>
+                        <p class="text-[11px] italic text-puma-textSub leading-snug mt-1" vid="117">"What are you buying for?"</p>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-3 flex flex-col gap-1" vid="118">
+                        <span class="text-puma-lime text-2xl font-bold" vid="119">2</span>
+                        <span class="text-white text-[10px] font-bold tracking-wider" vid="120">PROBLEM</span>
+                        <p class="text-[11px] italic text-puma-textSub leading-snug mt-1" vid="121">"What's not working now?"</p>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-3 flex flex-col gap-1" vid="122">
+                        <span class="text-puma-lime text-2xl font-bold" vid="123">3</span>
+                        <span class="text-white text-[10px] font-bold tracking-wider" vid="124">PRIORITY</span>
+                        <p class="text-[11px] italic text-puma-textSub leading-snug mt-1" vid="125">"What matters most?"</p>
+                    </div>
+
+                    <div class="glass-card rounded-xl p-3 flex flex-col gap-1" vid="126">
+                        <span class="text-puma-lime text-2xl font-bold" vid="127">4</span>
+                        <span class="text-white text-[10px] font-bold tracking-wider" vid="128">DECISION</span>
+                        <p class="text-[11px] italic text-puma-textSub leading-snug mt-1" vid="129">"Buying today or browsing?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script vid="130">
+
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+
+        const slidesWrapper = document.getElementById('slides-wrapper');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const nextContainer = document.getElementById('next-container');
+        const quizBtn = document.getElementById('quiz-btn');
+        const slideCounter = document.getElementById('slide-counter');
+        const progressContainer = document.getElementById('progress-container');
+        const overlay = document.getElementById('quick-ref-overlay');
+
+
+        function initProgress() {
+            progressContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = `rounded-full transition-all duration-300 ${i === currentSlide ? 'w-5 h-1 bg-puma-lime' : 'w-1.5 h-1 bg-puma-textSub'}`;
+                progressContainer.appendChild(dot);
+            }
+        }
+
+
+        function updateUI() {
+
+            slidesWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+
+            const dots = progressContainer.children;
+            for (let i = 0; i < totalSlides; i++) {
+                if (i === currentSlide) {
+                    dots[i].className = 'rounded-full transition-all duration-300 w-5 h-1 bg-puma-lime shadow-[0_0_8px_rgba(220,238,86,0.3)]';
+                } else {
+                    dots[i].className = 'rounded-full transition-all duration-300 w-1.5 h-1 bg-puma-textSub opacity-50';
+                }
+            }
+
+
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+
+            prevBtn.disabled = currentSlide === 0;
+            prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
+
+            if (currentSlide === totalSlides - 1) {
+
+                nextBtn.classList.add('hidden');
+                quizBtn.classList.remove('hidden');
+                quizBtn.classList.add('flex');
+            } else {
+                nextBtn.classList.remove('hidden');
+                quizBtn.classList.add('hidden');
+                quizBtn.classList.remove('flex');
+            }
+        }
+
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                currentSlide++;
+            } else if (direction === -1 && currentSlide > 0) {
+                currentSlide--;
+            }
+            updateUI();
+        }
+
+
+        function toggleQuickRef() {
+            if (overlay.classList.contains('translate-y-full')) {
+                overlay.classList.remove('translate-y-full');
+            } else {
+                overlay.classList.add('translate-y-full');
+            }
+        }
+
+
+        function toggleCheck(element) {
+            const circle = element.querySelector('.checkbox-circle');
+            const icon = element.querySelector('i');
+            const text = element.querySelector('.checkbox-text');
+
+            const isChecked = circle.classList.contains('bg-puma-lime');
+
+            if (isChecked) {
+
+                circle.classList.remove('bg-puma-lime');
+                circle.classList.add('border', 'border-white/20');
+                icon.classList.add('opacity-0');
+                text.classList.remove('opacity-60', 'line-through');
+            } else {
+
+                circle.classList.add('bg-puma-lime');
+                circle.classList.remove('border', 'border-white/20');
+                icon.classList.remove('opacity-0');
+                text.classList.add('opacity-60', 'line-through');
+            }
+        }
+
+
+        initProgress();
+        updateUI();
+
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+    </script>
+
+</body></html>

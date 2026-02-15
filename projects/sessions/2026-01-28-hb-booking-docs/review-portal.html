@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HB Booking Review — Rochelle</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 2px solid #333;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: normal;
+      color: #fff;
+    }
+
+    .progress {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .progress span {
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    .section {
+      border: 1px solid #333;
+      margin-bottom: 20px;
+      background: #111;
+    }
+
+    .section-header {
+      padding: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+    }
+
+    .section-header:hover {
+      background: #1a1a1a;
+    }
+
+    .section-title {
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .section-status {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .badge.pending { background: #333; color: #888; }
+    .badge.approved { background: #065f46; color: #4ade80; }
+    .badge.needs-change { background: #7c2d12; color: #fb923c; }
+    .badge.question { background: #1e3a8a; color: #60a5fa; }
+
+    .chevron {
+      color: #666;
+      transition: transform 0.2s;
+    }
+
+    .section.expanded .chevron {
+      transform: rotate(90deg);
+    }
+
+    .section-content {
+      display: none;
+      padding: 20px;
+      border-top: 1px solid #222;
+    }
+
+    .section.expanded .section-content {
+      display: block;
+    }
+
+    .level-1, .level-2, .level-3 {
+      margin-bottom: 20px;
+    }
+
+    .level-2, .level-3 {
+      display: none;
+      border-left: 2px solid #333;
+      padding-left: 15px;
+      margin-left: 10px;
+      margin-top: 15px;
+    }
+
+    .level-2.visible, .level-3.visible {
+      display: block;
+    }
+
+    .content-box {
+      background: #0a0a0a;
+      border: 1px solid #333;
+      padding: 15px;
+      margin: 10px 0;
+    }
+
+    .content-preview {
+      white-space: pre-wrap;
+      color: #a0a0a0;
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      padding: 8px 16px;
+      border: 1px solid #444;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #2a2a2a;
+      border-color: #666;
+    }
+
+    button.primary {
+      background: #065f46;
+      border-color: #065f46;
+      color: #4ade80;
+    }
+
+    button.primary:hover {
+      background: #047857;
+    }
+
+    button.danger {
+      background: #7c2d12;
+      border-color: #7c2d12;
+      color: #fb923c;
+    }
+
+    button.danger:hover {
+      background: #991b1b;
+    }
+
+    button.info {
+      background: #1e3a8a;
+      border-color: #1e3a8a;
+      color: #60a5fa;
+    }
+
+    button.info:hover {
+      background: #1e40af;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .recording {
+      background: #7c2d12 !important;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .voice-note {
+      margin-top: 10px;
+      padding: 10px;
+      background: #1a1a1a;
+      border-left: 3px solid #60a5fa;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .context-info {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+      padding: 10px;
+      background: #0a0a0a;
+      border-left: 2px solid #333;
+    }
+
+    .screen-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .screen-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
+
+    .screen-position {
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      flex: 1;
+    }
+
+    .nav-arrow {
+      font-size: 24px;
+      padding: 10px 15px;
+      background: #1a1a1a;
+      border: 1px solid #444;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .nav-arrow:hover:not(:disabled) {
+      background: #2a2a2a;
+      border-color: #666;
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .flow-overview {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #333;
+    }
+
+    .flow-step-mini {
+      min-width: 80px;
+      padding: 8px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      text-align: center;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .flow-step-mini:hover {
+      border-color: #666;
+    }
+
+    .flow-step-mini.active {
+      border-color: #4ade80;
+      background: #065f46;
+    }
+
+    .flow-step-mini.approved {
+      border-color: #4ade80;
+    }
+
+    .flow-step-mini.flagged {
+      border-color: #fb923c;
+    }
+
+    .screen-hidden {
+      display: none;
+    }
+
+    .mini-preview {
+      opacity: 0.3;
+      font-size: 10px;
+      max-height: 100px;
+      overflow: hidden;
+      margin: 5px 0;
+    }
+
+    textarea {
+      width: 100%;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      padding: 10px;
+      background: #0a0a0a;
+      border: 1px solid #333;
+      color: #e0e0e0;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .export-section {
+      margin-top: 40px;
+      padding: 20px;
+      border: 2px solid #333;
+      text-align: center;
+    }
+
+    .summary {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 20px 0;
+      font-size: 12px;
+    }
+
+    .summary div {
+      padding: 10px 20px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+    }
+
+    .summary .count {
+      color: #4ade80;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+        font-size: 13px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .summary {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HB BOOKING REVIEW</h1>
+    <div class="progress">
+      <span id="reviewedCount">0</span> / <span id="totalCount">0</span> reviewed
+    </div>
+  </header>
+
+  <div id="sections"></div>
+
+  <div class="export-section">
+    <h2 style="margin-bottom: 20px;">Review Complete?</h2>
+    <div class="summary">
+      <div>
+        <div class="count" id="approvedCount">0</div>
+        <div>Approved</div>
+      </div>
+      <div>
+        <div class="count" id="needsChangeCount">0</div>
+        <div>Needs Change</div>
+      </div>
+      <div>
+        <div class="count" id="questionsCount">0</div>
+        <div>Questions</div>
+      </div>
+    </div>
+    <button onclick="exportFeedback()" class="primary">Export Feedback (JSON)</button>
+  </div>
+
+  <script>
+    // Data structure
+    const reviewData = {
+      sections: [
+        {
+          id: 'visual-flows',
+          title: '0. VISUAL FLOWS (TAP TO SEE SCREENS)',
+          priority: 'HIGH',
+          items: [
+            {
+              id: 'booking-flow-screens',
+              title: 'Booking Flow — Customer Screens',
+              level1: 'Step-by-step screens showing what the customer sees. Tap to expand each screen.',
+              level2: {
+                title: 'Customer Journey Screens',
+                screens: [
+                  {
+                    step: 'STEP 1: Landing Page',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  HIBISCUS STUDIO                    ☰  │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Hero image of studio]                 │
+│                                         │
+│  Studio hire for events,                │
+│  workshops & content shoots             │
+│                                         │
+│  19a Peto Street North, London E16      │
+│  5 min from Canning Town                │
+│                                         │
+│  ✓ 40 seats  ✓ Tables  ✓ Kitchen       │
+│                                         │
+│         [View Booking Options]          │
+│                                         │
+├─────────────────────────────────────────┤
+│  What's included:                       │
+│  • 40 limewash Chiavari chairs          │
+│  • 10 trestle tables                    │
+│  • Full kitchen access                  │
+│  • WiFi                                 │
+└─────────────────────────────────────────┘`,
+                    question: 'Does this clearly communicate what you offer? Is the location info prominent enough?'
+                  },
+                  {
+                    step: 'STEP 2: Category Selection',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  Choose your booking type               │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  👁️ STUDIO VIEWING               │ │
+│  │  Free • 20 minutes                │ │
+│  │  [Book Viewing]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  🎉 EVENT HIRE                    │ │
+│  │  From £345 • 4-12 hours           │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  🎨 WORKSHOPS & CONTENT           │ │
+│  │  From £90/hour                    │ │
+│  │  [View Options]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  💍 PROPOSAL PACKAGES [OFFER]     │ │
+│  │  From £770 • Save up to £400      │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Are these categories clear? Should "Event Hire" be renamed to something more specific?'
+                  },
+                  {
+                    step: 'STEP 3: Package Selection',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  Event Hire Packages                    │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  4 HOURS FLEXI                    │ │
+│  │  £345                             │ │
+│  │                                   │ │
+│  │  Perfect for smaller gatherings   │ │
+│  │  and intimate celebrations        │ │
+│  │                                   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  HALF-DAY (6 HOURS) ⭐ POPULAR    │ │
+│  │  £465                             │ │
+│  │                                   │ │
+│  │  Most chosen for bridal showers,  │ │
+│  │  birthdays, and workshops         │ │
+│  │                                   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  8 HOURS FLEXI                    │ │
+│  │  £645                             │ │
+│  │                                   │ │
+│  │  Great for larger events or       │ │
+│  │  full-day workshops               │ │
+│  │                                   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Do the descriptions help customers choose? Is pricing clear?'
+                  },
+                  {
+                    step: 'STEP 4: Acuity Modal Opens',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  Book Your Session              [X]     │
+│  Hibiscus Studio                        │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Loading spinner]                      │
+│  Loading booking calendar...            │
+│                                         │
+│  ────────────────────────────────────── │
+│                                         │
+│  [Acuity calendar iframe loads here]    │
+│                                         │
+│  • Pick date from calendar              │
+│  • Select time slot                     │
+│  • Fill form (name, email, phone)       │
+│  • Click "Complete Booking"             │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'CRITICAL: Does this modal feel disconnected from the main site? (This is why we want to replace Acuity)'
+                  },
+                  {
+                    step: 'STEP 5: Booking Confirmation',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  ✓ Booking Created!                     │
+├─────────────────────────────────────────┤
+│                                         │
+│  We've reserved your date.              │
+│                                         │
+│  What's next:                           │
+│  1. Check your email for invoice        │
+│  2. Pay 50% deposit within 48 hours     │
+│  3. We'll confirm once payment received │
+│                                         │
+│  Your booking ID: HB-2026-001           │
+│                                         │
+│  ────────────────────────────────────── │
+│                                         │
+│  Event Details:                         │
+│  • Date: Feb 15, 2026                   │
+│  • Time: 4:00 PM - 10:00 PM             │
+│  • Package: Half-Day (6 hours)          │
+│  • Total: £465                          │
+│                                         │
+│  [Close]                                │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Is it clear what happens next? Do customers understand they need to wait for invoice?'
+                  }
+                ],
+                context: 'These are the main screens a customer sees when booking.'
+              }
+            },
+            {
+              id: 'email-screens',
+              title: 'Email Templates — What Customer Receives',
+              level1: 'Visual preview of emails sent to customers. Tap to see full email.',
+              level2: {
+                title: 'Email Screens',
+                screens: [
+                  {
+                    step: 'EMAIL 1: Invoice',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  From: Hibiscus Studio                  │
+│  To: customer@email.com                 │
+│  Subject: Invoice for Your Booking      │
+├─────────────────────────────────────────┤
+│                                         │
+│  Hi Jane,                               │
+│                                         │
+│  Thank you for booking Hibiscus Studio! │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │  BOOKING DETAILS                │   │
+│  │                                 │   │
+│  │  Event: Bridal Shower           │   │
+│  │  Date: Feb 15, 2026             │   │
+│  │  Time: 4:00 PM - 10:00 PM       │   │
+│  │  Package: Half-Day (6 hours)    │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │  PAYMENT REQUIRED               │   │
+│  │                                 │   │
+│  │  Total: £465.00                 │   │
+│  │  Deposit (50%): £232.50         │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  Please pay via bank transfer:          │
+│                                         │
+│  Account Name: Hibiscus Studio Ltd      │
+│  Sort Code: XX-XX-XX                    │
+│  Account Number: XXXXXXXX               │
+│  Reference: HB-2026-001                 │
+│                                         │
+│  ⏰ Payment due within 48 hours         │
+│                                         │
+│  Questions? Reply to this email.        │
+│                                         │
+│  Thanks,                                │
+│  Rochelle                               │
+│  Hibiscus Studio                        │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Does this email feel professional? Is the 48-hour deadline clear enough?'
+                  },
+                  {
+                    step: 'EMAIL 2: Payment Confirmed',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  From: Hibiscus Studio                  │
+│  To: customer@email.com                 │
+│  Subject: Payment Confirmed ✓           │
+├─────────────────────────────────────────┤
+│                                         │
+│  Hi Jane,                               │
+│                                         │
+│  ✓ Your payment has been confirmed!     │
+│                                         │
+│  Your booking is now secured.           │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │  EVENT DETAILS                  │   │
+│  │                                 │   │
+│  │  Date: Feb 15, 2026             │   │
+│  │  Time: 4:00 PM - 10:00 PM       │   │
+│  │  Address:                       │   │
+│  │  19a Peto Street North          │   │
+│  │  London E16                     │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  What's included:                       │
+│  ✓ 40 Chiavari chairs                   │
+│  ✓ 10 trestle tables                    │
+│  ✓ Full kitchen access                  │
+│  ✓ WiFi                                 │
+│                                         │
+│  Remaining balance (£232.50) due on     │
+│  event day.                             │
+│                                         │
+│  See you soon!                          │
+│  Rochelle                               │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Does this give customers everything they need to know before the event?'
+                  }
+                ],
+                context: 'These emails are sent automatically by the system.'
+              }
+            },
+            {
+              id: 'recommendation-flow-screens',
+              title: 'Event-Type Funnel — Recommendation Engine',
+              level1: 'The smart funnel that recommends packages based on event type and guest count.',
+              level2: {
+                title: 'Funnel Screens',
+                screens: [
+                  {
+                    step: 'STEP 1: What are you celebrating?',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  What are you celebrating?              │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌─────────────┐  ┌─────────────┐      │
+│  │  BRIDAL     │  │   BABY      │      │
+│  │  SHOWER     │  │  SHOWER     │      │
+│  └─────────────┘  └─────────────┘      │
+│                                         │
+│  ┌─────────────┐  ┌─────────────┐      │
+│  │  BIRTHDAY   │  │  BIRTHDAY   │      │
+│  │ (MILESTONE) │  │  (CASUAL)   │      │
+│  └─────────────┘  └─────────────┘      │
+│                                         │
+│  ┌─────────────┐  ┌─────────────┐      │
+│  │  WORKSHOP   │  │   CONTENT   │      │
+│  │             │  │  PHOTOSHOOT │      │
+│  └─────────────┘  └─────────────┘      │
+│                                         │
+│  ┌─────────────┐                        │
+│  │   OTHER     │                        │
+│  └─────────────┘                        │
+│                                         │
+│                        [Next →]         │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Are these categories intuitive? Should we add more options?'
+                  },
+                  {
+                    step: 'STEP 2: How many guests?',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  How many guests are you expecting?     │
+├─────────────────────────────────────────┤
+│                                         │
+│         ┌─────────────────────┐         │
+│         │                     │         │
+│         │        25           │         │
+│         │                     │         │
+│         └─────────────────────┘         │
+│                                         │
+│  ────────────────────────────────────   │
+│  |            ●                      |   │
+│  ────────────────────────────────────   │
+│  1                                  50   │
+│                                         │
+│  Studio capacity: up to 50 guests       │
+│                                         │
+│  [← Back]              [Next →]         │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Is the slider intuitive on mobile? Should we use +/- buttons instead?'
+                  },
+                  {
+                    step: 'STEP 3: When is your event?',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  When is your event?                    │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │  February 15, 2026  📅          │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ☐ I'm flexible on the exact date       │
+│                                         │
+│  [← Back]              [See Options →]  │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'Does "flexible date" make sense here? What do you do with that info?'
+                  },
+                  {
+                    step: 'STEP 4: Recommendation',
+                    ascii: `
+┌─────────────────────────────────────────┐
+│  Perfect! Based on your bridal shower   │
+│  for 25 guests:                         │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │  ★ RECOMMENDED                  │   │
+│  │                                 │   │
+│  │  Half-Day Package (6 hours)     │   │
+│  │  4:00 PM – 10:00 PM             │   │
+│  │                                 │   │
+│  │  £465                           │   │
+│  │                                 │   │
+│  │  Why we recommend this:         │   │
+│  │  • 8 of 12 bridal showers       │   │
+│  │    chose this                   │   │
+│  │  • Time for setup, food,        │   │
+│  │    games, photos                │   │
+│  │                                 │   │
+│  │  [Book This Package]            │   │
+│  │                                 │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  Also available:                        │
+│                                         │
+│  ○ 4 Hours — £345                      │
+│    ⚠️ Often not enough for this size   │
+│                                         │
+│  ○ Full Day — £885                     │
+│    If you need morning setup           │
+│                                         │
+│  [← Back to questions]                  │
+│                                         │
+└─────────────────────────────────────────┘`,
+                    question: 'CRITICAL: Does the "why we recommend" feel helpful or pushy? Is the warning too aggressive?'
+                  }
+                ],
+                context: 'This funnel increases conversion by guiding customers to the right package.'
+              }
+            }
+          ]
+        },
+        {
+          id: 'customer-emails',
+          title: '1. CUSTOMER EMAILS',
+          priority: 'HIGH',
+          items: [
+            {
+              id: 'invoice-email',
+              title: 'Invoice Email (50% Deposit)',
+              level1: 'Customer receives this within 48 hours of booking. Contains payment instructions and bank details.',
+              level2: {
+                title: 'Email Preview',
+                content: `Subject: Invoice for Your Hibiscus Studio Booking
+
+Hi [Customer Name],
+
+Thank you for booking Hibiscus Studio!
+
+Booking Details:
+• Event: [Event Type]
+• Date: [Date]
+• Time: [Time Slot]
+• Package: [Package Name]
+
+Payment Required:
+Total: £[Total]
+Deposit (50%): £[Deposit]
+
+Please pay via bank transfer:
+Account Name: Hibiscus Studio Ltd
+Sort Code: XX-XX-XX
+Account Number: XXXXXXXX
+Reference: [Booking ID]
+
+Payment due within 48 hours to secure your booking.
+
+Questions? Reply to this email.
+
+Thanks,
+Rochelle
+Hibiscus Studio`,
+                context: 'Sent automatically after booking creation. Customer must pay within 48 hours or booking is cancelled.'
+              },
+              level3: {
+                title: 'Bank Details Shown',
+                content: `Account Name: Hibiscus Studio Ltd
+Sort Code: XX-XX-XX
+Account Number: XXXXXXXX
+Reference: [Booking ID]`,
+                question: 'Are these bank details correct? Should we mask the account number until payment page?'
+              }
+            },
+            {
+              id: 'booking-confirmation',
+              title: 'Booking Confirmation Email',
+              level1: 'Sent immediately after customer books via Acuity.',
+              level2: {
+                title: 'Email Preview',
+                content: `Subject: Booking Confirmed — [Event Type] on [Date]
+
+Hi [Customer Name],
+
+Your booking is confirmed!
+
+What's Next:
+1. You'll receive an invoice within 48 hours
+2. Pay the 50% deposit to secure your date
+3. We'll send final confirmation once payment received
+
+Event Details:
+• Date: [Date]
+• Time: [Time Slot]
+• Package: [Package Name]
+• Guest Count: [Number]
+
+Need to make changes? Reply to this email.
+
+See you soon!
+Rochelle`,
+                context: 'First email customer receives. Sets expectations for next steps.'
+              }
+            },
+            {
+              id: 'cancellation-email',
+              title: 'Cancellation Notice',
+              level1: 'Sent when admin cancels a booking. Explains refund policy.',
+              level2: {
+                title: 'Email Preview',
+                content: `Subject: Booking Cancellation — [Event Type] on [Date]
+
+Hi [Customer Name],
+
+Your booking has been cancelled as requested.
+
+Refund Details:
+[Based on cancellation policy - shows deposit/balance refund status]
+
+• 30+ days notice: Deposit forfeited, balance refunded
+• 7-30 days notice: 50% refund
+• <7 days notice: No refund
+
+Refund will be processed within 5-7 business days.
+
+Questions? Reply to this email.
+
+Rochelle`,
+                context: 'Triggered when admin clicks [Cancel] in dashboard.'
+              },
+              level3: {
+                title: 'Cancellation Policy Wording',
+                content: `30+ days notice: Deposit forfeited, balance refunded if paid
+15-30 days notice: 50% refund OR one free reschedule
+7-14 days notice: Non-refundable, £25 reschedule fee
+<7 days notice: Deposit forfeited, no reschedule
+No-show: Full amount charged`,
+                question: 'Does this match what you actually do? Have you ever made exceptions?'
+              }
+            }
+          ]
+        },
+        {
+          id: 'website-copy',
+          title: '2. WEBSITE COPY',
+          priority: 'HIGH',
+          items: [
+            {
+              id: 'package-descriptions',
+              title: 'Package Descriptions',
+              level1: 'How packages are described on the website.',
+              level2: {
+                title: 'Current Descriptions',
+                content: `4 Hours Flexi — £345
+Perfect for smaller gatherings and intimate celebrations
+
+Half-Day Package (6 hours) — £465
+Most popular choice for bridal showers, birthdays, and workshops
+
+8 Hours Flexi — £645
+Great for larger events or full-day workshops
+
+Full-Day (10am-10pm) — £885
+Complete access for events needing setup time`,
+                context: 'Shown on main landing page under "Event Hire" category.'
+              },
+              level3: {
+                title: 'Half-Day Package Detail',
+                content: `Half-Day Package (6 hours) — £465
+
+Included:
+• 40 limewash Chiavari chairs
+• 10 trestle tables (6ft x 2ft)
+• Full kitchen access
+• WiFi
+• Up to 25 seated guests
+
+Why customers love this:
+• 8 of 12 bridal showers chose this package
+• Enough time for setup, event, and cleanup
+• Best value for medium-sized events`,
+                question: 'Does this sound like your voice? Would you phrase it differently?'
+              }
+            },
+            {
+              id: 'recommendation-messaging',
+              title: 'Recommendation Engine Messages',
+              level1: 'What customers see when we recommend a package based on their event type and guest count.',
+              level2: {
+                title: 'Example: Bridal Shower, 25 Guests',
+                content: `★ RECOMMENDED
+
+Half-Day Package (6 hours)
+4:00 PM – 10:00 PM
+£465
+
+Why we recommend this:
+• 8 of 12 bridal showers chose this
+• Time for setup, food, games, photos, and cleanup
+• 2 customers who booked 4 hours asked for more time — don't make that mistake
+
+Also available:
+○ 4 Hours — £345
+  ⚠️ Often not enough for events this size
+
+○ Full Day (10am-10pm) — £885
+  Great if you need morning setup time`,
+                context: 'Shown after customer enters event type, guest count, and date.'
+              },
+              level3: {
+                title: 'Warning on 4-Hour Package',
+                content: `⚠️ Often not enough for events this size`,
+                question: 'Is this too pushy? Should we soften this or be more direct?'
+              }
+            },
+            {
+              id: 'terms-conditions',
+              title: 'Terms & Conditions',
+              level1: 'Legal text shown on website. Must be accurate.',
+              level2: {
+                title: 'Current Terms',
+                content: `PAYMENT TERMS
+• 50% deposit required to secure booking
+• Invoice sent within 48 hours
+• Payment due within 48 hours of invoice
+• Remaining 50% due on event day
+• £200 damages deposit required (refunded 1-3 days post-event)
+
+CANCELLATION POLICY
+• 30+ days: Full refund OR free reschedule
+• 15-30 days: 50% refund OR one free reschedule
+• 7-14 days: Non-refundable, £25 reschedule fee
+• <7 days: Deposit forfeited, no reschedule
+• No-show/same-day: Full booking amount charged
+
+STUDIO RULES
+✓ 40 chairs, 10 tables, kitchen, WiFi included
+✓ Music allowed (moderate volume, ends 10 PM)
+✓ Up to 25 seated (larger on request)
+✗ No moving furniture without permission
+✗ No smoking/illegal substances
+✗ Space must be left as found
+✗ £50 fee for rubbish left behind
+
+LATE FEES
+• 30-minute grace period
+• £50 per additional 30 minutes`,
+                context: 'Embedded in main site. Should also create standalone /terms page.'
+              },
+              level3: {
+                title: 'Damages Deposit Amount',
+                content: `£200 damages deposit required (refunded 1-3 days post-event)`,
+                question: 'VERIFY: Is this £200 or £150? Need to confirm correct amount.'
+              }
+            }
+          ]
+        },
+        {
+          id: 'booking-flow',
+          title: '3. BOOKING FLOW',
+          priority: 'MEDIUM',
+          items: [
+            {
+              id: 'form-labels',
+              title: 'Form Field Labels',
+              level1: 'Text shown in booking forms.',
+              level2: {
+                title: 'Event-Type Funnel Labels',
+                content: `Step 1: "What are you celebrating?"
+Step 2: "How many guests are you expecting?"
+        → Help text: "Studio capacity: up to 50 guests"
+Step 3: "When is your event?"
+        → Checkbox: "I'm flexible on the exact date"
+Step 4: "Perfect! Based on your [event] for [X guests]:"`,
+                context: 'Event-type-first recommendation flow.'
+              }
+            },
+            {
+              id: 'success-messages',
+              title: 'Success/Error Messages',
+              level1: 'Messages shown after booking actions.',
+              level2: {
+                title: 'Booking Success',
+                content: `✓ Booking Created!
+
+We've reserved your date.
+
+What's next:
+1. Check your email for invoice
+2. Pay 50% deposit within 48 hours
+3. We'll confirm once payment received
+
+Your booking ID: [ID]`,
+                context: 'Shown after customer completes Acuity booking.'
+              }
+            }
+          ]
+        },
+        {
+          id: 'policies-pricing',
+          title: '4. POLICIES & PRICING',
+          priority: 'CRITICAL',
+          items: [
+            {
+              id: 'package-prices',
+              title: 'Package Prices',
+              level1: 'All package pricing. Must be accurate.',
+              level2: {
+                title: 'Current Pricing',
+                content: `EVENT HIRE
+• 4 Hours Flexi: £345
+• Half-Day (6 hours): £465
+• 8 Hours Flexi: £645
+• Full-Day (10am-10pm): £885
+
+WORKSHOPS & CONTENT
+• Studio Viewing: FREE (20min)
+• Hourly Content (1hr): £90
+• Half-Day Workshop (6hrs): £465
+• Full-Day Workshop (12hrs): £645
+
+PROPOSAL PACKAGES
+• Heart Package: £1,700 (was £2,100, save £400)
+• White Whimsical: £770 (was £950, save £180)`,
+                context: 'All prices shown on website and in booking system.'
+              },
+              level3: {
+                title: 'Deposit Calculations',
+                content: `50% deposit examples:
+• £345 package → £172.50 deposit
+• £465 package → £232.50 deposit
+• £645 package → £322.50 deposit
+• £885 package → £442.50 deposit`,
+                question: 'Do you round these? (e.g., £172.50 → £173?)'
+              }
+            },
+            {
+              id: 'reschedule-policy',
+              title: 'Reschedule Policy',
+              level1: 'Rules for date changes. Applied by admin dashboard.',
+              level2: {
+                title: 'Current Policy',
+                content: `FIRST CHANGE:
+• 7+ days notice: FREE
+• <7 days notice: £50 fee
+
+SECOND CHANGE:
+• Treated as cancellation
+• Cancellation policy applies`,
+                context: 'Enforced when admin clicks [Change Date] in dashboard.'
+              },
+              level3: {
+                title: 'Real-World Question',
+                content: `Policy says: "Second change = cancellation"`,
+                question: 'Have you ever let someone reschedule twice? Should we allow exceptions for regulars?'
+              }
+            },
+            {
+              id: 'late-fees',
+              title: 'Late Fees',
+              level1: 'Charges for running over booking time.',
+              level2: {
+                title: 'Current Policy',
+                content: `• 30-minute grace period after booking end time
+• £50 per additional 30 minutes (or part thereof)
+
+Examples:
+• Ends at 10:00 PM, leave at 10:25 PM → No charge (within grace)
+• Ends at 10:00 PM, leave at 10:45 PM → £50 (15min over grace)
+• Ends at 10:00 PM, leave at 11:15 PM → £100 (45min over grace)`,
+                context: 'Charged manually after event if customer runs late.'
+              },
+              level3: {
+                title: 'Enforcement Question',
+                content: `Do you actually charge this every time?`,
+                question: 'Or do you give warnings first? Should policy reflect actual practice?'
+              }
+            }
+          ]
+        },
+        {
+          id: 'customer-journey',
+          title: '5. CUSTOMER JOURNEY WALKTHROUGH',
+          priority: 'HIGH',
+          items: [
+            {
+              id: 'jane-scenario',
+              title: 'Scenario: Jane Books a Bridal Shower',
+              level1: 'Step-by-step walkthrough of what a real customer experiences.',
+              level2: {
+                title: 'Jane\'s Journey',
+                content: `STEP 1: Jane finds Hibiscus Studio
+→ Sees Instagram post from vendor
+→ Clicks link in bio
+→ Lands on hibiscusstudio.co.uk
+
+STEP 2: Jane explores packages
+→ Scrolls down, clicks "View Booking Options"
+→ Sees categories: Studio Viewing, Event Hire, Workshops, Proposal Packages
+→ Clicks "Event Hire"
+→ Sees: 4hrs, 6hrs, 8hrs, full-day options
+
+STEP 3: Jane clicks "Book Now" on 6hrs package
+→ Acuity modal opens (iframe)
+→ Sees calendar, picks date
+→ Fills form: name, email, phone, guest count
+→ Clicks "Complete Booking"
+
+STEP 4: Jane receives emails
+→ Email 1 (immediate): "Booking confirmed"
+→ Email 2 (within 48h): Invoice with bank details
+
+STEP 5: Jane pays deposit
+→ Bank transfer: £232.50 (50% of £465)
+→ Uses booking ID as reference
+
+STEP 6: Rochelle confirms payment
+→ Sees booking in admin dashboard
+→ Clicks [✓ Confirm Payment]
+
+STEP 7: Jane receives final confirmation
+→ Email: "Payment confirmed, booking secured"
+
+STEP 8: Event day
+→ Jane arrives, has bridal shower
+→ Leaves on time
+
+STEP 9: Post-event
+→ Damages deposit (£200) refunded within 1-3 days`,
+                context: 'This is the happy path. Everything goes smoothly.'
+              },
+              level3: {
+                title: 'What Could Go Wrong?',
+                content: `Potential issues:
+• Jane gets confused by Acuity modal (different look/feel)
+• Invoice email goes to spam
+• Jane doesn't pay within 48 hours → booking auto-cancelled
+• Jane wants to reschedule after payment
+• Jane arrives late, stays over time`,
+                question: 'Which of these have you actually experienced? How did you handle it?'
+              }
+            }
+          ]
+        }
+      ]
+    };
+
+    // State management
+    let feedback = JSON.parse(localStorage.getItem('hb_review_feedback')) || {};
+    let mediaRecorder;
+    let audioChunks = [];
+
+    // Initialize
+    function init() {
+      renderSections();
+      updateProgress();
+      updateSummary();
+    }
+
+    function renderSections() {
+      const container = document.getElementById('sections');
+      container.innerHTML = reviewData.sections.map(section => `
+        <div class="section" data-section-id="${section.id}">
+          <div class="section-header" onclick="toggleSection('${section.id}')">
+            <div class="section-title">
+              ${section.title}
+              ${section.priority ? `<span class="badge ${section.priority.toLowerCase()}">${section.priority}</span>` : ''}
+            </div>
+            <div class="section-status">
+              <span class="badge ${getSectionStatus(section.id)}">${getSectionStatusText(section.id)}</span>
+              <span class="chevron">▶</span>
+            </div>
+          </div>
+          <div class="section-content">
+            ${section.items.map(item => renderItem(section.id, item)).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderItem(sectionId, item) {
+      const itemId = `${sectionId}_${item.id}`;
+      const itemFeedback = feedback[itemId] || {};
+
+      // Handle visual flow items (with screens)
+      if (item.level2 && item.level2.screens) {
+        return renderVisualFlowItem(sectionId, item, itemId, itemFeedback);
+      }
+
+      return `
+        <div class="level-1">
+          <h3 style="margin-bottom: 10px; color: #fff;">${item.title}</h3>
+          <div class="content-box">
+            <div class="content-preview">${item.level1}</div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" onclick="approveLvel1('${itemId}')">✓ Looks Good</button>
+            <button class="danger" onclick="flagLevel1('${itemId}')">❌ Needs Work</button>
+            <button onclick="showLevel2('${itemId}')">📖 Show Me More</button>
+            <button onclick="startRecording('${itemId}')" id="record_${itemId}">🎤 Voice Note</button>
+          </div>
+
+          ${itemFeedback.voiceNote ? `
+            <div class="voice-note">
+              🎤 Voice note recorded (${itemFeedback.voiceTimestamp || 'timestamp'})
+            </div>
+          ` : ''}
+
+          ${item.level2 ? `
+            <div class="level-2" id="level2_${itemId}">
+              <h4 style="margin-bottom: 10px; color: #ccc;">${item.level2.title}</h4>
+              <div class="content-box">
+                <pre class="content-preview">${item.level2.content}</pre>
+              </div>
+              ${item.level2.context ? `
+                <div class="context-info">
+                  ℹ️ Context: ${item.level2.context}
+                </div>
+              ` : ''}
+
+              <div class="actions">
+                <button class="primary" onclick="approveLevel2('${itemId}')">✓ Good</button>
+                <button class="danger" onclick="flagLevel2('${itemId}')">❌ Change</button>
+                ${item.level3 ? `<button onclick="showLevel3('${itemId}')">📝 Show Exact Wording</button>` : ''}
+                <button onclick="startRecording('${itemId}_l2')" id="record_${itemId}_l2">🎤 Voice Note</button>
+              </div>
+
+              ${itemFeedback.voiceNoteL2 ? `
+                <div class="voice-note">
+                  🎤 Voice note recorded (${itemFeedback.voiceTimestampL2 || 'timestamp'})
+                </div>
+              ` : ''}
+            </div>
+          ` : ''}
+
+          ${item.level3 ? `
+            <div class="level-3" id="level3_${itemId}">
+              <h4 style="margin-bottom: 10px; color: #ccc;">${item.level3.title}</h4>
+              <div class="content-box">
+                <pre class="content-preview">${item.level3.content}</pre>
+              </div>
+              ${item.level3.question ? `
+                <div class="context-info" style="border-color: #60a5fa; background: #1e3a8a;">
+                  ❓ ${item.level3.question}
+                </div>
+              ` : ''}
+
+              <div style="margin-top: 10px;">
+                <textarea id="edit_${itemId}" placeholder="Edit this text directly, or record voice note below...">${item.level3.content}</textarea>
+              </div>
+
+              <div class="actions">
+                <button class="primary" onclick="approveLevel3('${itemId}')">✓ Approve As-Is</button>
+                <button class="primary" onclick="saveEdit('${itemId}')">💾 Save Edit</button>
+                <button onclick="startRecording('${itemId}_l3')" id="record_${itemId}_l3">🎤 Voice Note</button>
+                <button onclick="hideLevel3('${itemId}')">← Back</button>
+              </div>
+
+              ${itemFeedback.voiceNoteL3 ? `
+                <div class="voice-note">
+                  🎤 Voice note recorded (${itemFeedback.voiceTimestampL3 || 'timestamp'})
+                </div>
+              ` : ''}
+
+              ${itemFeedback.textEdit ? `
+                <div class="voice-note" style="border-color: #4ade80;">
+                  ✏️ Text edited: "${itemFeedback.textEdit.substring(0, 50)}..."
+                </div>
+              ` : ''}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function renderVisualFlowItem(sectionId, item, itemId, itemFeedback) {
+      return `
+        <div class="level-1">
+          <h3 style="margin-bottom: 10px; color: #fff;">${item.title}</h3>
+          <div class="content-box">
+            <div class="content-preview">${item.level1}</div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" onclick="approveLevel1('${itemId}')">✓ Looks Good</button>
+            <button class="danger" onclick="flagLevel1('${itemId}')">❌ Needs Work</button>
+            <button onclick="showLevel2('${itemId}')">📱 View Screens</button>
+            <button onclick="startRecording('${itemId}')" id="record_${itemId}">🎤 Voice Note</button>
+          </div>
+
+          ${itemFeedback.voiceNote ? `
+            <div class="voice-note">
+              🎤 Voice note recorded (${itemFeedback.voiceTimestamp || 'timestamp'})
+            </div>
+          ` : ''}
+
+          <div class="level-2" id="level2_${itemId}">
+            <h4 style="margin-bottom: 15px; color: #ccc;">${item.level2.title}</h4>
+
+            ${item.level2.screens.map((screen, idx) => `
+              <div style="margin-bottom: 30px;">
+                <div style="margin-bottom: 10px; color: #888; font-size: 12px; font-weight: bold;">
+                  ${screen.step}
+                </div>
+                <div class="content-box">
+                  <pre class="content-preview" style="font-size: 11px; line-height: 1.4;">${screen.ascii}</pre>
+                </div>
+                ${screen.question ? `
+                  <div class="context-info" style="border-color: #60a5fa; background: #1e3a8a; margin-top: 10px;">
+                    ❓ ${screen.question}
+                  </div>
+                ` : ''}
+                <div class="actions" style="margin-top: 10px;">
+                  <button class="primary" onclick="approveScreen('${itemId}', ${idx})">✓ This Screen Looks Good</button>
+                  <button class="danger" onclick="flagScreen('${itemId}', ${idx})">❌ This Screen Needs Work</button>
+                  <button onclick="startRecording('${itemId}_screen${idx}')" id="record_${itemId}_screen${idx}">🎤 Voice Note</button>
+                </div>
+                ${itemFeedback[`screen${idx}_voiceNote`] ? `
+                  <div class="voice-note">
+                    🎤 Voice note for this screen (${itemFeedback[`screen${idx}_voiceTimestamp`] || 'timestamp'})
+                  </div>
+                ` : ''}
+              </div>
+            `).join('')}
+
+            ${item.level2.context ? `
+              <div class="context-info" style="margin-top: 20px;">
+                ℹ️ Context: ${item.level2.context}
+              </div>
+            ` : ''}
+
+            <div class="actions" style="margin-top: 20px;">
+              <button onclick="hideLevel2('${itemId}')">← Back</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function approveScreen(itemId, screenIdx) {
+      if (!feedback[itemId]) feedback[itemId] = {};
+      feedback[itemId][`screen${screenIdx}_status`] = 'approved';
+      feedback[itemId][`screen${screenIdx}_timestamp`] = new Date().toISOString();
+      saveFeedback();
+      renderSections();
+      updateProgress();
+      updateSummary();
+    }
+
+    function flagScreen(itemId, screenIdx) {
+      if (!feedback[itemId]) feedback[itemId] = {};
+      feedback[itemId][`screen${screenIdx}_status`] = 'needs-change';
+      feedback[itemId][`screen${screenIdx}_timestamp`] = new Date().toISOString();
+      saveFeedback();
+      renderSections();
+      updateProgress();
+      updateSummary();
+    }
+
+    function hideLevel2(itemId) {
+      document.getElementById(`level2_${itemId}`).classList.remove('visible');
+    }
+
+    function toggleSection(sectionId) {
+      const section = document.querySelector(`[data-section-id="${sectionId}"]`);
+      section.classList.toggle('expanded');
+    }
+
+    function showLevel2(itemId) {
+      document.getElementById(`level2_${itemId}`).classList.add('visible');
+    }
+
+    function showLevel3(itemId) {
+      document.getElementById(`level3_${itemId}`).classList.add('visible');
+    }
+
+    function hideLevel3(itemId) {
+      document.getElementById(`level3_${itemId}`).classList.remove('visible');
+    }
+
+    function approveLvel1(itemId) {
+      updateFeedback(itemId, 'approved');
+    }
+
+    function flagLevel1(itemId) {
+      updateFeedback(itemId, 'needs-change');
+    }
+
+    function approveLevel2(itemId) {
+      updateFeedback(itemId, 'approved');
+    }
+
+    function flagLevel2(itemId) {
+      updateFeedback(itemId, 'needs-change');
+    }
+
+    function approveLevel3(itemId) {
+      updateFeedback(itemId, 'approved');
+    }
+
+    function saveEdit(itemId) {
+      const textarea = document.getElementById(`edit_${itemId}`);
+      if (!feedback[itemId]) feedback[itemId] = {};
+      feedback[itemId].textEdit = textarea.value;
+      feedback[itemId].status = 'needs-change';
+      saveFeedback();
+      alert('Edit saved! ✓');
+      renderSections();
+    }
+
+    function updateFeedback(itemId, status) {
+      if (!feedback[itemId]) feedback[itemId] = {};
+      feedback[itemId].status = status;
+      feedback[itemId].timestamp = new Date().toISOString();
+      saveFeedback();
+      renderSections();
+      updateProgress();
+      updateSummary();
+    }
+
+    async function startRecording(itemId) {
+      const button = document.getElementById(`record_${itemId}`);
+
+      if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = (event) => {
+            audioChunks.push(event.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+            saveVoiceNote(itemId, audioBlob);
+            button.classList.remove('recording');
+            button.textContent = '🎤 Voice Note';
+          };
+
+          mediaRecorder.start();
+          button.classList.add('recording');
+          button.textContent = '⏹️ Stop Recording';
+        } catch (err) {
+          alert('Microphone access denied. Please allow microphone access to record voice notes.');
+        }
+      } else {
+        mediaRecorder.stop();
+      }
+    }
+
+    function saveVoiceNote(itemId, audioBlob) {
+      if (!feedback[itemId]) feedback[itemId] = {};
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const key = itemId.includes('_l3') ? 'voiceNoteL3' : itemId.includes('_l2') ? 'voiceNoteL2' : 'voiceNote';
+        const timeKey = itemId.includes('_l3') ? 'voiceTimestampL3' : itemId.includes('_l2') ? 'voiceTimestampL2' : 'voiceTimestamp';
+
+        feedback[itemId][key] = reader.result;
+        feedback[itemId][timeKey] = new Date().toLocaleString();
+        if (!feedback[itemId].status) {
+          feedback[itemId].status = 'question';
+        }
+        saveFeedback();
+        renderSections();
+        updateProgress();
+        updateSummary();
+      };
+      reader.readAsDataURL(audioBlob);
+    }
+
+    function saveFeedback() {
+      localStorage.setItem('hb_review_feedback', JSON.stringify(feedback));
+    }
+
+    function getSectionStatus(sectionId) {
+      const section = reviewData.sections.find(s => s.id === sectionId);
+      const items = section.items.map(item => `${sectionId}_${item.id}`);
+      const reviewed = items.filter(id => feedback[id] && feedback[id].status);
+
+      if (reviewed.length === 0) return 'pending';
+      if (reviewed.length === items.length) {
+        const hasChanges = reviewed.some(id => feedback[id].status === 'needs-change');
+        return hasChanges ? 'needs-change' : 'approved';
+      }
+      return 'pending';
+    }
+
+    function getSectionStatusText(sectionId) {
+      const status = getSectionStatus(sectionId);
+      const map = {
+        'pending': 'NOT REVIEWED',
+        'approved': 'APPROVED',
+        'needs-change': 'NEEDS WORK'
+      };
+      return map[status];
+    }
+
+    function updateProgress() {
+      const allItems = reviewData.sections.flatMap(s => s.items.map(i => `${s.id}_${i.id}`));
+      const reviewed = allItems.filter(id => feedback[id] && feedback[id].status);
+
+      document.getElementById('reviewedCount').textContent = reviewed.length;
+      document.getElementById('totalCount').textContent = allItems.length;
+    }
+
+    function updateSummary() {
+      const statuses = Object.values(feedback).map(f => f.status);
+      document.getElementById('approvedCount').textContent = statuses.filter(s => s === 'approved').length;
+      document.getElementById('needsChangeCount').textContent = statuses.filter(s => s === 'needs-change').length;
+      document.getElementById('questionsCount').textContent = statuses.filter(s => s === 'question').length;
+    }
+
+    function exportFeedback() {
+      const exportData = {
+        reviewSession: new Date().toISOString(),
+        sectionsReviewed: Object.keys(feedback).length,
+        feedback: Object.entries(feedback).map(([itemId, data]) => ({
+          itemId,
+          status: data.status,
+          timestamp: data.timestamp,
+          hasVoiceNote: !!data.voiceNote,
+          hasVoiceNoteL2: !!data.voiceNoteL2,
+          hasVoiceNoteL3: !!data.voiceNoteL3,
+          hasTextEdit: !!data.textEdit,
+          textEdit: data.textEdit,
+          voiceTimestamp: data.voiceTimestamp,
+          voiceTimestampL2: data.voiceTimestampL2,
+          voiceTimestampL3: data.voiceTimestampL3
+        })),
+        summary: {
+          approved: Object.values(feedback).filter(f => f.status === 'approved').length,
+          needsChange: Object.values(feedback).filter(f => f.status === 'needs-change').length,
+          questions: Object.values(feedback).filter(f => f.status === 'question').length
+        }
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `hb-review-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+
+      alert('Feedback exported! 📥\n\nVoice notes are embedded as base64. Send the JSON file + mention if you want voice notes transcribed.');
+    }
+
+    // Initialize on load
+    init();
+  </script>
+</body>
+</html>

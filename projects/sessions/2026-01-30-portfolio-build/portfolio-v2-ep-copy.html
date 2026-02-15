@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicholas Feyi · Get 10 Hours Back Per Week</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .header {
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #222;
+        }
+
+        .label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        /* BIGGER OUTCOME HEADLINE */
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            font-variant-numeric: tabular-nums;
+        }
+
+        h1 .highlight {
+            color: #4a9;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #aaa;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        /* VALUE PROPOSITION BLOCK - NEW */
+        .value-prop {
+            background: #0a0a0a;
+            border-left: 3px solid #4a9;
+            padding: 20px 24px;
+            margin: 32px 0;
+            font-size: 15px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .value-prop strong {
+            color: #4a9;
+            font-weight: 700;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: 1px solid #4a9;
+            background: transparent;
+            color: #4a9;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #4a9;
+            color: #000;
+        }
+
+        .btn-primary {
+            background: #4a9;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            background: #5ba;
+        }
+
+        /* SECTION */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .case-meta {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 40px;
+            display: flex;
+            gap: 24px;
+        }
+
+        h3 {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #888;
+            margin: 40px 0 16px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        /* RESULTS BLOCK - MOVED UP, BIGGER */
+        .results-block {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 40px;
+            margin: 48px 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+
+        .result-item {
+            text-align: center;
+        }
+
+        .result-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: #4a9;
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 8px;
+        }
+
+        .result-label {
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .result-desc {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* TIME COMPARISON */
+        .time-comparison {
+            margin: 40px 0;
+        }
+
+        .time-bar-group {
+            margin-bottom: 40px;
+        }
+
+        .time-bar-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .time-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .time-state {
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #666;
+        }
+
+        .time-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .time-bar-group:first-child .time-value {
+            color: #a44;
+        }
+
+        .time-bar-group:last-child .time-value {
+            color: #4a9;
+        }
+
+        .time-bar {
+            height: 16px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .time-bar-fill {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .time-bar-fill.manual {
+            width: 100%;
+            background: #a44;
+        }
+
+        .time-bar-fill.automated {
+            width: 1.1%;
+            background: #4a9;
+        }
+
+        .time-breakdown {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* AUTOMATED LIST */
+        .automated-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .automated-list li {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .automated-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #4a9;
+        }
+
+        /* PROCESS GRID - SIMPLIFIED */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .process-step {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 20px 16px;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #4a9;
+            color: #4a9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .step-desc {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CONTACT BLOCK */
+        .contact-block {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 40px;
+        }
+
+        .capacity-bar {
+            background: #0f2a1a;
+            border: 1px solid #1a4;
+            color: #6d6;
+            padding: 12px 16px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 13px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #4a9;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-note {
+            font-size: 9px;
+            color: #555;
+            margin-top: 6px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #4a9;
+            border: none;
+            color: #000;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #5ba;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid #1a1a1a;
+            font-size: 8px;
+            color: #333;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .header {
+                margin-bottom: 60px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .value-prop {
+                font-size: 13px;
+            }
+
+            .time-value {
+                font-size: 22px;
+            }
+
+            .results-block {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                padding: 32px 24px;
+            }
+
+            .result-number {
+                font-size: 40px;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="label">SYSTEMS DESIGNER</div>
+            <h1>I free up <span class="highlight">10-15 hours/week</span><br>so you can take on more clients<br>without hiring</h1>
+            <div class="subtitle">Your studio is hitting capacity. You're turning down work because tasks are maxed out. I build automated systems that buy back your time in 7-10 day sprints.</div>
+
+            <!-- VALUE PROPOSITION -->
+            <div class="value-prop">
+                <strong>10 hours back per week = 40 hours/month.</strong> At ₦50,000/hour, that's ₦2M/month in buyback value. One-time investment. Break even in 2-3 months. Profit forever after.
+            </div>
+
+            <div class="cta-group">
+                <a href="#contact" class="btn btn-primary">GET 10 HOURS BACK</a>
+                <a href="#proof" class="btn">SEE PROOF</a>
+            </div>
+        </header>
+
+        <!-- RESULTS UP FRONT - MOVED FROM BOTTOM -->
+        <section class="section" id="proof">
+            <div class="section-label">REAL RESULTS</div>
+
+            <div class="results-block">
+                <div class="result-item">
+                    <div class="result-number">10-12</div>
+                    <div class="result-label">HOURS/MONTH FREED</div>
+                    <div class="result-desc">Take on 3 more clients without hiring</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-number">95%</div>
+                    <div class="result-label">TIME SAVED</div>
+                    <div class="result-desc">45 min → 30 sec per booking</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-number">10</div>
+                    <div class="result-label">DAYS TO LIVE</div>
+                    <div class="result-desc">From kickoff to working system</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASE STUDY -->
+        <section class="section" id="case">
+            <div class="section-label">CASE STUDY</div>
+            <h2>Event Studio Booking Automation</h2>
+            <div class="case-meta">
+                <span>HIBISCUS STUDIO</span>
+                <span>LIVE PRODUCTION</span>
+                <span>JAN 2026</span>
+            </div>
+
+            <h3>THE CAPACITY PROBLEM</h3>
+            <p>Owner was hitting capacity ceiling. Spending 8-12 hours/month on manual bookings: creating invoices by hand, syncing calendars, sending confirmation emails, tracking payments in spreadsheets. Double-booking risk. Paying for tools that didn't talk to each other. VA in different timezone causing delays.</p>
+
+            <p><strong>Result:</strong> Turning down inquiries because admin work was maxed out. Couldn't take on more clients without hiring.</p>
+
+            <h3>TIME PER BOOKING</h3>
+
+            <div class="time-comparison">
+                <div class="time-bar-group">
+                    <div class="time-label">
+                        <span class="time-state">BEFORE: MANUAL PROCESS</span>
+                        <span class="time-value">45 min</span>
+                    </div>
+                    <div class="time-bar">
+                        <div class="time-bar-fill manual"></div>
+                    </div>
+                    <div class="time-breakdown">
+                        Manual inquiry response + create invoice PDFs + write emails + track payments in spreadsheet
+                    </div>
+                </div>
+
+                <div class="time-bar-group">
+                    <div class="time-label">
+                        <span class="time-state">AFTER: AUTOMATED SYSTEM</span>
+                        <span class="time-value">30 sec</span>
+                    </div>
+                    <div class="time-bar">
+                        <div class="time-bar-fill automated"></div>
+                    </div>
+                    <div class="time-breakdown">
+                        Direct funnel → instant invoice → triggered email → real-time calendar sync
+                    </div>
+                </div>
+            </div>
+
+            <h3>WHAT GOT AUTOMATED</h3>
+            <ul class="automated-list">
+                <li>Invoice generation (2 PDFs per booking, instant)</li>
+                <li>Calendar synchronization (dual-calendar backend, zero conflicts)</li>
+                <li>Email workflows (confirmation + status updates, triggered)</li>
+                <li>Payment tracking (real-time, no spreadsheet)</li>
+                <li>Timezone handling (auto-conversion)</li>
+            </ul>
+
+            <h3>OUTCOME</h3>
+            <p>10-12 hours/month back. Owner can now take on 3 more bookings/month without hiring admin help. System runs 24/7. Zero double-bookings. Break-even in 2 months.</p>
+        </section>
+
+        <!-- PROCESS -->
+        <section class="section">
+            <div class="section-label">HOW IT WORKS</div>
+            <h2>10-Hour Buyback Sprint</h2>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Find the Waste</div>
+                    <div class="step-desc">What task is eating 10+ hours/week?</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Map the Flow</div>
+                    <div class="step-desc">I document exactly how it works now</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Build (7-10 days)</div>
+                    <div class="step-desc">Working system ships, daily updates</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">You Get Time Back</div>
+                    <div class="step-desc">10+ hours/week freed, guaranteed</div>
+                </div>
+            </div>
+
+            <div class="value-prop" style="margin-top: 40px;">
+                <strong>Guarantee:</strong> If you don't get 10 hours back per week within 30 days, I work another week free.
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section" id="contact">
+            <div class="section-label">GET STARTED</div>
+
+            <div class="contact-block">
+                <div class="capacity-bar">ACCEPTING FEB 2026 PROJECTS</div>
+
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label>NAME</label>
+                        <input type="text" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>EMAIL</label>
+                        <input type="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>COMPANY / PROJECT</label>
+                        <input type="text" name="company">
+                    </div>
+
+                    <div class="form-group">
+                        <label>WHAT TASK IS EATING THE MOST TIME?</label>
+                        <textarea name="problem" placeholder="E.g., 'Creating invoices for 20 clients/week' or 'Manually syncing 3 calendars daily'" required></textarea>
+                        <div class="form-note">Be specific: what task, how often, how long</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>HOW MANY HOURS/WEEK DOES THIS TAKE?</label>
+                        <input type="text" name="hours" placeholder="E.g., '10 hours/week'" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>TIMELINE</label>
+                        <select name="timeline" required>
+                            <option value="">Select timeline</option>
+                            <option value="urgent">Urgent - bleeding hours right now</option>
+                            <option value="soon">Soon - within 4 weeks</option>
+                            <option value="planning">Exploring options</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">GET 10 HOURS BACK</button>
+                </form>
+            </div>
+        </section>
+
+        <div class="footer">
+            nicholas feyi · systems designer · portfolio 2026.01
+        </div>
+    </div>
+</body>
+</html>

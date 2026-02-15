@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HUD v4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0a0a10; color: #999;
+    font-family: 'Work Sans', sans-serif; font-weight: 300;
+    min-height: 100vh; padding: 0;
+  }
+
+  /* LAYOUT */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* LEFT NAV — desktop (wide) */
+  .side-nav {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 56px;
+    padding: 10px 4px; display: flex; flex-direction: column; gap: 2px;
+    z-index: 200; background: #08080e; border-right: 1px solid #111;
+    overflow-y: auto;
+  }
+  .side-nav a {
+    display: block; font-size: 7px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase;
+    color: #2a2a3a; text-decoration: none; padding: 6px 4px; border-radius: 3px;
+    text-align: center; transition: color 0.15s, background 0.15s; line-height: 1.3;
+  }
+  .side-nav a:hover { color: #555; }
+  .side-nav a.active { color: #6688cc; background: #0c0c18; border: 1px solid #1a1a2a; }
+  .nav-divider { height: 1px; background: #111; margin: 3px 0; }
+
+  /* MAIN CONTENT */
+  .hud { max-width: 800px; margin: 0 auto; padding: 0 16px 40px; margin-left: 56px; }
+
+  /* ═══ RESPONSIVE: narrow viewports (split screen / mobile) ═══ */
+  @media (max-width: 700px) {
+    .side-nav {
+      position: sticky; top: 0; left: 0; right: 0; bottom: auto;
+      width: 100%; height: auto;
+      flex-direction: row; justify-content: center; align-items: center;
+      padding: 0; gap: 0;
+      border-right: none; border-bottom: 1px solid #111;
+      background: rgba(8,8,14,0.96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 300;
+    }
+    .side-nav a {
+      font-size: 6.5px; padding: 7px 3px; flex: 1; letter-spacing: 0.5px;
+    }
+    .nav-divider { display: none; }
+    .hud { margin-left: 0; padding: 0 10px 30px; }
+    .north-star { padding: 10px 0 8px; }
+    .ns-text { font-size: 10px; }
+    .ns-icon { width: 14px; height: 14px; }
+    .sticky-bar { top: 28px; }
+    .sticky-date { font-size: 16px; }
+    .links a { font-size: 7px; padding: 2px 5px; }
+    .now-card { padding: 8px 10px; margin: 10px 0; }
+    .now-text { font-size: 11px; }
+    .mid-goals { grid-template-columns: 1fr; gap: 8px; }
+    .mid-name { font-size: 11px; }
+    .projects { grid-template-columns: 1fr; gap: 8px; }
+    .capture-grid { grid-template-columns: 1fr; gap: 10px; }
+    .section { margin-bottom: 16px; scroll-margin-top: 80px; }
+    .sec-label { font-size: 8px; letter-spacing: 2px; margin-bottom: 8px; }
+    .build-item { grid-template-columns: auto 1fr auto; }
+    .build-when { font-size: 6px; padding: 1px 4px; }
+    .build-badge { display: none; }
+    .build-group-why { display: none; }
+  }
+
+  /* NORTH STAR */
+  .north-star {
+    text-align: center; padding: 16px 0 12px;
+    border-bottom: 1px solid #151518;
+  }
+  .ns-icon { width: 18px; height: 18px; filter: invert(1) opacity(0.15); vertical-align: middle; margin-right: 6px; }
+  .ns-text { font-size: 12px; font-weight: 400; color: #6688cc; letter-spacing: 1px; }
+  .ns-deadline { font-size: 8px; font-weight: 300; color: #335; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+
+  /* STICKY HEADER */
+  .sticky-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,16,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    padding: 8px 0; border-bottom: 1px solid #151518;
+  }
+  .sticky-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .sticky-brand { font-size: 9px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: #333; }
+  .sticky-clock { font-size: 11px; font-weight: 200; color: #335; letter-spacing: 2px; font-variant-numeric: tabular-nums; }
+  .sticky-date { font-size: 20px; font-weight: 200; color: #fff; letter-spacing: 1px; }
+  .links { display: flex; flex-wrap: wrap; gap: 4px; }
+  .links a {
+    font-size: 8px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #6688cc; text-decoration: none; padding: 3px 7px;
+    border: 1px solid #1a1a2a; border-radius: 3px; transition: border-color 0.15s, color 0.15s;
+  }
+  .links a:hover { border-color: #3355aa; color: #88aaee; }
+
+  /* NOW CARD */
+  .now-card {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; margin: 14px 0;
+    background: #0c0c18; border: 1px solid #1a1a2a; border-left: 3px solid #6688cc; border-radius: 4px;
+  }
+  .now-icon { width: 16px; height: 16px; filter: invert(1) opacity(0.25); }
+  .now-label { font-size: 8px; letter-spacing: 2px; color: #335; text-transform: uppercase; }
+  .now-text { font-size: 12px; font-weight: 400; color: #6688cc; margin-top: 1px; }
+
+  /* SECTION LABELS */
+  .section { margin-bottom: 22px; scroll-margin-top: 70px; }
+  .sec-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 9px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: #333; margin-bottom: 10px;
+  }
+  .sec-icon { width: 14px; height: 14px; filter: invert(1) opacity(0.2); }
+
+  /* MID-GOALS (3 Moves) */
+  .mid-goals { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .mid-card {
+    background: #0d0d18; border: 1px solid #1a1a2a; border-radius: 6px; padding: 16px 14px 12px;
+    border-top: 3px solid #1a2a4a; position: relative; cursor: pointer; transition: border-color 0.15s;
+  }
+  .mid-card:hover { border-color: #2a2a4a; }
+  .mid-card.in-progress { border-top-color: #3366aa; background: #0d0d1a; }
+  .mid-card.completed { border-top-color: #2a6a2a; }
+  .mid-name { font-size: 12px; font-weight: 500; color: #eee; margin-bottom: 4px; }
+  .mid-detail { font-size: 9px; color: #666; line-height: 1.5; margin-bottom: 6px; }
+  .mid-serves { font-size: 8px; color: #4a6a9a; line-height: 1.4; }
+  .mid-count { font-size: 8px; color: #335; margin-top: 6px; }
+  .mid-count strong { color: #6688cc; font-weight: 500; }
+  .mid-projects { margin-top: 4px; display: flex; gap: 4px; }
+  .mid-tag {
+    font-size: 7px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    padding: 1px 5px; border-radius: 2px; background: #111; color: #555; border: 1px solid #1a1a1a;
+  }
+  .mid-status {
+    position: absolute; top: 8px; right: 8px;
+    font-size: 7px; letter-spacing: 1px; text-transform: uppercase; padding: 1px 5px; border-radius: 6px;
+  }
+  .mid-status.not-started { background: #111; color: #444; border: 1px solid #1a1a1a; }
+  .mid-status.in-progress { background: #0a1a1a; color: #6aa; border: 1px solid #1a2a2a; }
+
+  /* PROJECT CARDS */
+  .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .proj-card {
+    background: #0c0c14; border: 1px solid #151520; border-radius: 6px; padding: 12px 14px;
+    transition: border-color 0.15s;
+  }
+  .proj-card:hover { border-color: #252535; }
+  .proj-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .proj-name { font-size: 11px; font-weight: 500; color: #ddd; letter-spacing: 0.5px; }
+  .proj-status {
+    font-size: 7px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 10px;
+  }
+  .proj-status.live { background: #0a1a0a; color: #4a9; border: 1px solid #1a2a1a; }
+  .proj-status.prep { background: #1a1a0a; color: #aa8; border: 1px solid #2a2a1a; }
+  .proj-status.discovery { background: #0a0a1a; color: #88a; border: 1px solid #1a1a2a; }
+  .proj-status.building { background: #1a0a1a; color: #a8a; border: 1px solid #2a1a2a; }
+  .proj-status-text { font-size: 9px; color: #555; margin-bottom: 5px; }
+  .proj-live-items { margin-bottom: 6px; }
+  .proj-live-item { font-size: 8px; color: #3a5a3a; line-height: 1.6; padding-left: 10px; position: relative; }
+  .proj-live-item::before { content: '●'; position: absolute; left: 0; color: #2a4a2a; font-size: 5px; top: 3px; }
+  .proj-next { font-size: 9px; color: #6688cc; margin-bottom: 8px; }
+  .proj-next::before { content: '→ '; color: #335; }
+  .proj-feeds { border-top: 1px solid #151518; padding-top: 6px; }
+  .proj-feeds-label { font-size: 7px; letter-spacing: 2px; color: #2a2a3a; text-transform: uppercase; margin-bottom: 3px; }
+  .proj-feed-item { font-size: 8px; color: #444; line-height: 1.6; padding-left: 10px; position: relative; }
+  .proj-feed-item::before { content: '↗'; position: absolute; left: 0; color: #335; font-size: 8px; }
+
+  /* BUILD QUEUE — GROUPED */
+  .build-group { margin-bottom: 14px; }
+  .build-group-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 12px; background: #0c0c14; border: 1px solid #151520;
+    border-radius: 6px 6px 0 0; border-bottom: none;
+  }
+  .build-group-left { display: flex; align-items: center; gap: 8px; }
+  .build-group-icon { width: 13px; height: 13px; filter: invert(1) opacity(0.2); }
+  .build-group-name { font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #6688cc; }
+  .build-group-why { font-size: 8px; color: #444; font-weight: 300; }
+  .build-group-crossover {
+    padding: 3px 12px 6px; background: #0c0c14; border: 1px solid #151520;
+    border-top: none; border-bottom: 1px dashed #1a1a2a;
+  }
+  .build-crossover-item { font-size: 8px; color: #335; line-height: 1.5; padding-left: 12px; position: relative; }
+  .build-crossover-item::before { content: '↗'; position: absolute; left: 0; color: #2a3a5a; font-size: 8px; }
+  .build-list { display: flex; flex-direction: column; gap: 0; }
+  .build-item {
+    display: grid; grid-template-columns: auto 1fr auto auto; gap: 8px; align-items: start;
+    padding: 8px 12px; background: #0a0a12; border: 1px solid #151520; border-top: none;
+  }
+  .build-item:last-child { border-radius: 0 0 6px 6px; }
+  .build-effort {
+    font-size: 8px; font-weight: 500; letter-spacing: 1px; width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 3px; color: #666; border: 1px solid #222;
+  }
+  .build-effort.S { border-color: #1a3a1a; color: #4a9; }
+  .build-effort.M { border-color: #2a2a1a; color: #aa8; }
+  .build-effort.L { border-color: #2a1a1a; color: #a66; }
+  .build-name { font-size: 10px; font-weight: 400; color: #ccc; }
+  .build-name.completed { color: #3a5a3a; text-decoration: line-through; text-decoration-color: #2a3a2a; }
+  .build-unlock { font-size: 8px; color: #444; margin-top: 2px; line-height: 1.4; }
+  .build-unlock strong { color: #555; font-weight: 400; }
+  .build-mid-goal { font-size: 8px; color: #4a6a9a; margin-top: 2px; }
+  .build-mid-goal::before { content: '⬆ '; font-size: 7px; }
+  .build-note { font-size: 8px; color: #3a5a3a; margin-top: 2px; font-style: italic; }
+  .build-feeds-back { font-size: 8px; color: #6688cc; margin-top: 2px; }
+  .build-feeds-back::before { content: '⟲ '; }
+  .build-breakdown { margin-top: 4px; padding-left: 4px; }
+  .build-step { font-size: 8px; color: #444; line-height: 1.7; padding-left: 12px; position: relative; }
+  .build-step::before { content: '·'; position: absolute; left: 4px; color: #333; }
+  .build-step-effort { color: #333; font-size: 7px; }
+  .build-when {
+    font-size: 7px; letter-spacing: 1px; text-transform: uppercase; padding: 2px 5px;
+    border-radius: 3px; align-self: center; white-space: nowrap;
+  }
+  .build-when.today { background: #1a1a0a; color: #cc8; border: 1px solid #2a2a1a; }
+  .build-when.this-week { background: #0a1a1a; color: #6aa; border: 1px solid #1a2a2a; }
+  .build-when.this-month { background: #111; color: #555; border: 1px solid #1a1a1a; }
+  .build-when.eventually { background: #0c0c0c; color: #333; border: 1px solid #151515; }
+  .build-badge {
+    font-size: 7px; letter-spacing: 1px; text-transform: uppercase; padding: 2px 5px;
+    border-radius: 8px; align-self: center; white-space: nowrap;
+  }
+  .build-badge.in-progress { background: #0a1a1a; color: #6aa; border: 1px solid #1a2a2a; }
+  .build-badge.not-started { background: #111; color: #444; border: 1px solid #1a1a1a; }
+  .build-badge.blocked { background: #1a0a0a; color: #a66; border: 1px solid #2a1a1a; }
+  .build-badge.completed { background: #0a1a0a; color: #4a9; border: 1px solid #1a2a1a; }
+  .build-next {
+    font-size: 7px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #cc8; padding: 2px 8px; background: #1a1a0a; border: 1px solid #3a3a1a;
+    border-radius: 3px; margin-left: 8px; animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .build-item.is-next { border-left: 2px solid #cc8; }
+  .build-proj-tags { display: inline-flex; gap: 3px; margin-left: 6px; }
+  .build-proj-tag {
+    font-size: 6px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 0px 3px; border-radius: 2px;
+  }
+  .build-proj-tag.HB { background: #0a1a0a; color: #4a9; border: 1px solid #1a2a1a; }
+  .build-proj-tag.FORJE { background: #1a1a0a; color: #aa8; border: 1px solid #2a2a1a; }
+  .build-proj-tag.ALOE { background: #1a0a1a; color: #a8a; border: 1px solid #2a1a2a; }
+  .build-proj-tag.GRM { background: #0a0a1a; color: #88a; border: 1px solid #1a1a2a; }
+  .build-proj-tag.INFRA { background: #0a0a1a; color: #88a; border: 1px solid #1a1a2a; }
+
+  /* CAPTURE */
+  .capture-flow {
+    padding: 10px 14px; margin-bottom: 12px;
+    background: #0c0c18; border: 1px solid #1a1a2a; border-left: 3px solid #4a6a9a; border-radius: 4px;
+  }
+  .capture-flow-label { font-size: 8px; letter-spacing: 2px; color: #335; text-transform: uppercase; margin-bottom: 4px; }
+  .capture-flow-step { font-size: 9px; color: #4a6a9a; line-height: 1.8; padding-left: 10px; position: relative; }
+  .capture-flow-step::before { content: '→'; position: absolute; left: 0; color: #2a3a5a; }
+  .capture-flow-step.blocked { color: #a66; }
+  .capture-flow-step.blocked::before { content: '✕'; color: #a66; }
+
+  .capture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .capture-col-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .capture-col-label.handled { color: #3a5a3a; }
+  .capture-col-label.gaps { color: #5a3a3a; }
+
+  .capture-item-card {
+    padding: 8px 10px; margin-bottom: 6px;
+    background: #0a0a12; border: 1px solid #151520; border-radius: 4px;
+  }
+  .capture-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+  .capture-type { font-size: 10px; color: #999; font-weight: 400; }
+  .capture-tool { font-size: 8px; color: #6688cc; font-weight: 400; letter-spacing: 0.5px; }
+  .capture-freq { font-size: 7px; color: #335; letter-spacing: 1px; text-transform: uppercase; }
+  .capture-detail { font-size: 8px; color: #444; line-height: 1.4; }
+  .capture-output { font-size: 7px; color: #2a3a2a; margin-top: 2px; }
+  .capture-output::before { content: '📁 '; font-size: 6px; }
+
+  .capture-gap-card {
+    padding: 8px 10px; margin-bottom: 6px;
+    background: #0a0a12; border: 1px solid #151520; border-radius: 4px; border-left: 2px solid #2a1a1a;
+  }
+  .capture-gap-card.high { border-left-color: #a66; }
+  .capture-gap-card.medium { border-left-color: #aa8; }
+  .capture-gap-card.low { border-left-color: #333; }
+  .capture-priority { font-size: 7px; letter-spacing: 1px; text-transform: uppercase; padding: 1px 5px; border-radius: 3px; }
+  .capture-priority.high { color: #a66; background: #1a0a0a; border: 1px solid #2a1a1a; }
+  .capture-priority.medium { color: #aa8; background: #1a1a0a; border: 1px solid #2a2a1a; }
+  .capture-priority.low { color: #555; background: #111; border: 1px solid #1a1a1a; }
+  .capture-volume { font-size: 8px; color: #555; margin-top: 2px; }
+  .capture-losing { font-size: 8px; color: #5a3a3a; margin-top: 2px; }
+  .capture-losing::before { content: 'Losing: '; color: #3a2a2a; font-weight: 400; }
+
+  /* WAITING */
+  .waiting-list { display: flex; flex-direction: column; gap: 3px; }
+  .waiting-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 5px 10px; background: #0c0c14; border-radius: 3px; font-size: 9px;
+  }
+  .waiting-who { color: #aa8; font-weight: 400; min-width: 70px; }
+  .waiting-what { color: #666; flex: 1; margin: 0 10px; }
+  .waiting-age { color: #444; font-size: 8px; white-space: nowrap; }
+  .waiting-age.stale { color: #a66; }
+
+  /* WINS */
+  .win-item { font-size: 9px; color: #555; padding: 3px 0 3px 14px; position: relative; line-height: 1.5; display: flex; align-items: baseline; gap: 6px; }
+  .win-item::before { content: '✓'; position: absolute; left: 0; color: #3a5a3a; font-size: 9px; }
+  .win-text { flex: 1; }
+  .win-tag {
+    font-size: 6px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    padding: 1px 4px; border-radius: 2px; flex-shrink: 0;
+  }
+  .win-tag.HB { background: #0a1a0a; color: #4a9; border: 1px solid #1a2a1a; }
+  .win-tag.FORJE { background: #1a1a0a; color: #aa8; border: 1px solid #2a2a1a; }
+  .win-tag.ALOE { background: #1a0a1a; color: #a8a; border: 1px solid #2a1a2a; }
+  .win-tag.INFRA { background: #0a0a1a; color: #88a; border: 1px solid #1a1a2a; }
+  .win-tag.GAS { background: #1a0a0a; color: #a88; border: 1px solid #2a1a1a; }
+  .win-tag.GRM { background: #0a1a1a; color: #8aa; border: 1px solid #1a2a2a; }
+
+  /* SHIPPED (momentum) */
+  .shipped-list { display: flex; flex-direction: column; gap: 4px; }
+  .shipped-item { font-size: 10px; color: #6a6; padding: 4px 8px; display: flex; align-items: baseline; gap: 6px; background: #0a120a; border-left: 2px solid #2a4a2a; border-radius: 2px; }
+  .shipped-text { flex: 1; color: #8a8; }
+  .shipped-date { font-size: 8px; color: #444; flex-shrink: 0; }
+
+  /* PRINCIPLES */
+  .principles { display: flex; flex-wrap: wrap; gap: 5px; }
+  .principle {
+    font-size: 8px; font-weight: 400; letter-spacing: 1px; color: #333;
+    padding: 3px 8px; border: 1px solid #151518; border-radius: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV (top-bar on narrow, left-sidebar on wide) -->
+<nav class="side-nav" id="side-nav">
+  <a href="#sec-moves">Moves</a>
+  <a href="#sec-build">Build</a>
+  <div class="nav-divider"></div>
+  <a href="#sec-projects">Projects</a>
+  <a href="#sec-capture">Capture</a>
+  <div class="nav-divider"></div>
+  <a href="#sec-waiting">Waiting</a>
+  <a href="#sec-shipped">Shipped</a>
+  <a href="#sec-wins">Wins</a>
+  <a href="#sec-principles">Rules</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="hud" id="hud"></div>
+
+<script src="v4-data.js"></script>
+<script>
+function iconUrl(id) {
+  return 'https://static.thenounproject.com/png/' + id + '-200.png';
+}
+
+function daysAgo(dateStr) {
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diff = Math.floor((now - d) / (1000 * 60 * 60 * 24));
+  if (diff === 0) return 'today';
+  if (diff === 1) return '1d ago';
+  return diff + 'd ago';
+}
+
+function formatDate(d) {
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+}
+
+function formatTime(d) {
+  return d.getHours().toString().padStart(2,'0') + ':' +
+         d.getMinutes().toString().padStart(2,'0') + ':' +
+         d.getSeconds().toString().padStart(2,'0');
+}
+
+function render() {
+  const h = hud;
+  const el = document.getElementById('hud');
+  const now = new Date();
+
+  // Pre-scan: mark NEXT action + count items per midGoal
+  let nextFound = false;
+  const midGoalCounts = {};
+  h.buildGroups.forEach(g => {
+    g.items.forEach(b => {
+      b._isNext = false;
+      if (!nextFound && b.when === 'today' && b.status !== 'completed') {
+        b._isNext = true;
+        nextFound = true;
+      }
+      if (b.midGoal) {
+        midGoalCounts[b.midGoal] = (midGoalCounts[b.midGoal] || 0) + 1;
+      }
+    });
+  });
+
+  el.innerHTML = `
+    <!-- NORTH STAR -->
+    <div class="north-star">
+      <div>
+        <img src="${iconUrl(h.icons.target)}" class="ns-icon" alt="">
+        <span class="ns-text">${h.northStar}</span>
+      </div>
+      <div class="ns-deadline">${h.northStarDeadline}</div>
+    </div>
+
+    <!-- STICKY BAR -->
+    <div class="sticky-bar">
+      <div class="sticky-top">
+        <div>
+          <span class="sticky-brand">Aloe Labs</span>
+          <span class="sticky-date" style="margin-left:10px;">${formatDate(now)}</span>
+        </div>
+        <span class="sticky-clock" id="live-clock">${formatTime(now)}</span>
+      </div>
+      <div class="links">
+        ${h.links.map(l => `<a href="${l.url}" target="_blank">${l.label}</a>`).join('')}
+      </div>
+    </div>
+
+    <!-- NOW CARD -->
+    <div class="now-card">
+      <img src="${iconUrl(h.icons.rocket)}" class="now-icon" alt="">
+      <div>
+        <div class="now-label">Now</div>
+        <div class="now-text">${h.now}</div>
+      </div>
+    </div>
+
+    <!-- 3 MOVES -->
+    <div class="section" id="sec-moves">
+      <div class="sec-label">
+        <img src="${iconUrl(h.icons.target)}" class="sec-icon" alt="">
+        3 Moves this week
+      </div>
+      <div class="mid-goals">
+        ${h.midGoals.map(m => {
+          const count = midGoalCounts[m.name] || 0;
+          return `
+          <div class="mid-card ${m.status}" onclick="document.getElementById('sec-build').scrollIntoView({behavior:'smooth'})">
+            <span class="mid-status ${m.status}">${m.status.replace('-', ' ')}</span>
+            <div class="mid-name">${m.name}</div>
+            <div class="mid-detail">${m.detail}</div>
+            <div class="mid-serves">${m.serves}</div>
+            <div class="mid-count"><strong>${count}</strong> build items → this move</div>
+            <div class="mid-projects">
+              ${m.projects.map(p => `<span class="mid-tag">${p}</span>`).join('')}
+            </div>
+          </div>
+        `}).join('')}
+      </div>
+    </div>
+
+    <!-- BUILD QUEUE (moved above projects — most useful) -->
+    <div class="section" id="sec-build">
+      <div class="sec-label">
+        <img src="${iconUrl(h.icons.gear)}" class="sec-icon" alt="">
+        Build queue — grouped by crossover
+      </div>
+      ${h.buildGroups.map(g => `
+        <div class="build-group">
+          <div class="build-group-header">
+            <div class="build-group-left">
+              <img src="${iconUrl(g.icon)}" class="build-group-icon" alt="">
+              <span class="build-group-name">${g.group}</span>
+            </div>
+            <span class="build-group-why">${g.why}</span>
+          </div>
+          <div class="build-group-crossover">
+            ${g.crossover.map(c => `<div class="build-crossover-item">${c}</div>`).join('')}
+          </div>
+          <div class="build-list">
+            ${g.items.map(b => `
+              <div class="build-item ${b._isNext ? 'is-next' : ''}">
+                <div class="build-effort ${b.effort}">${b.effort}</div>
+                <div class="build-body">
+                  <div class="build-name ${b.status === 'completed' ? 'completed' : ''}">${b.item}${b.projects ? `<span class="build-proj-tags">${b.projects.map(p => `<span class="build-proj-tag ${p}">${p}</span>`).join('')}</span>` : ''}${b._isNext ? '<span class="build-next">NEXT</span>' : ''}</div>
+                  <div class="build-unlock"><strong>Unlocks:</strong> ${b.unlocks}</div>
+                  ${b.midGoal ? `<div class="build-mid-goal">${b.midGoal}</div>` : ''}
+                  ${b.note ? `<div class="build-note">${b.note}</div>` : ''}
+                  ${b.feedsBack ? `<div class="build-feeds-back">${b.feedsBack}</div>` : ''}
+                  ${b.breakdown ? `<div class="build-breakdown">${b.breakdown.map(s =>
+                    `<div class="build-step">${s.step} <span class="build-step-effort">[${s.effort}]</span></div>`
+                  ).join('')}</div>` : ''}
+                </div>
+                ${b.when ? `<span class="build-when ${b.when}">${b.when.replace('-', ' ')}</span>` : ''}
+                <span class="build-badge ${b.status}">${b.status.replace('-', ' ')}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section" id="sec-projects">
+      <div class="sec-label">
+        <img src="${iconUrl(h.icons.rocket)}" class="sec-icon" alt="">
+        Projects — crossover
+      </div>
+      <div class="projects">
+        ${h.projects.map(p => `
+          <div class="proj-card">
+            <div class="proj-header">
+              <span class="proj-name">${p.name}</span>
+              <span class="proj-status ${p.status}">${p.status}</span>
+            </div>
+            <div class="proj-status-text">${p.statusText}</div>
+            ${p.liveItems ? `<div class="proj-live-items">${p.liveItems.map(l => `<div class="proj-live-item">${l}</div>`).join('')}</div>` : ''}
+            <div class="proj-next">${p.nextBuild}</div>
+            <div class="proj-feeds">
+              <div class="proj-feeds-label">Feeds into</div>
+              ${p.feedsInto.map(f => `<div class="proj-feed-item">${f}</div>`).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- CAPTURE SYSTEM -->
+    <div class="section" id="sec-capture">
+      <div class="sec-label">
+        <img src="${iconUrl(h.icons.capture)}" class="sec-icon" alt="">
+        Capture system
+      </div>
+
+      <!-- FLOW: how capture feeds crossover -->
+      <div class="capture-flow">
+        <div class="capture-flow-label">How capture feeds crossover</div>
+        ${h.capture.flow.map((step, i) => {
+          const isBlocked = step.includes('NOT BUILT');
+          return `<div class="capture-flow-step ${isBlocked ? 'blocked' : ''}">${step}</div>`;
+        }).join('')}
+      </div>
+
+      <div class="capture-grid">
+        <div>
+          <div class="capture-col-label handled">Handled (${h.capture.handled.length})</div>
+          ${h.capture.handled.map(c => `
+            <div class="capture-item-card">
+              <div class="capture-item-header">
+                <span class="capture-type">${c.type}</span>
+                <span class="capture-tool">${c.tool}</span>
+              </div>
+              <div class="capture-freq">${c.freq}</div>
+              <div class="capture-detail">${c.example}</div>
+              <div class="capture-output">${c.output}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div>
+          <div class="capture-col-label gaps">Gaps (${h.capture.gaps.length})</div>
+          ${h.capture.gaps.map(c => `
+            <div class="capture-gap-card ${c.priority}">
+              <div class="capture-item-header">
+                <span class="capture-type">${c.type}</span>
+                <span class="capture-priority ${c.priority}">${c.priority}</span>
+              </div>
+              <div class="capture-volume">${c.volume} unsaved</div>
+              <div class="capture-losing">${c.losing}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- WAITING -->
+    <div class="section" id="sec-waiting">
+      <div class="sec-label">Waiting on</div>
+      <div class="waiting-list">
+        ${h.waiting.map(w => {
+          const age = daysAgo(w.since);
+          const stale = parseInt(age) > 3;
+          return `
+            <div class="waiting-item">
+              <span class="waiting-who">${w.who}</span>
+              <span class="waiting-what">${w.what}</span>
+              <span class="waiting-age ${stale ? 'stale' : ''}">${age}</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- RECENT SHIPPED (momentum) -->
+    <div class="section" id="sec-shipped">
+      <div class="sec-label">
+        <img src="${iconUrl(h.icons.rocket)}" class="sec-icon" alt="">
+        Shipped (last 48h)
+      </div>
+      <div class="shipped-list">
+        ${(h.recentShipped || []).map(s => `
+          <div class="shipped-item">
+            <span class="win-tag ${s.tag}">${s.tag}</span>
+            <span class="shipped-text">${s.item}</span>
+            <span class="shipped-date">${s.at}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- WINS -->
+    <div class="section" id="sec-wins">
+      <div class="sec-label">
+        <img src="${iconUrl(h.icons.trophy)}" class="sec-icon" alt="">
+        Recent wins
+      </div>
+      <div class="wins-list">
+        ${h.wins.map(w => `
+          <div class="win-item">
+            <span class="win-text">${w.text}</span>
+            ${w.tags.map(t => `<span class="win-tag ${t}">${t}</span>`).join('')}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- PRINCIPLES -->
+    <div class="section" id="sec-principles">
+      <div class="sec-label">Principles</div>
+      <div class="principles">
+        ${h.principles.map(p => `<span class="principle">${p}</span>`).join('')}
+      </div>
+    </div>
+  `;
+
+  // Activate IntersectionObserver for left nav
+  initNavObserver();
+}
+
+function initNavObserver() {
+  const sections = document.querySelectorAll('.section[id]');
+  const navLinks = document.querySelectorAll('.side-nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.side-nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+}
+
+render();
+
+// Live clock — ticks every second, re-renders at midnight
+let lastDate = new Date().getDate();
+setInterval(() => {
+  const now = new Date();
+  const clockEl = document.getElementById('live-clock');
+  if (clockEl) clockEl.textContent = formatTime(now);
+  if (now.getDate() !== lastDate) {
+    lastDate = now.getDate();
+    render();
+  }
+}, 1000);
+</script>
+</body>
+</html>

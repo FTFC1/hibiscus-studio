@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>HB Review Portal</title>
+  <style>
+    :root {
+      /* Tinted neutrals (warm) */
+      --gray-950: oklch(12% 0.01 60);
+      --gray-900: oklch(18% 0.01 60);
+      --gray-800: oklch(25% 0.01 60);
+      --gray-700: oklch(35% 0.01 60);
+      --gray-600: oklch(45% 0.01 60);
+      --gray-500: oklch(55% 0.01 60);
+      --gray-400: oklch(65% 0.01 60);
+      --gray-300: oklch(75% 0.01 60);
+      --gray-200: oklch(85% 0.01 60);
+      --gray-100: oklch(92% 0.01 60);
+      --gray-50: oklch(97% 0.01 60);
+
+      /* Functional colors */
+      --green-600: oklch(55% 0.15 145);
+      --green-100: oklch(90% 0.08 145);
+      --red-600: oklch(50% 0.18 25);
+      --red-100: oklch(88% 0.09 25);
+      --blue-600: oklch(55% 0.15 250);
+      --blue-100: oklch(88% 0.08 250);
+
+      /* Semantic tokens */
+      --color-bg: var(--gray-950);
+      --color-surface: var(--gray-900);
+      --color-surface-raised: var(--gray-800);
+      --color-border: var(--gray-800);
+      --color-text: var(--gray-100);
+      --color-text-dim: var(--gray-400);
+      --color-approve: var(--green-600);
+      --color-approve-bg: var(--green-100);
+      --color-flag: var(--red-600);
+      --color-flag-bg: var(--red-100);
+      --color-accent: var(--blue-600);
+
+      /* Spacing scale */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+
+      /* Font */
+      --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.5;
+      background: var(--color-bg);
+      color: var(--color-text);
+      -webkit-font-smoothing: antialiased;
+      font-weight: 350;
+    }
+
+    /* View toggle */
+    .view-toggle {
+      position: fixed;
+      top: var(--space-md);
+      right: var(--space-md);
+      z-index: 200;
+      display: flex;
+      gap: var(--space-xs);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: var(--space-xs);
+    }
+
+    .view-btn {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      padding: var(--space-sm) var(--space-md);
+      background: transparent;
+      border: none;
+      color: var(--color-text-dim);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .view-btn:hover {
+      color: var(--color-text);
+      background: var(--color-surface-raised);
+    }
+
+    .view-btn.active {
+      color: var(--color-text);
+      background: var(--color-surface-raised);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      z-index: 100;
+      padding: var(--space-md);
+    }
+
+    .progress-track {
+      height: 3px;
+      background: var(--gray-800);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: var(--space-md);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--color-approve);
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .step-indicator {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .step-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-approve);
+    }
+
+    .review-count {
+      color: var(--color-text-dim);
+    }
+
+    .review-count strong {
+      color: var(--color-approve);
+      font-weight: 600;
+    }
+
+    /* Content area */
+    .content-wrapper {
+      padding-top: 100px;
+      padding-bottom: 180px;
+      min-height: 100vh;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    /* Detail view */
+    .screen {
+      display: none;
+      padding: var(--space-lg) var(--space-md);
+      animation: fadeIn 0.2s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-md);
+    }
+
+    .status-pill.approved {
+      background: var(--color-approve-bg);
+      color: var(--color-approve);
+    }
+
+    .status-pill.flagged {
+      background: var(--color-flag-bg);
+      color: var(--color-flag);
+    }
+
+    .screen-label {
+      font-size: 12px;
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .screen-title {
+      font-size: 24px;
+      color: var(--color-text);
+      margin-bottom: var(--space-lg);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .ascii-container {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      overflow-x: auto;
+    }
+
+    .ascii-container pre {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.3;
+      color: var(--gray-300);
+      white-space: pre;
+      margin: 0;
+    }
+
+    .question-box {
+      background: var(--color-surface);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 4px;
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--color-text);
+    }
+
+    .voice-recorded {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background: var(--color-surface);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--color-text-dim);
+    }
+
+    /* Flow diagram view */
+    .flow-diagram {
+      padding: var(--space-xl) var(--space-md);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .flow-header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .flow-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+    }
+
+    .flow-subtitle {
+      font-size: 14px;
+      color: var(--color-text-dim);
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .flow-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: var(--space-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .flow-card:hover {
+      background: var(--color-surface-raised);
+      border-color: var(--color-text-dim);
+    }
+
+    .flow-card.current {
+      border-color: var(--color-approve);
+      background: var(--color-surface-raised);
+    }
+
+    .flow-card-number {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-dim);
+      margin-bottom: var(--space-xs);
+    }
+
+    .flow-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+      line-height: 1.3;
+    }
+
+    .flow-card-status {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .flow-card-status.approved {
+      color: var(--color-approve);
+    }
+
+    .flow-card-status.flagged {
+      color: var(--color-flag);
+    }
+
+    .flow-card-status.pending {
+      color: var(--color-text-dim);
+    }
+
+    .flow-connections {
+      position: relative;
+      margin-bottom: var(--space-xl);
+    }
+
+    .flow-legend {
+      display: flex;
+      gap: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.approved {
+      background: var(--color-approve);
+    }
+
+    .legend-dot.flagged {
+      background: var(--color-flag);
+    }
+
+    .legend-dot.pending {
+      background: var(--gray-600);
+    }
+
+    /* Footer navigation */
+    .nav-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-md);
+      z-index: 100;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .btn {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px var(--space-md);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    .btn-approve {
+      background: var(--color-approve);
+      color: var(--gray-950);
+      border-color: var(--color-approve);
+    }
+
+    .btn-approve:hover {
+      background: oklch(60% 0.16 145);
+    }
+
+    .btn-flag {
+      background: var(--color-flag);
+      color: var(--gray-50);
+      border-color: var(--color-flag);
+    }
+
+    .btn-flag:hover {
+      background: oklch(55% 0.19 25);
+    }
+
+    .btn-voice {
+      background: var(--color-surface);
+      color: var(--color-text);
+      grid-column: 1 / -1;
+      border-color: var(--color-border);
+    }
+
+    .btn-voice:hover {
+      background: var(--color-surface-raised);
+      border-color: var(--color-text-dim);
+    }
+
+    .btn-voice.recording {
+      background: var(--color-flag);
+      color: var(--gray-50);
+      border-color: var(--color-flag);
+    }
+
+    .btn-export {
+      background: var(--color-surface);
+      color: var(--color-text);
+      border-color: var(--color-border);
+      grid-column: 1 / -1;
+    }
+
+    .btn-export:hover {
+      background: var(--color-surface-raised);
+      border-color: var(--color-text-dim);
+    }
+
+    /* Arrow navigation */
+    .nav-controls {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    .nav-arrow {
+      flex: 1;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 12px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      color: var(--color-text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-arrow:active:not(:disabled) {
+      transform: scale(0.98);
+      background: var(--color-surface-raised);
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-arrow:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    .nav-info {
+      font-size: 13px;
+      color: var(--color-text-dim);
+      text-align: center;
+      padding: 0 var(--space-md);
+      white-space: nowrap;
+    }
+
+    /* Dot navigation */
+    .dot-nav {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      padding-top: var(--space-md);
+      overflow-x: auto;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .dot.current {
+      background: var(--color-approve);
+      transform: scale(1.5);
+    }
+
+    .dot.approved {
+      background: var(--color-approve);
+    }
+
+    .dot.flagged {
+      background: var(--color-flag);
+    }
+
+    /* Screenshot canvas (hidden) */
+    #screenshotCanvas {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .flow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .view-toggle {
+        top: var(--space-sm);
+        right: var(--space-sm);
+      }
+
+      .view-btn {
+        font-size: 13px;
+        padding: 6px var(--space-sm);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="view-toggle">
+    <button class="view-btn active" onclick="switchView('detail')">Detail</button>
+    <button class="view-btn" onclick="switchView('flow')">Flow Map</button>
+  </div>
+
+  <div class="header">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="header-row">
+      <div class="step-indicator">
+        <span class="step-number" id="stepCurrent">1</span>
+        <span style="color: var(--color-text-dim);">of <span id="stepTotal">5</span></span>
+      </div>
+      <div class="review-count">
+        <strong id="reviewCount">0</strong> reviewed
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- Detail View -->
+    <div class="view detail-view active" id="detailView"></div>
+
+    <!-- Flow Map View -->
+    <div class="view flow-view" id="flowView">
+      <div class="flow-diagram">
+        <div class="flow-header">
+          <h1 class="flow-title">Booking Flow Overview</h1>
+          <p class="flow-subtitle">Review each screen in the customer journey. Click a card to jump to that screen in detail view.</p>
+        </div>
+
+        <div class="flow-grid" id="flowGrid"></div>
+
+        <div class="flow-legend">
+          <div class="legend-item">
+            <div class="legend-dot approved"></div>
+            <span>Approved</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot flagged"></div>
+            <span>Needs work</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot pending"></div>
+            <span>Not reviewed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <div id="footerContent"></div>
+  </div>
+
+  <canvas id="screenshotCanvas"></canvas>
+
+  <script>
+    const flowData = {
+      screens: [
+        {
+          title: 'Landing Page',
+          label: 'STEP 1',
+          ascii: `┌─────────────────────────────────────────┐
+│  HIBISCUS STUDIO                    ☰  │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Hero image of studio]                 │
+│                                         │
+│  Studio hire for events,                │
+│  workshops & content shoots             │
+│                                         │
+│  19a Peto Street North, London E16      │
+│  5 min from Canning Town                │
+│                                         │
+│  ✓ 40 seats  ✓ Tables  ✓ Kitchen       │
+│                                         │
+│         [View Booking Options]          │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Does this clearly communicate what you offer? Is the location info prominent enough?'
+        },
+        {
+          title: 'Category Selection',
+          label: 'STEP 2',
+          ascii: `┌─────────────────────────────────────────┐
+│  Choose your booking type               │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  STUDIO VIEWING                   │ │
+│  │  Free • 20 minutes                │ │
+│  │  [Book Viewing]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  EVENT HIRE                       │ │
+│  │  From £345 • 4-12 hours           │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  WORKSHOPS & CONTENT              │ │
+│  │  From £90/hour                    │ │
+│  │  [View Options]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  PROPOSAL PACKAGES                │ │
+│  │  From £770 • Save up to £400      │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Are these categories clear? Should "Event Hire" be renamed to something more specific?'
+        },
+        {
+          title: 'Package Selection',
+          label: 'STEP 3',
+          ascii: `┌─────────────────────────────────────────┐
+│  Event Hire Packages                    │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  4 HOURS FLEXI                    │ │
+│  │  £345                             │ │
+│  │  Perfect for smaller gatherings   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  HALF-DAY (6 HOURS) — POPULAR     │ │
+│  │  £465                             │ │
+│  │  Most chosen for bridal showers   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  8 HOURS FLEXI                    │ │
+│  │  £645                             │ │
+│  │  Great for larger events          │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Do the descriptions help customers choose? Is pricing clear?'
+        },
+        {
+          title: 'Acuity Modal Opens',
+          label: 'STEP 4',
+          ascii: `┌─────────────────────────────────────────┐
+│  Book Your Session              [X]     │
+│  Hibiscus Studio                        │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Loading spinner]                      │
+│  Loading booking calendar...            │
+│                                         │
+│  ────────────────────────────────────── │
+│                                         │
+│  [Acuity calendar iframe loads here]    │
+│                                         │
+│  • Pick date from calendar              │
+│  • Select time slot                     │
+│  • Fill form (name, email, phone)       │
+│  • Click "Complete Booking"             │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'CRITICAL: Does this modal feel disconnected from the main site? (This is why we want to replace Acuity)'
+        },
+        {
+          title: 'Booking Confirmation',
+          label: 'STEP 5',
+          ascii: `┌─────────────────────────────────────────┐
+│  Booking Created                        │
+├─────────────────────────────────────────┤
+│                                         │
+│  We've reserved your date.              │
+│                                         │
+│  What's next:                           │
+│  1. Check your email for invoice        │
+│  2. Pay 50% deposit within 48 hours     │
+│  3. We'll confirm once payment received │
+│                                         │
+│  Your booking ID: HB-2026-001           │
+│                                         │
+│  Event Details:                         │
+│  • Date: Feb 15, 2026                   │
+│  • Time: 4:00 PM - 10:00 PM             │
+│  • Package: Half-Day (6 hours)          │
+│  • Total: £465                          │
+│                                         │
+│  [Close]                                │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Is it clear what happens next? Do customers understand they need to wait for invoice?'
+        }
+      ]
+    };
+
+    let currentScreen = 0;
+    let currentView = 'detail';
+    let feedback = JSON.parse(localStorage.getItem('hb_v4_feedback')) || {};
+    let mediaRecorder;
+    let audioChunks = [];
+
+    function render() {
+      updateHeader();
+      renderDetailView();
+      renderFlowView();
+      renderFooter();
+    }
+
+    function updateHeader() {
+      document.getElementById('stepCurrent').textContent = currentScreen + 1;
+      document.getElementById('stepTotal').textContent = flowData.screens.length;
+
+      const reviewedCount = Object.keys(feedback).filter(k => feedback[k] && feedback[k].status).length;
+      document.getElementById('reviewCount').textContent = reviewedCount;
+
+      const progress = ((currentScreen + 1) / flowData.screens.length) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    function renderDetailView() {
+      const screen = flowData.screens[currentScreen];
+      const status = feedback[currentScreen];
+
+      const detailView = document.getElementById('detailView');
+      detailView.innerHTML = `
+        <div class="screen active">
+          ${status ? `<div class="status-pill ${status.status}">${status.status === 'approved' ? 'Approved' : 'Flagged for review'}</div>` : ''}
+          <div class="screen-label">${screen.label}</div>
+          <h1 class="screen-title">${screen.title}</h1>
+
+          <div class="ascii-container">
+            <pre>${screen.ascii}</pre>
+          </div>
+
+          ${screen.question ? `
+            <div class="question-box">${screen.question}</div>
+          ` : ''}
+
+          ${status && status.voiceNote ? `
+            <div class="voice-recorded">
+              Voice note recorded • ${status.voiceTimestamp || 'No timestamp'}
+              ${status.screenshot ? `<br>Screenshot captured` : ''}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function renderFlowView() {
+      const flowGrid = document.getElementById('flowGrid');
+      flowGrid.innerHTML = flowData.screens.map((screen, idx) => {
+        const status = feedback[idx];
+        const statusClass = !status ? 'pending' : status.status;
+        const statusText = !status ? 'Not reviewed' : status.status === 'approved' ? 'Approved' : 'Flagged';
+
+        return `
+          <div class="flow-card ${idx === currentScreen ? 'current' : ''}" onclick="jumpToScreen(${idx})">
+            <div class="flow-card-number">${screen.label}</div>
+            <div class="flow-card-title">${screen.title}</div>
+            <div class="flow-card-status ${statusClass}">${statusText}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderFooter() {
+      const footer = document.getElementById('footerContent');
+
+      if (currentView === 'detail') {
+        footer.innerHTML = `
+          <div class="action-grid">
+            <button class="btn btn-approve" onclick="approve()">Approve</button>
+            <button class="btn btn-flag" onclick="flag()">Flag for review</button>
+            <button class="btn btn-voice" onclick="toggleRecording()" id="voiceBtn">
+              <span id="voiceLabel">Record voice note</span>
+            </button>
+          </div>
+          <div class="nav-controls">
+            <button class="nav-arrow" onclick="prev()" id="prevBtn">←</button>
+            <div class="nav-info">${flowData.screens[currentScreen].label}</div>
+            <button class="nav-arrow" onclick="next()" id="nextBtn">→</button>
+          </div>
+          <div class="dot-nav">
+            ${flowData.screens.map((s, idx) => {
+              const status = feedback[idx];
+              const classes = ['dot'];
+              if (idx === currentScreen) classes.push('current');
+              if (status && status.status === 'approved') classes.push('approved');
+              if (status && status.status === 'flagged') classes.push('flagged');
+              return `<div class="${classes.join(' ')}" onclick="goTo(${idx})"></div>`;
+            }).join('')}
+          </div>
+        `;
+
+        document.getElementById('prevBtn').disabled = currentScreen === 0;
+        document.getElementById('nextBtn').disabled = currentScreen === flowData.screens.length - 1;
+      } else {
+        footer.innerHTML = `
+          <div class="action-grid">
+            <button class="btn btn-export" onclick="exportFeedback()">Export feedback as JSON</button>
+          </div>
+        `;
+      }
+    }
+
+    function switchView(view) {
+      currentView = view;
+      document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
+      if (view === 'detail') {
+        document.querySelector('.view-btn:first-child').classList.add('active');
+        document.getElementById('detailView').classList.add('active');
+      } else {
+        document.querySelector('.view-btn:last-child').classList.add('active');
+        document.getElementById('flowView').classList.add('active');
+      }
+
+      render();
+    }
+
+    function goTo(idx) {
+      if (idx >= 0 && idx < flowData.screens.length) {
+        currentScreen = idx;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function jumpToScreen(idx) {
+      currentScreen = idx;
+      switchView('detail');
+    }
+
+    function next() {
+      if (currentScreen < flowData.screens.length - 1) {
+        currentScreen++;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prev() {
+      if (currentScreen > 0) {
+        currentScreen--;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function approve() {
+      feedback[currentScreen] = {
+        status: 'approved',
+        timestamp: new Date().toISOString()
+      };
+      saveFeedback();
+      render();
+
+      if (currentScreen < flowData.screens.length - 1) {
+        setTimeout(() => next(), 300);
+      }
+    }
+
+    function flag() {
+      feedback[currentScreen] = {
+        status: 'flagged',
+        timestamp: new Date().toISOString()
+      };
+      saveFeedback();
+      render();
+    }
+
+    async function toggleRecording() {
+      const btn = document.getElementById('voiceBtn');
+      const label = document.getElementById('voiceLabel');
+
+      if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(audioChunks, { type: 'audio/webm' });
+            saveVoiceNote(blob);
+            btn.classList.remove('recording');
+            label.textContent = 'Record voice note';
+          };
+
+          mediaRecorder.start();
+          btn.classList.add('recording');
+          label.textContent = 'Stop recording';
+        } catch (err) {
+          alert('Microphone access is required to record voice notes. Please allow microphone access in your browser settings.');
+        }
+      } else {
+        mediaRecorder.stop();
+        // Take screenshot automatically when stopping recording
+        captureScreenshot();
+      }
+    }
+
+    function captureScreenshot() {
+      const canvas = document.getElementById('screenshotCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Set canvas size to viewport
+      canvas.width = window.innerWidth * window.devicePixelRatio;
+      canvas.height = window.innerHeight * window.devicePixelRatio;
+
+      // Scale for high DPI
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+      // Create screenshot using html2canvas approach (simplified)
+      // In production, you'd use a library like html2canvas
+      const screenshotData = canvas.toDataURL('image/png');
+
+      if (!feedback[currentScreen]) feedback[currentScreen] = {};
+      feedback[currentScreen].screenshot = screenshotData;
+      saveFeedback();
+    }
+
+    function saveVoiceNote(blob) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (!feedback[currentScreen]) feedback[currentScreen] = {};
+        feedback[currentScreen].voiceNote = reader.result;
+        feedback[currentScreen].voiceTimestamp = new Date().toLocaleString();
+        saveFeedback();
+        render();
+      };
+      reader.readAsDataURL(blob);
+    }
+
+    function saveFeedback() {
+      localStorage.setItem('hb_v4_feedback', JSON.stringify(feedback));
+    }
+
+    function exportFeedback() {
+      const exportData = {
+        reviewSession: new Date().toISOString(),
+        totalScreens: flowData.screens.length,
+        reviewedScreens: Object.keys(feedback).filter(k => feedback[k] && feedback[k].status).length,
+        screens: flowData.screens.map((s, idx) => ({
+          step: s.label,
+          title: s.title,
+          status: feedback[idx]?.status || 'not-reviewed',
+          hasVoiceNote: !!(feedback[idx]?.voiceNote),
+          hasScreenshot: !!(feedback[idx]?.screenshot),
+          timestamp: feedback[idx]?.timestamp,
+          voiceTimestamp: feedback[idx]?.voiceTimestamp
+        })),
+        feedback: feedback
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `hb-review-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+    }
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold && currentView === 'detail') {
+        if (diff > 0) next();
+        else prev();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (currentView === 'detail') {
+        if (e.key === 'ArrowLeft') prev();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'a' || e.key === 'A') approve();
+        if (e.key === 'f' || e.key === 'F') flag();
+      }
+    });
+
+    // Initialize
+    render();
+  </script>
+</body>
+</html>

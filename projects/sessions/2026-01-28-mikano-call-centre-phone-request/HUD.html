@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mikano Call Centre Phone Request | 2026-01-28</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e17;
+            color: #e0e6ed;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a2332 0%, #0f1419 100%);
+            border: 1px solid #2a3f5f;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .meta {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .status-card {
+            flex: 1;
+            min-width: 200px;
+            background: #1a2332;
+            border: 1px solid #2a3f5f;
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .status-card.success {
+            border-left: 4px solid #10b981;
+        }
+
+        .status-card.warning {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .status-card.info {
+            border-left: 4px solid #3b82f6;
+        }
+
+        .status-card .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-card .value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f3f4f6;
+        }
+
+        .status-card .subtext {
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-top: 0.25rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: #1a2332;
+            border: 1px solid #2a3f5f;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge.success {
+            background: #10b98120;
+            color: #10b981;
+            border: 1px solid #10b981;
+        }
+
+        .badge.pending {
+            background: #f59e0b20;
+            color: #f59e0b;
+            border: 1px solid #f59e0b;
+        }
+
+        .badge.info {
+            background: #3b82f620;
+            color: #60a5fa;
+            border: 1px solid #3b82f6;
+        }
+
+        .phone-option {
+            background: #0f1419;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .phone-option:hover {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 1px #60a5fa;
+        }
+
+        .phone-option .name {
+            font-weight: 600;
+            color: #f3f4f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .phone-option .price {
+            font-size: 1.5rem;
+            color: #10b981;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .phone-option .features {
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-bottom: 0.75rem;
+        }
+
+        .phone-option .stock {
+            font-size: 0.75rem;
+            color: #f59e0b;
+        }
+
+        .phone-option a {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .phone-option a:hover {
+            text-decoration: underline;
+        }
+
+        .actions {
+            background: #0f1419;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .actions h3 {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .action-item:last-child {
+            border-bottom: none;
+        }
+
+        .action-item input[type="checkbox"] {
+            margin-right: 0.75rem;
+        }
+
+        .action-item label {
+            color: #d1d5db;
+            font-size: 0.9rem;
+        }
+
+        .comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .comparison th,
+        .comparison td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #374151;
+        }
+
+        .comparison th {
+            color: #9ca3af;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison td {
+            color: #e0e6ed;
+        }
+
+        .comparison .winner {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Mikano Motors Call Centre Phone Request</h1>
+            <div class="meta">Session: 2026-01-28 | Status: ✅ Abdallah Approved | 🚨 ASK SYAM TOMORROW (2026-01-29)</div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-card success">
+                <div class="label">Status</div>
+                <div class="value">✅ Approved</div>
+                <div class="subtext">Abdallah endorsed → Syam to sign off</div>
+            </div>
+
+            <div class="status-card info">
+                <div class="label">Budget</div>
+                <div class="value">₦40,000</div>
+                <div class="subtext">Under budget approval</div>
+            </div>
+
+            <div class="status-card warning">
+                <div class="label">🚨 Tomorrow</div>
+                <div class="value">ASK SYAM</div>
+                <div class="subtext">2026-01-29 → Then send to Accounts</div>
+            </div>
+
+            <div class="status-card info">
+                <div class="label">Options</div>
+                <div class="value">2</div>
+                <div class="subtext">Both within budget</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>🎯 Objective</h2>
+                <p>Request approval for basic phone to enable Mikano Motors Call Centre to callback customers using their existing CUG line.</p>
+                <br>
+                <p><strong>Stakeholders:</strong></p>
+                <p>• <strong>Requester:</strong> FT Coker<br>
+                • <strong>Approver:</strong> Abdallah<br>
+                • <strong>End Users:</strong> Mikano Motors Call Centre Team</p>
+            </div>
+
+            <div class="card">
+                <h2>🚨 Problem Statement</h2>
+                <div style="background: #7f1d1d20; border-left: 4px solid #ef4444; padding: 1rem; border-radius: 4px; margin-top: 0.5rem;">
+                    <p><strong>Current Issue:</strong></p>
+                    <p>Call centre has CUG (Closed User Group) line but NO physical device to use it.</p>
+                    <br>
+                    <p><strong>Impact:</strong></p>
+                    <p>• Cannot callback customers for follow-ups<br>
+                    • Cannot reach staff for coordination<br>
+                    • Customer satisfaction at risk</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 2rem;">
+            <h2>📱 Phone Options Researched</h2>
+
+            <div class="phone-option">
+                <div class="name">itel 2160 Dual SIM Wireless FM <span class="badge info">Budget Choice</span></div>
+                <div class="price">₦14,800</div>
+                <div class="features">
+                    ✓ Wireless FM radio<br>
+                    ✓ Bright torchlight<br>
+                    ✓ Dual SIM support<br>
+                    ✓ Call recorder
+                </div>
+                <div class="stock">⚠️ Only 4 units left in stock</div>
+                <a href="https://www.jumia.com.ng/itel-2160-dual-sim-wireless-fm-1.77-inches.black-416905146.html" target="_blank">View on Jumia →</a>
+            </div>
+
+            <div class="phone-option">
+                <div class="name">Nokia 210 Dual SIM <span class="badge success">Reliable Choice</span></div>
+                <div class="price">₦27,000</div>
+                <div class="features">
+                    ✓ 20-day battery life<br>
+                    ✓ FM radio<br>
+                    ✓ Dual SIM support<br>
+                    ✓ Nokia brand reliability
+                </div>
+                <div class="stock">✓ In stock</div>
+                <a href="https://www.jumia.com.ng/nokia-210-dual-sim-fm-phone-black-295275094.html" target="_blank">View on Jumia →</a>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #9ca3af;">Quick Comparison</h3>
+            <table class="comparison">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>itel 2160</th>
+                        <th>Nokia 210</th>
+                        <th>Winner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Price</td>
+                        <td>₦14,800</td>
+                        <td>₦27,000</td>
+                        <td class="winner">itel 2160</td>
+                    </tr>
+                    <tr>
+                        <td>Battery Life</td>
+                        <td>Standard</td>
+                        <td>20 days</td>
+                        <td class="winner">Nokia 210</td>
+                    </tr>
+                    <tr>
+                        <td>Brand Trust</td>
+                        <td>Moderate</td>
+                        <td>High</td>
+                        <td class="winner">Nokia 210</td>
+                    </tr>
+                    <tr>
+                        <td>Value/Money</td>
+                        <td>Excellent</td>
+                        <td>Good</td>
+                        <td class="winner">itel 2160</td>
+                    </tr>
+                    <tr>
+                        <td>Budget Savings</td>
+                        <td>₦25,200 under</td>
+                        <td>₦13,000 under</td>
+                        <td class="winner">itel 2160</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>✉️ Email Thread</h2>
+                <div style="background: #0f1419; padding: 1rem; border-radius: 4px; font-size: 0.9rem; margin-top: 0.5rem;">
+                    <p><strong>To:</strong> Abdallah<br>
+                    <strong>From:</strong> FT Coker<br>
+                    <strong>Date:</strong> 2026-01-28<br>
+                    <strong>Subject:</strong> Request for Call Centre Phone - Mikano Motors</p>
+                    <br>
+                    <div class="badge success">Delivered</div>
+                </div>
+                <div style="background: #10b98120; padding: 1rem; border-radius: 4px; font-size: 0.9rem; margin-top: 0.75rem; border-left: 3px solid #10b981;">
+                    <p><strong>↩️ Reply from Abdallah:</strong></p>
+                    <p style="margin-top: 0.5rem; font-style: italic;">"Hi FT, This can be approved by Syam, once done please send to accounts for payment."</p>
+                    <br>
+                    <div class="badge success">✅ Endorsed</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📊 Budget Analysis</h2>
+                <div style="margin-top: 0.5rem;">
+                    <p><strong>Approved Budget:</strong> ₦40,000</p>
+                    <br>
+                    <p><strong>Option 1 - itel 2160:</strong><br>
+                    Cost: ₦14,800<br>
+                    <span style="color: #10b981;">✓ 63% under budget (saves ₦25,200)</span></p>
+                    <br>
+                    <p><strong>Option 2 - Nokia 210:</strong><br>
+                    Cost: ₦27,000<br>
+                    <span style="color: #10b981;">✓ 32.5% under budget (saves ₦13,000)</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>⏭️ Next Actions</h2>
+
+            <div class="actions">
+                <h3>✅ Completed</h3>
+                <div class="action-item">
+                    <input type="checkbox" id="action0" checked disabled>
+                    <label for="action0" style="text-decoration: line-through; color: #6b7280;">Email sent to Abdallah (2026-01-28)</label>
+                </div>
+                <div class="action-item">
+                    <input type="checkbox" id="action0b" checked disabled>
+                    <label for="action0b" style="text-decoration: line-through; color: #6b7280;">Abdallah reviewed and endorsed (2026-01-28)</label>
+                </div>
+            </div>
+
+            <div class="actions" style="background: #7f1d1d20; border: 1px solid #ef4444;">
+                <h3 style="color: #ef4444;">🚨 TOMORROW (2026-01-29)</h3>
+                <div class="action-item">
+                    <input type="checkbox" id="action1">
+                    <label for="action1" style="font-weight: bold; color: #f3f4f6;">ASK SYAM FOR APPROVAL</label>
+                </div>
+                <div class="action-item">
+                    <input type="checkbox" id="action2">
+                    <label for="action2">Confirm which phone model preferred</label>
+                </div>
+            </div>
+
+            <div class="actions">
+                <h3>After Syam Approves</h3>
+                <div class="action-item">
+                    <input type="checkbox" id="action3">
+                    <label for="action3">Send approval to Accounts for payment</label>
+                </div>
+                <div class="action-item">
+                    <input type="checkbox" id="action3b">
+                    <label for="action3b">Process purchase order via Jumia</label>
+                </div>
+            </div>
+
+            <div class="actions">
+                <h3>Follow-up (Post-Approval)</h3>
+                <div class="action-item">
+                    <input type="checkbox" id="action4">
+                    <label for="action4">Arrange delivery to Mikano Motors Call Centre</label>
+                </div>
+                <div class="action-item">
+                    <input type="checkbox" id="action5">
+                    <label for="action5">Configure CUG line on new device</label>
+                </div>
+                <div class="action-item">
+                    <input type="checkbox" id="action6">
+                    <label for="action6">Brief call centre staff on phone usage</label>
+                </div>
+                <div class="action-item">
+                    <input type="checkbox" id="action7">
+                    <label for="action7">Document phone allocation in asset register</label>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; padding: 1rem; background: #1a2332; border-radius: 8px; border: 1px solid #2a3f5f;">
+            <p style="font-size: 0.85rem; color: #9ca3af;">
+                <strong>Session Tags:</strong>
+                <span class="badge info" style="margin-left: 0.5rem;">call-centre</span>
+                <span class="badge info" style="margin-left: 0.5rem;">equipment-request</span>
+                <span class="badge info" style="margin-left: 0.5rem;">mikano-motors</span>
+                <span class="badge info" style="margin-left: 0.5rem;">budget-under-40k</span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

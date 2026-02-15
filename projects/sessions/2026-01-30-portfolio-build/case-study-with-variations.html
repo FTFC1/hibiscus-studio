@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HB Studio Case Study - Visual Variations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: oklch(0.25 0.01 260);
+            background: oklch(0.98 0.005 260);
+            padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: oklch(0.15 0.02 260);
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            color: oklch(0.2 0.02 260);
+            margin: clamp(3rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2rem);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            font-weight: 600;
+            color: oklch(0.25 0.02 260);
+            margin: clamp(1.5rem, 3vw, 2rem) 0 clamp(0.75rem, 1.5vw, 1rem);
+        }
+
+        .meta {
+            display: flex;
+            gap: clamp(1.5rem, 3vw, 2.5rem);
+            flex-wrap: wrap;
+            margin-bottom: clamp(2rem, 4vw, 3rem);
+            padding-bottom: clamp(1.5rem, 3vw, 2rem);
+            border-bottom: 1px solid oklch(0.9 0.005 260);
+            font-size: 0.95rem;
+            color: oklch(0.45 0.01 260);
+        }
+
+        .meta strong {
+            color: oklch(0.3 0.02 260);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: oklch(0.35 0.01 260);
+        }
+
+        /* Variation container */
+        .variation {
+            margin: clamp(3rem, 6vw, 5rem) 0;
+            padding: clamp(2rem, 4vw, 3rem);
+            background: white;
+            border-radius: 12px;
+            border: 1px solid oklch(0.92 0.005 260);
+        }
+
+        .variation-label {
+            display: inline-block;
+            background: oklch(0.95 0.01 260);
+            color: oklch(0.3 0.02 260);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        /* VARIATION A: Before/After Table */
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.5rem, 3vw, 2rem);
+            margin: 2rem 0;
+        }
+
+        .comparison-col {
+            padding: clamp(1.5rem, 3vw, 2rem);
+            border-radius: 8px;
+        }
+
+        .comparison-col.before {
+            background: oklch(0.96 0.01 20 / 0.5);
+            border-left: 3px solid oklch(0.55 0.15 20);
+        }
+
+        .comparison-col.after {
+            background: oklch(0.96 0.01 150 / 0.5);
+            border-left: 3px solid oklch(0.55 0.12 150);
+        }
+
+        .comparison-col h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-size: 0.85rem;
+        }
+
+        .comparison-col.before h4 {
+            color: oklch(0.45 0.15 20);
+        }
+
+        .comparison-col.after h4 {
+            color: oklch(0.45 0.12 150);
+        }
+
+        .comparison-col ul {
+            list-style: none;
+        }
+
+        .comparison-col li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: oklch(0.35 0.01 260);
+        }
+
+        .comparison-col.before li::before {
+            content: "×";
+            position: absolute;
+            left: 0;
+            color: oklch(0.55 0.15 20);
+            font-weight: 600;
+        }
+
+        .comparison-col.after li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: oklch(0.55 0.12 150);
+            font-weight: 600;
+        }
+
+        /* VARIATION B: Process Flow Diagram */
+        .process-flow {
+            margin: 2rem 0;
+        }
+
+        .flow-step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .flow-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: oklch(0.3 0.02 260);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .flow-content {
+            padding-top: 0.25rem;
+        }
+
+        .flow-content strong {
+            display: block;
+            color: oklch(0.25 0.02 260);
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .flow-content p {
+            color: oklch(0.45 0.01 260);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .flow-arrow {
+            margin-left: 20px;
+            height: 20px;
+            border-left: 2px dashed oklch(0.85 0.005 260);
+            margin-bottom: -5px;
+        }
+
+        /* VARIATION C: Pain Points Grid */
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pain-card {
+            padding: 1.5rem;
+            background: oklch(0.98 0.005 260);
+            border-radius: 8px;
+            border: 1px solid oklch(0.92 0.005 260);
+        }
+
+        .pain-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: oklch(0.55 0.15 20 / 0.1);
+            color: oklch(0.55 0.15 20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pain-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: oklch(0.25 0.02 260);
+            margin-bottom: 0.5rem;
+        }
+
+        .pain-card p {
+            font-size: 0.9rem;
+            color: oklch(0.45 0.01 260);
+            margin: 0;
+        }
+
+        /* VARIATION D: Timeline */
+        .timeline {
+            margin: 2rem 0;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom,
+                oklch(0.55 0.15 20),
+                oklch(0.55 0.12 150));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.4rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: oklch(0.55 0.15 20);
+            border: 3px solid oklch(0.98 0.005 260);
+        }
+
+        .timeline-item.after .timeline-dot {
+            background: oklch(0.55 0.12 150);
+        }
+
+        .timeline-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: oklch(0.55 0.15 20);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item.after .timeline-label {
+            color: oklch(0.55 0.12 150);
+        }
+
+        .timeline-content strong {
+            display: block;
+            color: oklch(0.25 0.02 260);
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content p {
+            color: oklch(0.45 0.01 260);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .time-metric {
+            display: inline-block;
+            background: oklch(0.95 0.01 260);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            color: oklch(0.35 0.02 260);
+        }
+
+        @media (max-width: 768px) {
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Event Studio Booking Automation</h1>
+
+        <div class="meta">
+            <span><strong>Client:</strong> UK self-serve event studio</span>
+            <span><strong>Timeline:</strong> 3 sprints over 10 days</span>
+            <span><strong>Status:</strong> Live production system</span>
+        </div>
+
+        <p><strong>Choose which visual style works best for showing "The Problem":</strong></p>
+
+        <!-- VARIATION A: Before/After Table -->
+        <div class="variation">
+            <span class="variation-label">Variation A: Before/After Comparison</span>
+
+            <h3>The Problem</h3>
+
+            <div class="comparison-table">
+                <div class="comparison-col before">
+                    <h4>Before (Manual Process)</h4>
+                    <ul>
+                        <li>Instagram/TikTok DM inquiries (untracked)</li>
+                        <li>Acuity calendar scheduling (third-party dependency)</li>
+                        <li>Manual invoice creation (2 PDFs per booking)</li>
+                        <li>Spreadsheet payment tracking (error-prone)</li>
+                        <li>Manual email confirmations (time-intensive)</li>
+                        <li>VA timezone coordination issues (UK/Thailand)</li>
+                        <li>Monthly invoicing tool subscription (£40/mo)</li>
+                        <li>Double-booking risk from manual updates</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-col after">
+                    <h4>After (Automated System)</h4>
+                    <ul>
+                        <li>Direct booking funnel (owned platform)</li>
+                        <li>Automated invoice generation (zero errors)</li>
+                        <li>Real-time calendar sync (conflict detection)</li>
+                        <li>Automated email workflows (triggered)</li>
+                        <li>Admin dashboard (confirm/cancel/reschedule)</li>
+                        <li>Zero subscription costs (self-hosted)</li>
+                        <li>Timezone handling built-in (UTC normalized)</li>
+                        <li>Sub-second response times (Cloudflare edge)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p><strong>Business Impact:</strong> Operational overhead eliminated. Owner freed from 8-12 hours/week of manual admin work. Foundation for conversion optimization and growth.</p>
+        </div>
+
+        <!-- VARIATION B: Process Flow Diagram -->
+        <div class="variation">
+            <span class="variation-label">Variation B: Process Flow</span>
+
+            <h3>The Problem: Manual Workflow</h3>
+
+            <div class="process-flow">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <div class="flow-content">
+                        <strong>Customer Discovery</strong>
+                        <p>Customer finds studio via Instagram/TikTok → sends DM inquiry</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow"></div>
+
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div class="flow-content">
+                        <strong>Manual Response</strong>
+                        <p>Owner manually responds with availability, pricing, and Acuity link</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow"></div>
+
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div class="flow-content">
+                        <strong>Third-Party Scheduling</strong>
+                        <p>Customer books via Acuity (separate platform, £12/mo subscription)</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow"></div>
+
+                <div class="flow-step">
+                    <div class="flow-number">4</div>
+                    <div class="flow-content">
+                        <strong>Manual Invoice Creation</strong>
+                        <p>Owner manually generates 2 PDFs (hire deposit + damage deposit) using invoicing tool (£40/mo)</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow"></div>
+
+                <div class="flow-step">
+                    <div class="flow-number">5</div>
+                    <div class="flow-content">
+                        <strong>Manual Email Send</strong>
+                        <p>Owner manually emails invoices and confirmation details</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow"></div>
+
+                <div class="flow-step">
+                    <div class="flow-number">6</div>
+                    <div class="flow-content">
+                        <strong>Spreadsheet Tracking</strong>
+                        <p>Owner updates spreadsheet with booking details, payment status, calendar entries</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow"></div>
+
+                <div class="flow-step">
+                    <div class="flow-number">7</div>
+                    <div class="flow-content">
+                        <strong>Payment Confirmation</strong>
+                        <p>Owner manually checks bank account, confirms payment received, updates customer</p>
+                    </div>
+                </div>
+            </div>
+
+            <p><strong>Result:</strong> 30-45 minutes per booking × 3-4 bookings/week = 8-12 hours/month of pure admin overhead. Owner spending time on manual work instead of business growth.</p>
+        </div>
+
+        <!-- VARIATION C: Pain Points Grid -->
+        <div class="variation">
+            <span class="variation-label">Variation C: Pain Points Grid</span>
+
+            <h3>The Problem</h3>
+
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">⏱</div>
+                    <h4>Time Intensive</h4>
+                    <p>30-45 minutes of manual work per booking. 8-12 hours monthly spent on admin instead of growth.</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">⚠️</div>
+                    <h4>Human Error</h4>
+                    <p>Manual invoice calculations, email mistakes, calendar conflicts from spreadsheet tracking.</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">🌍</div>
+                    <h4>Timezone Coordination</h4>
+                    <p>VA in Thailand managing UK studio bookings. Manual timezone conversion for every scheduling change.</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">💸</div>
+                    <h4>Subscription Costs</h4>
+                    <p>£52/month in tools (Acuity £12, invoicing £40). £624/year for manual workflow.</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">📊</div>
+                    <h4>No Payment Tracking</h4>
+                    <p>Manual bank checks for each payment. Spreadsheet updates by hand. No automated confirmation.</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">🔄</div>
+                    <h4>Double-Booking Risk</h4>
+                    <p>Multiple calendars (Acuity, Google, spreadsheet). Manual sync creates conflict potential.</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">🕳️</div>
+                    <h4>Conversion Black Hole</h4>
+                    <p>Can't track DM → click-through → booking. No visibility into drop-off points.</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">📧</div>
+                    <h4>Manual Confirmations</h4>
+                    <p>Every email written and sent by hand. Template inconsistency. No triggered workflows.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VARIATION D: Timeline -->
+        <div class="variation">
+            <span class="variation-label">Variation D: Timeline (Before → After)</span>
+
+            <h3>The Problem: Manual vs Automated</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">Before: Manual</div>
+                    <div class="timeline-content">
+                        <strong>Customer Inquiry</strong>
+                        <p>Instagram DM → manual response with availability</p>
+                        <span class="time-metric">~15 min per inquiry</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item after">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">After: Automated</div>
+                    <div class="timeline-content">
+                        <strong>Direct Booking</strong>
+                        <p>Customer books directly via funnel, instant availability check</p>
+                        <span class="time-metric">~30 seconds</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">Before: Manual</div>
+                    <div class="timeline-content">
+                        <strong>Invoice Generation</strong>
+                        <p>Create 2 PDFs (hire + damage deposit), calculate pricing manually</p>
+                        <span class="time-metric">~10 min per booking</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item after">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">After: Automated</div>
+                    <div class="timeline-content">
+                        <strong>Instant PDF Generation</strong>
+                        <p>Automated invoice creation with dynamic pricing, zero errors</p>
+                        <span class="time-metric">Instant</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">Before: Manual</div>
+                    <div class="timeline-content">
+                        <strong>Email Confirmation</strong>
+                        <p>Write and send email manually, attach invoices</p>
+                        <span class="time-metric">~5 min per booking</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item after">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">After: Automated</div>
+                    <div class="timeline-content">
+                        <strong>Triggered Email</strong>
+                        <p>Automated email delivery via Resend API</p>
+                        <span class="time-metric">Instant</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">Before: Manual</div>
+                    <div class="timeline-content">
+                        <strong>Calendar + Spreadsheet Update</strong>
+                        <p>Update 2 Google Calendars manually, log in spreadsheet</p>
+                        <span class="time-metric">~5-7 min per booking</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item after">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">After: Automated</div>
+                    <div class="timeline-content">
+                        <strong>Real-Time Sync</strong>
+                        <p>Calendar updates automatically, conflict detection built-in</p>
+                        <span class="time-metric">Instant</span>
+                    </div>
+                </div>
+            </div>
+
+            <p><strong>Total Time Saved:</strong> 30-45 minutes per booking → 30 seconds. 95%+ time reduction. Owner freed from admin overhead.</p>
+        </div>
+    </div>
+</body>
+</html>

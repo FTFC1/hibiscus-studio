@@ -1,0 +1,22 @@
+{
+  "source": "2026-02-15-puma-debrief",
+  "mined_at": "2026-02-15T16:00:00",
+  "new_atoms": 12,
+  "updated_atoms": 0,
+  "total_after": 43,
+  "atom_ids": [
+    "atom-20260215-032", "atom-20260215-033", "atom-20260215-034",
+    "atom-20260215-035", "atom-20260215-036", "atom-20260215-037",
+    "atom-20260215-038", "atom-20260215-039", "atom-20260215-040",
+    "atom-20260215-041", "atom-20260215-042", "atom-20260215-043"
+  ],
+  "cross_references": [
+    {"new": "033", "existing": "027", "reason": "match tool to environment = capacity matching"},
+    {"new": "034", "existing": "008", "reason": "sawdust = show outcome not process"},
+    {"new": "036", "existing": "016", "reason": "trial = on the exponential curve"},
+    {"new": "037", "existing": "021", "reason": "engagement = quality feedback"},
+    {"new": "038", "existing": "024", "reason": "compress = fractal break into pieces"},
+    {"new": "039", "existing": "019", "reason": "lead with structure = ASCII first"},
+    {"new": "040", "existing": "004", "reason": "valve doesn't open = POST gap"}
+  ]
+}

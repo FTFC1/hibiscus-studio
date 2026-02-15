@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUMA Sales Training — Pricing</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e0e0e0; padding: 24px; max-width: 680px; margin: 0 auto; line-height: 1.6; }
+  h1 { font-size: 1.6rem; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+  .section { margin-bottom: 32px; }
+  .section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-bottom: 12px; }
+
+  /* Pricing Cards */
+  .tier-grid { display: flex; flex-direction: column; gap: 12px; }
+  .tier { border: 1px solid #222; border-radius: 12px; padding: 20px; position: relative; }
+  .tier.highlight { border-color: #4CAF50; background: #0a1a0a; }
+  .tier-badge { position: absolute; top: -10px; right: 16px; background: #4CAF50; color: #000; font-size: 0.7rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; }
+  .tier-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .tier-name { font-size: 1.1rem; font-weight: 600; color: #fff; }
+  .tier-price { font-size: 1.4rem; font-weight: 700; color: #4CAF50; }
+  .tier-price span { font-size: 0.8rem; color: #888; font-weight: 400; }
+  .tier-detail { font-size: 0.85rem; color: #999; }
+  .tier-detail strong { color: #ccc; }
+  .discount-note { font-size: 0.8rem; color: #4CAF50; margin-top: 6px; font-style: italic; }
+
+  /* Trial Box */
+  .trial-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 20px; text-align: center; }
+  .trial-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 8px; }
+  .trial-box .big { font-size: 2rem; font-weight: 700; color: #4CAF50; margin: 8px 0; }
+  .trial-box p { font-size: 0.85rem; color: #999; }
+
+  /* Revenue Table */
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th { text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #666; padding: 8px 12px; border-bottom: 1px solid #222; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem; }
+  td:last-child { text-align: right; color: #4CAF50; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+
+  /* What's Included */
+  .included-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .included-item { background: #111; border-radius: 8px; padding: 14px; }
+  .included-item .icon { font-size: 1.2rem; margin-bottom: 6px; }
+  .included-item .label { font-size: 0.85rem; color: #fff; font-weight: 500; }
+  .included-item .desc { font-size: 0.75rem; color: #888; margin-top: 2px; }
+
+  /* Requirements */
+  .req-list { list-style: none; }
+  .req-list li { padding: 8px 0; font-size: 0.9rem; color: #ccc; border-bottom: 1px solid #1a1a1a; }
+  .req-list li:last-child { border-bottom: none; }
+  .req-list li::before { content: ""; display: inline-block; width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; margin-right: 10px; }
+
+  /* Footer */
+  .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #222; text-align: center; font-size: 0.75rem; color: #555; }
+
+  @media (max-width: 480px) {
+    body { padding: 16px; }
+    .included-grid { grid-template-columns: 1fr; }
+    .tier-header { flex-direction: column; }
+    .tier-price { margin-top: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>PUMA Sales Mastery Training</h1>
+<p class="subtitle">Monthly Volume Pricing — Custom-Built for PUMA Nigeria</p>
+
+<!-- Trial -->
+<div class="section">
+  <div class="trial-box">
+    <h3>Pilot Program</h3>
+    <div class="big">FREE</div>
+    <p>7 staff &bull; 1 store &bull; 4-6 weeks<br>Full Module 1 access + engagement tracking</p>
+  </div>
+</div>
+
+<!-- Pricing Tiers -->
+<div class="section">
+  <div class="section-title">Post-Trial Pricing (per store / month)</div>
+  <div class="tier-grid">
+
+    <div class="tier highlight">
+      <div class="tier-badge">Your Rate</div>
+      <div class="tier-header">
+        <span class="tier-name">1-5 Stores</span>
+        <span class="tier-price">&#8358;400,000 <span>/store/mo</span></span>
+      </div>
+      <div class="tier-detail">Standard rate: &#8358;500,000. <strong>20% preferential discount</strong> applied — existing partnership.</div>
+      <div class="discount-note">You save &#8358;100,000/store/month</div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-header">
+        <span class="tier-name">6-10 Stores</span>
+        <span class="tier-price">&#8358;350,000 <span>/store/mo</span></span>
+      </div>
+      <div class="tier-detail">Volume discount. Full training platform + engagement tracking + monthly reports.</div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-header">
+        <span class="tier-name">10+ Stores</span>
+        <span class="tier-price">&#8358;250,000 <span>/store/mo</span></span>
+      </div>
+      <div class="tier-detail">For a team of 5 per store, that's <strong>&#8358;50,000 per person/month</strong> for world-class, cutting-edge retail training.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Revenue Projection -->
+<div class="section">
+  <div class="section-title">Projected Investment (12 Stores)</div>
+  <table>
+    <tr><th>Scenario</th><th>Monthly</th></tr>
+    <tr><td>5 stores @ &#8358;400K</td><td>&#8358;2,000,000</td></tr>
+    <tr><td>10 stores @ &#8358;350K</td><td>&#8358;3,500,000</td></tr>
+    <tr><td>12 stores @ &#8358;250K</td><td>&#8358;3,000,000</td></tr>
+  </table>
+</div>
+
+<!-- What's Included -->
+<div class="section">
+  <div class="section-title">What's Included Per Store</div>
+  <div class="included-grid">
+    <div class="included-item">
+      <div class="label">Lessons</div>
+      <div class="desc">Bite-sized mobile missions. 10 min each. Custom for PUMA products.</div>
+    </div>
+    <div class="included-item">
+      <div class="label">Quizzes</div>
+      <div class="desc">Knowledge checks after each mission. Scores tracked.</div>
+    </div>
+    <div class="included-item">
+      <div class="label">Games</div>
+      <div class="desc">Competitive challenges between staff. Leaderboards.</div>
+    </div>
+    <div class="included-item">
+      <div class="label">Reports</div>
+      <div class="desc">Monthly engagement + store performance data.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Trial Success Metrics -->
+<div class="section">
+  <div class="section-title">What Success Looks Like After Trial</div>
+  <table>
+    <tr><th>Metric</th><th>Target</th></tr>
+    <tr><td>Average basket size</td><td>+20-30%</td></tr>
+    <tr><td>Items per transaction</td><td>1.8 (from 1.3)</td></tr>
+    <tr><td>Staff engagement rate</td><td>80%+ completion</td></tr>
+    <tr><td>Cross-sell attachment</td><td>70%+</td></tr>
+  </table>
+</div>
+
+<!-- Requirements -->
+<div class="section">
+  <div class="section-title">Requirements</div>
+  <ul class="req-list">
+    <li>Phone with Telegram installed</li>
+    <li>Internet access (Wi-Fi or data)</li>
+    <li>10 minutes per lesson (3x per week)</li>
+    <li>Store manager assigned for coordination</li>
+  </ul>
+</div>
+
+<!-- Why Monthly -->
+<div class="section">
+  <div class="section-title">Why Monthly (Not One-Off)</div>
+  <div class="tier" style="border-color: #333;">
+    <div class="tier-detail">
+      Traditional training: pay once, forget, no follow-up, skills fade in 2 weeks.<br><br>
+      <strong>This model:</strong> Continuous learning. New content monthly. Staff tested regularly. Progress tracked. New hires onboarded automatically. The training never stops — and neither do the results.
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  FORJE Training Solutions &bull; Custom-built for PUMA Nigeria &bull; 2026
+</div>
+
+</body>
+</html>

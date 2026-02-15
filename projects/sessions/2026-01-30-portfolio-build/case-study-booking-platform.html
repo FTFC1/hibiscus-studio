@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Self-Serve Studio Booking Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+            padding: 3rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: #fff;
+            border-bottom: 2px solid #333;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: #ffd700;
+        }
+        .meta {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .meta span {
+            display: inline-block;
+        }
+        .meta strong {
+            color: #aaa;
+        }
+        p, li {
+            margin-bottom: 0.75rem;
+            color: #d0d0d0;
+        }
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        strong {
+            color: #fff;
+        }
+        .highlight {
+            background: #1a1a1a;
+            border-left: 3px solid #ffd700;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .stack {
+            background: #111;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Monaco', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .result-card {
+            background: #111;
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 3px solid #ffd700;
+        }
+        .result-card h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #333;
+            margin: 2rem 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #1a1a1a;
+            color: #ffd700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Self-Serve Studio Booking Platform</h1>
+
+<div class="meta">
+    <span><strong>Client:</strong> UK-based self-serve event studio</span>
+    <span><strong>Timeline:</strong> January 2026 (10 days)</span>
+    <span><strong>Status:</strong> Live production system</span>
+</div>
+
+<hr>
+
+<h2>The Problem</h2>
+
+<p>Client ran self-serve studio bookings entirely manually:</p>
+
+<ul>
+    <li>Customer inquiries via Instagram/TikTok DMs</li>
+    <li>Acuity calendar for scheduling</li>
+    <li>Manual invoice generation (2 PDFs per booking: hire deposit + damage deposit)</li>
+    <li>Spreadsheet tracking for payments and availability</li>
+    <li>Manual email confirmations</li>
+    <li>Virtual assistant in different timezone (Thailand/UK coordination)</li>
+    <li>Monthly subscription cost for invoicing tool</li>
+</ul>
+
+<div class="highlight">
+    <strong>Pain Points:</strong>
+    <ul style="margin-bottom: 0;">
+        <li>Time-consuming manual process for every booking</li>
+        <li>Human error in invoice calculations and email sending</li>
+        <li>Timezone coordination issues with VA</li>
+        <li>Manual payment confirmation (no automation)</li>
+        <li>Double-booking risk</li>
+        <li>Owner spending admin hours instead of growing business</li>
+        <li>Ongoing tool subscription costs</li>
+    </ul>
+</div>
+
+<div class="highlight">
+    <strong>Business Impact:</strong> Manual workflow preventing owner from scaling. Operational overhead tied up resources. Monthly invoicing tool costs. No systematic way to gather client feedback on bookings.
+</div>
+
+<hr>
+
+<h2>The Solution</h2>
+
+<h3>1. Automated Invoice System (Phase 1, Days 1-2)</h3>
+<p>Built PDF generation system with all business logic embedded:</p>
+<ul>
+    <li>Dynamic pricing calculation (£345-£885 based on event type)</li>
+    <li>50% deposit logic automated</li>
+    <li>Professional formatting with venue branding</li>
+    <li>Dual invoice generation (hire + damage deposit)</li>
+    <li>Eliminated monthly invoicing tool subscription</li>
+</ul>
+
+<h3>2. Custom Booking Funnel (Phase 2, Days 3-5)</h3>
+<p>Replaced Acuity dependency with custom booking flow:</p>
+<ul>
+    <li>Direct booking interface (no third-party tool)</li>
+    <li>Instant invoice generation on booking</li>
+    <li>Automated email delivery via Resend API</li>
+    <li>Progressive enhancement (works without JavaScript)</li>
+    <li>Mobile-responsive design</li>
+</ul>
+
+<h3>3. Calendar Backend Integration (Phase 3, Days 5-7)</h3>
+<p>Synchronized calendar system across platforms:</p>
+<ul>
+    <li>Old Google Calendar + new Google Calendar → unified system</li>
+    <li>Real-time availability checking</li>
+    <li>Automatic conflict detection</li>
+    <li>Timezone handling (UK/Thailand coordination)</li>
+</ul>
+
+<h3>4. Admin Dashboard (Phase 4, Days 7-9)</h3>
+<p>Control panel with email-based authentication:</p>
+<ul>
+    <li>Email + OTP access (no password management)</li>
+    <li>Cloudflare Access security layer</li>
+    <li>Confirm/cancel/reschedule actions</li>
+    <li>Real-time calendar updates</li>
+    <li>Booking status tracking</li>
+</ul>
+
+<h3>5. Production Polish (Phase 5, Days 9-10)</h3>
+<ul>
+    <li>Terminology updates (deposit → reservation fee)</li>
+    <li>Cancellation policy enforcement</li>
+    <li>FAQ integration</li>
+    <li><strong>100% of owner feedback incorporated same-day</strong></li>
+</ul>
+
+<hr>
+
+<h2>Technical Stack</h2>
+
+<div class="stack">
+<strong>Backend:</strong> Cloudflare Workers (serverless, edge deployment)<br>
+<strong>Data:</strong> Cloudflare KV storage<br>
+<strong>Calendar:</strong> Google Calendar API (service accounts, dual-calendar sync)<br>
+<strong>PDF:</strong> pdf-lib (invoice generation)<br>
+<strong>Email:</strong> Resend API (automated delivery)<br>
+<strong>Security:</strong> Cloudflare Access (Zero Trust, email-based auth)<br>
+<strong>Frontend:</strong> Vanilla JavaScript (progressive enhancement)
+</div>
+
+<h3>Key Technical Decisions</h3>
+
+<div class="result-grid">
+    <div class="result-card">
+        <h3>Voice-Flow Decision Making</h3>
+        <p>Used Telegram voice notes for rapid decision cycles. Technical discussions happened in real-time audio, not lengthy text threads. Enabled sub-24-hour decision-to-implementation cycles.</p>
+    </div>
+
+    <div class="result-card">
+        <h3>Cloudflare Workers Over VPS</h3>
+        <p>Zero cold-start latency, global edge deployment, built-in security. Decision made in single voice call. No server maintenance overhead.</p>
+    </div>
+
+    <div class="result-card">
+        <h3>Progressive Enhancement</h3>
+        <p>Forms work without JavaScript. System accessible across all devices and connection speeds. Booking flow doesn't break if JS fails.</p>
+    </div>
+
+    <div class="result-card">
+        <h3>Service Account Auth</h3>
+        <p>No user OAuth flow for calendar access. Simpler VA handoff. Removed authentication friction for operations team.</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>Results</h2>
+
+<div class="result-grid">
+    <div class="result-card">
+        <h3>Operational</h3>
+        <ul style="margin-left: 1.5rem;">
+            <li>100% manual booking process eliminated</li>
+            <li>Zero-error invoice generation</li>
+            <li>Automated email workflow</li>
+            <li>Real-time booking visibility</li>
+            <li>Monthly invoicing tool cost eliminated</li>
+        </ul>
+    </div>
+
+    <div class="result-card">
+        <h3>Business</h3>
+        <ul style="margin-left: 1.5rem;">
+            <li>Removed operational overhead blocking growth</li>
+            <li>Foundation for conversion optimization</li>
+            <li>Scalable system supports business expansion</li>
+            <li>Admin time freed for strategic work</li>
+        </ul>
+    </div>
+
+    <div class="result-card">
+        <h3>Technical</h3>
+        <ul style="margin-left: 1.5rem;">
+            <li>Sub-second response times (edge deployment)</li>
+            <li>Zero downtime deployment</li>
+            <li>Mobile-responsive interface</li>
+            <li>Progressive enhancement for accessibility</li>
+        </ul>
+    </div>
+
+    <div class="result-card">
+        <h3>Client Partnership</h3>
+        <ul style="margin-left: 1.5rem;">
+            <li>Production system live and operational</li>
+            <li>Same-day iteration on feedback</li>
+            <li><strong>100% of requested changes incorporated</strong></li>
+            <li>Voice-flow communication enabled rapid cycles</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<h2>Standout Innovations</h2>
+
+<h3>Built Entire Feedback Platform Alongside Core System</h3>
+<p>Created Playwright-based screenshot automation capturing 63 mobile views programmatically. Built mobile-optimized review interface enabling owner to screen record walkthroughs directly from iPhone. <strong>Why this matters:</strong> Most developers ship code and ask for feedback via text. This enabled visual, contextual feedback without owner needing laptop access. Faster iteration cycles, clearer communication.</p>
+
+<h3>Voice-Flow Development Process</h3>
+<p>Technical decisions via Telegram voice notes instead of lengthy text discussions. <strong>Why this matters:</strong> Compressed decision cycles from days to hours. Owner could communicate complex requirements in 2-minute voice note vs 10-message text thread. Natural for non-technical stakeholders.</p>
+
+<h3>Progressive Enhancement Philosophy</h3>
+<p>Booking system works without JavaScript. Accessibility-first approach. <strong>Why this matters:</strong> System doesn't break on slow connections or older devices. Wider customer reach. Demonstrates technical fundamentals beyond framework dependencies.</p>
+
+<h3>Eliminated Third-Party Tool Dependency</h3>
+<p>Replaced Acuity + invoicing tool with custom solution. <strong>Why this matters:</strong> Removed monthly subscription costs. Full control over booking logic. No external service outage risk. System evolves with business needs, not constrained by third-party features.</p>
+
+<hr>
+
+<h2>Complexity Handled</h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0;">
+    <span class="tag">Multi-calendar synchronization</span>
+    <span class="tag">Timezone coordination (UK/Thailand)</span>
+    <span class="tag">Dynamic pricing with deposit logic</span>
+    <span class="tag">PDF generation (professional formatting)</span>
+    <span class="tag">Email automation (triggered workflows)</span>
+    <span class="tag">Cloudflare Access security</span>
+    <span class="tag">Service account OAuth</span>
+    <span class="tag">Progressive enhancement</span>
+    <span class="tag">Mobile-responsive admin</span>
+    <span class="tag">Dual-calendar backend</span>
+    <span class="tag">Playwright automation</span>
+    <span class="tag">Real-time conflict detection</span>
+</div>
+
+<hr>
+
+<h2>What This Demonstrates</h2>
+
+<div class="highlight">
+<h3 style="margin-top: 0;">Speed + Strategic Thinking</h3>
+<p>Multi-system integration (calendar, PDF, email, auth) delivered in 10 days with iterative refinement. <strong>Built entire feedback platform</strong> (63 automated screenshots, mobile review interface) alongside core system. Enabled owner to screen record walkthroughs directly from iPhone for contextual feedback.</p>
+
+<h3>80/20 Focus</h3>
+<p>Prioritized business unlock (automation, cost elimination) before optimization (analytics, conversion tracking). Removed operational overhead blocking growth. Foundation for future enhancements.</p>
+
+<h3>Technical Breadth</h3>
+<p>Calendar APIs, PDF generation, email automation, serverless deployment, security implementation, progressive enhancement, browser automation, mobile-responsive design.</p>
+
+<h3>Client Partnership</h3>
+<p><strong>100% of requested changes incorporated.</strong> Same-day feedback cycles via voice-flow communication. Visual feedback system (screen recording) removed communication friction. Technical complexity hidden behind simple interaction patterns.</p>
+
+<h3>Scalability Foundation</h3>
+<p>System architecture supports payment integration, analytics, conversion optimization, multi-venue expansion. Not a quick hack - built for growth.</p>
+</div>
+
+<hr>
+
+<p style="color: #666; font-size: 0.9rem; margin-top: 3rem;">
+    <em>Technical details available upon request. Client name and branding anonymized for confidentiality.</em>
+</p>
+
+</body>
+</html>

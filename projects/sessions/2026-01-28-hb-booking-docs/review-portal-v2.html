@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HB Booking Review — Rochelle (Flow Navigation)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .flow-mini-map {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      padding: 10px 0;
+      margin: 15px 0;
+      border-bottom: 1px solid #333;
+    }
+    .mini-step {
+      min-width: 60px;
+      padding: 8px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      text-align: center;
+      font-size: 10px;
+      cursor: pointer;
+    }
+    .mini-step:hover { border-color: #666; }
+    .mini-step.active { border-color: #4ade80; background: #065f46; }
+    .mini-step.approved { border-left: 3px solid #4ade80; }
+    .mini-step.flagged { border-left: 3px solid #fb923c; }
+
+    .screen-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 15px 0;
+      gap: 10px;
+    }
+    .nav-btn {
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      padding: 10px 20px;
+      background: #1a1a1a;
+      border: 1px solid #444;
+      color: #e0e0e0;
+      cursor: pointer;
+      min-width: 60px;
+    }
+    .nav-btn:hover:not(:disabled) { background: #2a2a2a; }
+    .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .screen-pos { flex: 1; text-align: center; font-size: 12px; color: #888; }
+
+    .screen-container { display: none; }
+    .screen-container.active { display: block; }
+
+    .content-box {
+      background: #111;
+      border: 1px solid #333;
+      padding: 15px;
+      margin: 10px 0;
+    }
+    pre { white-space: pre-wrap; color: #a0a0a0; font-size: 11px; line-height: 1.4; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      padding: 8px 16px;
+      border: 1px solid #444;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      cursor: pointer;
+    }
+    button:hover { background: #2a2a2a; border-color: #666; }
+    button.primary { background: #065f46; border-color: #065f46; color: #4ade80; }
+    button.danger { background: #7c2d12; border-color: #7c2d12; color: #fb923c; }
+    button.info { background: #1e3a8a; border-color: #1e3a8a; color: #60a5fa; }
+
+    .question-box {
+      background: #1e3a8a;
+      border-left: 3px solid #60a5fa;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 12px;
+      color: #e0e0e0;
+    }
+    .voice-note {
+      margin-top: 10px;
+      padding: 10px;
+      background: #1a1a1a;
+      border-left: 3px solid #60a5fa;
+      font-size: 12px;
+      color: #888;
+    }
+    h1 { font-size: 18px; font-weight: normal; color: #fff; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #333; }
+    h2 { font-size: 16px; font-weight: normal; color: #fff; margin: 20px 0 10px; }
+    h3 { font-size: 14px; font-weight: normal; color: #ccc; margin: 15px 0 10px; }
+
+    @media (max-width: 600px) {
+      body { padding: 10px; font-size: 13px; }
+      .actions { flex-direction: column; }
+      button { width: 100%; }
+      .nav-btn { padding: 10px; min-width: 50px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>HB BOOKING REVIEW — Flow Navigation Demo</h1>
+
+  <div id="flow-container"></div>
+
+  <script>
+    const flowData = {
+      id: 'booking-flow',
+      title: 'Customer Booking Flow',
+      description: 'Step-by-step screens showing what the customer experiences.',
+      screens: [
+        {
+          title: 'STEP 1: Landing Page',
+          ascii: `
+┌─────────────────────────────────────────┐
+│  HIBISCUS STUDIO                    ☰  │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Hero image of studio]                 │
+│                                         │
+│  Studio hire for events,                │
+│  workshops & content shoots             │
+│                                         │
+│  19a Peto Street North, London E16      │
+│  5 min from Canning Town                │
+│                                         │
+│  ✓ 40 seats  ✓ Tables  ✓ Kitchen       │
+│                                         │
+│         [View Booking Options]          │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Does this clearly communicate what you offer? Is the location info prominent enough?'
+        },
+        {
+          title: 'STEP 2: Category Selection',
+          ascii: `
+┌─────────────────────────────────────────┐
+│  Choose your booking type               │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  👁️ STUDIO VIEWING               │ │
+│  │  Free • 20 minutes                │ │
+│  │  [Book Viewing]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  🎉 EVENT HIRE                    │ │
+│  │  From £345 • 4-12 hours           │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  🎨 WORKSHOPS & CONTENT           │ │
+│  │  From £90/hour                    │ │
+│  │  [View Options]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  💍 PROPOSAL PACKAGES             │ │
+│  │  From £770 • Save up to £400      │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Are these categories clear? Should "Event Hire" be renamed to something more specific?'
+        },
+        {
+          title: 'STEP 3: Package Selection',
+          ascii: `
+┌─────────────────────────────────────────┐
+│  Event Hire Packages                    │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  4 HOURS FLEXI                    │ │
+│  │  £345                             │ │
+│  │  Perfect for smaller gatherings   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  HALF-DAY (6 HOURS) ⭐ POPULAR    │ │
+│  │  £465                             │ │
+│  │  Most chosen for bridal showers   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  8 HOURS FLEXI                    │ │
+│  │  £645                             │ │
+│  │  Great for larger events          │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Do the descriptions help customers choose? Is pricing clear?'
+        },
+        {
+          title: 'STEP 4: Acuity Modal Opens',
+          ascii: `
+┌─────────────────────────────────────────┐
+│  Book Your Session              [X]     │
+│  Hibiscus Studio                        │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Loading spinner]                      │
+│  Loading booking calendar...            │
+│                                         │
+│  ────────────────────────────────────── │
+│                                         │
+│  [Acuity calendar iframe loads here]    │
+│                                         │
+│  • Pick date from calendar              │
+│  • Select time slot                     │
+│  • Fill form (name, email, phone)       │
+│  • Click "Complete Booking"             │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'CRITICAL: Does this modal feel disconnected from the main site? (This is why we want to replace Acuity)'
+        },
+        {
+          title: 'STEP 5: Booking Confirmation',
+          ascii: `
+┌─────────────────────────────────────────┐
+│  ✓ Booking Created!                     │
+├─────────────────────────────────────────┤
+│                                         │
+│  We've reserved your date.              │
+│                                         │
+│  What's next:                           │
+│  1. Check your email for invoice        │
+│  2. Pay 50% deposit within 48 hours     │
+│  3. We'll confirm once payment received │
+│                                         │
+│  Your booking ID: HB-2026-001           │
+│                                         │
+│  Event Details:                         │
+│  • Date: Feb 15, 2026                   │
+│  • Time: 4:00 PM - 10:00 PM             │
+│  • Package: Half-Day (6 hours)          │
+│  • Total: £465                          │
+│                                         │
+│  [Close]                                │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Is it clear what happens next? Do customers understand they need to wait for invoice?'
+        }
+      ]
+    };
+
+    let currentScreen = 0;
+    let feedback = JSON.parse(localStorage.getItem('hb_flow_feedback')) || {};
+
+    function render() {
+      const container = document.getElementById('flow-container');
+      const totalScreens = flowData.screens.length;
+
+      container.innerHTML = `
+        <h2>${flowData.title}</h2>
+        <p style="color: #888; margin-bottom: 20px;">${flowData.description}</p>
+
+        <!-- Mini Map -->
+        <div class="flow-mini-map">
+          ${flowData.screens.map((screen, idx) => {
+            const status = feedback[idx];
+            const classes = ['mini-step'];
+            if (idx === currentScreen) classes.push('active');
+            if (status === 'approved') classes.push('approved');
+            if (status === 'flagged') classes.push('flagged');
+            return `
+              <div class="${classes.join(' ')}" onclick="goTo(${idx})">
+                ${idx + 1}/${totalScreens}
+                ${status === 'approved' ? '✓' : status === 'flagged' ? '⚠' : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- Navigation -->
+        <div class="screen-nav">
+          <button class="nav-btn" onclick="prev()" ${currentScreen === 0 ? 'disabled' : ''}>←</button>
+          <div class="screen-pos">Step ${currentScreen + 1} of ${totalScreens}</div>
+          <button class="nav-btn" onclick="next()" ${currentScreen === totalScreens - 1 ? 'disabled' : ''}>→</button>
+        </div>
+
+        <!-- Screens -->
+        ${flowData.screens.map((screen, idx) => `
+          <div class="screen-container ${idx === currentScreen ? 'active' : ''}" id="screen_${idx}">
+            <h3>${screen.title}</h3>
+            <div class="content-box">
+              <pre>${screen.ascii}</pre>
+            </div>
+            ${screen.question ? `
+              <div class="question-box">❓ ${screen.question}</div>
+            ` : ''}
+
+            <div class="actions">
+              <button class="primary" onclick="approve(${idx})">✓ This Screen Looks Good</button>
+              <button class="danger" onclick="flag(${idx})">❌ This Screen Needs Work</button>
+              <button class="info" onclick="voiceNote(${idx})">🎤 Voice Note</button>
+            </div>
+
+            ${feedback[`${idx}_voice`] ? `
+              <div class="voice-note">🎤 Voice note recorded</div>
+            ` : ''}
+          </div>
+        `).join('')}
+
+        <div style="margin-top: 30px; padding: 20px; border: 1px solid #333; text-align: center;">
+          <button class="primary" onclick="exportFeedback()">Export Feedback</button>
+        </div>
+      `;
+    }
+
+    function goTo(idx) {
+      currentScreen = idx;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function next() {
+      if (currentScreen < flowData.screens.length - 1) {
+        currentScreen++;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prev() {
+      if (currentScreen > 0) {
+        currentScreen--;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function approve(idx) {
+      feedback[idx] = 'approved';
+      saveFeedback();
+      render();
+      if (idx < flowData.screens.length - 1) {
+        setTimeout(() => next(), 500);
+      }
+    }
+
+    function flag(idx) {
+      feedback[idx] = 'flagged';
+      saveFeedback();
+      render();
+    }
+
+    function voiceNote(idx) {
+      alert(`Voice note feature: Tap to record feedback for screen ${idx + 1}.\n\nIn full version, this will use Web Audio API to record.`);
+      feedback[`${idx}_voice`] = true;
+      saveFeedback();
+      render();
+    }
+
+    function saveFeedback() {
+      localStorage.setItem('hb_flow_feedback', JSON.stringify(feedback));
+    }
+
+    function exportFeedback() {
+      const exportData = {
+        flow: flowData.title,
+        timestamp: new Date().toISOString(),
+        screens: flowData.screens.map((screen, idx) => ({
+          step: screen.title,
+          status: feedback[idx] || 'not-reviewed',
+          hasVoiceNote: !!feedback[`${idx}_voice`]
+        }))
+      };
+      console.log(exportData);
+      alert('Feedback exported to console! Check browser dev tools.');
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+
+    render();
+  </script>
+</body>
+</html>

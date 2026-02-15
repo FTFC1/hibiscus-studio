@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Output — Feb 13-14</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d1117; color: #c9d1d9; font-family: 'IBM Plex Mono', 'SF Mono', 'Consolas', monospace; font-size: 14px; line-height: 1.6; padding: 20px; max-width: 900px; margin: 0 auto; }
+h1 { color: #58a6ff; font-size: 18px; margin-bottom: 4px; }
+.subtitle { color: #8b949e; font-size: 12px; margin-bottom: 24px; }
+.expand-all { position: fixed; top: 12px; right: 16px; background: #21262d; color: #58a6ff; border: 1px solid #30363d; padding: 6px 14px; font-family: inherit; font-size: 12px; cursor: pointer; border-radius: 4px; z-index: 100; }
+.expand-all:hover { background: #30363d; }
+
+/* Sections */
+.section { border: 1px solid #21262d; border-radius: 6px; margin-bottom: 12px; overflow: hidden; }
+.section-header { background: #161b22; padding: 12px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.section-header:hover { background: #1c2128; }
+.section-title { font-size: 14px; font-weight: 600; }
+.section-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+.badge-sell { background: #e4e669; color: #0d1117; }
+.badge-build { background: #008672; color: #fff; }
+.badge-ops { background: #0075ca; color: #fff; }
+.badge-proof { background: #d876e3; color: #0d1117; }
+.badge-done { background: #238636; color: #fff; }
+.badge-due { background: #B60205; color: #fff; }
+.arrow { transition: transform 0.2s; color: #8b949e; }
+.section.open .arrow { transform: rotate(90deg); }
+.section-body { display: none; padding: 16px; border-top: 1px solid #21262d; background: #0d1117; }
+.section.open .section-body { display: block; }
+
+/* Cards */
+.card { background: #161b22; border: 1px solid #21262d; border-radius: 6px; padding: 16px; margin-bottom: 10px; white-space: pre-wrap; font-size: 13px; line-height: 1.7; }
+.card-title { color: #58a6ff; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+
+/* Issues */
+.issue { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #21262d; }
+.issue:last-child { border-bottom: none; }
+.issue-num { color: #8b949e; font-size: 12px; min-width: 28px; }
+.issue-title { flex: 1; }
+.issue-label { font-size: 10px; padding: 2px 6px; border-radius: 8px; }
+
+/* Links */
+a { color: #58a6ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.link-row { padding: 6px 0; display: flex; gap: 8px; align-items: center; }
+.link-icon { color: #8b949e; }
+
+/* Mission cards specific */
+.mission { margin-bottom: 16px; }
+.mission-header { color: #f0883e; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.mission-body { font-size: 13px; color: #c9d1d9; }
+.cost { color: #f85149; font-weight: 600; }
+.framework { color: #7ee787; }
+.practice { color: #d2a8ff; }
+</style>
+</head>
+<body>
+
+<button class="expand-all" onclick="toggleAll()">Expand All</button>
+
+<h1>SESSION OUTPUT — Feb 13-14</h1>
+<div class="subtitle">3 tasks shipped in parallel. One view.</div>
+
+<!-- SECTION 1: PUMA COMPRESSED -->
+<div class="section open" id="s1">
+<div class="section-header" onclick="toggle('s1')">
+  <span class="section-title">1. Puma Module 1 — Compressed Lessons</span>
+  <span><span class="section-badge badge-due">due tuesday</span> <span class="arrow">&#9654;</span></span>
+</div>
+<div class="section-body">
+
+<div class="mission">
+<div class="mission-header">MISSION 1: THE 5-30-60 RULE  ⏱️ 2 min</div>
+<div class="card"><span class="cost">Cost: ₦15.6M/year from ungreeted customers.</span>
+
+<span class="framework">THE RULE</span>
+  ⚡ 5 sec   Eye contact + smile
+  👋 30 sec  Approach if browsing
+  🎯 60 sec  Approach NO MATTER WHAT
+
+<span class="framework">WHAT TO SAY</span>
+  ❌ "Can I help you?" → "No" 90% of time
+  ✅ "What brings you in today?"
+  ✅ "Looking for something specific or just seeing what's new?"
+  ✅ "That's one of our most popular — want to try it on?"
+
+<span class="framework">IF "JUST LOOKING"</span>
+  "No problem — I'm [Name], come find me if you need anything."
+  Stay visible. Check back in 3-4 min.
+
+<span class="practice">TODAY'S PRACTICE</span>
+  □ Acknowledge every customer in 5 sec
+  □ Approach 80%+ within 60 sec
+  □ Kill "can I help you?" from vocab
+  □ Count greetings. Beat tomorrow.
+
+<span class="cost">₦300K/week lost when you skip this. Free when you don't.</span></div>
+</div>
+
+<div class="mission">
+<div class="mission-header">MISSION 2: KILL "CAN I HELP YOU?"  ⏱️ 2 min</div>
+<div class="card"><span class="cost">Cost: ₦6.5M/year from wrong openers.</span>
+
+<span class="framework">5 WARM OPENINGS</span>
+  1. "What brings you in today?" — open-ended
+  2. "Looking for something specific, or just seeing what's new?" — no "no" escape
+  3. "That's one of our most popular — [feature]. Want to try?" — info + action
+  4. "Shopping for yourself or a gift?" — everyone is one or the other
+  5. "I love those [item] — looking for similar or different?" — rapport + choice
+
+<span class="practice">TODAY'S PRACTICE</span>
+  □ Pick ONE opening. Use it ALL DAY.
+  □ Count: how many engage vs shut down?
+  □ Goal: 60%+ engagement rate
+
+<span class="cost">One question change = ₦6.5M/year difference.</span></div>
+</div>
+
+<div class="mission">
+<div class="mission-header">MISSION 3: THE 70/30 RULE  ⏱️ 2 min</div>
+<div class="card"><span class="cost">Cost: ₦3.9M/year from feature-dumping.</span>
+
+<span class="framework">THE RULE</span>  Customer talks 70%. You talk 30%.
+
+<span class="framework">4 QUESTIONS (ask BEFORE showing product)</span>
+  Q1. OCCASION — "What are you buying for?"
+  Q2. PROBLEM — "What's not working with what you have now?"
+  Q3. PRIORITY — "What matters most — comfort, durability, or style?"
+  Q4. DECISION — "Hoping to leave with something today?"
+
+Only show product AFTER all 4 asked.
+
+<span class="practice">TODAY'S PRACTICE</span>
+  □ Pick 3 customers. Go deep with 4 Qs.
+  □ Only show product AFTER all 4 asked.
+
+<span class="cost">Routine beats knowledge. Ask first, show second.</span></div>
+</div>
+
+<div class="mission">
+<div class="mission-header">MISSION 4: "I'LL THINK ABOUT IT"  ⏱️ 3 min</div>
+<div class="card"><span class="cost">Cost: ₦31.2M/year walking out the door. 9/10 never come back.</span>
+
+<span class="framework">3-STEP FRAMEWORK</span>
+  1. ACKNOWLEDGE — "Totally fair. What's making you want to think it over?"
+  2. PROBE — "Is it the price, or not sure it's the right fit?"
+  3. BRIDGE — Show alternative / hold for 24hrs / "take a photo" / give card
+
+<span class="practice">TODAY'S PRACTICE</span>
+  □ Use 3-step on 3 customers who hesitate
+  □ Discover the REAL reason
+  □ If they say it twice → let go gracefully
+
+<span class="cost">"I'll think about it" is a door, not a dead end.</span></div>
+</div>
+
+<div class="mission">
+<div class="mission-header">MISSION 5: "IT'S TOO EXPENSIVE"  ⏱️ 3 min</div>
+<div class="card"><span class="cost">Cost: ₦2.8M/year in unnecessary discounts + ₦5M when word spreads.</span>
+
+<span class="framework">4-STEP FRAMEWORK</span>
+  1. ASK BUDGET — "What were you thinking price-wise?"
+  2. ANCHOR VALUE — Connect price to THEIR specific need
+  3. SHOW DOWN — "Want to see the cheaper version side by side?"
+  4. PAYMENT FLEX — Installments or cost-per-use reframe
+
+  ❌ Never discount before trying all 4 steps
+  ❌ Never get defensive ("But it's PUMA!")
+  ❌ Never trash cheaper alternatives
+
+<span class="practice">TODAY'S PRACTICE</span>
+  □ Use 4-step on 3 price objections
+  □ Try the "show down" comparison once
+  □ Track: how many held full price?
+
+<span class="cost">Price objections are buying signals in disguise.</span></div>
+</div>
+
+<div class="mission">
+<div class="mission-header">MISSION 6: EXIT PROTOCOL  ⏱️ 3 min</div>
+<div class="card"><span class="cost">Cost: ₦31.2M/year in recoverable sales lost.</span>
+
+<span class="framework">4-STEP EXIT PROTOCOL</span>
+  1. ACKNOWLEDGE — "Before you go — can I grab your name and number?"
+  2. CAPTURE — Name + Phone + What they wanted + Why they didn't buy
+  3. SET TRIGGER — "I'll text you if these go on sale / size comes in"
+  4. WARM EXIT — "I'm [Name], by the way. Nice meeting you!"
+
+<span class="framework">FOLLOW-UP RULES</span>
+  ✅ Text within 3-7 days when trigger hits
+  ✅ One follow-up max if no response
+  ❌ Don't spam  ❌ Don't follow up after 2 weeks
+
+<span class="practice">TODAY'S PRACTICE</span>
+  □ Capture info from 3 non-buyers
+  □ Set specific triggers for each
+  □ Follow up when trigger happens
+
+<span class="cost">2 recovered sales/week = ₦2.6M/year. From one text.</span></div>
+</div>
+
+<div class="card" style="text-align:center; color: #7ee787; font-weight: 700;">
+MODULE 1 COMPLETE — 6 Missions, 6 Frameworks
+Combined cost of NOT doing this: ₦91M/year
+Combined cost of doing this: Free.
+</div>
+
+<div class="link-row"><span class="link-icon">📄</span> Source: <code>retail/puma/module-1-compressed.md</code></div>
+
+</div>
+</div>
+
+<!-- SECTION 2: GITHUB ISSUES -->
+<div class="section" id="s2">
+<div class="section-header" onclick="toggle('s2')">
+  <span class="section-title">2. GitHub Issues Board — 12 Issues</span>
+  <span><span class="section-badge badge-done">shipped</span> <span class="arrow">&#9654;</span></span>
+</div>
+<div class="section-body">
+
+<div style="margin-bottom: 12px;"><a href="https://github.com/FTFC1/aloe-projects/issues" target="_blank">Open full board on GitHub ↗</a></div>
+
+<div style="color:#e4e669; font-weight:600; margin: 12px 0 6px;">SELL (5)</div>
+<div class="issue"><span class="issue-num">#2</span><span class="issue-title">Compress Puma M1 lessons for trial</span><span class="issue-label badge-due">tue</span></div>
+<div class="issue"><span class="issue-num">#3</span><span class="issue-title">Resume Clodura TAM search (5 firms)</span><span class="issue-label badge-due" style="background:#D93F0B">fri</span></div>
+<div class="issue"><span class="issue-num">#4</span><span class="issue-title">Draft BTL connection notes for top targets</span><span class="issue-label badge-due" style="background:#D93F0B">fri</span></div>
+<div class="issue"><span class="issue-num">#7</span><span class="issue-title">GRM follow-up after Thursday meeting</span><span class="issue-label" style="background:#FBCA04;color:#0d1117">week</span></div>
+<div class="issue"><span class="issue-num">#13</span><span class="issue-title">Mikano Decision Day prep (Friday)</span><span class="issue-label badge-due" style="background:#D93F0B">fri</span></div>
+
+<div style="color:#008672; font-weight:600; margin: 12px 0 6px;">BUILD (3)</div>
+<div class="issue"><span class="issue-num">#5</span><span class="issue-title">Update FGCH ganache handoff for Variant</span><span class="issue-label" style="background:#FBCA04;color:#0d1117">week</span></div>
+<div class="issue"><span class="issue-num">#8</span><span class="issue-title">Fix Aloe VPS Bot text delivery (V1)</span><span class="issue-label" style="background:#FBCA04;color:#0d1117">week</span></div>
+<div class="issue"><span class="issue-num">#9</span><span class="issue-title">Add voice to Aloe Bot (V2 - Deepgram)</span></div>
+
+<div style="color:#d876e3; font-weight:600; margin: 12px 0 6px;">PROOF (1)</div>
+<div class="issue"><span class="issue-num">#6</span><span class="issue-title">Write HBS case study from bot building</span><span class="issue-label" style="background:#FBCA04;color:#0d1117">week</span></div>
+
+<div style="color:#0075ca; font-weight:600; margin: 12px 0 6px;">OPS (3)</div>
+<div class="issue"><span class="issue-num">#10</span><span class="issue-title">Sync skills + repo to VPS</span></div>
+<div class="issue"><span class="issue-num">#11</span><span class="issue-title">Scaffold /huddle skill</span></div>
+<div class="issue"><span class="issue-num">#12</span><span class="issue-title">Update HUD + session packet</span></div>
+
+</div>
+</div>
+
+<!-- SECTION 3: HUDDLE SKILL -->
+<div class="section" id="s3">
+<div class="section-header" onclick="toggle('s3')">
+  <span class="section-title">3. /huddle Skill — Scaffolded</span>
+  <span><span class="section-badge badge-done">shipped</span> <span class="arrow">&#9654;</span></span>
+</div>
+<div class="section-body">
+<div class="card"><span class="card-title">5 PERSONAS</span>
+<span style="color:#0075ca">OPS</span>     System health. Session map, HUD, checkpoints, orphans.
+<span style="color:#008672">BUILD</span>   Making things. Active slices, blocked work, ship-ready.
+<span style="color:#e4e669">SELL</span>    Revenue. Pipeline, cold leads, missed follow-ups, deadlines.
+<span style="color:#d876e3">PROOF</span>   Evidence. Case studies, visual proof, trust edge gaps.
+<span style="color:#f9d0c4">CAPTURE</span> Intake. Inbox, unprocessed items, orphaned agent outputs.</div>
+
+<div class="card"><span class="card-title">HOW IT WORKS</span>
+1. All 5 personas read their domain files in parallel
+2. Each runs a health check against criteria
+3. Cross-domain analysis finds conflicts + opportunities
+4. Output: binary decisions (yes/no) + time-estimated actions
+5. User picks which actions to execute
+6. Agents spawn on demand (not auto)</div>
+
+<div class="card"><span class="card-title">INVOKE</span>
+<code>/huddle</code>  or  "standup"  or  "status"  or  "where are we"</div>
+
+<div class="link-row"><span class="link-icon">📄</span> Source: <code>~/.claude/skills/huddle/SKILL.md</code></div>
+</div>
+</div>
+
+<!-- SECTION 4: FILES CREATED -->
+<div class="section" id="s4">
+<div class="section-header" onclick="toggle('s4')">
+  <span class="section-title">4. Files Created This Session</span>
+  <span><span class="arrow">&#9654;</span></span>
+</div>
+<div class="section-body">
+<div class="link-row"><span class="link-icon">📝</span> <code>retail/puma/module-1-compressed.md</code> — 6 missions, Format A</div>
+<div class="link-row"><span class="link-icon">📝</span> <code>retail/puma/module-1-compressed.html</code> — this view</div>
+<div class="link-row"><span class="link-icon">🔧</span> <code>~/.claude/skills/huddle/SKILL.md</code> — huddle skill</div>
+<div class="link-row"><span class="link-icon">🏷️</span> GitHub: 8 labels + 12 issues on FTFC1/aloe-projects</div>
+</div>
+</div>
+
+<script>
+function toggle(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+function toggleAll() {
+  const sections = document.querySelectorAll('.section');
+  const allOpen = [...sections].every(s => s.classList.contains('open'));
+  sections.forEach(s => {
+    if (allOpen) s.classList.remove('open');
+    else s.classList.add('open');
+  });
+  document.querySelector('.expand-all').textContent = allOpen ? 'Expand All' : 'Collapse All';
+}
+</script>
+</body>
+</html>

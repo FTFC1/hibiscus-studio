@@ -1,0 +1,242 @@
+[
+  {
+    "mission": 1,
+    "mission_name": "The 5-30-60 Rule",
+    "question": "The 5-30-60 Rule: 5 sec entering, 30 sec approach, 60 sec demo.\n\nWhat do these mean?",
+    "options": [
+      "Time to see, talk, browse",
+      "Enter, approach, demo \u2014 the decision windows",
+      "5 minutes, 30 minutes, 60 minutes total",
+      "5 eye contacts, 30 steps, 60% of time"
+    ],
+    "correct": 1,
+    "explanation": "5 sec = customer enters, 30 sec = you approach, 60 sec = demo/show product.",
+    "extended": "These are DECISION WINDOWS, not action timers.\n\n\u2022 5 seconds \u2014 Customer enters. You acknowledge (eye contact + smile).\n\u2022 30 seconds \u2014 You decide WHETHER to approach based on their body language.\n\u2022 60 seconds \u2014 If you approach, you have 60 sec to demo or they lose interest.\n\nMiss any window = the customer self-serves or leaves.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-01.html",
+    "context": "A customer just walked through the front door. The clock starts NOW."
+  },
+  {
+    "mission": 1,
+    "mission_name": "The 5-30-60 Rule",
+    "question": "Customer walks in. You're folding shirts 8 metres away.\n\nWhat do you do in the first 5 seconds?",
+    "options": [
+      "Finish folding, then approach",
+      "Make eye contact and smile, continue your task",
+      "Walk over and say 'Can I help you?'",
+      "Wait to see what section they go to"
+    ],
+    "correct": 1,
+    "explanation": "Acknowledge (eye contact + smile) but don't rush over.",
+    "extended": "The 5-second window is about ACKNOWLEDGEMENT, not action.\n\n\u2714\ufe0f Eye contact + smile = \"I see you, welcome\"\n\u274c Rushing over = pressure\n\u274c Ignoring them = \"nobody works here\"\n\nYou're 8 metres away. You can't physically reach them in 5 seconds anyway. The smile travels faster than your feet.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-01.html",
+    "context": "You're mid-task, folding shirts near the back wall. The door opens."
+  },
+  {
+    "mission": 1,
+    "mission_name": "The 5-30-60 Rule",
+    "question": "True or false: you should approach every customer within 30 seconds of them entering.",
+    "options": [
+      "True \u2014 faster approach = more sales",
+      "False \u2014 wait at least 2 minutes",
+      "True \u2014 but only if they look lost",
+      "False \u2014 30 seconds is the window to DECIDE to approach"
+    ],
+    "correct": 3,
+    "explanation": "30 sec is your DECISION window. Read the customer first.",
+    "extended": "This is the most common mistake: treating 30 seconds as a deadline to reach the customer.\n\n30 seconds = time to READ them.\n\u2022 Speed-walking to a section? \u2192 They know what they want. Approach.\n\u2022 Slowly browsing, touching things? \u2192 Give space. They're discovering.\n\u2022 Standing still, looking around? \u2192 They need help. Go now.\n\nThe 30-second window is about YOUR decision, not their experience.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-01.html",
+    "context": "This one catches most people out. Think carefully."
+  },
+  {
+    "mission": 1,
+    "mission_name": "The 5-30-60 Rule",
+    "question": "How many lost sales per day from poor timing costs \u20a615.6M annually?",
+    "options": [
+      "5 lost sales/day",
+      "10 lost sales/day",
+      "2 lost sales/day",
+      "1 lost sale/day"
+    ],
+    "correct": 2,
+    "explanation": "2 lost sales/day \u00d7 6 days \u00d7 \u20a625K avg \u00d7 52 weeks = \u20a615.6M/year.",
+    "extended": "Just TWO lost sales per day. That's it.\n\n2/day \u00d7 6 days/week = 12/week\n12 \u00d7 \u20a625,000 avg = \u20a6300,000/week\n\u20a6300,000 \u00d7 52 weeks = \u20a615,600,000/year\n\nTwo customers who walked out because nobody approached them at the right time. That's the cost of bad timing.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-01.html",
+    "context": "Time for some maths. This number will surprise you."
+  },
+  {
+    "mission": 1,
+    "mission_name": "The 5-30-60 Rule",
+    "question": "Customer enters, makes eye contact, walks to shoes and picks one up.\n\nYou should:",
+    "options": [
+      "Approach immediately \u2014 buying signal",
+      "Wait another 30 seconds for more space",
+      "Approach now with an open question about what they need",
+      "Call out from across the floor about the shoe"
+    ],
+    "correct": 2,
+    "explanation": "Picking up a product = engagement signal. Approach with a question.",
+    "extended": "Picking up a product is the STRONGEST buying signal on the floor.\n\nThey've:\n\u2714\ufe0f Entered (5-sec window done)\n\u2714\ufe0f Made eye contact (acknowledged you)\n\u2714\ufe0f Gone to a specific section (intent)\n\u2714\ufe0f Picked up a product (engagement)\n\nThis is your 60-second window. Approach with: \"What kind of running do you do?\" NOT \"Can I help you?\" \u2014 that kills it (Mission 2).",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-01.html",
+    "context": "Watch the signals. This customer is telling you something."
+  },
+  {
+    "mission": 2,
+    "mission_name": "Kill 'Can I Help You?'",
+    "question": "Why does 'Can I help you?' kill sales?",
+    "options": [
+      "It's too polite and formal",
+      "It's a yes/no question that invites 'No' as the easy answer",
+      "Customers don't know what they need help with",
+      "It makes you sound like security"
+    ],
+    "correct": 1,
+    "explanation": "Closed question. Path of least resistance = 'No, just browsing.'",
+    "extended": "\"Can I help you?\" is a YES/NO question.\n\nThe human brain defaults to the easiest answer. 'No' is always easier than explaining what you need.\n\n\u274c \"Can I help you?\" \u2192 \"No thanks, just browsing\" (conversation DEAD)\n\u2714\ufe0f \"What brings you in today?\" \u2192 Forces them to think and answer with information\n\nOne word change: from CLOSED to OPEN. That's the difference between a sale and a walkout.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-02.html",
+    "context": "This is the phrase that kills more sales than anything else on the floor."
+  },
+  {
+    "mission": 2,
+    "mission_name": "Kill 'Can I Help You?'",
+    "question": "Which of these is Opening #1 from the training?",
+    "options": [
+      "Can I help you find something?",
+      "What brings you in today?",
+      "Are you looking for anything specific?",
+      "Welcome! Let me know if you need anything."
+    ],
+    "correct": 1,
+    "explanation": "Opening #1 = 'What brings you in today?' \u2014 reveals their need state.",
+    "extended": "The 3 Openings (never use anything else):\n\n1\ufe0f\u20e3 \"What brings you in today?\" \u2014 general, works for any customer\n2\ufe0f\u20e3 \"What are you hoping to find?\" \u2014 for high-intent customers (speed-walking, scanning)\n3\ufe0f\u20e3 \"I love those! What caught your eye?\" \u2014 when they're already touching a product\n\nAll three are OPEN questions. All three get the customer talking. Pick based on what they're doing.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-02.html",
+    "context": "If you remember nothing else from Mission 2, remember this."
+  },
+  {
+    "mission": 2,
+    "mission_name": "Kill 'Can I Help You?'",
+    "question": "Customer examining track pants. You: 'Looking for something for the gym?' They: 'Yeah, something comfortable.'\n\nWhat next?",
+    "options": [
+      "Say 'These are comfortable' and wait",
+      "Ask: 'What kind of workouts do you usually do?'",
+      "Show them 3 different pants immediately",
+      "Say 'Try these on, let me know about size'"
+    ],
+    "correct": 1,
+    "explanation": "They gave a one-word answer. Dig deeper \u2014 what workout type?",
+    "extended": "\"Something comfortable\" tells you NOTHING specific.\n\nComfortable for yoga? Comfortable for lifting? Comfortable for lounging at home?\n\nEach needs a different fabric, fit, and feature set.\n\n\"What kind of workouts do you usually do?\" unlocks:\n\u2022 Yoga \u2192 stretchy, breathable\n\u2022 Weights \u2192 durable, flexible waistband\n\u2022 Running \u2192 lightweight, moisture-wicking\n\nNow you can recommend ONE perfect pair instead of showing three random ones.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-02.html",
+    "context": "They gave you a one-word answer. That's not enough to recommend anything."
+  },
+  {
+    "mission": 2,
+    "mission_name": "Kill 'Can I Help You?'",
+    "question": "Customer says 'Just browsing.'\n\nYou should:",
+    "options": [
+      "'No problem, let me know if you need anything' and walk away",
+      "'That's cool! If you see anything to try on, I'm here'",
+      "'What specifically are you browsing for?'",
+      "Ignore them and keep talking about products"
+    ],
+    "correct": 1,
+    "explanation": "Acknowledge, give space, leave the door open.",
+    "extended": "\"Just browsing\" is NOT a rejection. It's a deflection.\n\nThey're saying: \"Don't pressure me right now.\"\n\nThe right move:\n\u2714\ufe0f Acknowledge: \"That's cool!\"\n\u2714\ufe0f Give space: step back physically\n\u2714\ufe0f Leave the door open: \"If you see anything to try on, I'm here\"\n\u274c DON'T vanish completely \u2014 stay in their line of sight\n\u274c DON'T push harder \u2014 \"What specifically?\" feels interrogative\n\n80% of \"just browsing\" customers buy something if you give them space then re-engage.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-02.html",
+    "context": "Every retail worker hears this 10 times a day. Most handle it wrong."
+  },
+  {
+    "mission": 2,
+    "mission_name": "Kill 'Can I Help You?'",
+    "question": "Customer speed-walking toward shoe section, scanning shelves.\n\nBest opening?",
+    "options": [
+      "'What brings you in today?'",
+      "'What are you hoping to find?'",
+      "'I love those! What caught your eye?'",
+      "'Welcome! Let me know if you need help.'"
+    ],
+    "correct": 1,
+    "explanation": "High-intent customer. 'What are you hoping to find?' matches their urgency.",
+    "extended": "READ THE BODY LANGUAGE:\n\u2022 Speed-walking = purpose\n\u2022 Scanning shelves = searching for something specific\n\nThis customer KNOWS what they want. They don't need a soft open.\n\nOpening #1 (\"What brings you in?\") is too slow for them.\nOpening #2 (\"What are you hoping to find?\") matches their energy.\nOpening #3 (\"What caught your eye?\") doesn't work \u2014 nothing has caught their eye yet.\n\nMatch the customer's pace. Fast customer = direct question.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-02.html",
+    "context": "This customer is on a mission. They're moving fast. Which opening matches their energy?"
+  },
+  {
+    "mission": 3,
+    "mission_name": "The 70/30 Rule",
+    "question": "The 70/30 Rule says that during the browsing phase:",
+    "options": [
+      "You should talk 70% to share product knowledge",
+      "Customer should talk 70% while you listen",
+      "70% of customers buy if they browse 30 minutes",
+      "Spend 70% showing products, 30% answering questions"
+    ],
+    "correct": 1,
+    "explanation": "Customer talks 70%, you talk 30%. Ask questions and listen.",
+    "extended": "Most sales staff talk too much. They feature-dump.\n\nThe 70/30 Rule:\n\u2022 Customer talks 70% of the time\n\u2022 You talk 30% of the time\n\u2022 Your 30% should be QUESTIONS, not features\n\nIf you're talking more than the customer, you're pitching.\nIf the customer is talking more than you, you're SELLING.\n\nThe person asking questions controls the conversation.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-03.html",
+    "context": "New mission. This rule changes how you think about selling."
+  },
+  {
+    "mission": 3,
+    "mission_name": "The 70/30 Rule",
+    "question": "Which question should you ask FIRST in the 4 Questions Framework?",
+    "options": [
+      "'What matters most \u2014 comfort, durability, or style?'",
+      "'What are you buying for?'",
+      "'What's not working with what you have now?'",
+      "'Are you hoping to leave with something today?'"
+    ],
+    "correct": 1,
+    "explanation": "Start with Occasion ('What are you buying for?').",
+    "extended": "The 4 Questions Framework \u2014 in order:\n\n1\ufe0f\u20e3 OCCASION: \"What are you buying for?\" (birthday gift? gym? work?)\n2\ufe0f\u20e3 PROBLEM: \"What's not working with what you have now?\" (too hot? wrong fit?)\n3\ufe0f\u20e3 PRIORITY: \"What matters most?\" (comfort? price? style?)\n4\ufe0f\u20e3 URGENCY: \"Hoping to leave with something today?\"\n\nEach question builds on the last. Skip ahead and you miss context. Start with Occasion \u2014 everything else follows from WHY they're here.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-03.html",
+    "context": "The 4 Questions Framework. Get the order right."
+  },
+  {
+    "mission": 3,
+    "mission_name": "The 70/30 Rule",
+    "question": "Customer: 'I need running shoes.' You show 5 models, explain foam tech, carbon plates, colours. They say 'Let me think about it' and leave.\n\nWhat went wrong?",
+    "options": [
+      "You showed too many options",
+      "You feature-dumped without understanding their actual need",
+      "The customer wasn't serious about buying",
+      "You needed to mention the price sooner"
+    ],
+    "correct": 1,
+    "explanation": "Feature dump. You didn't ask WHY they need running shoes.",
+    "extended": "This is a FEATURE DUMP. You talked at them instead of listening.\n\nThey said \"running shoes.\" You heard it and started pitching.\n\nBut you never asked:\n\u2022 Why running shoes? (Starting running? Replacing old ones? Race?)\n\u2022 What's wrong with current shoes? (Knee pain? Worn out? Wrong type?)\n\u2022 What matters most? (Comfort? Speed? Price?)\n\n5 models + foam tech + carbon plates = information overload.\n1 perfect recommendation based on their answers = a sale.\n\n\"Let me think about it\" = \"You confused me.\"",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-03.html",
+    "context": "This is the most common mistake experienced staff make."
+  },
+  {
+    "mission": 3,
+    "mission_name": "The 70/30 Rule",
+    "question": "Customer: 'I'm looking for track pants.' You: 'What are you buying for?' They: 'Yoga and stretching at home.'\n\nWhat next?",
+    "options": [
+      "'What size do you usually wear?'",
+      "'What's not working with your current workout pants?'",
+      "'Do you want fitted or loose?'",
+      "'We have these on sale, want to see?'"
+    ],
+    "correct": 1,
+    "explanation": "After Occasion \u2192 ask Problem. 'What's not working?'",
+    "extended": "You just asked Question 1 (Occasion) \u2192 \"Yoga at home.\"\n\nNext is Question 2 (Problem): \"What's not working with what you have?\"\n\nThis might reveal:\n\u2022 \"They ride up during stretches\" \u2192 need fitted, stretchy waist\n\u2022 \"Too hot\" \u2192 need breathable fabric\n\u2022 \"No pockets\" \u2192 need functional design\n\u2022 \"Don't have any\" \u2192 new to yoga, need guidance\n\nSkipping to size or style is premature. You don't know what problem you're solving yet.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-03.html",
+    "context": "You've asked the first question. What comes next in the framework?"
+  },
+  {
+    "mission": 3,
+    "mission_name": "The 70/30 Rule",
+    "question": "After the customer answers your 4 questions, you should:",
+    "options": [
+      "Immediately show 3 matching products",
+      "Summarize what you heard and confirm you understood",
+      "Ask their budget",
+      "Tell them about your favourite product in that category"
+    ],
+    "correct": 1,
+    "explanation": "Summary Statement: 'So you run 3x/week, knees hurt, comfort is key. Right?'",
+    "extended": "The SUMMARY STATEMENT is the bridge between listening and recommending.\n\n\"So you run 3 times a week, your knees have been hurting, and comfort is your top priority. Is that right?\"\n\nThis does 3 things:\n1\ufe0f\u20e3 PROVES you listened (trust)\n2\ufe0f\u20e3 CONFIRMS accuracy (no wrong recommendations)\n3\ufe0f\u20e3 GIVES PERMISSION to recommend (they said \"yes, that's right\")\n\nNow when you show ONE shoe, they trust it's the right one. No feature-dumping needed.",
+    "lesson_url": "https://ftfc1.github.io/puma-training-demo/mission-03.html",
+    "context": "You've asked all 4 questions. Now what?"
+  }
+]

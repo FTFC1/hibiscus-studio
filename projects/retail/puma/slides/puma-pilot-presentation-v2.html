@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUMA Sales Training Pilot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        .slide-title {
+            background: #fff;
+            color: #000;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .slide-title .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 500;
+            margin: 1rem 0;
+        }
+
+        .slide-title .date {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .slide-content {
+            background: #000;
+            color: #fff;
+        }
+
+        .slide-content h2 {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: #fff;
+            border-bottom: 4px solid #E31E24;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Color for headings that are NOT problems */
+        .slide-content h2.accent-heading {
+            border-bottom-color: #00A9E0;
+        }
+
+        .content-box {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* Problem slide specific */
+        .problem-item {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #E31E24;
+            border-radius: 4px;
+        }
+
+        .problem-item h3 {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .example-speech {
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            font-style: italic;
+            color: #999;
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+            border-left: 2px solid #555;
+        }
+
+        .calculation {
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            margin: 0.5rem 0;
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+        }
+
+        .result {
+            font-size: clamp(1.3rem, 2.8vw, 2.2rem);
+            font-weight: 900;
+            color: #E31E24;
+            margin-top: 0.5rem;
+        }
+
+        .total-box {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #E31E24;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .total-box .label {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .total-box .amount {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+        }
+
+        /* Solution slide styling */
+        .solution-box {
+            background: rgba(0, 169, 224, 0.1);
+            border: 2px solid #00A9E0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .solution-box h3 {
+            font-size: clamp(1.3rem, 2.8vw, 1.8rem);
+            margin-bottom: 1rem;
+            color: #00A9E0;
+        }
+
+        .solution-box .subtitle {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        li {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            line-height: 1.6;
+        }
+
+        li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #00A9E0;
+            font-weight: 900;
+            font-size: 1.5em;
+        }
+
+        .highlight-box {
+            background: rgba(0, 169, 224, 0.1);
+            border: 2px solid #00A9E0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        /* Positive impact styling */
+        .impact-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid #FFC107;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .impact-box h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-box .amount {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            color: #FFC107;
+        }
+
+        .impact-box .subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-top: 0.5rem;
+            color: #ccc;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 4px solid #00A9E0;
+        }
+
+        .stat-card h3 {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #00A9E0;
+        }
+
+        .stat-card p {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .investment-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .invest-box {
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .puma-pays {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #fff;
+        }
+
+        .forje-waives {
+            background: rgba(227, 30, 36, 0.1);
+            border: 2px solid #E31E24;
+        }
+
+        .invest-box h3 {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .invest-box .amount {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            margin: 1rem 0;
+        }
+
+        .invest-box .details {
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .discount-badge {
+            background: #E31E24;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            margin-top: 1.5rem;
+            display: inline-block;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 900;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .section-header {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin: 2rem 0 1rem 0;
+            color: #00A9E0;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 1.5rem 1rem;
+            }
+
+            .investment-split {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-speech {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media print {
+            .slide-container {
+                overflow: visible;
+            }
+
+            .slide {
+                page-break-after: always;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+
+        <!-- SLIDE 1: Title -->
+        <section class="slide slide-title">
+            <h1>PUMA SALES MASTERY</h1>
+            <div class="subtitle">6-Week Cross-Sell Training Pilot</div>
+            <div class="date">February 10 - March 22, 2026</div>
+            <div class="slide-number">1 / 15</div>
+        </section>
+
+        <!-- SLIDE 2: The Problem -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2>Revenue Leaking from Common Mistakes</h2>
+
+                <div class="problem-item">
+                    <h3>Late/no customer acknowledgment</h3>
+                    <div class="example-speech">Customer enters, looks around... staff doesn't acknowledge... customer leaves</div>
+                    <div class="calculation">2 lost sales/day × ₦25K × 6 days × 52 weeks</div>
+                    <div class="result">= ₦15.6M/year</div>
+                </div>
+
+                <div class="problem-item">
+                    <h3>"Can I help you?" shutting down conversations</h3>
+                    <div class="example-speech">Staff: "Can I help you?" → Customer: "No, I'm fine." [End of conversation]</div>
+                    <div class="calculation">5 lost sales/week × ₦25K × 52 weeks</div>
+                    <div class="result">= ₦6.5M/year</div>
+                </div>
+
+                <div class="problem-item">
+                    <h3>Talking at customers (not listening)</h3>
+                    <div class="example-speech">Staff lists all features... Customer: "OK..." [glazed over, not engaged]</div>
+                    <div class="calculation">3 lost sales/week × ₦25K × 52 weeks</div>
+                    <div class="result">= ₦3.9M/year</div>
+                </div>
+
+                <div class="total-box">
+                    <div class="label">Total Preventable Losses (7 staff)</div>
+                    <div class="amount">₦26M/year</div>
+                </div>
+            </div>
+            <div class="slide-number">2 / 15</div>
+        </section>
+
+        <!-- SLIDE 3: The Solution -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Mobile Training That Works</h2>
+
+                <div class="solution-box">
+                    <h3>24 bite-sized lessons × 10 mins each</h3>
+                    <div class="subtitle">Staff read on phones during breaks—no classroom time needed</div>
+                </div>
+
+                <ul>
+                    <li>Mon/Wed/Fri on staff phones</li>
+                    <li>Quiz-validated (not honor system)</li>
+                    <li>Practical tasks on sales floor</li>
+                    <li>Manager dashboard tracks progress</li>
+                </ul>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: clamp(0.9rem, 2vw, 1.1rem); color: #aaa; text-align: center;">
+                    Mission breakdown on next slide →
+                </div>
+            </div>
+            <div class="slide-number">3 / 15</div>
+        </section>
+
+        <!-- SLIDE 4: What Staff Learn -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">What Staff Learn</h2>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <h3>Module 1: Customer Engagement</h3>
+                        <p>→ 5-30-60 Rule (timing)<br>
+                           → Warm openings<br>
+                           → Active listening</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Module 2: Cross-Selling Systems</h3>
+                        <p>→ Automatic add-ons<br>
+                           → Outfit building<br>
+                           → Bundle techniques</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Module 3: Product Knowledge</h3>
+                        <p>→ PUMA positioning<br>
+                           → Quality indicators<br>
+                           → Competitor handling</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Module 4: PUMA Playbook</h3>
+                        <p>→ Top 20 SKUs<br>
+                           → Common objections<br>
+                           → Store protocols</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4 / 15</div>
+        </section>
+
+        <!-- SLIDE 5: How It Works -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">How It Works</h2>
+
+                <div style="margin-top: 2rem;">
+                    <div class="section-header">Staff Experience</div>
+                    <ul>
+                        <li>Telegram notification → "Mission unlocks today!"</li>
+                        <li>Open Selar on phone → Read lesson (10 mins), take quiz</li>
+                        <li>Practice on floor → Use technique with customers</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <div class="section-header">Manager Experience</div>
+                    <ul>
+                        <li>Check dashboard (Mon/Wed/Fri, 2 mins)</li>
+                        <li>Observe practical tasks (10-15 mins/week)</li>
+                        <li>Post wins in Telegram (celebrate progress)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">5 / 15</div>
+        </section>
+
+        <!-- SLIDE 6: Investment -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Investment</h2>
+
+                <div class="investment-split">
+                    <div class="invest-box puma-pays">
+                        <h3>What PUMA Pays</h3>
+                        <div class="amount">₦45,000</div>
+                        <div class="details">
+                            Platform subscription (₦24K)<br>
+                            Staff data stipend (₦21K)
+                        </div>
+                    </div>
+
+                    <div class="invest-box forje-waives">
+                        <h3>What FORJE Waives</h3>
+                        <div class="amount">₦2,955,000</div>
+                        <div class="details">
+                            <strong>Content creation (₦1.5M):</strong><br>
+                            24 missions written + adapted for Nigeria<br><br>
+                            <strong>Platform setup (₦1M):</strong><br>
+                            Selar config, quiz building, Telegram setup<br><br>
+                            <strong>Pilot management (₦500K):</strong><br>
+                            Weekly check-ins, troubleshooting, reporting
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <div class="discount-badge">98.5% Discount (for case study participation)</div>
+                </div>
+            </div>
+            <div class="slide-number">6 / 15</div>
+        </section>
+
+        <!-- SLIDE 7: Expected Results -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Expected Results</h2>
+                <div class="section-header">Conservative Projections</div>
+
+                <ul>
+                    <li><strong>Week 2:</strong> Better greetings, more questions</li>
+                    <li><strong>Week 4:</strong> 15-20% basket increase (₦25K → ₦29K avg)</li>
+                    <li><strong>Week 6:</strong> 1.8 items/transaction (up from 1.3)</li>
+                </ul>
+
+                <div class="impact-box" style="margin-top: 2rem;">
+                    <h3>Revenue Impact</h3>
+                    <div class="amount">+₦1.68M/month</div>
+                    <div class="subtitle">from 7 staff</div>
+                </div>
+            </div>
+            <div class="slide-number">7 / 15</div>
+        </section>
+
+        <!-- SLIDE 8: Timeline -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Timeline</h2>
+                <div class="section-header">6-Week Pilot</div>
+
+                <ul>
+                    <li><strong>Feb 1:</strong> PUMA approval decision</li>
+                    <li><strong>Feb 10:</strong> Program launch</li>
+                    <li><strong>Feb 10-March 22:</strong> Training execution (Mon/Wed/Fri)</li>
+                    <li><strong>March 23:</strong> Final report + scale-up decision</li>
+                </ul>
+            </div>
+            <div class="slide-number">8 / 15</div>
+        </section>
+
+        <!-- SLIDE 9: What PUMA Does -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">What PUMA Does</h2>
+                <div class="section-header">Simple Setup</div>
+
+                <ul>
+                    <li>Approve pilot by Feb 1</li>
+                    <li>Provide 7 staff emails</li>
+                    <li>Transfer ₦45K (account details provided)</li>
+                    <li>Assign manager for coordination</li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top: 2rem; text-align: center;">
+                    <div style="font-size: clamp(1.2rem, 3vw, 1.8rem);">Manager time commitment:</div>
+                    <div style="font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 900; color: #00A9E0; margin-top: 0.5rem;">8 hours total over 6 weeks</div>
+                </div>
+            </div>
+            <div class="slide-number">9 / 15</div>
+        </section>
+
+        <!-- SLIDE 10: Case Study Commitment -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Case Study Commitment</h2>
+                <div class="section-header">In Exchange for 98.5% Discount</div>
+
+                <div style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1rem, 2.5vw, 1.3rem); line-height: 1.8; margin-bottom: 1rem;">PUMA provides:</p>
+                    <ul>
+                        <li>Written testimonial (Store Manager)</li>
+                        <li>Sales data (anonymous trends)</li>
+                        <li>Logo usage approval</li>
+                        <li><strong>Video testimonial (required, 2-3 staff, 30 sec, metric-based)</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">10 / 15</div>
+        </section>
+
+        <!-- SLIDE 11: Risk Mitigation -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Risk Mitigation</h2>
+
+                <div style="margin-top: 2rem;">
+                    <div class="section-header">What If It Doesn't Work?</div>
+                    <ul>
+                        <li>PUMA invested ₦45K, FORJE invested ₦2.8M</li>
+                        <li>Mutual risk, aligned incentives</li>
+                        <li>Selar subscription cancellable anytime</li>
+                        <li>Industry benchmark: 70%+ success rate</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2.5rem;">
+                    <div class="section-header">What If Staff Leave?</div>
+                    <ul>
+                        <li>New hires enroll at zero cost</li>
+                        <li>Content is evergreen (reusable)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">11 / 15</div>
+        </section>
+
+        <!-- SLIDE 12: Scale-Up Pricing -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Scale-Up Pricing</h2>
+                <div class="section-header">If Pilot Succeeds</div>
+
+                <ul>
+                    <li><strong>Assuming 20 staff at PUMA:</strong> ₦1.248M (6 months)</li>
+                    <li><strong>Assuming 50 staff at PUMA:</strong> ₦3.844M (12 months)</li>
+                    <li><strong>Another brand (e.g., Lacoste, 40 staff):</strong> ₦5.2M (12 months)</li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1rem, 2.5vw, 1.3rem); line-height: 1.6;"><strong>Key insight:</strong> Platform scales at flat fee (₦12K/month for 7 or 200 staff)</p>
+                </div>
+            </div>
+            <div class="slide-number">12 / 15</div>
+        </section>
+
+        <!-- SLIDE 13: ROI Summary -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">ROI Summary</h2>
+                <div class="section-header">Payback Period</div>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <h3>Pilot</h3>
+                        <p style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; color: #FFC107; margin: 1rem 0;">4,567% ROI</p>
+                        <p>(Month 1)</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>20 staff</h3>
+                        <p style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; color: #FFC107; margin: 1rem 0;">6.2 weeks</p>
+                        <p>payback</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>50 staff</h3>
+                        <p style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; color: #FFC107; margin: 1rem 0;">7.7 weeks</p>
+                        <p>payback</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Lacoste</h3>
+                        <p style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; color: #FFC107; margin: 1rem 0;">~8 weeks</p>
+                        <p>payback</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem; text-align: center;">
+                    <p style="font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 700;">Scale-up is profitable (platform cost doesn't increase)</p>
+                </div>
+            </div>
+            <div class="slide-number">13 / 15</div>
+        </section>
+
+        <!-- SLIDE 14: Why The Training Works -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Why the Training Works</h2>
+                <div class="section-header">Not Another PowerPoint Deck</div>
+
+                <ul>
+                    <li>Mobile-first (staff read on phones during breaks)</li>
+                    <li>Quiz-validated (proves learning, not honor system)</li>
+                    <li>Peer community (Telegram wins + challenges)</li>
+                    <li>Practical focus (immediate floor application)</li>
+                    <li>Manager dashboard (real-time visibility)</li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top: 2rem; text-align: center;">
+                    <p style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700;"><strong>Result:</strong> 80%+ completion rate, lasting behavior change</p>
+                </div>
+            </div>
+            <div class="slide-number">14 / 15</div>
+        </section>
+
+        <!-- SLIDE 15: Next Steps -->
+        <section class="slide slide-content">
+            <div class="content-box">
+                <h2 class="accent-heading">Next Steps</h2>
+                <div class="section-header">Decision by Feb 1</div>
+
+                <ul>
+                    <li>Approve pilot</li>
+                    <li>Provide 7 staff emails</li>
+                    <li>Transfer ₦45K</li>
+                    <li>Launch Feb 10</li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top: 2rem; text-align: center; padding: 2rem;">
+                    <p style="font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 700; margin-bottom: 1rem;">Questions?</p>
+                    <p style="font-size: clamp(1rem, 2.5vw, 1.3rem);">Contact details provided separately.</p>
+                </div>
+            </div>
+            <div class="slide-number">15 / 15</div>
+        </section>
+
+    </div>
+
+    <script>
+        // Smooth scroll behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    if (currentSlide < slides.length - 1) {
+                        currentSlide++;
+                        slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    if (currentSlide > 0) {
+                        currentSlide--;
+                        slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+
+            // Track current slide on scroll
+            const container = document.querySelector('.slide-container');
+            container.addEventListener('scroll', function() {
+                const scrollPosition = container.scrollTop;
+                slides.forEach((slide, index) => {
+                    const slideTop = slide.offsetTop;
+                    const slideBottom = slideTop + slide.offsetHeight;
+                    if (scrollPosition >= slideTop && scrollPosition < slideBottom) {
+                        currentSlide = index;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

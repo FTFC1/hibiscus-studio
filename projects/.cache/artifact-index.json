@@ -1,0 +1,586 @@
+{
+  "lastUpdated": "2026-02-05T01:50:00.000Z",
+  "source": "notion://database/855535eb12644fbe8d09b7ee1a392293",
+  "dataSourceId": "collection://c99d7a4b-2395-446a-9920-af985ac1107c",
+  "totalArtifacts": 58,
+  "artifacts": {
+    "Pipeline Response Rubric": {
+      "artifact": "Pipeline Response Rubric — Daily Messaging System",
+      "path": "/projects/mikano/02-Diesel-First/Lead-Generation/pipeline-response-rubric.md",
+      "project": "GAS",
+      "purpose": "6-step repeatable pipeline messaging system. Profiling (P0-P5) vs Prospecting (R0-R4) stages, 7-criteria quality rubric (28/35 threshold), 5-question stress test, copy-paste checklist, send timing, company context cards, daily workflow. Source: DSG First 90 Days + RIQ + Nigerian adaptations.",
+      "status": "Active — use for ALL pipeline replies",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "New Gen Prospecting (Notion Database)": {
+      "artifact": "New Gen Prospecting (Notion Database)",
+      "path": "Notion database 2fd70b6455cb802595c4c9bcce0800ff",
+      "project": "GAS",
+      "purpose": "Pipeline contact tracking. Current: Contact Name, Seniority, Firm, Next Action, Traffic Light, LinkedIn, Connection Sent, Profiling Method, Profiling Date, Reply Status, Intel Gathered, Phone. NEEDS UPGRADE: Stage (P0-P5/R0-R4), Account Tier (A/B/C), pipeline math fields.",
+      "status": "Active — upgrade queued (add Stage, Tier, restructure columns)",
+      "notionUrl": "https://www.notion.so/2fd70b6455cb802595c4c9bcce0800ff",
+      "notionId": "2fd70b6455cb802595c4c9bcce0800ff",
+      "dataSourceId": "2fd70b64-55cb-80cb-8b90-000bfda0742a"
+    },
+    "OpenClaw Agent Architecture Reference": {
+      "artifact": "OpenClaw + Agent Architecture — Reference Document",
+      "path": "/projects/ventures/openclaw/reference.md",
+      "project": "ALOE",
+      "purpose": "Pattern library for Aloe Labs agent layer. Architecture patterns ONLY: 4-table loop, proposal service, heartbeat, triggers, memory, reaction matrix. Our system parallel map. Meng To workflow paradigms. 4-stage automation path. PARKED as build, active as reference.",
+      "status": "REFERENCE (PARKED as build)",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Decart Virtual Try-On API": {
+      "artifact": "Decart AI — Virtual Try-On API Reference",
+      "path": "/projects/retail/tools/decart-virtual-tryon.md",
+      "project": "RETAIL",
+      "purpose": "Real-time virtual try-on API (Lucy 2). Pay-as-you-go ($0.01/credit, ~$3/hr). Cross-cuts GRM ($800 custom suits), Puma/PRL, any clothing retail. Scored 4/5 on decision rubric. Mobile-first potential.",
+      "status": "EXPLORE",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Diataxis Information Taxonomy": {
+      "artifact": "Diataxis Framework — Information Taxonomy",
+      "path": "/projects/learn/references/diataxis.md",
+      "project": "INFRA",
+      "purpose": "2x2 documentation framework: Tutorial/How-to/Reference/Explanation. Applies to session packets, CLAUDE.md, skills, SOPs. Tag system: [REF], [HOW], [WHY], [TUT].",
+      "status": "Active reference",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "GRM Clothing Project Manifest": {
+      "artifact": "GRM Clothing — project.json",
+      "path": "/projects/ventures/grm/project.json",
+      "project": "GRM",
+      "purpose": "Luxury tailoring boutique manifest. $800-$1K custom items (Batique silk shirts, Nigerian suits). Team: Farah (brand/editorial) + Nico (RevOps/funnels/CRM). Decision rubric: 5 criteria, 4/5+ = build. Brand vision: editorial, Vogue/L'Homme refs, Nigerian photographer. Next: Telegram group, interview dad + SGI.",
+      "status": "Active",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "HB Solution Context Profile (EP #5)": {
+      "artifact": "Solution Context Profile — HB Studio",
+      "path": "/projects/hb/ep-solution-context-profile.md",
+      "project": "HB",
+      "purpose": "EP Framework #5. Four-layer problem mapping (surface→real→adjacent→root), value chain (£0→£22.8K/yr per baker), solution strategy (infrastructure bundle), defensibility (kitchen moat + community + Acuity lock + 3-entity + Aloe Labs speed), evolution path (Service→Standardize→Automate→Software).",
+      "status": "✅ Complete",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "HB Format Selection (EP #7)": {
+      "artifact": "Format Selection — HB Studio Offerings",
+      "path": "/projects/hb/ep-format-selection.md",
+      "project": "HB",
+      "purpose": "EP Framework #7. Maps all HB offerings to Education/Automation/Implementation. Revenue chain (PDF→Calc→Booking→Hosting) separated from Custom Funnel and Workshop OS. Starting formats: Education (freebie) + Automation (calculator). Combination strategy and Aloe Labs dual-purpose lens.",
+      "status": "✅ Complete",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "HB Landing Page Framework (EP #16)": {
+      "artifact": "Landing Page Copy Framework — Workshop Calculator",
+      "path": "/projects/hb/ep-landing-page-framework.md",
+      "project": "HB",
+      "purpose": "EP Framework #16. Calculator page copy: 7 sections (hero, calculator UI, PAS, social proof phases, lead capture, trust, final CTA). 3 headline options for A/B testing. 6 psychological triggers. Technical spec: vanilla JS, GitHub Pages, mobile-first.",
+      "status": "✅ Complete",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "HB Workshop Lead Gen via Exa (Session Packet)": {
+      "artifact": "HB Workshop Lead Gen via Exa",
+      "path": "/projects/sessions/2026-02-04-hb-workshop-lead-gen-exa.md",
+      "project": "HB",
+      "purpose": "Sourdough/baking ICP pivot (kitchen = moat, £750-£1020/workshop vs £500 yoga). Exa search simplified (2-3 criteria: location, topic, followers), manual filter process (10 min for 20-30 accounts). 3 decisions: ICP pivot, Exa optimization, manual filter.",
+      "status": "✅ Strategy ready - Run Exa search this week, filter results, build CSV, write IG templates for Rochelle",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Exa Sourdough Search Query (Final)": {
+      "artifact": "Simplified Exa Search Query",
+      "path": "Documented in /projects/sessions/2026-02-04-hb-workshop-lead-gen-exa.md",
+      "project": "HB",
+      "purpose": "Instagram accounts of sourdough baking instructors in South East or East London with 2000-20000 followers who teach baking classes or workshops. Domain: instagram.com. Results: 30-50. Manual filter after: skip owns bakery, keep pop-up/home bakers.",
+      "status": "✅ Ready to run - 5 min to execute, 10 min to filter, 15 min to build CSV",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Agency Positioning EP Analysis (Session Packet)": {
+      "artifact": "Agency Positioning EP Analysis",
+      "path": "/projects/sessions/2026-02-04-agency-positioning-ep-analysis.md",
+      "project": "HB",
+      "purpose": "EP M2/M3 frameworks applied to crossroads: Agency first (not infoproduct - no authority yet), GAS + agency parallel, HB = anchor client, Princess = scalable offer test. 5 decisions: Focus agency, keep GAS, separate HB/Princess models, 4-step async intake, 50/50 payment.",
+      "status": "✅ Complete - Strategy clarity: Send Princess intake this week, quote after specs, find Client #3 (Rule of Three)",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Princess Async Intake Process (Framework)": {
+      "artifact": "Princess 4-Step Async Intake",
+      "path": "Documented in /projects/sessions/2026-02-04-agency-positioning-ep-analysis.md",
+      "project": "HB",
+      "purpose": "Replicable client onboarding: (1) Send HB demo link, (2) Voice note walkthrough, (3) Screenshots/branding, (4) 10-question form. Client time: 30 min total (not 3 discovery calls). Scalable for every booking system client.",
+      "status": "✅ Designed - Ready to send to Princess this week",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Booking System Pricing Tiers (Framework)": {
+      "artifact": "Pricing Tiers: Simple/Standard/Premium",
+      "path": "Documented in /projects/sessions/2026-02-04-agency-positioning-ep-analysis.md",
+      "project": "HB",
+      "purpose": "Simple (£500-750): Funnel + calendar + payment, 1 week. Standard (£1000-1500): + Email automation + branding, 2 weeks. Premium (£2000+): + Custom backend dashboard + integrations, 3-4 weeks. Refine after Princess specs.",
+      "status": "✅ Framework defined - Apply to Princess after intake",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Fisayo Referral Sales Brief": {
+      "artifact": "Fisayo Referral Sales Brief (HTML)",
+      "path": "/projects/inbox/Feb 3/fisayo-referral-sales-brief.html",
+      "project": "GAS",
+      "purpose": "One-page internal sales guide for Fisayo's 7 referrals. Qualification questions, TCO talk tracks, red flags, value props by size (100kVA/250kVA). Incorporates EP research findings.",
+      "status": "✅ Ready to use - Dark mode, mobile-friendly",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "EP Market Validation (Research Summary)": {
+      "artifact": "EP Market Validation - Research Summary",
+      "path": "/projects/inbox/Feb 3/second-round-complexity/research-summary.md",
+      "project": "GAS",
+      "purpose": "EP 5-dimension validation: STRONG GO ✅✅✅. Market size $107M-$182M, value gap ₦12M-₦245M, MEP network = unfair advantage. Search volume FAIL validates referral strategy.",
+      "status": "✅ Complete - Used for sales brief creation",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "EP Competitive Edges Analysis": {
+      "artifact": "EP Competitive Edges - 5 Unfair Advantages",
+      "path": "/projects/inbox/Feb 3/second-round-complexity/competitive-edges.md",
+      "project": "GAS",
+      "purpose": "EP M2L4 analysis: Trust Edge (30yr brand), Access Edge (MEP network - strongest moat), Knowledge/Experience/Technical Edges. NNPC credential, parts availability = key differentiators.",
+      "status": "✅ Complete - Defensibility matrix included",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "EP Value Gap Calculation": {
+      "artifact": "EP Value Gap Calculation (TCO Analysis)",
+      "path": "/projects/inbox/Feb 3/second-round-complexity/value-gap-calculation.md",
+      "project": "GAS",
+      "purpose": "Total Cost of Ownership analysis. 100kVA: ₦12M-₦28M savings over 5yr. 250kVA: ₦110M-₦245M savings. Downtime reduction = 44% of total cost (THE key message).",
+      "status": "✅ Complete - TCO calculator framework included",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "EP Keyword Research": {
+      "artifact": "EP Dimension 2 - Keyword Research",
+      "path": "/projects/inbox/Feb 3/second-round-complexity/dimension-2-keywords.md",
+      "project": "GAS",
+      "purpose": "Search demand analysis: <250 monthly searches (FAIL ❌). BUT: Validates referral strategy - B2B generators 70-80% referral-driven, NOT search-driven. Don't invest in SEO/PPC.",
+      "status": "✅ Complete - Strategic implications included",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Second Round Complexity (ZIP)": {
+      "artifact": "Second Round Complexity (ZIP Archive)",
+      "path": "/projects/inbox/Feb 3/second round perplexity.zip",
+      "project": "GAS",
+      "purpose": "EP research archive (4 files): research-summary, competitive-edges, value-gap-calculation, dimension-2-keywords. Comprehensive market validation for Mikano referral strategy.",
+      "status": "✅ Extracted to second-round-complexity/ folder",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Generator Sales Strategy Pivot": {
+      "artifact": "Generator Sales Strategy Pivot (Session Packet)",
+      "path": "/projects/sessions/2026-02-02-generator-sales-strategy-pivot.md",
+      "project": "GAS",
+      "purpose": "Strategy pivot: Trigger monitoring → Referral engine. Nigerian reality check, Fisayo model validation, Week 1 execution plan.",
+      "status": "✅ Complete - Referral model validated (7 prospects), Instagram strategy, commission framework",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "briefing.md": {
+      "artifact": "briefing.md",
+      "path": "~/.claude/skills/briefing/SKILL.md",
+      "project": "INFRA",
+      "purpose": "/briefing skill - Momentum-aware context injection (GLOBAL)",
+      "status": "✅ Global skill - Migrated Feb 3",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-81d3-8d38-e60ff9d64cc7",
+      "notionId": "2fa70b64-55cb-81d3-8d38-e60ff9d64cc7"
+    },
+    "v4-data.js (HUD)": {
+      "artifact": "v4-data.js (HUD)",
+      "path": "/projects/hud/v4-data.js",
+      "project": "INFRA",
+      "purpose": "Current state — CANONICAL. North Star, mid-goals, projects, build queue, wins",
+      "status": "✅ Updated Feb 11 — v4 schema (northStar, midGoals, buildGroups, projects)",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-81c6-a225-d8ae0fa3f615",
+      "notionId": "2fa70b64-55cb-81c6-a225-d8ae0fa3f615"
+    },
+    "puma-training-demo": {
+      "artifact": "puma-training-demo",
+      "path": "ftfc1.github.io/puma-training-demo/",
+      "project": "PUMA",
+      "purpose": "Module 1 - 6 missions, Nigerian localization",
+      "status": "",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-8169-ac01-ce4a74833ffc",
+      "notionId": "2fa70b64-55cb-8169-ac01-ce4a74833ffc"
+    },
+    "CLAUDE.md": {
+      "artifact": "CLAUDE.md",
+      "path": "/Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/CLAUDE.md",
+      "project": "INFRA",
+      "purpose": "Preferences, rules, validation gates, session hierarchy",
+      "status": "✅ Active - Updated Feb 1 with validation gates",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-8162-b497-c905a5fc96b6",
+      "notionId": "2fa70b64-55cb-8162-b497-c905a5fc96b6"
+    },
+    "Sprint Review Jan 21-31": {
+      "artifact": "Sprint Review Jan 21-31",
+      "path": "/Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/projects/learn/video-kb/debug/2026-01-sprint-review.md",
+      "project": "INFRA",
+      "purpose": "6 sessions analyzed, patterns, contradictions, deep-dives",
+      "status": "✅ Referenced actively - Feb 1 infrastructure design",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-8119-856b-e91830397250",
+      "notionId": "2fa70b64-55cb-8119-856b-e91830397250"
+    },
+    "Session Documentation": {
+      "artifact": "Session Documentation",
+      "path": "See: CLAUDE.md Session Documentation section",
+      "project": "INFRA",
+      "purpose": "Guidelines for session packets, metadata files, YAML frontmatter",
+      "status": "✅ Active - Used in Scribe agent design Feb 1",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-808f-8750-d0aa4a654e9b",
+      "notionId": "2fa70b64-55cb-808f-8750-d0aa4a654e9b"
+    },
+    "Session templates": {
+      "artifact": "Session templates",
+      "path": "/projects/sessions/templates/",
+      "project": "INFRA",
+      "purpose": "SESSION-TEMPLATE.md, SESSION-PACKET-TEMPLATE.md",
+      "status": "",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-81f4-9654-d6e656eeb8c3",
+      "notionId": "2fa70b64-55cb-81f4-9654-d6e656eeb8c3"
+    },
+    "Other Sprint Review documents": {
+      "artifact": "Other Sprint Review documents",
+      "path": "/Users/.../projects/learn/video-kb/debug/ (multiple files)",
+      "project": "INFRA",
+      "purpose": "Sprint reviews, work session analysis, patterns over time",
+      "status": "✅ Jan 21-31 sprint reviewed - Feb navigation mode next",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-8044-96b6-f453b946d992",
+      "notionId": "2fa70b64-55cb-8044-96b6-f453b946d992"
+    },
+    "Packets Folder": {
+      "artifact": "Packets Folder",
+      "path": "/Users/.../projects/sessions/",
+      "project": "INFRA",
+      "purpose": "All session packets - flat files + folders, sorted by date",
+      "status": "✅ Active - 15+ packets, Scribe reads for pattern learning",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-80e2-b850-fe6019c2c584",
+      "notionId": "2fa70b64-55cb-80e2-b850-fe6019c2c584"
+    },
+    "Feb 1 Battle Plan": {
+      "artifact": "Feb 1 Battle Plan",
+      "path": "Craft: Session Packets folder",
+      "project": "INFRA",
+      "purpose": "Today's focus - DO FIRST, DECIDE, WIN conditions",
+      "status": "",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-81ec-8107-f20c916e5dd0",
+      "notionId": "2fa70b64-55cb-81ec-8107-f20c916e5dd0"
+    },
+    "Session Folder": {
+      "artifact": "Session Folder",
+      "path": "/Users/.../projects/.system/sessions/",
+      "project": "INFRA",
+      "purpose": "System folder for Claude Code session tracking",
+      "status": "✅ System folder - Auto-managed by Claude Code",
+      "notionUrl": "https://www.notion.so/2fa70b64-55cb-8057-9bd6-fb561d199c5d",
+      "notionId": "2fa70b64-55cb-8057-9bd6-fb561d199c5d"
+    },
+    "LinkedIn Lead List (Local)": {
+      "artifact": "LinkedIn Lead List (Local Export)",
+      "path": "/projects/inbox/Feb 2/export1/Private & Shared/MK LinkedIn Outreach (v2) 29370b6455cb80ddb5fbf767d18462a6_all.csv",
+      "project": "INFRA",
+      "purpose": "91 active leads - 44 First Message Sent, 23 Accepted, 6 Replied. Job titles, messages, timing patterns, response rates.",
+      "status": "✅ Local export Feb 2, 2026 - Ready for analysis",
+      "notionUrl": "https://www.notion.so/2fb70b6455cb810c8332e2af26e73d82",
+      "notionId": "2fb70b64-55cb-810c-8332-e2af26e73d82"
+    },
+    "LinkedIn Lead List (Notion)": {
+      "artifact": "LinkedIn Lead List (Notion Database)",
+      "path": "Notion database 29370b6455cb80ddb5fbf767d18462a6",
+      "project": "INFRA",
+      "purpose": "Live LinkedIn outreach database (use local export to save tokens)",
+      "status": "✅ Active - Use local export for analysis",
+      "notionUrl": "https://www.notion.so/29370b6455cb80ddb5fbf767d18462a6?v=29370b6455cb81e3a03c000c082b8042",
+      "notionId": "29370b6455cb80ddb5fbf767d18462a6"
+    },
+    "Sales Pipeline (Local)": {
+      "artifact": "Sales Pipeline (Local Export)",
+      "path": "/projects/inbox/Feb 2/export2/Private & Shared/MK Sales Pipeline b2de40cc60814c80bf0599e13b924fd7_all.csv",
+      "project": "INFRA",
+      "purpose": "5 active opportunities - 2 External Review, 1 Closed Won, 1 Site Visit/Followup, 1 Internal Review",
+      "status": "✅ Local export Feb 2, 2026",
+      "notionUrl": "https://www.notion.so/2fb70b6455cb816dadcce4ce3dcc4371",
+      "notionId": "2fb70b64-55cb-816d-adcc-e4ce3dcc4371"
+    },
+    "Sales Pipeline (Notion)": {
+      "artifact": "Sales Pipeline (Notion Database)",
+      "path": "Notion database b2de40cc60814c80bf0599e13b924fd7",
+      "project": "INFRA",
+      "purpose": "Live sales pipeline database (use local export to save tokens)",
+      "status": "✅ Active - Use local export for analysis",
+      "notionUrl": "https://www.notion.so/b2de40cc60814c80bf0599e13b924fd7?v=133a57791f414913b0150f249b97d04b",
+      "notionId": "b2de40cc60814c80bf0599e13b924fd7"
+    },
+    "Day Log Template (24h Phases)": {
+      "artifact": "Day Log Template (24h Phases)",
+      "path": "/projects/archive/daily-logs/TEMPLATE-daylog-24h.html",
+      "project": "INFRA",
+      "purpose": "24h time optimization template - Morning (sluggish), Office (peak), Evening (dip), Night Owl (surge). Energy tracking, value created, reflection questions.",
+      "status": "✅ Active template - Use to optimize time across day phases",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Day Log (Review Format)": {
+      "artifact": "Day Log (Review Format)",
+      "path": "/projects/archive/daily-logs/2026-02-02-daylog.html",
+      "project": "INFRA",
+      "purpose": "Simpler day log - schedule, value created, packets touched, quick capture, habits & reflection. Example: Feb 2.",
+      "status": "✅ Example format - Use as reference for daily reviews",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Daily Logs Folder": {
+      "artifact": "Daily Logs Folder",
+      "path": "/projects/archive/daily-logs/",
+      "project": "INFRA",
+      "purpose": "All day log HTMLs - templates and actual logs. Different views for time optimization.",
+      "status": "✅ Active folder - Contains templates + daily logs",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "video-kb": {
+      "artifact": "video-kb (Video Knowledge Base)",
+      "path": "/projects/learn/video-kb/",
+      "project": "INFRA",
+      "purpose": "YouTube video processing - yt-dlp download, ffmpeg frame extraction, analysis workflow. Cost: ~15-20k tokens/video.",
+      "status": "✅ Operational - Foundation ready, one video processed (2026-01-31)",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "extract-frames.sh": {
+      "artifact": "extract-frames.sh",
+      "path": "/projects/learn/video-kb/extract-frames.sh",
+      "project": "INFRA",
+      "purpose": "ffmpeg-based frame extraction at intervals + scene changes. Usage: ./extract-frames.sh video.mp4 output-dir 20",
+      "status": "✅ Working tool",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "video.md": {
+      "artifact": "video.md",
+      "path": "~/.claude/skills/video/SKILL.md",
+      "project": "INFRA",
+      "purpose": "/video skill - Process YouTube videos with sub-commands (GLOBAL)",
+      "status": "✅ Global skill - Migrated Feb 3",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "INSIGHTS-PARKING.md": {
+      "artifact": "INSIGHTS-PARKING.md",
+      "path": "/projects/learn/video-kb/INSIGHTS-PARKING.md",
+      "project": "INFRA",
+      "purpose": "Video insights parking lot - actionable items from video analyses waiting to be actioned",
+      "status": "✅ Created Feb 3 - 2 insights (Daily Manifest, Camera Movement)",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "EP AI Frontrunners Course": {
+      "artifact": "EP AI Frontrunners Course",
+      "path": "/projects/learn/courses/ep-ai-frontrunners/",
+      "project": "INFRA",
+      "purpose": "EP course knowledge base - 98 lessons across 7 modules (product research, market validation, distribution, sales assets)",
+      "status": "✅ Active - /ep skill operational",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "EP Course Index": {
+      "artifact": "EP Course Index",
+      "path": "/projects/learn/courses/ep-ai-frontrunners/modules/gpt-assets/COURSE-INDEX.json",
+      "project": "INFRA",
+      "purpose": "Searchable index of 98 EP course lessons with tags (market-validation, pricing-strategy, youtube-seo, etc.)",
+      "status": "✅ Active - Used by /ep skill for progressive summarization",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "ep.md": {
+      "artifact": "ep.md (Claude Skill)",
+      "path": "/Users/nicholasfeyintolafolarin-coker/.claude/skills/ep.md",
+      "project": "INFRA",
+      "purpose": "/ep skill - Sparring partner for applying EP frameworks to current work. Reads HUD, applies frameworks, surfaces non-obvious insights.",
+      "status": "✅ Created Feb 3 - Ready for use",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "mikano-partner-brief-v2.md": {
+      "artifact": "mikano-partner-brief-v2.md",
+      "path": "/projects/inbox/Feb 3/mikano-partner-brief-v2.md",
+      "project": "GAS",
+      "purpose": "Rewritten partner brief - British English, 48h site visits, ease messaging, 15-min call CTA",
+      "status": "✅ Ready to distribute - Fill contact info then send to Fisayo",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "mikano-partner-brief-v2.html": {
+      "artifact": "mikano-partner-brief-v2.html",
+      "path": "/projects/inbox/Feb 3/mikano-partner-brief-v2.html",
+      "project": "GAS",
+      "purpose": "Partner brief HTML version - print-ready professional format",
+      "status": "✅ Ready to print/PDF",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "qualification-call-script.md": {
+      "artifact": "qualification-call-script.md",
+      "path": "/projects/inbox/Feb 3/qualification-call-script.md",
+      "project": "GAS",
+      "purpose": "6-question script to assess if partner has pipeline + influence (filters 'one project' people)",
+      "status": "✅ Ready to use when Fisayo's 7 referrals respond",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "mikano-partner-brief-visual.html": {
+      "artifact": "mikano-partner-brief-visual.html",
+      "path": "/projects/inbox/Feb 3/mikano-partner-brief-visual.html",
+      "project": "GAS",
+      "purpose": "Visual partner brief - SVG icons, load creep protection card, risk mitigation CTA. Updated Feb 3 based on EP analysis + MEP transcript.",
+      "status": "✅ Ready for Fisayo - Fill contact info then distribute",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "context-profile-nigerian-generator-sales.json": {
+      "artifact": "Nigerian Generator Sales Context Profile",
+      "path": "/projects/inbox/Feb 3/context-profile-nigerian-generator-sales.json",
+      "project": "GAS",
+      "purpose": "Comprehensive context profile: Company (Mikano), market reality, decision hierarchy, industries, products (MTU gas/Perkins-York diesel), ICP, tested channels, barriers, validated insights from MEP transcript.",
+      "status": "✅ Active - Reference for all GAS strategy decisions",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Global Skills Migration": {
+      "artifact": "Global Skills Migration (Session Packet)",
+      "path": "/projects/sessions/2026-02-03-global-skills-migration.md",
+      "project": "INFRA",
+      "purpose": "Migrated 23 commands to global skills. Preserved comprehensive briefing + session-update versions. Eliminated efficiency asymmetry.",
+      "status": "✅ Complete - All skills now global",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Fidson Qualification Email": {
+      "artifact": "Fidson Qualification Email",
+      "path": "/projects/inbox/Feb 4/fidson-qualification-email.txt",
+      "project": "GAS",
+      "purpose": "Soft qualification email with 3 discovery questions (planning upgrades? current setup? who evaluates?). Send to sarahezeama@fidson.com for engineering intro.",
+      "status": "✅ Ready to send - Add phone number, copy-paste, send",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Fidson LinkedIn Reply": {
+      "artifact": "Fidson LinkedIn Reply",
+      "path": "/projects/inbox/Feb 4/fidson-linkedin-reply.txt",
+      "project": "GAS",
+      "purpose": "Short thank-you message to Sarah Ezeama on LinkedIn after email is sent.",
+      "status": "✅ Ready to use - Send after email goes out",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Fidson Discovery Script": {
+      "artifact": "Fidson Discovery Script",
+      "path": "/projects/inbox/Feb 4/fidson-discovery-script.md",
+      "project": "GAS",
+      "purpose": "Prep doc for engineering response. What each answer reveals, red/green flags, when to offer site visit, follow-up templates.",
+      "status": "✅ Reference guide - Use when engineering responds",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Fidson Qualification (Session Packet)": {
+      "artifact": "Fidson Qualification (Session Packet)",
+      "path": "/projects/sessions/2026-02-04-fidson-qualification.md",
+      "project": "GAS",
+      "purpose": "Session packet: Warm pharma lead via Sarah Ezeama. 4 decisions (qualify with questions, discovery script, LinkedIn reply, HUD tracking). User confident to qualify without deep technical prep.",
+      "status": "✅ Complete - Materials ready to send",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Aloe Labs Work (Notion Database)": {
+      "artifact": "Aloe Labs Work (Notion Database)",
+      "path": "Notion database 2fc70b6455cb807188e2d7d751027eb9",
+      "project": "INFRA",
+      "purpose": "Full agency work tracking (non-Mikano) - HB Studio, Forje/Puma/PRL, Aloe Labs, Misc projects. Used by /briefing to show 9-5 work context.",
+      "status": "✅ Integrated into /briefing - Shows In Progress + Not Started items",
+      "notionUrl": "https://www.notion.so/2fc70b6455cb807188e2d7d751027eb9?v=2fc70b6455cb807797e1000ca7a16bb0",
+      "notionId": "2fc70b6455cb807188e2d7d751027eb9",
+      "dataSourceId": "2fc70b64-55cb-80de-9427-000be8501e25"
+    },
+    "Briefing Notion Integration (Session Packet)": {
+      "artifact": "Briefing Notion Integration (Session Packet)",
+      "path": "/projects/sessions/2026-02-04-briefing-notion-integration.md",
+      "project": "INFRA",
+      "purpose": "Integrated Aloe Labs Work Notion database into /briefing. In Progress items show full context, Not Started high-level. Cached database in artifact index. 2 decisions: full context for active work, cache-first lookup.",
+      "status": "✅ Complete - /briefing now shows 9-5 agency work from Notion",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Recursive Skill": {
+      "artifact": "Recursive Skill (/recursive)",
+      "path": "~/.claude/skills/recursive/SKILL.md",
+      "project": "INFRA",
+      "purpose": "Recursive self-improvement loop. Any content type, 9/10 threshold on all criteria, multi-pass verification, skill suggestion mode. 6 pre-built rubrics (Email, Video Hooks, Positioning, Outreach, LinkedIn, Localization). Source: @maxwellfinn/@VibeMarketer_.",
+      "status": "✅ Global skill - Created Feb 8",
+      "notionUrl": "",
+      "notionId": ""
+    },
+    "Repo Reorg Session Packet": {
+      "artifact": "Recursive Skill + Repo Reorg (Session Packet)",
+      "path": "/projects/sessions/2026-02-08-recursive-skill-repo-reorg.md",
+      "project": "INFRA",
+      "purpose": "Session packet: /recursive skill built, repo reorganized (PARA→plain names), project.json manifests, SYSTEM_DESIGN v2, 87 path refs updated. 9 decisions, 5 artifacts.",
+      "status": "✅ Complete",
+      "notionUrl": "",
+      "notionId": ""
+    }
+  },
+  "projectBreakdown": {
+    "INFRA": 30,
+    "HB": 5,
+    "PUMA": 1,
+    "GAS": 16
+  },
+  "schema": {
+    "Artifact": {
+      "type": "title",
+      "description": "Artifact name/title"
+    },
+    "Path": {
+      "type": "text",
+      "description": "File system or URL path to artifact"
+    },
+    "Project": {
+      "type": "select",
+      "options": [
+        "HB",
+        "PUMA",
+        "BOT",
+        "GAS",
+        "RETAIL",
+        "INFRA",
+        "MOTOR"
+      ]
+    },
+    "Purpose": {
+      "type": "text",
+      "description": "What the artifact is for"
+    },
+    "Status Once Liner": {
+      "type": "text",
+      "description": "Current status in one line"
+    }
+  }
+}

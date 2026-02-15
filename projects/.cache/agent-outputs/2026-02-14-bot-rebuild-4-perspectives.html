@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bot Rebuild — 4 Perspectives</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #c9d1d9; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px; line-height: 1.6; padding: 20px; max-width: 1100px; margin: 0 auto; }
+  h1 { color: #58a6ff; font-size: 20px; margin-bottom: 4px; }
+  .subtitle { color: #8b949e; font-size: 13px; margin-bottom: 24px; }
+  .expand-all { position: fixed; top: 12px; right: 20px; background: #21262d; color: #58a6ff; border: 1px solid #30363d; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 12px; z-index: 100; }
+  .expand-all:hover { background: #30363d; }
+
+  /* Verdict bar */
+  .verdict-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .verdict-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 14px; text-align: center; }
+  .verdict-card .agent { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .verdict-card .verdict { font-size: 16px; font-weight: bold; }
+  .verdict-card .detail { font-size: 11px; color: #8b949e; margin-top: 4px; }
+  .go { color: #3fb950; }
+  .caution { color: #d29922; }
+
+  /* Consensus box */
+  .consensus { background: #0d2818; border: 1px solid #238636; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+  .consensus h2 { color: #3fb950; font-size: 15px; margin-bottom: 10px; }
+  .consensus ul { list-style: none; padding-left: 0; }
+  .consensus li { padding: 3px 0; }
+  .consensus li::before { content: ""; display: inline-block; width: 8px; height: 8px; background: #3fb950; border-radius: 50%; margin-right: 10px; }
+
+  /* Warning box */
+  .warning { background: #2d1b00; border: 1px solid #d29922; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+  .warning h2 { color: #d29922; font-size: 15px; margin-bottom: 10px; }
+  .warning ul { list-style: none; padding-left: 0; }
+  .warning li { padding: 3px 0; }
+  .warning li::before { content: ""; display: inline-block; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid #d29922; margin-right: 10px; vertical-align: middle; }
+
+  /* Spike box */
+  .spike { background: #1a0d2e; border: 1px solid #8b5cf6; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+  .spike h2 { color: #8b5cf6; font-size: 15px; margin-bottom: 10px; }
+
+  /* Slices */
+  .slice { background: #161b22; border: 1px solid #30363d; border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
+  .slice-header { padding: 14px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; }
+  .slice-header:hover { background: #1c2128; }
+  .slice-num { background: #21262d; color: #58a6ff; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; min-width: 24px; text-align: center; }
+  .slice-title { color: #f0f6fc; font-size: 14px; font-weight: bold; flex: 1; }
+  .slice-demo { color: #8b949e; font-size: 12px; font-style: italic; }
+  .slice-est { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+  .est-small { background: #0d2818; color: #3fb950; }
+  .est-medium { background: #2d1b00; color: #d29922; }
+  .slice-arrow { color: #484f58; transition: transform 0.2s; }
+  .slice.open .slice-arrow { transform: rotate(90deg); }
+  .slice-body { display: none; padding: 0 16px 16px; border-top: 1px solid #21262d; }
+  .slice.open .slice-body { display: block; padding-top: 14px; }
+
+  /* Perspective tags */
+  .perspectives { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .ptag { font-size: 10px; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .ptag-product { background: #1a3a2a; color: #7ee787; }
+  .ptag-systems { background: #1a2a3a; color: #79c0ff; }
+  .ptag-ep { background: #2a1a3a; color: #d2a8ff; }
+  .ptag-dsg { background: #3a2a1a; color: #f0b860; }
+
+  /* Section collapsible */
+  .section { margin-bottom: 16px; }
+  .section-header { color: #58a6ff; font-size: 14px; cursor: pointer; padding: 8px 0; border-bottom: 1px solid #21262d; display: flex; align-items: center; gap: 8px; }
+  .section-header:hover { color: #79c0ff; }
+  .section-arrow { color: #484f58; font-size: 10px; transition: transform 0.2s; }
+  .section.open .section-arrow { transform: rotate(90deg); }
+  .section-body { display: none; padding: 10px 0; }
+  .section.open .section-body { display: block; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  th { text-align: left; color: #8b949e; font-size: 11px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid #30363d; }
+  td { padding: 6px 8px; border-bottom: 1px solid #21262d; font-size: 13px; }
+
+  /* ASCII diagrams */
+  .ascii { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 12px; overflow-x: auto; white-space: pre; font-size: 12px; line-height: 1.4; color: #8b949e; margin: 10px 0; }
+  .ascii .highlight { color: #58a6ff; }
+  .ascii .green { color: #3fb950; }
+  .ascii .yellow { color: #d29922; }
+
+  /* Scenario cards */
+  .scenario { background: #0d1117; border-left: 3px solid #30363d; padding: 10px 14px; margin: 8px 0; border-radius: 0 6px 6px 0; }
+  .scenario-title { color: #f0f6fc; font-size: 13px; font-weight: bold; margin-bottom: 4px; }
+  .scenario-input { color: #d29922; font-size: 12px; }
+  .scenario-output { color: #3fb950; font-size: 12px; }
+  .scenario-feel { color: #8b949e; font-size: 11px; font-style: italic; margin-top: 4px; }
+
+  /* Risk items */
+  .risk { padding: 8px 0; }
+  .risk-label { font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-right: 8px; }
+  .risk-high { background: #3d1117; color: #f85149; }
+  .risk-medium { background: #2d1b00; color: #d29922; }
+  .risk-low { background: #0d2818; color: #3fb950; }
+
+  .keep { color: #3fb950; }
+  .drop { color: #f85149; }
+  .new { color: #58a6ff; }
+
+  /* Footer */
+  .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #21262d; color: #484f58; font-size: 11px; text-align: center; }
+</style>
+</head>
+<body>
+
+<button class="expand-all" onclick="toggleAll()">Expand All</button>
+
+<h1>ALOE BOT REBUILD - 4 PERSPECTIVES</h1>
+<div class="subtitle">Product Design + Systems + EP/VV + DSG | Feb 14, 2026</div>
+
+<!-- VERDICT BAR -->
+<div class="verdict-bar">
+  <div class="verdict-card">
+    <div class="agent">Product</div>
+    <div class="verdict go">BUILD</div>
+    <div class="detail">Spike audio first</div>
+  </div>
+  <div class="verdict-card">
+    <div class="agent">Systems</div>
+    <div class="verdict go">BUILD</div>
+    <div class="detail">10 slices mapped</div>
+  </div>
+  <div class="verdict-card">
+    <div class="agent">EP/VV</div>
+    <div class="verdict go">BUILD</div>
+    <div class="detail">2-session time-box</div>
+  </div>
+  <div class="verdict-card">
+    <div class="agent">DSG</div>
+    <div class="verdict caution">BUILD IF</div>
+    <div class="detail">Makes you call more</div>
+  </div>
+</div>
+
+<!-- CONSENSUS -->
+<div class="consensus">
+  <h2>CONSENSUS (All 4 Agree)</h2>
+  <ul>
+    <li>Gemini 2.5 Flash is the right brain (native audio, vision, 1M context, free, key never expires)</li>
+    <li>systemd replaces tmux (auto-restart, journalctl, survives reboots)</li>
+    <li>SQLite for conversation memory (threads, FTS5 search, single file backup)</li>
+    <li>JSONL logging is sacred (append-only, never lose data)</li>
+    <li>V1 = alive + remembering. Nothing else until that works.</li>
+    <li>Ship in 2 sessions max (Ship-or-Park Rule)</li>
+  </ul>
+</div>
+
+<!-- WARNINGS -->
+<div class="warning">
+  <h2>WARNINGS (Cross-Perspective)</h2>
+  <ul>
+    <li><strong>SPIKE FIRST:</strong> Gemini's Nigerian English audio is untested. 5 voice notes before building. (Product + Systems)</li>
+    <li><strong>ZERO PIPELINE ACTIVITY:</strong> 18 contacts, 0 profiling calls. Bot is useless if you don't sell. (DSG)</li>
+    <li><strong>NAVEL-GAZING RISK:</strong> Content atom must ship within 48h of V1 or park it. (EP/VV)</li>
+    <li><strong>5-ENGINE VISION = V5, NOT V1:</strong> Don't build Assess/Practice/Deliver/Channel/Intelligence yet. (Product)</li>
+    <li><strong>NO BACKUP STRATEGY:</strong> VPS dies = all data lost. Daily cron backup needed. (Systems)</li>
+  </ul>
+</div>
+
+<!-- PRE-SLICE SPIKE -->
+<div class="spike">
+  <h2>PRE-SLICE SPIKE (30 min, do first)</h2>
+  <p style="margin-bottom: 8px;">Send 5 real Nigerian English voice notes to Gemini 2.5 Flash audio API.</p>
+  <p style="margin-bottom: 8px;"><strong>If acceptable:</strong> proceed with full architecture.</p>
+  <p><strong>If poor WER:</strong> keep Deepgram for transcription, Gemini for text + vision + reasoning. Architecture stays the same, just add one dependency.</p>
+</div>
+
+<!-- SLICES -->
+<h2 style="color: #58a6ff; margin-bottom: 16px; font-size: 16px;">BUILD SLICES</h2>
+
+<!-- SLICE 1 -->
+<div class="slice" id="s1">
+  <div class="slice-header" onclick="toggleSlice('s1')">
+    <span class="slice-num">V1</span>
+    <span class="slice-title">It Stays Alive and Remembers</span>
+    <span class="slice-est est-small">1 session</span>
+    <span class="slice-arrow">&#9654;</span>
+  </div>
+  <div class="slice-body">
+    <div class="slice-demo">"I send a voice note at 7am, text at noon, photo at 9pm -- bot is still alive and knows they're all from today."</div>
+    <div class="perspectives" style="margin-top: 10px;">
+      <span class="ptag ptag-product">Product</span>
+      <span class="ptag ptag-systems">Systems</span>
+      <span class="ptag ptag-ep">EP/VV</span>
+    </div>
+
+    <div class="section open" id="s1-what">
+      <div class="section-header" onclick="toggleSection('s1-what')"><span class="section-arrow">&#9654;</span> What to Build</div>
+      <div class="section-body">
+        <table>
+          <tr><th>Component</th><th>Detail</th></tr>
+          <tr><td class="new">systemd service</td><td>brain-bot.service, Restart=always, RestartSec=5</td></tr>
+          <tr><td class="new">gemini_client.py</td><td>Wrapper: text, .ogg audio, image/jpeg. One file.</td></tr>
+          <tr><td class="new">memory.py</td><td>SQLite: threads + messages + FTS5. WAL mode.</td></tr>
+          <tr><td class="keep">JSONL logging</td><td>Carry over pattern. Add tokens_used, latency_ms.</td></tr>
+          <tr><td class="new">config.py</td><td>GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, GITHUB_TOKEN</td></tr>
+          <tr><td class="keep">python-telegram-bot</td><td>Same framework. Polling (not webhook for V1).</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section" id="s1-arch">
+      <div class="section-header" onclick="toggleSection('s1-arch')"><span class="section-arrow">&#9654;</span> Architecture</div>
+      <div class="section-body">
+<div class="ascii">Phone --> Telegram --> VPS (polling)
+                        |
+                   <span class="highlight">bot.py</span> (entry point)
+                   <span class="highlight">handlers.py</span> (text/voice/photo)
+                   <span class="highlight">gemini_client.py</span> (Gemini 2.5 Flash)
+                   <span class="highlight">memory.py</span> (SQLite threads)
+                   <span class="highlight">logger.py</span> (JSONL append)
+                   <span class="highlight">config.py</span> (env vars)
+                        |
+                   <span class="green">/var/log/brain-bot/YYYY-MM-DD.jsonl</span>
+                   <span class="green">/opt/brain-bot/brain-v2.db</span></div>
+        <p style="margin-top: 8px; color: #8b949e; font-size: 12px;"><strong>8 Python files</strong> (down from 4300-line monolith). Each file = one job.</p>
+      </div>
+    </div>
+
+    <div class="section" id="s1-keep">
+      <div class="section-header" onclick="toggleSection('s1-keep')"><span class="section-arrow">&#9654;</span> Keep / Drop / New</div>
+      <div class="section-body">
+        <table>
+          <tr><th>Status</th><th>Component</th><th>Why</th></tr>
+          <tr><td class="keep">KEEP</td><td>python-telegram-bot</td><td>Battle-tested framework</td></tr>
+          <tr><td class="keep">KEEP</td><td>JSONL logging pattern</td><td>Sacred data stream</td></tr>
+          <tr><td class="keep">KEEP</td><td>Single-user auth check</td><td>is_authorized(user_id)</td></tr>
+          <tr><td class="keep">KEEP</td><td>BOT-CONVENTIONS.md rules</td><td>Good UX conventions</td></tr>
+          <tr><td class="drop">DROP</td><td>OpenAI Whisper</td><td>Gemini native audio</td></tr>
+          <tr><td class="drop">DROP</td><td>Anthropic SDK</td><td>Gemini replaces Claude as brain</td></tr>
+          <tr><td class="drop">DROP</td><td>OpenAI embeddings</td><td>1M context = no RAG needed</td></tr>
+          <tr><td class="drop">DROP</td><td>numpy (cosine sim)</td><td>No embeddings = no numpy</td></tr>
+          <tr><td class="drop">DROP</td><td>OAuth / tmux</td><td>API key + systemd</td></tr>
+          <tr><td class="drop">DROP</td><td>4300-line monolith</td><td>Split into 8 focused files</td></tr>
+          <tr><td class="new">NEW</td><td>gemini_client.py</td><td>Text + audio + vision wrapper</td></tr>
+          <tr><td class="new">NEW</td><td>memory.py</td><td>Thread-oriented SQLite</td></tr>
+          <tr><td class="new">NEW</td><td>systemd service</td><td>Auto-restart, journalctl</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section" id="s1-migration">
+      <div class="section-header" onclick="toggleSection('s1-migration')"><span class="section-arrow">&#9654;</span> Migration Plan</div>
+      <div class="section-body">
+<div class="ascii"><span class="green">Phase 1 (Day 1-2):</span> Build new bot locally with TEST bot token
+   Old bot: still running, handling your messages
+   New bot: @brain_bot_v2 via BotFather, testing only
+
+<span class="green">Phase 2 (Day 3):</span> Deploy new bot to VPS as systemd service
+   Both bots running in parallel for 24h
+   Test voice notes, photos, threading
+
+<span class="green">Phase 3 (Day 4):</span> Token swap
+   Stop old bot (kill tmux)
+   New bot takes old token (same Telegram chat)
+   All history stays in same conversation
+
+<span class="green">Phase 4 (Day 5):</span> Cleanup
+   Archive old bot: /opt/brain-bot-v1-archive/
+   Keep old brain.db (14MB) for reference
+   Delete tmux scripts</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLICE 2 -->
+<div class="slice" id="s2">
+  <div class="slice-header" onclick="toggleSlice('s2')">
+    <span class="slice-num">V2</span>
+    <span class="slice-title">It Shapes My Thinking</span>
+    <span class="slice-est est-small">1 session</span>
+    <span class="slice-arrow">&#9654;</span>
+  </div>
+  <div class="slice-body">
+    <div class="slice-demo">"I send a 90-second rambling voice note and the bot returns structured seeds, contradictions, and a follow-up question."</div>
+    <div class="perspectives" style="margin-top: 10px;">
+      <span class="ptag ptag-product">Product</span>
+      <span class="ptag ptag-ep">EP/VV</span>
+    </div>
+
+    <div class="section open" id="s2-modes">
+      <div class="section-header" onclick="toggleSection('s2-modes')"><span class="section-arrow">&#9654;</span> Duration-Based Modes</div>
+      <div class="section-body">
+        <table>
+          <tr><th>Duration</th><th>Mode</th><th>Bot Behavior</th></tr>
+          <tr><td>&lt;15 sec</td><td>DUMP</td><td>Extract tags, save, minimal response. "Logged. [PROJECT] [1-line]"</td></tr>
+          <tr><td>15-60 sec</td><td>CLARIFY</td><td>Extract threads + decisions. Respond with structure + 1 follow-up.</td></tr>
+          <tr><td>&gt;60 sec</td><td>SHAPE</td><td>Deep extraction. Thread map + contradictions + open questions. Expects multi-turn.</td></tr>
+        </table>
+        <p style="margin-top: 8px; color: #8b949e; font-size: 12px;"><strong>Override signals:</strong> "log it" = always DUMP. "what do you think" = always CLARIFY. Text "status" = command.</p>
+      </div>
+    </div>
+
+    <div class="section" id="s2-context">
+      <div class="section-header" onclick="toggleSection('s2-context')"><span class="section-arrow">&#9654;</span> Context Injection (System Prompt)</div>
+      <div class="section-body">
+        <p>Gemini gets project context on every call. 1M tokens = room for everything.</p>
+<div class="ascii">System prompt (~15K tokens total):
+  <span class="highlight">BOT-CONVENTIONS.md</span>     (~2K)  — UX rules, response style
+  <span class="highlight">HUD v4-data.js</span>         (~12K) — active tracks, waiting, wins
+  <span class="highlight">project.json</span> (active)   (~1K)  — project boundaries
+  <span class="highlight">Personal glossary</span>       (~500) — pattern play, node, battery
+  <span class="highlight">Thread history</span> (last 20) (~var) — conversation context</div>
+        <p style="margin-top: 8px; color: #8b949e; font-size: 12px;">No RAG. No embeddings. No vector DB. Just paste context into the prompt.</p>
+      </div>
+    </div>
+
+    <div class="section" id="s2-scenarios">
+      <div class="section-header" onclick="toggleSection('s2-scenarios')"><span class="section-arrow">&#9654;</span> Key Scenarios</div>
+      <div class="section-body">
+        <div class="scenario" style="border-left-color: #3fb950;">
+          <div class="scenario-title">Gym — Strategy Spar (90s voice note)</div>
+          <div class="scenario-input">Input: Stream of consciousness about Aloe Labs tiers mapping to 5 engines</div>
+          <div class="scenario-output">Output: Structured seeds + "You said Intelligence is tier 3 only, but FGCH spec has analysis in tier 2. Which is right?"</div>
+          <div class="scenario-feel">Feels like: thinking out loud with someone who takes notes AND pushes back</div>
+        </div>
+        <div class="scenario" style="border-left-color: #d29922;">
+          <div class="scenario-title">Walking — Quick Dump (12s voice note)</div>
+          <div class="scenario-input">Input: "Generator maintenance cycles — quarterly not monthly. Log it."</div>
+          <div class="scenario-output">Output: "Logged. [MIKANO] Quarterly maintenance shifts MEP pitch."</div>
+          <div class="scenario-feel">Feels like: dropping a coin in a jar. Clink. Done.</div>
+        </div>
+        <div class="scenario" style="border-left-color: #58a6ff;">
+          <div class="scenario-title">Commute — Overnight Download (45s voice note)</div>
+          <div class="scenario-input">Input: Idea about adaptive pricing for Flower Girl bot</div>
+          <div class="scenario-output">Output: "Adaptive pricing = calculator pattern applied to consulting. FGCH spec has flat tiers. Want me to sketch adaptive against those 3 tiers?"</div>
+          <div class="scenario-feel">Feels like: texting a cofounder who already read the docs</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s2-vv">
+      <div class="section-header" onclick="toggleSection('s2-vv')"><span class="section-arrow">&#9654;</span> EP/VV: Content Atom from V2</div>
+      <div class="section-body">
+        <p><strong>Within 48h of V2 shipping:</strong> Record screen of voice note -> shaped output. Post as "Built from a voice note" on X.</p>
+        <p style="margin-top: 6px;">This is the trust edge repair. Every post = proof that Nicholas builds conversational AI.</p>
+        <p style="margin-top: 6px; color: #d29922;"><strong>If no content atom ships in 48h, park the bot.</strong> (EP/VV kill criteria)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLICE 3 -->
+<div class="slice" id="s3">
+  <div class="slice-header" onclick="toggleSlice('s3')">
+    <span class="slice-num">V3</span>
+    <span class="slice-title">It Connects to My Work System</span>
+    <span class="slice-est est-medium">1-2 sessions</span>
+    <span class="slice-arrow">&#9654;</span>
+  </div>
+  <div class="slice-body">
+    <div class="slice-demo">"I say 'create issue: OAuth keeps expiring' from bed and it appears on my GitHub board. I say 'status' and see what's active."</div>
+    <div class="perspectives" style="margin-top: 10px;">
+      <span class="ptag ptag-product">Product</span>
+      <span class="ptag ptag-systems">Systems</span>
+    </div>
+
+    <div class="section open" id="s3-what">
+      <div class="section-header" onclick="toggleSection('s3-what')"><span class="section-arrow">&#9654;</span> What to Build</div>
+      <div class="section-body">
+        <table>
+          <tr><th>Feature</th><th>Trigger</th><th>Action</th></tr>
+          <tr><td>Create issue</td><td>"create issue: [desc]"</td><td>gh issue create on FTFC1/aloe-projects</td></tr>
+          <tr><td>Close issue</td><td>"close #5"</td><td>gh issue close #5</td></tr>
+          <tr><td>List issues</td><td>"issues" or "show issues"</td><td>gh issue list, format as Telegram message</td></tr>
+          <tr><td>Auto-issue on error</td><td>Gemini returns error</td><td>Auto-create issue with context</td></tr>
+          <tr><td>Status</td><td>"status"</td><td>Read HUD data, show active/waiting/next</td></tr>
+        </table>
+        <p style="margin-top: 8px; color: #8b949e; font-size: 12px;">This is the Channel engine — routing captures to the right system.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLICE 4 (DSG) -->
+<div class="slice" id="s4">
+  <div class="slice-header" onclick="toggleSlice('s4')">
+    <span class="slice-num">V4</span>
+    <span class="slice-title">It Makes Me Sell (DSG Layer)</span>
+    <span class="slice-est est-medium">1-2 sessions</span>
+    <span class="slice-arrow">&#9654;</span>
+  </div>
+  <div class="slice-body">
+    <div class="slice-demo">"After a meeting I voice-debrief in 60 seconds. Morning pulse tells me who to call with a script ready."</div>
+    <div class="perspectives" style="margin-top: 10px;">
+      <span class="ptag ptag-dsg">DSG</span>
+    </div>
+
+    <div class="section open" id="s4-features">
+      <div class="section-header" onclick="toggleSection('s4-features')"><span class="section-arrow">&#9654;</span> DSG Build Order (not before V1-V3)</div>
+      <div class="section-body">
+        <table>
+          <tr><th>#</th><th>Feature</th><th>Why This Order</th></tr>
+          <tr><td>1</td><td><strong>Post-Call Debrief</strong><br><span style="color:#8b949e;font-size:11px;">Say "debrief" -> bot asks: who/what/traffic/next -> updates contact cache</span></td><td>Captures value from calls you're already making</td></tr>
+          <tr><td>2</td><td><strong>Morning Pipeline Pulse</strong><br><span style="color:#8b949e;font-size:11px;">7:30am push: who to call, with script, overdue follow-ups, node health</span></td><td>Drives the calls you're NOT yet making</td></tr>
+          <tr><td>3</td><td><strong>Trigger Event Radar</strong><br><span style="color:#8b949e;font-size:11px;">Forward LinkedIn post/news -> bot evaluates as trigger -> suggests action</span></td><td>Scales pipeline beyond current contacts</td></tr>
+        </table>
+        <p style="margin-top: 12px; color: #f85149; font-size: 12px;"><strong>DSG WARNING:</strong> "The most valuable thing you can do right now is call Olujide at FMA (GREEN, Tier A, LinkedIn pending since Feb 9). Not build a bot feature."</p>
+        <p style="margin-top: 6px; color: #8b949e; font-size: 12px;">DO NOT BUILD: Dashboard (no data), Relationship graph (need 50+ contacts), Analytics (need 30+ days), Multi-pipeline routing (need 1 pipeline working).</p>
+      </div>
+    </div>
+
+    <div class="section" id="s4-riq">
+      <div class="section-header" onclick="toggleSection('s4-riq')"><span class="section-arrow">&#9654;</span> RIQ on the Go</div>
+      <div class="section-body">
+<div class="ascii">YOU (voice): "About to call Kazeem at MAR&MOR. Give me my RIQ."
+
+BOT:
+  R: "Kazeem, I've been following MAR&MOR's work --
+     you've designed power systems for over half the
+     malls in Nigeria."
+
+  I: "Most mall operators we audit are finding their
+     original gen specs underestimated cooling load.
+     OPEX running 25-30% above initial estimates."
+
+  Q: "When your clients come back 3-4 years post-handover
+     with power complaints, how do you handle the spec review?"
+
+  Channel: <span class="yellow">Phone call recommended (existing relationship)</span></div>
+      </div>
+    </div>
+
+    <div class="section" id="s4-interesting">
+      <div class="section-header" onclick="toggleSection('s4-interesting')"><span class="section-arrow">&#9654;</span> Non-Obvious Selling Advantages</div>
+      <div class="section-body">
+        <ul style="list-style: disc; padding-left: 20px; color: #c9d1d9;">
+          <li style="padding: 4px 0;"><strong>Competitive intelligence engine:</strong> Every call reveals competitor info. After 50+ calls, you have a map of who's serving what.</li>
+          <li style="padding: 4px 0;"><strong>Pattern detection:</strong> "Diesel cost mentioned in 62% of conversations this month. Lead with fuel efficiency."</li>
+          <li style="padding: 4px 0;"><strong>Training dataset:</strong> Every post-meeting voice note = labeled example for future AI sales product.</li>
+          <li style="padding: 4px 0;"><strong>"Who Should I Call" inverts motivation:</strong> Skip decision fatigue, go straight to action.</li>
+          <li style="padding: 4px 0;"><strong>Pre-pipeline signals:</strong> CRMs track what happens INSIDE sales. Bot captures what happens OUTSIDE (construction sites, overheard conversations, WhatsApp groups).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RISKS -->
+<h2 style="color: #f85149; margin: 24px 0 16px; font-size: 16px;">RISKS (Cross-Perspective)</h2>
+
+<div class="section open" id="risks">
+  <div class="section-body">
+    <div class="risk">
+      <span class="risk-label risk-high">HIGH</span>
+      <strong>Nigerian English audio quality untested</strong>
+      <span style="color: #8b949e; font-size: 12px;"> — Whisper had 54% WER. If Gemini is similar, voice notes are broken. SPIKE FIRST.</span>
+    </div>
+    <div class="risk">
+      <span class="risk-label risk-medium">MED</span>
+      <strong>Navel-gazing</strong>
+      <span style="color: #8b949e; font-size: 12px;"> — Internal tooling is seductive. 2-session time-box + content atom test = guardrails. (EP/VV)</span>
+    </div>
+    <div class="risk">
+      <span class="risk-label risk-medium">MED</span>
+      <strong>Tool fetishism over selling</strong>
+      <span style="color: #8b949e; font-size: 12px;"> — 18 contacts, 0 calls. Building bot features != making sales. (DSG)</span>
+    </div>
+    <div class="risk">
+      <span class="risk-label risk-medium">MED</span>
+      <strong>No backup strategy</strong>
+      <span style="color: #8b949e; font-size: 12px;"> — VPS dies = SQLite + JSONL gone. Need daily cron backup. (Systems)</span>
+    </div>
+    <div class="risk">
+      <span class="risk-label risk-low">LOW</span>
+      <strong>Free tier rate limits</strong>
+      <span style="color: #8b949e; font-size: 12px;"> — 250 RPD, 10 RPM. Single user = fine. Monitor first week. (Systems)</span>
+    </div>
+    <div class="risk">
+      <span class="risk-label risk-low">LOW</span>
+      <strong>SQLite locking</strong>
+      <span style="color: #8b949e; font-size: 12px;"> — Single user + WAL mode = non-issue. (Systems)</span>
+    </div>
+  </div>
+</div>
+
+<!-- SQLITE SCHEMA -->
+<h2 style="color: #58a6ff; margin: 24px 0 16px; font-size: 16px;">SQLite SCHEMA</h2>
+<div class="section" id="schema">
+  <div class="section-header" onclick="toggleSection('schema')"><span class="section-arrow">&#9654;</span> Full Schema (5 tables)</div>
+  <div class="section-body">
+<div class="ascii"><span class="highlight">threads</span>
+  id | title | topic | created_at | updated_at | is_active | message_count
+
+<span class="highlight">messages</span>
+  id | thread_id | role (user/assistant/system) | content | content_type
+     | telegram_msg_id | media_file_id | transcription | created_at | tokens_used
+
+<span class="highlight">messages_fts</span> (FTS5 virtual table)
+  content | thread_id   -- porter + unicode61 tokenizer
+
+<span class="highlight">event_log</span>
+  id | timestamp | event_type | thread_id | content_type
+     | tokens_in | tokens_out | latency_ms | error | metadata (JSON)
+
+<span class="highlight">daily_stats</span>
+  date | messages_sent | messages_received | voice_notes | photos
+       | errors | tokens_total | avg_latency_ms</div>
+  </div>
+</div>
+
+<!-- EP/VV ARTIFACTS -->
+<h2 style="color: #d2a8ff; margin: 24px 0 16px; font-size: 16px;">EP/VV ARTIFACTS (Create as you build)</h2>
+<div class="section" id="vv-artifacts">
+  <div class="section-header" onclick="toggleSection('vv-artifacts')"><span class="section-arrow">&#9654;</span> Shareable Proof Schedule</div>
+  <div class="section-body">
+    <table>
+      <tr><th>Artifact</th><th>When</th><th>Platform</th></tr>
+      <tr><td>"Voice to Brief in 30 Seconds" (screen recording)</td><td>Day 1 of V2</td><td>X thread</td></tr>
+      <tr><td>"Two AIs, Two Jobs" (Gemini capture + Claude build)</td><td>During build</td><td>X post, LinkedIn</td></tr>
+      <tr><td>"Before: 6 Steps. After: 1 Voice Note."</td><td>After 1 week use</td><td>LinkedIn carousel</td></tr>
+      <tr><td>"Built from a Voice Note" (weekly series)</td><td>Every Friday</td><td>X weekly</td></tr>
+      <tr><td>"One Stack, Three Clients" (shared infra)</td><td>After client #2 bot</td><td>Proposals, DMs</td></tr>
+    </table>
+    <p style="margin-top: 8px; color: #8b949e; font-size: 12px;">The bot IS the demo. When you say "I build bots that replace forms" and a prospect can message YOUR bot -- that's the proof.</p>
+  </div>
+</div>
+
+<!-- CLIENT PATTERN -->
+<h2 style="color: #79c0ff; margin: 24px 0 16px; font-size: 16px;">CLIENT PATTERN (Shared Infrastructure)</h2>
+<div class="section" id="client">
+  <div class="section-header" onclick="toggleSection('client')"><span class="section-arrow">&#9654;</span> Personal Bot -> Client Bots -> Platform</div>
+  <div class="section-body">
+<div class="ascii"><span class="highlight">PERSONAL BOT</span> (dog-food)          <span class="highlight">CLIENT BOTS</span>
+  Telegram                      Telegram/WhatsApp
+  Gemini 2.5 Flash              Gemini/Claude/GPT
+  Capture + Shape               Assess + Practice + Deliver
+        |                              |
+        +---------- <span class="green">SHARED LAYER</span> ----------+
+                    |
+             Message router
+             Voice transcription
+             Image understanding
+             Context injection
+             State management
+             Response formatting
+
+<span class="yellow">Rule of Three:</span>
+  Client #0 (you)     = build custom     <span class="green">[NOW]</span>
+  Client #1 (HBS)     = validate pattern <span class="green">[LIVE]</span>
+  Client #2 (Puma)    = confirm pattern  <span class="yellow">[BUILDING]</span>
+  Client #3           = abstract         [FUTURE]</div>
+  </div>
+</div>
+
+<!-- BOTTOM LINE -->
+<div style="background: #161b22; border: 2px solid #58a6ff; border-radius: 8px; padding: 20px; margin-top: 24px;">
+  <h2 style="color: #58a6ff; margin-bottom: 12px;">BOTTOM LINE</h2>
+  <p style="margin-bottom: 10px;"><strong style="color: #3fb950;">All 4 agents say BUILD.</strong> DSG adds: "only if it makes you pick up the phone more."</p>
+  <p style="margin-bottom: 10px;"><strong>Execution order:</strong></p>
+<div class="ascii" style="margin: 0;">  1. <span class="yellow">SPIKE</span>  — 5 Nigerian English voice notes to Gemini (30 min)
+  2. <span class="green">V1</span>     — Alive + remembering (1 session)
+  3. <span class="green">V2</span>     — Shapes thinking (1 session)
+  4. <span class="highlight">VV</span>     — "Built from a voice note" content atom (48h after V2)
+  5. <span class="green">V3</span>     — GitHub issues + status (1 session)
+  6. <span class="yellow">V4</span>     — DSG layer: debrief + morning pulse (after 20+ calls)</div>
+  <p style="margin-top: 12px; color: #d29922; font-size: 13px;"><strong>Kill criteria:</strong> No content atom within 48h of V2 = park. No calls within 1 week = bot is procrastination.</p>
+  <p style="margin-top: 8px; color: #8b949e; font-size: 12px;"><strong>Prerequisite:</strong> You need a Gemini API key. <a href="https://aistudio.google.com/app/apikey" style="color: #58a6ff;">aistudio.google.com</a> — free, 30 seconds, no credit card.</p>
+</div>
+
+<div class="footer">
+  4 agents: Product Design + Systems + EP/VV + DSG | Generated Feb 14, 2026<br>
+  Full agent outputs: .cache/agent-outputs/2026-02-14-bot-rebuild-*.md
+</div>
+
+<script>
+function toggleSlice(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+let allExpanded = false;
+function toggleAll() {
+  allExpanded = !allExpanded;
+  document.querySelectorAll('.slice, .section').forEach(el => {
+    if (allExpanded) el.classList.add('open');
+    else el.classList.remove('open');
+  });
+  document.querySelector('.expand-all').textContent = allExpanded ? 'Collapse All' : 'Expand All';
+}
+</script>
+</body>
+</html>

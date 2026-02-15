@@ -1,0 +1,13 @@
+task_id,task_name,energy,difficulty,role,hourly_rate_guess,status,duration_mins,outcome
+T1,Fix PAST badge styling,low,easy,frontend,45,complete,10,urgencyClass logic fixed for past dates
+T2,Add Balance Due Change/Cancel buttons,low,easy,frontend,45,complete,15,Buttons added to admin dashboard
+T3,Investigate pricing discrepancy,medium,medium,research,60,complete,20,Found session packets have correct pricing
+T4,Build duration picker UI,high,medium,frontend,75,complete,45,4 duration cards with recommendation engine
+T5,Update backend pricing logic,medium,medium,backend,85,complete,30,DURATION_PRICES object + calculatePrice function
+T6,Wire duration to time slots,high,hard,fullstack,95,complete,40,generateTimeSlots() + 6 integration hooks verified
+T7,Create static price list HTML,medium,easy,design,55,complete,20,FAQ 006.html created
+T8,Fix capacity error in price list,low,easy,research,45,complete,10,Changed 60/80 to 40 max
+T9,Set up Craft MCP for better docs,medium,hard,devops,75,complete,30,Session restart fixed it
+T10,Create Craft price list,medium,easy,content,55,complete,10,Beautiful shareable doc in Projects folder
+T11,Set up /book URL,low,easy,devops,45,complete,5,hibiscusstudio.co.uk/book now live
+T12,Scope ManyChat for IG DM,low,easy,research,40,parked,5,Decided to leave for later

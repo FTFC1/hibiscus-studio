@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Positioning Variations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: oklch(0.25 0.01 260);
+            background: oklch(0.98 0.005 260);
+        }
+
+        .variation-switcher {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px oklch(0 0 0 / 0.1);
+            z-index: 100;
+        }
+
+        .variation-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid oklch(0.9 0.005 260);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: oklch(0.35 0.02 260);
+            transition: all 0.2s;
+        }
+
+        .variation-btn:hover {
+            background: oklch(0.96 0.005 260);
+        }
+
+        .variation-btn.active {
+            background: oklch(0.3 0.02 260);
+            color: white;
+            border-color: oklch(0.3 0.02 260);
+        }
+
+        .variation-content {
+            display: none;
+        }
+
+        .variation-content.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: oklch(0.95 0.01 260);
+            color: oklch(0.35 0.02 260);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.03em;
+        }
+
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: oklch(0.15 0.02 260);
+            line-height: 1.1;
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: oklch(0.4 0.01 260);
+            margin-bottom: clamp(2rem, 4vw, 3rem);
+            max-width: 700px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: oklch(0.3 0.02 260);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: oklch(0.25 0.02 260);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: oklch(0.3 0.02 260);
+            border: 1px solid oklch(0.9 0.005 260);
+        }
+
+        .btn-secondary:hover {
+            background: oklch(0.96 0.005 260);
+        }
+
+        /* Case Study Preview */
+        .case-study {
+            padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+            background: white;
+        }
+
+        .section-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: oklch(0.15 0.02 260);
+            margin-bottom: clamp(2rem, 4vw, 3rem);
+            letter-spacing: -0.02em;
+        }
+
+        .case-preview {
+            background: oklch(0.98 0.005 260);
+            border-radius: 12px;
+            padding: clamp(2rem, 4vw, 3rem);
+            border: 1px solid oklch(0.92 0.005 260);
+        }
+
+        .case-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: oklch(0.45 0.01 260);
+        }
+
+        .case-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+            font-weight: 600;
+            color: oklch(0.2 0.02 260);
+            margin-bottom: 1rem;
+        }
+
+        .case-preview p {
+            color: oklch(0.35 0.01 260);
+            margin-bottom: 1rem;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .result-item {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid oklch(0.92 0.005 260);
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: oklch(0.5 0.01 260);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: oklch(0.2 0.02 260);
+        }
+
+        .result-desc {
+            font-size: 0.9rem;
+            color: oklch(0.45 0.01 260);
+            margin-top: 0.5rem;
+        }
+
+        /* Process Section */
+        .process {
+            padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+            background: oklch(0.96 0.005 260);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid oklch(0.92 0.005 260);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: oklch(0.3 0.02 260);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .process-step h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: oklch(0.25 0.02 260);
+            margin-bottom: 0.75rem;
+        }
+
+        .process-step p {
+            color: oklch(0.45 0.01 260);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+            background: white;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 3rem auto 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: oklch(0.25 0.02 260);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid oklch(0.88 0.005 260);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            color: oklch(0.25 0.01 260);
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: oklch(0.3 0.02 260);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: oklch(0.5 0.01 260);
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: oklch(0.3 0.02 260);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: oklch(0.25 0.02 260);
+            transform: translateY(-2px);
+        }
+
+        .capacity-notice {
+            background: oklch(0.96 0.01 260);
+            border-left: 3px solid oklch(0.3 0.02 260);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .capacity-notice strong {
+            display: block;
+            color: oklch(0.25 0.02 260);
+            margin-bottom: 0.5rem;
+        }
+
+        .capacity-notice p {
+            color: oklch(0.4 0.01 260);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .variation-switcher {
+                top: 1rem;
+                right: 1rem;
+                flex-direction: column;
+                width: auto;
+            }
+
+            .variation-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Variation Switcher -->
+    <div class="variation-switcher">
+        <button class="variation-btn active" onclick="showVariation('A')">Version A</button>
+        <button class="variation-btn" onclick="showVariation('B')">Version B</button>
+        <button class="variation-btn" onclick="showVariation('C')">Version C</button>
+    </div>
+
+    <!-- VARIATION A: "I find expensive problems..." -->
+    <div class="variation-content active" id="variation-A">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-label">Systems Engineer × Product Designer</div>
+                <h1>I find the expensive problems in your business and fix them</h1>
+                <p>Most teams don't see the manual work bleeding time and money. I do. Then I eliminate it—fast.</p>
+                <div class="cta-group">
+                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                    <a href="#case-study" class="btn btn-secondary">See How I Work</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="case-study" id="case-study">
+            <div class="section-container">
+                <h2>Recent Work: Event Studio Booking Automation</h2>
+
+                <div class="case-preview">
+                    <div class="case-meta">
+                        <span>📍 UK-based self-serve event studio</span>
+                        <span>⏱ 3 sprints over 10 days</span>
+                        <span>✅ Live production system</span>
+                    </div>
+
+                    <h3>The Expensive Problem</h3>
+                    <p>Owner spending 8-12 hours/month on manual bookings: creating invoices by hand, syncing calendars, sending confirmation emails, tracking payments in spreadsheets. Paying £52/month in tool subscriptions. Double-booking risk. VA in different timezone.</p>
+
+                    <h3>What I Built</h3>
+                    <p>Automated booking funnel → instant invoice generation → calendar sync → admin dashboard. Eliminated manual workflow entirely. Zero subscription costs. Sub-second response times.</p>
+
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-label">Time Saved</div>
+                            <div class="result-value">95%</div>
+                            <div class="result-desc">30-45 min → 30 sec per booking</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Cost Eliminated</div>
+                            <div class="result-value">£624/yr</div>
+                            <div class="result-desc">Tool subscriptions removed</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Error Rate</div>
+                            <div class="result-value">→ 0%</div>
+                            <div class="result-desc">Automated invoice logic</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Feedback</div>
+                            <div class="result-value">100%</div>
+                            <div class="result-desc">Changes incorporated same-day</div>
+                        </div>
+                    </div>
+
+                    <p><a href="/case-study-booking-platform.html" class="btn btn-secondary">View Full Case Study →</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="process">
+            <div class="section-container">
+                <h2>How I Work</h2>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4>Discovery</h4>
+                        <p>What's costing you money? Not what you think needs building—what's actually expensive in your operation.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4>Small Sprint (3-5 days)</h4>
+                        <p>Ship working solution for core problem. You see value immediately. Decide if you want to continue.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4>Decision Point</h4>
+                        <p>Solution works. You own it. Want to optimize or add capabilities? Book next sprint. Don't need more? Graduate.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4>Iterate or Graduate</h4>
+                        <p>Medium sprints (7-10 days) for enhancements. Each sprint is independent. No endless projects.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="section-container">
+                <h2>Work Together</h2>
+
+                <div class="capacity-notice">
+                    <strong>Currently at capacity</strong>
+                    <p>Accepting inquiries for February 2026 slots. Fill out the form below and I'll reach out when capacity opens.</p>
+                </div>
+
+                <form class="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company / Project</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="problem">What's the expensive problem?</label>
+                        <textarea id="problem" name="problem" placeholder="E.g., 'We spend 10 hours/week manually processing orders' or 'Our booking system loses 30% of leads'"></textarea>
+                        <div class="form-note">Describe what's costing you time or money right now</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeline">When do you need this solved?</label>
+                        <select id="timeline" name="timeline">
+                            <option value="">Select timeline</option>
+                            <option value="urgent">ASAP (within 2 weeks)</option>
+                            <option value="soon">Soon (within 1 month)</option>
+                            <option value="planning">Planning phase (2-3 months)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Join Waitlist</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- VARIATION B: "Small sprint → Prove value..." -->
+    <div class="variation-content" id="variation-B">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-label">Systems Engineer × Product Designer</div>
+                <h1>Small sprint → Prove value → You decide if we continue</h1>
+                <p>No big commitments. Start with 3-5 days, ship working solution, see results. Then choose: graduate or iterate.</p>
+                <div class="cta-group">
+                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                    <a href="#case-study" class="btn btn-secondary">See Example</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="case-study" id="case-study">
+            <div class="section-container">
+                <h2>How It Works: Event Studio Example</h2>
+
+                <div class="case-preview">
+                    <h3>Sprint 1 (Small - 2 days): Invoice Automation</h3>
+                    <p>Eliminated manual PDF creation. Automated pricing calculation. Zero errors. Client could stop here—problem solved.</p>
+                    <p><strong>Decision:</strong> Client chose to continue.</p>
+
+                    <h3 style="margin-top: 2rem;">Sprint 2 (Medium - 3 days): Booking Funnel</h3>
+                    <p>Custom booking flow replaced Acuity. Instant invoice generation on booking. Email automation. Client could stop here—fully functional system.</p>
+                    <p><strong>Decision:</strong> Client chose to continue.</p>
+
+                    <h3 style="margin-top: 2rem;">Sprint 3 (Medium - 5 days): Calendar + Admin</h3>
+                    <p>Calendar backend integration. Admin dashboard for confirm/cancel/reschedule. Real-time sync across systems.</p>
+                    <p><strong>Decision:</strong> Client graduated. System complete and operational.</p>
+
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-label">Total Time</div>
+                            <div class="result-value">10 days</div>
+                            <div class="result-desc">3 independent sprints</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Exit Points</div>
+                            <div class="result-value">3</div>
+                            <div class="result-desc">Client decided after each sprint</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Time Saved</div>
+                            <div class="result-value">8-12 hr/mo</div>
+                            <div class="result-desc">Manual work eliminated</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Outcome</div>
+                            <div class="result-value">Live</div>
+                            <div class="result-desc">Production system operational</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process">
+            <div class="section-container">
+                <h2>The Sprint Model</h2>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4>Start Small (3-5 days)</h4>
+                        <p>Core problem solved. Working solution shipped. No big commitment required.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4>Prove Value</h4>
+                        <p>You see results immediately. Time saved, errors eliminated, process automated.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4>You Decide</h4>
+                        <p>Want to optimize? Book Medium sprint (7-10 days). Ready to stop? Graduate. You're in control.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4>Independent Sprints</h4>
+                        <p>Each sprint stands alone. No scope creep. No endless projects. Clear deliverables every time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="section-container">
+                <h2>Start with Small Sprint</h2>
+
+                <div class="capacity-notice">
+                    <strong>Currently at capacity</strong>
+                    <p>Accepting inquiries for February 2026. Small sprints typically 3-5 days. Form below to join waitlist.</p>
+                </div>
+
+                <form class="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name-b">Name</label>
+                        <input type="text" id="name-b" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email-b">Email</label>
+                        <input type="email" id="email-b" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company-b">Company / Project</label>
+                        <input type="text" id="company-b" name="company">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="problem-b">What's the core problem?</label>
+                        <textarea id="problem-b" name="problem" placeholder="Describe the ONE thing that's most expensive right now"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeline-b">Timeline</label>
+                        <select id="timeline-b" name="timeline">
+                            <option value="">Select timeline</option>
+                            <option value="urgent">Need solution ASAP</option>
+                            <option value="soon">Within next month</option>
+                            <option value="planning">Exploring options</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Request Small Sprint</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- VARIATION C: "I eliminate manual work..." -->
+    <div class="variation-content" id="variation-C">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-label">Systems Engineer × Product Designer</div>
+                <h1>I eliminate manual work in 7-10 day sprints</h1>
+                <p>Your team is bleeding hours on repetitive tasks. I build automated systems that run while you sleep.</p>
+                <div class="cta-group">
+                    <a href="#contact" class="btn btn-primary">Automate Your Process</a>
+                    <a href="#case-study" class="btn btn-secondary">See Results</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="case-study" id="case-study">
+            <div class="section-container">
+                <h2>Case Study: Event Studio Booking</h2>
+
+                <div class="case-preview">
+                    <div class="case-meta">
+                        <span>⏱ 10 days total delivery</span>
+                        <span>✅ Production system live</span>
+                        <span>📊 95% time reduction</span>
+                    </div>
+
+                    <h3>Manual Process (Before)</h3>
+                    <p>30-45 minutes per booking. Instagram DM → manual response → Acuity scheduling → PDF invoice creation → email send → spreadsheet tracking → payment confirmation. 8-12 hours/month of pure admin work.</p>
+
+                    <h3>Automated System (After)</h3>
+                    <p>30 seconds per booking. Direct funnel → instant availability → automated invoice → triggered email → calendar sync → admin dashboard. Zero manual work. Sub-second response times.</p>
+
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-label">Manual Work</div>
+                            <div class="result-value">Eliminated</div>
+                            <div class="result-desc">100% of booking workflow automated</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Time Per Booking</div>
+                            <div class="result-value">30 sec</div>
+                            <div class="result-desc">Down from 30-45 minutes</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Monthly Hours Saved</div>
+                            <div class="result-value">8-12 hr</div>
+                            <div class="result-desc">Owner freed for growth work</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Delivery</div>
+                            <div class="result-value">10 days</div>
+                            <div class="result-desc">From discovery to production</div>
+                        </div>
+                    </div>
+
+                    <p><strong>What got automated:</strong> Invoice generation (2 PDFs per booking), calendar synchronization (dual-calendar backend), email workflows (confirmation + status updates), payment tracking, conflict detection, timezone handling.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="process">
+            <div class="section-container">
+                <h2>How Automation Sprints Work</h2>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4>Find the Manual Work</h4>
+                        <p>Discovery call: what's repetitive, time-consuming, error-prone? Where's the bottleneck?</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4>Build Automation (7-10 days)</h4>
+                        <p>Working system that eliminates manual process. API integrations, workflows, admin tools.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4>Ship & Iterate</h4>
+                        <p>Same-day feedback incorporation. System goes live. You see hours saved immediately.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4>Optimize or Complete</h4>
+                        <p>Want to add features? Another sprint. System works as-is? Done. You decide.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="section-container">
+                <h2>Automate Your Manual Work</h2>
+
+                <div class="capacity-notice">
+                    <strong>Currently at capacity</strong>
+                    <p>Accepting automation projects for February 2026. Typical delivery: 7-10 days. Join waitlist below.</p>
+                </div>
+
+                <form class="contact-form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name-c">Name</label>
+                        <input type="text" id="name-c" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email-c">Email</label>
+                        <input type="email" id="email-c" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company-c">Company / Project</label>
+                        <input type="text" id="company-c" name="company">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="manual-work">What manual work needs automation?</label>
+                        <textarea id="manual-work" name="problem" placeholder="E.g., 'We manually process 50 orders/day in spreadsheets' or 'Team spends 3 hours/day on invoice creation'"></textarea>
+                        <div class="form-note">Describe the repetitive, time-consuming process</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hours">How many hours/week does this take?</label>
+                        <input type="text" id="hours" name="hours" placeholder="E.g., '10 hours/week'">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeline-c">Urgency</label>
+                        <select id="timeline-c" name="timeline">
+                            <option value="">Select timeline</option>
+                            <option value="urgent">Urgent (bleeding hours right now)</option>
+                            <option value="soon">Soon (within 4 weeks)</option>
+                            <option value="planning">Exploring automation options</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Request Automation Sprint</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showVariation(version) {
+            // Hide all variations
+            document.querySelectorAll('.variation-content').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected variation
+            document.getElementById('variation-' + version).classList.add('active');
+
+            // Update button states
+            document.querySelectorAll('.variation-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thu Demo — Quick Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #FAFAF8;
+    color: #1c1917;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 24px 24px 100px;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 32px 0 20px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .header .sub {
+    font-size: 15px;
+    color: #57534e;
+  }
+  .divider {
+    width: 72px;
+    height: 1.5px;
+    background: rgba(0,0,0,0.08);
+    margin: 20px auto 28px;
+  }
+
+  /* --- SECTION HEADERS --- */
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #b45309;
+    margin: 48px 0 4px;
+  }
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+  h2.large {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #57534e;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .card {
+    background: #f5f5f0;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+  }
+
+  .diagram-img {
+    width: 100%;
+    border-radius: 8px;
+    margin: 16px 0;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* --- HERO --- */
+  .hero-img {
+    width: 100%;
+    border-radius: 12px;
+    margin: 0 0 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* --- VALUE SECTION (bigger) --- */
+  .value-block {
+    margin: 16px -24px;
+    padding: 28px 24px;
+    background: #f5f5f0;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .value-block .diagram-img {
+    margin: 0 0 20px;
+    border: none;
+    border-radius: 12px;
+  }
+  .value-section {
+    margin: 0;
+  }
+  .value-tier {
+    border-left: 3px solid;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    border-radius: 0 10px 10px 0;
+    background: #FAFAF8;
+  }
+  .value-tier.t1 { border-color: #b45309; }
+  .value-tier.t2 { border-color: #57534e; }
+  .value-tier.t3 { border-color: #a8a29e; }
+  .value-tier strong { display: block; font-size: 16px; color: #1c1917; margin-bottom: 3px; }
+  .value-tier span { font-size: 15px; color: #57534e; line-height: 1.5; }
+
+  /* --- MEETING DAY SECTION --- */
+  .meeting-day-header {
+    text-align: center;
+    padding: 40px 0 8px;
+    margin: 20px -24px 0;
+    border-top: 2px solid #1c1917;
+  }
+  .meeting-day-header .section-label {
+    margin: 0 0 4px;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .meeting-day-header h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  .meeting-day-header p {
+    font-size: 14px;
+    color: #a8a29e;
+    margin-top: 4px;
+  }
+
+  /* --- ROLE GRID --- */
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .role-card {
+    background: #f5f5f0;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .role-name { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+  .role-where { font-size: 13px; color: #b45309; font-weight: 500; margin-bottom: 8px; }
+  .role-does { font-size: 14px; color: #57534e; line-height: 1.5; }
+
+  /* --- GAME BUTTON --- */
+  .game-btn {
+    display: block;
+    text-align: center;
+    padding: 14px 32px;
+    background: #b45309;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 20px 0;
+    transition: opacity 0.2s;
+  }
+  .game-btn:hover { opacity: 0.85; }
+
+  /* --- COPY-PASTE BOX --- */
+  .copy-wrap {
+    margin: 16px 0;
+    position: relative;
+  }
+  .copy-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1c1917;
+    color: #FAFAF8;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .copy-label:hover { background: #b45309; }
+  .copy-label:active { background: #92400e; }
+  .copy-label .copied { display: none; }
+  .copy-label.show-copied .copy-text { display: none; }
+  .copy-label.show-copied .copied { display: inline; }
+  .msg-box {
+    background: #1c1917;
+    color: #e7e5e4;
+    border-radius: 0 8px 8px 8px;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  /* --- QUESTIONS --- */
+  .question-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .question-list li {
+    background: #f5f5f0;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #1c1917;
+  }
+  .question-list li span { color: #b45309; font-weight: 600; margin-right: 6px; }
+
+  /* --- FOOTER --- */
+  .footer {
+    text-align: center;
+    padding: 32px 0 16px;
+    font-size: 13px;
+    color: #a8a29e;
+  }
+  .footer::before {
+    content: '';
+    display: block;
+    width: 72px;
+    height: 1.5px;
+    background: rgba(0,0,0,0.08);
+    margin: 0 auto 24px;
+  }
+
+  /* --- BOTTOM STICKY NAV --- */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding: 10px 12px 14px;
+    display: flex;
+    justify-content: center;
+  }
+  .bottom-nav-inner {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 540px;
+    width: 100%;
+    padding: 0 4px;
+  }
+  .bottom-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-pill {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #57534e;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .nav-pill:hover, .nav-pill.active {
+    background: #1c1917;
+    color: #FAFAF8;
+    border-color: #1c1917;
+  }
+
+  @media (max-width: 400px) {
+    body { padding: 16px 16px 100px; }
+    .role-grid { grid-template-columns: 1fr; }
+    .value-block { margin: 16px -16px; padding: 24px 16px; }
+    .meeting-day-header { margin: 20px -16px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header" id="sec-top">
+  <h1>Thursday Demo Brief</h1>
+  <div class="sub">PRL Lekki &bull; Puma Sales Training</div>
+</div>
+
+<!-- HERO -->
+<div id="sec-overview">
+<img src="gen/hero-platform-v2.png" alt="Mobile Sales Training — Pick Mission → Play Game → See Score → Group Chat → Weekly Report" class="hero-img" onerror="this.src='gen/hero-platform.png'">
+</div>
+
+<div class="divider"></div>
+
+<!-- VALUE (bigger section) -->
+<div id="sec-value">
+<div class="section-label">The Opportunity</div>
+<h2 class="large">Why This Matters</h2>
+<div class="value-block">
+  <img src="gen/value-tiers.png" alt="Value: Puma team → PRL multi-brand → FORJE retail product" class="diagram-img">
+  <div class="value-section">
+    <div class="value-tier t1">
+      <strong>Puma Lekki (now)</strong>
+      <span>7 staff trained, selling better, ₦26M/yr leakage reduced</span>
+    </div>
+    <div class="value-tier t2">
+      <strong>PRL (next)</strong>
+      <span>Scale to Lacoste, other brands — same platform, new content</span>
+    </div>
+    <div class="value-tier t3">
+      <strong>FORJE (bigger picture)</strong>
+      <span>Productised retail training — sellable to any provider</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MEETING DAY SECTION                     -->
+<!-- ═══════════════════════════════════════ -->
+<div class="meeting-day-header" id="sec-meeting">
+  <div class="section-label">Meeting Day</div>
+  <h2>Thursday Playbook</h2>
+  <p>What happens in the room</p>
+</div>
+
+<!-- ROLES -->
+<div class="section-label" style="margin-top:28px;">Roles</div>
+<h2>Who Does What</h2>
+<div class="role-grid">
+  <div class="role-card">
+    <div class="role-name">Timi</div>
+    <div class="role-where">Onsite</div>
+    <div class="role-does">Opens, frames the problem, handles value + terms, closes</div>
+  </div>
+  <div class="role-card">
+    <div class="role-name">FT</div>
+    <div class="role-where">Remote (Zoom)</div>
+    <div class="role-does">Screen share demo of platform + games, 5-7 min max</div>
+  </div>
+</div>
+
+<!-- FLOW -->
+<div class="section-label">Flow</div>
+<h2>Meeting Flow</h2>
+<img src="gen/diagram-meeting-choreography-v3.png" alt="Meeting flow: Timi Opens → FT Demos → Staff Play → Timi Closes" class="diagram-img">
+
+<!-- BEFORE THURSDAY -->
+<div class="section-label" id="sec-prep">Prep</div>
+<h2>Before Thursday</h2>
+<p>Send this game to the store team chat. Staff arrive Thursday already engaged.</p>
+
+<a href="https://ftfc1.github.io/puma-training-demo/puma-customer-game.html" class="game-btn" target="_blank">Try the Game &rarr;</a>
+
+<div class="copy-wrap">
+  <div class="copy-label" onclick="copyMsg(this)">
+    <span class="copy-text">Tap to copy message</span>
+    <span class="copied">Copied!</span>
+  </div>
+  <div class="msg-box" id="copy-msg">Hey team, quick challenge before Thursday's session.
+
+Try this 5-minute game and see how you score:
+https://ftfc1.github.io/puma-training-demo/puma-customer-game.html
+
+Preview of something we're bringing to the store. See you Thursday!</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DEAL + OUTCOME                          -->
+<!-- ═══════════════════════════════════════ -->
+
+<!-- DEAL -->
+<div class="section-label" id="sec-deal">Terms</div>
+<h2>The Deal</h2>
+<div class="card">
+  <p style="margin-bottom:8px;color:#1c1917;"><strong>Free pilot</strong> &mdash; 4-6 weeks</p>
+  <p style="margin-bottom:4px;">They commit to:</p>
+  <p style="margin-bottom:4px;">&bull; Daily engagement in the Telegram group</p>
+  <p style="margin-bottom:4px;">&bull; Let us use results as a case study</p>
+  <p style="margin-bottom:0;">&bull; Short feedback or video at the end</p>
+</div>
+
+<!-- SUCCESS -->
+<h2>What Success Looks Like</h2>
+<img src="gen/diagram-results-timeline-v2.png" alt="Results: Week 2 Better Greetings → Week 4 Basket +15-20% → Week 6 Revenue Lift" class="diagram-img">
+<p>If week 6 doesn't show what we want, we evaluate and adjust.</p>
+
+<!-- NEED FROM TIMI -->
+<div class="section-label" id="sec-questions">Questions</div>
+<h2>Need From You</h2>
+<ul class="question-list">
+  <li><span>1.</span> Who's in the room Thursday? Manager only or all 7 staff?</li>
+  <li><span>2.</span> How long do we have?</li>
+  <li><span>3.</span> Can you send the game link to staff before Thursday?</li>
+</ul>
+
+<div class="footer">
+  FORJE &bull; Puma Sales Training &bull; Feb 2026
+</div>
+
+<!-- BOTTOM STICKY NAV -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="#sec-overview" class="nav-pill">Overview</a>
+    <a href="#sec-value" class="nav-pill">Value</a>
+    <a href="#sec-meeting" class="nav-pill">Meeting Day</a>
+    <a href="#sec-prep" class="nav-pill">Prep</a>
+    <a href="#sec-deal" class="nav-pill">Deal</a>
+    <a href="#sec-questions" class="nav-pill">Questions</a>
+  </div>
+</nav>
+
+<script>
+function copyMsg(btn) {
+  const text = document.getElementById('copy-msg').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('show-copied');
+    setTimeout(() => btn.classList.remove('show-copied'), 2000);
+  });
+}
+
+// Active nav pill on scroll
+const sections = document.querySelectorAll('[id^="sec-"]');
+const pills = document.querySelectorAll('.nav-pill');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      pills.forEach(p => p.classList.remove('active'));
+      const active = document.querySelector(`.nav-pill[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Smooth scroll
+pills.forEach(pill => {
+  pill.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(pill.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

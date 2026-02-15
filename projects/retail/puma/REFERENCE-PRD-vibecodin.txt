@@ -1,0 +1,1241 @@
+﻿PRDs & Prompts for YouTube 18th January
+
+
+
+
+🧙 Want access to all my code & prompts? —> Learn how to start, scale & exit a PROFITABLE SaaS (EXACT Scripts, Code Files & Playbooks): https://www.rosewell.dev/
+
+
+_________________________
+
+
+
+
+Raw PRD request to Claude:
+
+
+Create me an extremely intensive 3,000 word PRD for a new AI app, which will be a competitor to Gamma slides.
+
+
+Need a pretty landing page too with amazing copy, sections, lottie animations and styles, designs, grids and bentos, whitespace, animations.
+
+
+The simple flow:
+
+
+1. user uploads a document
+2. AI ingests the document & creates a canvas of 8-10 slides with titles, subtitles, body text. no images for now as thats complex.
+3. we will use supabase, next.js and vercel for this app
+4. we will use edge functions with supabase to call the gemini flash 2.5 API to create the flow, likley in json, to create the individual slides
+5. Gemini decides how many slides will be created, then print the raw json for each page
+6. this then creates Canva style slides with Inter font, greyscale, beautiful and minimalist - leaving space on the left or right for images later
+7. all of the json is saved to the backend in supabase, users can name and save entire projects, there is a simple canvas to edit the text after everything is saved. 
+8. there is a simple dashboard with beautoful, minimalist inter-style fonts, greyscsale, thin, isometric icons - Dashboard with recent projects, Agent tab to create a new project where a user uploads or pastes the text, settings page, billing, all of this should like Attio or Linear - whitespace minimalist inter font, no buttons with heavy fill (all transparent buttons) no gradients or stupid colours - all just greyscale and minimal notion style.
+9. the Gemini prompt with the edge function should not only decide from the text how kany slides, but also edit and improve the tetx itself inside the json to be more informative to create the amazing slides
+10. the slides and editing module and page should be like canva, where there is a canvas of sorts showing all the tabs, zoom in zoom out, for now dont worry about fonts and editing etc as thats complex.
+11. you should be able to 'present' the slides in a theatre type of mode to show it off like powerpoint or canva too.
+
+
+We need to add supabase auth functionality and auth pages for login and sign up so users can create an account (don't gate this with stripe or anything right now its ok just allow login without verification)
+
+
+below is the design PRD also to interweave into the total and final PRD
+
+
+
+
+Got it—here's a pure UI/UX design style guide based on the Attio aesthetic you've shown: minimalist, spacious, and beautifully clean.[ppl-ai-file-upload.s3.amazonaws]​
+1. Design philosophy
+The Attio style is defined by restraint and clarity—every element earns its place on screen. The interface should feel like a calm, professional workspace where content takes center stage and chrome disappears. Key tenets:[strategybreakdowns]​
+
+
+Reduction over addition: remove until it breaks, then add back one thing.
+Typography as UI: hierarchy is established through type weight and size, not heavy borders or color blocks.
+Quiet confidence: the design doesn't shout; it reassures through consistency and precision.
+2. Color palette
+RoleValueUsageBackground#FAFAFA or #F7F7F8Main canvas, never pure white [ppl-ai-file-upload.s3.amazonaws]​Surface#FFFFFFCards, modals, popovers [ppl-ai-file-upload.s3.amazonaws]​Border#E8E8ECSubtle dividers, input outlinesText primary#1A1A1AHeadings, body copyText secondary#6B6B76Labels, metadata, timestamps [ppl-ai-file-upload.s3.amazonaws]​Text muted#9CA3AFPlaceholders, disabled statesAccent#3B82F6 (soft blue)Links, primary buttons, focus rings [ppl-ai-file-upload.s3.amazonaws]​Success#22C55ECompleted states, positive indicatorsWarning#F59E0BPending states, attention badges [ppl-ai-file-upload.s3.amazonaws]​
+
+
+
+
+Color is used sparingly—status pills and avatars provide the only pops of color against the neutral canvas.[figma]​
+3. Typography
+Use a geometric sans-serif typeface like Inter, which balances warmth with technical precision.[figma]​
+ElementSizeWeightLine heightPage title20–22px600 (semibold)1.3Section header14–16px6001.4Body text13–14px400 (regular)1.5Caption/meta11–12px4001.4Button label13px500 (medium)1.0
+
+
+
+
+Hierarchy rules:
+
+
+Only two weights on any single screen (regular + semibold).
+Size differences between levels should be at least 2px.
+Letter-spacing: 0 for body, -0.01em for large headings.[ppl-ai-file-upload.s3.amazonaws]​
+4. Spacing & layout
+Generous whitespace is the signature of this style—it creates breathing room and visual calm.[agilesalesman]​
+Base unit: 4px grid
+Common increments: 8, 12, 16, 24, 32, 48px
+ContextSpacingSidebar item padding8px vertical, 12px horizontal [ppl-ai-file-upload.s3.amazonaws]​Card internal padding16–20pxSection gaps24–32pxTable row height44–48px [ppl-ai-file-upload.s3.amazonaws]​Input height36–40pxModal padding24px
+
+
+
+
+Layout principles:
+
+
+Left sidebar width: 220–260px, collapsible.[ppl-ai-file-upload.s3.amazonaws]​
+Main content max-width: 1200px, centered on large screens.
+Right context panels: 320–400px.[ppl-ai-file-upload.s3.amazonaws]​
+Consistent 16–24px gutters between columns.
+5. Component styling
+Buttons
+Primary: solid accent fill, 6px radius, no border, subtle hover darkening (5–10%).
+Secondary: transparent background, 1px border in #E8E8EC, same radius.
+Ghost: no background or border, accent text color, underline on hover.
+Height: 36px standard, 32px compact.[ppl-ai-file-upload.s3.amazonaws]​
+Inputs & fields
+Background: white or #FAFAFA.
+Border: 1px solid #E8E8EC, radius 6px.
+Focus state: 2px accent ring with 0.15 opacity glow.
+Labels above inputs, never inside (except search).[ppl-ai-file-upload.s3.amazonaws]​
+Cards & surfaces
+Background: pure white.
+Border: 1px solid #E8E8EC OR no border with subtle shadow.
+Shadow (if used): 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06).
+Radius: 8–12px.[ppl-ai-file-upload.s3.amazonaws]​
+Tags & status pills
+Small rounded rectangles (radius 4–6px).
+Soft tinted background matching status color at 10–15% opacity.
+Text in darker shade of same hue.
+Height: 20–24px, padding: 6px 10px.[ppl-ai-file-upload.s3.amazonaws]​
+Avatars
+Circular, 24–32px for inline, 40–48px for headers.
+Stacked avatars overlap by 30% with white 2px ring.
+Fallback: initials on soft gradient background.[ppl-ai-file-upload.s3.amazonaws]​
+6. Iconography
+Style: 1.5px stroke, rounded caps and joins.
+Size: 16px default, 20px for navigation, 14px for inline.
+Color: inherit from text color (primary or secondary).
+Alignment: optically centered within bounding box.
+Recommended sets: Lucide, Phosphor, or Heroicons (outline variant).[nicelydone]​[ppl-ai-file-upload.s3.amazonaws]​
+7. Interaction & motion
+Motion should be subtle and functional, never decorative.[reddit]​
+InteractionDurationEasingHover state150msease-outFocus ring100msease-in-outModal open200msease-out (with slight scale from 98%)Sidebar collapse200msease-in-outToast slide-in250msease-out
+
+
+
+
+Hover behaviors:
+
+
+Table rows: background shifts to #F5F5F7, secondary actions fade in.[ppl-ai-file-upload.s3.amazonaws]​
+Sidebar items: background tint appears, icon color shifts to accent.
+Buttons: subtle darkening or lightening, no scale changes.
+Focus states:
+
+
+Always visible for accessibility.
+2px accent ring with soft outer glow.
+8. Do's and don'ts
+Do:
+
+
+Use whitespace liberally—when in doubt, add more padding.
+Keep the color palette tight; let content provide variety.
+Use type hierarchy instead of boxes and dividers.
+Align everything to the grid obsessively.
+Make interactive elements obvious through consistent patterns.
+Don't:
+
+
+Use drop shadows heavier than the card shadow above.
+Add borders AND shadows to the same element.
+Use more than one accent color.
+NEVER use full fills of colour for any buttons
+Rely on color alone to communicate state.
+Animate anything longer than 300ms.
+Use rounded corners larger than 12px (except full-round pills/avatars).
+This style creates interfaces that feel expensive, calm, and trustworthy—ideal for tools where users spend hours daily managing complex data.[opensourceceo]​
+
+
+Output used in the project:
+
+
+# SlideForge AI - Product Requirements Document
+
+
+## Executive Summary
+
+
+SlideForge AI is a next-generation AI-powered presentation creation platform designed to compete directly with Gamma by offering a streamlined, minimalist approach to transforming documents into professional slide decks. The product leverages Google's Gemini Flash 2.5 model to intelligently parse uploaded content and generate beautiful, editable presentations with a focus on typography, whitespace, and clarity.
+
+
+**Target Launch:** Q2 2026  
+**Primary Competitors:** Gamma, Beautiful.ai, Pitch  
+**Core Differentiator:** Ultra-minimalist design aesthetic combined with intelligent AI content enhancement and a Canva-like editing experience
+
+
+---
+
+
+## Product Vision
+
+
+SlideForge AI reimagines presentation creation by removing friction from the ideation-to-deck pipeline. Users upload raw content—documents, notes, reports—and receive publication-ready slide decks in under 60 seconds. The platform prioritizes content clarity over visual gimmicks, employing a restrained design system inspired by Attio and Linear that lets ideas breathe.
+
+
+### North Star Metrics
+- Time from upload to first viewable deck: <45 seconds
+- User retention (30-day): >40%
+- Slides created per active user/month: 15+
+- NPS score: >50
+
+
+---
+
+
+## User Personas
+
+
+### Primary Persona: Sarah - Startup Founder
+- **Age:** 32, San Francisco
+- **Pain Points:** Spends 3-4 hours creating investor decks, struggles with design consistency, needs rapid iteration
+- **Goals:** Create professional pitch decks in minutes, maintain brand consistency, focus on storytelling not formatting
+- **Usage Pattern:** Creates 5-8 decks per month, mostly pitch/update materials
+
+
+### Secondary Persona: David - Product Manager
+- **Age:** 28, Remote
+- **Pain Points:** Creates weekly stakeholder updates, wastes time on slide formatting, needs templates that work
+- **Goals:** Automate repetitive presentation tasks, ensure visual consistency across team decks
+- **Usage Pattern:** Creates 10-15 internal presentations monthly
+
+
+### Tertiary Persona: Emily - Marketing Director
+- **Age:** 35, New York
+- **Pain Points:** Needs to transform reports into executive summaries, limited design resources
+- **Goals:** Repurpose written content quickly, maintain professional aesthetic
+- **Usage Pattern:** Creates 6-10 presentations monthly for campaigns and reports
+
+
+---
+
+
+## Core User Journey
+
+
+### 1. Onboarding Flow
+**Entry Point:** Landing page CTA or direct link
+
+
+1. User clicks "Get Started" on landing page
+2. Presented with authentication modal (email + password)
+3. Simple account creation (no email verification required for MVP)
+4. Redirect to dashboard with empty state showing tutorial cards
+5. CTA: "Create Your First Project" prominently displayed
+
+
+**Success Criteria:** <2 minutes from landing to dashboard
+
+
+### 2. Project Creation Flow
+**Entry Point:** Dashboard "New Project" button or Agent tab
+
+
+1. User clicks "Create Project" 
+2. Navigates to Agent interface (clean, focused upload area)
+3. Two input options presented:
+   - File upload zone (drag-and-drop enabled)
+   - Text paste area with placeholder
+4. User uploads document (.pdf, .docx, .txt) or pastes text
+5. Optional: Name project (auto-generated if skipped: "Presentation [Date]")
+6. Click "Generate Slides"
+7. Loading state with progress indicators (Upload → Analysis → Generation → Rendering)
+8. Redirect to canvas view with generated slides
+
+
+**Supported Formats:** PDF, DOCX, TXT, MD (up to 50 pages/25,000 words)
+
+
+**Success Criteria:** 
+- Upload to first slide render: <60 seconds for 10-page document
+- Zero failed generations on properly formatted input
+- Clear error messaging for unsupported formats
+
+
+### 3. Canvas Editing Flow
+**Entry Point:** Post-generation or from dashboard project list
+
+
+1. User lands on canvas view showing thumbnail grid of all slides
+2. Can click any slide to enter edit mode for that slide
+3. Edit capabilities:
+   - Click any text element to edit inline
+   - Changes auto-save every 3 seconds
+   - Undo/redo available (10 action history)
+4. Canvas controls:
+   - Zoom slider (50%-200%)
+   - Grid/list view toggle
+   - Add slide (+ button generates new blank template)
+   - Delete slide (trash icon with confirmation)
+   - Reorder via drag-and-drop
+5. Exit to dashboard or enter presentation mode
+
+
+**Success Criteria:**
+- Text edits persist <1 second after typing stops
+- No data loss during session
+- Smooth 60fps canvas navigation
+
+
+### 4. Presentation Mode
+**Entry Point:** "Present" button in canvas view
+
+
+1. User clicks "Present" button
+2. Slides enter fullscreen theater mode
+3. Navigation:
+   - Arrow keys or click zones (left/right 30% of screen)
+   - Slide counter bottom-right
+   - ESC or close button to exit
+4. Clean, distraction-free view matching slide design
+5. Exit returns to canvas edit view
+
+
+**Success Criteria:**
+- Instant mode switching (<200ms)
+- Supports all display resolutions
+- No visual artifacts in fullscreen
+
+
+---
+
+
+## Technical Architecture
+
+
+### Technology Stack
+
+
+**Frontend:**
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS with custom design tokens
+- **State Management:** React Context + Zustand for complex state
+- **Canvas Rendering:** React Konva or Fabric.js for slide manipulation
+- **Authentication:** Supabase Auth
+- **Deployment:** Vercel (with Edge Runtime)
+
+
+**Backend:**
+- **Database:** Supabase (PostgreSQL)
+- **File Storage:** Supabase Storage
+- **API:** Supabase Edge Functions
+- **AI Model:** Google Gemini Flash 2.5 via Vertex AI
+- **Document Processing:** pdf-parse, mammoth (for DOCX)
+
+
+**Infrastructure:**
+- **Hosting:** Vercel (frontend), Supabase Cloud (backend)
+- **CDN:** Vercel Edge Network
+- **Monitoring:** Vercel Analytics + Sentry
+- **Version Control:** GitHub
+
+
+### System Architecture Diagram
+
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     User Browser                         │
+│  ┌────────────────────────────────────────────────────┐ │
+│  │         Next.js App (Vercel Edge)                  │ │
+│  │  - Auth Pages     - Canvas Editor                  │ │
+│  │  - Dashboard      - Presentation Mode              │ │
+│  └────────────────────────────────────────────────────┘ │
+└───────────────────────┬─────────────────────────────────┘
+                        │
+        ┌───────────────┴────────────────┐
+        │                                 │
+┌───────▼────────┐              ┌────────▼─────────┐
+│  Supabase Auth │              │ Supabase Storage │
+│                │              │  (File Uploads)  │
+└───────┬────────┘              └────────┬─────────┘
+        │                                 │
+┌───────▼─────────────────────────────────▼─────────┐
+│          Supabase Database (PostgreSQL)           │
+│  Tables: users, projects, slides, slide_content   │
+└───────────────────────┬───────────────────────────┘
+                        │
+              ┌─────────▼──────────┐
+              │  Edge Functions    │
+              │  - /generate-slides│
+              │  - /process-doc    │
+              └─────────┬──────────┘
+                        │
+              ┌─────────▼──────────┐
+              │  Gemini Flash 2.5  │
+              │  (Vertex AI API)   │
+              └────────────────────┘
+```
+
+
+### Database Schema
+
+
+**Users Table**
+```sql
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  settings JSONB DEFAULT '{}'
+);
+```
+
+
+**Projects Table**
+```sql
+CREATE TABLE projects (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  slide_count INTEGER DEFAULT 0,
+  source_document TEXT, -- Storage path
+  is_archived BOOLEAN DEFAULT false
+);
+```
+
+
+**Slides Table**
+```sql
+CREATE TABLE slides (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  project_id UUID REFERENCES projects(id) ON DELETE CASCADE,
+  position INTEGER NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(project_id, position)
+);
+```
+
+
+**Slide Content Table**
+```sql
+CREATE TABLE slide_content (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  slide_id UUID REFERENCES slides(id) ON DELETE CASCADE,
+  content_json JSONB NOT NULL,
+  -- JSON structure: { title, subtitle, body, layout_type }
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+
+### API Endpoints
+
+
+**Edge Function: /generate-slides**
+
+
+**Input:**
+```typescript
+{
+  documentText: string;
+  projectId: string;
+  userId: string;
+}
+```
+
+
+**Process:**
+1. Receive document text from client
+2. Construct Gemini prompt with instructions
+3. Call Gemini Flash 2.5 API
+4. Parse JSON response containing slide data
+5. Validate slide structure
+6. Insert slides into database
+7. Return slide IDs and preview data
+
+
+**Output:**
+```typescript
+{
+  success: boolean;
+  slideCount: number;
+  slides: Array<{
+    id: string;
+    position: number;
+    content: {
+      title: string;
+      subtitle?: string;
+      body: string[];
+      layoutType: 'title' | 'content' | 'section';
+    }
+  }>;
+  error?: string;
+}
+```
+
+
+**Edge Function: /process-document**
+
+
+Handles file upload processing (PDF/DOCX extraction).
+
+
+**Input:** FormData with file
+**Output:** { text: string, pageCount: number }
+
+
+---
+
+
+## AI Integration Specification
+
+
+### Gemini Flash 2.5 Prompt Engineering
+
+
+**System Prompt:**
+```
+You are an expert presentation designer and content strategist. Your task is to analyze input text and generate a structured JSON output for a professional slide presentation.
+
+
+RULES:
+1. Create 8-10 slides (adjust based on content volume)
+2. Improve and refine the original text for clarity and impact
+3. Use concise, powerful language suitable for presentations
+4. Structure content hierarchically: title → subtitle → body points
+5. Each body point should be one clear sentence (max 15 words)
+6. First slide should always be a title slide
+7. Last slide should be a conclusion or call-to-action
+8. Use section dividers for major topic transitions
+
+
+OUTPUT FORMAT:
+Return ONLY valid JSON matching this structure:
+{
+  "slideCount": number,
+  "slides": [
+    {
+      "position": number,
+      "layoutType": "title" | "content" | "section",
+      "content": {
+        "title": string,
+        "subtitle": string | null,
+        "body": string[] | null
+      }
+    }
+  ]
+}
+```
+
+
+**User Prompt Template:**
+```
+Analyze the following document and create a professional presentation:
+
+
+[DOCUMENT TEXT]
+
+
+Create 8-10 slides that:
+- Extract key insights and themes
+- Improve clarity and conciseness
+- Follow logical narrative flow
+- Use professional presentation language
+```
+
+
+### Content Enhancement Guidelines
+
+
+The AI should actively improve source content by:
+- **Simplifying complex sentences** into digestible points
+- **Extracting key statistics** and highlighting them
+- **Creating logical groupings** of related concepts
+- **Adding transition slides** for major topic shifts
+- **Generating compelling titles** that capture slide essence
+- **Removing redundancy** and filler language
+- **Strengthening calls-to-action** and conclusions
+
+
+**Example Transformation:**
+
+
+*Original Text:*
+"Our company has been experiencing significant growth in the market over the past fiscal year, with revenue increasing by approximately 45% year-over-year, which we attribute largely to our expanded product line and improved customer acquisition strategies."
+
+
+*AI-Enhanced Slide:*
+```json
+{
+  "title": "Exceptional Growth in FY2025",
+  "subtitle": "45% Revenue Increase Year-Over-Year",
+  "body": [
+    "Expanded product portfolio drove new market penetration",
+    "Optimized acquisition strategy reduced CAC by 30%",
+    "Customer retention improved to 87% (up from 72%)"
+  ]
+}
+```
+
+
+---
+
+
+## Design System Specification
+
+
+### Color Palette
+
+
+```css
+:root {
+  /* Backgrounds */
+  --bg-canvas: #FAFAFA;
+  --bg-surface: #FFFFFF;
+  
+  /* Borders */
+  --border-subtle: #E8E8EC;
+  
+  /* Text */
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B6B76;
+  --text-muted: #9CA3AF;
+  
+  /* Accent */
+  --accent-primary: #3B82F6;
+  --accent-hover: #2563EB;
+  
+  /* Status */
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+}
+```
+
+
+### Typography Scale
+
+
+**Font Family:** Inter (weights: 400, 500, 600)
+
+
+```css
+.text-title { font-size: 22px; font-weight: 600; line-height: 1.3; }
+.text-section { font-size: 16px; font-weight: 600; line-height: 1.4; }
+.text-body { font-size: 14px; font-weight: 400; line-height: 1.5; }
+.text-caption { font-size: 12px; font-weight: 400; line-height: 1.4; }
+.text-button { font-size: 13px; font-weight: 500; line-height: 1.0; }
+```
+
+
+### Slide Layout Templates
+
+
+**Template 1: Title Slide**
+- Large centered title (48px, weight 600)
+- Subtitle below (24px, weight 400, text-secondary)
+- 60% left-aligned content area, 40% reserved for future images
+
+
+**Template 2: Content Slide**
+- Title top-left (32px, weight 600)
+- Subtitle optional (18px, weight 400)
+- Body as bulleted list (16px, weight 400, 1.6 line-height)
+- 55% left content, 45% right reserved
+
+
+**Template 3: Section Divider**
+- Centered large text (56px, weight 600)
+- Minimal additional content
+- Used for major topic transitions
+
+
+**Spacing Rules:**
+- Slide padding: 48px all sides
+- Title to subtitle gap: 16px
+- Subtitle to body gap: 32px
+- Between body points: 12px
+- Body text left margin (bullets): 24px
+
+
+### Component Library
+
+
+**Button Variants:**
+```tsx
+// Primary (transparent with border)
+<button className="h-9 px-4 border border-border-subtle rounded-md 
+  text-button text-text-primary hover:bg-gray-50 transition-colors">
+
+
+// Ghost
+<button className="h-9 px-4 text-button text-accent-primary 
+  hover:underline transition-all">
+
+
+// Danger (for delete actions)
+<button className="h-9 px-4 border border-red-200 rounded-md 
+  text-button text-red-600 hover:bg-red-50">
+```
+
+
+**Input Fields:**
+```tsx
+<input className="h-10 px-3 bg-bg-surface border border-border-subtle 
+  rounded-md text-body focus:ring-2 focus:ring-accent-primary 
+  focus:ring-opacity-15 outline-none" />
+```
+
+
+**Cards:**
+```tsx
+<div className="bg-bg-surface border border-border-subtle rounded-lg 
+  p-5 shadow-sm hover:shadow-md transition-shadow">
+```
+
+
+---
+
+
+## Feature Specifications
+
+
+### 1. Authentication System
+
+
+**Sign Up Flow:**
+- Email + password fields (no social auth for MVP)
+- Password requirements: min 8 characters
+- No email verification (expedited onboarding)
+- Auto-login after account creation
+- Redirect to dashboard with welcome overlay
+
+
+**Login Flow:**
+- Email + password
+- "Forgot password" link (sends reset email)
+- Remember me checkbox (30-day session)
+- Error states for invalid credentials
+
+
+**Session Management:**
+- JWT tokens via Supabase Auth
+- Auto-refresh on expiration
+- Logout clears all local state
+
+
+### 2. Dashboard Interface
+
+
+**Layout:**
+```
+┌─────────────────────────────────────────────────────────┐
+│ Logo                    [Search]              [Avatar]   │
+├──────────┬──────────────────────────────────────────────┤
+│          │  Recent Projects                             │
+│ Projects │  ┌─────────┐ ┌─────────┐ ┌─────────┐        │
+│ Agent    │  │ Project │ │ Project │ │ Project │        │
+│ Settings │  │   1     │ │   2     │ │   3     │        │
+│ Billing  │  └─────────┘ └─────────┘ └─────────┘        │
+│          │                                               │
+│          │  + Create New Project                        │
+└──────────┴──────────────────────────────────────────────┘
+```
+
+
+**Sidebar Width:** 240px  
+**Sidebar Items:** 8px vertical padding, icons 20px, icon color text-secondary
+
+
+**Project Cards:**
+- Thumbnail preview of first slide
+- Project name (editable inline)
+- Last edited timestamp
+- Slide count badge
+- Three-dot menu (Rename, Duplicate, Archive, Delete)
+- Hover state: subtle background shift to #F5F5F7
+
+
+**Empty State:**
+- Isometric illustration (simple, greyscale)
+- Heading: "No projects yet"
+- Subtext: "Create your first presentation in seconds"
+- CTA button: "Get Started"
+
+
+### 3. Agent Interface (Upload/Create)
+
+
+**Clean, Focused Layout:**
+```
+┌─────────────────────────────────────────────────────────┐
+│              Create New Presentation                     │
+│                                                          │
+│  ┌────────────────────────────────────────────────────┐ │
+│  │                                                     │ │
+│  │         Drag and drop your document here           │ │
+│  │                      or                             │ │
+│  │                  [Choose File]                      │ │
+│  │                                                     │ │
+│  │  Supported: PDF, DOCX, TXT (max 25,000 words)      │ │
+│  └────────────────────────────────────────────────────┘ │
+│                                                          │
+│                       OR                                 │
+│                                                          │
+│  ┌────────────────────────────────────────────────────┐ │
+│  │ Paste your text here...                            │ │
+│  │                                                     │ │
+│  │                                                     │ │
+│  └────────────────────────────────────────────────────┘ │
+│                                                          │
+│  Project Name: [                              ]         │
+│                                                          │
+│                                    [Generate Slides]    │
+└─────────────────────────────────────────────────────────┘
+```
+
+
+**Upload Area Styling:**
+- Dashed border (#E8E8EC) on default state
+- Solid border with blue tint on drag-over
+- Height: 200px
+- Rounded: 8px
+
+
+**Text Area:**
+- Min height: 300px
+- Auto-resize as user types
+- Character count bottom-right
+- Placeholder in text-muted
+
+
+**Loading State:**
+- Replace interface with centered spinner
+- Progress messages: "Uploading..." → "Analyzing content..." → "Generating slides..." → "Almost done..."
+- Estimated time: "About 30 seconds remaining"
+
+
+### 4. Canvas Editor
+
+
+**Main Canvas:**
+- Grid view (default): 3 columns on desktop, thumbnails 240px wide
+- List view: Single column, larger thumbnails
+- Zoom control: slider 50%-200%, affects thumbnail size
+- Slide thumbnails show live content preview
+- Current slide highlighted with accent border
+- Drag handles for reordering (smooth animation)
+
+
+**Edit Mode (Click Slide):**
+- Slide expands to 80% viewport width/height
+- All text elements become contentEditable
+- Click outside to return to grid
+- Auto-save indicator (top-right): "Saving..." → "Saved ✓"
+- Toolbar: [Undo] [Redo] [Add Slide] [Delete] [Present]
+
+
+**Text Editing:**
+- Inline editing with selection highlight
+- Tab key moves to next text element
+- Enter creates new line (for body points)
+- Format preserved (title/subtitle/body distinction)
+- Changes debounced 3 seconds before save
+
+
+**Add Slide Function:**
+- Plus button in toolbar or between slides
+- Creates blank slide with default template
+- Inserts at current position + 1
+- Auto-scroll to new slide
+
+
+### 5. Presentation Mode
+
+
+**Theater View:**
+- Fullscreen black background
+- Slide centered, max 90% viewport
+- Navigation zones: left/right 30% click areas
+- Arrow keys: ← previous, → next, ESC exit
+- Slide counter: bottom-right (e.g., "3 / 10")
+- Exit button: top-right corner (X icon)
+- Smooth fade transitions (200ms) between slides
+
+
+**Responsive Behavior:**
+- Slides scale proportionally to fit screen
+- Maintain 16:9 aspect ratio
+- Font sizes adjust via CSS clamp() for readability
+
+
+### 6. Settings Page
+
+
+**Sections:**
+
+
+1. **Profile**
+   - Email (read-only)
+   - Name field (editable)
+   - Avatar upload (future)
+
+
+2. **Preferences**
+   - Default slide count (8/10/12)
+   - Auto-save interval (3s/5s/10s)
+   - Theme toggle (Light only for MVP)
+
+
+3. **Account**
+   - Change password
+   - Delete account (with confirmation modal)
+
+
+**Layout:** Two-column form, left labels, right inputs, 24px gap
+
+
+### 7. Billing Page (Placeholder)
+
+
+**MVP State:**
+- Simple message: "All features currently free during beta"
+- Placeholder for future pricing tiers
+- Email capture for updates: "Get notified when paid plans launch"
+
+
+---
+
+
+## User Flows & Edge Cases
+
+
+### Edge Case Handling
+
+
+**Scenario: Upload fails**
+- **Detection:** File size >10MB or unsupported format
+- **Response:** Error toast, keep user on Agent page, highlight upload zone in red
+- **Message:** "File too large. Please use documents under 10MB" or "Unsupported format. Please upload PDF, DOCX, or TXT"
+
+
+**Scenario: Gemini API timeout**
+- **Detection:** No response within 60 seconds
+- **Response:** Show error message, offer retry
+- **Message:** "Generation timed out. This usually means the document is very long. Try a shorter document or contact support."
+- **Action:** Save uploaded document to allow manual retry
+
+
+**Scenario: Gemini returns malformed JSON**
+- **Detection:** JSON.parse() fails or schema validation fails
+- **Response:** Log error, retry once automatically, then show error
+- **Message:** "Something went wrong. Our AI had trouble processing this document. Please try again."
+
+
+**Scenario: User edits during auto-save**
+- **Detection:** User types while save in progress
+- **Response:** Queue next save, don't interrupt typing
+- **Indicator:** "Saving..." persists until queue clears
+
+
+**Scenario: Network disconnect during presentation**
+- **Detection:** Offline event
+- **Response:** Show banner "You're offline. Presentation mode available, editing disabled."
+- **Behavior:** Presentation continues from cached slides
+
+
+**Scenario: Concurrent edits (future multiplayer)**
+- **Not implemented in MVP**
+- **Future:** Operational Transform or CRDT for conflict resolution
+
+
+### User Testing Scenarios
+
+
+**Test 1: Complete first-time user flow**
+1. Land on homepage
+2. Sign up
+3. Upload sample document
+4. Wait for generation
+5. Edit one slide
+6. Present slides
+7. Save and return to dashboard
+
+
+**Success Criteria:** Completed in <5 minutes without confusion
+
+
+**Test 2: Power user workflow**
+1. Upload 5 different documents rapidly
+2. Edit multiple projects concurrently
+3. Delete and archive projects
+4. Search for specific project
+
+
+**Success Criteria:** No lag, no data loss, intuitive navigation
+
+
+**Test 3: Error recovery**
+1. Upload invalid file
+2. Disconnect internet during generation
+3. Edit slides with very long text
+
+
+**Success Criteria:** Clear error messages, graceful degradation
+
+
+---
+
+
+## Performance Requirements
+
+
+### Speed Benchmarks
+- **Page load:** First contentful paint <1.2s
+- **Dashboard render:** Display projects <500ms after auth
+- **Slide generation:** Complete flow <60s for 10-slide deck
+- **Canvas zoom/pan:** 60fps on devices with GPU
+- **Auto-save:** Persist changes <1s after typing stops
+- **Presentation mode enter:** <200ms transition
+
+
+### Scalability Targets
+- **Concurrent users:** Support 1,000 simultaneous generations
+- **Database queries:** <100ms p95 latency
+- **File storage:** Handle 100GB total user uploads (MVP)
+- **Edge function execution:** <10s timeout, <512MB memory
+
+
+### Optimization Strategies
+- **Code splitting:** Route-based chunks, lazy load canvas editor
+- **Image optimization:** Next.js Image component for thumbnails
+- **Database indexing:** Index on user_id, project_id, created_at
+- **Caching:** Cache Gemini responses for duplicate documents (hash-based)
+- **CDN:** Serve static assets via Vercel Edge
+
+
+---
+
+
+## Security & Privacy
+
+
+### Authentication Security
+- Passwords hashed with bcrypt (Supabase default)
+- JWT tokens expire after 1 hour, refresh tokens 30 days
+- HTTPS enforced on all routes
+- CSRF protection via SameSite cookies
+
+
+### Data Privacy
+- User documents stored encrypted in Supabase Storage
+- Projects/slides tied to user_id, Row Level Security enabled
+- No third-party analytics tracking user content
+- Gemini API calls don't store user data (per Google Cloud terms)
+
+
+### Access Control
+```sql
+-- RLS Policy Example
+CREATE POLICY "Users can only access own projects"
+ON projects FOR ALL
+USING (auth.uid() = user_id);
+```
+
+
+### Compliance (Future)
+- GDPR: Data export/deletion on request
+- SOC 2: Audit logging for paid tiers
+- CCPA: Privacy policy with opt-out mechanisms
+
+
+---
+
+
+## Success Metrics & KPIs
+
+
+### Engagement Metrics
+- **Daily Active Users (DAU):** Target 500 within 3 months
+- **Weekly Active Users (WAU):** Target 2,000 within 3 months
+- **WAU/MAU ratio:** >40% (indicates sticky product)
+- **Average slides created per user/week:** >3
+
+
+### Quality Metrics
+- **Generation success rate:** >95%
+- **Average time to first slide:** <45 seconds
+- **User-reported satisfaction (CSAT):** >4.2/5
+- **Feature adoption rate (presentation mode):** >60%
+
+
+### Business Metrics (Future)
+- **Free-to-paid conversion:** Target 5% at launch of paid tier
+- **Churn rate:** <8% monthly
+- **Average Revenue Per User (ARPU):** Target $15/month
+
+
+### Technical Metrics
+- **Uptime:** 99.5% (allow 3.6 hours downtime/month)
+- **Error rate:** <1% of requests
+- **P95 API latency:** <2 seconds
+- **Failed slide generations:** <5%
+
+
+---
+
+
+## Roadmap & Future Features
+
+
+### Phase 1: MVP (Current Scope)
+- ✅ Authentication (sign up/login)
+- ✅ Document upload & text paste
+- ✅ AI slide generation via Gemini
+- ✅ Canvas editing (text only)
+- ✅ Presentation mode
+- ✅ Dashboard with project management
+- ✅ Settings & billing placeholder
+
+
+### Phase 2: Enhanced Editing (Q3 2026)
+- Rich text formatting (bold, italic, lists)
+- Custom fonts (beyond Inter)
+- Color customization per slide
+- Image upload and placement
+- Slide templates library
+- Export to PDF/PPTX
+
+
+### Phase 3: Collaboration (Q4 2026)
+- Real-time multiplayer editing
+- Comments and feedback system
+- Presentation links (view-only sharing)
+- Team workspaces
+- Version history
+
+
+### Phase 4: Advanced AI (Q1 2027)
+- AI-generated images via DALL-E 3 / Midjourney
+- Voice narration generation
+- Auto-layout optimization
+- Brand kit extraction from documents
+- Smart content suggestions
+
+
+### Phase 5: Enterprise (Q2 2027)
+- SSO integration (Okta, Google Workspace)
+- Admin dashboard with usage analytics
+- Custom domain hosting for presentations
+- API access for integrations
+- White-label options
+
+
+---
+
+
+## Launch Strategy
+
+
+### Pre-Launch (Weeks 1-4)
+- Finalize MVP development
+- Internal testing with 10 team members
+- Fix critical bugs, optimize performance
+- Prepare landing page and marketing copy
+- Set up analytics (Vercel Analytics, PostHog)
+
+
+### Soft Launch (Weeks 5-6)
+- Invite 50 beta users (friends, network, Product Hunt)
+- Collect feedback via in-app surveys
+- Monitor error rates and performance
+- Iterate on UX pain points
+- Prepare launch assets (demo video, screenshots)
+
+
+### Public Launch (Week 7)
+- Product Hunt launch (aim for top 5 of the day)
+- Share on Twitter, LinkedIn, Reddit (r/SaaS, r/startups)
+- Outreach to 20 micro-influencers in productivity space
+- Email campaign to waitlist (if built pre-launch)
+- Press release to tech blogs (TechCrunch, The Verge)
+
+
+### Post-Launch (Weeks 8-12)
+- Weekly feature updates based on feedback
+- Content marketing: Blog posts on "AI presentation tips"
+- SEO optimization for "AI presentation maker" keywords
+- Partnerships with design/productivity tools
+- Prepare for monetization (pricing page, Stripe integration)
+
+
+---
+
+
+## Risk Assessment
+
+
+### Technical Risks
+
+
+**Risk:** Gemini API rate limits exceeded  
+**Likelihood:** Medium  
+**Impact:** High (blocks core functionality)  
+**Mitigation:** Implement queue system, cache responses, upgrade to enterprise tier
+
+
+**Risk:** Database performance degrades with scale  
+**Likelihood:** Medium  
+**Impact:** High (slow dashboard loads)  
+**Mitigation:** Optimize queries, add indexes, implement pagination early
+
+
+**Risk:** Canvas editor laggy on low-end devices  
+**Likelihood:** Medium  
+**Impact:** Medium (poor UX for subset of users)  
+**Mitigation:** Use virtualization, limit slide count per view, progressive loading
+
+
+### Business Risks
+
+
+**Risk:** Low user adoption (ghost town effect)  
+**Likelihood:** Medium  
+**Impact:** High (product failure)  
+**Mitigation:** Aggressive early marketing, iterate based on feedback, viral features (sharing)
+
+
+**Risk:** Competitor releases similar AI features  
+**Likelihood:** High (Gamma, Pitch already have AI)  
+**Impact:** Medium (reduces differentiation)  
+**Mitigation:** Focus on design quality, speed, and UX—be the "best" not "first"
+
+
+**Risk:** AI generation quality inconsistent  
+**Likelihood:** Medium  
+**Impact:** High (user trust lost)  
+**Mitigation:** Extensive prompt testing, fallback templates, manual override options
+
+
+### Legal Risks
+
+
+**Risk:** Copyright issues with user-uploaded content  
+**Likelihood:** Low  
+**Impact:** High (legal liability)  
+**Mitigation:** Terms of Service stating user responsibility, DMCA compliance process
+
+
+**Risk:** GDPR/privacy violations  
+**Likelihood:** Low (if following best practices)  
+**Impact:** High (fines, reputation damage)  
+**Mitigation:** Privacy

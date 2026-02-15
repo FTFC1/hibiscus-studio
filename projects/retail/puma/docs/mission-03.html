@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 3: The 70/30 Rule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            background: #e5dcd3;
+        }
+
+        /* Header badges row */
+        .badge-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .badge-dark {
+            background: #1a1a1a;
+            color: #e5dcd3;
+        }
+        .badge-outline {
+            background: transparent;
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.15;
+        }
+
+        /* Learning outcome card */
+        .learning-card {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+        }
+        .learning-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .learning-card-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        p {
+            margin-bottom: 16px;
+        }
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: 600;
+        }
+
+        /* Quote styling */
+        blockquote {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            color: #1a1a1a;
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+        }
+        blockquote::before {
+            content: '"';
+            font-size: 48px;
+            font-family: Georgia, serif;
+            color: #cfc5ba;
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            line-height: 1;
+        }
+        blockquote p {
+            margin: 0;
+            padding-left: 24px;
+        }
+        .quote-source {
+            font-size: 13px;
+            font-style: normal;
+            color: #666;
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        /* Cost calculation card */
+        .cost-card {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin: 32px 0;
+        }
+        .cost-card-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+        }
+        .cost-row:last-of-type {
+            border-bottom: none;
+            padding-top: 16px;
+            margin-top: 8px;
+            border-top: 2px solid #444;
+        }
+        .cost-label {
+            font-size: 14px;
+            color: #aaa;
+        }
+        .cost-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .cost-value-big {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e5dcd3;
+        }
+        .cost-note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        .divider {
+            height: 2px;
+            background: #cfc5ba;
+            margin: 40px 0;
+        }
+
+        /* Scene card - The Problem */
+        .scene-card {
+            background: #2a2a2a;
+            color: #e5dcd3;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin: 24px 0;
+        }
+        .scene-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .scene-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .scene-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+        }
+        .scene-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+        .scene-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #d9cfc5;
+        }
+        .scene-text strong {
+            color: #fff;
+        }
+        .scene-arrow {
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: #555;
+            font-size: 18px;
+        }
+        .scene-result {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .scene-result-icon {
+            font-size: 28px;
+        }
+        .scene-result-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Consequence cards */
+        .consequence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .consequence-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 18px;
+            text-align: center;
+        }
+        .consequence-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .consequence-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .consequence-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Rule highlight box */
+        .rule-box {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: center;
+        }
+        .rule-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .rule-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+        .rule-number-item {
+            text-align: center;
+        }
+        .rule-percent {
+            font-size: 48px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+        .rule-label {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 8px;
+        }
+        .rule-note {
+            font-size: 16px;
+            color: #d9cfc5;
+            font-style: italic;
+        }
+
+        /* Question cards - 4 Questions Framework */
+        .question-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 20px 0;
+        }
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+        .question-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .question-phrase {
+            font-size: 19px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .question-why {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .question-followups {
+            background: #f5f2ef;
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-size: 14px;
+        }
+        .question-followups-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .question-followups ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .question-followups li {
+            margin-bottom: 4px;
+            color: #555;
+        }
+
+        /* Dialogue comparison */
+        .dialogue-compare {
+            display: grid;
+            gap: 20px;
+            margin: 24px 0;
+        }
+        .dialogue-box {
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .dialogue-box.bad {
+            background: #f5e6e0;
+        }
+        .dialogue-box.good {
+            background: #fff;
+        }
+        .dialogue-box-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        .dialogue-box.bad .dialogue-box-label {
+            color: #8b3a3a;
+        }
+        .dialogue-box.good .dialogue-box-label {
+            color: #2d5a3d;
+        }
+        .dialogue-bubble {
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .dialogue-bubble.customer {
+            background: #f5f5f5;
+            margin-right: 20%;
+        }
+        .dialogue-bubble.you {
+            background: #e8f5e9;
+            margin-left: 10%;
+            border-left: 3px solid #4caf50;
+        }
+        .dialogue-bubble .speaker {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .dialogue-bubble.customer .speaker {
+            color: #666;
+        }
+        .dialogue-bubble.you .speaker {
+            color: #2d5a3d;
+        }
+        .dialogue-note {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+            display: inline;
+        }
+        .dialogue-result {
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .dialogue-box.bad .dialogue-result {
+            background: rgba(139,58,58,0.1);
+            color: #8b3a3a;
+        }
+        .dialogue-box.good .dialogue-result {
+            background: rgba(45,90,61,0.1);
+            color: #2d5a3d;
+        }
+        /* Legacy dialogue-line for backwards compat */
+        .dialogue-line {
+            margin: 8px 0;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+        .dialogue-you {
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+        .dialogue-customer {
+            color: #555;
+        }
+
+        /* Do/Don't lists */
+        .do-dont-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .do-item, .dont-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+        .dont-item {
+            background: #f5e6e0;
+        }
+        .do-item {
+            background: #e0ebe6;
+        }
+        .do-icon, .dont-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .do-text, .dont-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Why This Works - highlighted cards */
+        .insight-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .insight-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .insight-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .insight-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Quick reference box */
+        .quick-ref {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin: 36px 0;
+        }
+        .quick-ref-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .quick-ref ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .quick-ref li {
+            color: #d9cfc5;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            font-size: 15px;
+        }
+        .quick-ref li:last-child {
+            border-bottom: none;
+        }
+        .quick-ref strong {
+            color: #fff;
+        }
+        .quick-ref-note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* Today's Action card */
+        .action-card {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d28 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .action-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        .action-card-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .action-card-metric {
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 16px;
+        }
+        .action-card-metric-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 4px;
+        }
+        .action-card-metric-value {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        /* Tip box */
+        .tip-box {
+            background: #fff8e6;
+            border-left: 4px solid #d4a017;
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            margin: 28px 0;
+        }
+        .tip-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #9a7b0a;
+            margin-bottom: 8px;
+        }
+        .tip-text {
+            font-size: 15px;
+            color: #5a4a0a;
+            line-height: 1.5;
+        }
+
+        /* Telegram CTA */
+        .telegram-cta {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 24px 28px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .telegram-cta-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .telegram-cta-action {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 2px solid #cfc5ba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+        .page-footer .brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name {
+            color: #8b6914;
+        }
+
+        /* Print styles */
+        @media print {
+            @page {
+                margin: 2cm 1.5cm;
+                size: A4;
+            }
+            body {
+                padding: 0;
+                font-size: 11pt;
+                background: white;
+                max-width: 100%;
+            }
+            .badge, .learning-card, blockquote, .cost-card, .do-item, .dont-item, .question-card, .insight-card, .quick-ref, .action-card, .telegram-cta, .scene-card, .consequence-card, .tip-box, .rule-box, .dialogue-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+            h1 { font-size: 22pt; }
+            h2 {
+                font-size: 14pt;
+                page-break-after: avoid;
+            }
+            h3 {
+                page-break-after: avoid;
+            }
+            .divider {
+                page-break-after: avoid;
+            }
+            .consequence-grid {
+                page-break-inside: avoid;
+            }
+            .page-break-before {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="badge-row">
+    <span class="badge badge-dark">Module 1 · Mission 3 of 6</span>
+    <span class="badge badge-outline">⏱️ 6-8 min</span>
+</div>
+
+<h1>The 70/30 Rule</h1>
+
+<div class="learning-card">
+    <div class="learning-card-label">What You'll Learn</div>
+    <div class="learning-card-text">How to understand what customers actually need — instead of dumping product features on them.</div>
+</div>
+
+<h2>⚠️ The Problem</h2>
+
+<div class="scene-card">
+    <div class="scene-title">What's Actually Happening</div>
+    <div class="scene-flow">
+        <div class="scene-step">
+            <span class="scene-icon">👟</span>
+            <span class="scene-text">Customer says they're looking for <strong>running shoes</strong></span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">🗣️</span>
+            <span class="scene-text">You take them to the running section and start talking:<br><br>
+            <strong>"This one has NITRO foam for cushioning."</strong><br>
+            <strong>"This one has PWRPLATE technology for speed."</strong><br>
+            <strong>"This one is for trail running."</strong><br>
+            <strong>"This one is the new colorway."</strong><br>
+            <strong>"This one breathes better."</strong><br>
+            <strong>"This one—"</strong></span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">😵‍💫</span>
+            <span class="scene-text">Customer's eyes glaze over. They nod along.</span>
+        </div>
+        <div class="scene-result">
+            <span class="scene-result-icon">💭</span>
+            <span class="scene-result-text">"Let me think about it." They leave.</span>
+        </div>
+    </div>
+</div>
+
+<p><strong>You feature-dumped.</strong> You talked at them, not with them. You showed off your product knowledge instead of solving their problem.</p>
+
+<div class="divider"></div>
+
+<h2>💰 Why This Costs You Sales</h2>
+
+<blockquote>
+    <p>They don't listen to the customer to find out what the customer is actually looking for and focus on that. They just give their full spiel, and they don't identify — okay, this is a customer who's in his 40s, he needs more support.</p>
+    <div class="quote-source">— Manager, Major Sportswear Store</div>
+</blockquote>
+
+<p>When you talk more than you listen, four things happen:</p>
+
+<div class="consequence-grid">
+    <div class="consequence-card">
+        <div class="consequence-number">1</div>
+        <div class="consequence-title">They're Overwhelmed</div>
+        <div class="consequence-desc">Too many options. Decision paralysis. "I'll think about it" = escape.</div>
+    </div>
+    <div class="consequence-card">
+        <div class="consequence-number">2</div>
+        <div class="consequence-title">You Miss The Need</div>
+        <div class="consequence-desc">They wanted shoes for their sore back. You showed 5 based on style.</div>
+    </div>
+    <div class="consequence-card">
+        <div class="consequence-number">3</div>
+        <div class="consequence-title">You Lose Trust</div>
+        <div class="consequence-desc">They sense you're not listening. Feels like you're pushing product.</div>
+    </div>
+    <div class="consequence-card">
+        <div class="consequence-number">4</div>
+        <div class="consequence-title">You Can't Close</div>
+        <div class="consequence-desc">When they hesitate, you don't know why. You never found out what mattered.</div>
+    </div>
+</div>
+
+<div class="cost-card">
+    <div class="cost-card-title">💸 Real Cost Calculation</div>
+    <div class="cost-row">
+        <span class="cost-label">Sales killed by feature-dumping/week</span>
+        <span class="cost-value">3 sales</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Average basket value</span>
+        <span class="cost-value">₦25,000</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Lost revenue per week</span>
+        <span class="cost-value">₦75,000</span>
+    </div>
+    <div class="cost-row">
+        <span class="cost-label">Lost revenue per year</span>
+        <span class="cost-value-big">₦3.9M</span>
+    </div>
+    <div class="cost-note">Just from talking at customers instead of listening to them.</div>
+</div>
+
+<div class="divider"></div>
+
+<h2 class="page-break-before">✅ The Method: 70/30 Rule</h2>
+
+<div class="rule-box">
+    <div class="rule-title">The Rule</div>
+    <div class="rule-numbers">
+        <div class="rule-number-item">
+            <div class="rule-percent">70%</div>
+            <div class="rule-label">Customer Talks</div>
+        </div>
+        <div class="rule-number-item">
+            <div class="rule-percent">30%</div>
+            <div class="rule-label">You Talk</div>
+        </div>
+    </div>
+    <div class="rule-note">If you're doing most of the talking, you're doing it wrong.</div>
+</div>
+
+<div class="learning-card" style="margin-bottom: 20px;">
+    <div class="learning-card-text"><strong>Your job during browsing is NOT to show products.</strong> It's to understand what they need — then show the RIGHT product.</div>
+</div>
+
+<div class="do-dont-grid">
+    <div class="do-item">
+        <span class="do-icon">✅</span>
+        <span class="do-text"><strong>Do:</strong> Ask questions → Listen → Follow up → THEN recommend</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">❌</span>
+        <span class="dont-text"><strong>Don't:</strong> Show everything → Talk about features → Hope something sticks</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>🎯 The 4 Questions Framework</h2>
+
+<p>Before you show a single product, understand these four things:</p>
+
+<div class="question-card">
+    <div class="question-label"><span class="question-number">1</span> The Occasion</div>
+    <div class="question-phrase">"What are you buying for?"</div>
+    <div class="question-why">Not "I need shoes" — dig deeper. "I'm running my first marathon." "I need something for work that's comfortable." "My old ones fell apart."</div>
+    <div class="question-followups">
+        <div class="question-followups-label">Follow-ups</div>
+        <ul>
+            <li>"Where will you be wearing this?"</li>
+            <li>"What activities do you need this for?"</li>
+            <li>"What's coming up that made you come in today?"</li>
+        </ul>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-label"><span class="question-number">2</span> The Problem</div>
+    <div class="question-phrase">"What's not working with what you have now?"</div>
+    <div class="question-why">Every customer is here because something isn't working. Find out what. This tells you which features actually matter.</div>
+    <div class="question-followups">
+        <div class="question-followups-label">Follow-ups</div>
+        <ul>
+            <li>"What do you wish your current one did better?"</li>
+            <li>"Have you tried anything before that didn't work?"</li>
+            <li>"What's frustrating you about your current setup?"</li>
+        </ul>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-label"><span class="question-number">3</span> The Priority</div>
+    <div class="question-phrase">"What matters most — comfort, durability, or style?"</div>
+    <div class="question-why">Everyone weighs these differently. Some don't care what it looks like if it's comfortable. Others need it to look good above everything.</div>
+    <div class="question-followups">
+        <div class="question-followups-label">Follow-ups</div>
+        <ul>
+            <li>"Do you have a budget in mind?"</li>
+            <li>"Is brand important to you?"</li>
+            <li>"Looking for something to last years, or just this season?"</li>
+        </ul>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-label"><span class="question-number">4</span> The Decision Context</div>
+    <div class="question-phrase">"Are you hoping to leave with something today?"</div>
+    <div class="question-why">Buying today or researching? For themselves or a gift? Alone or need to consult someone? This tells you how to close.</div>
+    <div class="question-followups">
+        <div class="question-followups-label">Follow-ups</div>
+        <ul>
+            <li>"Is this for you or someone else?"</li>
+            <li>"Is there anyone else involved in the decision?"</li>
+            <li>"How soon do you need this?"</li>
+        </ul>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>💬 What It Sounds Like</h2>
+
+<div class="dialogue-compare">
+    <div class="dialogue-box bad">
+        <div class="dialogue-box-label">❌ Feature Dump</div>
+        <div class="dialogue-bubble customer">
+            <div class="speaker">Customer</div>
+            "I'm looking for running shoes."
+        </div>
+        <div class="dialogue-bubble you">
+            <div class="speaker">You</div>
+            "Great! This one has NITRO foam, this one has PWRFRAME support, this one is new with PWRPLATE for speed, this one breathes better, this one—"
+        </div>
+        <div class="dialogue-result">😵‍💫 "Let me think about it."</div>
+    </div>
+
+    <div class="dialogue-box good">
+        <div class="dialogue-box-label">✅ The 70/30 Way</div>
+        <div class="dialogue-bubble customer">
+            <div class="speaker">Customer</div>
+            "I'm looking for running shoes."
+        </div>
+        <div class="dialogue-bubble you">
+            <div class="speaker">You</div>
+            "Nice — what kind of running do you do?" <span class="dialogue-note">[Occasion]</span>
+        </div>
+        <div class="dialogue-bubble customer">
+            <div class="speaker">Customer</div>
+            "Just getting started. Trying to lose some weight."
+        </div>
+        <div class="dialogue-bubble you">
+            <div class="speaker">You</div>
+            "That's awesome. What made you decide to start?"
+        </div>
+        <div class="dialogue-bubble customer">
+            <div class="speaker">Customer</div>
+            "Doctor said I need to get active. My knees aren't great."
+        </div>
+        <div class="dialogue-bubble you">
+            <div class="speaker">You</div>
+            "Got it. So comfort and support are probably more important than speed right now?" <span class="dialogue-note">[Priority]</span>
+        </div>
+        <div class="dialogue-bubble customer">
+            <div class="speaker">Customer</div>
+            "Yeah, exactly."
+        </div>
+        <div class="dialogue-bubble you">
+            <div class="speaker">You</div>
+            "And have you tried running shoes before?" <span class="dialogue-note">[Problem]</span>
+        </div>
+        <div class="dialogue-bubble customer">
+            <div class="speaker">Customer</div>
+            "Had some cheap ones that hurt after 20 minutes."
+        </div>
+        <div class="dialogue-bubble you">
+            <div class="speaker">You</div>
+            "Okay, so we need good cushioning that won't hurt your knees. Let me show you two options that would work perfectly."
+        </div>
+        <div class="dialogue-result">✅ Now you can recommend — and explain WHY this shoe solves their specific problem.</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>🚧 Common Mistakes</h2>
+
+<div class="do-dont-grid">
+    <div class="dont-item">
+        <span class="dont-icon">🙉</span>
+        <span class="dont-text"><strong>Asking but not listening</strong> — You ask "What kind of running?" but you're already thinking about which shoe to show. Stop. Actually listen.</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">📝</span>
+        <span class="dont-text"><strong>Too many questions at once</strong> — One question at a time. Let them answer. Then follow up based on what they said.</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">⏩</span>
+        <span class="dont-text"><strong>Recommending too fast</strong> — If you're showing products after 30 seconds, you probably don't understand what they need yet.</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">🤷</span>
+        <span class="dont-text"><strong>Feeling like you need to know everything</strong> — It's okay to say "Good question — let me find out." Better than making something up.</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>🧠 Why This Works</h2>
+
+<div class="learning-card" style="margin-bottom: 20px;">
+    <div class="learning-card-text"><strong>Product knowledge is important — but only AFTER you understand the need.</strong></div>
+</div>
+
+<div class="insight-grid">
+    <div class="insight-card">
+        <span class="insight-icon">👟</span>
+        <span class="insight-text">Customer doesn't care about NITRO foam. They care about <strong>their knees not hurting.</strong></span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">🛏️</span>
+        <span class="insight-text">Customer doesn't care about thread count. They care about <strong>sheets feeling softer.</strong></span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">👔</span>
+        <span class="insight-text">Customer doesn't care about the new colorway. They care about <strong>looking good at their cousin's wedding.</strong></span>
+    </div>
+</div>
+
+<blockquote>
+    <p>If you give me a trained person who can sell, she can sell anything. But if you give me someone who just knows the product inside out but doesn't know the routine? They'll feature dump and the customer will leave.</p>
+    <div class="quote-source">— Retail Manager</div>
+</blockquote>
+
+<p><strong>Routine beats knowledge.</strong></p>
+
+<div class="divider"></div>
+
+<div class="quick-ref">
+    <div class="quick-ref-title">📋 The 4 Questions Framework</div>
+    <ol>
+        <li><strong>OCCASION</strong> — "What are you buying for?"</li>
+        <li><strong>PROBLEM</strong> — "What's not working with what you have now?"</li>
+        <li><strong>PRIORITY</strong> — "What matters most — comfort, durability, or style?"</li>
+        <li><strong>DECISION</strong> — "Are you hoping to leave with something today?"</li>
+    </ol>
+    <div class="quick-ref-note">Only show products after you've asked all 4.</div>
+</div>
+
+<div class="action-card">
+    <div class="action-card-label">🎯 Today's Action</div>
+    <div class="action-card-text">Pick 3 customers today and go deep with the 4 Questions.<br>Ask all 4 before showing any product.</div>
+    <div class="action-card-metric">
+        <div class="action-card-metric-label">Track This Number</div>
+        <div class="action-card-metric-value">How many of the 4 questions did you ask before recommending?</div>
+    </div>
+</div>
+
+<div class="tip-box">
+    <div class="tip-label">💡 Quick Tip</div>
+    <div class="tip-text">If a customer seems hesitant to answer questions, they might feel interrogated. Soften it: "Just trying to make sure I show you the right stuff — what kind of [X] are you usually into?"</div>
+</div>
+
+<div class="telegram-cta">
+    <div class="telegram-cta-text"><strong>📱 End of Day: Share Your Win</strong></div>
+    <div class="telegram-cta-action">How many of the 4 questions did you ask today? Did listening more change the conversation? Post in the group chat.</div>
+</div>
+
+<div class="page-footer">
+    <div class="brand"><span class="brand-name">FORJE</span> Retail Training</div>
+    <div class="next">➡️ Next: Mission 4 — "I'll Think About It"</div>
+</div>
+
+</body>
+</html>

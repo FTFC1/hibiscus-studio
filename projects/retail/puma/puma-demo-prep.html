@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puma Demo Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════
+     DUAL-MODE DESIGN SYSTEM
+     Personal = dark monospace (FT)
+     Share = light, warm, interfacecraft-inspired (clients)
+     Toggle via button. URL params control visible sections.
+     ═══════════════════════════════════════════ */
+
+  /* --- SHARED RESET --- */
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  /* --- PERSONAL MODE (default) --- */
+  body {
+    --bg: #1a1a1a;
+    --bg2: #222;
+    --border: #333;
+    --text: #F5F0E8;
+    --text2: #B8A99A;
+    --text3: #8A7D6E;
+    --accent: #D4A843;
+    --green: #4ade80;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --radius: 0px;
+    --font: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    --font-head: 'SF Mono', 'Fira Code', monospace;
+    --body-size: 13px;
+    --h1-size: 16px;
+    --h4-size: 11px;
+    --small-size: 10px;
+    --content-width: 720px;
+    --section-gap: 12px;
+    --body-pad: 16px;
+    --cell-pad: 6px 8px;
+
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    padding: var(--body-pad);
+    max-width: var(--content-width);
+    margin: 0 auto;
+    line-height: 1.6;
+    font-size: var(--body-size);
+    transition: all 0.3s ease;
+  }
+
+  /* --- SHARE MODE --- */
+  body.share {
+    --bg: #FAFAF8;
+    --bg2: #FFFFFF;
+    --border: rgba(0,0,0,0.08);
+    --text: #1c1917;
+    --text2: #57534e;
+    --text3: #a8a29e;
+    --accent: #b45309;
+    --green: #15803d;
+    --red: #dc2626;
+    --blue: #2563eb;
+    --radius: 8px;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-head: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --body-size: 16px;
+    --h1-size: 28px;
+    --h4-size: 13px;
+    --small-size: 13px;
+    --content-width: 540px;
+    --section-gap: 24px;
+    --body-pad: 24px;
+    --cell-pad: 10px 12px;
+
+    font-family: var(--font);
+    line-height: 1.7;
+  }
+
+  /* --- MODE TOGGLE --- */
+  .mode-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 8px 0;
+    background: var(--bg);
+  }
+  .mode-btn {
+    font-family: var(--font);
+    font-size: 11px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text3);
+    cursor: pointer;
+    border-radius: var(--radius);
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .mode-btn:hover { color: var(--text); border-color: var(--text3); }
+  .mode-btn.active {
+    color: var(--text);
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+  body.share .mode-btn {
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 8px;
+  }
+
+  /* --- HEADER --- */
+  .header {
+    text-align: center;
+    padding: 24px 0 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  body.share .header {
+    padding: 40px 0 44px;
+    margin-bottom: 40px;
+    border-bottom: none;
+  }
+  body.share .header::after {
+    content: '';
+    display: block;
+    width: 72px;
+    height: 1.5px;
+    background: var(--border);
+    margin: 36px auto 0;
+  }
+  .header h1 {
+    font-family: var(--font-head);
+    font-size: var(--h1-size);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 500;
+  }
+  body.share .header h1 {
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+    font-size: 32px;
+  }
+  .header .sub {
+    font-size: var(--small-size);
+    color: var(--text3);
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+  body.share .header .sub {
+    font-size: 15px;
+    margin-top: 12px;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+
+  /* --- META CHIPS --- */
+  .meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .meta-chip {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    font-size: var(--small-size);
+    color: var(--text2);
+    border-radius: var(--radius);
+  }
+  .meta-chip strong { color: var(--text); }
+  body.share .meta-chip {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  /* --- CHEAT SHEET --- */
+  .cheat {
+    background: var(--bg2);
+    border: 1px solid var(--accent);
+    padding: 16px;
+    margin-bottom: 24px;
+    font-size: var(--small-size);
+    border-radius: var(--radius);
+  }
+  body.share .cheat {
+    padding: 24px;
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+  }
+  .cheat h3 {
+    font-family: var(--font-head);
+    font-size: var(--h4-size);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  body.share .cheat h3 {
+    font-size: 16px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .cheat-grid {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 6px 16px;
+  }
+  body.share .cheat-grid {
+    grid-template-columns: 110px 1fr;
+    gap: 8px 20px;
+    font-size: 15px;
+  }
+  .cheat-grid .label { color: var(--text3); font-weight: 500; }
+  .cheat-grid .val { color: var(--text); }
+
+  /* --- SECTIONS --- */
+  .section {
+    border: 1px solid var(--border);
+    margin-bottom: var(--section-gap);
+    background: var(--bg2);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+    transition: background 0.15s;
+  }
+  body.share .section-header {
+    padding: 18px 24px;
+    gap: 16px;
+  }
+  .section-header:hover { background: rgba(128,128,128,0.05); }
+  .section-num {
+    font-size: var(--small-size);
+    color: var(--text3);
+    letter-spacing: 1px;
+    min-width: 24px;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 12px;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+    flex: 1;
+  }
+  body.share .section-title {
+    font-size: 17px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+  }
+  .section-badge {
+    font-size: 9px;
+    padding: 3px 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+  }
+  body.share .section-badge {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .badge-action { background: rgba(74,222,128,0.15); color: var(--green); }
+  .badge-prep { background: rgba(96,165,250,0.15); color: var(--blue); }
+  .badge-tool { background: rgba(212,168,67,0.15); color: var(--accent); }
+  .badge-fallback { background: rgba(248,113,113,0.15); color: var(--red); }
+  body.share .badge-action { background: rgba(21,128,61,0.08); }
+  body.share .badge-prep { background: rgba(37,99,235,0.08); }
+  body.share .badge-tool { background: rgba(180,83,9,0.08); }
+  body.share .badge-fallback { background: rgba(220,38,38,0.08); }
+
+  .chevron {
+    color: var(--text3);
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+  .section.open .chevron { transform: rotate(90deg); }
+  .section-body {
+    display: none;
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--border);
+  }
+  body.share .section-body { padding: 0 24px 24px; }
+  .section.open .section-body { display: block; padding-top: 16px; }
+  body.share .section.open .section-body { padding-top: 24px; }
+
+  /* --- TYPOGRAPHY --- */
+  h4 {
+    font-family: var(--font-head);
+    font-size: var(--h4-size);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 20px 0 10px;
+    font-weight: 500;
+  }
+  body.share h4 {
+    font-size: 15px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+    margin: 28px 0 12px;
+    color: var(--text);
+  }
+  h4:first-child { margin-top: 0; }
+  p {
+    margin-bottom: 10px;
+    color: var(--text2);
+    font-size: var(--body-size);
+    line-height: 1.7;
+  }
+  body.share p { font-size: 16px; }
+  ul { padding-left: 20px; margin-bottom: 10px; }
+  li {
+    margin-bottom: 6px;
+    color: var(--text2);
+    font-size: var(--body-size);
+    line-height: 1.6;
+  }
+  body.share li { font-size: 15px; margin-bottom: 8px; }
+  li strong, p strong { color: var(--text); }
+
+  /* --- CALLOUTS --- */
+  .highlight {
+    background: rgba(212,168,67,0.1);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: var(--body-size);
+    color: var(--text);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  body.share .highlight {
+    padding: 16px 20px;
+    font-size: 15px;
+    background: rgba(180,83,9,0.04);
+  }
+  .callout-green {
+    background: rgba(74,222,128,0.08);
+    border-left: 3px solid var(--green);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: var(--body-size);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .callout-red {
+    background: rgba(248,113,113,0.08);
+    border-left: 3px solid var(--red);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: var(--body-size);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .callout-blue {
+    background: rgba(96,165,250,0.08);
+    border-left: 3px solid var(--blue);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: var(--body-size);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  body.share .callout-green,
+  body.share .callout-red,
+  body.share .callout-blue {
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+  body.share .callout-green { background: rgba(21,128,61,0.04); }
+  body.share .callout-red { background: rgba(220,38,38,0.04); }
+  body.share .callout-blue { background: rgba(37,99,235,0.04); }
+
+  /* --- SCRIPT BLOCKS --- */
+  .script-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin: 12px 0;
+    font-size: var(--body-size);
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+    border-radius: var(--radius);
+    font-family: var(--font);
+  }
+  body.share .script-block {
+    background: #f5f5f0;
+    font-size: 15px;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+  .speaker { color: var(--accent); font-weight: 600; }
+  .direction { color: var(--text3); font-style: italic; }
+  .timing { color: var(--blue); font-size: var(--small-size); }
+
+  /* --- TABLES --- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: var(--body-size);
+  }
+  body.share table { font-size: 15px; }
+  th {
+    text-align: left;
+    padding: var(--cell-pad);
+    border-bottom: 2px solid var(--border);
+    color: var(--text3);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 9px;
+  }
+  body.share th {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', sans-serif;
+    padding: 12px;
+  }
+  td {
+    padding: var(--cell-pad);
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+  body.share td { padding: 12px; }
+  td:first-child { color: var(--text); font-weight: 500; }
+
+  /* --- GAME CARD --- */
+  .game-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--radius);
+  }
+  body.share .game-card {
+    padding: 20px;
+    background: #f5f5f0;
+  }
+  .game-card .name { color: var(--text); font-weight: 600; font-size: var(--body-size); }
+  .game-card .desc { color: var(--text3); font-size: var(--small-size); margin-top: 4px; }
+  .game-card .status { font-size: var(--small-size); color: var(--green); }
+  body.share .game-card .name { font-size: 16px; }
+  body.share .game-card .desc { font-size: 14px; }
+  body.share .game-card .status { font-size: 13px; }
+
+  /* --- LINKS --- */
+  .link {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(96,165,250,0.3);
+    transition: border-color 0.2s;
+  }
+  .link:hover { border-bottom-color: var(--blue); }
+  body.share .link {
+    text-underline-offset: 3px;
+    text-decoration: underline;
+    text-decoration-color: rgba(37,99,235,0.3);
+    border-bottom: none;
+  }
+  body.share .link:hover { text-decoration-color: var(--blue); }
+
+  code {
+    background: rgba(128,128,128,0.1);
+    padding: 2px 6px;
+    font-size: calc(var(--body-size) - 2px);
+    color: var(--green);
+    border-radius: 3px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  body.share code { color: var(--accent); }
+
+  /* --- LEAVE-BEHIND EMBED --- */
+  .leave-behind {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin: 16px 0;
+    border-radius: var(--radius);
+  }
+  body.share .leave-behind {
+    background: #f5f5f0;
+    padding: 32px;
+  }
+  .lb-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .lb-title {
+    font-family: var(--font-head);
+    font-size: calc(var(--h1-size) - 2px);
+    color: var(--text);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  body.share .lb-title { letter-spacing: 0; text-transform: none; font-size: 22px; }
+  .lb-sub {
+    font-size: var(--small-size);
+    color: var(--text3);
+    margin-top: 4px;
+  }
+  .lb-section {
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-bottom: 14px;
+  }
+  .lb-label {
+    font-size: var(--small-size);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  body.share .lb-label {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', sans-serif;
+  }
+  .lb-cta {
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+  .lb-cta-label {
+    font-size: var(--small-size);
+    color: var(--text3);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .lb-cta-link {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font);
+    font-size: var(--body-size);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius);
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+  }
+  .lb-cta-link:hover { opacity: 0.85; }
+  body.share .lb-cta-link {
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 15px;
+  }
+  .lb-footer {
+    font-size: 9px;
+    color: var(--text3);
+    margin-top: 10px;
+  }
+  body.share .lb-footer { font-size: 12px; }
+
+  /* --- FOOTER --- */
+  .page-footer {
+    text-align: center;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 28px;
+    font-size: var(--small-size);
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+  body.share .page-footer { padding: 48px 0; margin-top: 48px; }
+  body.share .page-footer::before {
+    content: '';
+    display: block;
+    width: 72px;
+    height: 1.5px;
+    background: var(--border);
+    margin: 0 auto 28px;
+  }
+
+  /* --- INTERNAL-ONLY (hidden in share mode) --- */
+  .internal-only { display: block; }
+  body.share .internal-only { display: none; }
+
+  /* --- TABLE SCROLL (mobile) --- */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 12px 0;
+  }
+  .table-wrap table { margin: 0; min-width: 400px; }
+
+  /* --- SHARE NAV (sticky section links in share mode) --- */
+  .share-nav {
+    display: none;
+  }
+  body.share .share-nav {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 48px;
+    z-index: 90;
+    background: var(--bg);
+  }
+  .share-nav a {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text3);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .share-nav a:hover {
+    color: var(--text);
+    border-color: var(--text3);
+  }
+
+  /* --- GAME CARD LINK --- */
+  a.game-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  a.game-card-link:hover .game-card {
+    border-color: var(--accent);
+  }
+  body.share a.game-card-link:hover .game-card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  /* --- DIAGRAM IMAGES --- */
+  .diagram-img {
+    width: 100%;
+    border-radius: var(--radius);
+    margin: 12px 0;
+    border: 1px solid var(--border);
+  }
+  body.share .diagram-img {
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+
+  /* --- COMMITMENT CARD --- */
+  .commit-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin: 12px 0;
+    border-radius: var(--radius);
+  }
+  body.share .commit-card {
+    background: #f5f5f0;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  .commit-card .commit-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .commit-card .commit-icon {
+    color: var(--accent);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  /* --- MOBILE --- */
+  @media (max-width: 600px) {
+    body { padding: 12px; }
+    body.share { padding: 16px; }
+    .meta-bar { gap: 6px; }
+    .cheat-grid { grid-template-columns: 80px 1fr; }
+    body.share .cheat-grid { grid-template-columns: 90px 1fr; }
+    .game-card { flex-direction: column; align-items: flex-start; gap: 8px; }
+    table { font-size: calc(var(--body-size) - 1px); }
+    .lb-cta-link { display: block; text-align: center; }
+    .mode-bar { flex-wrap: wrap; }
+    .share-nav a { padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MODE BAR -->
+<div class="mode-bar">
+  <button class="mode-btn active" onclick="setMode('personal')" id="btn-personal">Personal</button>
+  <button class="mode-btn" onclick="setMode('share')" id="btn-share">Share</button>
+  <button class="mode-btn" onclick="toggleAll()" id="btn-expand">Expand All</button>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Puma Demo Prep</h1>
+  <div class="sub">Thursday Meeting at PRL Lekki &bull; Wed Feb 12 Prep</div>
+</div>
+
+<!-- META -->
+<div class="meta-bar">
+  <div class="meta-chip"><strong>Client:</strong> PRL Lekki (7 staff)</div>
+  <div class="meta-chip"><strong>Timi:</strong> Onsite, value pitch</div>
+  <div class="meta-chip"><strong>FT:</strong> Remote, demo</div>
+  <div class="meta-chip"><strong>Deal:</strong> Free pilot</div>
+  <div class="meta-chip"><strong>Demo:</strong> <a href="https://ftfc1.github.io/puma-training-demo/course-outline.html" class="link" target="_blank">Live Site</a></div>
+</div>
+
+<!-- SHARE NAV (visible only in share mode) -->
+<nav class="share-nav" id="share-nav">
+  <a href="#sec-00">Game Release</a>
+  <a href="#sec-01">Leave-Behind</a>
+  <a href="#sec-02">Wed Prep</a>
+  <a href="#sec-04">Voice Fallback</a>
+</nav>
+
+<!-- CHEAT SHEET (internal only) -->
+<div class="cheat internal-only">
+  <h3>Quick Reference</h3>
+  <div class="cheat-grid">
+    <span class="label">PRL</span><span class="val">Parent company. Puma retail + On Our Own brand</span>
+    <span class="label">Timi</span><span class="val">PRL MD via FORJE. Also BHM. Has the relationship.</span>
+    <span class="label">FT</span><span class="val">FORJE contractor. Built platform. Remote Thu.</span>
+    <span class="label">FORJE</span><span class="val">Company. Timi + FT both under it.</span>
+    <span class="label">Pilot</span><span class="val">Free (engagement + case study condition)</span>
+    <span class="label">Duration</span><span class="val">4-6 week pilot, TG group + reports</span>
+    <span class="label">Scale-up</span><span class="val">1-5 stores ₦400K/mo &bull; 6-10 ₦350K &bull; 10+ ₦250K</span>
+    <span class="label">Key stat</span><span class="val">₦26M/year preventable revenue leakage (7 staff)</span>
+    <span class="label">Demo</span><span class="val">ftfc1.github.io/puma-training-demo/course-outline.html</span>
+    <span class="label">Games</span><span class="val">Customer Says, Build the Basket, The Approach, Sample Lesson</span>
+  </div>
+</div>
+
+<!-- SECTION 00: PRE-MEETING GAME RELEASE -->
+<div class="section open" data-section="00" id="sec-00">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-num">00</span>
+    <span class="section-title">Pre-Meeting Game Release</span>
+    <span class="section-badge badge-action">Action</span>
+    <span class="chevron">&#9654;</span>
+  </div>
+  <div class="section-body">
+    <div class="highlight">
+      Send one game to staff <strong>Wednesday</strong> so they arrive Thursday already engaged.
+    </div>
+
+    <h4>Which game to send</h4>
+    <a href="https://ftfc1.github.io/puma-training-demo/puma-customer-game.html" class="game-card-link" target="_blank">
+      <div class="game-card">
+        <div>
+          <div class="name">Customer Says &rarr;</div>
+          <div class="desc">Staff pick responses to real customer scenarios. Competitive, self-explanatory, 5 minutes.</div>
+        </div>
+        <div class="status">Play it</div>
+      </div>
+    </a>
+
+    <h4>How to send</h4>
+    <ul>
+      <li><strong>Timi sends</strong> the link in the store team chat</li>
+      <li><strong>Frame:</strong> "Quick challenge for tomorrow. Try this 5-min game."</li>
+      <li><strong>Don't reveal everything</strong> &mdash; just the one game. Full platform shown Thursday.</li>
+    </ul>
+
+    <div class="internal-only">
+      <h4>Demo site privacy</h4>
+      <div class="callout-red">
+        <strong>Risk:</strong> Public GitHub Pages. If link gets shared beyond PRL, anyone can access.
+      </div>
+      <ul>
+        <li><strong>Accept for now.</strong> It's a demo, not production. Wider sharing = more proof of concept.</li>
+        <li><strong>Later:</strong> Cloudflare Access or password gate for paid clients.</li>
+        <li><strong>Wednesday:</strong> Send direct game link only (not full course outline).</li>
+      </ul>
+    </div>
+
+    <h4>Timi message template</h4>
+    <div class="script-block">Hey team, quick challenge before tomorrow's session.
+
+Try this 5-minute game and see how you score:
+<a href="https://ftfc1.github.io/puma-training-demo/puma-customer-game.html" class="link" target="_blank">https://ftfc1.github.io/puma-training-demo/puma-customer-game.html</a>
+
+Preview of something we're bringing to the store. See you tomorrow!</div>
+  </div>
+</div>
+
+<!-- SECTION 01: LEAVE-BEHIND -->
+<div class="section" data-section="01" id="sec-01">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-num">01</span>
+    <span class="section-title">Leave-Behind One-Pager</span>
+    <span class="section-badge badge-action">Action</span>
+    <span class="chevron">&#9654;</span>
+  </div>
+  <div class="section-body">
+    <div class="highlight">
+      What stays after the meeting. Timi sends digitally or prints.
+    </div>
+
+    <div class="leave-behind">
+      <div class="lb-header">
+        <div class="lb-title">Puma Sales Mastery</div>
+        <div class="lb-sub">Mobile Training That Actually Works</div>
+      </div>
+
+      <div class="lb-section">
+        <div class="lb-label">The Problem</div>
+        <p><strong style="color:var(--red)">₦26M/year</strong> lost from 3 preventable staff mistakes: late greetings, wrong questions, talking instead of listening.</p>
+      </div>
+
+      <div class="lb-section">
+        <div class="lb-label">How It Works</div>
+        <img src="gen/diagram-training-flow-v2.png" alt="Training flow: Staff Phone → Daily Mission → Quiz → TG Group → Weekly Report" class="diagram-img">
+        <table>
+          <tr><td>24 mobile missions</td><td>10 mins, Mon/Wed/Fri</td></tr>
+          <tr><td>Interactive games</td><td>Practice real scenarios</td></tr>
+          <tr><td>Quiz-validated</td><td>Proves learning, not attendance</td></tr>
+          <tr><td>Telegram group</td><td>Daily tips + peer challenges</td></tr>
+        </table>
+      </div>
+
+      <div class="lb-section">
+        <div class="lb-label">Expected Results</div>
+        <img src="gen/diagram-results-timeline-v2.png" alt="Results timeline: Week 2 Better Greetings → Week 4 Basket +15-20% → Week 6 +₦1.68M/month" class="diagram-img">
+      </div>
+
+      <div class="lb-section">
+        <div class="lb-label">Free Pilot</div>
+        <ul>
+          <li><strong>Cost:</strong> Free (engagement + case study condition)</li>
+          <li><strong>Duration:</strong> 4-6 weeks with weekly reports</li>
+          <li><strong>Need:</strong> Phone with Telegram + internet</li>
+        </ul>
+      </div>
+
+      <div class="lb-section">
+        <div class="lb-label">What PRL Commits To</div>
+        <div class="commit-card">
+          <div class="commit-item">
+            <span class="commit-icon">1.</span>
+            <span><strong>Daily Telegram engagement</strong> &mdash; staff respond to daily missions and tips in the group</span>
+          </div>
+          <div class="commit-item">
+            <span class="commit-icon">2.</span>
+            <span><strong>Case study participation</strong> &mdash; allow results to be documented as a case study</span>
+          </div>
+          <div class="commit-item">
+            <span class="commit-icon">3.</span>
+            <span><strong>Feedback at end</strong> &mdash; short video testimonial or written feedback after pilot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lb-section internal-only">
+        <div class="lb-label">Scale-Up (After Trial)</div>
+        <table>
+          <tr><th>Stores</th><th>Monthly</th></tr>
+          <tr><td>1-5 stores</td><td>₦400K/store/month</td></tr>
+          <tr><td>6-10 stores</td><td>₦350K/store/month</td></tr>
+          <tr><td>10+ stores</td><td>₦250K/store/month</td></tr>
+        </table>
+      </div>
+
+      <div class="lb-cta">
+        <div class="lb-cta-label">Try the platform</div>
+        <a href="https://ftfc1.github.io/puma-training-demo/course-outline.html" class="lb-cta-link" target="_blank">Open Demo</a>
+        <div class="lb-footer">FORJE Training Solutions</div>
+      </div>
+    </div>
+
+    <div class="internal-only">
+      <h4>How to use</h4>
+      <ul>
+        <li><strong>Digital:</strong> Timi sends in WhatsApp/group after meeting</li>
+        <li><strong>Physical:</strong> Print (Cmd+P, select this section)</li>
+        <li><strong>Screenshot:</strong> Share as image in chat</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 02: WED PREP AGENDA -->
+<div class="section" data-section="02" id="sec-02">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-num">02</span>
+    <span class="section-title">Wed Prep Agenda (Timi Call)</span>
+    <span class="section-badge badge-prep">Prep</span>
+    <span class="chevron">&#9654;</span>
+  </div>
+  <div class="section-body">
+    <div class="highlight">
+      Open with Timi's vision. He has the relationship. Layer structure on top of what he already sees.
+    </div>
+
+    <h4>1. Align on meeting type <span class="timing">(5 min)</span></h4>
+    <div class="script-block"><span class="speaker">FT:</span> "Timi, what's your picture of how Thursday goes?"
+<span class="direction">Let him talk first. His framing reveals whether this is a sell or a kick-off.</span>
+
+Then confirm:
+&bull; Free pilot confirmed, or still selling?
+&bull; Who's in the room? Manager only or all 7 staff?
+&bull; How long do we have?
+&bull; Did you send the game link? How did they respond?</div>
+
+    <h4>2. Choreograph the meeting <span class="timing">(10 min)</span></h4>
+    <img src="gen/diagram-meeting-choreography-v3.png" alt="Meeting flow: Timi Opens → FT Demos → Staff Play → Timi Closes" class="diagram-img">
+    <div class="callout-blue">
+      <strong>Key:</strong> FT REMOTE via Zoom. Timi ONSITE. Timi manages room. FT demos via screen share.
+    </div>
+
+    <div class="table-wrap"><table>
+      <tr><th>Moment</th><th>Who</th><th>What</th></tr>
+      <tr><td>Opening</td><td>Timi</td><td>"We're losing sales from basic mistakes. I've found something."</td></tr>
+      <tr><td>Problem stat</td><td>Timi</td><td>₦26M/year leaking from 3 preventable failures</td></tr>
+      <tr><td>Intro FT</td><td>Timi</td><td>"FT built the platform. Let him show you."</td></tr>
+      <tr><td>Platform demo</td><td>FT</td><td>Screen share: course outline, then Customer Says game</td></tr>
+      <tr><td>Hand-round</td><td>Timi</td><td>"Open it on your phone now." Pass phone if needed.</td></tr>
+      <tr><td>Staff play</td><td>Staff</td><td>2-3 min playing. FT narrates.</td></tr>
+      <tr><td>Reactions</td><td>Timi</td><td>"What did you think?" "Which scenario was hardest?"</td></tr>
+      <tr><td>Value pitch</td><td>Timi</td><td>Ongoing learning, tracked progress, no one else offers this</td></tr>
+      <tr><td>Terms</td><td>Timi</td><td>Free pilot, 4-6 weeks, engagement required, case study</td></tr>
+      <tr><td>If yes</td><td>Timi</td><td>Collect 7 phone numbers, manager contact, start date</td></tr>
+      <tr><td>Close</td><td>Timi</td><td>Send leave-behind in chat. "FT sets everything up."</td></tr>
+    </table></div>
+
+    <h4>3. Objection rehearsal <span class="timing">(10 min)</span></h4>
+    <div class="table-wrap"><table>
+      <tr><th>Objection</th><th>Who</th><th>Response</th></tr>
+      <tr><td>"How do we know it works?"</td><td>Timi</td><td>Engagement tracking. Reports. "We'll know in 2 weeks."</td></tr>
+      <tr><td>"Staff won't use it"</td><td>FT</td><td>"Let them try the game now. 3 minutes engaged = 10 minutes per mission."</td></tr>
+      <tr><td>"Tried training before"</td><td>Timi</td><td>"This is ongoing, tested, tracked. You see who's learning."</td></tr>
+      <tr><td>"Sales went up anyway"</td><td>Timi</td><td>Engagement data + conversion tracking in reports.</td></tr>
+    </table></div>
+
+    <h4>4. Remote attention <span class="timing">(5 min)</span></h4>
+    <ul>
+      <li><strong>Pre-game = warm room</strong> &mdash; staff arrive already engaged</li>
+      <li><strong>Timi bridges:</strong> "Look at what FT is showing" / "Try it now"</li>
+      <li><strong>FT: 5-7 min max.</strong> Timi does the rest.</li>
+    </ul>
+
+    <h4>5. If they say yes on the spot</h4>
+    <div class="callout-green">
+      <strong>Capture:</strong> 7 phone numbers, manager contact, start date, case study verbal consent.
+    </div>
+
+    <div class="internal-only">
+      <h4>Fallback tiers for Wed prep itself</h4>
+      <ul>
+        <li><strong>Tier A:</strong> Full 30min+ call (this agenda)</li>
+        <li><strong>Tier B:</strong> 10min call &mdash; meeting type + objections + leave-behind</li>
+        <li><strong>Tier C:</strong> Voice note exchange (see Section 04)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 03: RECORDING (internal only) -->
+<div class="section internal-only" data-section="03">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-num">03</span>
+    <span class="section-title">Call Recording (Feedback Capture)</span>
+    <span class="section-badge badge-tool">Tool</span>
+    <span class="chevron">&#9654;</span>
+  </div>
+  <div class="section-body">
+    <div class="highlight">
+      Record Thursday call invisibly. Local, no bot, no popup. Capture staff reactions as raw feedback.
+    </div>
+
+    <h4>Recommended: Hyprnote</h4>
+    <table>
+      <tr><td>Invisible to others</td><td>Yes &mdash; no bot, menu bar only</td></tr>
+      <tr><td>Local recording</td><td>On-device. Audio + transcript as .md</td></tr>
+      <tr><td>Local transcription</td><td>Whisper (runs locally)</td></tr>
+      <tr><td>Cost</td><td>Free, open source (GPL-3.0)</td></tr>
+      <tr><td>GitHub</td><td><a href="https://github.com/fastrepl/hyprnote" class="link" target="_blank">github.com/fastrepl/hyprnote</a></td></tr>
+    </table>
+
+    <h4>Backup: ffmpeg + BlackHole</h4>
+    <div class="script-block"><span class="direction"># Setup</span>
+brew install blackhole-2ch
+<span class="direction"># Audio MIDI Setup → Multi-Output Device → check BlackHole + speakers</span>
+
+<span class="direction"># Record</span>
+ffmpeg -f avfoundation -i ":0" -f avfoundation -i ":1" \
+  -filter_complex "[0:a][1:a]amix=inputs=2:duration=first" \
+  -acodec pcm_s16le -ar 44100 puma-demo-$(date +%Y%m%d-%H%M).wav &
+
+<span class="direction"># Stop</span>
+kill %1
+
+<span class="direction"># Transcribe</span>
+whisper puma-demo-*.wav --model medium --output_format txt</div>
+
+    <h4>Setup checklist</h4>
+    <ul>
+      <li>[ ] Install Hyprnote or set up BlackHole</li>
+      <li>[ ] Test 2-min recording</li>
+      <li>[ ] Verify transcript quality</li>
+      <li>[ ] Confirm no visible indicator</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 04: VOICE NOTE FALLBACK -->
+<div class="section" data-section="04" id="sec-04">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-num">04</span>
+    <span class="section-title">Voice Note Fallback Script</span>
+    <span class="section-badge badge-fallback">Tier C</span>
+    <span class="chevron">&#9654;</span>
+  </div>
+  <div class="section-body">
+    <div class="highlight">
+      If Wed prep doesn't happen &mdash; send this as voice note.
+    </div>
+
+    <h4>Script (~2 minutes)</h4>
+    <div class="script-block"><span class="speaker">FT:</span>
+
+"Timi, quick voice note on Thursday.
+
+<span class="direction">[What I'll show — 30s]</span>
+Demo site is live. Four interactive games staff can play on their phones — Customer Says, Build the Basket, The Approach, and a sample lesson. Plus full course outline.
+
+I'll share my screen, 5-7 minutes, then ask them to try the game on their phones.
+
+<span class="direction">[Your role — 30s]</span>
+You open — frame the problem, why you brought this in. Introduce me. After I demo, you handle value: ongoing learning, tracked progress, no one else offers this. Any pricing questions, you handle.
+
+<span class="direction">[Terms — 20s]</span>
+Free for 4-6 weeks. Condition: they engage with content, we use results as case study. Need phone numbers for Telegram group and a start date.
+
+<span class="direction">[Pre-meeting idea — 20s]</span>
+If you can, send the Customer Says game link to the team today. 'Quick challenge, try this before tomorrow.' Better energy.
+
+<span class="direction">[Close — 10s]</span>
+Send me a voice note back: who's in the room, how long we have, whether you sent the game."</div>
+  </div>
+</div>
+
+<!-- SECTION 05: OPEN ITEMS (internal only) -->
+<div class="section internal-only" data-section="05">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-num">05</span>
+    <span class="section-title">Open Items + Next Steps</span>
+    <span class="section-badge badge-prep">Status</span>
+    <span class="chevron">&#9654;</span>
+  </div>
+  <div class="section-body">
+    <h4>Needs answering</h4>
+    <ul>
+      <li>[ ] Has Timi said anything since Feb 9?</li>
+      <li>[ ] Who exactly is in the room Thursday?</li>
+      <li style="color:var(--green);">&#10003; Call platform: Zoom (confirmed)</li>
+    </ul>
+
+    <h4>Still to build</h4>
+    <ul>
+      <li>[ ] <strong>Onboarding flow</strong> &mdash; re-examine with TG automation stack</li>
+      <li>[ ] <strong>Telegram group</strong> &mdash; group + bot + onboarding message</li>
+      <li>[ ] <strong>Recording tool</strong> &mdash; install + test before Thursday</li>
+      <li style="color:var(--green);">&#10003; <strong>Game links</strong> &mdash; Customer Says, Basket, Approach, Sample Lesson all live</li>
+    </ul>
+
+    <h4>Ready now</h4>
+    <ul>
+      <li style="color:var(--green);">&#10003; Demo site LIVE (outline + 4 games)</li>
+      <li style="color:var(--green);">&#10003; 6 missions (7,800+ words, quizzes)</li>
+      <li style="color:var(--green);">&#10003; 20-page proposal with pricing</li>
+      <li style="color:var(--green);">&#10003; Manager guide + one-pager</li>
+      <li style="color:var(--green);">&#10003; Slide deck outline</li>
+      <li style="color:var(--green);">&#10003; Leave-behind + voice note script</li>
+    </ul>
+
+    <h4>New systems that change onboarding</h4>
+    <div class="callout-blue">
+      <strong>Opportunity:</strong> Calculator lead pipeline pattern (form → KV → TG → action) could power Puma onboarding. Staff fills form → auto-added to TG group → bot sends Mission 1 → quiz via bot → results to dashboard.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  FORJE &bull; Puma Demo Prep &bull; Feb 2026
+</div>
+
+<script>
+function toggle(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+function toggleAll() {
+  const sections = document.querySelectorAll('.section');
+  const btn = document.getElementById('btn-expand');
+  const allOpen = [...sections].filter(s => s.offsetParent !== null).every(s => s.classList.contains('open'));
+  sections.forEach(s => {
+    if (s.offsetParent !== null) {
+      if (allOpen) s.classList.remove('open');
+      else s.classList.add('open');
+    }
+  });
+  btn.textContent = allOpen ? 'Expand All' : 'Collapse All';
+}
+
+function setMode(mode) {
+  document.body.className = mode === 'share' ? 'share' : '';
+  document.getElementById('btn-personal').classList.toggle('active', mode === 'personal');
+  document.getElementById('btn-share').classList.toggle('active', mode === 'share');
+  // Save preference
+  localStorage.setItem('hud-mode', mode);
+}
+
+// Restore mode on load
+const saved = localStorage.getItem('hud-mode');
+if (saved === 'share') setMode('share');
+
+// URL param: ?mode=share
+const params = new URLSearchParams(window.location.search);
+if (params.get('mode') === 'share') setMode('share');
+
+// URL param: ?sections=00,01,04 (only show these)
+const showSections = params.get('sections');
+if (showSections) {
+  const allowed = showSections.split(',');
+  document.querySelectorAll('.section').forEach(s => {
+    if (!allowed.includes(s.dataset.section)) s.style.display = 'none';
+    else s.classList.add('open');
+  });
+  // Also hide cheat sheet and internal markers
+  document.querySelectorAll('.internal-only').forEach(el => el.style.display = 'none');
+}
+</script>
+</body>
+</html>

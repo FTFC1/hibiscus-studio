@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRL Demo — FT Speaker Notes</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', sans-serif; background: #FAFAF8; color: #333; padding: 16px; max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 15px; -webkit-text-size-adjust: 100%; }
+h1 { font-size: 20px; color: #1a1a1a; margin-bottom: 4px; font-weight: 700; }
+.meta { font-size: 13px; color: #777; margin-bottom: 16px; }
+.phase { border: 1px solid #e0d8d0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.phase-header { padding: 12px 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.phase-header h2 { font-size: 15px; margin: 0; font-weight: 600; color: #1a1a1a; }
+.phase-header .time { font-size: 13px; color: #888; white-space: nowrap; margin-left: 8px; }
+.phase-body { padding: 0 14px 14px; display: none; }
+.phase.open .phase-body { display: block; }
+.phase.open .arrow { transform: rotate(90deg); }
+.arrow { color: #aaa; transition: transform 0.2s; font-size: 14px; }
+.p-timi .phase-header { background: #f0ebe5; border-bottom: 1px solid #e0d8d0; }
+.p-nico .phase-header { background: #eaf3ea; border-bottom: 1px solid #e0d8d0; }
+.p-staff .phase-header { background: #f5ede8; border-bottom: 1px solid #e0d8d0; }
+.p-close .phase-header { background: #f5f3e8; border-bottom: 1px solid #e0d8d0; }
+.p-read .phase-header { background: #f0e8f0; border-bottom: 1px solid #e0d8d0; }
+.p-setup .phase-header { background: #e8f0f0; border-bottom: 1px solid #e0d8d0; }
+.say { background: #f5faf7; border-left: 3px solid #2d7a5a; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.say::before { content: '💬 SAY: '; font-weight: bold; color: #2d7a5a; }
+.do { background: #fffaf0; border-left: 3px solid #b45309; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.do::before { content: '👆 DO: '; font-weight: bold; color: #b45309; }
+.note { background: #f5f5fa; border-left: 3px solid #6366f1; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.note::before { content: '📌 NOTE: '; font-weight: bold; color: #6366f1; }
+.warn { background: #fef2f2; border-left: 3px solid #dc2626; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.warn::before { content: '⚠️ '; font-weight: bold; }
+.branch { background: #faf5ff; border-left: 3px solid #9333ea; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.branch::before { content: '🔀 IF: '; font-weight: bold; color: #9333ea; }
+.cut { opacity: 0.5; border: 1px dashed #bbb; border-radius: 4px; padding: 8px 10px; margin: 8px 0; font-size: 13px; }
+.cut::before { content: '✂ CAN CUT — '; font-weight: bold; color: #999; }
+ul { padding-left: 20px; margin: 6px 0; font-size: 15px; }
+li { margin: 4px 0; }
+.stat { color: #b45309; font-weight: bold; }
+.room { background: #fff; border: 1px solid #e0d8d0; border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
+.room h3 { font-size: 14px; color: #888; margin-bottom: 6px; }
+.links { background: #fff; border: 1px solid #e0d8d0; border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
+.links a { color: #2d7a5a; text-decoration: none; display: block; padding: 6px 0; font-size: 15px; }
+.expand-all { background: #fff; color: #777; border: 1px solid #ddd; padding: 8px 14px; border-radius: 4px; font-size: 13px; cursor: pointer; float: right; font-family: inherit; }
+.timer { font-size: 13px; color: #888; text-align: center; margin-bottom: 12px; }
+.rule { background: #f0faf5; border: 2px solid #2d7a5a; border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+.rule h3 { color: #2d7a5a; font-size: 16px; margin-bottom: 6px; }
+.fallback { background: #fef7f7; border: 1px solid #dc2626; border-radius: 8px; padding: 14px; margin-top: 12px; }
+.fallback h3 { color: #dc2626; font-size: 16px; margin-bottom: 8px; }
+hr { border: none; border-top: 1px solid #e0d8d0; margin: 12px 0; }
+.setup-grid { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 15px; }
+.setup-grid dt { color: #777; font-weight: 600; }
+.setup-grid dd { color: #333; }
+.btn { display: block; background: #fff; border: 1px solid #d4cdc0; color: #2d7a5a; text-decoration: none; padding: 12px 16px; border-radius: 8px; margin: 6px 0; font-size: 15px; font-weight: 500; text-align: center; -webkit-tap-highlight-color: rgba(0,0,0,0); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.btn:active { background: #f5f5f2; transform: scale(0.98); }
+.btn .btn-num { color: #999; font-size: 13px; }
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
+.btn-row .btn { font-size: 14px; padding: 10px 12px; }
+.flow-banner { display: flex; align-items: center; justify-content: center; gap: 0; background: #fff; border: 2px solid #e0d8d0; border-radius: 12px; padding: 16px 8px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.flow-step { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1; min-width: 0; }
+.flow-num { font-size: 24px; font-weight: 800; color: #b45309; line-height: 1; }
+.flow-icon { font-size: 18px; margin: 4px 0 2px; }
+.flow-label { font-size: 11px; color: #555; font-weight: 600; }
+.flow-time { font-size: 10px; color: #999; }
+.flow-arrow { color: #ccc; font-size: 14px; padding: 0 2px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<button class="expand-all" onclick="toggleAll()">Expand All</button>
+<h1>PRL DEMO — SPEAKER NOTES</h1>
+<p class="meta">Thu Feb 12 · 1 hour · Zoom · FT = demo (screen share) · Timi = commercial (in room)</p>
+
+<img src="meeting-flow.png" alt="Meeting Flow: Timi Opens → FT Demos → Staff Play → Discussion → Close" style="width:100%;border-radius:12px;margin-bottom:16px;border:2px solid #e0d8d0;">
+
+<!-- SETUP: HOW THIS WORKS -->
+<div class="phase p-setup open">
+<div class="phase-header" onclick="toggle(this)">
+<h2>0. SETUP — How This Meeting Works</h2>
+<span class="time">before start</span>
+<span class="arrow">▶</span>
+</div>
+<div class="phase-body">
+
+<p><strong>FORMAT</strong></p>
+<dl class="setup-grid">
+<dt>Meeting</dt><dd>Zoom call. You join from your <strong>laptop</strong>. Timi + PRL team in the room together.</dd>
+<dt>Screen</dt><dd><strong>Yes, you share your laptop screen.</strong> That's how you show the game, the course outline, the bot, and the report.</dd>
+<dt>What you click</dt><dd>4 browser tabs open on your laptop BEFORE the call. You just tab between them as you talk.</dd>
+<dt>Slides?</dt><dd><strong>No slides.</strong> The GitHub Pages ARE the presentation. You talk over live pages. Feels real, not corporate.</dd>
+<dt>Telegram</dt><dd>Some staff may have it, some may not. Timi has it as backup. Not everyone needs it — but the more who have it, the better Phase 3 works.</dd>
+</dl>
+
+<p style="margin:8px 0;font-weight:600;">Open these on your laptop before the call:</p>
+<div class="btn-row">
+<a class="btn" href="https://ftfc1.github.io/puma-training-demo/puma-customer-game.html"><span class="btn-num">TAB 1</span><br>Customer Says Game</a>
+<a class="btn" href="https://ftfc1.github.io/puma-training-demo/course-outline.html"><span class="btn-num">TAB 2</span><br>Course Outline</a>
+</div>
+<div class="btn-row">
+<a class="btn" href="https://t.me/prlpuma_bot" style="background:#f0f5ff;border-color:#c0d0e8;color:#2563eb;"><span class="btn-num">TAB 3 · opens TG app</span><br>@prlpuma_bot</a>
+<a class="btn" href="https://ftfc1.github.io/puma-training-demo/demo-weekly-report.html"><span class="btn-num">TAB 4</span><br>Weekly Report</a>
+</div>
+
+<div class="note">You're on Zoom sharing your laptop screen. You talk and click through tabs. Timi talks to the room. Staff play on their phones when it's their turn.</div>
+</div>
+</div>
+
+<div class="rule">
+<h3>DEMO RULE</h3>
+<strong>Staff listen first, play after.</strong> They need the full picture before touching the bot — otherwise they're clicking randomly. Show them the game, show them the curriculum, show them the bot, THEN say "your turn."<br><br>
+<strong>But read the room.</strong> If energy dips during your demo, cut to hands-on early. If staff are buzzing after the game hook, let that energy carry into the bot demo — don't kill it with slides. The phases below have ✂ CAN CUT markers and 🔀 IF branches for adapting live.
+</div>
+
+<div class="room">
+<h3>IN THE ROOM</h3>
+<ul>
+<li><strong>Timi</strong> — your partner, commercial lead (pricing, ROI, relationship)</li>
+<li><strong>Molade</strong> — HR</li>
+<li><strong>Adedolapo</strong> — Sales & Ops lead (you've spoken with her before)</li>
+<li><strong>2 Ops Managers</strong></li>
+<li><strong>Store Manager/Supervisor</strong> — maybe joining</li>
+</ul>
+</div>
+
+<div class="note">PRE-MEETING: ✅ Already messaged Timi about Telegram. Not everyone needs it — Timi can demo on his phone for anyone who doesn't have it. More staff with TG = better Phase 3, but it's not a blocker.</div>
+
+<div class="timer">
+Flex: If time is tight, compress demo + staff play. If time is long, let discussion breathe.
+</div>
+
+<!-- PHASE 1: TIMI OPENS -->
+<div class="phase p-timi open">
+<div class="phase-header" onclick="toggle(this)">
+<h2>1. TIMI OPENS — The Problem</h2>
+<span class="time">10 min</span>
+<span class="arrow">▶</span>
+</div>
+<div class="phase-body">
+<div class="note">You're on mute during this. Timi sets the stage in the room.</div>
+
+<p><strong>Timi covers:</strong></p>
+<ul>
+<li>Why we're here — 3 upstream problems killing cross-sell and upsell</li>
+<li>Late greeting, "Can I help you?", talking not listening → these are <strong>upstream</strong> to why staff can't cross-sell/upsell</li>
+<li>The inability to cross-sell/upsell = <span class="stat">₦26M+/year</span> in lost revenue (Timi reviewing — may be higher)</li>
+<li>"I've found a solution. Let me bring in FT who built the platform."</li>
+</ul>
+
+<div class="warn">If Timi quotes a different number than ₦26M, go with HIS number. He knows the store better. Don't correct him.</div>
+
+<div class="branch">Timi runs long (15+ min) → your demo compresses. Skip section B (course outline) and go straight from game → bot. The outline is just structure — the bot IS the product.</div>
+</div>
+</div>
+
+<!-- PHASE 2: FT DEMOS -->
+<div class="phase p-nico">
+<div class="phase-header" onclick="toggle(this)">
+<h2>2. FT DEMOS — Show the Platform</h2>
+<span class="time">15-20 min</span>
+<span class="arrow">▶</span>
+</div>
+<div class="phase-body">
+
+<img src="demo-screen.png" alt="Screen share demo" style="width:100%;border-radius:10px;margin-bottom:8px;opacity:0.85;">
+<div class="do">Share your screen on Zoom → switch to Tab 1. Game FIRST — hook them before explaining anything.</div>
+<a class="btn" href="https://ftfc1.github.io/puma-training-demo/puma-customer-game.html">Open Customer Says Game</a>
+
+<div class="say">Thanks Timi. Before I show you the full platform, let me show you the fun part first.</div>
+
+<p><strong>A. Demo the game on screen (5 min) — ALWAYS DO THIS:</strong></p>
+<ul>
+<li>"This is Customer Says. Real scenarios from Nigerian retail stores."</li>
+<li>Play through 2-3 scenarios yourself, narrating your thinking</li>
+<li>"See — customer says 'I'll think about it.' Which response keeps the sale alive?"</li>
+<li>Pick the right answer: "THAT one. Because you're not pushing — you're asking what's really holding them back."</li>
+<li>Pick a wrong answer on purpose: "If I pick this one — see what happens? Customer walks. That's the ₦25K gone."</li>
+</ul>
+
+<div class="say">The reason this works is staff can feel it. They've all had that moment where a customer said "I'll think about it" and they just watched them leave. This gives them the words.</div>
+
+<div class="branch">Room is buzzing after the game? Don't kill the energy with curriculum slides. Skip B, go straight to C (bot demo). Say: "Let me show you how staff actually use this day to day."</div>
+
+<div class="cut">B. Course Outline walkthrough (3 min) — gives structure but not essential if time is tight</div>
+
+<p><strong>B. Walk through Course Outline (3 min):</strong></p>
+<ul>
+<li>Point to the module cards</li>
+<li>"Module 1 is Customer Engagement — the foundation. This is where those 3 upstream problems Timi mentioned get fixed."</li>
+<li>"Each module has missions. One mission = 10 minutes on their phone. Monday, Wednesday, Friday."</li>
+<li>"After each mission there's a quiz — and that's what I want to show you now."</li>
+</ul>
+
+<div class="say">The lessons are on the website. But the quizzes, the games, the tracking — that runs through a bot on Telegram. Let me show you.</div>
+
+<div class="do">Switch to Tab 3. Show the bot in Telegram on your screen. Type /start.</div>
+<a class="btn" href="https://t.me/prlpuma_bot">Open @prlpuma_bot</a>
+
+<p><strong>C. Demo the bot LIVE (7 min) — THIS IS THE CORE:</strong></p>
+<ul>
+<li>Show the welcome message → single menu with quizzes + games</li>
+<li>"Staff open the bot, tap Start, and see this. Quizzes for each mission area. Games to practise what they learned."</li>
+<li>Tap a quiz (Mission 1: Foundation). Narrate:
+  <ul>
+  <li>"First they get context — a short teaching moment"</li>
+  <li>"Then the question. 30 seconds to answer."</li>
+  <li>"If they get it wrong — look — it doesn't just say 'wrong.' It explains WHY and links to the lesson."</li>
+  <li>"If they get it right — streak builds, keeps them motivated."</li>
+  </ul>
+</li>
+<li>Answer 2-3 questions, get at least one wrong on purpose</li>
+<li>"At the end, score + review. They can retry, or tap a lesson link for the topics they missed."</li>
+<li>Show the exit button: "And if someone needs to stop mid-quiz — they tap exit. Never trapped."</li>
+</ul>
+
+<div class="say">Everything is private. Each person's quiz is between them and the bot. Nobody sees anyone else's score unless they choose to share it.</div>
+
+<div class="cut">D. Game buttons tour (1-2 min) — only if energy is still high and time allows</div>
+
+<p><strong>D. Quick mention of other games (1-2 min):</strong></p>
+<ul>
+<li>Tap a game button from the bot menu</li>
+<li>"These open right in Telegram. Customer Says — you just saw it. Build the Basket teaches cross-selling — turns a ₦35K sale into ₦48K. The Approach trains timing and openers."</li>
+<li>"Staff can play anytime — on break, on the commute. It's practice, not homework."</li>
+</ul>
+
+<div class="cut">E. Weekly report (2-3 min) — can defer to Discussion if someone asks "how do we track this?"</div>
+
+<p><strong>E. Management view (2-3 min):</strong></p>
+<div class="do">Switch to Tab 4. Scroll through the report.</div>
+<a class="btn" href="https://ftfc1.github.io/puma-training-demo/demo-weekly-report.html">Open Weekly Report</a>
+
+<div class="say">And this is what YOU get. End of day — a report lands showing who's active, quiz scores, which topics are tripping people up. Two minutes to read. You're not refreshing a dashboard — it comes to you.</div>
+
+<div class="say">So: staff learn through the bot — quizzes, games, bite-sized lessons. Manager checks the weekly report. That's the whole system.</div>
+
+<div class="note">Now transition to hands-on. Don't rush this line — it's the bridge.</div>
+
+<div class="say">Now — instead of me telling you about it, let's let everyone try it themselves. Phones out.</div>
+</div>
+</div>
+
+<!-- READ THE ROOM -->
+<div class="phase p-read">
+<div class="phase-header" onclick="toggle(this)">
+<h2>↳ READ THE ROOM — Before Staff Play</h2>
+<span class="time">0 min</span>
+<span class="arrow">▶</span>
+</div>
+<div class="phase-body">
+<div class="branch">Staff already played games from the PUMA LEKKI TRAINING group link? → Skip game buttons. Say: "Some of you already tried the games. Now try the quiz bot — it's different. This tests what you know and tells you where to improve."</div>
+<div class="branch">Staff look confused or overwhelmed? → Don't hand off yet. Walk through ONE more quiz question on your screen first. Then: "Now you try. Same thing, just on your phone."</div>
+<div class="branch">Energy is high and staff are reaching for phones? → Go immediately. Don't over-explain. "You've seen it — now try it. @prlpuma_bot, tap Start."</div>
+<div class="branch">Only 15 min left? → Skip the hands-on. Say: "We'll get you set up on the bot this week. For now let me answer any questions." Jump to Phase 4.</div>
+</div>
+</div>
+
+<!-- PHASE 3: STAFF PLAY LIVE -->
+<div class="phase p-staff">
+<div class="phase-header" onclick="toggle(this)">
+<h2>3. STAFF PLAY — Live Bot Experience</h2>
+<span class="time">5-10 min</span>
+<span class="arrow">▶</span>
+</div>
+<div class="phase-body">
+<img src="staff-play.png" alt="Staff playing on phones" style="width:100%;border-radius:10px;margin-bottom:8px;opacity:0.85;">
+<div class="note">This is the proof moment. Staff interact with the real bot. Reactions in the room are your best sales tool.</div>
+
+<div class="do">Paste the bot link in the Zoom chat: https://t.me/prlpuma_bot — so they can just tap it.</div>
+
+<div class="say">Everyone pull out your phones. I've just dropped the link in the chat — tap it and it opens the bot in Telegram. Tap Start.</div>
+
+<div class="do">Wait 30 seconds for everyone to find the bot. Timi helps anyone struggling in the room.</div>
+
+<div class="say">Try any quiz — Mission 1 if you want to start from the beginning. See how you do.</div>
+
+<ul>
+<li><strong>Stay quiet while they play.</strong> Let them experience it.</li>
+<li>Watch Timi for reactions — laughs, "oh!", people nudging each other</li>
+<li>After 4-5 min (or when most finish): ask for reactions</li>
+</ul>
+
+<div class="say">Who got 100%? Who got tripped up? Which question surprised you?</div>
+
+<ul>
+<li>Let 2-3 people share — this is gold</li>
+<li>Connect their answers to the curriculum: "That's exactly what Mission 3 covers."</li>
+<li>If someone tried a game: "What did you think? Have you had that scenario on the floor?"</li>
+</ul>
+
+<div class="say">That's the experience 3 times a week. 10 minutes on their phone. No classroom, no schedule, no printing. Just the bot, the quiz, and the floor. And based on how this trial goes, we'll look into even more — different games, deeper modules, things specific to what your staff need.</div>
+
+<div class="warn">If someone doesn't have Telegram: Timi shows it on his phone. Don't stall. If bot is slow: "It's live — give it a second." If it genuinely fails: pivot to game links in browser.</div>
+</div>
+</div>
+
+<!-- PHASE 4: DISCUSSION -->
+<div class="phase p-close">
+<div class="phase-header" onclick="toggle(this)">
+<h2>4. DISCUSSION — Questions & Reactions</h2>
+<span class="time">15 min</span>
+<span class="arrow">▶</span>
+</div>
+<div class="phase-body">
+
+<div class="branch">Discussion starts naturally during Phase 3? Let it flow. Don't force people back to "playing." The hands-on did its job — now ride the energy.</div>
+
+<p><strong>Questions to prompt (if room goes quiet):</strong></p>
+<ul>
+<li>"Which of those 3 mistakes — late greeting, wrong opener, talking too much — do you see most in your store?"</li>
+<li>"If your staff had the 5-30-60 rule in their head every morning, what would change?"</li>
+<li>"Adedolapo — you run operations. How much time does this take from your week?" (Answer: almost zero. 10 min check on reports, 15 min observing floor.)</li>
+</ul>
+
+<p><strong>Likely questions & your answers:</strong></p>
+<ul>
+<li><strong>"How do we know staff will actually do it?"</strong> → "The quiz gates it. Can't move forward without scoring 80%. Plus everyone's on the same bot — there's natural momentum when people see others completing."</li>
+<li><strong>"What if staff leave?"</strong> → "New hires start at Mission 1. Two weeks to catch up. No extra cost."</li>
+<li><strong>"How long is the pilot?"</strong> → "6 weeks. Missions go out Mon/Wed/Fri. We review together at week 3 and week 6 — but we can adjust that."</li>
+<li><strong>"What does it cost?"</strong> → "This is a free pilot — we're building a case study together. Timi can walk you through the details."</li>
+<li><strong>"What data do you need from us?"</strong> → "Telegram accounts for the staff and one manager contact. That's it. Bot is set up within 48 hours."</li>
+<li><strong>"Is this just for PUMA?"</strong> → "It's built around PRL's specific challenges right now. The system can adapt to other brands, but that would be a separate conversation."</li>
+<li><strong>"How do we track progress?"</strong> → If you skipped section E earlier, show the weekly report NOW. "Let me show you." Open https://ftfc1.github.io/puma-training-demo/demo-weekly-report.html.</li>
+</ul>
+
+<div class="note">For pricing, payment, terms, ROI numbers — <strong>let Timi answer</strong>. If asked directly: "Timi can walk you through the investment — it's surprisingly light."</div>
+
+<p><strong>If Molade (HR) asks about tracking/privacy:</strong></p>
+<div class="say">Everything is private by default. The bot is a DM — only that person sees their quiz. Reports show completion and scores, not browsing or personal data. It's a development tool, not surveillance.</div>
+</div>
+</div>
+
+<!-- PHASE 5: TIMI CLOSES -->
+<div class="phase p-timi">
+<div class="phase-header" onclick="toggle(this)">
+<h2>5. TIMI CLOSES — Terms & Next Steps</h2>
+<span class="time">5 min</span>
+<span class="arrow">▶</span>
+</div>
+<div class="phase-body">
+<div class="note">Timi leads the close. You support with facts if needed.</div>
+
+<p><strong>Timi covers:</strong></p>
+<ul>
+<li>Investment: <span class="stat">Free trial</span> — this is a case study pilot, no cost to PRL</li>
+<li>What PRL provides: Telegram accounts for 7 staff + 1 manager, engagement commitment, case study permission</li>
+<li>What we provide: bot, content, end-of-day reports, game updates, Telegram support</li>
+<li>Timeline: can start <strong>Tuesday next week</strong> (full workday, not Monday)</li>
+</ul>
+
+<p><strong>If Timi needs you for specifics:</strong></p>
+<ul>
+<li>"How fast can we start?" → "Once I have the Telegram accounts, bot is set up within 48 hours. Aiming for Tuesday — full workday to kick off."</li>
+<li>"What's the case study commitment?" → "Written testimonial from the store manager, anonymous sales data trends, one video from management and one from a staff member at the end. Nothing before results come in."</li>
+</ul>
+
+<div class="note"><strong>ALIGNED:</strong><br>
+• Trial is <strong>free</strong> (case study pilot)<br>
+• Review cadence: week 3 + week 6<br>
+• Start day: <strong>Tuesday next week</strong><br>
+• Need from PRL: Telegram accounts for staff + manager contact<br>
+• If Timi says something different on pricing — go with his call</div>
+
+<p><strong>Your closing line:</strong></p>
+<div class="say">Thanks everyone for the time. You've tried it yourselves — you know what the experience feels like. Once Timi and I have the Telegram accounts from staff, they'll get their first quiz within 48 hours. Looking forward to seeing the results.</div>
+</div>
+</div>
+
+<!-- FALLBACK -->
+<div class="fallback">
+<h3>FALLBACKS</h3>
+<ul>
+<li><strong>Zoom crashes:</strong> Rejoin. If still down: Timi shows the bot on his phone to the room. You call in by regular phone and narrate. Send game links via TG group chat.</li>
+<li><strong>Bot doesn't respond:</strong> Wait 10 seconds. If still down: "The bot's running live — network might be slow here. Let me show you the game in the browser instead."</li>
+<li><strong>Staff don't have Telegram:</strong> Timi shows it on his phone. "You can install it after — takes 2 minutes." Don't stall.</li>
+<li><strong>Time runs short (30 min):</strong> Timi opens (5) → Game hook + bot demo (12) → Q&A (8) → Close (5). Skip hands-on: "We'll set up a session for staff to try it this week."</li>
+<li><strong>"We need to think about it":</strong> Timi handles. Your line: "Totally fair. The bot's built and running — there's no clock on our side."</li>
+<li><strong>They say yes on the spot:</strong> Timi collects. You confirm: "Send me the Telegram accounts and we'll be live by Tuesday."</li>
+</ul>
+</div>
+
+<hr>
+<p style="font-size: 10px; color: #999; text-align: center; margin-top: 12px;">Updated Feb 12. Bot: @prlpuma_bot · Group: PUMA LEKKI TRAINING · Open on phone during demo.</p>
+
+<script>
+function toggle(el) {
+    el.closest('.phase').classList.toggle('open');
+}
+function toggleAll() {
+    const phases = document.querySelectorAll('.phase');
+    const allOpen = [...phases].every(p => p.classList.contains('open'));
+    phases.forEach(p => {
+        if (allOpen) p.classList.remove('open');
+        else p.classList.add('open');
+    });
+}
+// Open first phase by default
+</script>
+</body>
+</html>

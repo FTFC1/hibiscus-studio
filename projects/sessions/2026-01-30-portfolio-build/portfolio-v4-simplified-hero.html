@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicholas Feyi · Get 10 Hours Back Per Week</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* HEADER - SIMPLIFIED */
+        .header {
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #222;
+        }
+
+        .label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 64px;
+            line-height: 1.2;
+            font-variant-numeric: tabular-nums;
+        }
+
+        h1 .highlight {
+            color: #4a9;
+        }
+
+        /* SINGLE FULL-WIDTH CTA */
+        .cta-primary {
+            display: block;
+            width: 100%;
+            padding: 18px 28px;
+            background: #4a9;
+            color: #000;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .cta-primary:hover {
+            background: #5ba;
+        }
+
+        /* SECTION */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .case-meta {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 40px;
+            display: flex;
+            gap: 24px;
+        }
+
+        /* READABLE TEXT WIDTH */
+        .readable {
+            max-width: 680px;
+        }
+
+        h3 {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #888;
+            margin: 40px 0 16px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        /* INTRO TEXT (moved below results) */
+        .intro-text {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
+        /* VALUE PROPOSITION BLOCK */
+        .value-prop {
+            background: #0a0a0a;
+            border-left: 3px solid #4a9;
+            padding: 20px 24px;
+            margin: 32px 0;
+            font-size: 15px;
+            color: #ccc;
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
+        .value-prop strong {
+            color: #4a9;
+            font-weight: 700;
+        }
+
+        /* RESULTS BLOCK - RESPONSIVE 3 COL */
+        .results-block {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 40px;
+            margin: 48px 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+
+        .result-item {
+            text-align: center;
+        }
+
+        .result-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: #4a9;
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 8px;
+        }
+
+        .result-label {
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .result-desc {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* SECONDARY CTA LINK */
+        .secondary-link {
+            display: inline-block;
+            color: #4a9;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-top: 16px;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .secondary-link:hover {
+            border-bottom-color: #4a9;
+        }
+
+        /* TIME COMPARISON */
+        .time-comparison {
+            margin: 40px 0;
+        }
+
+        .time-bar-group {
+            margin-bottom: 40px;
+        }
+
+        .time-bar-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .time-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .time-state {
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #666;
+        }
+
+        .time-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .time-bar-group:first-child .time-value {
+            color: #a44;
+        }
+
+        .time-bar-group:last-child .time-value {
+            color: #4a9;
+        }
+
+        .time-bar {
+            height: 16px;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .time-bar-fill {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .time-bar-fill.manual {
+            width: 100%;
+            background: #a44;
+        }
+
+        .time-bar-fill.automated {
+            width: 1.1%;
+            background: #4a9;
+        }
+
+        .time-breakdown {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* AUTOMATED LIST */
+        .automated-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .automated-list li {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .automated-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #4a9;
+        }
+
+        /* PROCESS GRID */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .process-step {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 20px 16px;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #4a9;
+            color: #4a9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .step-desc {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CONTACT BLOCK */
+        .contact-block {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            padding: 40px;
+        }
+
+        .capacity-bar {
+            background: #0f2a1a;
+            border: 1px solid #1a4;
+            color: #6d6;
+            padding: 12px 16px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 13px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #4a9;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* CONTACT METHOD RADIO BUTTONS */
+        .contact-method-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            accent-color: #4a9;
+        }
+
+        .radio-option label {
+            margin: 0;
+            font-size: 12px;
+            color: #aaa;
+            letter-spacing: 0;
+            cursor: pointer;
+        }
+
+        .form-note {
+            font-size: 9px;
+            color: #555;
+            margin-top: 6px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #4a9;
+            border: none;
+            color: #000;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #5ba;
+        }
+
+        .submit-btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+        }
+
+        /* SUCCESS MESSAGE */
+        .success-message {
+            display: none;
+            background: #0f2a1a;
+            border: 1px solid #1a4;
+            color: #6d6;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid #1a1a1a;
+            font-size: 8px;
+            color: #333;
+            margin-top: 80px;
+        }
+
+        /* PRICING GRID */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 900px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .header {
+                margin-bottom: 60px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .intro-text {
+                font-size: 14px;
+            }
+
+            .value-prop {
+                font-size: 14px;
+            }
+
+            .time-value {
+                font-size: 24px;
+            }
+
+            /* Keep 3 columns on tablet */
+            .results-block {
+                padding: 32px 24px;
+                gap: 32px;
+            }
+
+            .result-number {
+                font-size: 42px;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            /* Pricing stacks on tablet */
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        /* Mobile breakpoint */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 26px;
+            }
+
+            .intro-text {
+                font-size: 13px;
+            }
+
+            /* Stack results on mobile */
+            .results-block {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                padding: 32px 20px;
+            }
+
+            .result-number {
+                font-size: 40px;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-method-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER - SIMPLIFIED -->
+        <header class="header">
+            <div class="label">BOOKING SYSTEMS ENGINEER</div>
+            <h1>I build booking systems that<br>auto-generate invoices, sync calendars,<br>and eliminate manual admin work</h1>
+
+            <a href="#contact" class="cta-primary">AUTOMATE YOUR BOOKINGS</a>
+        </header>
+
+        <!-- RESULTS UP FRONT -->
+        <section class="section" id="proof">
+            <div class="section-label">REAL RESULTS</div>
+
+            <div class="results-block">
+                <div class="result-item">
+                    <div class="result-number">10-12</div>
+                    <div class="result-label">HOURS/MONTH FREED</div>
+                    <div class="result-desc">Take on 3 more clients without hiring</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-number">95%</div>
+                    <div class="result-label">TIME SAVED</div>
+                    <div class="result-desc">45 min → 30 sec per booking</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-number">10</div>
+                    <div class="result-label">DAYS TO LIVE</div>
+                    <div class="result-desc">From kickoff to working system</div>
+                </div>
+            </div>
+
+            <!-- MOVED FROM HEADER: CONTEXT -->
+            <div class="intro-text">
+                Studio owners and event spaces waste 10-15 hours/month on manual booking operations: creating invoices by hand, sending confirmation emails, syncing calendars, tracking payments in spreadsheets. I build custom systems that handle all of it automatically.
+            </div>
+        </section>
+
+        <!-- CASE STUDY -->
+        <section class="section readable" id="case">
+            <div class="section-label">CASE STUDY</div>
+            <h2>Event Studio Booking System</h2>
+            <div class="case-meta">
+                <span>EVENT STUDIO</span>
+                <span>LAGOS</span>
+                <span>JAN 2026</span>
+            </div>
+
+            <h3>THE REVENUE OPERATIONS PROBLEM</h3>
+            <p>Studio owner was manually processing every booking: creating invoice PDFs by hand, writing confirmation emails, syncing two Google Calendars, tracking payments in spreadsheets. 45 minutes per booking. 8-12 hours/month total. Double-booking risk. No automated follow-ups.</p>
+
+            <p><strong>Impact:</strong> Hitting capacity ceiling. Turning down inquiries because manual admin work was maxed out. Couldn't scale without hiring a VA.</p>
+
+            <h3>TIME PER BOOKING</h3>
+
+            <div class="time-comparison">
+                <div class="time-bar-group">
+                    <div class="time-label">
+                        <span class="time-state">BEFORE: MANUAL PROCESS</span>
+                        <span class="time-value">45 min</span>
+                    </div>
+                    <div class="time-bar">
+                        <div class="time-bar-fill manual"></div>
+                    </div>
+                    <div class="time-breakdown">
+                        Manual inquiry response + create invoice PDFs + write emails + track payments in spreadsheet
+                    </div>
+                </div>
+
+                <div class="time-bar-group">
+                    <div class="time-label">
+                        <span class="time-state">AFTER: AUTOMATED SYSTEM</span>
+                        <span class="time-value">30 sec</span>
+                    </div>
+                    <div class="time-bar">
+                        <div class="time-bar-fill automated"></div>
+                    </div>
+                    <div class="time-breakdown">
+                        Direct funnel → instant invoice → triggered email → real-time calendar sync
+                    </div>
+                </div>
+            </div>
+
+            <h3>THE SYSTEM I BUILT</h3>
+            <ul class="automated-list">
+                <li>Custom booking funnel (recommendation engine based on event type + guest count)</li>
+                <li>Cloudflare Worker backend (serverless API, globally distributed)</li>
+                <li>Auto invoice PDF generation (Google Apps Script webhook, triggered instantly)</li>
+                <li>Automated email sequences (booking confirmation + invoice attachment)</li>
+                <li>Dual Google Calendar sync (zero double-booking conflicts)</li>
+                <li>KV storage (bookings, invoices, payment tracking)</li>
+                <li>Admin dashboard (owner confirms payments, manages bookings from phone)</li>
+            </ul>
+
+            <h3>OUTCOME</h3>
+            <p>45 min/booking → 30 sec. 10-12 hours/month freed. Studio can now take 3 more bookings/month without hiring. System runs 24/7. Zero double-bookings. Break-even in 2 months. Owner manages everything from phone.</p>
+        </section>
+
+        <!-- ROI CALCULATOR -->
+        <section class="section">
+            <div class="section-label">ROI BREAKDOWN</div>
+            <h2>What 10 Hours Back Actually Means</h2>
+
+            <div class="value-prop" style="background: #0a0a0a; border-left: 3px solid #4a9; padding: 32px; margin: 32px 0;">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 24px;">
+                    <div>
+                        <div style="font-size: 11px; color: #666; margin-bottom: 8px; letter-spacing: 1px;">TIME FREED</div>
+                        <div style="font-size: 32px; font-weight: 700; color: #4a9;">10 hrs</div>
+                        <div style="font-size: 11px; color: #555;">per week</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; color: #666; margin-bottom: 8px; letter-spacing: 1px;">YOUR RATE</div>
+                        <div style="font-size: 32px; font-weight: 700; color: #4a9;">£50</div>
+                        <div style="font-size: 11px; color: #555;">per hour</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; color: #666; margin-bottom: 8px; letter-spacing: 1px;">CAPACITY VALUE</div>
+                        <div style="font-size: 32px; font-weight: 700; color: #4a9;">£2,000</div>
+                        <div style="font-size: 11px; color: #555;">per month</div>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #222; padding-top: 20px; margin-top: 20px;">
+                    <p style="font-size: 13px; color: #aaa; line-height: 1.6; margin: 0;">
+                        <strong style="color: #4a9;">40 hours/month freed.</strong> At £50/hour, that's £2,000/month in capacity. Take on 3 more clients without hiring. One-time build. Break even in 2-3 months. System runs forever.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section class="section">
+            <div class="section-label">HOW IT WORKS</div>
+            <h2>Custom Booking System Build</h2>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Map Current Flow</div>
+                    <div class="step-desc">I document every manual step in your booking process</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Design System</div>
+                    <div class="step-desc">Custom funnel + backend + invoice automation + admin dashboard</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Build (7-10 days)</div>
+                    <div class="step-desc">Deploy working system, test with real bookings</div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Handoff</div>
+                    <div class="step-desc">Admin dashboard training, system runs on autopilot</div>
+                </div>
+            </div>
+
+            <div class="value-prop" style="margin-top: 40px;">
+                <strong>Payment:</strong> 50% to start, 50% when live. <strong>Guarantee:</strong> System delivered in 10 days or second payment waived until it is.
+            </div>
+        </section>
+
+        <!-- PRICING -->
+        <section class="section" id="pricing">
+            <div class="section-label">PRICING</div>
+            <h2>Three Build Options</h2>
+
+            <div class="pricing-grid">
+                <!-- BASIC -->
+                <div style="background: #0a0a0a; border: 1px solid #222; padding: 32px 24px;">
+                    <div style="font-size: 9px; letter-spacing: 2px; color: #666; margin-bottom: 12px;">BASIC BOOKING SYSTEM</div>
+                    <div style="font-size: 36px; font-weight: 700; color: #4a9; margin-bottom: 8px;">£1,000</div>
+                    <div style="font-size: 10px; color: #555; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">7-10 day build</div>
+
+                    <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; font-size: 12px; color: #888; line-height: 2;">
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Simple booking form
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Auto invoice PDF
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Confirmation email
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Google Calendar sync
+                        </li>
+                    </ul>
+
+                    <div style="font-size: 10px; color: #555; font-style: italic;">
+                        Solo consultants, coaches, single-service businesses
+                    </div>
+                </div>
+
+                <!-- STANDARD -->
+                <div style="background: #0a0a0a; border: 2px solid #4a9; padding: 32px 24px; position: relative;">
+                    <div style="position: absolute; top: -1px; right: 16px; background: #4a9; color: #000; padding: 4px 12px; font-size: 8px; letter-spacing: 2px; font-weight: 700;">POPULAR</div>
+                    <div style="font-size: 9px; letter-spacing: 2px; color: #666; margin-bottom: 12px;">STANDARD AUTOMATION</div>
+                    <div style="font-size: 36px; font-weight: 700; color: #4a9; margin-bottom: 8px;">£2,000</div>
+                    <div style="font-size: 10px; color: #555; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">10-14 day build</div>
+
+                    <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; font-size: 12px; color: #888; line-height: 2;">
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Custom booking funnel
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Auto invoice + email
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Email automation
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Dual calendar sync
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Admin dashboard
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Payment tracking
+                        </li>
+                    </ul>
+
+                    <div style="font-size: 10px; color: #555; font-style: italic;">
+                        Studios, agencies, course creators
+                    </div>
+                </div>
+
+                <!-- CUSTOM -->
+                <div style="background: #0a0a0a; border: 1px solid #222; padding: 32px 24px;">
+                    <div style="font-size: 9px; letter-spacing: 2px; color: #666; margin-bottom: 12px;">CUSTOM BUILD</div>
+                    <div style="font-size: 36px; font-weight: 700; color: #4a9; margin-bottom: 8px;">£3,000+</div>
+                    <div style="font-size: 10px; color: #555; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">14-21 day build</div>
+
+                    <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; font-size: 12px; color: #888; line-height: 2;">
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Everything in Standard
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Recommendation engine
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Multiple booking flows
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Advanced admin features
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Custom integrations
+                        </li>
+                        <li style="padding-left: 16px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #4a9;">→</span>
+                            Complex business logic
+                        </li>
+                    </ul>
+
+                    <div style="font-size: 10px; color: #555; font-style: italic;">
+                        Multi-service businesses, complex operations
+                    </div>
+                </div>
+            </div>
+
+            <div class="value-prop" style="margin-top: 32px;">
+                <strong>All packages include:</strong> 30 days of bug fixes after launch. Payment: 50% to start, 50% when live. Guarantee: Delivered in stated timeline or second payment waived until complete.
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section" id="contact">
+            <div class="section-label">GET STARTED</div>
+
+            <div class="contact-block">
+                <div class="capacity-bar">ACCEPTING FEB 2026 PROJECTS</div>
+
+                <div class="success-message" id="successMessage">
+                    ✓ Got it. I'll reach out within 24 hours.
+                </div>
+
+                <form id="contactForm" action="#" method="POST">
+                    <div class="form-group">
+                        <label>NAME</label>
+                        <input type="text" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>HOW SHOULD I CONTACT YOU?</label>
+                        <div class="contact-method-group">
+                            <div class="radio-option">
+                                <input type="radio" id="whatsapp" name="contact_method" value="whatsapp" required>
+                                <label for="whatsapp">WhatsApp</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="telegram" name="contact_method" value="telegram">
+                                <label for="telegram">Telegram</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="imessage" name="contact_method" value="imessage">
+                                <label for="imessage">iMessage</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>PHONE / USERNAME</label>
+                        <input type="text" name="contact_handle" placeholder="E.g., +234 123 456 7890 or @username" required>
+                        <div class="form-note">Your phone number or username for the platform you selected</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>COMPANY / PROJECT</label>
+                        <input type="text" name="company">
+                    </div>
+
+                    <div class="form-group">
+                        <label>WHAT'S YOUR CURRENT BOOKING PROCESS?</label>
+                        <textarea name="problem" placeholder="E.g., 'Manual invoices after each booking, tracking payments in spreadsheet, syncing 2 calendars'" required></textarea>
+                        <div class="form-note">Describe your manual steps: invoicing, calendars, emails, payment tracking</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>HOW MANY HOURS/WEEK DOES THIS TAKE?</label>
+                        <input type="text" name="hours" placeholder="E.g., '10 hours/week'" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>TIMELINE</label>
+                        <select name="timeline" required>
+                            <option value="">Select timeline</option>
+                            <option value="urgent">Urgent - bleeding hours right now</option>
+                            <option value="soon">Soon - within 4 weeks</option>
+                            <option value="planning">Exploring options</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">GET 10 HOURS BACK</button>
+                </form>
+            </div>
+        </section>
+
+        <div class="footer">
+            nicholas feyi · systems designer · portfolio 2026.01
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn');
+            const successMessage = document.getElementById('successMessage');
+
+            // Disable submit
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'SENDING...';
+
+            // Get form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // Send to backend (will be deployed on Render)
+                const response = await fetch('https://YOUR_RENDER_URL.onrender.com/submit-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    // Show success
+                    successMessage.classList.add('show');
+                    form.reset();
+                    submitBtn.textContent = 'GET 10 HOURS BACK';
+                    submitBtn.disabled = false;
+
+                    // Hide success after 5 seconds
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                alert('Something went wrong. Please reach out directly: nick@fcoker.design');
+                submitBtn.textContent = 'GET 10 HOURS BACK';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "source": "2026-02-15-day45-review-corrections",
+  "mined_at": "2026-02-15T15:30:00",
+  "new_atoms": 14,
+  "updated_atoms": 3,
+  "updates": [
+    {"id": "atom-20260215-003", "change": "corrected — repost not original tweet, removed proof-of-work tag"},
+    {"id": "atom-20260215-004", "change": "weight 1→2, reinforced in corrections (posting in red = visual coding)"},
+    {"id": "atom-20260215-007", "change": "weight 1→3, mentioned in corrections #7 and #12 (ASCII slides as tweets)"},
+    {"id": "atom-20260215-008", "change": "weight 1→2, sawdust reference in correction #6"}
+  ],
+  "total_after": 31,
+  "atom_ids": [
+    "atom-20260215-018", "atom-20260215-019", "atom-20260215-020",
+    "atom-20260215-021", "atom-20260215-022", "atom-20260215-023",
+    "atom-20260215-024", "atom-20260215-025", "atom-20260215-026",
+    "atom-20260215-027", "atom-20260215-028", "atom-20260215-029",
+    "atom-20260215-030", "atom-20260215-031"
+  ]
+}

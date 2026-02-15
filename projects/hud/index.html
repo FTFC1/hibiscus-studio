@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUD</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .hud { max-width: 620px; margin: 0 auto; }
+
+        /* HEADER */
+        .hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #1a1a1a;
+            margin-bottom: 14px;
+        }
+        .hdr-left { display: flex; align-items: baseline; gap: 10px; }
+        .hdr-day { font-size: 36px; font-weight: 900; color: #fff; line-height: 1; }
+        .hdr-meta { font-size: 10px; letter-spacing: 2px; color: #555; }
+        .hdr-clock { font-size: 22px; font-weight: 200; color: #4a9; font-variant-numeric: tabular-nums; }
+
+        /* DO NEXT — the hero */
+        .do-next {
+            background: linear-gradient(135deg, #0d1a0d 0%, #0a0a0a 100%);
+            border: 1px solid #1a2a1a;
+            border-left: 4px solid #4a9;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+        }
+        .do-next-lbl { font-size: 9px; letter-spacing: 3px; color: #4a9; margin-bottom: 8px; }
+        .do-next-age { font-size: 9px; color: #555; float: right; }
+        .do-next-section { margin-bottom: 8px; }
+        .do-next-section:last-of-type { margin-bottom: 0; }
+        .do-next-section-lbl {
+            font-size: 10px; font-weight: 800; color: #4a9; letter-spacing: 1px;
+            margin-bottom: 3px; text-transform: uppercase;
+        }
+        .do-next-section-lbl.now { color: #fff; font-size: 13px; }
+        .do-next-steps { list-style: none; }
+        .do-next-steps li {
+            font-size: 11px; color: #999; padding: 2px 0 2px 16px;
+            position: relative; line-height: 1.5;
+        }
+        .do-next-steps li::before { content: '›'; position: absolute; left: 4px; color: #4a9; font-weight: 700; }
+        .do-next-steps.now-items li { font-size: 13px; color: #fff; font-weight: 600; }
+        .do-next-why {
+            font-size: 9px; color: #444; margin-top: 8px; cursor: pointer;
+            border-top: 1px solid #1a1a1a; padding-top: 6px;
+        }
+        .do-next-why:hover { color: #666; }
+        .do-next-expanded { display: none; font-size: 9px; color: #555; margin-top: 4px; line-height: 1.5; }
+        .do-next-expanded.open { display: block; }
+
+        /* TOOLKIT */
+        .toolkit { margin-bottom: 16px; }
+        .toolkit .sec-lbl { color: #7af; }
+        .tk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+        .tk-item {
+            background: #0a0a12;
+            border: 1px solid #1a1a2a;
+            padding: 6px 10px;
+            border-radius: 3px;
+            font-size: 9px;
+            cursor: default;
+        }
+        .tk-item.cmd { border-left: 3px solid #7af; }
+        .tk-item.view { border-left: 3px solid #4a9; }
+        .tk-item.sys { border-left: 3px solid #cc9; }
+        .tk-label { font-weight: 700; color: #ddd; margin-bottom: 1px; }
+        .tk-desc { color: #666; font-size: 8px; }
+
+        /* LINKS */
+        .links { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+        .links a {
+            background: #111;
+            border: 1px solid #222;
+            padding: 5px 12px;
+            font-size: 10px;
+            color: #7af;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: all 0.15s;
+        }
+        .links a:hover { border-color: #7af; background: #0a0a1a; }
+
+        /* SECTION LABELS */
+        .sec-lbl {
+            font-size: 9px;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sec-count { font-size: 9px; color: #555; letter-spacing: 0; }
+
+        /* TRACKS (Active) */
+        .tracks { margin-bottom: 18px; }
+        .tracks .sec-lbl { color: #cc9; }
+        .trk {
+            background: #0e0e0e;
+            border-left: 3px solid #332;
+            margin-bottom: 4px;
+            border-radius: 0 3px 3px 0;
+            overflow: hidden;
+        }
+        .trk.green { border-left-color: #4a9; }
+        .trk.yellow { border-left-color: #cc9; }
+        .trk.blue { border-left-color: #7af; }
+        .trk.red { border-left-color: #a66; }
+        .trk-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+        .trk-head:hover { background: #141414; }
+        .trk-name { font-size: 11px; font-weight: 700; }
+        .trk-right { display: flex; align-items: center; gap: 8px; }
+        .trk-status { font-size: 9px; color: #888; max-width: 260px; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .trk-age { font-size: 8px; color: #555; }
+        .trk-arrow { font-size: 10px; color: #444; transition: transform 0.2s; }
+        .trk.open .trk-arrow { transform: rotate(90deg); }
+        .trk-body { display: none; padding: 0 12px 8px; }
+        .trk.open .trk-body { display: block; }
+        .trk-item {
+            font-size: 10px; color: #777; padding: 2px 0 2px 12px;
+            position: relative; line-height: 1.5;
+        }
+        .trk-item::before { content: '○'; position: absolute; left: 0; color: #444; font-size: 8px; top: 4px; }
+        .trk-item.done { color: #4a9; text-decoration: line-through; opacity: 0.5; }
+        .trk-item.done::before { content: '●'; color: #4a9; }
+        .trk-item.warn::before { content: '⚠'; color: #cc9; font-size: 9px; top: 3px; }
+        .trk-more { font-size: 9px; color: #555; cursor: pointer; padding: 4px 0 0 12px; }
+        .trk-more:hover { color: #999; }
+
+        /* WAITING */
+        .waiting { margin-bottom: 18px; }
+        .waiting .sec-lbl { color: #888; }
+        .wait-row {
+            display: grid;
+            grid-template-columns: 90px 1fr 50px;
+            font-size: 10px;
+            padding: 5px 0;
+            border-bottom: 1px solid #111;
+            align-items: center;
+        }
+        .wait-who { color: #aaa; font-weight: 600; }
+        .wait-what { color: #777; }
+        .wait-age { text-align: right; font-size: 9px; font-weight: 700; }
+        .wait-age.fresh { color: #4a9; }
+        .wait-age.stale { color: #cc9; }
+        .wait-age.urgent { color: #e66; }
+
+        /* WINS */
+        .wins { margin-bottom: 18px; }
+        .wins .sec-lbl { color: #4a9; }
+        .win {
+            background: linear-gradient(90deg, #0a140a 0%, #0e0e0e 100%);
+            border-left: 3px solid #4a9;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+        }
+        .win:hover { background: linear-gradient(90deg, #0d1a0d 0%, #111 100%); }
+        .win-title { font-size: 11px; font-weight: 700; color: #4a9; }
+        .win-detail { display: none; font-size: 10px; color: #666; margin-top: 4px; line-height: 1.4; }
+        .win.open .win-detail { display: block; }
+        .win-next { display: none; font-size: 9px; color: #888; margin-top: 4px; }
+        .win.open .win-next { display: block; }
+        .win-next::before { content: '-> '; color: #4a9; }
+        .win-hidden { display: none; }
+        .win-hidden.show { display: block; }
+        .show-more {
+            font-size: 9px;
+            color: #555;
+            cursor: pointer;
+            padding: 4px 0;
+            text-align: center;
+        }
+        .show-more:hover { color: #999; }
+
+        /* SHIPPED */
+        .shipped { margin-bottom: 18px; }
+        .shipped .sec-lbl { color: #4a9; }
+        .ship-summary {
+            background: #0e0e0e;
+            padding: 10px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ship-summary:hover { background: #141414; }
+        .ship-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .ship-tag {
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #1a1a1a;
+            border: 1px solid #222;
+        }
+        .ship-tag.hb { color: #f9a; border-color: #322; }
+        .ship-tag.gas { color: #9cf; border-color: #234; }
+        .ship-tag.infra { color: #9f9; border-color: #232; }
+        .ship-tag.forje { color: #fc9; border-color: #332; }
+        .ship-tag.aloe { color: #c9f; border-color: #223; }
+        .ship-tag.grm { color: #ff9; border-color: #332; }
+        .ship-expand { font-size: 10px; color: #444; }
+        .ship-list { display: none; margin-top: 4px; }
+        .ship-list.open { display: block; }
+        .ship-item {
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            font-size: 9px;
+            padding: 4px 8px;
+            background: #0a0a0a;
+            margin-bottom: 1px;
+        }
+        .ship-item-tag { font-weight: 700; }
+        .ship-item-text { color: #555; }
+        .ship-filter { display: flex; gap: 4px; margin: 6px 0; flex-wrap: wrap; }
+        .ship-filter-btn {
+            font-size: 8px; padding: 2px 8px; background: #111; border: 1px solid #222;
+            color: #666; cursor: pointer; border-radius: 10px;
+        }
+        .ship-filter-btn:hover, .ship-filter-btn.active { border-color: #4a9; color: #4a9; }
+
+        /* ANTI-CHECKLIST */
+        .suggestions { margin-bottom: 18px; }
+        .suggestions .sec-lbl { color: #e66; }
+        .sug {
+            background: #100a0a;
+            border-left: 2px solid #a33;
+            padding: 6px 12px;
+            margin-bottom: 3px;
+            font-size: 10px;
+            border-radius: 0 3px 3px 0;
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 8px;
+            align-items: baseline;
+        }
+        .sug-obs { color: #e66; font-weight: 800; letter-spacing: 0.5px; font-size: 9px; }
+        .sug-act { color: #999; font-size: 9px; }
+
+        /* NOTES FOOTER */
+        .notes-bar {
+            background: #0e0e0e;
+            border-top: 1px solid #1a1a1a;
+            padding: 10px 14px;
+            margin-top: 12px;
+            font-size: 9px;
+            color: #444;
+            line-height: 1.5;
+            border-radius: 4px;
+        }
+        .notes-bar strong { color: #666; }
+
+        /* SECTION NAV */
+        .sec-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #0a0a0a;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 6px 0;
+            margin: -16px -16px 14px -16px;
+            padding: 6px 16px;
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .sec-nav-btn {
+            font-size: 8px;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            background: #111;
+            border: 1px solid #222;
+            color: #555;
+            cursor: pointer;
+            border-radius: 3px;
+            text-transform: uppercase;
+            transition: all 0.1s;
+        }
+        .sec-nav-btn:hover, .sec-nav-btn.active { color: #4a9; border-color: #4a9; }
+
+        /* COLLAPSIBLE */
+        .collapsible-head { cursor: pointer; user-select: none; }
+        .collapsible-head .toggle-icon { float: right; color: #444; font-size: 10px; transition: transform 0.2s; }
+        .collapsible-body { overflow: hidden; transition: max-height 0.3s ease; }
+        .collapsible-body.shut { max-height: 0 !important; overflow: hidden; }
+
+        /* FOOTER */
+        .ftr { text-align: center; font-size: 8px; color: #222; margin-top: 16px; padding: 8px 0; }
+
+        /* Collapse utility */
+        .collapsed { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="hud" id="app"></div>
+    <script src="data.js"></script>
+    <script>
+    const WINS_VISIBLE = 3;
+    const TRACK_ITEMS_VISIBLE = 4;
+    let shipFilter = 'ALL';
+
+    function render() {
+        const d = hudData;
+        const now = new Date();
+
+        // Count shipped by tag
+        const tagCounts = {};
+        d.shipped.forEach(s => { tagCounts[s.tag] = (tagCounts[s.tag] || 0) + 1; });
+
+        // Track color assignment
+        const trackColors = {
+            'HBS': 'green', 'HB': 'green',
+            'PIPELINE': 'yellow', '9-5': 'yellow',
+            'FORJE': 'blue', 'RETAIL': 'blue',
+            'GRM': 'blue', 'VENTURES': 'blue',
+            'INFRA': 'green',
+            'CREATIVE': 'blue'
+        };
+        function getTrackColor(name) {
+            const upper = name.toUpperCase();
+            for (const [key, color] of Object.entries(trackColors)) {
+                if (upper.includes(key)) return color;
+            }
+            return 'yellow';
+        }
+
+        // doNext supports structured sections or flat string
+        const hasStructuredDoNext = d.doNext.sections && Array.isArray(d.doNext.sections);
+
+        const sections = ['do-next','toolkit','rules','tracks','waiting','wins','shipped'];
+
+        document.getElementById('app').innerHTML = `
+            <!-- NAV BAR -->
+            <div class="sec-nav" id="secNav">
+                <span class="sec-nav-btn" onclick="jumpTo('do-next')">DO NEXT</span>
+                <span class="sec-nav-btn" onclick="jumpTo('toolkit')">TOOLKIT</span>
+                <span class="sec-nav-btn" onclick="jumpTo('rules')">RULES</span>
+                <span class="sec-nav-btn" onclick="jumpTo('tracks')">TRACKS</span>
+                <span class="sec-nav-btn" onclick="jumpTo('waiting')">WAITING</span>
+                <span class="sec-nav-btn" onclick="jumpTo('wins')">WINS</span>
+                <span class="sec-nav-btn" onclick="jumpTo('shipped')">SHIPPED</span>
+            </div>
+
+            <!-- HEADER -->
+            <div class="hdr">
+                <div class="hdr-left">
+                    <div class="hdr-day">${d.date.day}</div>
+                    <div class="hdr-meta">${d.date.month} ${d.date.year} &middot; ${d.date.dayOfWeek}</div>
+                </div>
+                <div class="hdr-clock" id="clock">--:--</div>
+            </div>
+
+            <!-- DO NEXT (collapsible) -->
+            <div id="sec-do-next" class="do-next">
+                <div class="collapsible-head" onclick="toggleSection('doNextBody')">
+                    <div class="do-next-lbl">DO NEXT <span class="do-next-age" id="doAge"></span> <span class="toggle-icon">&#9660;</span></div>
+                </div>
+                <div class="collapsible-body" id="doNextBody">
+                    ${hasStructuredDoNext ? d.doNext.sections.map(sec => `
+                        <div class="do-next-section">
+                            <div class="do-next-section-lbl ${sec.label === 'NOW' ? 'now' : ''}">${sec.label}</div>
+                            <ul class="do-next-steps ${sec.label === 'NOW' ? 'now-items' : ''}">
+                                ${sec.items.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `).join('') : `
+                        <ul class="do-next-steps">
+                            ${(d.doNext.action || '').split(/\.\s+/).filter(Boolean).map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                    `}
+                    <div class="do-next-why" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">context &#9662;</div>
+                    <div class="do-next-expanded">${d.doNext.why}</div>
+                </div>
+            </div>
+
+            <!-- TOOLKIT -->
+            <div id="sec-toolkit">
+            ${d.toolkit && d.toolkit.length ? `
+            <div class="toolkit">
+                <div class="sec-lbl">TOOLKIT <span class="sec-count">${d.toolkit.length} available</span></div>
+                <div class="tk-grid">
+                    ${d.toolkit.map(t => `
+                        <div class="tk-item ${t.type}" ${t.url ? `onclick="window.open('${t.url}','_blank')" style="cursor:pointer"` : t.path ? `title="${t.path}"` : ''}>
+                            <div class="tk-label">${t.label}</div>
+                            <div class="tk-desc">${t.desc}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            ` : ''}
+            </div>
+
+            <!-- ANTI-CHECKLIST (right after toolkit) -->
+            <div id="sec-rules">
+            ${d.suggestions && d.suggestions.length ? `
+            <div class="suggestions">
+                <div class="sec-lbl">ANTI-CHECKLIST <span class="sec-count">always visible</span></div>
+                ${d.suggestions.map(s => `
+                    <div class="sug">
+                        <span class="sug-obs">${s.observation}</span>
+                        <span class="sug-act">${s.suggestion}</span>
+                    </div>
+                `).join('')}
+            </div>
+            ` : ''}
+            </div>
+
+            <!-- LINKS -->
+            <div class="links">
+                ${(d.links || []).map(l => `<a href="${l.url}" target="_blank">${l.label}</a>`).join('')}
+            </div>
+
+            <!-- ACTIVE TRACKS -->
+            <div id="sec-tracks" class="tracks">
+                <div class="sec-lbl">TRACKS <span class="sec-count">${d.active.length} active</span></div>
+                ${d.active.map((a, i) => {
+                    const col = getTrackColor(a.track);
+                    const activeItems = a.openItems.filter(item => !item.startsWith('✅ DONE'));
+                    const doneItems = a.openItems.filter(item => item.startsWith('✅ DONE'));
+                    const visibleItems = activeItems.slice(0, TRACK_ITEMS_VISIBLE);
+                    const hiddenItems = activeItems.slice(TRACK_ITEMS_VISIBLE);
+                    return `
+                    <div class="trk ${col}" id="trk-${i}">
+                        <div class="trk-head" onclick="document.getElementById('trk-${i}').classList.toggle('open')">
+                            <span class="trk-name">${a.track}</span>
+                            <span class="trk-right">
+                                <span class="trk-status">${a.status}</span>
+                                <span class="trk-age" data-started="${a.startedAt || ''}"></span>
+                                <span class="trk-arrow">&#9656;</span>
+                            </span>
+                        </div>
+                        <div class="trk-body">
+                            ${visibleItems.map(item => {
+                                const cls = item.startsWith('⚠') ? 'trk-item warn' : 'trk-item';
+                                return `<div class="${cls}">${item}</div>`;
+                            }).join('')}
+                            ${hiddenItems.length ? `
+                                <div class="trk-more" onclick="this.nextElementSibling.classList.toggle('collapsed');this.style.display='none'">+${hiddenItems.length} more...</div>
+                                <div class="collapsed">
+                                    ${hiddenItems.map(item => {
+                                        const cls = item.startsWith('⚠') ? 'trk-item warn' : 'trk-item';
+                                        return `<div class="${cls}">${item}</div>`;
+                                    }).join('')}
+                                </div>
+                            ` : ''}
+                            ${doneItems.length ? `
+                                <div class="trk-more" onclick="this.nextElementSibling.classList.toggle('collapsed')">&#10003; ${doneItems.length} completed</div>
+                                <div class="collapsed">
+                                    ${doneItems.map(item => `<div class="trk-item done">${item}</div>`).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>`;
+                }).join('')}
+            </div>
+
+            <!-- WAITING -->
+            <div id="sec-waiting" class="waiting">
+                <div class="sec-lbl">WAITING ON <span class="sec-count">${d.waiting.length}</span></div>
+                ${d.waiting.map(w => `
+                    <div class="wait-row" data-since="${w.since}">
+                        <span class="wait-who">${w.who}</span>
+                        <span class="wait-what">${w.what}</span>
+                        <span class="wait-age"></span>
+                    </div>
+                `).join('')}
+            </div>
+
+            <!-- WINS -->
+            <div id="sec-wins" class="wins">
+                <div class="sec-lbl">WINS <span class="sec-count">${d.wins.length} total</span></div>
+                ${d.wins.map((w, i) => `
+                    <div class="win ${i >= WINS_VISIBLE ? 'win-hidden' : ''}" onclick="this.classList.toggle('open')">
+                        <div class="win-title">${w.label}</div>
+                        <div class="win-detail">${w.detail}</div>
+                        <div class="win-next">${w.next}</div>
+                    </div>
+                `).join('')}
+                ${d.wins.length > WINS_VISIBLE ? `
+                    <div class="show-more" id="winsMore" onclick="toggleWins()">show all ${d.wins.length} wins &#9662;</div>
+                ` : ''}
+            </div>
+
+            <!-- SHIPPED -->
+            <div id="sec-shipped" class="shipped">
+                <div class="sec-lbl">SHIPPED <span class="sec-count">${d.shipped.length} items</span></div>
+                <div class="ship-summary" onclick="document.getElementById('shipList').classList.toggle('open')">
+                    <span><strong style="color:#4a9">${d.shipped.length}</strong> items shipped</span>
+                    <span class="ship-expand">&#9662;</span>
+                </div>
+                <div class="ship-list" id="shipList">
+                    <div class="ship-filter" id="shipFilter">
+                        <span class="ship-filter-btn active" onclick="filterShipped('ALL',this)">ALL</span>
+                        ${Object.entries(tagCounts).sort((a,b) => b[1]-a[1]).map(([tag, count]) =>
+                            `<span class="ship-filter-btn" onclick="filterShipped('${tag}',this)">${tag} (${count})</span>`
+                        ).join('')}
+                    </div>
+                    <div id="shipItems">
+                        ${d.shipped.map(s => `
+                            <div class="ship-item" data-tag="${s.tag}">
+                                <span class="ship-item-tag" style="color:${getTagColor(s.tag)}">${s.tag}</span>
+                                <span class="ship-item-text">${s.item}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTES FOOTER -->
+            <div class="notes-bar">
+                ${d.notes.sections.map(s => `<div><strong>${s.label}</strong> ${s.items.join(' | ')}</div>`).join('')}
+                <div style="margin-top:6px;color:#333;">${d.notes.footer}</div>
+            </div>
+
+            <div class="ftr">hud/index.html + data.js &middot; &#8593;&#8595; arrow keys to navigate</div>
+        `;
+
+        startClock();
+        updateStaleness();
+        updateDoAge();
+        updateTrackAges();
+    }
+
+    function getTagColor(tag) {
+        const colors = { HB: '#f9a', GAS: '#9cf', INFRA: '#9f9', FORJE: '#fc9', ALOE: '#c9f', GRM: '#ff9' };
+        return colors[tag] || '#888';
+    }
+
+    function startClock() {
+        function tick() {
+            const el = document.getElementById('clock');
+            if (el) el.textContent = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+        }
+        tick(); setInterval(tick, 1000);
+    }
+
+    function updateStaleness() {
+        const now = new Date();
+        document.querySelectorAll('.wait-row').forEach(row => {
+            const since = new Date(row.dataset.since);
+            const days = Math.floor((now - since) / 86400000);
+            const el = row.querySelector('.wait-age');
+            if (!el) return;
+            el.textContent = days + 'd';
+            el.className = 'wait-age ' + (days >= 7 ? 'urgent' : days >= 3 ? 'stale' : 'fresh');
+        });
+    }
+
+    function updateDoAge() {
+        const el = document.getElementById('doAge');
+        if (!el || !hudData.doNext.lastUpdated) return;
+        const diff = Date.now() - new Date(hudData.doNext.lastUpdated).getTime();
+        const mins = Math.floor(diff / 60000);
+        const hrs = Math.floor(mins / 60);
+        const days = Math.floor(hrs / 24);
+        el.textContent = mins < 60 ? mins + 'm ago' : hrs < 24 ? hrs + 'h ago' : days + 'd ago';
+    }
+
+    function updateTrackAges() {
+        document.querySelectorAll('.trk-age').forEach(el => {
+            if (!el.dataset.started) return;
+            const days = Math.floor((Date.now() - new Date(el.dataset.started).getTime()) / 86400000);
+            el.textContent = days > 0 ? days + 'd' : '<1d';
+        });
+    }
+
+    function toggleWins() {
+        const hidden = document.querySelectorAll('.win-hidden');
+        const btn = document.getElementById('winsMore');
+        const showing = hidden[0] && hidden[0].classList.contains('show');
+        hidden.forEach(w => w.classList.toggle('show'));
+        btn.innerHTML = showing ? `show all ${hudData.wins.length} wins &#9662;` : 'collapse &#9652;';
+    }
+
+    function filterShipped(tag, btn) {
+        document.querySelectorAll('.ship-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.ship-item').forEach(item => {
+            item.style.display = (tag === 'ALL' || item.dataset.tag === tag) ? 'grid' : 'none';
+        });
+    }
+
+    function toggleSection(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('shut');
+    }
+
+    let currentSection = 0;
+    function jumpTo(id) {
+        const el = document.getElementById('sec-' + id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            currentSection = sections.indexOf(id);
+            highlightNav(id);
+        }
+    }
+
+    function highlightNav(id) {
+        document.querySelectorAll('.sec-nav-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', sections[i] === id);
+        });
+    }
+
+    // Keyboard navigation: up/down arrows
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+            e.preventDefault();
+            currentSection = Math.min(currentSection + 1, sections.length - 1);
+            jumpTo(sections[currentSection]);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            e.preventDefault();
+            currentSection = Math.max(currentSection - 1, 0);
+            jumpTo(sections[currentSection]);
+        }
+    });
+
+    // Scroll spy — highlight nav button for visible section
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id.replace('sec-', '');
+                const idx = sections.indexOf(id);
+                if (idx >= 0) {
+                    currentSection = idx;
+                    highlightNav(id);
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    setInterval(updateStaleness, 60000);
+    setInterval(updateDoAge, 60000);
+    setInterval(updateTrackAges, 60000);
+    render();
+
+    // Attach scroll spy after render
+    sections.forEach(id => {
+        const el = document.getElementById('sec-' + id);
+        if (el) observer.observe(el);
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>HB Review — Mobile Optimized</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+      font-size: 16px;
+      line-height: 1.5;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Fixed header with progress */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #0a0a0a;
+      border-bottom: 1px solid #333;
+      z-index: 100;
+      padding: 12px 16px;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #1a1a1a;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4ade80, #10b981);
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .step-count {
+      color: #888;
+      font-weight: 600;
+    }
+
+    .step-current {
+      color: #4ade80;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .content {
+      padding-top: 80px;
+      padding-bottom: 180px;
+      min-height: 100vh;
+    }
+
+    /* Screen container */
+    .screen {
+      display: none;
+      padding: 20px 16px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .screen-title {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .screen-heading {
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* ASCII preview box */
+    .ascii-box {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .ascii-box pre {
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      line-height: 1.3;
+      color: #a0a0a0;
+      white-space: pre;
+      margin: 0;
+    }
+
+    /* Question box */
+    .question {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      border-left: 4px solid #60a5fa;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+
+    .question::before {
+      content: "💭";
+      margin-right: 8px;
+      font-size: 18px;
+    }
+
+    /* Fixed bottom navigation */
+    .nav-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0a0a0a;
+      border-top: 1px solid #333;
+      padding: 12px 16px 12px;
+      z-index: 100;
+    }
+
+    /* Action buttons */
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 16px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-approve {
+      background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+      color: #4ade80;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-flag {
+      background: linear-gradient(135deg, #7c2d12 0%, #991b1b 100%);
+      color: #fb923c;
+      box-shadow: 0 2px 8px rgba(251, 146, 60, 0.3);
+    }
+
+    .btn-voice {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      color: #60a5fa;
+      grid-column: 1 / -1;
+      box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+    }
+
+    .btn-voice.recording {
+      background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%);
+      animation: pulse 1.5s infinite;
+    }
+
+    /* Arrow navigation */
+    .nav-arrows {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-arrow {
+      flex: 1;
+      font-size: 20px;
+      padding: 14px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #e0e0e0;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      font-weight: bold;
+    }
+
+    .nav-arrow:active:not(:disabled) {
+      transform: scale(0.95);
+      background: #2a2a2a;
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-info {
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      padding: 0 12px;
+      white-space: nowrap;
+    }
+
+    /* Mini dots navigation */
+    .mini-nav {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      padding: 10px 0 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .mini-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #333;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .mini-dot.active {
+      background: #4ade80;
+      transform: scale(1.5);
+    }
+
+    .mini-dot.approved {
+      background: #10b981;
+    }
+
+    .mini-dot.flagged {
+      background: #fb923c;
+    }
+
+    /* Voice note indicator */
+    .voice-indicator {
+      margin-top: 12px;
+      padding: 12px;
+      background: #1a1a1a;
+      border-left: 3px solid #60a5fa;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    /* Status badges on screens */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .status-badge.approved {
+      background: #065f46;
+      color: #4ade80;
+    }
+
+    .status-badge.flagged {
+      background: #7c2d12;
+      color: #fb923c;
+    }
+
+    /* Swipe hint */
+    .swipe-hint {
+      position: fixed;
+      bottom: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #888;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .swipe-hint.show {
+      opacity: 1;
+    }
+
+    /* Export button */
+    .export-btn {
+      position: fixed;
+      top: 20px;
+      right: 16px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 101;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Landscape hint */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .ascii-box pre {
+        font-size: 8px;
+      }
+      .screen {
+        padding: 16px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="export-btn" onclick="exportFeedback()">📥</div>
+
+  <div class="header">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="header-content">
+      <div class="step-count">
+        <span class="step-current" id="stepCurrent">1</span>
+        <span style="color: #444;">/ <span id="stepTotal">5</span></span>
+      </div>
+      <div style="color: #4ade80; font-size: 12px;" id="reviewStatus">
+        <span id="reviewCount">0</span> reviewed
+      </div>
+    </div>
+  </div>
+
+  <div class="content" id="content"></div>
+
+  <div class="swipe-hint" id="swipeHint">← Swipe to navigate →</div>
+
+  <div class="nav-footer">
+    <div class="actions" id="actions"></div>
+    <div class="nav-arrows">
+      <button class="nav-arrow" onclick="prev()" id="prevBtn">←</button>
+      <div class="nav-info" id="navInfo">Step 1</div>
+      <button class="nav-arrow" onclick="next()" id="nextBtn">→</button>
+    </div>
+    <div class="mini-nav" id="miniNav"></div>
+  </div>
+
+  <script>
+    const flowData = {
+      title: 'Customer Booking Flow',
+      screens: [
+        {
+          title: 'Landing Page',
+          step: 'STEP 1',
+          ascii: `┌─────────────────────────────────────────┐
+│  HIBISCUS STUDIO                    ☰  │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Hero image of studio]                 │
+│                                         │
+│  Studio hire for events,                │
+│  workshops & content shoots             │
+│                                         │
+│  19a Peto Street North, London E16      │
+│  5 min from Canning Town                │
+│                                         │
+│  ✓ 40 seats  ✓ Tables  ✓ Kitchen       │
+│                                         │
+│         [View Booking Options]          │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Does this clearly communicate what you offer? Is the location info prominent enough?'
+        },
+        {
+          title: 'Category Selection',
+          step: 'STEP 2',
+          ascii: `┌─────────────────────────────────────────┐
+│  Choose your booking type               │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  👁️ STUDIO VIEWING               │ │
+│  │  Free • 20 minutes                │ │
+│  │  [Book Viewing]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  🎉 EVENT HIRE                    │ │
+│  │  From £345 • 4-12 hours           │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  🎨 WORKSHOPS & CONTENT           │ │
+│  │  From £90/hour                    │ │
+│  │  [View Options]                   │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  💍 PROPOSAL PACKAGES             │ │
+│  │  From £770 • Save up to £400      │ │
+│  │  [View Packages]                  │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Are these categories clear? Should "Event Hire" be renamed to something more specific?'
+        },
+        {
+          title: 'Package Selection',
+          step: 'STEP 3',
+          ascii: `┌─────────────────────────────────────────┐
+│  Event Hire Packages                    │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  4 HOURS FLEXI                    │ │
+│  │  £345                             │ │
+│  │  Perfect for smaller gatherings   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  HALF-DAY (6 HOURS) ⭐ POPULAR    │ │
+│  │  £465                             │ │
+│  │  Most chosen for bridal showers   │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+│  ┌───────────────────────────────────┐ │
+│  │  8 HOURS FLEXI                    │ │
+│  │  £645                             │ │
+│  │  Great for larger events          │ │
+│  │  [Book Now]                       │ │
+│  └───────────────────────────────────┘ │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Do the descriptions help customers choose? Is pricing clear?'
+        },
+        {
+          title: 'Acuity Modal Opens',
+          step: 'STEP 4',
+          ascii: `┌─────────────────────────────────────────┐
+│  Book Your Session              [X]     │
+│  Hibiscus Studio                        │
+├─────────────────────────────────────────┤
+│                                         │
+│  [Loading spinner]                      │
+│  Loading booking calendar...            │
+│                                         │
+│  ────────────────────────────────────── │
+│                                         │
+│  [Acuity calendar iframe loads here]    │
+│                                         │
+│  • Pick date from calendar              │
+│  • Select time slot                     │
+│  • Fill form (name, email, phone)       │
+│  • Click "Complete Booking"             │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'CRITICAL: Does this modal feel disconnected from the main site? (This is why we want to replace Acuity)'
+        },
+        {
+          title: 'Booking Confirmation',
+          step: 'STEP 5',
+          ascii: `┌─────────────────────────────────────────┐
+│  ✓ Booking Created!                     │
+├─────────────────────────────────────────┤
+│                                         │
+│  We've reserved your date.              │
+│                                         │
+│  What's next:                           │
+│  1. Check your email for invoice        │
+│  2. Pay 50% deposit within 48 hours     │
+│  3. We'll confirm once payment received │
+│                                         │
+│  Your booking ID: HB-2026-001           │
+│                                         │
+│  Event Details:                         │
+│  • Date: Feb 15, 2026                   │
+│  • Time: 4:00 PM - 10:00 PM             │
+│  • Package: Half-Day (6 hours)          │
+│  • Total: £465                          │
+│                                         │
+│  [Close]                                │
+│                                         │
+└─────────────────────────────────────────┘`,
+          question: 'Is it clear what happens next? Do customers understand they need to wait for invoice?'
+        }
+      ]
+    };
+
+    let currentScreen = 0;
+    let feedback = JSON.parse(localStorage.getItem('hb_mobile_feedback')) || {};
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function render() {
+      const screen = flowData.screens[currentScreen];
+      const status = feedback[currentScreen];
+
+      // Update header
+      document.getElementById('stepCurrent').textContent = currentScreen + 1;
+      document.getElementById('stepTotal').textContent = flowData.screens.length;
+
+      const reviewedCount = Object.keys(feedback).filter(k => feedback[k] && feedback[k].status).length;
+      document.getElementById('reviewCount').textContent = reviewedCount;
+
+      const progress = ((currentScreen + 1) / flowData.screens.length) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+
+      // Update content
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <div class="screen active">
+          ${status ? `<div class="status-badge ${status.status}">${status.status === 'approved' ? '✓ Approved' : '⚠ Flagged'}</div>` : ''}
+          <div class="screen-title">${screen.step}</div>
+          <h1 class="screen-heading">${screen.title}</h1>
+
+          <div class="ascii-box">
+            <pre>${screen.ascii}</pre>
+          </div>
+
+          ${screen.question ? `
+            <div class="question">${screen.question}</div>
+          ` : ''}
+
+          ${status && status.voiceNote ? `
+            <div class="voice-indicator">
+              🎤 Voice note recorded
+            </div>
+          ` : ''}
+        </div>
+      `;
+
+      // Update actions
+      const actions = document.getElementById('actions');
+      actions.innerHTML = `
+        <button class="btn btn-approve" onclick="approve()">
+          <span>✓</span> <span>Looks Good</span>
+        </button>
+        <button class="btn btn-flag" onclick="flag()">
+          <span>⚠</span> <span>Needs Work</span>
+        </button>
+        <button class="btn btn-voice" onclick="toggleRecording()" id="voiceBtn">
+          <span>🎤</span> <span>Voice Note</span>
+        </button>
+      `;
+
+      // Update navigation
+      document.getElementById('prevBtn').disabled = currentScreen === 0;
+      document.getElementById('nextBtn').disabled = currentScreen === flowData.screens.length - 1;
+      document.getElementById('navInfo').textContent = `${screen.step}`;
+
+      // Update mini nav
+      renderMiniNav();
+    }
+
+    function renderMiniNav() {
+      const miniNav = document.getElementById('miniNav');
+      miniNav.innerHTML = flowData.screens.map((s, idx) => {
+        const status = feedback[idx];
+        const classes = ['mini-dot'];
+        if (idx === currentScreen) classes.push('active');
+        if (status && status.status === 'approved') classes.push('approved');
+        if (status && status.status === 'flagged') classes.push('flagged');
+        return `<div class="${classes.join(' ')}" onclick="goTo(${idx})"></div>`;
+      }).join('');
+    }
+
+    function goTo(idx) {
+      if (idx >= 0 && idx < flowData.screens.length) {
+        currentScreen = idx;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function next() {
+      if (currentScreen < flowData.screens.length - 1) {
+        currentScreen++;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prev() {
+      if (currentScreen > 0) {
+        currentScreen--;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function approve() {
+      feedback[currentScreen] = {
+        status: 'approved',
+        timestamp: new Date().toISOString()
+      };
+      saveFeedback();
+      render();
+
+      // Auto-advance if not last screen
+      if (currentScreen < flowData.screens.length - 1) {
+        setTimeout(() => next(), 400);
+      }
+    }
+
+    function flag() {
+      feedback[currentScreen] = {
+        status: 'flagged',
+        timestamp: new Date().toISOString()
+      };
+      saveFeedback();
+      render();
+    }
+
+    let mediaRecorder;
+    let audioChunks = [];
+
+    async function toggleRecording() {
+      const btn = document.getElementById('voiceBtn');
+
+      if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(audioChunks, { type: 'audio/webm' });
+            saveVoiceNote(blob);
+            btn.classList.remove('recording');
+            btn.innerHTML = '<span>🎤</span> <span>Voice Note</span>';
+          };
+
+          mediaRecorder.start();
+          btn.classList.add('recording');
+          btn.innerHTML = '<span>⏹</span> <span>Stop Recording</span>';
+        } catch (err) {
+          alert('Microphone access needed for voice notes');
+        }
+      } else {
+        mediaRecorder.stop();
+      }
+    }
+
+    function saveVoiceNote(blob) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (!feedback[currentScreen]) feedback[currentScreen] = {};
+        feedback[currentScreen].voiceNote = reader.result;
+        feedback[currentScreen].voiceTimestamp = new Date().toLocaleString();
+        saveFeedback();
+        render();
+      };
+      reader.readAsDataURL(blob);
+    }
+
+    function saveFeedback() {
+      localStorage.setItem('hb_mobile_feedback', JSON.stringify(feedback));
+    }
+
+    function exportFeedback() {
+      const exportData = {
+        timestamp: new Date().toISOString(),
+        totalScreens: flowData.screens.length,
+        reviewed: Object.keys(feedback).filter(k => feedback[k] && feedback[k].status).length,
+        screens: flowData.screens.map((s, idx) => ({
+          step: s.step,
+          title: s.title,
+          status: feedback[idx]?.status || 'not-reviewed',
+          hasVoiceNote: !!(feedback[idx]?.voiceNote),
+          timestamp: feedback[idx]?.timestamp
+        })),
+        feedback: feedback
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `hb-mobile-review-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+
+      alert('Feedback exported! 📥');
+    }
+
+    // Touch swipe support
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left (next)
+          next();
+        } else {
+          // Swipe right (prev)
+          prev();
+        }
+      }
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'a' || e.key === 'A') approve();
+      if (e.key === 'f' || e.key === 'F') flag();
+    });
+
+    // Show swipe hint on first load
+    if (!localStorage.getItem('hb_swipe_hint_shown')) {
+      setTimeout(() => {
+        const hint = document.getElementById('swipeHint');
+        hint.classList.add('show');
+        setTimeout(() => {
+          hint.classList.remove('show');
+          localStorage.setItem('hb_swipe_hint_shown', 'true');
+        }, 3000);
+      }, 1000);
+    }
+
+    // Initialize
+    render();
+  </script>
+</body>
+</html>

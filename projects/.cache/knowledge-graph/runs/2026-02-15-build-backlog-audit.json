@@ -1,0 +1,15 @@
+{
+  "source": "2026-02-15-build-backlog-audit",
+  "mined_at": "2026-02-15T16:30:00",
+  "new_atoms": 9,
+  "updated_atoms": 1,
+  "updates": [
+    {"id": "atom-20260215-008", "change": "weight 2→3, 'build product first, case study follows' = sawdust restated"}
+  ],
+  "total_after": 52,
+  "atom_ids": [
+    "atom-20260215-044", "atom-20260215-045", "atom-20260215-046",
+    "atom-20260215-047", "atom-20260215-048", "atom-20260215-049",
+    "atom-20260215-050", "atom-20260215-051", "atom-20260215-052"
+  ]
+}

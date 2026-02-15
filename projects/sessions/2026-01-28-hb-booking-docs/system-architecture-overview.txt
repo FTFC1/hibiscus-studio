@@ -1,0 +1,493 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║              HIBISCUS STUDIO BOOKING SYSTEM ARCHITECTURE                 ║
+║                         Complete System Map                              ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ CUSTOMER JOURNEY (CURRENT STATE)                                        │
+└─────────────────────────────────────────────────────────────────────────┘
+
+AWARENESS                    CONSIDERATION                ACTION
+──────────                   ─────────────                ──────
+
+Instagram ──┐
+TikTok ─────┼──▶ Landing Page ──▶ Category Select ──▶ Acuity Modal ──▶ Booking
+Vendor Tags─┘    hibiscusstudio      ↓                   (iframe)        Created
+Linktree         .co.uk              Package Select       [friction]        │
+                      │               ↓                                     │
+                      │               Recommendation                        │
+                      │               (event-type funnel)                   │
+                      │                                                     │
+                      ▼                                                     ▼
+                 [Umami Analytics]                            [BOTTLENECK: 48h delay]
+                 Track events                                             │
+                 ✓ category-selected                                      │
+                 ✓ clicked-book-now                                       ▼
+                 ✗ abandonment                                   Manual Invoice Sent
+                 ✗ conversion rate                                (within 48h)
+                                                                          │
+                                                                          │
+                                                                          ▼
+FULFILLMENT                                                    Payment Window (48h)
+───────────                                                              │
+                                                                ┌────────┴─────────┐
+Event Day ◀── Confirmation ◀── Admin Confirms ◀── Payment     │                  │
+   ↓                                  ▲                        ▼                  ▼
+   │                                  │                     PAID              UNPAID
+   │                            [Admin Dashboard]             │                  │
+   │                            /admin route                  │                  │
+   │                            Worker UI                     │                  ▼
+   │                                                          │            Auto-Cancel
+   │                                                          │            Slot Released
+   │                                                          │
+   ▼                                                          │
+Damages Deposit Refund ◀──────────────────────────────────────┘
+(1-3 days post-event)
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ TECHNICAL ARCHITECTURE (CURRENT STATE)                                   ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ FRONTEND LAYER ────────────────────────────────────────────────────────┐
+│                                                                          │
+│  hibiscusstudio.co.uk                                                   │
+│  ├── index.html                  (category-based booking)               │
+│  ├── event-type-funnel.html      (recommendation engine)                │
+│  └── booking-demo.html            (prototype, not live)                 │
+│                                                                          │
+│  Tech: Vanilla JS + Tailwind CSS                                        │
+│  Hosting: GitHub Pages                                                  │
+│  Analytics: Umami (self-hosted)                                         │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+                                  │
+                                  ├── Acuity Scheduling (iframe)
+                                  │   └── External calendar + booking
+                                  │
+                                  └── Tally Forms (proposal packages)
+                                      └── Contact form submission
+                                  │
+                                  ▼
+┌─ BACKEND LAYER ─────────────────────────────────────────────────────────┐
+│                                                                          │
+│  Cloudflare Worker                                                      │
+│  https://hb-booking.nicholasfcoker.workers.dev                          │
+│                                                                          │
+│  PUBLIC ROUTES:                                                          │
+│  ├── POST /api/bookings           (create booking)                      │
+│  └── GET  /api/availability/:date (check slot availability)             │
+│                                                                          │
+│  PROTECTED ROUTES (admin auth):                                          │
+│  ├── GET  /admin                  (dashboard UI)                        │
+│  ├── POST /api/bookings/:id/confirm                                     │
+│  ├── POST /api/bookings/:id/cancel                                      │
+│  └── POST /api/bookings/:id/change-date                                 │
+│                                                                          │
+│  Auth: 3-layer (Cloudflare Access JWT / Cookie / Bearer Token)         │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+                                  │
+                    ┌─────────────┼─────────────┐
+                    │             │             │
+                    ▼             ▼             ▼
+┌─ DATA LAYER ───────────┐ ┌─────────────┐ ┌───────────────────┐
+│ Cloudflare KV Store    │ │ Google Cal  │ │ Google Cal        │
+│ (API bookings)         │ │ (new)       │ │ (legacy, read-only)│
+│                        │ │             │ │                   │
+│ Stores:                │ │ Write/read  │ │ Read-only         │
+│ - Booking records      │ │ Contact:    │ │ Old calendar:     │
+│ - Invoices             │ │ hibiscus    │ │ hibiscusstudiouk  │
+│ - Invoice counters     │ │ studio      │ │ @gmail.com        │
+│                        │ │ @gmail.com  │ │                   │
+│ Deduplication:         │ │             │ │ [TRANSITIONING]   │
+│ KV = source of truth   │ └─────────────┘ └───────────────────┘
+└────────────────────────┘
+                    │
+                    ▼
+┌─ EMAIL LAYER ──────────────────────────────────────────────────────────┐
+│                                                                         │
+│  Google Apps Script (webhook)                                          │
+│  https://script.google.com/macros/s/.../exec                           │
+│                                                                         │
+│  Triggered by Worker:                                                  │
+│  ├── Booking confirmation                                              │
+│  ├── Invoice (50% deposit)                                             │
+│  ├── Confirmation (after admin confirms)                               │
+│  ├── Cancellation notice                                               │
+│  └── Reschedule notice                                                 │
+│                                                                         │
+│  Limitation: Gmail sending limits (500/day)                            │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ DATA FLOW: BOOKING LIFECYCLE                                            ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ PHASE 1: BOOKING CREATION ─────────────────────────────────────────────┐
+│                                                                          │
+│  Customer Submits Booking                                               │
+│         ↓                                                                │
+│  POST /api/bookings                                                     │
+│         ↓                                                                │
+│  ┌─────────────────────────────────────────────────────────────┐       │
+│  │ Worker Processing:                                          │       │
+│  │ 1. Generate UUID                                            │       │
+│  │ 2. Calculate total + deposit (50%)                         │       │
+│  │ 3. Create calendar event (PROVISIONAL, yellow)             │       │
+│  │ 4. Store in KV (status='pending')                          │       │
+│  │ 5. Trigger Apps Script webhook:                            │       │
+│  │    → Send booking confirmation                             │       │
+│  │    → Send invoice (50% deposit due)                        │       │
+│  │ 6. Return: { bookingId, bankDetails }                      │       │
+│  └─────────────────────────────────────────────────────────────┘       │
+│         ↓                                                                │
+│  Dashboard shows: PENDING (awaiting payment confirmation)               │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ PHASE 2: PAYMENT & CONFIRMATION ───────────────────────────────────────┐
+│                                                                          │
+│  [CURRENT: MANUAL PROCESS]                                              │
+│  Customer pays via bank transfer                                        │
+│         ↓                                                                │
+│  Studio owner checks bank                                               │
+│         ↓                                                                │
+│  Admin clicks [✓ Confirm] in dashboard                                  │
+│         ↓                                                                │
+│  POST /api/bookings/:id/confirm                                         │
+│         ↓                                                                │
+│  ┌─────────────────────────────────────────────────────────────┐       │
+│  │ Worker Processing:                                          │       │
+│  │ 1. Update calendar event (CONFIRMED, green)                │       │
+│  │ 2. Update KV: status='confirmed', confirmedAt=now          │       │
+│  │ 3. Trigger confirmation email                              │       │
+│  └─────────────────────────────────────────────────────────────┘       │
+│         ↓                                                                │
+│  Booking confirmed, slot secured                                        │
+│                                                                          │
+│  [IDEAL: AUTOMATED]                                                     │
+│  Customer pays immediately (Stripe)                                     │
+│         ↓                                                                │
+│  Webhook triggers instant confirmation                                  │
+│         ↓                                                                │
+│  No admin action needed                                                 │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ PHASE 3: MODIFICATION (OPTIONAL) ──────────────────────────────────────┐
+│                                                                          │
+│  Admin clicks [Cancel] or [Change Date]                                │
+│         ↓                                                                │
+│  Modal displays policy                                                  │
+│         ↓                                                                │
+│  POST /api/bookings/:id/cancel OR /api/bookings/:id/change-date        │
+│         ↓                                                                │
+│  ┌─────────────────────────────────────────────────────────────┐       │
+│  │ CANCEL:                                                     │       │
+│  │ 1. Calculate days until event                              │       │
+│  │ 2. Apply cancellation policy:                              │       │
+│  │    if days >= 7: deposit forfeit, balance refund           │       │
+│  │    if days < 7: no refund                                  │       │
+│  │ 3. Delete calendar event                                   │       │
+│  │ 4. Update KV: status='cancelled', policy details           │       │
+│  │ 5. Trigger cancellation email                              │       │
+│  │                                                             │       │
+│  │ RESCHEDULE:                                                 │       │
+│  │ 1. Check dateChangeCount < 1 (only one change allowed)     │       │
+│  │ 2. Calculate fee (free if 7+ days, £50 if <7 days)         │       │
+│  │ 3. Check new slot availability                             │       │
+│  │ 4. Delete old calendar event                               │       │
+│  │ 5. Create new calendar event at new date/time              │       │
+│  │ 6. Update KV: new date, dateChangeCount++                  │       │
+│  │ 7. Trigger reschedule email                                │       │
+│  └─────────────────────────────────────────────────────────────┘       │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ ADMIN DASHBOARD DATA AGGREGATION                                        ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ DATA SOURCES ──────────────────────────────────────────────────────────┐
+│                                                                          │
+│  SOURCE 1: KV Store                                                     │
+│  ├── API-created bookings                                               │
+│  ├── Full structured data                                               │
+│  └── Authoritative for status, payment, changes                         │
+│                                                                          │
+│  SOURCE 2: Google Calendar (new)                                        │
+│  ├── Contains API bookings + manual entries                             │
+│  ├── Write access (create/update/delete)                                │
+│  └── Calendar ID: contacthibiscusstudio                                 │
+│                                                                          │
+│  SOURCE 3: Google Calendar (legacy)                                     │
+│  ├── Historical bookings (pre-API)                                      │
+│  ├── Read-only                                                          │
+│  └── Calendar ID: hibiscusstudiouk                                      │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─ MERGE & DEDUPLICATE ───────────────────────────────────────────────────┐
+│                                                                          │
+│  1. Fetch all KV bookings (env.BOOKINGS.list())                         │
+│     → Filter: skip invoice: and counter keys                            │
+│     → Flag: fromKV = true                                               │
+│                                                                          │
+│  2. Fetch calendar events (-90 to +180 days)                            │
+│     → Parse event descriptions for booking data                         │
+│     → Flag: fromCalendar = 'new' or 'legacy'                            │
+│                                                                          │
+│  3. Deduplication logic:                                                │
+│     Key = name + date (normalized)                                      │
+│     Priority: KV > new calendar > legacy calendar                       │
+│     Result: Hide legacy duplicates                                      │
+│                                                                          │
+│  4. Enrichment:                                                          │
+│     → Calculate daysUntil = (eventDate - today)                         │
+│     → Calculate pendingDays = (today - createdAt)                       │
+│     → Determine urgency: TODAY / TOMORROW / "Xd away"                   │
+│     → Sort by date (ascending)                                          │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─ DASHBOARD SECTIONS ────────────────────────────────────────────────────┐
+│                                                                          │
+│  HEADER METRICS                                                          │
+│  ├── Confirmed this week (count + revenue)                              │
+│  ├── Pending this week (count)                                          │
+│  └── Month revenue (total + count)                                      │
+│                                                                          │
+│  NEEDS ACTION (status='pending')                                        │
+│  ├── Sort: by event date (ascending)                                    │
+│  ├── Display: urgency badge, pending age, payment status                │
+│  └── Actions: [Change] [Cancel] [✓ Confirm]                             │
+│                                                                          │
+│  THIS WEEK (today + 7 days)                                             │
+│  ├── Group by day: TODAY, TOMORROW, MONDAY...                           │
+│  ├── Show: confirmed + pending (not cancelled)                          │
+│  └── Actions: [Reschedule] [Cancel] (or [Confirm] if pending)           │
+│                                                                          │
+│  COMING UP (7+ days ahead)                                              │
+│  ├── List: future bookings beyond this week                             │
+│  └── Filter: non-cancelled only                                         │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ GAPS & IMPROVEMENT OPPORTUNITIES                                        ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ CRITICAL GAPS (PHASE 1 PRIORITIES) ────────────────────────────────────┐
+│                                                                          │
+│  [1] MANUAL PAYMENT BOTTLENECK                                          │
+│      ──────────────────────────                                         │
+│      Current: Booking → 48h delay → manual invoice → 48h payment window │
+│      Impact: High drop-off, admin workload, delayed revenue             │
+│      Solution: Stripe integration, instant payment                      │
+│      ROI: 48h → <5min, eliminate manual work                            │
+│                                                                          │
+│  [2] ABANDONED BOOKING RECOVERY                                          │
+│      ──────────────────────────                                         │
+│      Current: No tracking, no recovery                                  │
+│      Impact: 20-30% estimated abandonment, zero recovery                │
+│      Solution: Email capture + automated recovery sequences             │
+│      ROI: 15-25% recovery rate (industry standard)                      │
+│                                                                          │
+│  [3] MOBILE ADMIN UX                                                     │
+│      ─────────────────                                                   │
+│      Current: Desktop-optimized, poor mobile experience                 │
+│      Impact: Rochelle checks from phone, friction                       │
+│      Solution: Responsive CSS, mobile-first design                      │
+│      ROI: Faster admin actions, anywhere access                         │
+│                                                                          │
+│  [4] NO ADMIN NOTIFICATIONS                                              │
+│      ───────────────────────                                            │
+│      Current: Must actively check dashboard                             │
+│      Impact: Delayed response to new bookings                           │
+│      Solution: Email/SMS notification on new booking                    │
+│      ROI: Minutes instead of hours response time                        │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ CUSTOMER EXPERIENCE GAPS (PHASE 2) ────────────────────────────────────┐
+│                                                                          │
+│  [5] NO SELF-SERVICE PORTAL                                              │
+│      ───────────────────────                                            │
+│      Current: Email/DM for changes, no booking history                  │
+│      Impact: Admin workload, customer friction                          │
+│      Solution: Customer portal (reschedule/cancel/history)              │
+│      ROI: 40% reduction in support requests                             │
+│                                                                          │
+│  [6] NO BOOKING CONFIRMATION PAGE                                        │
+│      ────────────────────────────                                       │
+│      Current: Confirmation via email only                               │
+│      Impact: "Did it work?" confusion                                   │
+│      Solution: On-screen confirmation + "add to calendar"               │
+│      ROI: Better UX, fewer support questions                            │
+│                                                                          │
+│  [7] NO REVENUE REPORTING                                                │
+│      ─────────────────────                                              │
+│      Current: Manual calculations                                       │
+│      Impact: Time-consuming, no trend analysis                          │
+│      Solution: Revenue dashboard (weekly/monthly/yearly)                │
+│      ROI: Data-driven pricing, identify high-value segments             │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ SCALE & OPTIMIZATION (PHASE 3) ────────────────────────────────────────┐
+│                                                                          │
+│  [8] ACUITY DEPENDENCY                                                   │
+│      ──────────────────                                                 │
+│      Current: Iframe embed, limited customization                       │
+│      Impact: UX friction, can't see abandonment, vendor lock-in         │
+│      Solution: Custom calendar, native to site                          │
+│      ROI: Better UX, save subscription cost, full control               │
+│                                                                          │
+│  [9] NO CONVERSION OPTIMIZATION                                          │
+│      ───────────────────────                                            │
+│      Current: No A/B testing, limited analytics                         │
+│      Impact: Unknown conversion rate, no optimization                   │
+│      Solution: A/B testing, heatmaps, session recordings                │
+│      ROI: 5-15% conversion uplift via iterative testing                 │
+│                                                                          │
+│  [10] NO UPSELL/REPEAT BOOKING                                           │
+│       ─────────────────────────                                         │
+│       Current: One-time transactional                                   │
+│       Impact: Low LTV, no repeat revenue                                │
+│       Solution: Post-booking upsell, referral program                   │
+│       ROI: 20-30% increase in LTV                                       │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ IDEAL STATE ARCHITECTURE (POST-IMPROVEMENTS)                            ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ CUSTOMER JOURNEY (IDEAL STATE) ────────────────────────────────────────┐
+│                                                                          │
+│  AWARENESS           CONSIDERATION       ACTION          FULFILLMENT    │
+│  ──────────          ─────────────       ──────          ───────────   │
+│                                                                          │
+│  Instagram ──┐                                                           │
+│  TikTok ─────┼──▶ Landing ──▶ Native ──▶ Payment ──▶ Confirmed ──▶ Event│
+│  Vendor ─────┘     Page        Calendar    (instant)   (instant)        │
+│                      │            │           │            │             │
+│                      │            │           │            │             │
+│                      ▼            ▼           ▼            ▼             │
+│                  [Analytics] [Abandon   [Stripe]   [Auto-confirm]       │
+│                  Full funnel  Recovery]                                  │
+│                  tracking     15-25%                                     │
+│                               uplift                                     │
+│                                                                          │
+│  SELF-SERVICE:                                                           │
+│  Customer Portal ──▶ [View Bookings] [Reschedule] [Cancel] [History]   │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ TECHNICAL STACK (IDEAL STATE) ─────────────────────────────────────────┐
+│                                                                          │
+│  FRONTEND                                                                │
+│  ├── Static site (GitHub Pages)                                         │
+│  ├── Custom calendar (native, no iframe)                                │
+│  ├── Stripe Elements (embedded payment)                                 │
+│  └── Customer portal (auth via magic links)                             │
+│                                                                          │
+│  BACKEND                                                                 │
+│  ├── Cloudflare Worker (serverless, globally distributed)               │
+│  ├── Cloudflare KV (key-value storage)                                  │
+│  ├── Stripe API (payment processing)                                    │
+│  └── Resend/SendGrid (email delivery)                                   │
+│                                                                          │
+│  DATA STORAGE                                                            │
+│  ├── KV Store (bookings, invoices, user sessions)                       │
+│  ├── Google Calendar (event sync, legacy support)                       │
+│  └── Optional: D1 (SQL for analytics/reporting)                         │
+│                                                                          │
+│  AUTOMATION                                                              │
+│  ├── Stripe webhooks (instant payment confirmation)                     │
+│  ├── Abandoned cart recovery (triggered emails)                         │
+│  ├── Admin notifications (new booking alerts)                           │
+│  └── Scheduled tasks (pre-event reminders, follow-ups)                  │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ ROADMAP TIMELINE                                                         ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─ Q1 2026 (JAN-MAR): FOUNDATION ─────────────────────────────────────────┐
+│                                                                          │
+│  Week 1-4:  Stripe integration + payment page                           │
+│  Week 5-7:  Abandoned booking recovery system                           │
+│  Week 8:    Mobile-optimized admin dashboard                            │
+│  Week 9:    Admin notification system                                   │
+│                                                                          │
+│  SUCCESS METRICS:                                                        │
+│  ✓ Booking → confirmed: 48h → <5min                                     │
+│  ✓ Abandoned recovery rate: 0% → 15%+                                   │
+│  ✓ Admin mobile usage: track weekly active                              │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ Q2 2026 (APR-JUN): SELF-SERVICE ───────────────────────────────────────┐
+│                                                                          │
+│  Week 1-6:  Customer portal (auth + booking management)                 │
+│  Week 7:    Booking confirmation page                                   │
+│  Week 8-9:  Revenue reporting dashboard                                 │
+│                                                                          │
+│  SUCCESS METRICS:                                                        │
+│  ✓ Self-service adoption: 0% → 60%                                      │
+│  ✓ Support requests: baseline → -40%                                    │
+│  ✓ Repeat booking rate: track baseline                                  │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌─ Q3-Q4 2026 (JUL-DEC): SCALE & OPTIMIZE ────────────────────────────────┐
+│                                                                          │
+│  Q3:  Replace Acuity with custom calendar                               │
+│  Q3-Q4: Advanced funnel optimization (A/B testing, heatmaps)            │
+│  Q4:  Upsell & repeat booking features                                  │
+│                                                                          │
+│  SUCCESS METRICS:                                                        │
+│  ✓ Conversion rate: baseline → +15%                                     │
+│  ✓ LTV increase: baseline → +25%                                        │
+│  ✓ Zero Acuity dependency                                               │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ QUICK WINS (<1 WEEK EACH)                                               ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+These can be done immediately without blocking other work:
+
+1. Mobile admin CSS (1 day)
+   → Responsive breakpoints, larger tap targets
+
+2. Email notification on new booking (1 day)
+   → Webhook to studio email: "New booking from [name]"
+
+3. Booking confirmation page (1 day)
+   → On-screen confirmation, "add to calendar" button
+
+4. Terms page (1 day)
+   → Standalone /terms URL, link from invoices
+
+5. Umami goal tracking (1 day)
+   → Set up conversion goals, track booking completion rate
+
+
+───────────────────────────────────────────────────────────────────────────
+ Generated: 2026-01-28
+ Documentation: Complete system architecture + improvement roadmap
+ Next Step: Approve phase 1 scope, begin Stripe integration

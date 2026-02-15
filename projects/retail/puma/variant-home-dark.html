@@ -1,0 +1,382 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">PUMA Training</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" vid="5">
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="6">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="7">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet" vid="8">
+    <style vid="9">
+        :root {
+            --bg-body: #17262B;
+            --bg-card-primary: #FFFFFF;
+            --bg-card-secondary: #E8EB5C;
+            --bg-card-tertiary: #4A89D8;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-stroke: rgba(255, 255, 255, 0.1);
+            --text-on-dark: #FFFFFF;
+            --text-on-dark-sub: #8E9BA0;
+            --text-on-light: #17262B;
+            --text-on-light-sub: #6B787C;
+            --accent-lime: #DCEE56;
+            --radius-lg: 28px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --radius-pill: 100px;
+            --space-page: 20px;
+            --space-gap: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-on-dark);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+        h2 { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+        h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+        .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-on-light-sub); font-weight: 500; }
+        .label-dark { color: var(--text-on-dark-sub); }
+        .body-sm { font-size: 13px; line-height: 1.5; }
+        .body-xs { font-size: 12px; }
+
+        .container {
+            padding: 0 var(--space-page);
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 24px var(--space-page) 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-glass);
+            border: 1px solid var(--bg-glass-stroke);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .progress-banner {
+            margin: 0 var(--space-page) 24px;
+            background: var(--bg-glass);
+            border-radius: var(--radius-pill);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--bg-glass-stroke);
+        }
+
+        .progress-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .spark-icon {
+            color: var(--accent-lime);
+            font-size: 16px;
+            display: flex;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .streak-pill {
+            background: rgba(220, 238, 86, 0.15);
+            color: var(--accent-lime);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+        }
+
+        .mission-card {
+            background: var(--bg-card-primary);
+            color: var(--text-on-light);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin: 0 var(--space-page) 32px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .mission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .mission-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: 1px solid #E5E5E5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-on-light);
+        }
+
+        .mission-content h2 {
+            margin-bottom: 8px;
+        }
+
+        .mission-content p {
+            color: var(--text-on-light-sub);
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .mission-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-top: 24px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .meta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .start-btn {
+            background: var(--text-on-light);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            font-weight: 500;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+        }
+
+        .start-btn i { font-size: 16px; }
+
+        .section-title {
+            padding: 0 var(--space-page) 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-on-dark-sub);
+        }
+
+        .scroller {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 0 var(--space-page);
+            padding-bottom: 4px;
+            scrollbar-width: none;
+        }
+        .scroller::-webkit-scrollbar { display: none; }
+
+        .action-card {
+            min-width: 140px;
+            height: 140px;
+            background: var(--bg-glass);
+            border: 1px solid var(--bg-glass-stroke);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: var(--text-on-dark);
+        }
+
+        .action-card.primary {
+            background: var(--bg-card-secondary);
+            color: var(--text-on-light);
+            border: none;
+        }
+
+        .action-icon {
+            font-size: 20px;
+        }
+
+        .action-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .activity-list {
+            padding: 0 var(--space-page);
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .activity-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-glass);
+            color: var(--text-on-dark-sub);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .activity-text {
+            font-size: 13px;
+            color: var(--text-on-dark-sub);
+        }
+        .activity-text strong {
+            color: var(--text-on-dark);
+            font-weight: 500;
+        }
+
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg-body);
+            padding: 16px 32px 24px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--bg-glass-stroke);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-on-dark-sub);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: var(--accent-lime);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body vid="10">
+    <header vid="11">
+        <h1 vid="12">PUMA Training</h1>
+        <div class="avatar" vid="13">JM</div>
+    </header>
+    <div class="progress-banner" vid="14">
+        <div class="progress-info" vid="15">
+            <div class="spark-icon" vid="16"><i class="ri-shining-fill" vid="17"></i></div>
+            <div class="progress-text" vid="18">3 of 6 missions</div>
+        </div>
+        <div class="streak-pill" vid="19">
+            🔥 4 day streak
+        </div>
+    </div>
+    <div class="mission-card" vid="20">
+        <div class="mission-header" vid="21">
+            <div class="label" vid="22">Next Mission</div>
+            <div class="mission-icon" style="border:none;" vid="23">
+                <i class="ri-function-line" style="font-size: 20px; color: var(--text-on-light);" vid="24"></i>
+            </div>
+        </div>
+        <div class="mission-content" vid="25">
+            <h2 vid="26">The 70/30 Rule</h2>
+            <p vid="27">Let the customer talk 70%, you talk 30%. Master the art of listening.</p>
+        </div>
+        <div class="mission-footer" vid="28">
+            <div class="meta-group" vid="29">
+                <span class="label" vid="30">Read time</span>
+                <span style="font-weight: 500; font-size: 14px;" vid="31">3 mins</span>
+            </div>
+            <a href="#" class="start-btn" vid="32">
+                Start <i class="ri-arrow-right-up-line" vid="33"></i>
+            </a>
+        </div>
+    </div>
+    <div class="section-title label-dark" vid="34">QUICK ACTIONS</div>
+    <div class="scroller" vid="35">
+        <div class="action-card primary" vid="36">
+            <div class="action-icon" vid="37"><i class="ri-gamepad-line" vid="38"></i></div>
+            <h4 vid="39">Play<br vid="40">Game</h4>
+            <i class="ri-arrow-right-up-line" style="align-self: flex-end; opacity: 0.5;" vid="41"></i>
+        </div>
+        <div class="action-card" vid="42">
+            <div class="action-icon" style="color: var(--accent-lime);" vid="43"><i class="ri-file-list-2-line" vid="44"></i></div>
+            <h4 vid="45">Daily<br vid="46">Review</h4>
+            <i class="ri-arrow-right-up-line" style="align-self: flex-end; opacity: 0.5;" vid="47"></i>
+        </div>
+        <div class="action-card" vid="48">
+            <div class="action-icon" style="color: var(--accent-lime);" vid="49"><i class="ri-clipboard-line" vid="50"></i></div>
+            <h4 vid="51">Practice<br vid="52">Log</h4>
+            <i class="ri-arrow-right-up-line" style="align-self: flex-end; opacity: 0.5;" vid="53"></i>
+        </div>
+    </div>
+    <div class="activity-list" vid="54">
+        <div class="section-title label-dark" style="padding-left:0;" vid="55">TEAM ACTIVITY</div>
+        <div class="activity-item" vid="56">
+            <div class="activity-avatar" vid="57">P</div>
+            <div class="activity-text" vid="58"><strong vid="59">Peter</strong> completed Mission 4</div>
+        </div>
+        <div class="activity-item" vid="60">
+            <div class="activity-avatar" vid="61">A</div>
+            <div class="activity-text" vid="62"><strong vid="63">Adedolapo</strong> scored 92% on Quiz</div>
+        </div>
+    </div>
+    <nav vid="64">
+        <a href="#" class="nav-item active" vid="65">
+            <i class="ri-home-5-line" vid="66"></i>
+            <span vid="67">Home</span>
+        </a>
+        <a href="#" class="nav-item" vid="68">
+            <i class="ri-gamepad-line" vid="69"></i>
+            <span vid="70">Games</span>
+        </a>
+        <a href="#" class="nav-item" vid="71">
+            <i class="ri-user-3-line" vid="72"></i>
+            <span vid="73">Profile</span>
+        </a>
+    </nav>
+</body></html>

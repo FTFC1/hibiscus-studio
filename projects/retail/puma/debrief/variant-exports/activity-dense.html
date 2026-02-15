@@ -1,0 +1,80 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUMA Retail Training - Activity Dense</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0F1A1E; }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .text-accent { color: #DCEE56; }
+        .bg-accent { background-color: #DCEE56; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .progress-ring-circle { transition: stroke-dashoffset 0.35s; transform: rotate(-90deg); transform-origin: 50% 50%; }
+    </style>
+</head>
+<body class="w-full h-full text-white overflow-hidden flex flex-col items-center justify-center">
+    <div class="w-full h-full max-w-[375px] bg-[#0F1A1E] flex flex-col relative shadow-2xl overflow-hidden">
+        <header class="flex items-center justify-between px-5 pt-10 pb-2 z-10">
+            <div><h1 class="text-xl font-bold tracking-tight text-white">Activity</h1><p class="text-[10px] text-gray-400 mt-0">Keep moving, Champion</p></div>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 border border-white/20 flex items-center justify-center text-[10px] font-semibold">JM</div>
+        </header>
+        <main class="flex-1 overflow-y-auto no-scrollbar px-4 pb-24 z-10 space-y-4">
+            <section class="mt-2">
+                <div class="glass-card rounded-2xl p-3 flex items-center gap-4">
+                    <div class="relative w-16 h-16 shrink-0">
+                        <svg class="w-full h-full" viewBox="0 0 100 100"><circle class="text-gray-800" stroke-width="10" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"></circle><circle class="text-accent progress-ring-circle" stroke-width="10" stroke-dasharray="251" stroke-dashoffset="125" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"></circle></svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center"><span class="text-xs font-bold text-white">3/6</span></div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-xs font-bold text-white truncate">Mission 4: <span class="italic font-normal text-gray-400">"I'll Think About It"</span></h2>
+                        <div class="flex items-center gap-3 mt-1.5">
+                            <div class="flex items-center gap-1"><i class="ri-fire-fill text-orange-400 text-xs"></i><span class="text-[10px] font-bold text-white">4 Days</span></div>
+                            <div class="w-[1px] h-3 bg-white/10"></div>
+                            <div class="flex items-center gap-1"><span class="text-[10px] font-bold text-accent">+50 XP</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="flex items-center justify-between mb-2 px-1"><h3 class="text-sm font-bold">Leaderboard</h3><button class="text-[10px] text-accent font-medium">See All</button></div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="glass-panel p-2.5 rounded-xl flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center text-[10px] font-bold border border-blue-500/30">A</div><div class="flex-1 min-w-0"><p class="text-[11px] font-bold truncate">Adedolapo</p><p class="text-[9px] text-green-400">340 XP</p></div><i class="ri-medal-fill text-[#FFD700] text-xs"></i></div>
+                    <div class="glass-panel p-2.5 rounded-xl flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center text-[10px] font-bold border border-purple-500/30">P</div><div class="flex-1 min-w-0"><p class="text-[11px] font-bold truncate">Peter</p><p class="text-[9px] text-green-400">285 XP</p></div><i class="ri-medal-fill text-[#C0C0C0] text-xs"></i></div>
+                    <div class="glass-panel p-2.5 rounded-xl flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-red-500/20 text-red-300 flex items-center justify-center text-[10px] font-bold border border-red-500/30">C</div><div class="flex-1 min-w-0"><p class="text-[11px] font-bold truncate">Chidi</p><p class="text-[9px] text-red-400">260 XP</p></div><i class="ri-medal-fill text-[#CD7F32] text-xs"></i></div>
+                    <div class="glass-panel p-2.5 rounded-xl flex items-center gap-2 border-accent bg-accent/10"><div class="w-6 h-6 rounded-full bg-accent text-[#0F1A1E] flex items-center justify-center text-[10px] font-bold">JM</div><div class="flex-1 min-w-0"><p class="text-[11px] font-bold truncate">You</p><p class="text-[9px] text-accent">245 XP</p></div><span class="text-[10px] font-bold text-gray-500">#4</span></div>
+                    <div class="glass-panel p-2.5 rounded-xl flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-teal-500/20 text-teal-300 flex items-center justify-center text-[10px] font-bold border border-teal-500/30">M</div><div class="flex-1 min-w-0"><p class="text-[11px] font-bold truncate">Molade</p><p class="text-[9px] text-gray-500">190 XP</p></div><span class="text-[10px] font-bold text-gray-500">#5</span></div>
+                    <div class="glass-panel p-2.5 rounded-xl flex items-center gap-2 opacity-60"><div class="w-6 h-6 rounded-full bg-gray-500/20 text-gray-300 flex items-center justify-center text-[10px] font-bold border border-white/10">S</div><div class="flex-1 min-w-0"><p class="text-[11px] font-bold truncate">Sarah</p><p class="text-[9px] text-gray-500">185 XP</p></div><span class="text-[10px] font-bold text-gray-500">#6</span></div>
+                </div>
+            </section>
+            <section class="pb-4">
+                <h3 class="text-sm font-bold mb-2 px-1">Team Buzz</h3>
+                <div class="space-y-1">
+                    <details class="group glass-panel rounded-xl overflow-hidden" open="">
+                        <summary class="flex items-center justify-between p-3 cursor-pointer list-none"><div class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-accent"></div><span class="text-xs font-bold text-white">Recent Updates</span></div><i class="ri-arrow-down-s-line text-gray-500 group-open:rotate-180 transition-transform"></i></summary>
+                        <div class="p-3 pt-0 space-y-3 border-t border-white/5 bg-white/[0.02]">
+                            <div class="flex gap-2"><div class="flex-1"><div class="flex items-center gap-2 mb-0.5"><span class="text-[10px] font-bold text-purple-300">Peter</span><span class="text-[9px] text-gray-500">20m ago</span></div><p class="text-[11px] text-gray-300 leading-tight">Completed Mission 4. Omo, the customers won't know what hit them!</p></div></div>
+                            <div class="flex gap-2"><div class="flex-1"><div class="flex items-center gap-2 mb-0.5"><span class="text-[10px] font-bold text-blue-300">Adedolapo</span><span class="text-[9px] text-gray-500">1h ago</span></div><p class="text-[11px] text-gray-300 leading-tight">Scored <span class="text-accent font-bold">92%</span> on the Knowledge Quiz.</p></div></div>
+                        </div>
+                    </details>
+                    <details class="group glass-panel rounded-xl overflow-hidden">
+                        <summary class="flex items-center justify-between p-3 cursor-pointer list-none opacity-60"><div class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-gray-500"></div><span class="text-xs font-bold text-white">Earlier Activity</span></div><i class="ri-arrow-down-s-line text-gray-500 group-open:rotate-180 transition-transform"></i></summary>
+                        <div class="p-3 pt-0 border-t border-white/5 bg-white/[0.02]"><div class="flex items-center gap-2 mb-0.5"><span class="text-[10px] font-bold text-red-300">Chidi</span><span class="text-[9px] text-gray-500">2h ago</span></div><p class="text-[11px] text-gray-300 leading-tight">Started Mission 4. Let's get it!</p></div>
+                    </details>
+                </div>
+            </section>
+        </main>
+        <nav class="absolute bottom-0 left-0 right-0 h-[72px] glass-panel border-t border-white/10 flex items-center justify-around px-2 z-20">
+            <button class="flex flex-col items-center gap-0.5 opacity-50"><i class="ri-store-2-line text-xl"></i><span class="text-[9px]">Home</span></button>
+            <button class="flex flex-col items-center gap-0.5 opacity-50"><i class="ri-book-open-line text-xl"></i><span class="text-[9px]">Learn</span></button>
+            <button class="flex flex-col items-center gap-0.5 text-accent"><i class="ri-bar-chart-grouped-fill text-xl"></i><span class="text-[9px] font-bold">Activity</span></button>
+            <button class="flex flex-col items-center gap-0.5 opacity-50"><i class="ri-user-line text-xl"></i><span class="text-[9px]">Profile</span></button>
+        </nav>
+        <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-20 h-1 bg-white/10 rounded-full z-30"></div>
+    </div>
+</body></html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUD</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+
+        /* HEADER */
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+        .header-left { display: flex; align-items: baseline; gap: 12px; }
+        .date-num { font-size: 32px; font-weight: 900; }
+        .date-text { font-size: 10px; letter-spacing: 3px; color: #666; }
+        .live-time { font-size: 24px; font-weight: 300; color: #4a9; font-variant-numeric: tabular-nums; }
+        .time-label { font-size: 8px; letter-spacing: 2px; color: #444; margin-top: 2px; }
+
+        /* DO NEXT */
+        .do-next-box {
+            background: #1a1a0a;
+            border-left: 3px solid #4a9;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+        .do-next-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .do-next-label { font-size: 8px; letter-spacing: 2px; color: #aa9; }
+        .do-next-age { font-size: 9px; color: #666; font-variant-numeric: tabular-nums; }
+        .do-next-action { font-size: 13px; font-weight: 600; margin-bottom: 4px; cursor: pointer; }
+        .do-next-action:hover { color: #4a9; }
+        .do-next-why { font-size: 9px; color: #666; margin-bottom: 8px; }
+        .phases-container { display: none; margin-top: 8px; border-top: 1px solid #222; padding-top: 8px; }
+        .phases-container.open { display: block; }
+        .phase-item { margin-bottom: 6px; padding: 6px; background: #0a0a0a; border-radius: 3px; }
+        .phase-header { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 2px; }
+        .phase-name { color: #aa9; text-transform: uppercase; letter-spacing: 1px; }
+        .phase-status { color: #666; }
+        .phase-content { font-size: 9px; color: #888; line-height: 1.4; }
+        .phase-content div { margin: 2px 0; }
+        .phase-label { color: #666; margin-right: 4px; }
+
+        /* LINKS */
+        .links-section { margin-bottom: 16px; }
+        .links-label { font-size: 8px; letter-spacing: 2px; color: #68a; margin-bottom: 6px; }
+        .links-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .link-item {
+            background: #0a0a14;
+            border: 1px solid #234;
+            padding: 6px 12px;
+            font-size: 10px;
+            color: #8af;
+            text-decoration: none;
+            transition: border-color 0.2s;
+        }
+        .link-item:hover { border-color: #8af; }
+
+        /* WINS */
+        .wins-section { margin-bottom: 20px; }
+        .wins-label { font-size: 8px; letter-spacing: 2px; color: #4a9; margin-bottom: 8px; }
+        .win-item {
+            background: linear-gradient(90deg, #0a1a0a 0%, #000 100%);
+            border-left: 3px solid #4a9;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+        }
+        .win-title { font-size: 11px; font-weight: 700; color: #4a9; margin-bottom: 2px; }
+        .win-detail { font-size: 10px; color: #666; }
+        .win-next { font-size: 9px; color: #888; margin-top: 4px; }
+        .win-next::before { content: '→ '; color: #4a9; }
+
+        /* ACTIVE */
+        .active-section { margin-bottom: 20px; }
+        .active-label { font-size: 8px; letter-spacing: 2px; color: #aa6; margin-bottom: 8px; }
+        .active-track {
+            background: #0a0a0a;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            border-left: 2px solid #aa6;
+        }
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .track-name { font-size: 10px; font-weight: 700; color: #aa6; }
+        .track-age { font-size: 8px; color: #665; margin-left: 8px; }
+        .track-status { font-size: 9px; color: #666; }
+        .open-item {
+            font-size: 10px;
+            color: #888;
+            padding-left: 12px;
+            margin-bottom: 2px;
+        }
+        .open-item::before { content: '○ '; color: #aa6; }
+
+        /* WAITING */
+        .waiting-section { margin-bottom: 20px; }
+        .waiting-label { font-size: 8px; letter-spacing: 2px; color: #666; margin-bottom: 8px; }
+        .waiting-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #555;
+            padding: 4px 0;
+            border-bottom: 1px solid #111;
+        }
+        .waiting-who { color: #888; min-width: 80px; }
+        .waiting-what { flex: 1; }
+        .waiting-stale { font-size: 8px; color: #666; margin-left: 8px; }
+        .waiting-stale.warning { color: #aa6; }
+        .waiting-stale.urgent { color: #a66; }
+
+        /* SUGGESTIONS */
+        .suggestions-section { margin-bottom: 20px; }
+        .suggestions-label { font-size: 8px; letter-spacing: 2px; color: #669; margin-bottom: 8px; }
+        .suggestion-item {
+            background: #0a0a10;
+            border-left: 2px solid #669;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+            font-size: 10px;
+        }
+        .suggestion-obs { color: #888; }
+        .suggestion-action { color: #99b; margin-top: 2px; }
+        .suggestion-action::before { content: '→ '; }
+
+        /* SHIPPED */
+        .shipped-summary {
+            background: #111;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        .shipped-summary strong { color: #4a9; }
+        .shipped-list { display: none; flex-direction: column; gap: 1px; margin-top: 2px; }
+        .shipped-list.open { display: flex; }
+        .shipped-item {
+            background: #0a0a0a;
+            padding: 6px 12px;
+            display: flex;
+            gap: 10px;
+            font-size: 9px;
+            color: #555;
+        }
+        .shipped-tag { color: #4a9; min-width: 50px; }
+
+        /* NOTES */
+        .notes-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #222;
+            border: 1px solid #333;
+            color: #888;
+            padding: 8px 12px;
+            font-size: 9px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .notes-panel {
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            width: 280px;
+            max-height: 350px;
+            background: #111;
+            border: 1px solid #333;
+            padding: 14px;
+            display: none;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .notes-panel.open { display: block; }
+        .notes-title { font-size: 9px; letter-spacing: 2px; color: #666; margin-bottom: 10px; border-bottom: 1px solid #222; padding-bottom: 6px; }
+        .notes-content { font-size: 9px; color: #888; line-height: 1.5; }
+        .notes-content strong { color: #4a9; }
+        .notes-content p { margin-bottom: 8px; }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding-top: 12px;
+            border-top: 1px solid #111;
+            font-size: 8px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app"></div>
+    <div class="notes-toggle" onclick="document.querySelector('.notes-panel').classList.toggle('open')">NOTES ▲</div>
+    <div class="notes-panel" id="notesPanel"></div>
+
+    <script src="data.js"></script>
+    <script>
+        function render() {
+            const d = hudData;
+            document.getElementById('app').innerHTML = `
+                <!-- HEADER -->
+                <div class="header-row">
+                    <div class="header-left">
+                        <div class="date-num">${d.date.day}</div>
+                        <div class="date-text">${d.date.month} ${d.date.year} · ${d.date.dayOfWeek}</div>
+                    </div>
+                    <div class="header-right">
+                        <div class="live-time" id="liveTime">--:--</div>
+                        <div class="time-label">LIVE</div>
+                    </div>
+                </div>
+
+                <!-- DO NEXT -->
+                <div class="do-next-box">
+                    <div class="do-next-header">
+                        <div class="do-next-label">DO NEXT</div>
+                        <div class="do-next-age" id="doNextAge"></div>
+                    </div>
+                    <div class="do-next-action" onclick="document.querySelector('.phases-container').classList.toggle('open')">${d.doNext.action} ${d.doNext.phases ? '▼' : ''}</div>
+                    <div class="do-next-why">${d.doNext.why}</div>
+                    ${d.doNext.phases ? `
+                        <div class="phases-container">
+                            ${d.doNext.phases.context ? `
+                                <div class="phase-item">
+                                    <div class="phase-header">
+                                        <span class="phase-name">Context & Content</span>
+                                        <span class="phase-status">${d.doNext.phases.context.status}</span>
+                                    </div>
+                                    <div class="phase-content">
+                                        <div><span class="phase-label">Notes:</span>${d.doNext.phases.context.notes}</div>
+                                        <div><span class="phase-label">Saved:</span>${d.doNext.phases.context.saved}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${d.doNext.phases.planning ? `
+                                <div class="phase-item">
+                                    <div class="phase-header">
+                                        <span class="phase-name">Planning / R&D</span>
+                                        <span class="phase-status">${d.doNext.phases.planning.status}</span>
+                                    </div>
+                                    <div class="phase-content">
+                                        <div><span class="phase-label">Goal:</span>${d.doNext.phases.planning.goal}</div>
+                                        <div><span class="phase-label">Learned:</span>${d.doNext.phases.planning.learned}</div>
+                                        <div><span class="phase-label">Finding:</span>${d.doNext.phases.planning.finding}</div>
+                                        ${d.doNext.phases.planning.blocker ? `<div><span class="phase-label">Blocker:</span>${d.doNext.phases.planning.blocker}</div>` : ''}
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${d.doNext.phases.execution ? `
+                                <div class="phase-item">
+                                    <div class="phase-header">
+                                        <span class="phase-name">Execution</span>
+                                        <span class="phase-status">${d.doNext.phases.execution.status}</span>
+                                    </div>
+                                    <div class="phase-content">
+                                        <div><span class="phase-label">Next:</span>${d.doNext.phases.execution.nextAction}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+
+                <!-- LINKS -->
+                ${d.links && d.links.length ? `
+                <div class="links-section">
+                    <div class="links-label">⚡ QUICK LINKS</div>
+                    <div class="links-row">
+                        ${d.links.map(l => `<a class="link-item" href="${l.url}" target="_blank">${l.label}</a>`).join('')}
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- WINS -->
+                <div class="wins-section">
+                    <div class="wins-label">✓ WINS</div>
+                    ${d.wins.map(w => `
+                        <div class="win-item">
+                            <div class="win-title">${w.label}</div>
+                            <div class="win-detail">${w.detail}</div>
+                            <div class="win-next">${w.next}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- ACTIVE -->
+                <div class="active-section">
+                    <div class="active-label">◐ ACTIVE</div>
+                    ${d.active.map((a, i) => `
+                        <div class="active-track" data-started="${a.startedAt || ''}">
+                            <div class="track-header">
+                                <span class="track-name">${a.track}<span class="track-age" id="track-age-${i}"></span></span>
+                                <span class="track-status">${a.status}</span>
+                            </div>
+                            ${a.openItems.map(item => `<div class="open-item">${item}</div>`).join('')}
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- WAITING -->
+                <div class="waiting-section">
+                    <div class="waiting-label">◷ WAITING ON</div>
+                    ${d.waiting.map((w, i) => `
+                        <div class="waiting-item" data-since="${w.since}">
+                            <span class="waiting-who">${w.who}</span>
+                            <span class="waiting-what">${w.what}<span class="waiting-stale" id="stale-${i}"></span></span>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- SUGGESTIONS -->
+                <div class="suggestions-section">
+                    <div class="suggestions-label">💡 ORGANIZATION</div>
+                    ${d.suggestions.map(s => `
+                        <div class="suggestion-item">
+                            <div class="suggestion-obs">${s.observation}</div>
+                            <div class="suggestion-action">${s.suggestion}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- SHIPPED -->
+                <div class="shipped-summary" onclick="document.querySelector('.shipped-list').classList.toggle('open')">
+                    <span><strong>${d.shipped.length}</strong> shipped today</span>
+                    <span>▼</span>
+                </div>
+                <div class="shipped-list">
+                    ${d.shipped.map(s => `
+                        <div class="shipped-item">
+                            <span class="shipped-tag">${s.tag}</span>
+                            <span>${s.item}</span>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="footer">hud/index.html + data.js</div>
+            `;
+
+            // Notes panel
+            document.getElementById('notesPanel').innerHTML = `
+                <div class="notes-title">${d.notes.title}</div>
+                <div class="notes-content">
+                    ${d.notes.sections.map(s => `
+                        <p><strong>${s.label}</strong><br>
+                        ${s.items.join('<br>')}</p>
+                    `).join('')}
+                    <p style="color:#555;">${d.notes.footer}</p>
+                </div>
+            `;
+
+            startClock();
+            updateStaleness();
+            updateDoNextAge();
+            updateTrackAges();
+        }
+
+        function startClock() {
+            function tick() {
+                const el = document.getElementById('liveTime');
+                if (el) el.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second: '2-digit'});
+            }
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        function updateStaleness() {
+            const now = new Date();
+            document.querySelectorAll('.waiting-item[data-since]').forEach(item => {
+                const since = new Date(item.dataset.since);
+                const diffHours = Math.floor((now - since) / (1000 * 60 * 60));
+                const diffDays = Math.floor(diffHours / 24);
+                const staleEl = item.querySelector('.waiting-stale');
+                if (!staleEl) return;
+                let text = '', className = 'waiting-stale';
+                if (diffHours < 24) text = '(<24h)';
+                else if (diffHours < 48) text = `(${diffDays}d)`;
+                else if (diffHours < 72) { text = `(${diffDays}d)`; className = 'waiting-stale warning'; }
+                else { text = `(${diffDays}d!)`; className = 'waiting-stale urgent'; }
+                staleEl.textContent = text;
+                staleEl.className = className;
+            });
+        }
+        setInterval(updateStaleness, 60000);
+
+        function updateDoNextAge() {
+            const el = document.getElementById('doNextAge');
+            if (!el || !hudData.doNext.lastUpdated) return;
+            const updated = new Date(hudData.doNext.lastUpdated);
+            const now = new Date();
+            const diffMs = now - updated;
+            const diffMins = Math.floor(diffMs / (1000 * 60));
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+            let text;
+            if (diffMins < 1) text = 'just now';
+            else if (diffMins < 60) text = `${diffMins}m ago`;
+            else if (diffHours < 24) text = `${diffHours}h ${diffMins % 60}m ago`;
+            else text = `${diffDays}d ${diffHours % 24}h ago`;
+            el.textContent = text;
+        }
+        setInterval(updateDoNextAge, 60000);
+
+        function updateTrackAges() {
+            const now = new Date();
+            hudData.active.forEach((track, i) => {
+                const el = document.getElementById(`track-age-${i}`);
+                if (!el || !track.startedAt) return;
+                const started = new Date(track.startedAt);
+                const diffHours = Math.floor((now - started) / (1000 * 60 * 60));
+                const diffDays = Math.floor(diffHours / 24);
+                let text;
+                if (diffHours < 24) text = `(${diffHours}h)`;
+                else text = `(${diffDays}d)`;
+                el.textContent = text;
+            });
+        }
+        setInterval(updateTrackAges, 60000);
+
+        render();
+    </script>
+</body>
+</html>

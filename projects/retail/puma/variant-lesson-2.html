@@ -1,0 +1,458 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" vid="3">
+    <title vid="4">PUMA Training - Mission 3</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" vid="6">
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="7">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" vid="9">
+
+    <style vid="10">
+        :root {
+            --bg-body: #17262B;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-stroke: rgba(255, 255, 255, 0.1);
+            --accent-lime: #DCEE56;
+            --text-on-dark: #FFFFFF;
+            --text-on-dark-sub: #8E9BA0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-on-dark);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .glass-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--bg-glass-stroke);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+
+        .slider-track {
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+
+        .text-sub { color: var(--text-on-dark-sub); }
+        .text-lime { color: var(--accent-lime); }
+        .bg-lime { background-color: var(--accent-lime); }
+
+
+        .slide-highlight {
+            background: rgba(220, 238, 86, 0.08);
+            border: 1px solid rgba(220, 238, 86, 0.25);
+        }
+
+
+        .sheet-enter { transform: translateY(100%); }
+        .sheet-active { transform: translateY(0); }
+        .sheet-overlay { transition: opacity 0.3s ease; }
+        .sheet-content { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+    </style>
+</head>
+<body class="h-full w-full overflow-hidden flex flex-col relative" vid="11">
+
+
+    <header class="h-[56px] flex items-center justify-between px-4 bg-[#17262B] border-b border-white/10 shrink-0 z-20 relative" vid="12">
+
+        <button class="w-9 h-9 rounded-full glass-btn flex items-center justify-center active:bg-white/10 transition-colors" vid="13">
+            <i class="ri-arrow-left-line text-white text-lg" vid="14"></i>
+        </button>
+
+
+        <h1 class="text-[13px] font-medium text-white tracking-wide" vid="15">Mission 3 of 6</h1>
+
+
+        <div class="flex items-center gap-1.5" vid="16">
+            <i class="ri-time-line text-[#8E9BA0] text-sm" vid="17"></i>
+            <span class="text-[13px] font-medium text-[#8E9BA0]" vid="18">2 min</span>
+        </div>
+    </header>
+
+
+    <div class="pt-3 pb-4 flex justify-center items-center gap-2 shrink-0 z-10" id="progress-container" vid="19">
+
+    </div>
+
+
+    <main class="flex-1 w-full relative overflow-hidden" vid="20">
+        <div class="slider-track flex h-full w-full" id="slider-track" vid="21">
+
+
+            <div class="w-full h-full shrink-0 px-5 flex items-center justify-center pb-4" vid="22">
+                <div class="glass-card w-full h-full rounded-[28px] p-7 flex flex-col justify-center relative" vid="23">
+                    <div class="flex items-center gap-2.5 mb-5" vid="24">
+                        <i class="ri-alarm-warning-line text-[#8E9BA0] text-2xl" vid="25"></i>
+                        <h2 class="text-[18px] font-semibold text-white" vid="26">The Problem</h2>
+                    </div>
+                    <p class="text-[15px] leading-[1.7] text-[#C8CDD0] font-normal" vid="27">
+                        Customer says 'I need running shoes.' You rattle off <span class="text-white font-semibold" vid="28">every feature</span>. Their eyes glaze over. They leave. You <span class="text-white font-semibold" vid="29">feature-dumped</span> instead of solving their problem.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="w-full h-full shrink-0 px-5 flex items-center justify-center pb-4" vid="30">
+                <div class="slide-highlight w-full h-full rounded-[28px] p-7 flex flex-col justify-center relative" vid="31">
+                    <div class="flex items-center gap-2.5 mb-5" vid="32">
+                        <i class="ri-scales-3-line text-[#DCEE56] text-2xl" vid="33"></i>
+                        <h2 class="text-[18px] font-semibold text-white" vid="34">The 70/30 Rule</h2>
+                    </div>
+
+                    <div class="flex items-start gap-8 mb-6" vid="35">
+                        <div class="flex flex-col" vid="36">
+                            <span class="text-[36px] font-bold text-[#DCEE56] leading-none" vid="37">70%</span>
+                            <span class="text-[12px] font-medium text-[#8E9BA0] mt-1" vid="38">Customer talks</span>
+                        </div>
+                        <div class="flex flex-col" vid="39">
+                            <span class="text-[36px] font-bold text-[#DCEE56] leading-none" vid="40">30%</span>
+                            <span class="text-[12px] font-medium text-[#8E9BA0] mt-1" vid="41">You talk</span>
+                        </div>
+                    </div>
+
+                    <p class="text-[15px] leading-[1.7] text-[#C8CDD0] font-normal" vid="42">
+                        If you're doing <span class="text-white font-semibold" vid="43">most of the talking</span>, you're doing it wrong.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="w-full h-full shrink-0 px-5 flex items-center justify-center pb-4" vid="44">
+                <div class="glass-card w-full h-full rounded-[28px] p-7 flex flex-col justify-center relative" vid="45">
+                    <div class="flex items-center gap-2.5 mb-5" vid="46">
+                        <i class="ri-questionnaire-line text-[#8E9BA0] text-2xl" vid="47"></i>
+                        <h2 class="text-[18px] font-semibold text-white" vid="48">Ask These 4 Questions</h2>
+                    </div>
+
+                    <div class="space-y-3 mb-6" vid="49">
+                        <div class="flex gap-3" vid="50">
+                            <span class="text-[#DCEE56] font-semibold text-[15px]" vid="51">1.</span>
+                            <span class="text-white text-[15px] font-normal leading-tight" vid="52">What are you buying for?</span>
+                        </div>
+                        <div class="flex gap-3" vid="53">
+                            <span class="text-[#DCEE56] font-semibold text-[15px]" vid="54">2.</span>
+                            <span class="text-white text-[15px] font-normal leading-tight" vid="55">What's not working now?</span>
+                        </div>
+                        <div class="flex gap-3" vid="56">
+                            <span class="text-[#DCEE56] font-semibold text-[15px]" vid="57">3.</span>
+                            <span class="text-white text-[15px] font-normal leading-tight" vid="58">What matters most?</span>
+                        </div>
+                        <div class="flex gap-3" vid="59">
+                            <span class="text-[#DCEE56] font-semibold text-[15px]" vid="60">4.</span>
+                            <span class="text-white text-[15px] font-normal leading-tight" vid="61">Buying today or browsing?</span>
+                        </div>
+                    </div>
+
+                    <p class="text-[13px] italic text-[#8E9BA0]" vid="62">
+                        Only show products after all 4.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="w-full h-full shrink-0 px-5 flex items-center justify-center pb-4" vid="63">
+                <div class="glass-card w-full h-full rounded-[28px] p-7 flex flex-col justify-center relative" vid="64">
+                    <div class="flex items-center gap-2.5 mb-5" vid="65">
+                        <i class="ri-chat-smile-3-line text-[#8E9BA0] text-2xl" vid="66"></i>
+                        <h2 class="text-[18px] font-semibold text-white" vid="67">Spot the Difference</h2>
+                    </div>
+
+                    <div class="flex flex-col gap-4" vid="68">
+
+                        <div vid="69">
+                            <span class="inline-block px-2 py-1 bg-[rgba(255,100,100,0.15)] rounded text-[#FF6464] text-[10px] font-bold uppercase tracking-wider mb-2" vid="70">Don't</span>
+                            <p class="text-[14px] italic text-[#8E9BA0] leading-snug" vid="71">
+                                "You show 5 shoes and list features. They leave."
+                            </p>
+                        </div>
+
+
+                        <div vid="72">
+                            <span class="inline-block px-2 py-1 bg-[rgba(220,238,86,0.15)] rounded text-[#DCEE56] text-[10px] font-bold uppercase tracking-wider mb-2" vid="73">Do</span>
+                            <p class="text-[14px] italic text-white leading-snug" vid="74">
+                                "You ask 4 questions, show 2 options that match. They buy."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="w-full h-full shrink-0 px-5 flex items-center justify-center pb-4" vid="75">
+                <div class="glass-card w-full h-full rounded-[28px] p-7 flex flex-col justify-center relative" vid="76">
+                    <div class="flex items-center gap-2.5 mb-5" vid="77">
+                        <i class="ri-focus-3-line text-[#DCEE56] text-2xl" vid="78"></i>
+                        <h2 class="text-[18px] font-semibold text-white" vid="79">Try This Today</h2>
+                    </div>
+
+                    <div class="space-y-4 mb-8" vid="80">
+
+                        <div class="flex items-start gap-3" vid="81">
+                            <div class="w-5 h-5 rounded-full bg-[#DCEE56] flex items-center justify-center shrink-0 mt-0.5" vid="82">
+                                <i class="ri-check-line text-[#17262B] text-sm" vid="83"></i>
+                            </div>
+                            <span class="text-[14px] text-white line-through opacity-60 leading-tight" vid="84">Pick 3 customers — use all 4 questions</span>
+                        </div>
+
+
+                        <div class="flex items-start gap-3" vid="85">
+                            <div class="w-5 h-5 rounded-full border border-white/20 shrink-0 mt-0.5" vid="86"></div>
+                            <span class="text-[14px] text-white leading-tight" vid="87">Count: are they talking more than you?</span>
+                        </div>
+
+
+                        <div class="flex items-start gap-3" vid="88">
+                            <div class="w-5 h-5 rounded-full border border-white/20 shrink-0 mt-0.5" vid="89"></div>
+                            <span class="text-[14px] text-white leading-tight" vid="90">Write down what you learned at end of shift</span>
+                        </div>
+                    </div>
+
+                    <p class="text-[14px] font-medium text-[#DCEE56]" vid="91">
+                        You've got this.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+    <button onclick="toggleSheet(true)" class="fixed bottom-[110px] right-5 z-30 flex items-center gap-1.5 px-3 py-2 bg-[#2a373c] border border-white/15 rounded-full shadow-lg active:scale-95 transition-transform backdrop-blur-md" vid="92">
+        <i class="ri-bookmark-3-line text-white text-[14px]" vid="93"></i>
+        <span class="text-[12px] font-medium text-white" vid="94">Quick Ref</span>
+    </button>
+
+
+    <footer class="fixed bottom-0 left-0 w-full glass-card border-t border-t-white/10 border-b-0 border-x-0 bg-[#17262B]/90 pb-8 pt-4 px-4 z-20" vid="95">
+        <div class="flex items-center justify-between relative h-12" vid="96">
+
+
+            <button id="prev-btn" onclick="prevSlide()" class="w-11 h-11 rounded-full glass-btn flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-all active:bg-white/10" vid="97">
+                <i class="ri-arrow-left-s-line text-white text-2xl" vid="98"></i>
+            </button>
+
+
+            <span id="slide-counter" class="text-[13px] font-medium text-[#8E9BA0] absolute left-1/2 -translate-x-1/2" vid="99">
+                1 / 5
+            </span>
+
+
+            <button id="next-btn" onclick="nextSlide()" class="w-11 h-11 rounded-full glass-btn flex items-center justify-center transition-all active:bg-white/10" vid="100">
+                <i class="ri-arrow-right-s-line text-white text-2xl" vid="101"></i>
+            </button>
+
+
+            <button id="quiz-btn" class="hidden h-12 bg-[#DCEE56] rounded-full px-6 flex items-center justify-center gap-2 active:brightness-90 transition-all flex-1 ml-4 shadow-[0_0_20px_rgba(220,238,86,0.2)]" vid="102">
+                <span class="text-[#17262B] text-[15px] font-semibold" vid="103">Take Quiz</span>
+                <i class="ri-arrow-right-line text-[#17262B]" vid="104"></i>
+            </button>
+
+        </div>
+    </footer>
+
+
+    <div id="ref-sheet" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300" vid="105">
+
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleSheet(false)" vid="106"></div>
+
+
+        <div class="sheet-content absolute bottom-0 left-0 w-full h-[60%] bg-[#1E2C32] rounded-t-[28px] border-t border-white/10 p-6 sheet-enter flex flex-col pointer-events-auto shadow-2xl" vid="107">
+
+
+            <div class="flex items-center justify-between mb-8" vid="108">
+                <h3 class="text-[16px] font-semibold text-white" vid="109">Quick Reference</h3>
+                <button onclick="toggleSheet(false)" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center active:bg-white/10" vid="110">
+                    <i class="ri-close-line text-white text-lg" vid="111"></i>
+                </button>
+            </div>
+
+
+            <div class="grid grid-cols-2 gap-4 flex-1 overflow-y-auto pb-4" vid="112">
+
+
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col gap-2" vid="113">
+                    <span class="text-[#DCEE56] text-2xl font-bold" vid="114">1</span>
+                    <span class="text-[10px] font-bold text-white tracking-wider uppercase" vid="115">Occasion</span>
+                    <p class="text-[11px] italic text-[#8E9BA0] leading-tight" vid="116">"What are you buying for?"</p>
+                </div>
+
+
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col gap-2" vid="117">
+                    <span class="text-[#DCEE56] text-2xl font-bold" vid="118">2</span>
+                    <span class="text-[10px] font-bold text-white tracking-wider uppercase" vid="119">Problem</span>
+                    <p class="text-[11px] italic text-[#8E9BA0] leading-tight" vid="120">"What's not working now?"</p>
+                </div>
+
+
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col gap-2" vid="121">
+                    <span class="text-[#DCEE56] text-2xl font-bold" vid="122">3</span>
+                    <span class="text-[10px] font-bold text-white tracking-wider uppercase" vid="123">Priority</span>
+                    <p class="text-[11px] italic text-[#8E9BA0] leading-tight" vid="124">"What matters most?"</p>
+                </div>
+
+
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col gap-2" vid="125">
+                    <span class="text-[#DCEE56] text-2xl font-bold" vid="126">4</span>
+                    <span class="text-[10px] font-bold text-white tracking-wider uppercase" vid="127">Decision</span>
+                    <p class="text-[11px] italic text-[#8E9BA0] leading-tight" vid="128">"Buying today or browsing?"</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script vid="129">
+
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+
+        const track = document.getElementById('slider-track');
+        const progressContainer = document.getElementById('progress-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const quizBtn = document.getElementById('quiz-btn');
+        const slideCounter = document.getElementById('slide-counter');
+        const refSheet = document.getElementById('ref-sheet');
+        const sheetContent = refSheet.querySelector('.sheet-content');
+
+
+        function init() {
+            renderProgressDots();
+            updateUI();
+        }
+
+
+        function renderProgressDots() {
+            progressContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                const isCurrent = i === currentSlide;
+
+
+                if (isCurrent) {
+                    dot.className = 'bg-[#DCEE56] w-5 h-1 rounded-full transition-all duration-300';
+                } else {
+                    dot.className = 'bg-[#8E9BA0] w-1.5 h-1 rounded-full opacity-50 transition-all duration-300';
+                }
+                progressContainer.appendChild(dot);
+            }
+        }
+
+
+        function updateUI() {
+
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+
+            const dots = progressContainer.children;
+            for (let i = 0; i < dots.length; i++) {
+                if (i === currentSlide) {
+                    dots[i].className = 'bg-[#DCEE56] w-5 h-1 rounded-full transition-all duration-300';
+                    dots[i].style.opacity = '1';
+                } else {
+                    dots[i].className = 'bg-[#8E9BA0] w-1.5 h-1 rounded-full transition-all duration-300';
+                    dots[i].style.opacity = '0.5';
+                }
+            }
+
+
+            prevBtn.disabled = currentSlide === 0;
+
+
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.classList.add('hidden');
+                quizBtn.classList.remove('hidden');
+                quizBtn.classList.add('flex');
+                slideCounter.classList.add('hidden');
+
+
+
+
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'none';
+                slideCounter.style.display = 'none';
+            } else {
+                nextBtn.classList.remove('hidden');
+                nextBtn.style.display = 'flex';
+                quizBtn.classList.add('hidden');
+                quizBtn.classList.remove('flex');
+                prevBtn.style.display = 'flex';
+                slideCounter.style.display = 'block';
+            }
+        }
+
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+
+        function toggleSheet(show) {
+            if (show) {
+                refSheet.classList.remove('pointer-events-none', 'opacity-0');
+
+                setTimeout(() => {
+                    sheetContent.classList.remove('sheet-enter');
+                    sheetContent.classList.add('sheet-active');
+                }, 10);
+            } else {
+                sheetContent.classList.remove('sheet-active');
+                sheetContent.classList.add('sheet-enter');
+                setTimeout(() => {
+                    refSheet.classList.add('pointer-events-none', 'opacity-0');
+                }, 300);
+            }
+        }
+
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        track.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchStartX - touchEndX > threshold) {
+                nextSlide();
+            }
+            if (touchEndX - touchStartX > threshold) {
+                prevSlide();
+            }
+        }
+
+        init();
+    </script>
+
+</body></html>

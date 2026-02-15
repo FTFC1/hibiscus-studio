@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUMA Sales Mastery — Telegram Group</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: #0e1621; color: #f5f5f5; max-width: 420px; margin: 0 auto; min-height: 100vh; }
+
+/* Header */
+.tg-header {
+    background: #1c2733;
+    padding: 10px 14px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid #1a2432;
+    position: sticky; top: 0; z-index: 10;
+}
+.tg-header .back { color: #64b5f6; font-size: 20px; text-decoration: none; }
+.tg-avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #e91e63, #9c27b0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff;
+}
+.tg-header-info h3 { font-size: 14px; font-weight: 600; color: #fff; }
+.tg-header-info p { font-size: 11px; color: #6c7883; }
+
+/* Chat area */
+.chat { padding: 8px 8px 20px; display: flex; flex-direction: column; gap: 3px; }
+
+/* Date separator */
+.date-sep {
+    text-align: center; margin: 12px 0 8px;
+    font-size: 12px; color: #6c7883;
+}
+.date-sep span {
+    background: #1c2733; padding: 3px 10px; border-radius: 10px;
+    font-size: 11px;
+}
+
+/* Messages */
+.msg {
+    max-width: 82%; padding: 6px 10px 4px; border-radius: 10px;
+    font-size: 13.5px; line-height: 1.45; position: relative;
+}
+.msg .name { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+.msg .time { font-size: 10px; color: #6c7883; float: right; margin-left: 8px; margin-top: 3px; }
+.msg.in { background: #1c2733; align-self: flex-start; border-bottom-left-radius: 3px; }
+.msg.out { background: #2b5278; align-self: flex-end; border-bottom-right-radius: 3px; }
+
+/* Name colors — Telegram style */
+.name-mgr { color: #e57373; }
+.name-1 { color: #64b5f6; }
+.name-2 { color: #81c784; }
+.name-3 { color: #ffb74d; }
+.name-4 { color: #ba68c8; }
+.name-5 { color: #4dd0e1; }
+.name-6 { color: #f06292; }
+.name-7 { color: #aed581; }
+
+/* Quiz result card */
+.quiz-card {
+    background: #172230; border: 1px solid #2b3a4a; border-radius: 8px;
+    padding: 10px 12px; margin: 6px 0 2px;
+}
+.quiz-card .quiz-title { font-size: 11px; color: #64b5f6; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.quiz-card .quiz-score { font-size: 28px; font-weight: 700; color: #4caf50; margin: 4px 0 2px; }
+.quiz-card .quiz-score.mid { color: #ffb74d; }
+.quiz-card .quiz-detail { font-size: 11px; color: #8899a6; }
+.quiz-card .quiz-mission { font-size: 12px; color: #ccc; margin-top: 4px; }
+
+/* Pinned msg */
+.pinned {
+    background: #1c2733; border-left: 3px solid #64b5f6;
+    padding: 8px 10px; margin: 0 8px 8px; border-radius: 0 6px 6px 0;
+    font-size: 12px; color: #8899a6;
+}
+.pinned strong { color: #64b5f6; }
+
+/* Reactions */
+.reactions { display: flex; gap: 4px; margin-top: 4px; }
+.reaction {
+    background: #172230; border: 1px solid #2b3a4a; border-radius: 12px;
+    padding: 2px 8px; font-size: 12px; display: flex; align-items: center; gap: 3px;
+}
+.reaction .count { color: #64b5f6; font-size: 11px; }
+
+/* System messages */
+.sys-msg {
+    text-align: center; font-size: 12px; color: #6c7883;
+    margin: 6px 0; padding: 2px 0;
+}
+
+/* Photo placeholder */
+.photo-placeholder {
+    background: #172230; border: 1px solid #2b3a4a; border-radius: 8px;
+    width: 200px; height: 140px; display: flex; align-items: center; justify-content: center;
+    margin: 6px 0 2px; font-size: 11px; color: #6c7883;
+}
+
+/* Demo label */
+.demo-label {
+    position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+    background: #e91e63; color: #fff; padding: 4px 14px; border-radius: 16px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px; z-index: 20;
+    box-shadow: 0 2px 8px rgba(233,30,99,0.4);
+}
+</style>
+</head>
+<body>
+
+<!-- TG Header -->
+<div class="tg-header">
+    <a class="back">&larr;</a>
+    <div class="tg-avatar">PS</div>
+    <div class="tg-header-info">
+        <h3>PUMA Sales Mastery</h3>
+        <p>8 members, 3 online</p>
+    </div>
+</div>
+
+<!-- Pinned -->
+<div class="pinned">
+    <strong>Pinned:</strong> Course link + Quick Reference cards &mdash; tap to view
+</div>
+
+<!-- Chat -->
+<div class="chat">
+
+<!-- Day 1 -->
+<div class="date-sep"><span>Monday, Feb 10</span></div>
+
+<div class="sys-msg">Adedolapo added Chidi, Adaeze, Tunde, Ngozi, Emeka, Blessing, Kelechi</div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    Welcome team! This is our training group. New mission drops every Mon/Wed/Fri. Let's go
+    <span class="time">9:02 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    Mission 1 is live &mdash; The 5-30-60 Rule. Take 10 min, do the quiz, screenshot your score here
+    <span class="time">9:04 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-1">Chidi</div>
+    On it
+    <span class="time">9:31 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-2">Adaeze</div>
+    Done! This one was interesting
+    <div class="quiz-card">
+        <div class="quiz-title">Quiz Result</div>
+        <div class="quiz-score">100%</div>
+        <div class="quiz-mission">Mission 1: The 5-30-60 Rule</div>
+        <div class="quiz-detail">5/5 correct &bull; 2 min 14 sec</div>
+    </div>
+    <span class="time">9:48 AM</span>
+</div>
+
+<div class="reactions">
+    <span class="reaction">&#x1F525; <span class="count">4</span></span>
+    <span class="reaction">&#x1F44F; <span class="count">2</span></span>
+</div>
+
+<div class="msg in">
+    <div class="name name-1">Chidi</div>
+    <div class="quiz-card">
+        <div class="quiz-title">Quiz Result</div>
+        <div class="quiz-score">80%</div>
+        <div class="quiz-mission">Mission 1: The 5-30-60 Rule</div>
+        <div class="quiz-detail">4/5 correct &bull; 3 min 01 sec</div>
+    </div>
+    <span class="time">10:12 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-3">Tunde</div>
+    <div class="quiz-card">
+        <div class="quiz-title">Quiz Result</div>
+        <div class="quiz-score mid">60%</div>
+        <div class="quiz-mission">Mission 1: The 5-30-60 Rule</div>
+        <div class="quiz-detail">3/5 correct &bull; 4 min 32 sec</div>
+    </div>
+    Ah this question about the 60-second rule caught me. Retaking
+    <span class="time">10:40 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-2">Adaeze</div>
+    Tunde re-read the part about "everyone engaged within 60 seconds" &mdash; it's not just the first customer
+    <span class="time">10:43 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-3">Tunde</div>
+    <div class="quiz-card">
+        <div class="quiz-title">Quiz Result &mdash; Retake</div>
+        <div class="quiz-score">100%</div>
+        <div class="quiz-mission">Mission 1: The 5-30-60 Rule</div>
+        <div class="quiz-detail">5/5 correct &bull; 1 min 48 sec</div>
+    </div>
+    Got it now. Thanks Adaeze
+    <span class="time">11:15 AM</span>
+</div>
+
+<div class="reactions">
+    <span class="reaction">&#x1F4AA; <span class="count">3</span></span>
+</div>
+
+<div class="msg in">
+    <div class="name name-4">Ngozi</div>
+    Just finished my quiz. 100%. That 5-second acknowledge tip is real, customers actually respond differently when you greet fast
+    <span class="time">12:30 PM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-5">Emeka</div>
+    I tried the 5-second rule with 3 customers this afternoon. Two of them smiled back immediately. Usually they just walk past
+    <span class="time">3:47 PM</span>
+</div>
+
+<div class="reactions">
+    <span class="reaction">&#x1F525; <span class="count">5</span></span>
+    <span class="reaction">&#x1F64F; <span class="count">2</span></span>
+</div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    Great first day team. 5 out of 7 completed Mission 1. Blessing and Kelechi &mdash; finish by tomorrow morning please
+    <span class="time">5:15 PM</span>
+</div>
+
+<!-- Day 2 -->
+<div class="date-sep"><span>Wednesday, Feb 12</span></div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    Mission 2 is live! "Kill 'Can I Help You?'" &mdash; 5 better openings to use instead. Go do it before your shift
+    <span class="time">8:45 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-6">Blessing</div>
+    Sorry I was late on Mission 1 &mdash; done now! 80%. Starting Mission 2
+    <span class="time">9:10 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-2">Adaeze</div>
+    <div class="quiz-card">
+        <div class="quiz-title">Quiz Result</div>
+        <div class="quiz-score">100%</div>
+        <div class="quiz-mission">Mission 2: Kill "Can I Help You?"</div>
+        <div class="quiz-detail">5/5 correct &bull; 1 min 56 sec</div>
+    </div>
+    <span class="time">9:35 AM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-1">Chidi</div>
+    "I see you're looking at the RS-X &mdash; that's our best seller this month" ... tried this opening at 11am. Customer actually stopped and asked about colours. Usually they just say "I'm just looking"
+    <span class="time">1:22 PM</span>
+</div>
+
+<div class="reactions">
+    <span class="reaction">&#x1F525; <span class="count">6</span></span>
+    <span class="reaction">&#x1F4AF; <span class="count">3</span></span>
+</div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    THIS is exactly what we want to see. Chidi just turned "just looking" into a conversation. Well done
+    <span class="time">1:28 PM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-5">Emeka</div>
+    Wait I've been saying "Can I help you?" for 2 years. This mission just opened my eyes. The product-specific opener is SO much better
+    <span class="time">2:45 PM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-7">Kelechi</div>
+    Done with both Mission 1 and 2. Catching up. Mission 2 quiz = 80%
+    <span class="time">4:10 PM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    End of day: ALL 7 staff completed Mission 2. 3 people already using the techniques on the floor. This is working
+    <span class="time">5:30 PM</span>
+</div>
+
+<div class="reactions">
+    <span class="reaction">&#x1F389; <span class="count">7</span></span>
+</div>
+
+<!-- Day 3 -->
+<div class="date-sep"><span>Friday, Feb 14</span></div>
+
+<div class="msg in">
+    <div class="name name-3">Tunde</div>
+    Just used the 70/30 rule from Mission 3 with a customer looking at tracksuits. Let him talk 70% of the time. He told me he wanted something for gym AND casual. Sold him tracksuit + two t-shirts + socks. &#x20A6;48K sale
+    <span class="time">2:10 PM</span>
+</div>
+
+<div class="reactions">
+    <span class="reaction">&#x1F525; <span class="count">7</span></span>
+    <span class="reaction">&#x1F4B0; <span class="count">4</span></span>
+    <span class="reaction">&#x1F3C6; <span class="count">3</span></span>
+</div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    Tunde just turned a &#x20A6;22K tracksuit into a &#x20A6;48K basket by LISTENING. That's the 70/30 rule in action. Screenshot this everyone
+    <span class="time">2:18 PM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-4">Ngozi</div>
+    That's actually insane. I would have just sold the tracksuit and moved on
+    <span class="time">2:25 PM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-2">Adaeze</div>
+    Week 1 done! All missions complete, all quizzes passed. When does Module 1 continue?
+    <span class="time">5:00 PM</span>
+</div>
+
+<div class="msg in">
+    <div class="name name-mgr">Adedolapo (Manager)</div>
+    Week 1 recap:<br>
+    &bull; 7/7 staff completed all 3 missions<br>
+    &bull; Avg quiz score: 87%<br>
+    &bull; 4 floor wins reported<br>
+    &bull; Best moment: Tunde's &#x20A6;48K basket<br><br>
+    Mission 4 drops Monday. Have a good weekend team
+    <span class="time">5:45 PM</span>
+</div>
+
+<div class="reactions">
+    <span class="reaction">&#x1F680; <span class="count">7</span></span>
+</div>
+
+</div>
+
+<div class="demo-label">DEMO PREVIEW</div>
+
+</body>
+</html>

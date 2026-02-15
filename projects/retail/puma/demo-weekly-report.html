@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRL Sales Training — Week 2 Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #FAFAF8;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    color: #1c1917;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 24px 20px 100px;
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 28px 0 20px;
+}
+.header .logo {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: 8px;
+}
+.header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1c1917;
+    margin-bottom: 4px;
+}
+.header .period {
+    font-size: 14px;
+    color: #78716c;
+}
+.divider {
+    width: 64px;
+    height: 1.5px;
+    background: rgba(0,0,0,0.08);
+    margin: 20px auto 28px;
+}
+
+/* KPI Cards */
+.kpi-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+.kpi {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.kpi .number {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.kpi .label {
+    font-size: 10px;
+    color: #78716c;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 4px;
+}
+.kpi .delta {
+    font-size: 11px;
+    margin-top: 6px;
+    font-weight: 500;
+}
+.green { color: #16a34a; }
+.amber { color: #d97706; }
+.red { color: #dc2626; }
+.blue { color: #2563eb; }
+
+/* Section */
+.section { margin-bottom: 28px; }
+.section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: 2px;
+}
+.section h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+/* Staff Cards */
+.staff-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.staff-card .name {
+    font-weight: 600;
+    font-size: 15px;
+    min-width: 80px;
+}
+.staff-card .star { color: #d97706; }
+.staff-card .details { flex: 1; }
+.staff-card .score-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.badge-green { background: #dcfce7; color: #16a34a; }
+.badge-amber { background: #fef3c7; color: #d97706; }
+.badge-red { background: #fee2e2; color: #dc2626; }
+
+.prog-bar {
+    height: 5px;
+    background: #f5f5f4;
+    border-radius: 3px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 6px;
+}
+.prog-fill { height: 100%; border-radius: 3px; }
+.prog-fill.full { background: #16a34a; }
+.prog-fill.mid { background: #d97706; }
+.prog-fill.low { background: #dc2626; }
+
+.staff-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #a8a29e;
+}
+
+/* Timeline */
+.tl-day {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 14px;
+}
+.tl-day:last-child { border-bottom: none; }
+.tl-day .day {
+    color: #b45309;
+    font-weight: 600;
+    min-width: 36px;
+    font-size: 13px;
+}
+.tl-day .events { color: #57534e; }
+
+/* Floor Wins */
+.win {
+    background: #fff;
+    border-left: 3px solid #16a34a;
+    padding: 12px 16px;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.win .who { color: #1c1917; font-weight: 600; }
+.win .amount { color: #16a34a; font-weight: 700; }
+.win .date { color: #a8a29e; font-size: 12px; }
+
+/* Recommendation */
+.rec {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.rec .rec-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+.rec .rec-label.action { color: #dc2626; }
+.rec .rec-label.opportunity { color: #16a34a; }
+.rec .rec-label.insight { color: #2563eb; }
+
+/* Summary Table */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.summary-table th {
+    text-align: left;
+    color: #78716c;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.summary-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 28px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+}
+.footer .brand {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: 4px;
+}
+.footer .sub {
+    font-size: 12px;
+    color: #a8a29e;
+}
+
+/* Delivery note */
+.delivery {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: #78716c;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.delivery strong { color: #1c1917; }
+
+/* Demo label */
+.demo-label {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    background: #b45309;
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 20;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">PRL Sales Training</div>
+    <h1>Weekly Training Report</h1>
+    <div class="period">Week 2 &bull; Feb 10&ndash;14, 2026 &bull; Module 1: Customer Engagement</div>
+</div>
+
+<div class="divider"></div>
+
+<div class="delivery">
+    This report is delivered <strong>end of day, every Friday</strong>. Two minutes to read. No dashboard to refresh &mdash; it comes to you.
+</div>
+
+<!-- KPIs -->
+<div class="kpi-row">
+    <div class="kpi">
+        <div class="number green">6/7</div>
+        <div class="label">Staff Active</div>
+        <div class="delta green">+1 from Week 1</div>
+    </div>
+    <div class="kpi">
+        <div class="number blue">85%</div>
+        <div class="label">Avg Quiz Score</div>
+        <div class="delta green">+6% from Week 1</div>
+    </div>
+    <div class="kpi">
+        <div class="number" style="color:#b45309;">5</div>
+        <div class="label">Floor Wins</div>
+        <div class="delta green">+2 from Week 1</div>
+    </div>
+</div>
+
+<!-- Staff Progress -->
+<div class="section">
+<div class="section-label">Progress</div>
+<h2>Staff Completion</h2>
+
+<div class="staff-card">
+    <div class="name">Adaeze <span class="star">&#9733;</span></div>
+    <div class="details">
+        <div class="prog-bar"><div class="prog-fill full" style="width:100%"></div></div>
+        <div class="staff-meta"><span>6/6 missions</span><span class="score-badge badge-green">98%</span></div>
+    </div>
+</div>
+
+<div class="staff-card">
+    <div class="name">Ngozi</div>
+    <div class="details">
+        <div class="prog-bar"><div class="prog-fill full" style="width:100%"></div></div>
+        <div class="staff-meta"><span>6/6 missions</span><span class="score-badge badge-green">90%</span></div>
+    </div>
+</div>
+
+<div class="staff-card">
+    <div class="name">Chidi</div>
+    <div class="details">
+        <div class="prog-bar"><div class="prog-fill full" style="width:100%"></div></div>
+        <div class="staff-meta"><span>6/6 missions</span><span class="score-badge badge-green">88%</span></div>
+    </div>
+</div>
+
+<div class="staff-card">
+    <div class="name">Blessing</div>
+    <div class="details">
+        <div class="prog-bar"><div class="prog-fill full" style="width:100%"></div></div>
+        <div class="staff-meta"><span>6/6 missions</span><span class="score-badge badge-green">82%</span></div>
+    </div>
+</div>
+
+<div class="staff-card">
+    <div class="name">Tunde</div>
+    <div class="details">
+        <div class="prog-bar"><div class="prog-fill mid" style="width:83%"></div></div>
+        <div class="staff-meta"><span>5/6 missions</span><span class="score-badge badge-amber">84%</span></div>
+    </div>
+</div>
+
+<div class="staff-card">
+    <div class="name">Emeka</div>
+    <div class="details">
+        <div class="prog-bar"><div class="prog-fill mid" style="width:83%"></div></div>
+        <div class="staff-meta"><span>5/6 missions</span><span class="score-badge badge-amber">78%</span></div>
+    </div>
+</div>
+
+<div class="staff-card">
+    <div class="name">Kelechi</div>
+    <div class="details">
+        <div class="prog-bar"><div class="prog-fill low" style="width:50%"></div></div>
+        <div class="staff-meta"><span>3/6 missions</span><span class="score-badge badge-red">68%</span></div>
+    </div>
+</div>
+
+</div>
+
+<!-- Engagement Timeline -->
+<div class="section">
+<div class="section-label">Activity</div>
+<h2>This Week</h2>
+<div class="tl-day">
+    <span class="day">Mon</span>
+    <span class="events">Mission 4 released. 5/7 completed same day. 12 TG messages. Adaeze helped Tunde pass retake.</span>
+</div>
+<div class="tl-day">
+    <span class="day">Wed</span>
+    <span class="events">Mission 5 released. 6/7 completed. Chidi shared floor win (&#x20A6;38K cross-sell). 18 TG messages.</span>
+</div>
+<div class="tl-day">
+    <span class="day">Fri</span>
+    <span class="events">Mission 6 released. 4/7 completed (Kelechi, Tunde, Emeka pending). Tunde&rsquo;s &#x20A6;48K basket posted. 22 TG messages.</span>
+</div>
+</div>
+
+<!-- Floor Wins -->
+<div class="section">
+<div class="section-label">Results</div>
+<h2>Floor Wins Reported</h2>
+
+<div class="win">
+    <span class="who">Tunde</span> &mdash; Applied 70/30 listening rule. Customer revealed gym + casual need. <span class="amount">&#x20A6;48K</span> basket (tracksuit + 2 tees + socks). <span class="date">Fri</span>
+</div>
+<div class="win">
+    <span class="who">Ngozi</span> &mdash; Customer said &ldquo;I&rsquo;ll think about it.&rdquo; Used Mission 4 response. Customer came back 20 min later. <span class="amount">&#x20A6;41K</span>. <span class="date">Fri</span>
+</div>
+<div class="win">
+    <span class="who">Chidi</span> &mdash; Used product-specific opener. Customer stopped browsing, asked about colours. <span class="amount">&#x20A6;38K</span> sale (shoes + socks). <span class="date">Wed</span>
+</div>
+<div class="win">
+    <span class="who">Adaeze</span> &mdash; 5-second acknowledgment converted a walk-through customer into 15-min engagement. <span class="amount">&#x20A6;29K</span> sale. <span class="date">Thu</span>
+</div>
+<div class="win">
+    <span class="who">Emeka</span> &mdash; Tried 3 different openings in one shift. Best result with &ldquo;I see you like the Speedcat &mdash; we just got the new colourway.&rdquo; <span class="amount">&#x20A6;22K</span>. <span class="date">Fri</span>
+</div>
+</div>
+
+<!-- Summary -->
+<div class="section">
+<div class="section-label">Overview</div>
+<h2>Week 2 vs Week 1</h2>
+<table class="summary-table">
+<tr><th>Metric</th><th>Week 1</th><th>Week 2</th><th>Trend</th></tr>
+<tr><td>Missions completed (avg)</td><td>2.7</td><td>5.4</td><td class="green" style="font-weight:600;">+100%</td></tr>
+<tr><td>Avg quiz score</td><td>79%</td><td>85%</td><td class="green" style="font-weight:600;">+6%</td></tr>
+<tr><td>Floor wins reported</td><td>3</td><td>5</td><td class="green" style="font-weight:600;">+67%</td></tr>
+<tr><td>TG group messages</td><td>37</td><td>52</td><td class="green" style="font-weight:600;">+40%</td></tr>
+<tr><td>Staff at risk</td><td>2</td><td>1</td><td class="green" style="font-weight:600;">Improved</td></tr>
+</table>
+</div>
+
+<!-- Recommendations -->
+<div class="section">
+<div class="section-label">Recommendations</div>
+<h2>What to Watch</h2>
+
+<div class="rec">
+    <div class="rec-label action">Action Needed</div>
+    <strong>Kelechi</strong> is 3 missions behind. Suggest a 1-on-1 check-in with the manager to unblock. May need shift schedule adjusted for training time.
+</div>
+<div class="rec">
+    <div class="rec-label opportunity">Opportunity</div>
+    <strong>Adaeze</strong> consistently scores 95%+ and helps peers. Consider for &ldquo;Training Champion&rdquo; role when Wave 2 launches.
+</div>
+<div class="rec">
+    <div class="rec-label insight">Insight</div>
+    TG group messages up 40% week-over-week. Staff are organically helping each other &mdash; peer learning is working. Floor wins being reported without prompting.
+</div>
+</div>
+
+<div class="footer">
+    <div class="brand">PRL Sales Training</div>
+    <div class="sub">End-of-day report &bull; Delivered every Friday &bull; Next report: Feb 21</div>
+</div>
+
+<div class="demo-label">DEMO PREVIEW</div>
+
+</body>
+</html>

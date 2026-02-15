@@ -1,0 +1,482 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">PUMA Training</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet" vid="7">
+    <style vid="8">
+        :root {
+
+
+
+
+            --bg-body: #E6E2E6;
+            --bg-card: #F2F0F2;
+            --bg-white: #FFFFFF;
+
+
+            --accent-hero: #DFFF4F;
+            --accent-dark: #0D1F12;
+            --accent-subtle: #DCD0D4;
+
+
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B6B76;
+            --text-on-dark: #FFFFFF;
+
+
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --radius-pill: 100px;
+
+
+            --space-xs: 4px;
+            --space-s: 12px;
+            --space-m: 16px;
+            --space-l: 24px;
+            --space-xl: 32px;
+
+
+            --border-subtle: 1px solid rgba(0,0,0,0.06);
+            --border-divider: 1px solid rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            width: 100%;
+            min-height: 100vh;
+
+            max-width: 480px;
+            margin: 0 auto;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee;
+            padding-bottom: 80px;
+        }
+
+
+        header {
+            padding: var(--space-l) var(--space-l) var(--space-m);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-name {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent-subtle);
+            border: 1px solid rgba(0,0,0,0.05);
+            background-image: linear-gradient(135deg, #ccc 25%, transparent 25%), linear-gradient(225deg, #ccc 25%, transparent 25%), linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(315deg, #ccc 25%, transparent 25%);
+            background-position:  10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+            background-repeat: repeat;
+        }
+
+
+        .mission-card {
+            margin: 0 var(--space-l);
+            background-color: var(--accent-hero);
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(223, 255, 79, 0.2);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .mission-card:active {
+            transform: scale(0.98);
+        }
+
+        .mission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .mission-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-dark);
+            opacity: 0.7;
+        }
+
+        .read-time {
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(13, 31, 18, 0.1);
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            color: var(--accent-dark);
+        }
+
+        .mission-content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--accent-dark);
+            margin-bottom: 8px;
+            max-width: 80%;
+        }
+
+        .mission-content p {
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--accent-dark);
+            opacity: 0.8;
+            max-width: 90%;
+        }
+
+
+        .btn-start {
+            margin-top: 8px;
+            background-color: var(--accent-dark);
+            color: #DFFF4F;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            border: none;
+        }
+
+        .btn-icon {
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #DFFF4F;
+        }
+
+
+        .stats-strip {
+            margin: var(--space-l) var(--space-l) 0;
+            background-color: rgba(255,255,255,0.5);
+            border: 1px solid rgba(0,0,0,0.03);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr 1px 1fr;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-divider {
+            height: 32px;
+            background-color: var(--accent-subtle);
+            width: 1px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-feature-settings: "tnum" on;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #E0E0E0;
+            border-radius: 2px;
+            margin-top: 6px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-dark);
+            width: 50%;
+            border-radius: 2px;
+        }
+
+
+        .section-title {
+            padding: var(--space-l) var(--space-l) var(--space-m);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 var(--space-l);
+            gap: 12px;
+            padding-bottom: 20px;
+            scrollbar-width: none;
+        }
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .action-card {
+            flex: 0 0 140px;
+            height: 120px;
+            background-color: var(--bg-white);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: var(--border-subtle);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .action-card:active {
+            transform: scale(0.96);
+        }
+
+        .action-icon {
+            font-size: 20px;
+        }
+
+        .action-text {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+
+        .activity-list {
+            padding: 0 var(--space-l);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-primary);
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #E0E0E0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .highlight {
+            font-weight: 600;
+        }
+
+
+        .rewards-row {
+            margin: var(--space-m) var(--space-l);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #F0F0F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #AAA;
+        }
+
+        .badge.earned {
+            background: rgba(223, 255, 79, 0.4);
+            color: var(--accent-dark);
+            border: 1px solid rgba(13, 31, 18, 0.1);
+        }
+
+        .reward-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+
+        .tab-bar {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 48px);
+            max-width: 432px;
+            background: var(--accent-dark);
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: rgba(255,255,255,0.4);
+            font-size: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            width: 60px;
+        }
+
+        .tab-item.active {
+            color: #DFFF4F;
+        }
+
+        .tab-icon {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body vid="9">
+    <header vid="10">
+        <div class="app-name" vid="11">Puma Training</div>
+        <div class="avatar" role="img" aria-label="User Avatar" vid="12"></div>
+    </header>
+    <main vid="13">
+        <section class="mission-card" vid="14">
+            <div class="mission-header" vid="15">
+                <span class="mission-label" vid="16">Next Mission</span>
+                <span class="read-time" vid="17">3 min read</span>
+            </div>
+            <div class="mission-content" vid="18">
+                <h1 vid="19">Mission 3: The 70/30 Rule</h1>
+                <p vid="20">Let the customer talk 70%, you talk 30%. Master the art of listening.</p>
+            </div>
+            <button class="btn-start" vid="21">
+                START MISSION
+                <div class="btn-icon" vid="22"></div>
+            </button>
+        </section>
+        <section class="stats-strip" vid="23">
+            <div class="stat-item" vid="24">
+                <span class="stat-label" vid="25">Module 1</span>
+                <div class="progress-container" vid="26">
+                    <div class="progress-fill" vid="27"></div>
+                </div>
+                <span style="font-size: 10px; margin-top: 4px; color: var(--text-secondary);" vid="28">50%</span>
+            </div>
+            <div class="stat-divider" vid="29"></div>
+            <div class="stat-item" vid="30">
+                <span class="stat-label" vid="31">Streak</span>
+                <span class="stat-value" vid="32">4 Days</span>
+            </div>
+            <div class="stat-divider" vid="33"></div>
+            <div class="stat-item" vid="34">
+                <span class="stat-label" vid="35">Total</span>
+                <span class="stat-value" vid="36">3/6</span>
+            </div>
+        </section>
+        <div class="section-title" vid="37">Quick Actions</div>
+        <section class="scroll-container" vid="38">
+            <div class="action-card" vid="39">
+                <div class="action-icon" vid="40">🎮</div>
+                <div class="action-text" vid="41">Play<br vid="42">Game</div>
+            </div>
+            <div class="action-card" vid="43">
+                <div class="action-icon" vid="44">📝</div>
+                <div class="action-text" vid="45">Daily<br vid="46">Review</div>
+            </div>
+            <div class="action-card" vid="47">
+                <div class="action-icon" vid="48">📋</div>
+                <div class="action-text" vid="49">Practice<br vid="50">Log</div>
+            </div>
+        </section>
+        <div class="section-title" vid="51">Team Activity</div>
+        <section class="activity-list" vid="52">
+            <div class="activity-item" vid="53">
+                <div class="activity-avatar" vid="54">P</div>
+                <div vid="55"><span class="highlight" vid="56">Peter</span> completed Mission 4</div>
+            </div>
+            <div class="activity-item" vid="57">
+                <div class="activity-avatar" vid="58">A</div>
+                <div vid="59"><span class="highlight" vid="60">Adedolapo</span> scored 92% on Customer Says</div>
+            </div>
+        </section>
+        <section class="rewards-row" vid="61">
+            <div class="badge earned" vid="62">★</div>
+            <div class="badge earned" vid="63">⚡</div>
+            <div class="badge" vid="64">◆</div>
+            <span class="reward-text" vid="65">Complete all 6 missions to unlock your Cheat Sheet</span>
+        </section>
+    </main>
+    <nav class="tab-bar" vid="66">
+        <a href="#" class="tab-item active" vid="67">
+            <span class="tab-icon" vid="68">●</span>
+            Home
+        </a>
+        <a href="#" class="tab-item" vid="69">
+            <span class="tab-icon" vid="70">▲</span>
+            Games
+        </a>
+        <a href="#" class="tab-item" vid="71">
+            <span class="tab-icon" vid="72">■</span>
+            Profile
+        </a>
+    </nav>
+</body></html>

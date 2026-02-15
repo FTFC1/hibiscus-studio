@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/pricing", "destination": "/pricing.html" },
+    { "source": "/((?!assets|pricing|vite).*)", "destination": "/index.html" }
+  ]
+}
