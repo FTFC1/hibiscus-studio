@@ -590,6 +590,149 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        /* ── Chapter Flow (visual journey) ── */
+        .chapter-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 24px;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 1px 6px rgba(45,31,26,0.05);
+        }
+        .flow-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .flow-icon svg { width: 22px; height: 22px; }
+        .flow-icon.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .flow-icon.ig svg { fill: white; }
+        .flow-icon.click { background: var(--sage); }
+        .flow-icon.click svg { fill: #3d6b4a; }
+        .flow-icon.book { background: var(--peach); }
+        .flow-icon.book svg { fill: var(--rose); }
+        .flow-icon.done { background: var(--sage); }
+        .flow-icon.done svg { fill: #2d5a3d; }
+        .flow-text {
+            font-size: 14px;
+            color: var(--chocolate);
+            line-height: 1.4;
+        }
+        .flow-text strong { color: var(--chocolate); }
+        .flow-text span { color: var(--chocolate-mid); font-size: 13px; display: block; }
+        .flow-connector {
+            width: 2px;
+            height: 14px;
+            background: var(--border);
+            margin-left: 36px;
+        }
+
+        /* ── BA Icons ── */
+        .ba-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .ba-icon svg { width: 16px; height: 16px; }
+        .ba-before .ba-icon { background: rgba(139,112,104,0.12); }
+        .ba-before .ba-icon svg { fill: var(--chocolate-light); }
+        .ba-after .ba-icon { background: rgba(45,90,61,0.12); }
+        .ba-after .ba-icon svg { fill: #2d5a3d; }
+
+        /* ── Card preview ── */
+        .card-preview {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .card-preview-thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            background: var(--cream-deep);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .card-preview-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+        .card-preview-more {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            background: var(--cream-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--chocolate-mid);
+            flex-shrink: 0;
+        }
+
+        /* ── Email visual strip ── */
+        .email-strip {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .email-type {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            box-shadow: 0 1px 6px rgba(45,31,26,0.05);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .email-type:active { transform: scale(0.97); }
+        .email-type-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .email-type-icon.confirm { background: var(--sage); }
+        .email-type-icon.reschedule { background: #e8e4f0; }
+        .email-type-icon.cancel { background: var(--peach); }
+        .email-type-icon.payment { background: var(--cream-deep); }
+        .email-type-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--chocolate);
+        }
+        .email-type-sub {
+            font-size: 11px;
+            color: var(--chocolate-mid);
+            margin-top: 2px;
+        }
+
     </style>
 </head>
 <body>
@@ -644,33 +787,78 @@
     <div class="chapter" id="ch1">
         <div class="chapter-num">Chapter One</div>
         <h2 class="chapter-title">Someone Finds You</h2>
-        <p class="chapter-story">
-            Someone searches "event space East London" or sees your Instagram. They click through. Instead of a Linktree and a "DM for pricing" — they land on <strong>your booking page</strong> and can see exactly what you offer, pick a date, and book themselves in.
-        </p>
 
-        <div class="before-after">
-            <div class="ba-card ba-before">
-                <div class="ba-label">Before</div>
-                Instagram bio link. "DM for pricing." Back-and-forth messages. Lost leads.
+        <div class="chapter-flow">
+            <div class="flow-step">
+                <div class="flow-icon ig">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>They see your Instagram</strong>
+                    <span>Or search "event space East London"</span>
+                </div>
             </div>
-            <div class="ba-card ba-after">
-                <div class="ba-label">Now</div>
-                Booking page. Prices visible. They pick a date and book. No DMs needed.
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <div class="flow-icon click">
+                    <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>They click through</strong>
+                    <span>No Linktree. No "DM for pricing."</span>
+                </div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <div class="flow-icon book">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>Land on your booking page</strong>
+                    <span>See packages, prices, available dates</span>
+                </div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <div class="flow-icon done">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>Pick a date. Book. Done.</strong>
+                    <span>3 minutes, no messages needed</span>
+                </div>
             </div>
         </div>
 
-        <a href="../book/" target="_blank" class="live-link">
+        <div class="before-after">
+            <div class="ba-card ba-before">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
+                </div>
+                <div class="ba-label">Before</div>
+                DMs, back-and-forth, ghosted leads
+            </div>
+            <div class="ba-card ba-after">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                </div>
+                <div class="ba-label">Now</div>
+                Self-serve booking, instant confirmation
+            </div>
+        </div>
+
+        <a href="../book/" class="live-link">
             <div>
                 <h3>Your Booking Page</h3>
-                <p>Where customers land, see availability, and book &middot; live now</p>
+                <p>Live now &middot; tap to see it</p>
             </div>
             <span class="live-link-arrow">&rarr;</span>
         </a>
 
-        <a href="../fg-ganache-landing.html" target="_blank" class="live-link">
+        <a href="../fg-ganache-landing.html" class="live-link">
             <div>
                 <h3>Ganache Masterclass</h3>
-                <p>Dedicated landing page for your signature 1-2-1 class</p>
+                <p>Your signature 1-2-1 class landing page</p>
             </div>
             <span class="live-link-arrow">&rarr;</span>
         </a>
@@ -688,12 +876,18 @@
 
         <div class="before-after">
             <div class="ba-card ba-before">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                </div>
                 <div class="ba-label">Before</div>
-                Customer DMs. You reply hours later. They ask about dates. More messages. They ghost.
+                DMs, hours waiting, dates back-and-forth, ghosted
             </div>
             <div class="ba-card ba-after">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+                </div>
                 <div class="ba-label">Now</div>
-                9-step booking flow. Available dates shown live. Customer self-serves. You get notified.
+                Self-serve, live dates, instant confirmation
             </div>
         </div>
 
@@ -701,9 +895,16 @@
             <div class="card-top">
                 <div>
                     <div class="card-title">Walk Through the Booking</div>
-                    <div class="card-desc">See every step your customer goes through — from "What are you planning?" to "Booking confirmed!"</div>
+                    <div class="card-desc">Every step — from "What are you planning?" to "Confirmed!"</div>
                 </div>
                 <span class="card-badge badge-walk">12 screens</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-1-event-type.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-5-pick-date.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-11-review.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-12-confirmation.png" alt=""></div>
+                <div class="card-preview-more">+8</div>
             </div>
         </div>
 
@@ -719,13 +920,26 @@
             The moment someone books, <strong>eight things happen automatically.</strong> A confirmation email lands in their inbox. A calendar event appears in yours. Their details go into a tracking sheet. If you reschedule — the customer gets an updated email and calendar invite. If they cancel — the refund is calculated by your policy. All without you typing a single message.
         </p>
 
-        <div class="card" onclick="openWalk('emails')">
-            <div class="card-top">
-                <div>
-                    <div class="card-title">See the Emails</div>
-                    <div class="card-desc">Branded confirmation, rescheduling, cancellation, and payment emails — all automatic</div>
-                </div>
-                <span class="card-badge badge-walk">4 types</span>
+        <div class="email-strip">
+            <div class="email-type" onclick="openWalkAt('emails',0)">
+                <div class="email-type-icon confirm">&#x2709;</div>
+                <div class="email-type-name">Confirmed</div>
+                <div class="email-type-sub">Instant on booking</div>
+            </div>
+            <div class="email-type" onclick="openWalkAt('emails',1)">
+                <div class="email-type-icon reschedule">&#x1F504;</div>
+                <div class="email-type-name">Rescheduled</div>
+                <div class="email-type-sub">New date + calendar</div>
+            </div>
+            <div class="email-type" onclick="openWalkAt('emails',2)">
+                <div class="email-type-icon cancel">&#x2716;</div>
+                <div class="email-type-name">Cancelled</div>
+                <div class="email-type-sub">Refund calculated</div>
+            </div>
+            <div class="email-type" onclick="openWalkAt('emails',3)">
+                <div class="email-type-icon payment">&#x00A3;</div>
+                <div class="email-type-name">Payment</div>
+                <div class="email-type-sub">Receipt + balance</div>
             </div>
         </div>
 
@@ -764,9 +978,15 @@
             <div class="card-top">
                 <div>
                     <div class="card-title">Walk Through the Dashboard</div>
-                    <div class="card-desc">Login, view bookings, confirm payments, reschedule dates, handle cancellations — all from one place</div>
+                    <div class="card-desc">Login, bookings, payments, scheduling — one place</div>
                 </div>
                 <span class="card-badge badge-walk">11 screens</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/Admin Dash/CleanShot 2026-01-29 at 11.51.04@2x.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/Admin Dash/CleanShot 2026-01-29 at 11.51.30@2x.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/Admin Dash/CleanShot 2026-01-29 at 11.52.39@2x.png" alt=""></div>
+                <div class="card-preview-more">+8</div>
             </div>
         </div>
     </div>
@@ -778,10 +998,10 @@
         <div class="chapter-num">Chapter Five</div>
         <h2 class="chapter-title">Know Your Numbers</h2>
         <p class="chapter-story">
-            Every workshop, every event — you should know exactly what you're making. The calculator shows you profit per workshop in seconds. The analysis breaks down where your money comes from. The price list makes sure every package, add-on, and discount is documented. <strong>Decisions backed by data, not guesswork.</strong>
+            <strong>Decisions backed by data, not guesswork.</strong> Profit per workshop, revenue by event type, every price and policy documented.
         </p>
 
-        <a href="../calculator/" target="_blank" class="live-link">
+        <a href="../calculator/" class="live-link">
             <div>
                 <h3>Workshop Calculator</h3>
                 <p>Enter your costs, see your profit — instantly</p>
@@ -1057,6 +1277,15 @@ function renderWalk() {
 
 function walkPrev() { if (walkIndex > 0) { walkIndex--; renderWalk(); } }
 function walkNext() { if (walkIndex < currentWalk.steps.length - 1) { walkIndex++; renderWalk(); } }
+
+function openWalkAt(id, idx) {
+    currentWalk = walks[id];
+    walkIndex = idx;
+    document.getElementById('detailTitle').textContent = currentWalk.title;
+    renderWalk();
+    document.getElementById('detailOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
 
 // ── DETAIL ───────────────────────────────────────
 function openDetail(id) {
