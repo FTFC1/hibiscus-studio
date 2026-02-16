@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Setup & Packdown Guide | Flour Girls Cakehouse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #fef9f4;
+            --bg-surface: #fff;
+            --bg-secondary: #f9f3ed;
+            --text-primary: #2d1f1a;
+            --text-secondary: #5a4139;
+            --text-muted: #8a7269;
+            --accent: #c77d6a;
+            --accent-hover: #b56a58;
+            --accent-soft: rgba(199, 125, 106, 0.15);
+            --border-color: #e8ddd4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-flourish {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            font-style: italic;
+        }
+
+        .brand-subtitle {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .treatments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .treatment {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(45, 31, 26, 0.08);
+        }
+
+        .treatment-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .treatment-name {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .treatment-badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .treatment-content { padding: 20px; }
+
+        .treatment-notes {
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Card */
+        .duration-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .time-range {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .time-range span {
+            color: var(--text-muted);
+            margin: 0 8px;
+            font-weight: 400;
+        }
+
+        .slot-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: var(--bg-base);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .hours-highlight {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .hours-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .hours-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .memory-items { margin-top: 16px; }
+        .memory-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--bg-base);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+        }
+        .memory-item span:first-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .memory-item span:last-child {
+            color: var(--text-muted);
+        }
+
+        .select-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: background 0.2s ease;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .select-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Timeline */
+        .timeline-visual {
+            display: flex;
+            align-items: stretch;
+            margin: 16px 0;
+            padding: 16px;
+            background: var(--bg-base);
+            border-radius: 10px;
+            gap: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .timeline-segment.setup,
+        .timeline-segment.packdown { flex: 0 0 70px; }
+        .timeline-segment.event { flex: 1; }
+
+        .segment-icon { font-size: 1.1rem; margin-bottom: 6px; }
+
+        .segment-bar {
+            height: 8px;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .setup .segment-bar { background: #d4b5a8; }
+        .event .segment-bar { background: var(--accent); }
+        .packdown .segment-bar { background: #d4b5a8; }
+
+        .segment-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .segment-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .event .segment-time {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Compact */
+        .compact .segment-icon { font-size: 0.95rem; }
+        .compact .segment-bar { height: 6px; }
+        .compact { padding: 12px; }
+
+        /* Inline labels */
+        .inline-labels .segment-icon { display: none; }
+        .inline-labels .segment-label { display: flex; align-items: center; gap: 4px; }
+
+        @media (max-width: 768px) {
+            body { padding: 24px 16px; }
+            .brand-name { font-size: 1.6rem; }
+            h1 { font-size: 1.5rem; }
+            .treatments-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-header">
+            <div class="brand-flourish">~ ~ ~</div>
+            <div class="brand-name">Flour Girls Cakehouse</div>
+            <div class="brand-subtitle">Studio Operations</div>
+        </div>
+
+        <h1>Studio Setup & Packdown Guide</h1>
+        <p class="subtitle">Visual timeline for setup preparation and clear-down procedures</p>
+
+        <div class="treatments-grid">
+
+            <!-- V1: Standard with ✨ event -->
+            <div class="treatment">
+                <div class="treatment-header">
+                    <span class="treatment-name">V1. Sparkle Event</span>
+                    <span class="treatment-badge">ELEGANT</span>
+                </div>
+                <div class="treatment-content">
+                    <div class="duration-card">
+                        <div class="card-header">
+                            <div class="time-range">10am <span>→</span> 6pm</div>
+                            <div class="slot-badge">Morning-Afternoon</div>
+                        </div>
+
+                        <div class="timeline-visual">
+                            <div class="timeline-segment setup">
+                                <div class="segment-icon">🎬</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Setup</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                            <div class="timeline-segment event">
+                                <div class="segment-icon">✨</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Your Event</div>
+                                <div class="segment-time">5h 30m</div>
+                            </div>
+                            <div class="timeline-segment packdown">
+                                <div class="segment-icon">🧹</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Clear</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                        </div>
+
+                        <div class="hours-highlight">
+                            <div class="hours-number">5.5 hours</div>
+                            <div class="hours-label">of memories</div>
+                        </div>
+
+                        <div class="memory-items">
+                            <div class="memory-item">
+                                <span>Tearful speeches</span>
+                                <span>at least 2</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>"Remember when..." stories</span>
+                                <span>dozens</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>Group photos you'll frame</span>
+                                <span>~20</span>
+                            </div>
+                        </div>
+
+                        <button class="select-btn">Select this time</button>
+                    </div>
+                </div>
+                <div class="treatment-notes">✨ = magic/special moment</div>
+            </div>
+
+            <!-- V2: 🎉 Party event -->
+            <div class="treatment">
+                <div class="treatment-header">
+                    <span class="treatment-name">V2. Party Event</span>
+                </div>
+                <div class="treatment-content">
+                    <div class="duration-card">
+                        <div class="card-header">
+                            <div class="time-range">10am <span>→</span> 6pm</div>
+                            <div class="slot-badge">Morning-Afternoon</div>
+                        </div>
+
+                        <div class="timeline-visual">
+                            <div class="timeline-segment setup">
+                                <div class="segment-icon">🎬</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Setup</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                            <div class="timeline-segment event">
+                                <div class="segment-icon">🎉</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Your Event</div>
+                                <div class="segment-time">5h 30m</div>
+                            </div>
+                            <div class="timeline-segment packdown">
+                                <div class="segment-icon">🧹</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Clear</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                        </div>
+
+                        <div class="hours-highlight">
+                            <div class="hours-number">5.5 hours</div>
+                            <div class="hours-label">of memories</div>
+                        </div>
+
+                        <div class="memory-items">
+                            <div class="memory-item">
+                                <span>Tearful speeches</span>
+                                <span>at least 2</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>"Remember when..." stories</span>
+                                <span>dozens</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>Group photos you'll frame</span>
+                                <span>~20</span>
+                            </div>
+                        </div>
+
+                        <button class="select-btn">Select this time</button>
+                    </div>
+                </div>
+                <div class="treatment-notes">🎉 = celebration energy</div>
+            </div>
+
+            <!-- V3: 🌺 Hibiscus branded -->
+            <div class="treatment">
+                <div class="treatment-header">
+                    <span class="treatment-name">V3. On-Brand</span>
+                    <span class="treatment-badge">SIGNATURE</span>
+                </div>
+                <div class="treatment-content">
+                    <div class="duration-card">
+                        <div class="card-header">
+                            <div class="time-range">10am <span>→</span> 6pm</div>
+                            <div class="slot-badge">Morning-Afternoon</div>
+                        </div>
+
+                        <div class="timeline-visual">
+                            <div class="timeline-segment setup">
+                                <div class="segment-icon">🎬</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Setup</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                            <div class="timeline-segment event">
+                                <div class="segment-icon">🌺</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Your Event</div>
+                                <div class="segment-time">5h 30m</div>
+                            </div>
+                            <div class="timeline-segment packdown">
+                                <div class="segment-icon">🧹</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Clear</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                        </div>
+
+                        <div class="hours-highlight">
+                            <div class="hours-number">5.5 hours</div>
+                            <div class="hours-label">of memories</div>
+                        </div>
+
+                        <div class="memory-items">
+                            <div class="memory-item">
+                                <span>Tearful speeches</span>
+                                <span>at least 2</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>"Remember when..." stories</span>
+                                <span>dozens</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>Group photos you'll frame</span>
+                                <span>~20</span>
+                            </div>
+                        </div>
+
+                        <button class="select-btn">Select this time</button>
+                    </div>
+                </div>
+                <div class="treatment-notes">🌺 = signature branding</div>
+            </div>
+
+            <!-- V4: 💫 Dreamy -->
+            <div class="treatment">
+                <div class="treatment-header">
+                    <span class="treatment-name">V4. Dreamy</span>
+                </div>
+                <div class="treatment-content">
+                    <div class="duration-card">
+                        <div class="card-header">
+                            <div class="time-range">10am <span>→</span> 6pm</div>
+                            <div class="slot-badge">Morning-Afternoon</div>
+                        </div>
+
+                        <div class="timeline-visual">
+                            <div class="timeline-segment setup">
+                                <div class="segment-icon">🎬</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Setup</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                            <div class="timeline-segment event">
+                                <div class="segment-icon">💫</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Your Event</div>
+                                <div class="segment-time">5h 30m</div>
+                            </div>
+                            <div class="timeline-segment packdown">
+                                <div class="segment-icon">🧹</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Clear</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                        </div>
+
+                        <div class="hours-highlight">
+                            <div class="hours-number">5.5 hours</div>
+                            <div class="hours-label">of memories</div>
+                        </div>
+
+                        <div class="memory-items">
+                            <div class="memory-item">
+                                <span>Tearful speeches</span>
+                                <span>at least 2</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>"Remember when..." stories</span>
+                                <span>dozens</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>Group photos you'll frame</span>
+                                <span>~20</span>
+                            </div>
+                        </div>
+
+                        <button class="select-btn">Select this time</button>
+                    </div>
+                </div>
+                <div class="treatment-notes">💫 = magical/dreamy</div>
+            </div>
+
+            <!-- V5: Compact version -->
+            <div class="treatment">
+                <div class="treatment-header">
+                    <span class="treatment-name">V5. Compact</span>
+                    <span class="treatment-badge">MOBILE</span>
+                </div>
+                <div class="treatment-content">
+                    <div class="duration-card">
+                        <div class="card-header">
+                            <div class="time-range">10am <span>→</span> 6pm</div>
+                            <div class="slot-badge">Morning-Afternoon</div>
+                        </div>
+
+                        <div class="timeline-visual compact">
+                            <div class="timeline-segment setup">
+                                <div class="segment-icon">🎬</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Setup</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                            <div class="timeline-segment event">
+                                <div class="segment-icon">✨</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Event</div>
+                                <div class="segment-time">5h 30m</div>
+                            </div>
+                            <div class="timeline-segment packdown">
+                                <div class="segment-icon">🧹</div>
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">Clear</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                        </div>
+
+                        <div class="hours-highlight">
+                            <div class="hours-number">5.5 hours</div>
+                            <div class="hours-label">of memories</div>
+                        </div>
+
+                        <div class="memory-items">
+                            <div class="memory-item">
+                                <span>Tearful speeches</span>
+                                <span>at least 2</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>"Remember when..." stories</span>
+                                <span>dozens</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>Group photos you'll frame</span>
+                                <span>~20</span>
+                            </div>
+                        </div>
+
+                        <button class="select-btn">Select this time</button>
+                    </div>
+                </div>
+                <div class="treatment-notes">Tighter spacing for mobile</div>
+            </div>
+
+            <!-- V6: Inline emoji labels -->
+            <div class="treatment">
+                <div class="treatment-header">
+                    <span class="treatment-name">V6. Inline Labels</span>
+                </div>
+                <div class="treatment-content">
+                    <div class="duration-card">
+                        <div class="card-header">
+                            <div class="time-range">10am <span>→</span> 6pm</div>
+                            <div class="slot-badge">Morning-Afternoon</div>
+                        </div>
+
+                        <div class="timeline-visual inline-labels">
+                            <div class="timeline-segment setup">
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">🎬 Setup</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                            <div class="timeline-segment event">
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">✨ Your Event</div>
+                                <div class="segment-time">5h 30m</div>
+                            </div>
+                            <div class="timeline-segment packdown">
+                                <div class="segment-bar"></div>
+                                <div class="segment-label">🧹 Clear</div>
+                                <div class="segment-time">1h 15m</div>
+                            </div>
+                        </div>
+
+                        <div class="hours-highlight">
+                            <div class="hours-number">5.5 hours</div>
+                            <div class="hours-label">of memories</div>
+                        </div>
+
+                        <div class="memory-items">
+                            <div class="memory-item">
+                                <span>Tearful speeches</span>
+                                <span>at least 2</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>"Remember when..." stories</span>
+                                <span>dozens</span>
+                            </div>
+                            <div class="memory-item">
+                                <span>Group photos you'll frame</span>
+                                <span>~20</span>
+                            </div>
+                        </div>
+
+                        <button class="select-btn">Select this time</button>
+                    </div>
+                </div>
+                <div class="treatment-notes">Emoji next to text, no icons above</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

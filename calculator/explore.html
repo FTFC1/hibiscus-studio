@@ -1,0 +1,2711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Workshop Profitability Calculator — Hibiscus Studio</title>
+<meta name="description" content="Calculate your workshop profit instantly. See how Hibiscus Studio's purpose-built venue in East London compares. Kitchen, lighting, setup included.">
+<meta property="og:title" content="Workshop Profit Calculator — Hibiscus Studio">
+<meta property="og:description" content="Enter your numbers. See your profit. Compare it against our workshop-ready venue in East London.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hibiscusstudio.co.uk/calculator/">
+<link rel="canonical" href="https://hibiscusstudio.co.uk/calculator/">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --glass-bg: rgba(255,255,255,0.12);
+  --glass-border: rgba(255,255,255,0.18);
+  --glass-blur: 20px;
+  --text: #fff;
+  --text-muted: rgba(255,255,255,0.7);
+  --accent: #E91E8C;
+  --accent-glow: rgba(233,30,140,0.4);
+  --green: #4ADE80;
+  --red: #F87171;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #0a0a0a;
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(72px + var(--safe-bottom));
+}
+
+/* ═══════════════════════════════════════ */
+/*  STICKY BOTTOM BAR                     */
+/* ═══════════════════════════════════════ */
+.sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 12px 20px calc(12px + var(--safe-bottom));
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.sticky-bar.visible {
+  transform: translateY(0);
+}
+
+.sticky-bar .bar-info {
+  min-width: 0;
+}
+
+.sticky-bar .bar-name {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-bar .bar-addr {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.sticky-bar .bar-cta {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(233,30,140,0.3);
+}
+
+.sticky-bar .bar-cta:active {
+  transform: scale(0.96);
+}
+
+/* ═══════════════════════════════════════ */
+/*  PAGE                                  */
+/* ═══════════════════════════════════════ */
+.page {
+  padding-top: 0;
+}
+
+/* ═══════════════════════════════════════ */
+/*  HERO                                  */
+/* ═══════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 20px 32px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.6) 30%,
+    rgba(0,0,0,0.1) 55%,
+    transparent 70%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+}
+
+.rec-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(233,30,140,0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(233,30,140,0); }
+}
+
+.step-progress {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  font-weight: 500;
+  display: none;
+  letter-spacing: 0.03em;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.hero .subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+  max-width: 340px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* ═══════════════════════════════════════ */
+/*  GLASS PANELS                          */
+/* ═══════════════════════════════════════ */
+.glass {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+}
+
+.glass-subtle {
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+}
+
+/* ═══════════════════════════════════════ */
+/*  MINI CALCULATOR                       */
+/* ═══════════════════════════════════════ */
+.calc-mini {
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.calc-mini .input-step {
+  margin-bottom: 16px;
+}
+
+.calc-mini .input-step:last-of-type {
+  margin-bottom: 10px;
+}
+
+.calc-mini .step-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.calc-mini .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.5);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.calc-mini input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.calc-mini input:focus {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.12);
+}
+
+.calc-mini input::placeholder { color: rgba(255,255,255,0.25); }
+
+.input-prefix {
+  position: relative;
+}
+
+.input-prefix::before {
+  content: '\00A3';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  pointer-events: none;
+}
+
+.input-prefix input { padding-left: 28px; }
+
+/* Attendee chips */
+.chip-row {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.chip:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.5);
+  outline-offset: 2px;
+}
+
+.chip:active { transform: scale(0.96); }
+
+.chip.selected {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+/* Venue anchored display */
+.venue-anchor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.venue-anchor .venue-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+}
+
+.venue-anchor .venue-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+}
+
+.venue-edit-link {
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 6px 14px;
+  transition: all 0.2s;
+}
+
+.venue-edit-link:active {
+  background: rgba(255,255,255,0.2);
+}
+
+.venue-custom {
+  display: none;
+  margin-top: 8px;
+}
+
+.venue-custom.show { display: block; }
+
+.calc-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(255,255,255,0.9);
+  color: #1a1a1a;
+  margin-top: 4px;
+  transition: all 0.2s;
+}
+
+.calc-btn:active {
+  transform: scale(0.98);
+  background: #fff;
+}
+
+.calc-sub {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+}
+
+/* ═══════════════════════════════════════ */
+/*  WIZARD STEP SYSTEM                    */
+/* ═══════════════════════════════════════ */
+.wizard-step {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.3s ease;
+}
+
+.wizard-step.active {
+  max-height: 400px;
+  opacity: 1;
+  padding-bottom: 16px;
+}
+
+.wizard-step.done {
+  max-height: 52px;
+  opacity: 1;
+  padding-bottom: 10px;
+}
+
+.wizard-step.done .step-content { display: none; }
+
+.step-summary {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.wizard-step.done .step-summary { display: flex; }
+
+.step-summary:active { background: rgba(255,255,255,0.18); }
+
+.step-summary .edit-hint {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+}
+
+.wizard-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+/* Workshop type grid */
+.type-chip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.type-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.type-chip:active { transform: scale(0.97); }
+
+.type-chip.selected {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+.type-chip .type-emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Price suggestion chips */
+.price-range-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.price-chip-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.price-chip {
+  flex: 1;
+  min-width: 60px;
+  padding: 12px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  line-height: 1.3;
+}
+
+.price-chip:active { transform: scale(0.96); }
+
+.price-chip.selected {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+.price-chip.custom-price {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.custom-price-input {
+  display: none;
+  margin-top: 10px;
+}
+
+.custom-price-input.show { display: block; }
+
+/* Running total */
+.running-total {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 8px 0 0;
+  line-height: 1.4;
+}
+
+.running-total .total-amount {
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* Wizard CTA reveal */
+.wizard-cta {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.3s ease;
+}
+
+.wizard-cta.visible {
+  max-height: 300px;
+  opacity: 1;
+  padding-top: 4px;
+}
+
+.wizard-intro {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+
+/* ═══════════════════════════════════════ */
+/*  EXPANDED RESULTS                      */
+/* ═══════════════════════════════════════ */
+.calc-results {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, padding 0.4s ease, margin 0.4s ease, opacity 0.4s ease;
+  border-radius: var(--radius);
+  margin-top: 0;
+  opacity: 0;
+}
+
+.calc-results.open {
+  max-height: 2000px;
+  margin-top: 16px;
+  padding: 20px;
+  opacity: 1;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.result-hero-num {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.result-hero-num.positive { color: var(--green); }
+.result-hero-num.negative { color: var(--red); }
+
+.result-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.result-card {
+  padding: 14px;
+}
+
+.result-card .val {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.result-card .desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Comparison bars */
+.compare-section { margin-top: 16px; }
+
+.compare-section h3 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.compare-bar { margin-bottom: 10px; }
+
+.compare-bar .bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.compare-bar .bar-track {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.compare-bar .bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.bar-fill.yours { background: rgba(255,255,255,0.4); }
+.bar-fill.hbs { background: rgba(255,255,255,0.85); }
+
+/* BOOKING CTA (inside results) */
+.book-cta {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  background: var(--accent);
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.book-cta:active {
+  transform: scale(0.98);
+  filter: brightness(1.1);
+}
+
+.book-sub {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+
+/* Profit nudge (smart coaching) */
+.profit-nudge {
+  text-align: center;
+  font-size: 13px;
+  padding: 10px 16px;
+  margin-top: 8px;
+  border-radius: var(--radius-sm);
+  line-height: 1.45;
+}
+.profit-nudge.tip {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.12);
+  color: rgba(74,222,128,0.9);
+}
+.profit-nudge.strong {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.12);
+  color: var(--green);
+}
+.profit-nudge.warning {
+  background: rgba(248,113,113,0.08);
+  border: 1px solid rgba(248,113,113,0.12);
+  color: var(--red);
+}
+
+/* DM capture */
+.dm-capture {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+}
+.dm-capture h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.dm-capture p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  line-height: 1.45;
+}
+.dm-capture-form {
+  display: flex;
+  gap: 8px;
+}
+.dm-capture-input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: inherit;
+  font-size: 15px;
+  color: #fff;
+  outline: none;
+  transition: all 0.2s;
+}
+.dm-capture-input:focus {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.12);
+}
+.dm-capture-input::placeholder { color: rgba(255,255,255,0.25); }
+.dm-capture-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.dm-capture-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+.dm-capture-skip {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+.dm-capture-success .check {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+/* Social proof strip */
+.social-proof {
+  padding: 32px 20px;
+  text-align: center;
+}
+.social-proof-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.proof-stat {
+  text-align: center;
+}
+.proof-stat .num {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.proof-stat .label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Save / share CTA pair */
+.result-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.result-actions button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.result-actions button:active {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Edit inputs panel (inside results) */
+.edit-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  margin-top: 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-toggle:active { background: rgba(255,255,255,0.1); }
+
+.edit-toggle-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+}
+
+.edit-toggle-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+}
+
+.edit-toggle-arrow {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  transition: transform 0.2s;
+}
+
+.edit-toggle.open .edit-toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.edit-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.3s ease;
+}
+
+.edit-panel.open {
+  max-height: 1200px;
+  opacity: 1;
+  padding-top: 8px;
+}
+
+/* Each edit field: tappable row that opens a stepper */
+.edit-field {
+  margin-bottom: 6px;
+}
+
+.edit-field-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-field-btn:active {
+  background: rgba(255,255,255,0.1);
+}
+
+.edit-field-btn.active {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+}
+
+.edit-field-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+.edit-field-value {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Stepper that opens below tapped field */
+.edit-stepper {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.edit-stepper.open {
+  max-height: 140px;
+  opacity: 1;
+  padding: 10px 0 4px;
+}
+
+.stepper-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stepper-minus, .stepper-plus {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stepper-minus:active, .stepper-plus:active {
+  background: rgba(255,255,255,0.18);
+  transform: scale(0.92);
+}
+
+.stepper-display {
+  min-width: 90px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+/* Quick increment chips (+10, +50, etc.) */
+.stepper-chips {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stepper-chip {
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.6);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stepper-chip:active {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  transform: scale(0.95);
+}
+
+/* Option chips for attendees/duration (instead of stepper) */
+.edit-options {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.edit-options.open {
+  max-height: 80px;
+  opacity: 1;
+  padding: 10px 0 4px;
+}
+
+.edit-option-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.edit-option {
+  flex: 1;
+  padding: 10px 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.6);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.edit-option:active {
+  transform: scale(0.95);
+}
+
+.edit-option.selected {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+.edit-update-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.edit-update-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+/* ═══════════════════════════════════════ */
+/*  SECTION DIVIDER                       */
+/* ═══════════════════════════════════════ */
+.section-divider {
+  height: 1px;
+  margin: 16px 20px;
+  background: rgba(255,255,255,0.08);
+}
+
+/* ═══════════════════════════════════════ */
+/*  VIDEO STRIP                           */
+/* ═══════════════════════════════════════ */
+.section-header {
+  padding: 40px 20px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.video-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 20px 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.video-strip::-webkit-scrollbar { display: none; }
+
+.video-card {
+  scroll-snap-align: center;
+  min-width: 200px;
+  max-width: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 9/16;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.video-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-card .video-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 14px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════ */
+/*  SCENE SECTIONS                        */
+/* ═══════════════════════════════════════ */
+.scenes { padding: 20px 0; }
+
+.scene {
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- BLURRED BG mode --- */
+.bg-blurred .scene {
+  min-height: 65vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px 20px;
+}
+
+.bg-blurred .scene-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.bg-blurred .scene-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.bg-blurred .scene-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.9) 0%,
+    rgba(0,0,0,0.65) 25%,
+    rgba(0,0,0,0.1) 50%,
+    transparent 60%
+  );
+}
+
+.bg-blurred .scene::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  z-index: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.bg-blurred .scene-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.bg-blurred .scene-img-card { display: none; }
+
+/* --- PHOTO CARDS mode --- */
+.bg-cards .scene {
+  padding: 16px 20px;
+}
+
+.bg-cards .scene-bg,
+.bg-cards .scene-overlay { display: none; }
+
+.bg-cards .scene-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bg-cards .scene-img-card {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  max-height: 380px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.bg-cards .scene-img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- HYBRID mode --- */
+.bg-hybrid .scene:first-child {
+  min-height: 55vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px 20px;
+}
+
+.bg-hybrid .scene:first-child .scene-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.bg-hybrid .scene:first-child .scene-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.bg-hybrid .scene:first-child .scene-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.7) 25%,
+    rgba(0,0,0,0.15) 50%,
+    transparent 60%
+  );
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+/* Blur only the bottom portion where text sits */
+.bg-hybrid .scene:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  z-index: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.bg-hybrid .scene:first-child .scene-content {
+  position: relative;
+  z-index: 2;
+}
+
+.bg-hybrid .scene:first-child .scene-img-card { display: none; }
+
+.bg-hybrid .scene:not(:first-child) {
+  padding: 18px 20px;
+}
+
+.bg-hybrid .scene:not(:first-child) .scene-bg,
+.bg-hybrid .scene:not(:first-child) .scene-overlay { display: none; }
+
+.bg-hybrid .scene:not(:first-child) .scene-content {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.bg-hybrid .scene:not(:first-child) .scene-img-card {
+  display: block;
+  width: 120px;
+  min-width: 120px;
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.bg-hybrid .scene:not(:first-child) .scene-img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scene text elements */
+.scene-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.scene[data-scene="floral"] .scene-tag { background: rgba(233,30,140,0.25); color: #F9A8D4; }
+.scene[data-scene="cake"] .scene-tag { background: rgba(152,212,187,0.25); color: #98D4BB; }
+.scene[data-scene="event"] .scene-tag { background: rgba(212,168,71,0.25); color: #D4A847; }
+.scene[data-scene="venue"] .scene-tag { background: rgba(139,26,74,0.25); color: #F472B6; }
+
+.scene-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.scene-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.scene-quote {
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255,255,255,0.5);
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(255,255,255,0.15);
+}
+
+/* ═══════════════════════════════════════ */
+/*  FEATURES                              */
+/* ═══════════════════════════════════════ */
+.features-strip {
+  padding: 24px 20px 32px;
+}
+
+.features-strip h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.feature-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.feature-pill {
+  padding: 7px 13px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+}
+
+/* ═══════════════════════════════════════ */
+/*  BEFORE / AFTER                        */
+/* ═══════════════════════════════════════ */
+.before-after {
+  padding: 40px 20px;
+}
+
+.before-after h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.ba-card {
+  padding: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.ba-card.before {
+  background: rgba(248,113,113,0.08);
+  border: 1px solid rgba(248,113,113,0.15);
+}
+
+.ba-card.after {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.15);
+}
+
+.ba-card .ba-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.ba-card.before .ba-label { color: var(--red); }
+.ba-card.after .ba-label { color: var(--green); }
+
+.ba-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ba-card li {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* ═══════════════════════════════════════ */
+/*  FINAL CTA                             */
+/* ═══════════════════════════════════════ */
+.cta-section {
+  padding: 48px 20px 60px;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.cta-section p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.cta-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.2s;
+}
+
+.cta-ig:active {
+  background: rgba(255,255,255,0.18);
+  transform: scale(0.97);
+}
+
+.ig-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+}
+
+/* ═══════════════════════════════════════ */
+/*  DESKTOP                               */
+/* ═══════════════════════════════════════ */
+@media (min-width: 768px) {
+  .hero { min-height: 100vh; padding: 60px 48px; }
+  .hero-content { max-width: 600px; }
+  .hero h1 { font-size: 44px; }
+  .hero .subtitle { font-size: 17px; max-width: 440px; }
+  .calc-mini { max-width: 520px; }
+  .type-chip-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .price-chip-row { flex-wrap: nowrap; }
+  .brand-badge { font-size: 14px; padding: 8px 16px; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 100px; }
+  .cta-section h2 { font-size: 32px; }
+  .result-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .video-strip { padding: 0 48px 32px; justify-content: center; }
+  .video-card { min-width: 180px; max-width: 200px; }
+  .social-proof { padding: 40px 48px; }
+  .social-proof-row { gap: 48px; }
+  .proof-stat .num { font-size: 32px; }
+  .dm-capture { max-width: 480px; margin-left: auto; margin-right: auto; }
+  .cta-section { padding: 60px 48px; max-width: 700px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; }
+  .features-strip { padding: 24px 48px 40px; }
+  .feature-pills { max-width: 900px; margin: 0 auto; justify-content: center; }
+  .before-after { padding: 40px 48px; }
+  .ba-grid { grid-template-columns: 1fr 1fr; max-width: 800px; margin: 0 auto; }
+  .section-header { max-width: 900px; margin: 0 auto; padding-left: 48px; }
+  .sticky-bar { display: none; }
+  body { padding-bottom: 0; }
+}
+
+@media (min-width: 1200px) {
+  .hero { padding: 80px; }
+  .hero-content { max-width: 640px; }
+  .hero h1 { font-size: 48px; }
+}
+</style>
+</head>
+<body class="bg-hybrid">
+
+<!-- STICKY BOTTOM BAR (mobile) -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="bar-info">
+    <div class="bar-name">Hibiscus Studio</div>
+    <div class="bar-addr">E16 1DP, London</div>
+  </div>
+  <a href="#calc" class="bar-cta" id="stickyBtn">Try Calculator &#8593;</a>
+</div>
+
+<div class="page">
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section class="hero" id="calc">
+    <div class="hero-bg">
+      <video autoplay muted loop playsinline id="hero-video" poster="ref/clips/poster1.jpg">
+        <source src="ref/clips/v1-web.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="brand-badge">
+        <span class="rec-dot"></span>
+        Hibiscus Studio
+        <span class="step-progress" id="stepProgress"></span>
+      </div>
+
+      <h1>See exactly what your<br>next workshop makes</h1>
+      <p class="subtitle">Pick your workshop type. We'll show you the numbers in 30 seconds.</p>
+
+      <!-- WIZARD CALCULATOR -->
+      <div class="calc-mini glass">
+
+        <!-- STEP 0: Workshop Type -->
+        <div class="wizard-step active" id="wizStep0" data-step="0">
+          <div class="step-content">
+            <div class="wizard-label">What kind of workshop?</div>
+            <div class="type-chip-grid" id="typeChips">
+              <button class="type-chip" data-type="baking"><span class="type-emoji">&#x1F9C1;</span> Baking</button>
+              <button class="type-chip" data-type="beauty"><span class="type-emoji">&#x1F485;</span> Beauty</button>
+              <button class="type-chip" data-type="floristry"><span class="type-emoji">&#x1F338;</span> Floristry</button>
+              <button class="type-chip" data-type="art"><span class="type-emoji">&#x1F3A8;</span> Art / Creative</button>
+              <button class="type-chip" data-type="content"><span class="type-emoji">&#x1F4F8;</span> Content</button>
+              <button class="type-chip" data-type="other"><span class="type-emoji">&#x2728;</span> Other</button>
+            </div>
+          </div>
+          <div class="step-summary" onclick="goToStep(0)">
+            <span id="step0Summary"></span>
+            <span class="edit-hint">tap to edit</span>
+          </div>
+        </div>
+
+        <!-- STEP 1: Ticket Price -->
+        <div class="wizard-step" id="wizStep1" data-step="1">
+          <div class="step-content">
+            <div class="wizard-label" id="priceLabel">How much per ticket?</div>
+            <div class="price-range-hint" id="priceHint"></div>
+            <div class="price-chip-row" id="priceChips"></div>
+            <div class="custom-price-input" id="customPriceWrap">
+              <div class="input-prefix">
+                <input type="number" id="c-ticket" placeholder="Your price" inputmode="decimal" pattern="[0-9]*" aria-label="Custom ticket price in pounds">
+              </div>
+            </div>
+          </div>
+          <div class="step-summary" onclick="goToStep(1)">
+            <span id="step1Summary"></span>
+            <span class="edit-hint">tap to edit</span>
+          </div>
+        </div>
+
+        <!-- STEP 2: Attendees -->
+        <div class="wizard-step" id="wizStep2" data-step="2">
+          <div class="step-content">
+            <div class="wizard-label">How many people?</div>
+            <div class="chip-row" id="attendeeChips" role="radiogroup" aria-label="Number of attendees">
+              <button class="chip" role="radio" aria-checked="false" data-val="9" data-label="8&#8211;10">8&#8211;10</button>
+              <button class="chip" role="radio" aria-checked="false" data-val="12" data-label="10&#8211;15">10&#8211;15</button>
+              <button class="chip" role="radio" aria-checked="false" data-val="17" data-label="15&#8211;20">15&#8211;20</button>
+              <button class="chip" role="radio" aria-checked="false" data-val="25" data-label="20+">20+</button>
+            </div>
+            <div class="running-total" id="runningTotal"></div>
+          </div>
+          <div class="step-summary" onclick="goToStep(2)">
+            <span id="step2Summary"></span>
+            <span class="edit-hint">tap to edit</span>
+          </div>
+        </div>
+
+        <!-- STEP 3: Duration -->
+        <div class="wizard-step" id="wizStep3" data-step="3">
+          <div class="step-content">
+            <div class="wizard-label">How long is the workshop?</div>
+            <div class="chip-row" id="durationChips" role="radiogroup" aria-label="Workshop duration">
+              <button class="chip" role="radio" aria-checked="false" data-val="6" data-label="6 hours">6 hours</button>
+              <button class="chip" role="radio" aria-checked="false" data-val="8" data-label="8 hours">8 hours</button>
+              <button class="chip" role="radio" aria-checked="false" data-val="12" data-label="12 hours">12 hours</button>
+            </div>
+          </div>
+          <div class="step-summary" onclick="goToStep(3)">
+            <span id="step3Summary"></span>
+            <span class="edit-hint">tap to edit</span>
+          </div>
+        </div>
+
+        <!-- VENUE + CTA (appears after all steps) -->
+        <div class="wizard-cta" id="wizardCta">
+          <div class="venue-anchor" id="venueAnchor" style="margin-bottom: 12px;">
+            <div>
+              <div class="venue-val" id="venueDisplay">&#163;750</div>
+              <div class="venue-hint">Typical venue cost for comparison</div>
+            </div>
+            <button class="venue-edit-link" aria-expanded="false" aria-controls="venueCustom" onclick="toggleVenueEdit()">Edit</button>
+          </div>
+          <div class="venue-custom" id="venueCustom">
+            <div class="input-prefix">
+              <input type="number" id="c-venue" value="750" inputmode="decimal" pattern="[0-9]*" aria-label="Venue cost in pounds">
+            </div>
+          </div>
+          <div class="running-total" id="finalSummary" style="margin-bottom: 8px;"></div>
+          <button class="calc-btn" onclick="calculate()">Show Me My Profit</button>
+          <div class="calc-sub">Free. No signup.</div>
+        </div>
+
+      </div>
+
+      <!-- EXPANDED RESULTS -->
+      <div class="calc-results" id="results" aria-live="polite">
+        <div class="result-hero-num positive" id="r-profit">£1,900</div>
+        <div class="result-label">Your estimated profit per workshop</div>
+        <div id="r-costs-hint" style="font-size:13px;color:rgba(255,255,255,0.55);margin-top:6px;font-weight:500;letter-spacing:-0.01em;"></div>
+        <div id="profit-nudge" class="profit-nudge" style="display:none;"></div>
+
+        <div class="result-grid">
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-margin">63%</div>
+            <div class="desc">Profit margin</div>
+          </div>
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-per">£238</div>
+            <div class="desc">You keep per head</div>
+          </div>
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-break">4</div>
+            <div class="desc">Guests to break even</div>
+          </div>
+          <div class="result-card glass-subtle">
+            <div class="val" id="r-yearly">£22.8K</div>
+            <div class="desc">If monthly (per year)</div>
+          </div>
+        </div>
+
+        <!-- EDIT + RESTART (grouped — validation actions) -->
+        <div class="result-actions" style="margin-top:16px;">
+          <button onclick="toggleEditPanel()" id="editToggleBtn">Edit inputs</button>
+          <button onclick="startFresh()">Start fresh</button>
+        </div>
+
+        <!-- EDIT INPUTS (collapsible) -->
+        <div class="edit-toggle" id="editToggle" style="display:none;"></div>
+        <div class="edit-panel" id="editPanel">
+
+          <!-- Ticket price -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('ticket')">
+              <span class="edit-field-label">Ticket price</span>
+              <span class="edit-field-value" id="ef-ticket">&#163;120</span>
+            </button>
+            <div class="edit-stepper" id="es-ticket">
+              <div class="stepper-row">
+                <button class="stepper-minus" onclick="stepValue('ticket',-10)">&#8722;</button>
+                <div class="stepper-display" id="ed-ticket">&#163;120</div>
+                <button class="stepper-plus" onclick="stepValue('ticket',10)">+</button>
+              </div>
+              <div class="stepper-chips">
+                <button class="stepper-chip" onclick="stepValue('ticket',-50)">&#8722;50</button>
+                <button class="stepper-chip" onclick="stepValue('ticket',-10)">&#8722;10</button>
+                <button class="stepper-chip" onclick="stepValue('ticket',10)">+10</button>
+                <button class="stepper-chip" onclick="stepValue('ticket',50)">+50</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attendees -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('attendees')">
+              <span class="edit-field-label">Attendees</span>
+              <span class="edit-field-value" id="ef-attendees">10&#8211;15</span>
+            </button>
+            <div class="edit-options" id="es-attendees">
+              <div class="edit-option-row">
+                <button class="edit-option" data-field="attendees" data-val="9" data-label="8&#8211;10" onclick="pickOption(this)">8&#8211;10</button>
+                <button class="edit-option" data-field="attendees" data-val="12" data-label="10&#8211;15" onclick="pickOption(this)">10&#8211;15</button>
+                <button class="edit-option" data-field="attendees" data-val="17" data-label="15&#8211;20" onclick="pickOption(this)">15&#8211;20</button>
+                <button class="edit-option" data-field="attendees" data-val="25" data-label="20+" onclick="pickOption(this)">20+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Duration -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('duration')">
+              <span class="edit-field-label">Duration</span>
+              <span class="edit-field-value" id="ef-duration">8 hours</span>
+            </button>
+            <div class="edit-options" id="es-duration">
+              <div class="edit-option-row">
+                <button class="edit-option" data-field="duration" data-val="6" data-label="6 hours" onclick="pickOption(this)">6 hours</button>
+                <button class="edit-option" data-field="duration" data-val="8" data-label="8 hours" onclick="pickOption(this)">8 hours</button>
+                <button class="edit-option" data-field="duration" data-val="12" data-label="12 hours" onclick="pickOption(this)">12 hours</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Venue cost -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('venue')">
+              <span class="edit-field-label">Venue cost</span>
+              <span class="edit-field-value" id="ef-venue">&#163;750</span>
+            </button>
+            <div class="edit-stepper" id="es-venue">
+              <div class="stepper-row">
+                <button class="stepper-minus" onclick="stepValue('venue',-50)">&#8722;</button>
+                <div class="stepper-display" id="ed-venue">&#163;750</div>
+                <button class="stepper-plus" onclick="stepValue('venue',50)">+</button>
+              </div>
+              <div class="stepper-chips">
+                <button class="stepper-chip" onclick="stepValue('venue',-100)">&#8722;100</button>
+                <button class="stepper-chip" onclick="stepValue('venue',-50)">&#8722;50</button>
+                <button class="stepper-chip" onclick="stepValue('venue',50)">+50</button>
+                <button class="stepper-chip" onclick="stepValue('venue',100)">+100</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Materials per head -->
+          <div class="edit-field">
+            <button class="edit-field-btn" onclick="toggleField('materials')">
+              <span class="edit-field-label">Materials per head</span>
+              <span class="edit-field-value" id="ef-materials">&#163;40</span>
+            </button>
+            <div class="edit-stepper" id="es-materials">
+              <div class="stepper-row">
+                <button class="stepper-minus" onclick="stepValue('materials',-5)">&#8722;</button>
+                <div class="stepper-display" id="ed-materials">&#163;40</div>
+                <button class="stepper-plus" onclick="stepValue('materials',5)">+</button>
+              </div>
+              <div class="stepper-chips">
+                <button class="stepper-chip" onclick="stepValue('materials',-10)">&#8722;10</button>
+                <button class="stepper-chip" onclick="stepValue('materials',-5)">&#8722;5</button>
+                <button class="stepper-chip" onclick="stepValue('materials',5)">+5</button>
+                <button class="stepper-chip" onclick="stepValue('materials',10)">+10</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="edit-update-btn" onclick="updateFromEdit()">Update results</button>
+        </div>
+
+        <!-- DM CAPTURE (earn the comparison) -->
+        <div class="dm-capture" id="dmCapture">
+          <h4>Want your personalised cost breakdown?</h4>
+          <p>We'll DM you a detailed breakdown including what's included at the studio.</p>
+          <div class="dm-capture-form" id="dmForm">
+            <input type="text" class="dm-capture-input" id="dmHandle" placeholder="@your_instagram" autocomplete="off" autocapitalize="off" spellcheck="false">
+            <button class="dm-capture-btn" onclick="submitDmCapture()">Send it</button>
+          </div>
+          <button class="dm-capture-skip" onclick="skipDmCapture()">No thanks, show me the comparison</button>
+        </div>
+
+        <!-- COMPARISON (earned — after they've validated numbers) -->
+        <div class="compare-section">
+          <h3>See how we compare</h3>
+          <div class="compare-bar">
+            <div class="bar-label">
+              <span>Most venues start from</span>
+              <span id="r-your-venue">£900</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill yours" id="bar-yours" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="compare-bar">
+            <div class="bar-label">
+              <span style="font-weight:600">Hibiscus Studio</span>
+              <span style="font-weight:600">£510</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill hbs" id="bar-hbs" style="width: 0%"></div>
+            </div>
+          </div>
+          <div id="savings-line" style="font-size:13px; color:var(--green); margin-top:8px; font-weight:600; display:none;"></div>
+        </div>
+
+        <!-- BOOKING CTA (conversion — earned after comparison) -->
+        <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="book-cta">
+          I Want to Host Here
+        </a>
+        <div class="book-sub">Check availability for your date. No commitment.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ VIDEO STRIP ═══════════════════════ -->
+  <h2 class="section-header">What happens at our studio</h2>
+  <div class="video-strip">
+    <div class="video-card">
+      <video src="ref/clips/v1-web.mp4" poster="ref/clips/poster1.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Floral Workshops</div>
+    </div>
+    <div class="video-card">
+      <video src="ref/clips/v2-web.mp4" poster="ref/clips/poster2.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Cake Decorating</div>
+    </div>
+    <div class="video-card">
+      <video src="ref/clips/v3-web.mp4" poster="ref/clips/poster3.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Brand Events</div>
+    </div>
+    <div class="video-card">
+      <video src="ref/clips/v4-web.mp4" poster="ref/clips/poster4.jpg" autoplay muted loop playsinline></video>
+      <div class="video-label">Community</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ SOCIAL PROOF ═══════════════════════ -->
+  <div class="social-proof">
+    <div class="social-proof-row">
+      <div class="proof-stat">
+        <div class="num">50+</div>
+        <div class="label">Workshops hosted</div>
+      </div>
+      <div class="proof-stat">
+        <div class="num">250+</div>
+        <div class="label">Hours of events</div>
+      </div>
+      <div class="proof-stat">
+        <div class="num">500+</div>
+        <div class="label">Happy customers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ BEFORE / AFTER ═══════════════════════ -->
+  <div class="before-after">
+    <h3>What changes when you host with us</h3>
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <div class="ba-label">Typical venue</div>
+        <ul>
+          <li>No kitchen access</li>
+          <li>Setup is on you</li>
+          <li>Generic event space</li>
+          <li>Hidden surcharges</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">Hibiscus Studio</div>
+        <ul>
+          <li>Professional kitchen included</li>
+          <li>Setup help on the day</li>
+          <li>Built for workshops</li>
+          <li>One price, no surprises</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ FEATURES ═══════════════════════ -->
+  <div class="features-strip">
+    <h3 id="featuresHeading">Included with every booking</h3>
+    <div class="feature-pills">
+      <span class="feature-pill">Professional kitchen</span>
+      <span class="feature-pill">Tables & seating</span>
+      <span class="feature-pill">Natural lighting</span>
+      <span class="feature-pill">WiFi</span>
+      <span class="feature-pill">Sound system</span>
+      <span class="feature-pill">Photography-ready</span>
+      <span class="feature-pill">Setup help</span>
+      <span class="feature-pill">Parking nearby</span>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
+  <section class="cta-section">
+    <h2>Your numbers.<br>Your workshop. Your call.</h2>
+    <p>You've seen the profit. You've seen what's included.<br>All that's left is picking a date.</p>
+    <a href="https://hibiscusstudio.co.uk/book/" target="_blank" class="cta-ig">
+      I Want to Host Here
+    </a>
+  </section>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  WORKSHOP TYPE DATA
+// ═══════════════════════════════════════
+const workshopTypes = {
+  baking:    { emoji: '\u{1F9C1}', label: 'Baking',        prices: [80, 120, 180],  suggest: 120, materialsCost: 50 },
+  beauty:    { emoji: '\u{1F485}', label: 'Beauty',         prices: [150, 200, 350], suggest: 200, materialsCost: 40 },
+  floristry: { emoji: '\u{1F338}', label: 'Floristry',      prices: [80, 100, 150],  suggest: 100, materialsCost: 45 },
+  art:       { emoji: '\u{1F3A8}', label: 'Art / Creative', prices: [60, 80, 120],   suggest: 80,  materialsCost: 30 },
+  content:   { emoji: '\u{1F4F8}', label: 'Content',        prices: [100, 150, 250], suggest: 150, materialsCost: 20 },
+  other:     { emoji: '\u2728',    label: 'Other',          prices: [80, 120, 200],  suggest: 120, materialsCost: 40 }
+};
+
+// Actual HBS pricing from deployed backend
+const hbsWorkshopPrices = { 6: 345, 8: 465, 12: 645 };
+const venueSuggestions = { 6: 550, 8: 750, 12: 1100 };
+
+// ═══════════════════════════════════════
+//  WIZARD STATE
+// ═══════════════════════════════════════
+const wiz = {
+  step: 0,
+  type: null,
+  ticket: null,
+  attendees: null,
+  attendeeLabel: null,
+  duration: null,
+  venue: null,
+  venueEdited: false
+};
+
+// ═══════════════════════════════════════
+//  WIZARD NAVIGATION
+// ═══════════════════════════════════════
+function activateStep(n) {
+  document.querySelectorAll('.wizard-step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    if (s < n) el.className = 'wizard-step done';
+    else if (s === n) el.className = 'wizard-step active';
+    else el.className = 'wizard-step';
+  });
+  wiz.step = n;
+
+  const prog = document.getElementById('stepProgress');
+  if (n >= 0 && n <= 3) {
+    prog.style.display = 'inline';
+    prog.textContent = (n + 1) + ' of 4';
+  } else {
+    prog.style.display = 'none';
+  }
+
+  // Hide CTA unless all steps done
+  if (n <= 3) {
+    document.getElementById('wizardCta').classList.remove('visible');
+  }
+}
+
+function goToStep(n) {
+  // Reset from step n onward
+  if (n <= 0) {
+    wiz.type = null; wiz.ticket = null; wiz.attendees = null; wiz.duration = null;
+    document.querySelectorAll('#typeChips .type-chip').forEach(c => c.classList.remove('selected'));
+  }
+  if (n <= 1) {
+    wiz.ticket = null; wiz.attendees = null; wiz.duration = null;
+    document.querySelectorAll('#priceChips .price-chip').forEach(c => c.classList.remove('selected'));
+    document.getElementById('customPriceWrap').classList.remove('show');
+  }
+  if (n <= 2) {
+    wiz.attendees = null; wiz.duration = null;
+    document.querySelectorAll('#attendeeChips .chip').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-checked', 'false');
+    });
+    document.getElementById('runningTotal').textContent = '';
+  }
+  if (n <= 3) {
+    wiz.duration = null;
+    document.querySelectorAll('#durationChips .chip').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-checked', 'false');
+    });
+  }
+
+  document.getElementById('results').classList.remove('open');
+  activateStep(n);
+}
+
+// ═══════════════════════════════════════
+//  STEP 0: WORKSHOP TYPE
+// ═══════════════════════════════════════
+document.querySelectorAll('#typeChips .type-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#typeChips .type-chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+
+    const type = chip.dataset.type;
+    wiz.type = type;
+
+    const data = workshopTypes[type];
+    document.getElementById('step0Summary').textContent = data.emoji + ' ' + data.label;
+
+    // Generate price chips
+    generatePriceChips(type);
+
+    activateStep(1);
+  });
+});
+
+// ═══════════════════════════════════════
+//  STEP 1: PRICE CHIPS
+// ═══════════════════════════════════════
+function generatePriceChips(type) {
+  const data = workshopTypes[type];
+  const container = document.getElementById('priceChips');
+  container.innerHTML = '';
+
+  data.prices.forEach(price => {
+    const btn = document.createElement('button');
+    btn.className = 'price-chip';
+    btn.dataset.val = price;
+    if (price === data.suggest) {
+      btn.innerHTML = '\u00A3' + price + '<br><span style="font-size:9px;font-weight:500;letter-spacing:0.04em;color:rgba(255,255,255,0.4)">popular</span>';
+    } else {
+      btn.textContent = '\u00A3' + price;
+    }
+    btn.addEventListener('click', () => selectPrice(price, btn));
+    container.appendChild(btn);
+  });
+
+  // Custom button
+  const customBtn = document.createElement('button');
+  customBtn.className = 'price-chip custom-price';
+  customBtn.textContent = 'Custom';
+  customBtn.addEventListener('click', () => {
+    document.querySelectorAll('#priceChips .price-chip').forEach(c => c.classList.remove('selected'));
+    customBtn.classList.add('selected');
+    document.getElementById('customPriceWrap').classList.add('show');
+    document.getElementById('c-ticket').focus();
+  });
+  container.appendChild(customBtn);
+
+  // Update hint
+  const range = data.prices;
+  document.getElementById('priceHint').textContent =
+    'Most ' + data.label.toLowerCase() + ' workshops charge \u00A3' + range[0] + '\u2013\u00A3' + range[range.length - 1];
+}
+
+function selectPrice(price, btn) {
+  document.querySelectorAll('#priceChips .price-chip').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('customPriceWrap').classList.remove('show');
+
+  wiz.ticket = price;
+  document.getElementById('step1Summary').textContent = '\u00A3' + price + '/person';
+  activateStep(2);
+}
+
+// Custom price: advance on Enter or blur
+document.getElementById('c-ticket').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const val = parseInt(e.target.value);
+    if (val > 0) {
+      wiz.ticket = val;
+      document.getElementById('step1Summary').textContent = '\u00A3' + val + '/person';
+      activateStep(2);
+    }
+  }
+});
+
+document.getElementById('c-ticket').addEventListener('blur', () => {
+  const val = parseInt(document.getElementById('c-ticket').value);
+  if (val > 0 && wiz.step === 1) {
+    wiz.ticket = val;
+    document.getElementById('step1Summary').textContent = '\u00A3' + val + '/person';
+    activateStep(2);
+  }
+});
+
+// ═══════════════════════════════════════
+//  STEP 2: ATTENDEES
+// ═══════════════════════════════════════
+document.querySelectorAll('#attendeeChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#attendeeChips .chip').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-checked', 'false');
+    });
+    chip.classList.add('selected');
+    chip.setAttribute('aria-checked', 'true');
+
+    const val = parseInt(chip.dataset.val);
+    const label = chip.dataset.label;
+    wiz.attendees = val;
+    wiz.attendeeLabel = label;
+
+    // Running total
+    const gross = wiz.ticket * val;
+    const typeData = workshopTypes[wiz.type];
+    document.getElementById('runningTotal').innerHTML =
+      typeData.emoji + ' \u00A3' + wiz.ticket + ' \u00D7 ' + val +
+      ' = <span class="total-amount">\u00A3' + gross.toLocaleString() + ' gross</span>';
+
+    document.getElementById('step2Summary').textContent = val + ' people (' + label + ')';
+
+    setTimeout(() => activateStep(3), 350);
+  });
+});
+
+// ═══════════════════════════════════════
+//  STEP 3: DURATION
+// ═══════════════════════════════════════
+document.querySelectorAll('#durationChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#durationChips .chip').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-checked', 'false');
+    });
+    chip.classList.add('selected');
+    chip.setAttribute('aria-checked', 'true');
+
+    const val = parseInt(chip.dataset.val);
+    wiz.duration = val;
+
+    // Auto-set venue
+    if (!wiz.venueEdited) {
+      const suggested = venueSuggestions[val] || 750;
+      wiz.venue = suggested;
+      document.getElementById('c-venue').value = suggested;
+      document.getElementById('venueDisplay').textContent = '\u00A3' + suggested.toLocaleString();
+    }
+
+    document.getElementById('step3Summary').textContent = val + ' hours';
+
+    // Mark step done
+    document.getElementById('wizStep3').className = 'wizard-step done';
+
+    // Final summary
+    const typeData = workshopTypes[wiz.type];
+    document.getElementById('finalSummary').innerHTML =
+      typeData.emoji + ' ' + typeData.label +
+      ' \u00B7 \u00A3' + wiz.ticket + '/person' +
+      ' \u00B7 ' + wiz.attendees + ' people' +
+      ' \u00B7 ' + val + 'hrs';
+
+    // Show CTA
+    document.getElementById('wizardCta').classList.add('visible');
+    setTimeout(() => {
+      document.getElementById('wizardCta').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+  });
+});
+
+// ═══════════════════════════════════════
+//  VENUE EDIT TOGGLE
+// ═══════════════════════════════════════
+function toggleVenueEdit() {
+  const custom = document.getElementById('venueCustom');
+  const editBtn = document.querySelector('.venue-edit-link');
+  if (custom.classList.contains('show')) {
+    custom.classList.remove('show');
+    editBtn.setAttribute('aria-expanded', 'false');
+    const val = parseInt(document.getElementById('c-venue').value) || 750;
+    document.getElementById('venueDisplay').textContent = '\u00A3' + val.toLocaleString();
+    wiz.venueEdited = true;
+    wiz.venue = val;
+  } else {
+    custom.classList.add('show');
+    editBtn.setAttribute('aria-expanded', 'true');
+    document.getElementById('c-venue').focus();
+  }
+}
+
+// ═══════════════════════════════════════
+//  STICKY BAR
+// ═══════════════════════════════════════
+const stickyBar = document.getElementById('stickyBar');
+const heroSection = document.querySelector('.hero');
+let stickyShown = false;
+
+const stickyObserver = new IntersectionObserver(([entry]) => {
+  if (!entry.isIntersecting && !stickyShown) {
+    stickyBar.classList.add('visible');
+    stickyShown = true;
+  }
+  if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+    stickyBar.classList.remove('visible');
+    stickyShown = false;
+  }
+}, { threshold: [0, 0.5] });
+
+stickyObserver.observe(heroSection);
+
+let hasCalculated = false;
+
+function updateStickyBtn() {
+  const btn = document.getElementById('stickyBtn');
+  const barName = document.querySelector('.sticky-bar .bar-name');
+  const barAddr = document.querySelector('.sticky-bar .bar-addr');
+  if (hasCalculated) {
+    btn.textContent = 'See Your Results \u2191';
+    btn.href = '#results';
+    barName.textContent = 'Your estimate is ready';
+    barAddr.textContent = 'Scroll up to see your profit breakdown';
+  } else {
+    btn.textContent = 'Try Calculator \u2191';
+    btn.href = '#calc';
+    barName.textContent = 'Hibiscus Studio';
+    barAddr.textContent = 'See what your workshop could make';
+  }
+}
+
+// ═══════════════════════════════════════
+//  CALCULATOR
+// ═══════════════════════════════════════
+function calculate() {
+  const ticket = wiz.ticket || parseFloat(document.getElementById('c-ticket').value) || 120;
+  const attend = wiz.attendees || 12;
+  const venue = wiz.venue || parseFloat(document.getElementById('c-venue').value) || 750;
+  const duration = wiz.duration || 8;
+
+  // Materials cost varies by workshop type
+  const typeData = workshopTypes[wiz.type || 'other'];
+  const ingredients = attend * typeData.materialsCost;
+
+  const gross = ticket * attend;
+  const costs = venue + ingredients;
+  const profit = gross - costs;
+  const margin = gross > 0 ? ((profit / gross) * 100) : 0;
+  const perAttendee = attend > 0 ? profit / attend : 0;
+  const breakEven = ticket > 0 ? Math.ceil(costs / ticket) : 0;
+  const yearly = profit * 12;
+
+  const el = (id) => document.getElementById(id);
+  const profitEl = el('r-profit');
+  profitEl.textContent = (profit >= 0 ? '\u00A3' : '-\u00A3') + Math.abs(profit).toLocaleString();
+  profitEl.className = 'result-hero-num ' + (profit >= 0 ? 'positive' : 'negative');
+
+  el('r-costs-hint').textContent = 'Revenue \u00A3' + gross.toLocaleString() + ' \u2212 Venue \u00A3' + venue.toLocaleString() + ' \u2212 Materials \u00A3' + ingredients.toLocaleString();
+  el('r-margin').textContent = Math.round(margin) + '%';
+  el('r-per').textContent = '\u00A3' + Math.round(perAttendee).toLocaleString();
+  el('r-break').textContent = breakEven;
+  el('r-yearly').textContent = '\u00A3' + (yearly / 1000).toFixed(1) + 'K';
+  el('r-your-venue').textContent = '\u00A3' + venue.toLocaleString();
+
+  const hbsCost = hbsWorkshopPrices[duration] || 645;
+
+  const savings = venue - hbsCost;
+  const savingsEl = el('savings-line');
+  if (savings > 0) {
+    savingsEl.innerHTML = 'Save \u00A3' + savings.toLocaleString() + '/workshop \u2014 kitchen, setup & lighting all included';
+    savingsEl.style.color = 'var(--green)';
+    savingsEl.style.display = 'block';
+  } else if (savings === 0) {
+    savingsEl.textContent = 'Same price \u2014 but purpose-built for workshops';
+    savingsEl.style.color = 'var(--text-muted)';
+    savingsEl.style.display = 'block';
+  } else {
+    savingsEl.textContent = 'Our studio is purpose-built for workshops \u2014 kitchen, lighting, setup included';
+    savingsEl.style.color = 'var(--text-muted)';
+    savingsEl.style.display = 'block';
+  }
+
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:last-child').textContent = '\u00A3' + hbsCost + ' all-inclusive';
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:first-child').innerHTML = '<span style="font-weight:600">Hibiscus Studio</span> <span style="font-size:11px;color:var(--text-muted)">(' + duration + 'hrs)</span>';
+
+  const maxVenue = Math.max(venue, hbsCost) * 1.2;
+  setTimeout(() => {
+    el('bar-yours').style.width = ((venue / maxVenue) * 100) + '%';
+    el('bar-hbs').style.width = ((hbsCost / maxVenue) * 100) + '%';
+  }, 100);
+
+  el('results').classList.add('open');
+
+  // Update step counter to show results state
+  const prog = document.getElementById('stepProgress');
+  prog.style.display = 'inline';
+  prog.textContent = 'Results';
+
+  // Smart nudge
+  const nudgeEl = el('profit-nudge');
+  if (profit < 0) {
+    nudgeEl.innerHTML = 'Your costs exceed revenue. <span style="opacity:0.7">Tap Edit inputs to adjust ticket price or attendees.</span>';
+    nudgeEl.className = 'profit-nudge warning';
+    nudgeEl.style.display = 'block';
+  } else if (margin < 20) {
+    const delta = 20 * attend;
+    nudgeEl.innerHTML = 'Tip: Raising your ticket by \u00A320 would add \u00A3' + delta.toLocaleString() + ' to your profit. <span style="opacity:0.7">Tap Edit inputs to adjust.</span>';
+    nudgeEl.className = 'profit-nudge tip';
+    nudgeEl.style.display = 'block';
+  } else if (margin > 50) {
+    nudgeEl.textContent = 'Strong margins \u2014 you\u2019re ready to host.';
+    nudgeEl.className = 'profit-nudge strong';
+    nudgeEl.style.display = 'block';
+  } else {
+    nudgeEl.style.display = 'none';
+  }
+
+  // Dynamic features heading
+  const fh = document.getElementById('featuresHeading');
+  if (fh) fh.textContent = 'What your \u00A3' + venue.toLocaleString() + ' at HBS includes';
+
+  // Reset DM capture form for new calculation
+  const dmEl = document.getElementById('dmCapture');
+  if (dmEl) dmEl.style.display = '';
+
+  hasCalculated = true;
+  updateStickyBtn();
+
+  setTimeout(() => {
+    el('results').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 250);
+}
+
+function startFresh() {
+  document.getElementById('results').classList.remove('open');
+  // Close edit panel if open
+  document.getElementById('editPanel').classList.remove('open');
+  document.getElementById('editToggleBtn').textContent = 'Edit inputs';
+  goToStep(0);
+  setTimeout(() => {
+    document.querySelector('.calc-mini').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 300);
+}
+
+// ═══════════════════════════════════════
+//  EDIT PANEL (in results)
+// ═══════════════════════════════════════
+// Edit panel state
+const editState = { ticket: 120, attendees: 12, duration: 8, venue: 750, materials: 40, attendeeLabel: '10\u201315', durationLabel: '8 hours' };
+let activeEditField = null;
+
+function toggleEditPanel() {
+  const panel = document.getElementById('editPanel');
+  const btn = document.getElementById('editToggleBtn');
+  const isOpen = panel.classList.contains('open');
+
+  if (isOpen) {
+    panel.classList.remove('open');
+    btn.textContent = 'Edit inputs';
+    activeEditField = null;
+    // Close any open steppers
+    document.querySelectorAll('.edit-stepper.open, .edit-options.open').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.edit-field-btn.active').forEach(el => el.classList.remove('active'));
+  } else {
+    populateEditPanel();
+    panel.classList.add('open');
+    btn.textContent = 'Close editor';
+    // Scroll panel into view
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+  }
+}
+
+function toggleField(field) {
+  const stepper = document.getElementById('es-' + field);
+  const btn = stepper.previousElementSibling;
+  const wasOpen = stepper.classList.contains('open');
+
+  // Close all others
+  document.querySelectorAll('.edit-stepper.open, .edit-options.open').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.edit-field-btn.active').forEach(el => el.classList.remove('active'));
+
+  if (!wasOpen) {
+    stepper.classList.add('open');
+    btn.classList.add('active');
+    activeEditField = field;
+  } else {
+    activeEditField = null;
+  }
+}
+
+function stepValue(field, delta) {
+  editState[field] = Math.max(0, (editState[field] || 0) + delta);
+  const val = editState[field];
+  const formatted = (field === 'attendees' || field === 'duration') ? val : '\u00A3' + val.toLocaleString();
+  document.getElementById('ed-' + field).textContent = formatted;
+  document.getElementById('ef-' + field).textContent = formatted;
+}
+
+function pickOption(el) {
+  const field = el.dataset.field;
+  const val = parseInt(el.dataset.val);
+  const label = el.dataset.label;
+
+  // Update state
+  editState[field === 'attendees' ? 'attendees' : 'duration'] = val;
+  if (field === 'attendees') editState.attendeeLabel = label;
+  if (field === 'duration') editState.durationLabel = label;
+
+  // Highlight selected
+  el.parentElement.querySelectorAll('.edit-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+
+  // Update button display
+  document.getElementById('ef-' + field).textContent = label;
+
+  // Auto-update venue suggestion on duration change
+  if (field === 'duration') {
+    const suggested = venueSuggestions[val] || 750;
+    if (!wiz.venueEdited) {
+      editState.venue = suggested;
+      document.getElementById('ef-venue').textContent = '\u00A3' + suggested.toLocaleString();
+      document.getElementById('ed-venue').textContent = '\u00A3' + suggested.toLocaleString();
+    }
+  }
+}
+
+function populateEditPanel() {
+  editState.ticket = wiz.ticket || 120;
+  editState.attendees = wiz.attendees || 12;
+  editState.duration = wiz.duration || 8;
+  editState.venue = wiz.venue || parseFloat(document.getElementById('c-venue').value) || 750;
+  const typeData = workshopTypes[wiz.type || 'other'];
+  editState.materials = typeData.materialsCost;
+  editState.attendeeLabel = wiz.attendeeLabel || '10\u201315';
+  editState.durationLabel = (editState.duration + ' hours');
+
+  // Update all display values
+  document.getElementById('ef-ticket').textContent = '\u00A3' + editState.ticket;
+  document.getElementById('ed-ticket').textContent = '\u00A3' + editState.ticket;
+  document.getElementById('ef-attendees').textContent = editState.attendeeLabel;
+  document.getElementById('ef-duration').textContent = editState.durationLabel;
+  document.getElementById('ef-venue').textContent = '\u00A3' + editState.venue.toLocaleString();
+  document.getElementById('ed-venue').textContent = '\u00A3' + editState.venue.toLocaleString();
+  document.getElementById('ef-materials').textContent = '\u00A3' + editState.materials;
+  document.getElementById('ed-materials').textContent = '\u00A3' + editState.materials;
+
+  // Highlight current attendee + duration options
+  document.querySelectorAll('[data-field="attendees"]').forEach(o => {
+    o.classList.toggle('selected', parseInt(o.dataset.val) === editState.attendees);
+  });
+  document.querySelectorAll('[data-field="duration"]').forEach(o => {
+    o.classList.toggle('selected', parseInt(o.dataset.val) === editState.duration);
+  });
+}
+
+function updateFromEdit() {
+  // Read from editState
+  const ticket = editState.ticket || wiz.ticket || 120;
+  const attend = editState.attendees || 12;
+  const duration = editState.duration || 8;
+  const venue = editState.venue || 750;
+  const materialsPerHead = editState.materials || 40;
+
+  // Update wizard state
+  wiz.ticket = ticket;
+  wiz.attendees = attend;
+  wiz.duration = duration;
+  wiz.venue = venue;
+  wiz.venueEdited = true;
+  document.getElementById('c-venue').value = venue;
+  document.getElementById('venueDisplay').textContent = '\u00A3' + venue.toLocaleString();
+
+  // Recalculate with custom materials
+  const gross = ticket * attend;
+  const ingredients = attend * materialsPerHead;
+  const costs = venue + ingredients;
+  const profit = gross - costs;
+  const margin = gross > 0 ? ((profit / gross) * 100) : 0;
+  const perAttendee = attend > 0 ? profit / attend : 0;
+  const breakEven = ticket > 0 ? Math.ceil(costs / ticket) : 0;
+  const yearly = profit * 12;
+
+  const el = (id) => document.getElementById(id);
+  const profitEl = el('r-profit');
+  profitEl.textContent = (profit >= 0 ? '\u00A3' : '-\u00A3') + Math.abs(profit).toLocaleString();
+  profitEl.className = 'result-hero-num ' + (profit >= 0 ? 'positive' : 'negative');
+
+  el('r-costs-hint').textContent = 'Revenue \u00A3' + gross.toLocaleString() + ' \u2212 Venue \u00A3' + venue.toLocaleString() + ' \u2212 Materials \u00A3' + ingredients.toLocaleString();
+  el('r-margin').textContent = Math.round(margin) + '%';
+  el('r-per').textContent = '\u00A3' + Math.round(perAttendee).toLocaleString();
+  el('r-break').textContent = breakEven;
+  el('r-yearly').textContent = '\u00A3' + (yearly / 1000).toFixed(1) + 'K';
+  el('r-your-venue').textContent = '\u00A3' + venue.toLocaleString();
+
+  const hbsCost = hbsWorkshopPrices[duration] || 645;
+  const savings = venue - hbsCost;
+  const savingsEl = el('savings-line');
+  if (savings > 0) {
+    savingsEl.innerHTML = 'Save \u00A3' + savings.toLocaleString() + '/workshop \u2014 kitchen, setup & lighting all included';
+    savingsEl.style.color = 'var(--green)';
+    savingsEl.style.display = 'block';
+  } else if (savings === 0) {
+    savingsEl.textContent = 'Same price \u2014 but purpose-built for workshops';
+    savingsEl.style.color = 'var(--text-muted)';
+    savingsEl.style.display = 'block';
+  } else {
+    savingsEl.textContent = 'Our studio is purpose-built for workshops \u2014 kitchen, lighting, setup included';
+    savingsEl.style.color = 'var(--text-muted)';
+    savingsEl.style.display = 'block';
+  }
+
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:last-child').textContent = '\u00A3' + hbsCost + ' all-inclusive';
+  document.querySelector('#bar-hbs').closest('.compare-bar').querySelector('.bar-label span:first-child').innerHTML = '<span style="font-weight:600">Hibiscus Studio</span> <span style="font-size:11px;color:var(--text-muted)">(' + duration + 'hrs)</span>';
+
+  const maxVenue = Math.max(venue, hbsCost) * 1.2;
+  el('bar-yours').style.width = ((venue / maxVenue) * 100) + '%';
+  el('bar-hbs').style.width = ((hbsCost / maxVenue) * 100) + '%';
+
+  // Update wizard summary tags to reflect edits
+  document.getElementById('step1Summary').textContent = '\u00A3' + ticket + '/person';
+  document.getElementById('step2Summary').textContent = attend + ' people';
+  document.getElementById('step3Summary').textContent = duration + ' hours';
+  const typeData = workshopTypes[wiz.type];
+  if (typeData) {
+    document.getElementById('finalSummary').innerHTML =
+      typeData.emoji + ' ' + typeData.label +
+      ' \u00B7 \u00A3' + ticket + '/person' +
+      ' \u00B7 ' + attend + ' people' +
+      ' \u00B7 ' + duration + 'hrs';
+  }
+
+  // Smart nudge
+  const nudgeEl = el('profit-nudge');
+  if (profit < 0) {
+    nudgeEl.innerHTML = 'Your costs exceed revenue. <span style="opacity:0.7">Tap Edit inputs to adjust ticket price or attendees.</span>';
+    nudgeEl.className = 'profit-nudge warning';
+    nudgeEl.style.display = 'block';
+  } else if (margin < 20) {
+    const delta = 20 * attend;
+    nudgeEl.innerHTML = 'Tip: Raising your ticket by \u00A320 would add \u00A3' + delta.toLocaleString() + ' to your profit. <span style="opacity:0.7">Tap Edit inputs to adjust.</span>';
+    nudgeEl.className = 'profit-nudge tip';
+    nudgeEl.style.display = 'block';
+  } else if (margin > 50) {
+    nudgeEl.textContent = 'Strong margins \u2014 you\u2019re ready to host.';
+    nudgeEl.className = 'profit-nudge strong';
+    nudgeEl.style.display = 'block';
+  } else {
+    nudgeEl.style.display = 'none';
+  }
+
+  // Dynamic features heading
+  const fh = document.getElementById('featuresHeading');
+  if (fh) fh.textContent = 'What your \u00A3' + venue.toLocaleString() + ' at HBS includes';
+
+  // Collapse edit panel after update
+  document.getElementById('editPanel').classList.remove('open');
+  document.getElementById('editToggleBtn').textContent = 'Edit inputs';
+
+  // Scroll to profit number
+  setTimeout(() => {
+    el('r-profit').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 150);
+}
+
+function shareResults() {
+  const profit = document.getElementById('r-profit').textContent;
+  const margin = document.getElementById('r-margin').textContent;
+  const text = 'My workshop profit: ' + profit + ' (' + margin + ' margin). Try it: hibiscusstudio.co.uk/calculator';
+
+  if (navigator.share) {
+    navigator.share({ title: 'Workshop Profit Calculator', text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Share results', 2000);
+    });
+  }
+}
+
+// ═══════════════════════════════════════
+//  DM CAPTURE
+// ═══════════════════════════════════════
+async function submitDmCapture() {
+  const input = document.getElementById('dmHandle');
+  let handle = input.value.trim();
+  if (!handle) { input.focus(); return; }
+  if (!handle.startsWith('@')) handle = '@' + handle;
+
+  const btn = document.querySelector('.dm-capture-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const typeData = workshopTypes[wiz.type || 'other'];
+    const payload = {
+      igHandle: handle,
+      type: wiz.type || 'other',
+      typeLabel: typeData.label,
+      ticket: wiz.ticket || editState.ticket,
+      attendees: wiz.attendees || editState.attendees,
+      duration: wiz.duration || editState.duration,
+      venue: wiz.venue || editState.venue,
+      materials: typeData.materialsCost,
+      profit: parseInt(document.getElementById('r-profit').textContent.replace(/[^0-9-]/g, '')) || 0,
+      timestamp: new Date().toISOString()
+    };
+
+    const resp = await fetch('https://hb-booking.nicholasfcoker.workers.dev/api/calculator-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await resp.json();
+
+    // Show success
+    const capture = document.getElementById('dmCapture');
+    capture.innerHTML = '<div class="dm-capture-success"><div class="check">\u2713</div><div style="font-size:14px;font-weight:600;">We\u2019ll DM your breakdown to ' + handle + ' shortly</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;">Keep scrolling to see how we compare</div></div>';
+  } catch (e) {
+    btn.textContent = 'Send it';
+    btn.disabled = false;
+  }
+}
+
+function skipDmCapture() {
+  document.getElementById('dmCapture').style.display = 'none';
+}
+
+// ═══════════════════════════════════════
+//  VIDEO PAUSE/PLAY ON VISIBILITY
+// ═══════════════════════════════════════
+const videoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const video = entry.target.querySelector('video') || entry.target;
+    if (video.tagName === 'VIDEO' || video.querySelector?.('video')) {
+      const v = video.tagName === 'VIDEO' ? video : video.querySelector('video');
+      if (v) {
+        entry.isIntersecting ? v.play().catch(()=>{}) : v.pause();
+      }
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.video-card, .hero-bg').forEach(el => videoObserver.observe(el));
+
+updateStickyBtn();
+</script>
+</body>
+</html>

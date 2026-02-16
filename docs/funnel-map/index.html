@@ -1,0 +1,2230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HB Studio Funnel Map</title>
+  <style>
+
+    :root {
+      --bg-base: #0a0a0a;
+      --bg-surface: #141414;
+      --bg-elevated: #1a1a1a;
+      --bg-hover: #222222;
+      --text-primary: #fafafa;
+      --text-secondary: #a1a1a1;
+      --text-muted: #666666;
+      --border-color: #2a2a2a;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --flow-line: #3b82f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header {
+      max-width: 1400px;
+      margin: 0 auto 30px;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .generated {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .file-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .tab {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .file-section {
+      display: none;
+    }
+
+    .file-section.active {
+      display: block;
+    }
+
+    .funnel-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      position: relative;
+    }
+
+    .screen-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      width: 280px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .screen-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .screen-card .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .screen-card .card-id {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-family: monospace;
+      background: var(--bg-elevated);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .screen-card .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .screen-card .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .screen-card .card-elements {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .element-badge {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+    }
+
+    .element-badge.choice-card { background: #1e3a5f; color: #60a5fa; }
+    .element-badge.button { background: #1e3a3a; color: #10b981; }
+    .element-badge.input { background: #3a3a1e; color: #f59e0b; }
+    .element-badge.time-slot { background: #3a1e3a; color: #a855f7; }
+
+    .screen-card .card-transitions {
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+
+    .transition-arrow {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .transition-arrow .arrow {
+      color: var(--accent);
+    }
+
+    /* Flow visualization */
+    .flow-container {
+      position: relative;
+      padding: 40px 0;
+    }
+
+    .flow-row {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .flow-row::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--border-color);
+      z-index: 0;
+    }
+
+    .screen-card {
+      z-index: 1;
+    }
+
+    /* Branch indicator */
+    .branch-indicator {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      color: var(--warning);
+      background: var(--bg-surface);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--warning);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 700px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+
+    .modal-close:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .modal-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-header h2 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-id {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      background: var(--bg-elevated);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .detail-section {
+      margin-bottom: 24px;
+    }
+
+    .detail-section h3 {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .copy-list, .element-list, .transition-list, .validation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .copy-item, .element-item, .transition-item, .validation-item {
+      background: var(--bg-elevated);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .copy-item .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .copy-item .value {
+      color: var(--text-primary);
+    }
+
+    .element-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .element-item .type {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--bg-surface);
+    }
+
+    .transition-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .transition-item .from,
+    .transition-item .to {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .transition-item .trigger {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .validation-item.error {
+      border-left: 3px solid var(--error);
+    }
+
+    .validation-item.warning {
+      border-left: 3px solid var(--warning);
+    }
+
+    /* Preview tooltip */
+    .preview-tooltip {
+      display: none;
+      position: fixed;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 320px;
+      max-height: 400px;
+      overflow: hidden;
+      z-index: 100;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+    }
+
+    .preview-tooltip.visible {
+      display: block;
+    }
+
+    .preview-header {
+      padding: 12px 16px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    .preview-content {
+      padding: 16px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      max-height: 340px;
+      overflow-y: auto;
+    }
+
+    .preview-content .preview-element {
+      margin-bottom: 8px;
+      padding: 8px;
+      background: var(--bg-elevated);
+      border-radius: 6px;
+    }
+
+    .preview-content .preview-element .el-type {
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+  
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>HB Studio Booking Funnel</h1>
+      <span class="generated">Generated: 28 Jan 2026, 21:42</span>
+    </div>
+    <nav class="file-tabs">
+      <button class="tab active" data-file="booking-demo.html">Main Booking</button><button class="tab" data-file="event-type-funnel.html">Event Type Flow</button><button class="tab" data-file="index.html">Landing Page</button>
+    </nav>
+  </header>
+
+  <main class="main">
+    
+    <section class="file-section active" data-file="booking-demo.html">
+      <div class="flow-container">
+        
+          <h3 style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Main Booking Flow</h3>
+          <div class="flow-row">
+            
+    <div class="screen-card" data-screen-id="step1" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step1</span>
+      </div>
+      <h4 class="card-title">What are you planning?</h4>
+      <p class="card-subtitle">What are you planning?</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge choice-card">4 choice card</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Select event type → step2
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step2" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step2</span>
+      </div>
+      <h4 class="card-title">When are you looking to book?</h4>
+      <p class="card-subtitle">When are you looking to book?</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge choice-card">3 choice card</span>
+        
+          <span class="element-badge button">1 button</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Choose month → step3
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step3" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step3</span>
+      </div>
+      <h4 class="card-title">Weekend or weekday?</h4>
+      <p class="card-subtitle">Weekend or weekday?</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge choice-card">2 choice card</span>
+        
+          <span class="element-badge button">1 button</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Weekend or weekday → step4
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step4" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step4</span>
+      </div>
+      <h4 class="card-title">Pick your date</h4>
+      <p class="card-subtitle">Pick your date</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">1 button</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Continue → step5
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step5" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step5</span>
+      </div>
+      <h4 class="card-title">Choose your time</h4>
+      <p class="card-subtitle">Choose your time</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">5 button</span>
+        
+          <span class="element-badge time-slot">4 time slot</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Continue → step6
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step6" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step6</span>
+      </div>
+      <h4 class="card-title">How many guests?</h4>
+      <p class="card-subtitle">How many guests?</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">1 button</span>
+        
+          <span class="element-badge guest-btn">4 guest btn</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Set guest count → step7
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step7" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step7</span>
+      </div>
+      <h4 class="card-title">Your details</h4>
+      <p class="card-subtitle">Your details</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">3 button</span>
+        
+          <span class="element-badge input">3 input</span>
+        
+          <span class="element-badge form-group">3 form group</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Continue → step8
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step8" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step8</span>
+      </div>
+      <h4 class="card-title">step8</h4>
+      
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">2 button</span>
+        
+          <span class="element-badge summary">6 summary</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Continue → step9
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step9" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">step9</span>
+      </div>
+      <h4 class="card-title">Booking Confirmed!</h4>
+      <p class="card-subtitle">We&#039;ve sent a confirmation to your email.
+                See you at Hibiscus ...</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">1 button</span>
+        
+          <span class="element-badge summary">5 summary</span>
+        
+      </div>
+
+      
+    </div>
+  
+          </div>
+        
+
+        
+          <h3 style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Viewing Flow</h3>
+          <div class="flow-row">
+            
+    <div class="screen-card" data-screen-id="stepViewing" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">stepViewing</span>
+      </div>
+      <h4 class="card-title">Pick a day</h4>
+      <p class="card-subtitle">Pick a day</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">1 button</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Enter viewing details → stepViewingDetails
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="stepViewingDetails" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">stepViewingDetails</span>
+      </div>
+      <h4 class="card-title">Your details</h4>
+      <p class="card-subtitle">Your details</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">3 button</span>
+        
+          <span class="element-badge input">3 input</span>
+        
+          <span class="element-badge form-group">3 form group</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Confirm viewing → stepViewingConfirm
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="stepViewingConfirm" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">stepViewingConfirm</span>
+      </div>
+      <h4 class="card-title">stepViewingConfirm</h4>
+      
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">1 button</span>
+        
+          <span class="element-badge summary">4 summary</span>
+        
+      </div>
+
+      
+    </div>
+  
+          </div>
+        
+
+        
+          <h3 style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Other Screens</h3>
+          <div class="funnel-grid">
+            
+    <div class="screen-card" data-screen-id="stepMonthPicker" data-filename="booking-demo.html">
+      <div class="card-header">
+        <span class="card-id">stepMonthPicker</span>
+      </div>
+      <h4 class="card-title">Pick a month</h4>
+      <p class="card-subtitle">Pick a month</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">3 button</span>
+        
+      </div>
+
+      
+    </div>
+  
+          </div>
+        
+      </div>
+    </section>
+  
+    <section class="file-section" data-file="event-type-funnel.html">
+      <div class="flow-container">
+        
+          <h3 style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Main Booking Flow</h3>
+          <div class="flow-row">
+            
+    <div class="screen-card" data-screen-id="step1" data-filename="event-type-funnel.html">
+      <div class="card-header">
+        <span class="card-id">step1</span>
+      </div>
+      <h4 class="card-title">What are you celebrating?</h4>
+      <p class="card-subtitle">This helps us recommend the perfect package for your event</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">6 button</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Continue → step2
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step2" data-filename="event-type-funnel.html">
+      <div class="card-header">
+        <span class="card-id">step2</span>
+      </div>
+      <h4 class="card-title">How many guests?</h4>
+      <p class="card-subtitle">We can accommodate up to 50 guests</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">2 button</span>
+        
+          <span class="element-badge input">1 input</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Continue → step3
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step3" data-filename="event-type-funnel.html">
+      <div class="card-header">
+        <span class="card-id">step3</span>
+      </div>
+      <h4 class="card-title">When is your event?</h4>
+      <p class="card-subtitle">Most people book 2-3 months in advance</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">2 button</span>
+        
+          <span class="element-badge input">2 input</span>
+        
+      </div>
+
+      
+        <div class="card-transitions">
+          <span class="transition-arrow">
+            <span class="arrow">→</span>
+            Continue → step4
+          </span>
+        </div>
+      
+    </div>
+  
+    <div class="screen-card" data-screen-id="step4" data-filename="event-type-funnel.html">
+      <div class="card-header">
+        <span class="card-id">step4</span>
+      </div>
+      <h4 class="card-title">Perfect! Here&#039;s our recommendation:</h4>
+      <p class="card-subtitle">4:00 PM – 10:00 PM</p>
+
+      <div class="card-elements">
+        
+          <span class="element-badge button">2 button</span>
+        
+      </div>
+
+      
+    </div>
+  
+          </div>
+        
+
+        
+
+        
+          <h3 style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Other Screens</h3>
+          <div class="funnel-grid">
+            
+    <div class="screen-card" data-screen-id="stepIndicator" data-filename="event-type-funnel.html">
+      <div class="card-header">
+        <span class="card-id">stepIndicator</span>
+      </div>
+      <h4 class="card-title">stepIndicator</h4>
+      
+
+      <div class="card-elements">
+        
+      </div>
+
+      
+    </div>
+  
+          </div>
+        
+      </div>
+    </section>
+  
+    <section class="file-section" data-file="index.html">
+      <div class="flow-container">
+        
+
+        
+
+        
+      </div>
+    </section>
+  
+  </main>
+
+  <!-- Screen Detail Modal -->
+  <div class="modal" id="screenModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <h2 id="modalTitle">Screen Title</h2>
+        <span class="modal-id" id="modalId">step1</span>
+      </div>
+      <div class="modal-body">
+        <section class="detail-section">
+          <h3>Copy & Content</h3>
+          <div id="modalCopy" class="copy-list"></div>
+        </section>
+        <section class="detail-section">
+          <h3>Interactive Elements</h3>
+          <div id="modalElements" class="element-list"></div>
+        </section>
+        <section class="detail-section">
+          <h3>Transitions</h3>
+          <div id="modalTransitions" class="transition-list"></div>
+        </section>
+        <section class="detail-section">
+          <h3>Validation & Errors</h3>
+          <div id="modalValidation" class="validation-list"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Tooltip -->
+  <div class="preview-tooltip" id="previewTooltip">
+    <div class="preview-header"></div>
+    <div class="preview-content"></div>
+  </div>
+
+  <script>
+
+    const data = {
+  "generatedAt": "2026-01-28T20:42:17.777Z",
+  "files": [
+    {
+      "filename": "booking-demo.html",
+      "path": "/Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/projects/2_Areas/01-Hibiscus-Studio/hibiscus-studio-deploy/booking-demo.html",
+      "title": "Book Your Event | Hibiscus Studio",
+      "screens": [
+        {
+          "id": "step1",
+          "title": "What are you planning?",
+          "subtitle": "What are you planning?",
+          "elements": [
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "◇ Bridal Party",
+                "description": "Hen do, bridal shower, engagement celebration"
+              },
+              "action": "selectEventType",
+              "dataAttributes": {}
+            },
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "● Private Event",
+                "description": "Birthday, baby shower, anniversary"
+              },
+              "action": "selectEventType",
+              "dataAttributes": {}
+            },
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "▣ Workshop",
+                "description": "Creative sessions, team activities, classes"
+              },
+              "action": "selectEventType",
+              "dataAttributes": {}
+            },
+            {
+              "type": "choice-card",
+              "className": "choice-card viewing-card",
+              "copy": {
+                "title": "◎ Book a Viewing",
+                "description": "20 mins · See the space first"
+              },
+              "action": "goToViewing",
+              "dataAttributes": {}
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step1",
+              "to": "step2",
+              "trigger": "selectEventType",
+              "label": "Select event type"
+            },
+            {
+              "from": "step1",
+              "to": "stepViewing",
+              "trigger": "goToViewing\\s*\\(\\s*\\)",
+              "label": "Book a Viewing"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">What are you planning?</p> <div class=\"choices\"> <div class=\"choice-card\" onclick=\"selectEventType('bridal')\"> <div class=\"title\"><span class=\"event-icon bridal\">◇</span> Bridal Party</div> <div class=\"desc\">Hen do, bridal shower, engagement celebration</div> </div> <div class=\"choice-card\" onclick=\"selectEventType('private')\"> <div class=\"title\"><span class=\"event-icon private\">●</span> Private Event</div> <div class=\"desc\">Birthday, baby shower, anniversary</div> </div> <div class=\"choice-card\" onclick=\"selectEventType('workshop')\"> <div class=\"title\"><span class=\"event-icon workshop\">▣</span> Workshop</div> <div class=\"desc\">Creative sessions, team activities, classes</div> </div> <div class=\"choice-card viewing-card\" onclick=\"goToViewing()\"> <div class=\"title\"><span class=\"event-icon viewing\">◎</span> Book a Viewing</div> <div class=\"desc\">20 mins · See the space first</div> </div> </div>"
+        },
+        {
+          "id": "step2",
+          "title": "When are you looking to book?",
+          "subtitle": "When are you looking to book?",
+          "elements": [
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "This month",
+                "description": "January 2026"
+              },
+              "action": "selectMonth",
+              "dataAttributes": {}
+            },
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "Next month",
+                "description": "February 2026"
+              },
+              "action": "selectMonth",
+              "dataAttributes": {}
+            },
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "Later",
+                "description": "Pick a month from March onwards"
+              },
+              "action": "showMonthPicker",
+              "dataAttributes": {}
+            },
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step2",
+              "to": "step3",
+              "trigger": "selectMonth",
+              "label": "Choose month"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">When are you looking to book?</p> <div class=\"choices\"> <div class=\"choice-card\" onclick=\"selectMonth('thisMonth')\"> <div class=\"title\">This month</div> <div class=\"desc\" id=\"thisMonthLabel\">January 2026</div> </div> <div class=\"choice-card\" onclick=\"selectMonth('nextMonth')\"> <div class=\"title\">Next month</div> <div class=\"desc\" id=\"nextMonthLabel\">February 2026</div> </div> <div class=\"choice-card\" onclick=\"showMonthPicker()\"> <div class=\"title\">Later</div> <div class=\"desc\">Pick a month from March onwards</div> </div> </div> <button class=\"btn btn-secondary\" onclick=\"goToStep(1)\">← Back</button>"
+        },
+        {
+          "id": "stepMonthPicker",
+          "title": "Pick a month",
+          "subtitle": "Pick a month",
+          "elements": [
+            {
+              "type": "button",
+              "id": "monthPrevBtn",
+              "className": "month-nav-btn",
+              "copy": {
+                "label": "←"
+              },
+              "action": "changeMonthPage"
+            },
+            {
+              "type": "button",
+              "id": "monthNextBtn",
+              "className": "month-nav-btn",
+              "copy": {
+                "label": "→"
+              },
+              "action": "changeMonthPage"
+            },
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            }
+          ],
+          "transitions": [],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">Pick a month</p> <div class=\"month-picker\"> <div class=\"month-nav\"> <button class=\"month-nav-btn\" id=\"monthPrevBtn\" onclick=\"changeMonthPage(-1)\">←</button> <span class=\"month-display\" id=\"monthPageLabel\">2026</span> <button class=\"month-nav-btn\" id=\"monthNextBtn\" onclick=\"changeMonthPage(1)\">→</button> </div> <div class=\"month-grid\" id=\"monthGrid\"></div> </div> <button class=\"btn btn-secondary\" onclick=\"goToStep(2)\">← Back</button>"
+        },
+        {
+          "id": "step3",
+          "title": "Weekend or weekday?",
+          "subtitle": "Weekend or weekday?",
+          "elements": [
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "Weekend",
+                "description": "Saturday or Sunday — perfect for celebrations"
+              },
+              "action": "selectDayType",
+              "dataAttributes": {}
+            },
+            {
+              "type": "choice-card",
+              "className": "choice-card",
+              "copy": {
+                "title": "Weekday",
+                "description": "Monday to Friday — more availability"
+              },
+              "action": "selectDayType",
+              "dataAttributes": {}
+            },
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step3",
+              "to": "step4",
+              "trigger": "selectDayType",
+              "label": "Weekend or weekday"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">Weekend or weekday?</p> <div class=\"choices\"> <div class=\"choice-card\" onclick=\"selectDayType('weekend')\"> <div class=\"title\">Weekend</div> <div class=\"desc\">Saturday or Sunday — perfect for celebrations</div> </div> <div class=\"choice-card\" onclick=\"selectDayType('weekday')\"> <div class=\"title\">Weekday</div> <div class=\"desc\">Monday to Friday — more availability</div> </div> </div> <button class=\"btn btn-secondary\" onclick=\"goToStep(2)\">← Back</button>"
+        },
+        {
+          "id": "step4",
+          "title": "Pick your date",
+          "subtitle": "Pick your date",
+          "elements": [
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step4",
+              "to": "step5",
+              "trigger": "next",
+              "label": "Continue"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">Pick your date</p> <div class=\"date-cards\" id=\"dateCards\"></div> <button class=\"btn btn-secondary\" onclick=\"goToStep(3)\">← Back</button>"
+        },
+        {
+          "id": "step5",
+          "title": "Choose your time",
+          "subtitle": "Choose your time",
+          "elements": [
+            {
+              "type": "button",
+              "className": "select-time-btn",
+              "copy": {
+                "label": "Select this time"
+              },
+              "action": "confirmTime"
+            },
+            {
+              "type": "button",
+              "className": "select-time-btn",
+              "copy": {
+                "label": "Select this time"
+              },
+              "action": "confirmTime"
+            },
+            {
+              "type": "button",
+              "className": "select-time-btn",
+              "copy": {
+                "label": "Select this time"
+              },
+              "action": "confirmTime"
+            },
+            {
+              "type": "button",
+              "className": "select-time-btn",
+              "copy": {
+                "label": "Select this time"
+              },
+              "action": "confirmTime"
+            },
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            },
+            {
+              "type": "time-slot",
+              "copy": {
+                "title": "12pm\n                        →\n                        6pm"
+              },
+              "action": "expandTime"
+            },
+            {
+              "type": "time-slot",
+              "copy": {
+                "title": "2pm\n                        →\n                        8pm"
+              },
+              "action": "expandTime"
+            },
+            {
+              "type": "time-slot",
+              "copy": {
+                "title": "4pm\n                        →\n                        10pm"
+              },
+              "action": "expandTime"
+            },
+            {
+              "type": "time-slot",
+              "copy": {
+                "title": "6pm\n                        →\n                        12am"
+              },
+              "action": "expandTime"
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step5",
+              "to": "step6",
+              "trigger": "next",
+              "label": "Continue"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">Choose your time</p> <div class=\"time-slots\"> <div class=\"time-slot\" data-start=\"12:00\" onclick=\"expandTime(this)\"> <div class=\"time-slot-main\"> <div class=\"time-range\"> <span class=\"time\">12pm</span> <span class=\"arrow\">→</span> <span class=\"time\">6pm</span> </div> <span class=\"badge\">6 hours</span> </div> <div class=\"time-breakdown\"> <div class=\"compare-section\"></div> </div> <div class=\"expand-hint\">Tap to see breakdown</div> <button class=\"select-time-btn\" onclick=\"confirmTime(event, '12:00', '18:00', 'Afternoon')\">Select this time</button> </div> <div class=\"time-slot\" data-start=\"14:00\" onclick=\"expandTime(this)\"> <div class=\"time-slot-main\"> <div class=\"time-range\"> <span class=\"time\">2pm</span> <span class=\"arrow\">→</span> <span class=\"time\">8pm</span> </div> <span class=\"badge\">6 hours</span> </div> <div class=\"time-breakdown\"> <div class=\"compare-section\"></div> </div> <div class=\"expand-hint\">Tap to see breakdown</div> <button class=\"select-time-btn\" onclick=\"confirmTime(event, '14:00', '20:00', 'Afternoon-Evening')\">Select this time</button> </div> <div class=\"time-slot\" data-start=\"16:00\" onclick=\"expandTime(this)\"> <div class=\"time-slot-main\"> <div class=\"time-range\"> <span class=\"time\">4pm</span> <span class=\"arrow\">→</span> <span class=\"time\">10pm</span> </div> <span class=\"badge\">6 hours</span> </div> <div class=\"time-breakdown\"> <div class=\"compare-section\"></div> </div> <div class=\"expand-hint\">Tap to see breakdown</div> <button class=\"select-time-btn\" onclick=\"confirmTime(event, '16:00', '22:00', 'Evening')\">Select this time</button> </div> <div class=\"time-slot\" data-start=\"18:00\" onclick=\"expandTime(this)\"> <div class=\"time-slot-main\"> <div class=\"time-range\"> <span class=\"time\">6pm</span> <span class=\"arrow\">→</span> <span class=\"time\">12am</span> </div> <span class=\"badge late\">+£50 late</span> </div> <div class=\"time-breakdown\"> <div class=\"compare-section\"></div> </div> <div class=\"expand-hint\">Tap to see breakdown</di..."
+        },
+        {
+          "id": "step6",
+          "title": "How many guests?",
+          "subtitle": "How many guests?",
+          "elements": [
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            },
+            {
+              "type": "guest-btn",
+              "copy": {
+                "title": "1-10",
+                "label": "intimate"
+              },
+              "action": "selectGuests"
+            },
+            {
+              "type": "guest-btn",
+              "copy": {
+                "title": "11-20",
+                "label": "small"
+              },
+              "action": "selectGuests"
+            },
+            {
+              "type": "guest-btn",
+              "copy": {
+                "title": "21-30",
+                "label": "medium"
+              },
+              "action": "selectGuests"
+            },
+            {
+              "type": "guest-btn",
+              "copy": {
+                "title": "31-40",
+                "label": "max"
+              },
+              "action": "selectGuests"
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step6",
+              "to": "step7",
+              "trigger": "selectGuests",
+              "label": "Set guest count"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">How many guests?</p> <div class=\"guest-selector\"> <div class=\"guest-btn\" onclick=\"selectGuests(this, '1-10')\"> <div class=\"num\">1-10</div> <div class=\"label\">intimate</div> </div> <div class=\"guest-btn\" onclick=\"selectGuests(this, '11-20')\"> <div class=\"num\">11-20</div> <div class=\"label\">small</div> </div> <div class=\"guest-btn\" onclick=\"selectGuests(this, '21-30')\"> <div class=\"num\">21-30</div> <div class=\"label\">medium</div> </div> <div class=\"guest-btn\" onclick=\"selectGuests(this, '31-40')\"> <div class=\"num\">31-40</div> <div class=\"label\">max</div> </div> </div> <button class=\"btn btn-secondary\" onclick=\"goToStep(5)\">← Back</button>"
+        },
+        {
+          "id": "step7",
+          "title": "Your details",
+          "subtitle": "Your details",
+          "elements": [
+            {
+              "type": "button",
+              "className": "demo-autofill-btn",
+              "copy": {
+                "label": "✨ Auto-fill for demo"
+              },
+              "action": "autoFillDemo"
+            },
+            {
+              "type": "button",
+              "id": "btn7",
+              "className": "btn btn-primary",
+              "copy": {
+                "label": "Review Booking"
+              },
+              "action": "goToStep"
+            },
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            },
+            {
+              "type": "input",
+              "id": "inputName",
+              "copy": {
+                "placeholder": "Your name"
+              }
+            },
+            {
+              "type": "input",
+              "id": "inputEmail",
+              "copy": {
+                "placeholder": "you@email.com"
+              }
+            },
+            {
+              "type": "input",
+              "id": "inputPhone",
+              "copy": {
+                "placeholder": "07xxx xxx xxx"
+              }
+            },
+            {
+              "type": "form-group",
+              "copy": {
+                "label": "Name",
+                "placeholder": "Your name"
+              }
+            },
+            {
+              "type": "form-group",
+              "copy": {
+                "label": "Email",
+                "placeholder": "you@email.com"
+              }
+            },
+            {
+              "type": "form-group",
+              "copy": {
+                "label": "Phone",
+                "placeholder": "07xxx xxx xxx"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step7",
+              "to": "step8",
+              "trigger": "next",
+              "label": "Continue"
+            }
+          ],
+          "validationRules": [
+            {
+              "field": "email",
+              "type": "email",
+              "rule": "Validates email format",
+              "errorMessage": "Please enter a valid email"
+            },
+            {
+              "field": "guests",
+              "type": "guestCount",
+              "rule": "Guest count must be selected",
+              "errorMessage": "Please select number of guests"
+            }
+          ],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">Your details</p> <div class=\"demo-autofill\"> <button class=\"demo-autofill-btn\" onclick=\"autoFillDemo()\">✨ Auto-fill for demo</button> </div> <div class=\"form-group\"> <label class=\"form-label\">Name</label> <input type=\"text\" class=\"form-input\" id=\"inputName\" placeholder=\"Your name\" oninput=\"validateField(this, 'name')\"> <span class=\"input-check\" id=\"checkName\">✓</span> </div> <div class=\"form-group\"> <label class=\"form-label\">Email</label> <input type=\"email\" class=\"form-input\" id=\"inputEmail\" placeholder=\"you@email.com\" oninput=\"validateField(this, 'email')\"> <span class=\"input-check\" id=\"checkEmail\">✓</span> </div> <div class=\"form-group\"> <label class=\"form-label\">Phone</label> <input type=\"tel\" class=\"form-input\" id=\"inputPhone\" placeholder=\"07xxx xxx xxx\" inputmode=\"numeric\" oninput=\"validateField(this, 'phone')\"> <span class=\"input-check\" id=\"checkPhone\">✓</span> </div> <button class=\"btn btn-primary\" id=\"btn7\" disabled=\"\" onclick=\"goToStep(8)\">Review Booking</button> <button class=\"btn btn-secondary\" onclick=\"goToStep(6)\">← Back</button>"
+        },
+        {
+          "id": "step8",
+          "title": "step8",
+          "elements": [
+            {
+              "type": "button",
+              "className": "btn btn-primary",
+              "copy": {
+                "label": "Pay £150 Deposit"
+              },
+              "action": "showConfirmation"
+            },
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Event",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Event",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Date",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Time",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Guests",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Name",
+                "description": "—"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step8",
+              "to": "step9",
+              "trigger": "next",
+              "label": "Continue"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<div class=\"event-vibe\" id=\"eventVibe\"> <!-- Dynamically populated based on event type --> </div> <div class=\"summary\"> <div class=\"summary-row\"> <span class=\"summary-label\">Event</span> <span class=\"summary-value\" id=\"summaryEvent\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Date</span> <span class=\"summary-value\" id=\"summaryDate\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Time</span> <span class=\"summary-value\" id=\"summaryTime\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Guests</span> <span class=\"summary-value\" id=\"summaryGuests\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Name</span> <span class=\"summary-value\" id=\"summaryName\">—</span> </div> </div> <div class=\"deposit-info\"> <div class=\"main\"> <span class=\"label\">50% reservation fee to confirm</span> <span class=\"amount\">£233</span> </div> <div class=\"note\">Remaining £232 due 7 days before your event</div> </div> <div class=\"faq\"> <div class=\"faq-title\">What's included</div> <div class=\"amenities-grid\"> <div class=\"amenity-item\"> <div class=\"icon\">⊞</div> <div class=\"label\">40 chairs</div> </div> <div class=\"amenity-item\"> <div class=\"icon\">▭</div> <div class=\"label\">10 tables</div> </div> <div class=\"amenity-item\"> <div class=\"icon\">♪</div> <div class=\"label\">Bluetooth speaker</div> </div> <div class=\"amenity-item\"> <div class=\"icon\">⌘</div> <div class=\"label\">Wi-Fi</div> </div> <div class=\"amenity-item\"> <div class=\"icon\">◇</div> <div class=\"label\">Kitchen access</div> </div> <div class=\"amenity-item\"> <div class=\"icon\">●</div> <div class=\"label\">Private toilet</div> </div> </div> </div> <!-- HIDDEN: Extras section temporarily disabled per business decision <div class=\"extras-section\" id=\"extrasSection\"> <div class=\"extras-title\">Add extras</div> <div class=\"extra-option\" onclick=\"toggleExtra(this, 'catering', 150)\"> <div class=\"extra-info\"> <div class=\"name\">◆ Catering</div> <div class=\"desc\">Nigerian sm..."
+        },
+        {
+          "id": "step9",
+          "title": "Booking Confirmed!",
+          "subtitle": "We've sent a confirmation to your email.\n                See you at Hibiscus Studio! 💜",
+          "elements": [
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "Start Over"
+              },
+              "action": "resetDemo"
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Event",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Event",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Date",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Time",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Deposit Paid",
+                "description": "£150"
+              }
+            }
+          ],
+          "transitions": [],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<div class=\"confirmation\"> <div class=\"confirm-icon\">✓</div> <h2 class=\"confirm-title\">Booking Confirmed!</h2> <p class=\"confirm-text\"> We've sent a confirmation to your email.<br> See you at Hibiscus Studio! 💜 </p> <div class=\"summary\"> <div class=\"summary-row\"> <span class=\"summary-label\">Event</span> <span class=\"summary-value\" id=\"receiptEvent\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Date</span> <span class=\"summary-value\" id=\"receiptDate\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Time</span> <span class=\"summary-value\" id=\"receiptTime\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Deposit Paid</span> <span class=\"summary-value\">£150</span> </div> </div> </div> <button class=\"btn btn-secondary\" onclick=\"resetDemo()\">Start Over</button>"
+        },
+        {
+          "id": "stepViewing",
+          "title": "Pick a day",
+          "subtitle": "Pick a day",
+          "elements": [
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToStep"
+            }
+          ],
+          "transitions": [
+            {
+              "from": "stepViewing",
+              "to": "stepViewingDetails",
+              "trigger": "goToViewingDetails\\s*\\(\\s*\\)",
+              "label": "Enter viewing details"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<div class=\"viewing-info\"> <div class=\"icon\">👀</div> <div class=\"title\">Book a Viewing</div> <div class=\"desc\">20 minutes · Weekdays only</div> </div> <p class=\"step-title\">Pick a day</p> <div class=\"date-cards\" id=\"viewingDates\"></div> <button class=\"btn btn-secondary\" onclick=\"goToStep(1)\">← Back</button>"
+        },
+        {
+          "id": "stepViewingDetails",
+          "title": "Your details",
+          "subtitle": "Your details",
+          "elements": [
+            {
+              "type": "button",
+              "className": "demo-autofill-btn",
+              "copy": {
+                "label": "✨ Auto-fill for demo"
+              },
+              "action": "autoFillDemo"
+            },
+            {
+              "type": "button",
+              "id": "btnViewingConfirm",
+              "className": "btn btn-primary",
+              "copy": {
+                "label": "Confirm Viewing"
+              },
+              "action": "goToViewingConfirm"
+            },
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "← Back"
+              },
+              "action": "goToViewingStep"
+            },
+            {
+              "type": "input",
+              "id": "viewingInputName",
+              "copy": {
+                "placeholder": "Your name"
+              }
+            },
+            {
+              "type": "input",
+              "id": "viewingInputEmail",
+              "copy": {
+                "placeholder": "you@email.com"
+              }
+            },
+            {
+              "type": "input",
+              "id": "viewingInputPhone",
+              "copy": {
+                "placeholder": "07xxx xxx xxx"
+              }
+            },
+            {
+              "type": "form-group",
+              "copy": {
+                "label": "Name",
+                "placeholder": "Your name"
+              }
+            },
+            {
+              "type": "form-group",
+              "copy": {
+                "label": "Email",
+                "placeholder": "you@email.com"
+              }
+            },
+            {
+              "type": "form-group",
+              "copy": {
+                "label": "Phone",
+                "placeholder": "07xxx xxx xxx"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "from": "stepViewingDetails",
+              "to": "stepViewingConfirm",
+              "trigger": "goToViewingConfirm\\s*\\(\\s*\\)",
+              "label": "Confirm viewing"
+            }
+          ],
+          "validationRules": [
+            {
+              "field": "email",
+              "type": "email",
+              "rule": "Validates email format",
+              "errorMessage": "Please enter a valid email"
+            },
+            {
+              "field": "guests",
+              "type": "guestCount",
+              "rule": "Guest count must be selected",
+              "errorMessage": "Please select number of guests"
+            }
+          ],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<p class=\"step-title\">Your details</p> <div class=\"demo-autofill\"> <button class=\"demo-autofill-btn\" onclick=\"autoFillDemo()\">✨ Auto-fill for demo</button> </div> <div class=\"form-group\"> <label class=\"form-label\">Name</label> <input type=\"text\" class=\"form-input\" id=\"viewingInputName\" placeholder=\"Your name\" oninput=\"validateViewingField(this, 'name')\"> <span class=\"input-check\" id=\"viewingCheckName\">✓</span> </div> <div class=\"form-group\"> <label class=\"form-label\">Email</label> <input type=\"email\" class=\"form-input\" id=\"viewingInputEmail\" placeholder=\"you@email.com\" oninput=\"validateViewingField(this, 'email')\"> <span class=\"input-check\" id=\"viewingCheckEmail\">✓</span> </div> <div class=\"form-group\"> <label class=\"form-label\">Phone</label> <input type=\"tel\" class=\"form-input\" id=\"viewingInputPhone\" placeholder=\"07xxx xxx xxx\" inputmode=\"numeric\" oninput=\"validateViewingField(this, 'phone')\"> <span class=\"input-check\" id=\"viewingCheckPhone\">✓</span> </div> <button class=\"btn btn-primary\" id=\"btnViewingConfirm\" disabled=\"\" onclick=\"goToViewingConfirm()\">Confirm Viewing</button> <button class=\"btn btn-secondary\" onclick=\"goToViewingStep()\">← Back</button>"
+        },
+        {
+          "id": "stepViewingConfirm",
+          "title": "stepViewingConfirm",
+          "elements": [
+            {
+              "type": "button",
+              "className": "btn btn-secondary",
+              "copy": {
+                "label": "Start Over"
+              },
+              "action": "resetDemo"
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Date",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Date",
+                "description": "—"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Time",
+                "description": "20 mins"
+              }
+            },
+            {
+              "type": "summary",
+              "copy": {
+                "label": "Name",
+                "description": "—"
+              }
+            }
+          ],
+          "transitions": [],
+          "validationRules": [],
+          "errorStates": [
+            {
+              "trigger": "slot-unavailable",
+              "message": "Time slot is no longer available",
+              "severity": "warning"
+            }
+          ],
+          "htmlPreview": "<div class=\"viewing-info\"> <div class=\"icon\">✓</div> <div class=\"title\">Viewing Booked</div> <div class=\"desc\">We'll see you at Hibiscus Studio</div> </div> <div class=\"summary\"> <div class=\"summary-row\"> <span class=\"summary-label\">Date</span> <span class=\"summary-value\" id=\"viewingSummaryDate\">—</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Time</span> <span class=\"summary-value\">20 mins</span> </div> <div class=\"summary-row\"> <span class=\"summary-label\">Name</span> <span class=\"summary-value\" id=\"viewingSummaryName\">—</span> </div> </div> <div class=\"faq\"> <div class=\"faq-title\">What to expect</div> <div class=\"faq-item\"> <div class=\"faq-q\">Where is the studio?</div> <div class=\"faq-a\">We'll send the address to your email once confirmed.</div> </div> <div class=\"faq-item\"> <div class=\"faq-q\">What will I see?</div> <div class=\"faq-a\">Full tour of the space, amenities, and a chance to ask questions.</div> </div> </div> <button class=\"btn btn-secondary\" onclick=\"resetDemo()\">Start Over</button>"
+        }
+      ],
+      "stateVariables": [
+        {
+          "name": "selectedEventType",
+          "initialValue": null,
+          "description": "Type of event being booked (bridal, baby shower, etc.)"
+        },
+        {
+          "name": "selectedMonth",
+          "initialValue": null,
+          "description": "Month selected for the event"
+        },
+        {
+          "name": "selectedDayType",
+          "initialValue": null,
+          "description": "Weekend or weekday preference"
+        },
+        {
+          "name": "selectedDate",
+          "initialValue": null,
+          "description": "Specific date chosen"
+        },
+        {
+          "name": "selectedTimeStart",
+          "initialValue": null,
+          "description": "Start time of booking"
+        },
+        {
+          "name": "selectedTimeEnd",
+          "initialValue": null,
+          "description": "End time of booking"
+        },
+        {
+          "name": "selectedGuests",
+          "initialValue": null,
+          "description": "Number of guests"
+        },
+        {
+          "name": "isViewing",
+          "initialValue": false,
+          "description": "Whether user is booking a viewing vs an event"
+        }
+      ],
+      "flowType": "main-booking"
+    },
+    {
+      "filename": "event-type-funnel.html",
+      "path": "/Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/projects/2_Areas/01-Hibiscus-Studio/hibiscus-studio-deploy/event-type-funnel.html",
+      "title": "Event-Type-First Booking Funnel - Hibiscus Studio",
+      "screens": [
+        {
+          "id": "stepIndicator",
+          "title": "stepIndicator",
+          "elements": [],
+          "transitions": [],
+          "validationRules": [],
+          "errorStates": [],
+          "htmlPreview": "Step 1 of 3"
+        },
+        {
+          "id": "step1",
+          "title": "What are you celebrating?",
+          "subtitle": "This helps us recommend the perfect package for your event",
+          "elements": [
+            {
+              "type": "button",
+              "className": "event-type-btn p-4 bg-gray-700 hover:bg-blue-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-blue-400",
+              "copy": {
+                "label": "🎉 Bridal Shower\n            Most popular"
+              },
+              "action": "selectEventType"
+            },
+            {
+              "type": "button",
+              "className": "event-type-btn p-4 bg-gray-700 hover:bg-pink-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-pink-400",
+              "copy": {
+                "label": "👶 Baby Shower\n            Intimate celebrations"
+              },
+              "action": "selectEventType"
+            },
+            {
+              "type": "button",
+              "className": "event-type-btn p-4 bg-gray-700 hover:bg-purple-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-purple-400",
+              "copy": {
+                "label": "🎂 Birthday (Milestone)\n            30th, 40th, 50th..."
+              },
+              "action": "selectEventType"
+            },
+            {
+              "type": "button",
+              "className": "event-type-btn p-4 bg-gray-700 hover:bg-yellow-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-yellow-400",
+              "copy": {
+                "label": "🎈 Birthday (Casual)\n            Friends & family"
+              },
+              "action": "selectEventType"
+            },
+            {
+              "type": "button",
+              "className": "event-type-btn p-4 bg-gray-700 hover:bg-green-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-green-400",
+              "copy": {
+                "label": "💼 Corporate Event\n            Meetings, team building"
+              },
+              "action": "selectEventType"
+            },
+            {
+              "type": "button",
+              "className": "event-type-btn p-4 bg-gray-700 hover:bg-gray-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-gray-500",
+              "copy": {
+                "label": "✨ Other\n            Tell us more"
+              },
+              "action": "selectEventType"
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step1",
+              "to": "step2",
+              "trigger": "next",
+              "label": "Continue"
+            }
+          ],
+          "validationRules": [],
+          "errorStates": [],
+          "htmlPreview": "<h2 class=\"text-2xl md:text-3xl font-bold mb-2\">What are you celebrating?</h2> <p class=\"text-gray-400 mb-6\">This helps us recommend the perfect package for your event</p> <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"> <button onclick=\"selectEventType('bridal-shower', 'Bridal Shower')\" class=\"event-type-btn p-4 bg-gray-700 hover:bg-blue-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-blue-400\"> <div class=\"text-lg font-semibold\">🎉 Bridal Shower</div> <div class=\"text-sm text-gray-400 mt-1\">Most popular</div> </button> <button onclick=\"selectEventType('baby-shower', 'Baby Shower')\" class=\"event-type-btn p-4 bg-gray-700 hover:bg-pink-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-pink-400\"> <div class=\"text-lg font-semibold\">👶 Baby Shower</div> <div class=\"text-sm text-gray-400 mt-1\">Intimate celebrations</div> </button> <button onclick=\"selectEventType('birthday-milestone', 'Birthday (Milestone)')\" class=\"event-type-btn p-4 bg-gray-700 hover:bg-purple-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-purple-400\"> <div class=\"text-lg font-semibold\">🎂 Birthday (Milestone)</div> <div class=\"text-sm text-gray-400 mt-1\">30th, 40th, 50th...</div> </button> <button onclick=\"selectEventType('birthday-casual', 'Birthday (Casual)')\" class=\"event-type-btn p-4 bg-gray-700 hover:bg-yellow-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-yellow-400\"> <div class=\"text-lg font-semibold\">🎈 Birthday (Casual)</div> <div class=\"text-sm text-gray-400 mt-1\">Friends &amp; family</div> </button> <button onclick=\"selectEventType('corporate', 'Corporate Event')\" class=\"event-type-btn p-4 bg-gray-700 hover:bg-green-600 rounded-lg text-left transition-all border-2 border-transparent hover:border-green-400\"> <div class=\"text-lg font-semibold\">💼 Corporate Event</div> <div class=\"text-sm text-gray-400 mt-1\">Meetings, team building</div> </button> <button oncli..."
+        },
+        {
+          "id": "step2",
+          "title": "How many guests?",
+          "subtitle": "We can accommodate up to 50 guests",
+          "elements": [
+            {
+              "type": "button",
+              "className": "text-gray-400 hover:text-white mb-4 flex items-center text-sm",
+              "copy": {
+                "label": "Back"
+              },
+              "action": "goBack"
+            },
+            {
+              "type": "button",
+              "className": "w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg",
+              "copy": {
+                "label": "Continue →"
+              },
+              "action": "nextStep"
+            },
+            {
+              "type": "input",
+              "id": "guestCount",
+              "copy": {
+                "placeholder": ""
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step2",
+              "to": "step3",
+              "trigger": "next",
+              "label": "Continue"
+            }
+          ],
+          "validationRules": [
+            {
+              "field": "guests",
+              "type": "guestCount",
+              "rule": "Guest count must be selected",
+              "errorMessage": "Please select number of guests"
+            }
+          ],
+          "errorStates": [],
+          "htmlPreview": "<button onclick=\"goBack(1)\" class=\"text-gray-400 hover:text-white mb-4 flex items-center text-sm\"> <svg class=\"w-4 h-4 mr-1\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 19l-7-7 7-7\"></path> </svg> Back </button> <h2 class=\"text-2xl md:text-3xl font-bold mb-2\">How many guests?</h2> <p class=\"text-gray-400 mb-6\">We can accommodate up to 50 guests</p> <div class=\"space-y-4\"> <div> <label class=\"block text-sm font-medium mb-2\">Number of guests</label> <input type=\"number\" id=\"guestCount\" min=\"1\" max=\"50\" value=\"25\" class=\"w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent\" onchange=\"validateGuestCount()\"> <p class=\"text-sm text-gray-400 mt-2 text-center\">Studio capacity: up to 50 guests</p> <p id=\"guestWarning\" class=\"text-sm text-yellow-400 mt-2 text-center hidden\"> For 40-50 guests, we have flexible options. We'll help you make it work! </p> </div> <button onclick=\"nextStep(2)\" class=\"w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg\"> Continue → </button> </div>"
+        },
+        {
+          "id": "step3",
+          "title": "When is your event?",
+          "subtitle": "Most people book 2-3 months in advance",
+          "elements": [
+            {
+              "type": "button",
+              "className": "text-gray-400 hover:text-white mb-4 flex items-center text-sm",
+              "copy": {
+                "label": "Back"
+              },
+              "action": "goBack"
+            },
+            {
+              "type": "button",
+              "className": "w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg",
+              "copy": {
+                "label": "See My Recommendation →"
+              },
+              "action": "showRecommendation"
+            },
+            {
+              "type": "input",
+              "id": "eventDate",
+              "copy": {
+                "placeholder": ""
+              }
+            },
+            {
+              "type": "input",
+              "id": "flexibleDate",
+              "copy": {
+                "label": "I'm flexible on the exact date",
+                "placeholder": ""
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "from": "step3",
+              "to": "step4",
+              "trigger": "next",
+              "label": "Continue"
+            }
+          ],
+          "validationRules": [
+            {
+              "field": "guests",
+              "type": "guestCount",
+              "rule": "Guest count must be selected",
+              "errorMessage": "Please select number of guests"
+            }
+          ],
+          "errorStates": [],
+          "htmlPreview": "<button onclick=\"goBack(2)\" class=\"text-gray-400 hover:text-white mb-4 flex items-center text-sm\"> <svg class=\"w-4 h-4 mr-1\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 19l-7-7 7-7\"></path> </svg> Back </button> <h2 class=\"text-2xl md:text-3xl font-bold mb-2\">When is your event?</h2> <p class=\"text-gray-400 mb-6\">Most people book 2-3 months in advance</p> <div class=\"space-y-4\"> <div> <label class=\"block text-sm font-medium mb-2\">Event date</label> <input type=\"date\" id=\"eventDate\" class=\"w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent\"> </div> <div class=\"flex items-start space-x-2\"> <input type=\"checkbox\" id=\"flexibleDate\" class=\"mt-1 w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500\"> <label for=\"flexibleDate\" class=\"text-sm text-gray-400\">I'm flexible on the exact date</label> </div> <button onclick=\"showRecommendation()\" class=\"w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg\"> See My Recommendation → </button> </div>"
+        },
+        {
+          "id": "step4",
+          "title": "Perfect! Here's our recommendation:",
+          "subtitle": "4:00 PM – 10:00 PM",
+          "elements": [
+            {
+              "type": "button",
+              "className": "text-gray-400 hover:text-white mb-4 flex items-center text-sm",
+              "copy": {
+                "label": "Back"
+              },
+              "action": "goBack"
+            },
+            {
+              "type": "button",
+              "id": "bookRecommended",
+              "className": "w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg text-lg mt-4",
+              "copy": {
+                "label": "Book This Package"
+              },
+              "action": "bookPackage"
+            }
+          ],
+          "transitions": [],
+          "validationRules": [],
+          "errorStates": [],
+          "htmlPreview": "<button onclick=\"goBack(3)\" class=\"text-gray-400 hover:text-white mb-4 flex items-center text-sm\"> <svg class=\"w-4 h-4 mr-1\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 19l-7-7 7-7\"></path> </svg> Back </button> <h2 class=\"text-2xl md:text-3xl font-bold mb-6\">Perfect! Here's our recommendation:</h2> <!-- Recommended Package (Populated by JS) --> <div id=\"recommendedPackage\" class=\"border-2 border-blue-500 bg-blue-900/20 rounded-2xl p-6 mb-6 relative\"> <div class=\"absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm px-4 py-1 rounded-full font-semibold whitespace-nowrap\"> ⭐ Recommended for You </div> <div class=\"mt-2 text-center space-y-3\"> <h3 id=\"pkgName\" class=\"text-2xl font-bold\">Half-Day Package</h3> <p id=\"pkgTime\" class=\"text-gray-300\">4:00 PM – 10:00 PM</p> <div id=\"pkgPrice\" class=\"text-4xl font-bold text-blue-400\">£465</div> <p id=\"pkgDuration\" class=\"text-gray-400\">6 hours</p> <div class=\"border-t border-gray-700 pt-4 mt-4\"> <p class=\"font-semibold text-blue-300 mb-2\">Why we recommend this:</p> <div id=\"pkgReasoning\" class=\"text-sm text-gray-300 space-y-1\"> <p>✓ 8 of 12 bridal showers chose this package</p> <p>✓ Allows time for setup, food, games, photos, and cleanup</p> <p>✓ 2 customers who booked 4 hours asked for more time — don't make that mistake!</p> </div> </div> <button id=\"bookRecommended\" onclick=\"bookPackage('recommended')\" class=\"w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg text-lg mt-4\"> Book This Package </button> </div> </div> <!-- Alternative Options --> <div class=\"space-y-4\"> <h4 class=\"text-lg font-semibold text-gray-300\">Also available:</h4> <div id=\"alternativeOptions\" class=\"space-y-3\"> <!-- Populated by JS --> </div> </div>"
+        }
+      ],
+      "stateVariables": [],
+      "flowType": "event-type-funnel"
+    },
+    {
+      "filename": "index.html",
+      "path": "/Users/nicholasfeyintolafolarin-coker/trellomcp/trello-mcp/projects/2_Areas/01-Hibiscus-Studio/hibiscus-studio-deploy/index.html",
+      "title": "Hibiscus Studio - East London Event Space Rental",
+      "screens": [],
+      "stateVariables": [],
+      "flowType": "landing"
+    }
+  ],
+  "globalTransitions": [
+    {
+      "from": "index.html:landing",
+      "to": "booking-demo.html:step1",
+      "trigger": "view-booking-options",
+      "label": "View Booking Options"
+    },
+    {
+      "from": "index.html:landing",
+      "to": "event-type-funnel.html:step1",
+      "trigger": "start-booking",
+      "label": "Start Booking"
+    }
+  ]
+};
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.file-section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`[data-file="${tab.dataset.file}"]`).classList.add('active');
+      });
+    });
+
+    // Screen card hover for preview
+    const tooltip = document.getElementById('previewTooltip');
+    document.querySelectorAll('.screen-card').forEach(card => {
+      card.addEventListener('mouseenter', (e) => {
+        const screenId = card.dataset.screenId;
+        const filename = card.dataset.filename;
+        const file = data.files.find(f => f.filename === filename);
+        const screen = file?.screens.find(s => s.id === screenId);
+
+        if (screen) {
+          tooltip.querySelector('.preview-header').textContent = screen.title;
+          tooltip.querySelector('.preview-content').innerHTML = generatePreviewContent(screen);
+
+          const rect = card.getBoundingClientRect();
+          tooltip.style.left = (rect.right + 10) + 'px';
+          tooltip.style.top = rect.top + 'px';
+
+          // Keep tooltip on screen
+          const tooltipRect = tooltip.getBoundingClientRect();
+          if (tooltipRect.right > window.innerWidth) {
+            tooltip.style.left = (rect.left - 330) + 'px';
+          }
+          if (tooltipRect.bottom > window.innerHeight) {
+            tooltip.style.top = (window.innerHeight - tooltipRect.height - 20) + 'px';
+          }
+
+          tooltip.classList.add('visible');
+        }
+      });
+
+      card.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('visible');
+      });
+
+      card.addEventListener('click', () => {
+        const screenId = card.dataset.screenId;
+        const filename = card.dataset.filename;
+        openScreenModal(screenId, filename);
+      });
+    });
+
+    function generatePreviewContent(screen) {
+      let html = '';
+
+      // Show first few elements
+      const elements = screen.elements.slice(0, 5);
+      elements.forEach(el => {
+        html += `<div class="preview-element">
+          <div class="el-type">${el.type}</div>
+          <div>${el.copy?.title || el.copy?.label || el.copy?.description || '(no text)'}</div>
+        </div>`;
+      });
+
+      if (screen.elements.length > 5) {
+        html += `<div style="color: var(--text-muted); font-size: 0.8rem;">+ ${screen.elements.length - 5} more elements</div>`;
+      }
+
+      return html;
+    }
+
+    // Modal handling
+    const modal = document.getElementById('screenModal');
+    const modalBackdrop = modal.querySelector('.modal-backdrop');
+    const modalClose = modal.querySelector('.modal-close');
+
+    function openScreenModal(screenId, filename) {
+      const file = data.files.find(f => f.filename === filename);
+      const screen = file?.screens.find(s => s.id === screenId);
+
+      if (!screen) return;
+
+      document.getElementById('modalTitle').textContent = screen.title;
+      document.getElementById('modalId').textContent = screen.id;
+
+      // Populate copy
+      const copyList = document.getElementById('modalCopy');
+      copyList.innerHTML = screen.elements
+        .filter(el => el.copy && (el.copy.title || el.copy.description || el.copy.label))
+        .map(el => `
+          <div class="copy-item">
+            <div class="label">${el.type}</div>
+            <div class="value">${el.copy.title || el.copy.label || ''}</div>
+            ${el.copy.description ? `<div class="value" style="color: var(--text-secondary)">${el.copy.description}</div>` : ''}
+          </div>
+        `).join('') || '<p style="color: var(--text-muted)">No copy found</p>';
+
+      // Populate elements
+      const elementList = document.getElementById('modalElements');
+      elementList.innerHTML = screen.elements
+        .map(el => `
+          <div class="element-item">
+            <span>${el.copy?.title || el.copy?.label || '(unnamed)'}</span>
+            <span class="type">${el.type}</span>
+          </div>
+        `).join('') || '<p style="color: var(--text-muted)">No elements found</p>';
+
+      // Populate transitions
+      const transitionList = document.getElementById('modalTransitions');
+      transitionList.innerHTML = screen.transitions
+        .map(t => `
+          <div class="transition-item">
+            <span class="from">${t.from}</span>
+            <span>→</span>
+            <span class="to">${t.to}</span>
+            <span class="trigger">(${t.label})</span>
+          </div>
+        `).join('') || '<p style="color: var(--text-muted)">No transitions</p>';
+
+      // Populate validation
+      const validationList = document.getElementById('modalValidation');
+      const validationItems = [
+        ...screen.validationRules.map(r => ({ ...r, isError: false })),
+        ...screen.errorStates.map(e => ({ ...e, isError: true }))
+      ];
+      validationList.innerHTML = validationItems
+        .map(item => `
+          <div class="validation-item ${item.isError ? item.severity || 'error' : ''}">
+            ${item.isError ? item.message : `${item.field}: ${item.rule}`}
+          </div>
+        `).join('') || '<p style="color: var(--text-muted)">No validation rules</p>';
+
+      modal.classList.add('open');
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+    }
+
+    modalBackdrop.addEventListener('click', closeModal);
+    modalClose.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  
+  </script>
+</body>
+</html>

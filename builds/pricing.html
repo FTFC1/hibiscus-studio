@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flour Girls Cakehouse - Price List & FAQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #5a4139;
+            background: #fef9f4;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header-flourish {
+            text-align: center;
+            color: #c77d6a;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            letter-spacing: 8px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #2d1f1a;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #5a4139;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .version {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9a8881;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: #2d1f1a;
+            font-size: 1.6rem;
+            margin: 40px 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e8ddd4;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            color: #2d1f1a;
+            font-size: 1.2rem;
+            margin: 24px 0 12px;
+            font-weight: 500;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(45,31,26,0.08);
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e8ddd4;
+        }
+
+        .pricing-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pricing-table th {
+            background: #fef9f4;
+            font-weight: 600;
+            color: #2d1f1a;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-table .price {
+            color: #c77d6a;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .pricing-table .popular {
+            background: #fff5f0;
+        }
+
+        .pricing-table .popular td:first-child::after {
+            content: ' ★ Most Popular';
+            color: #c77d6a;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .note {
+            background: #fff;
+            border-left: 4px solid #c77d6a;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(45,31,26,0.08);
+        }
+
+        .deposit-note {
+            background: #fff;
+            border-left: 4px solid #c77d6a;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(45,31,26,0.08);
+        }
+
+        .deposit-note strong {
+            color: #2d1f1a;
+        }
+
+        .included-list {
+            list-style: none;
+            padding: 0;
+            background: #fff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(45,31,26,0.08);
+            margin: 16px 0;
+        }
+
+        .included-list li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            color: #5a4139;
+        }
+
+        .included-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #c77d6a;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .faq-item {
+            margin: 20px 0;
+            background: #fff;
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(45,31,26,0.08);
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: #2d1f1a;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .faq-a {
+            color: #5a4139;
+            line-height: 1.7;
+        }
+
+        .terms-section {
+            background: #fff;
+            padding: 32px;
+            border-radius: 16px;
+            margin-top: 40px;
+            box-shadow: 0 4px 12px rgba(45,31,26,0.08);
+            border: 2px solid #e8ddd4;
+        }
+
+        .terms-section h2 {
+            color: #2d1f1a;
+            margin-top: 0;
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+
+        .terms-list {
+            padding-left: 20px;
+            color: #5a4139;
+        }
+
+        .terms-list li {
+            margin: 16px 0;
+            line-height: 1.7;
+        }
+
+        .terms-list strong {
+            color: #2d1f1a;
+        }
+
+        .capacity-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .capacity-card {
+            background: #fff;
+            padding: 32px 56px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(45,31,26,0.08);
+            border: 2px solid #e8ddd4;
+        }
+
+        .capacity-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: #c77d6a;
+        }
+
+        .capacity-label {
+            color: #5a4139;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        a {
+            color: #c77d6a;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #b56a58;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .pricing-table th,
+            .pricing-table td {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+
+            .capacity-card {
+                padding: 24px 40px;
+            }
+
+            .capacity-num {
+                font-size: 2.5rem;
+            }
+
+            .terms-section {
+                padding: 24px;
+            }
+        }
+
+        @media print {
+            body {
+                padding: 20px;
+                background: #fff;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            .pricing-table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-flourish">~ ~ ~</div>
+    <h1>Flour Girls Cakehouse</h1>
+    <p class="subtitle">Price List & FAQ</p>
+    <p class="version">Version 006 · Updated 31 January 2026</p>
+
+    <!-- EVENT HIRE -->
+    <h2>Event Hire</h2>
+    <p>Perfect for private parties, celebrations, and special occasions.</p>
+
+    <table class="pricing-table">
+        <thead>
+            <tr>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>4 Hours</td>
+                <td class="price">£345</td>
+                <td>Flexible start time</td>
+            </tr>
+            <tr class="popular">
+                <td>6 Hours (Half-Day)</td>
+                <td class="price">£465</td>
+                <td>10am-4pm or 4pm-10pm</td>
+            </tr>
+            <tr>
+                <td>8 Hours</td>
+                <td class="price">£645</td>
+                <td>Flexible start time</td>
+            </tr>
+            <tr>
+                <td>12 Hours (Full-Day)</td>
+                <td class="price">£885</td>
+                <td>10am-10pm</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="deposit-note">
+        <strong>£200 refundable damage deposit required</strong> for all event bookings. Returned within 1-3 working days after event, subject to inspection.
+    </div>
+
+    <!-- WORKSHOP HIRE -->
+    <h2>Workshop Hire</h2>
+    <p>Ideal for classes, training sessions, and group activities.</p>
+
+    <table class="pricing-table">
+        <thead>
+            <tr>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Hourly Rate</td>
+                <td class="price">£150/hr</td>
+                <td>Up to 20 attendees</td>
+            </tr>
+            <tr>
+                <td>Full-Day Workshop</td>
+                <td class="price">£690</td>
+                <td>12 hours (10am-10pm)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="deposit-note">
+        <strong>£90 refundable damage deposit required</strong> for workshop bookings.
+    </div>
+
+    <!-- CONTENT CREATION -->
+    <h2>Content Creation</h2>
+    <p>For photographers, videographers, and content creators.</p>
+
+    <table class="pricing-table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Weekday / Off-Peak</td>
+                <td class="price">£160</td>
+                <td>Monday - Friday, full day access</td>
+            </tr>
+            <tr>
+                <td>Peak Weekend</td>
+                <td class="price">£160</td>
+                <td>Saturday - Sunday, full day access</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="deposit-note">
+        <strong>£50 refundable damage deposit required</strong> for content creation bookings.
+    </div>
+
+    <!-- WHAT'S INCLUDED -->
+    <h2>What's Included</h2>
+
+    <h3>Event Hire</h3>
+    <ul class="included-list">
+        <li>Full kitchen (oven, 5-hob stove, microwave, kettle, dishwasher, fridge)</li>
+        <li>40 limewash Chiavari chairs</li>
+        <li>10 trestle tables (6ft x 2ft each)</li>
+        <li>Toilet access & high-speed Wi-Fi</li>
+        <li>Natural light throughout</li>
+        <li>1 complimentary hour for pack-down</li>
+    </ul>
+
+    <h3>Workshop Hire</h3>
+    <ul class="included-list">
+        <li>Open-plan kitchen (oven, stove, microwave, kettle, fridge, sink)</li>
+        <li>Up to 4 tables & 20 Chiavari chairs</li>
+        <li>Wi-Fi & toilet access</li>
+        <li>Natural light</li>
+        <li>1 complimentary hour for pack-down</li>
+    </ul>
+
+    <h3>Content Creation</h3>
+    <ul class="included-list">
+        <li>Access to kitchen space</li>
+        <li>40 limewash Chiavari chairs & 10 tables available</li>
+        <li>Natural light</li>
+        <li>Wi-Fi & toilet access</li>
+    </ul>
+
+    <!-- CAPACITY -->
+    <h2>Capacity</h2>
+    <div class="capacity-grid">
+        <div class="capacity-card">
+            <div class="capacity-num">40</div>
+            <div class="capacity-label">Maximum Guests</div>
+        </div>
+    </div>
+    <p style="text-align: center; color: #5a4139; font-size: 0.9rem; margin-top: 12px;">
+        Includes 40 limewash Chiavari chairs and 10 trestle tables (6ft x 2ft each).
+    </p>
+
+    <!-- FAQ -->
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <div class="faq-q">How do I secure my date?</div>
+        <div class="faq-a">Book through our website and we'll send an invoice within 48 hours. Pay a 50% reservation fee to confirm your date. Your booking is secured once payment is received.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q">Can I bring my own food & drinks?</div>
+        <div class="faq-a">Yes! Our kitchen is available for your use, and outside catering is welcome. We do not provide cooking utensils. No deep fat fryers. Please leave the space as you found it.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q">What if I run over my booking time?</div>
+        <div class="faq-a">You will be charged £100 for every hour (or part thereof) that you exceed your booked time.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q">What about setup and pack-down time?</div>
+        <div class="faq-a">We include 1 complimentary hour at the end of your booking for pack-down. Please ensure your booked slot includes time for setup.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q">What equipment is included?</div>
+        <div class="faq-a">Your hire includes 40 limewash Chiavari chairs and 10 trestle tables (each 6ft x 2ft).</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q">Can I bring a DJ or play music?</div>
+        <div class="faq-a">Yes, DJs are welcome! Please note: we do not supply speakers or a PA system - these must be brought with you. Music until 10pm.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q">Is parking available?</div>
+        <div class="faq-a">Parking is the responsibility of the client. You can park directly outside for up to 30 minutes for loading/unloading (PCNs issued after 30 mins). Free parking on Huntingdon Street after 6:30pm and all day Sunday. Nearby paid options: Morrisons Car Park (free 2hrs), DesParking (99 Rathbone Street), Canning Town Carpark.</div>
+    </div>
+
+    <!-- CANCELLATION POLICY -->
+    <h2>Cancellation Policy</h2>
+
+    <table class="pricing-table">
+        <thead>
+            <tr>
+                <th>Notice Period</th>
+                <th>Refund</th>
+                <th>Reschedule</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>30+ days before</td>
+                <td>100% refund</td>
+                <td>Free reschedule</td>
+            </tr>
+            <tr>
+                <td>15-30 days before</td>
+                <td>50% refund</td>
+                <td>1 free reschedule (confirm within 14 days)</td>
+            </tr>
+            <tr>
+                <td>7-14 days before</td>
+                <td>Non-refundable</td>
+                <td>£25 admin fee for reschedule</td>
+            </tr>
+            <tr>
+                <td>Less than 7 days</td>
+                <td>Forfeited</td>
+                <td>No reschedule permitted</td>
+            </tr>
+            <tr>
+                <td>No-show / Same-day</td>
+                <td colspan="2">Full booking amount charged</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- TERMS -->
+    <div class="terms-section">
+        <h2>Key Terms & Conditions</h2>
+        <ol class="terms-list">
+            <li><strong>Reservation Fee:</strong> 50% deposit required to secure your booking. Invoices valid for 48 hours.</li>
+            <li><strong>Balance:</strong> Remaining 50% due 7 days before your event.</li>
+            <li><strong>Damage Deposit:</strong> £200 for events, £90 for workshops, £50 for content creation. Refunded within 1-3 working days after inspection.</li>
+            <li><strong>Grace Period:</strong> 30 minutes allowed after end time. After this, £50 charged per additional 30 minutes.</li>
+            <li><strong>Studio Care:</strong> Space must be left as found. Do not move furniture without permission. Additional cleaning fees may apply.</li>
+            <li><strong>Prohibited:</strong> Smoking, illegal substances, and unsafe activities are strictly prohibited.</li>
+        </ol>
+        <p style="margin-top: 16px; font-size: 0.9rem; color: #5a4139;">By paying the reservation fee, you agree to these Terms and Conditions.</p>
+    </div>
+
+    <p style="text-align: center; margin-top: 40px; color: #9a8881; font-size: 0.85rem;">
+        Flour Girls Cakehouse · 19a Peto Street North, London E16 1DP<br>
+        contacthibiscusstudio@gmail.com
+    </p>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flour Girls Cakehouse — Project Portfolio</title>
+    <meta name="description" content="Complete digital foundation for Flour Girls Cakehouse — booking systems, calculators, business analysis, operations, and live pages built since January 2025.">
+    <meta property="og:title" content="Flour Girls Cakehouse — Project Portfolio">
+    <meta property="og:description" content="Complete digital foundation for Flour Girls Cakehouse — booking systems, calculators, business analysis, operations, and live pages built since January 2025.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fef9f4;
+            --cream-deep: #fdf0e6;
+            --rose: #c77d6a;
+            --rose-soft: #e8b4a2;
+            --rose-hover: #b56a58;
+            --chocolate: #2d1f1a;
+            --chocolate-mid: #5a4139;
+            --chocolate-light: #8b7068;
+            --peach: #f5e1d4;
+            --sage: #e2ebe4;
+            --sage-deep: #c8d8cc;
+            --white: #ffffff;
+            --border: #e8ddd4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--chocolate);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .flourish {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--rose);
+            margin-bottom: 16px;
+            letter-spacing: 12px;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--chocolate-mid);
+            font-weight: 500;
+        }
+
+        /* Intro */
+        .intro {
+            max-width: 700px;
+            margin: 0 auto 80px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--chocolate-mid);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            margin: 0 auto 80px;
+            padding: 32px 24px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(45, 31, 26, 0.06);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--rose);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--chocolate-mid);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 600px;
+            margin: 0 auto 80px;
+            padding: 40px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            background: var(--rose);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--cream), 0 0 0 6px var(--border);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 12px);
+            background: var(--border);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--rose);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 15px;
+            color: var(--chocolate-mid);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            text-align: center;
+            margin: 80px 0 40px;
+            position: relative;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-divider::before {
+            left: 0;
+        }
+
+        .section-divider::after {
+            right: 0;
+        }
+
+        .section-divider span {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--rose);
+            padding: 0 20px;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 15px;
+            color: var(--chocolate-mid);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(45, 31, 26, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(45, 31, 26, 0.12);
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .badge-live {
+            background: var(--sage);
+            color: #2d5a3d;
+        }
+
+        .badge-system {
+            background: var(--peach);
+            color: var(--chocolate);
+        }
+
+        .badge-docs {
+            background: #e8e4f0;
+            color: #4a3d6b;
+        }
+
+        .badge-spec {
+            background: var(--cream-deep);
+            color: var(--rose-hover);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 15px;
+            color: var(--chocolate-mid);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .card-meta {
+            font-size: 13px;
+            color: var(--chocolate-light);
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--rose);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: gap 0.3s ease;
+        }
+
+        .card-link:hover {
+            gap: 12px;
+        }
+
+        .card-link::after {
+            content: '\2192';
+            font-size: 18px;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            background: var(--sage);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .coming-soon h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 12px;
+        }
+
+        .coming-soon p {
+            font-size: 16px;
+            color: var(--chocolate-mid);
+            line-height: 1.8;
+        }
+
+        .coming-soon ul {
+            list-style: none;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .coming-soon li {
+            background: rgba(255,255,255,0.6);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--chocolate);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 20px;
+            color: var(--chocolate);
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--chocolate-mid);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--rose);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            header {
+                margin-bottom: 60px;
+            }
+
+            .flourish {
+                font-size: 20px;
+                letter-spacing: 8px;
+            }
+
+            .intro {
+                font-size: 16px;
+                margin-bottom: 60px;
+            }
+
+            .stats-bar {
+                gap: 24px;
+                padding: 24px 16px;
+                margin-bottom: 60px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .timeline {
+                margin-bottom: 60px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .section-divider {
+                margin: 60px 0 30px;
+            }
+
+            .section-divider::before,
+            .section-divider::after {
+                width: 20%;
+            }
+
+            .coming-soon {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="flourish">~ ~ ~</div>
+            <h1 class="brand-name">Flour Girls Cakehouse</h1>
+            <p class="tagline">What We've Built Together</p>
+        </header>
+
+        <section class="intro">
+            <p>Since January 2025, we've been building the complete digital foundation for Flour Girls Cakehouse &mdash; from a full booking system with automated emails to a live masterclass landing page, workshop calculator, and operational guides. Here's the full story.</p>
+        </section>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Deliverables</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Live Pages</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">5,000+</div>
+                <div class="stat-label">Lines of Code</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Email Templates</div>
+            </div>
+        </div>
+
+        <section class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">Jan 2025</div>
+                <div class="timeline-title">Business Analysis & Strategy</div>
+                <div class="timeline-desc">Deep dive into workshop economics, pricing, and growth opportunities</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Jan 2025</div>
+                <div class="timeline-title">Booking System Design & Build</div>
+                <div class="timeline-desc">9-step booking funnel with calendar integration and availability management</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Jan &ndash; Feb 2025</div>
+                <div class="timeline-title">Backend & Email Automation</div>
+                <div class="timeline-desc">Cloudflare Workers API, Google Calendar sync, and branded email templates</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Feb 2025</div>
+                <div class="timeline-title">Workshop Calculator</div>
+                <div class="timeline-desc">Profit calculator to help workshop owners price and plan events</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Feb 2025</div>
+                <div class="timeline-title">Studio Operations & Pricing</div>
+                <div class="timeline-desc">Professional pricing reference and setup/packdown workflow guides</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Feb 2025</div>
+                <div class="timeline-title">Ganache Masterclass Page</div>
+                <div class="timeline-desc">Live booking page for private 1-2-1 chocolate ganache masterclasses</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Feb 2025</div>
+                <div class="timeline-title">Workshop Accelerator Bot</div>
+                <div class="timeline-desc">Full specification for an AI-powered workshop business consultant</div>
+            </div>
+        </section>
+
+        <!-- LIVE TOOLS -->
+        <div class="section-divider">
+            <span>Live Tools</span>
+        </div>
+        <p class="section-subtitle">Pages and tools currently live on the website</p>
+
+        <section class="cards-grid">
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-live">LIVE</span>
+                </div>
+                <h3 class="card-title">Main Website</h3>
+                <p class="card-desc">Full marketing site for Hibiscus Studio &mdash; East London event space rental with dark/light mode, video, and analytics.</p>
+                <a href="../index.html" class="card-link">Visit Site</a>
+            </div>
+
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-live">LIVE</span>
+                </div>
+                <h3 class="card-title">Booking System</h3>
+                <p class="card-desc">9-step booking funnel &mdash; event type, date, time, guests, details, and confirmation. Connected to calendar and email automation.</p>
+                <a href="../book/" class="card-link">View Booking</a>
+            </div>
+
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-live">LIVE</span>
+                </div>
+                <h3 class="card-title">Workshop Calculator</h3>
+                <p class="card-desc">Interactive profit calculator. Enter workshop details, see costs, revenue, and profit in 30 seconds.</p>
+                <a href="../calculator/" class="card-link">Try Calculator</a>
+            </div>
+
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-live">LIVE</span>
+                </div>
+                <h3 class="card-title">Ganache Masterclass</h3>
+                <p class="card-desc">Private 1-2-1 chocolate ganache masterclass booking page with photo gallery, pricing, and enquiry form.</p>
+                <a href="../fg-ganache-landing.html" class="card-link">View Page</a>
+            </div>
+        </section>
+
+        <!-- STRATEGY & OPERATIONS -->
+        <div class="section-divider">
+            <span>Strategy & Operations</span>
+        </div>
+        <p class="section-subtitle">Business analysis, pricing, and operational guides</p>
+
+        <section class="cards-grid">
+            <div class="card">
+                <h3 class="card-title">Business Analysis</h3>
+                <p class="card-desc">Workshop economics deep-dive covering revenue streams, pricing strategy, growth opportunities, and competitive positioning.</p>
+                <a href="analysis.html" class="card-link">View Analysis</a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Price List & FAQ</h3>
+                <p class="card-desc">Professional pricing reference for studio hire and workshops, with common questions answered for enquiries.</p>
+                <a href="pricing.html" class="card-link">View Pricing</a>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Studio Setup & Packdown</h3>
+                <p class="card-desc">Step-by-step workflow for event setup and packdown &mdash; kitchen, tables, equipment, and cleaning checklists.</p>
+                <a href="studio-ops.html" class="card-link">View Guide</a>
+            </div>
+
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-docs">DOCS</span>
+                </div>
+                <h3 class="card-title">Booking Funnel Map</h3>
+                <p class="card-desc">Visual architecture documentation of the entire booking flow &mdash; every step, every decision point, every integration.</p>
+                <a href="../docs/funnel-map/" class="card-link">View Map</a>
+            </div>
+        </section>
+
+        <!-- BACKEND SYSTEMS -->
+        <div class="section-divider">
+            <span>Behind the Scenes</span>
+        </div>
+        <p class="section-subtitle">The systems powering everything</p>
+
+        <section class="cards-grid">
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-system">SYSTEM</span>
+                </div>
+                <h3 class="card-title">Booking Backend</h3>
+                <p class="card-desc">Cloudflare Workers API handling availability checks, pricing calculations, booking creation, and calendar sync. Over 5,000 lines of production code.</p>
+                <p class="card-meta">Cloudflare Workers &middot; REST API &middot; Google Calendar</p>
+            </div>
+
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-system">SYSTEM</span>
+                </div>
+                <h3 class="card-title">Email Automation</h3>
+                <p class="card-desc">8 branded email templates for the full booking lifecycle &mdash; confirmations, reminders, follow-ups, and admin notifications.</p>
+                <p class="card-meta">Google Apps Script &middot; HTML Templates &middot; Automated</p>
+            </div>
+
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-system">SYSTEM</span>
+                </div>
+                <h3 class="card-title">Calendar Integration</h3>
+                <p class="card-desc">Google Apps Script automation connecting booking form to Google Calendar and Google Sheets for real-time availability and record-keeping.</p>
+                <p class="card-meta">Google Apps Script &middot; Calendar API &middot; Sheets</p>
+            </div>
+
+            <div class="card">
+                <div class="card-badges">
+                    <span class="card-badge badge-spec">SPEC</span>
+                </div>
+                <h3 class="card-title">Workshop Accelerator Bot</h3>
+                <p class="card-desc">Full specification for a Telegram bot that helps workshop owners craft, price, and optimise their offering. Three tiers: Calculator, Diagnostic, and Craft.</p>
+                <p class="card-meta">Telegram Bot &middot; AI-Powered &middot; 3-Tier Service</p>
+            </div>
+        </section>
+
+        <!-- NEXT UP -->
+        <section class="coming-soon">
+            <h3>What's Next</h3>
+            <p>We're continuing to build and refine &mdash; always making Flour Girls Cakehouse run smoother and reach further.</p>
+            <ul>
+                <li>Workshop Accelerator Bot (build)</li>
+                <li>Invoicing System</li>
+                <li>Client Dashboard</li>
+            </ul>
+        </section>
+
+        <footer>
+            <div class="footer-brand">Flour Girls Cakehouse</div>
+            <div class="footer-links">
+                <a href="https://www.instagram.com/flourgirlscakehouse" target="_blank">Instagram</a>
+                <a href="../index.html">Main Site</a>
+                <a href="../book/">Book an Event</a>
+                <a href="../calculator/">Calculator</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(item);
+        });
+
+        document.querySelectorAll('.card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

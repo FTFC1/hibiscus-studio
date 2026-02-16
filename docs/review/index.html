@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>HB Review Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000;
+      color: #eee;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      border-bottom: 1px solid #222;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .back-btn {
+      padding: 8px 14px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #eee;
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+    }
+    .theme-toggle {
+      padding: 6px 10px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #888;
+      cursor: pointer;
+      font-size: 12px;
+      display: none;
+    }
+    .theme-toggle.visible { display: block; }
+
+    .view { display: none; padding: 60px 0 20px; }
+    .view.active { display: block; }
+
+    /* Level 1: Overview */
+    .container { max-width: 390px; margin: 0 auto; padding: 0 16px; }
+    h1 { font-size: 22px; margin-bottom: 6px; }
+    .subtitle { color: #666; margin-bottom: 20px; font-size: 13px; }
+
+    .instruction-banner {
+      background: linear-gradient(135deg, #1a2a1a 0%, #0d1a0d 100%);
+      border: 1px solid #2a4a2a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .instruction-banner h2 {
+      font-size: 14px;
+      color: #4a9;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .instruction-banner ol {
+      margin: 0;
+      padding-left: 20px;
+      color: #8a8;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .instruction-banner li { margin-bottom: 4px; }
+    .instruction-banner .note {
+      font-size: 11px;
+      color: #5a7a5a;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .cards { display: grid; gap: 10px; }
+    .card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s;
+    }
+    .card:active { background: #1a1a1a; }
+    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .card-desc { font-size: 13px; color: #666; margin-bottom: 6px; }
+    .card-meta { font-size: 11px; color: #444; }
+
+    /* Level 2: Architecture (Tree) */
+    #viewTree { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    svg { display: block; margin: 0 auto; }
+    .tree-title {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      padding: 16px 0 8px;
+    }
+
+    /* Level 3: Screenshot Detail */
+    #viewDetail { padding-bottom: 180px; }
+    #viewDetail.no-screenshot { padding-bottom: 140px; }
+
+    .screenshot-container {
+      width: 100%;
+      background: #111;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      position: relative;
+      cursor: pointer;
+    }
+    .screenshot-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Business logic text-only view - full page content */
+    .doc-title {
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      padding: 20px 16px 12px;
+      color: #fff;
+    }
+    .doc-content {
+      display: none;
+      padding: 0 16px 100px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #ccc;
+      white-space: pre-wrap;
+    }
+    .doc-content.visible { display: block; }
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 12px;
+    }
+    .doc-content th, .doc-content td {
+      border: 1px solid #333;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    .doc-content th {
+      background: #1a1a1a;
+      color: #fff;
+      font-weight: 600;
+    }
+    .doc-content td {
+      background: #111;
+    }
+    .doc-content h3 {
+      color: #fff;
+      font-size: 14px;
+      margin: 16px 0 8px;
+      font-weight: 600;
+    }
+
+    /* Bottom bar: nav controls + accordion */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      border-top: 1px solid #333;
+      z-index: 50;
+      display: none;
+    }
+    .bottom-bar.visible { display: block; }
+
+    .nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: #111;
+      border-bottom: 1px solid #222;
+    }
+    .nav-btn {
+      padding: 8px 14px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #eee;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+    }
+    .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .step-indicator { font-size: 13px; color: #666; }
+
+    .accordion-tabs {
+      display: flex;
+      border-bottom: 1px solid #222;
+      background: #0a0a0a;
+    }
+    .accordion-tab {
+      flex: 1;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+    .accordion-tab.active {
+      color: #eee;
+      border-bottom: 2px solid #4a9;
+    }
+    .accordion-panel {
+      display: none;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #bbb;
+      white-space: pre-wrap;
+      max-height: 35vh;
+      overflow-y: auto;
+    }
+    .accordion-panel.active { display: block; }
+
+    .pdf-preview {
+      width: 100%;
+      padding: 20px;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .pdf-link {
+      color: #4a9;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    /* Fullscreen overlay for screenshots */
+    .fullscreen-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 200;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .fullscreen-overlay.active { display: block; }
+    .fullscreen-close {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: #333;
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 201;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fullscreen-img {
+      width: 100%;
+      display: block;
+      padding-top: 60px;
+    }
+    .tap-hint {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: #888;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <span id="breadcrumb" style="font-size:14px;">HB Review Dashboard</span>
+  <div style="display:flex;gap:8px;">
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">Light</button>
+    <button class="back-btn" id="backBtn" onclick="goBack()" style="display:none;">Back</button>
+  </div>
+</div>
+
+<!-- LEVEL 1: Overview -->
+<div class="view active" id="viewOverview">
+  <div class="container">
+    <h1>HB Studio Review</h1>
+    <p class="subtitle">Select a flow to review</p>
+    <div class="instruction-banner">
+      <h2>How to Give Feedback</h2>
+      <ol>
+        <li>Turn on screen recording with microphone</li>
+        <li>Go through each flow, speaking your thoughts</li>
+        <li>Post the recording to our Telegram group</li>
+      </ol>
+      <p class="note">Voice feedback is the fastest way to share your thoughts</p>
+    </div>
+    <div class="cards">
+      <div class="card" onclick="showFlow('booking')">
+        <div class="card-title">Booking Flow</div>
+        <div class="card-desc">Demo funnel with recommendations</div>
+        <div class="card-meta">12 steps &bull; dark + light themes</div>
+      </div>
+      <div class="card" onclick="showFlow('admin')">
+        <div class="card-title">Admin Dashboard</div>
+        <div class="card-desc">Internal management interface</div>
+        <div class="card-meta">11 screens</div>
+      </div>
+      <div class="card" onclick="showFlow('emails')">
+        <div class="card-title">Email Flows</div>
+        <div class="card-desc">Transactional emails</div>
+        <div class="card-meta">4 types</div>
+      </div>
+      <div class="card" onclick="showFlow('pdfs')">
+        <div class="card-title">Customer PDFs</div>
+        <div class="card-desc">Invoice templates</div>
+        <div class="card-meta">2 documents</div>
+      </div>
+      <div class="card" onclick="showFlow('business')">
+        <div class="card-title">Business Logic</div>
+        <div class="card-desc">Refund policies, pricing rules</div>
+        <div class="card-meta">Operational documentation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEVEL 2: Architecture (Tree View) -->
+<div class="view" id="viewTree">
+  <p class="tree-title" id="treeTitle">Tap a node to view details</p>
+  <div id="treeContainer"></div>
+</div>
+
+<!-- LEVEL 3: Screenshot Detail -->
+<div class="view" id="viewDetail">
+  <div class="container">
+    <div class="doc-title" id="docTitle" style="display:none;"></div>
+    <div class="doc-content" id="docContent"></div>
+    <div class="screenshot-container" id="screenshotContainer">
+      <img id="screenshot" src="" alt="Screenshot">
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen Overlay -->
+<div class="fullscreen-overlay" id="fullscreenOverlay">
+  <button class="fullscreen-close" onclick="closeFullscreen()">&times;</button>
+  <img class="fullscreen-img" id="fullscreenImg" src="" alt="Fullscreen view">
+</div>
+
+<!-- Bottom Bar: Nav + Accordion -->
+<div class="bottom-bar" id="bottomBar">
+  <div class="nav-controls">
+    <button class="nav-btn" id="prevBtn" onclick="prevScreen()">Prev</button>
+    <span class="step-indicator" id="stepIndicator">1/12</span>
+    <button class="nav-btn" id="nextBtn" onclick="nextScreen()">Next</button>
+  </div>
+  <div class="accordion-tabs">
+    <button class="accordion-tab active" onclick="showPanel('copy')">Copy</button>
+    <button class="accordion-tab" onclick="showPanel('design')">Design</button>
+    <button class="accordion-tab" onclick="showPanel('logic')">Logic</button>
+  </div>
+  <div class="accordion-panel active" id="panelCopy"></div>
+  <div class="accordion-panel" id="panelDesign"></div>
+  <div class="accordion-panel" id="panelLogic"></div>
+</div>
+
+<script>
+var currentFlow = null;
+var currentTheme = 'dark';
+var currentIndex = 0;
+
+// Tree SVG templates for each flow
+var trees = {
+  booking: `<svg width="390" height="820" xmlns="http://www.w3.org/2000/svg">
+    <style>text{font-family:-apple-system,sans-serif;font-size:11px;fill:#fff}.node{cursor:pointer}.node:hover rect{fill:#222}.connector{stroke:#444;stroke-width:2}</style>
+    <rect width="100%" height="100%" fill="#000"/>
+    <a href="javascript:jumpToScreen(0)"><g class="node"><rect x="135" y="20" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="42" text-anchor="middle">Event Type</text></g></a>
+    <line x1="195" y1="56" x2="195" y2="70" class="connector"/>
+    <a href="javascript:jumpToScreen(1)"><g class="node"><rect x="135" y="70" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="92" text-anchor="middle">When?</text></g></a>
+    <line x1="195" y1="106" x2="195" y2="120" class="connector"/>
+    <a href="javascript:jumpToScreen(2)"><g class="node"><rect x="135" y="120" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="142" text-anchor="middle">Month Picker</text></g></a>
+    <line x1="195" y1="156" x2="195" y2="170" class="connector"/>
+    <a href="javascript:jumpToScreen(3)"><g class="node"><rect x="135" y="170" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="192" text-anchor="middle">Day Type</text></g></a>
+    <line x1="195" y1="206" x2="195" y2="220" class="connector"/>
+    <a href="javascript:jumpToScreen(4)"><g class="node"><rect x="135" y="220" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="242" text-anchor="middle">Pick Date</text></g></a>
+    <line x1="195" y1="256" x2="195" y2="270" class="connector"/>
+    <a href="javascript:jumpToScreen(5)"><g class="node"><rect x="135" y="270" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="292" text-anchor="middle">Time Slots</text></g></a>
+    <line x1="195" y1="306" x2="195" y2="320" class="connector"/>
+    <a href="javascript:jumpToScreen(6)"><g class="node"><rect x="135" y="320" width="120" height="36" fill="none" stroke="#888" stroke-width="2" rx="4"/><text x="195" y="342" text-anchor="middle">Time Expanded</text></g></a>
+    <line x1="195" y1="356" x2="195" y2="370" class="connector"/>
+    <a href="javascript:jumpToScreen(7)"><g class="node"><rect x="135" y="370" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="392" text-anchor="middle">Guests</text></g></a>
+    <line x1="195" y1="406" x2="195" y2="420" class="connector"/>
+    <a href="javascript:jumpToScreen(8)"><g class="node"><rect x="135" y="420" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="442" text-anchor="middle">Your Details</text></g></a>
+    <line x1="195" y1="456" x2="195" y2="470" class="connector"/>
+    <a href="javascript:jumpToScreen(9)"><g class="node"><rect x="135" y="470" width="120" height="36" fill="none" stroke="#888" stroke-width="2" rx="4"/><text x="195" y="492" text-anchor="middle">Details Filled</text></g></a>
+    <line x1="195" y1="506" x2="195" y2="520" class="connector"/>
+    <a href="javascript:jumpToScreen(10)"><g class="node"><rect x="135" y="520" width="120" height="36" fill="none" stroke="#fff" stroke-width="2" rx="4"/><text x="195" y="542" text-anchor="middle">Review</text></g></a>
+    <line x1="195" y1="556" x2="195" y2="570" class="connector"/>
+    <a href="javascript:jumpToScreen(11)"><g class="node"><circle cx="195" cy="590" r="18" fill="none" stroke="#4a9" stroke-width="2"/><text x="195" y="594" text-anchor="middle">Done</text></g></a>
+  </svg>`,
+
+  // Admin Dashboard: Login flow + dashboard actions
+  admin: `<svg width="390" height="500" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      text{font-family:-apple-system,sans-serif;font-size:12px;fill:#fff}
+      .node{cursor:pointer}
+      .node:hover rect{fill:#222}
+      .label{font-size:10px;fill:#666}
+      .connector{stroke:#444;stroke-width:2}
+    </style>
+    <rect width="100%" height="100%" fill="#000"/>
+
+    <!-- Login Flow -->
+    <text x="195" y="30" text-anchor="middle" class="label">LOGIN FLOW</text>
+    <a href="javascript:jumpToScreen(0)"><g class="node"><rect x="95" y="45" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="70" text-anchor="middle">Enter Email</text></g></a>
+    <line x1="195" y1="85" x2="195" y2="100" class="connector"/>
+    <a href="javascript:jumpToScreen(1)"><g class="node"><rect x="95" y="100" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="125" text-anchor="middle">Code Sent</text></g></a>
+    <line x1="195" y1="140" x2="195" y2="155" class="connector"/>
+    <a href="javascript:jumpToScreen(2)"><g class="node"><rect x="95" y="155" width="200" height="40" fill="none" stroke="#888" stroke-width="2" rx="6"/><text x="195" y="180" text-anchor="middle">Enter Code</text></g></a>
+    <line x1="195" y1="195" x2="195" y2="210" class="connector"/>
+
+    <!-- Dashboard -->
+    <a href="javascript:jumpToScreen(3)"><g class="node"><rect x="95" y="210" width="200" height="50" fill="none" stroke="#4a9" stroke-width="2" rx="6"/><text x="195" y="240" text-anchor="middle">Dashboard View</text></g></a>
+    <line x1="195" y1="260" x2="195" y2="280" class="connector"/>
+
+    <!-- Actions -->
+    <text x="195" y="295" text-anchor="middle" class="label">BOOKING ACTIONS</text>
+    <line x1="195" y1="305" x2="70" y2="335" class="connector"/>
+    <line x1="195" y1="305" x2="195" y2="335" class="connector"/>
+    <line x1="195" y1="305" x2="320" y2="335" class="connector"/>
+
+    <a href="javascript:jumpToScreen(4)"><g class="node"><rect x="20" y="335" width="100" height="45" fill="none" stroke="#3498db" stroke-width="2" rx="6"/><text x="70" y="362" text-anchor="middle">Change</text></g></a>
+    <a href="javascript:jumpToScreen(5)"><g class="node"><rect x="145" y="335" width="100" height="45" fill="none" stroke="#e74c3c" stroke-width="2" rx="6"/><text x="195" y="362" text-anchor="middle">Cancel</text></g></a>
+    <a href="javascript:jumpToScreen(6)"><g class="node"><rect x="270" y="335" width="100" height="45" fill="none" stroke="#2ecc71" stroke-width="2" rx="6"/><text x="320" y="362" text-anchor="middle">Confirm</text></g></a>
+
+    <text x="195" y="420" text-anchor="middle" class="label">Tap any node, then use Prev/Next</text>
+    <text x="195" y="435" text-anchor="middle" class="label">to browse all 11 screenshots</text>
+  </svg>`,
+
+  // Emails: Larger nodes with better spacing
+  emails: `<svg width="390" height="420" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      text{font-family:-apple-system,sans-serif;font-size:13px;fill:#fff}
+      .node{cursor:pointer}
+      .node:hover rect{fill:#222}
+      .connector{stroke:#444;stroke-width:2}
+    </style>
+    <rect width="100%" height="100%" fill="#000"/>
+    <a href="javascript:jumpToScreen(0)"><g class="node"><rect x="95" y="40" width="200" height="50" fill="none" stroke="#9b59b6" stroke-width="2" rx="6"/><text x="195" y="70" text-anchor="middle">Booking Confirmed</text></g></a>
+    <line x1="195" y1="90" x2="195" y2="115" class="connector"/>
+    <a href="javascript:jumpToScreen(1)"><g class="node"><rect x="95" y="115" width="200" height="50" fill="none" stroke="#3498db" stroke-width="2" rx="6"/><text x="195" y="145" text-anchor="middle">Date Changed</text></g></a>
+    <line x1="195" y1="165" x2="195" y2="190" class="connector"/>
+    <a href="javascript:jumpToScreen(2)"><g class="node"><rect x="95" y="190" width="200" height="50" fill="none" stroke="#e74c3c" stroke-width="2" rx="6"/><text x="195" y="220" text-anchor="middle">Booking Cancelled</text></g></a>
+    <line x1="195" y1="240" x2="195" y2="265" class="connector"/>
+    <a href="javascript:jumpToScreen(3)"><g class="node"><rect x="95" y="265" width="200" height="50" fill="none" stroke="#2ecc71" stroke-width="2" rx="6"/><text x="195" y="295" text-anchor="middle">Payment Confirmed</text></g></a>
+  </svg>`,
+
+  pdfs: `<svg width="390" height="220" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      text{font-family:-apple-system,sans-serif;font-size:13px;fill:#fff}
+      .node{cursor:pointer}
+      .node:hover rect{fill:#222}
+      .connector{stroke:#444;stroke-width:2}
+    </style>
+    <rect width="100%" height="100%" fill="#000"/>
+    <a href="javascript:jumpToScreen(0)"><g class="node"><rect x="95" y="40" width="200" height="50" fill="none" stroke="#f39c12" stroke-width="2" rx="6"/><text x="195" y="70" text-anchor="middle">Deposit Invoice</text></g></a>
+    <line x1="195" y1="90" x2="195" y2="115" class="connector"/>
+    <a href="javascript:jumpToScreen(1)"><g class="node"><rect x="95" y="115" width="200" height="50" fill="none" stroke="#f39c12" stroke-width="2" rx="6"/><text x="195" y="145" text-anchor="middle">Final Invoice</text></g></a>
+  </svg>`,
+
+  // Business Logic: Simple list
+  business: `<svg width="390" height="350" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      text{font-family:-apple-system,sans-serif;font-size:13px;fill:#fff}
+      .node{cursor:pointer}
+      .node:hover rect{fill:#222}
+    </style>
+    <rect width="100%" height="100%" fill="#000"/>
+    <a href="javascript:jumpToScreen(0)"><g class="node"><rect x="45" y="40" width="300" height="50" fill="none" stroke="#e74c3c" stroke-width="2" rx="6"/><text x="195" y="70" text-anchor="middle">Cancellation Policy</text></g></a>
+    <a href="javascript:jumpToScreen(1)"><g class="node"><rect x="45" y="110" width="300" height="50" fill="none" stroke="#2ecc71" stroke-width="2" rx="6"/><text x="195" y="140" text-anchor="middle">Pricing Structure</text></g></a>
+    <a href="javascript:jumpToScreen(2)"><g class="node"><rect x="45" y="180" width="300" height="50" fill="none" stroke="#3498db" stroke-width="2" rx="6"/><text x="195" y="210" text-anchor="middle">Booking Rules</text></g></a>
+    <a href="javascript:jumpToScreen(3)"><g class="node"><rect x="45" y="250" width="300" height="50" fill="none" stroke="#9b59b6" stroke-width="2" rx="6"/><text x="195" y="280" text-anchor="middle">Email Triggers</text></g></a>
+  </svg>`
+};
+
+var flows = {
+  booking: {
+    name: 'Booking Flow',
+    steps: [
+      { name: 'Event Type', file: 'funnel-{theme}-step-1-event-type.png', copy: 'Heading: "What are you planning?"\n\nOptions (4 cards):\n- Bridal shower\n- Birthday / private party\n- Photo/video shoot\n- Studio viewing\n\nNo helper text at this step.', design: 'Dark background (#000)\nCentered layout, max-width 420px\n4 touch-friendly cards in grid\nWhite border, rounded corners\nHover: subtle background change', logic: 'Analytics: "event-type-selected"\nSelection stored in state\nAuto-advances on tap\nNo back button (first step)' },
+      { name: 'When?', file: 'funnel-{theme}-step-2-when.png', copy: 'Heading: "When are you planning?"\n\nOptions:\n- This month\n- Next month  \n- Pick a specific month\n\nHelper: "We\'ll show availability"', design: '3 vertical cards\nSame styling as step 1\nBack button visible (top left)\nProgress: step 2', logic: 'Conditional flow:\n- This/next month -> day type\n- Specific month -> month picker\n\nBack returns to step 1' },
+      { name: 'Month Picker', file: 'funnel-{theme}-step-3-month-picker.png', copy: 'Heading: "Which month?"\n\nShows next 6 months as grid\nCurrent month first\nPopular months highlighted\n\nHelper: "Weekends book fast!"', design: '3x2 grid of month buttons\nMonth name + year shown\nDisabled months grayed\nGreen highlight on selection', logic: 'Only shown if "specific month" selected\nDisables past months\nStores month in state\nAdvances to day type' },
+      { name: 'Day Type', file: 'funnel-{theme}-step-4-day-type.png', copy: 'Heading: "Weekend or weekday?"\n\nOptions:\n- Weekend (Sat-Sun)\n- Weekday (Mon-Fri)\n\nHelper: "Weekday rates 20% lower"', design: '2 horizontal cards\nPricing hint on weekday\nSame card styling\nProgress: step 3', logic: 'Filters calendar by selection\nWeekday shows discount badge\nAdvances to date picker' },
+      { name: 'Pick Date', file: 'funnel-{theme}-step-5-pick-date.png', copy: 'Heading: "Choose your date"\n\nDate cards showing:\n- Available dates\n- Day name + date\n- "Popular" badge on busy days\n\nHelper: "Tap any available date"', design: 'Horizontal scrolling date cards\nColor-coded availability\nGreen = available\nRed = booked\nYellow = few slots', logic: 'Filters by month + day type\nDisables past/booked dates\nSelection triggers time slot load\nShows real availability from backend' },
+      { name: 'Time Slots', file: 'funnel-{theme}-step-6-time-slots.png', copy: 'Heading: "Available times"\n\nTime slots:\n- 12pm-6pm (6 hours)\n- 2pm-8pm (6 hours)\n- 4pm-10pm (6 hours)\n- 6pm-12am (6 hours +late fee)\n\nEach shows duration + price', design: 'Vertical list of time cards\nEach card shows:\n- Time range\n- Duration badge\n- "Late fee" warning if applicable\n\nTap to expand details', logic: 'Shows times for selected date\nPrices vary by timing\nLate finish (after 10pm) = +50\nClick expands for full details' },
+      { name: 'Time Expanded', file: 'funnel-{theme}-step-7-time-expanded.png', copy: 'Expanded time slot shows:\n\nTime: 12pm-6pm (6 hours)\n\nBreakdown:\n- Setup access 30min early\n- Main event: 5.5 hours\n- Cleanup: included\n\nInclusions:\n- 40 chairs, 10 tables\n- Kitchen access\n- Parking (3 spaces)\n\n"Select this time" button', design: 'Card expands in place\nDetailed breakdown visible\nBullet list of inclusions\nGreen "Select" button at bottom\nOther cards collapse', logic: 'Triggered by card tap\nShows package details\n"Select" stores time + advances\nOnly one card expanded at once' },
+      { name: 'Guest Count', file: 'funnel-{theme}-step-8-guests.png', copy: 'Heading: "How many guests?"\n\nGuest count buttons:\n- 1-10 (intimate)\n- 11-20 (small)\n- 21-30 (medium)\n- 31-40 (max)\n\nStudio capacity: 40 max', design: '2x2 grid of buttons\nEach shows range + label\nCapacity note below\nSelection highlighted green', logic: 'Validates 1-40 range\nStores count in state\nUsed for recommendations\nAuto-advances on selection' },
+      { name: 'Your Details', file: 'funnel-{theme}-step-9-details.png', copy: 'Heading: "Your contact details"\n\nForm fields:\n- Full name (required)\n- Email (required)\n- Phone (required)\n\nButton: "Review Booking" (disabled)', design: 'Standard form layout\nLabel above each input\nRequired indicator (*)\nDisabled button until valid\nAuto-fill demo button for testing', logic: 'Validates required fields\nEmail format check\nPhone: UK format\nEnables button when all valid' },
+      { name: 'Details Filled', file: 'funnel-{theme}-step-10-details-filled.png', copy: 'Same form, now showing:\n\nName: Ayodele Johnson\nEmail: ayodele@example.com\nPhone: 08012345678\n\nButton: "Review Booking" (enabled)', design: 'Filled form state\nGreen checkmarks next to valid fields\nButton now green + enabled\nSmooth transition effect', logic: 'All validations passed\nData stored in state\nReview button clickable\nClick shows review screen' },
+      { name: 'Review Booking', file: 'funnel-{theme}-step-11-review.png', copy: 'Heading: "Review your booking"\n\nSummary:\n- Event type\n- Date + time\n- Guest count\n- Your details\n\nPricing:\n- Package price\n- Deposit (50%)\n- Balance due\n\nButtons: [Edit] [Confirm]', design: 'Clean summary cards\nPricing breakdown prominent\nEdit = secondary button\nConfirm = primary green button\nTerms link at bottom', logic: 'Read-only summary\nEdit returns to relevant step\nConfirm creates booking\nSends confirmation email\nAdvances to confirmation' },
+      { name: 'Booking Confirmed', file: 'funnel-{theme}-step-12-confirmation.png', copy: 'Heading: "Booking confirmed!"\n\nWhat happens next:\n1. Email confirmation within 24hrs\n2. Invoice within 48hrs\n3. Pay 50% deposit\n4. Final details 7 days before\n\nQuestions? Reply to email', design: 'Success state\nGreen checkmark icon\nNumbered timeline\nContact info at bottom\nNo progress indicator (final)', logic: 'Terminal state\nAnalytics: "booking-complete"\nConfirmation email sent\nInvoice generation queued' }
+    ]
+  },
+  admin: {
+    name: 'Admin Dashboard',
+    steps: [
+      { name: 'Enter Email', file: 'CleanShot 2026-01-29 at 11.49.21@2x.png', copy: 'Admin Login - Email Entry\n\nMagic link authentication:\n- Enter admin email address\n- System sends OTP code\n- No password required\n\nField: Email address\nButton: "Send Code"', design: 'Minimal login form\nEmail input centered\nHibiscus branding\nDark theme matching customer site', logic: 'Validates email format\nChecks against admin whitelist\nSends OTP via Cloudflare Email\nOTP valid for 10 minutes' },
+      { name: 'Code Sent', file: 'CleanShot 2026-01-29 at 11.50.04@2x.png', copy: 'Admin Login - Code Sent\n\nMessage: "A code has been emailed to you"\n\nConfirmation screen showing:\n- Email successfully sent\n- Check your inbox\n- Code expires in 10 minutes\n\nButton: "Continue" or auto-advance', design: 'Confirmation message\nCloudflare Access branding\nEmail icon or checkmark\nTransition to code entry', logic: 'OTP sent via Cloudflare Email\nValid for 10 minutes\nUser checks inbox\nAuto-advances or tap to continue' },
+      { name: 'Enter Code', file: 'CleanShot 2026-01-29 at 11.50.29@2x.png', copy: 'Admin Login - Enter Code\n\nMessage: "A code has been emailed to you"\n\nField: Enter code (6 digits)\nButton: "Sign in"\nLinks: "Resend email", "Didn\'t receive an email?"\n\nCloudflare Access authentication flow.', design: 'Code input field\nCloudflare Access branding\nResend option visible\nBack button available', logic: 'Validates code format\nSubmits to Cloudflare Access\nExpires after 10 minutes\n3 attempts before lockout' },
+      { name: 'Dashboard', file: 'CleanShot 2026-01-29 at 11.51.04@2x.png', copy: 'Main Admin Dashboard\n\nOne-page interface showing:\n- Pending bookings requiring action\n- This week\'s calendar\n- Quick stats\n\nActions available per booking:\n- [Change] Reschedule booking\n- [Cancel] Cancel with policy\n- [Confirm] Confirm payment', design: 'Single-page dashboard\nCard-based layout\nBookings with action buttons\nStatus badges (pending/confirmed)', logic: 'All actions in one view\nNo separate pages\nModals for Change/Cancel\nInline updates for Confirm' },
+      { name: 'Change Action', file: 'CleanShot 2026-01-29 at 11.51.30@2x.png', copy: 'Reschedule Booking\n\nShows:\n- Current booking details\n- Date picker for new date\n- Time slot selection\n- Rescheduling notice\n\nButtons: [Keep Date] [Save Changes]', design: 'Modal overlay\nDate picker component\nCurrent vs new comparison\nPolicy reminder', logic: 'Triggered by [Change] button\nValidates new date available\nSends reschedule email\nUpdates calendar' },
+      { name: 'Cancel Action', file: 'CleanShot 2026-01-29 at 11.51.50@2x.png', copy: 'Cancel Booking\n\nShows:\n- Booking details\n- Days until event\n- Cancellation policy applied\n- Refund calculation\n\nButtons: [Keep Booking] [Cancel Booking]', design: 'Modal overlay\nPolicy breakdown\nRefund amount highlighted\nWarning for <7 days', logic: 'Triggered by [Cancel] button\nCalculates refund by policy\nSends cancellation email\nRemoves from calendar' },
+      { name: 'Confirm Action', file: 'CleanShot X 2026-01-29 11.52.07.png', copy: 'Confirm Payment\n\nWhen admin clicks [Confirm]:\n- Booking status -> Confirmed\n- Calendar event -> Green\n- Confirmation email sent\n\nNo modal needed - inline action', design: 'Button state change\n"Confirming..." -> "Confirmed!"\nToast notification\nCard updates in place', logic: 'Triggered by [Confirm] button\nUpdates KV store\nUpdates calendar color\nTriggers email via Apps Script' },
+      { name: 'View 8', file: 'CleanShot X 2026-01-29 11.52.11.png', copy: 'Additional dashboard view\n\nUse Prev/Next to browse all screenshots captured during admin dashboard documentation.', design: 'Part of admin dashboard flow', logic: 'Additional reference screenshot' },
+      { name: 'View 9', file: 'CleanShot 2026-01-29 at 11.52.39@2x.png', copy: 'Additional dashboard view\n\nUse Prev/Next to browse all screenshots captured during admin dashboard documentation.', design: 'Part of admin dashboard flow', logic: 'Additional reference screenshot' },
+      { name: 'View 10', file: 'CleanShot X 2026-01-29 11.52.46.png', copy: 'Additional dashboard view\n\nUse Prev/Next to browse all screenshots captured during admin dashboard documentation.', design: 'Part of admin dashboard flow', logic: 'Additional reference screenshot' },
+      { name: 'View 11', file: 'CleanShot X 2026-01-29 11.52.49.png', copy: 'Additional dashboard view\n\nUse Prev/Next to browse all screenshots captured during admin dashboard documentation.', design: 'Part of admin dashboard flow', logic: 'Additional reference screenshot' }
+    ]
+  },
+  emails: {
+    name: 'Email Flows',
+    steps: [
+      { name: 'Booking Confirmed', file: 'CleanShot 2026-01-29 at 12.47.05@2x.png', copy: 'Subject: "Your Hibiscus Studio booking is confirmed!"\n\nHi [Name],\n\nYour booking is confirmed.\n\nEvent Details:\n- Date: [date]\n- Time: [time]\n- Guests: [count]\n- Package: [name] - [price]\n\nWhat\'s Next:\n1. Invoice within 48hrs\n2. Pay 50% deposit\n3. Details 7 days before', design: 'Purple-themed template\nLogo at top\nEvent details in box\nNumbered next steps\nCTA: "View Booking"\nFooter: contact + social', logic: 'Sent immediately on booking\nPersonalized with data\nIncludes .ics calendar file\nTracked for open rate' },
+      { name: 'Date Changed', file: 'CleanShot 2026-01-29 at 12.47.35@2x.png', copy: 'Subject: "Your booking date has been updated"\n\nYour event has been rescheduled.\n\nNew Date: [new date]\nNew Time: [new time]\nPrevious: [old date]\n\nNo action needed.\nDeposit remains valid.\n\n[Download calendar event]', design: 'Blue-themed email\nOld vs new comparison\nCalendar icon\nCTA: "Download calendar"\nReschedule policy link', logic: 'Triggered on admin date change\nShows before/after\nNew calendar attachment\nLogs change in history' },
+      { name: 'Booking Cancelled', file: 'CleanShot 2026-01-29 at 12.47.54@2x.png', copy: 'Subject: "Booking cancellation confirmed"\n\nYour booking has been cancelled.\n\nCancelled Event:\n- Date: [date]\n- Time: [time]\n\nRefund:\n- Policy: [30+ days / etc.]\n- Amount: [refund]\n- Processing: 5-7 days\n\nCancelled by mistake? Contact us.', design: 'Red-themed email\nCancelled details grayed\nRefund table\nTimeline graphic\nCTA: "Contact us"', logic: 'Sent on cancellation\nCalculates refund by policy\nProcesses refund auto\nRemoves from calendar' },
+      { name: 'Payment Confirmed', file: 'CleanShot 2026-01-29 at 12.55.03@2x.png', copy: 'Subject: "Payment received - You\'re all set!"\n\nPayment received!\n\nAmount: [amount]\nType: [Deposit / Final]\nDate: [today]\n\n[If deposit]\nRemaining: [balance]\nDue: Day of event\n\n[If final]\nYou\'re fully paid!\n\nEvent confirmed for [date]', design: 'Green-themed (success)\nCheckmark icon\nReceipt summary box\nProgress bar (paid vs remaining)\nPDF receipt attached', logic: 'Triggered on payment\nDeposit vs full payment logic\nAttaches PDF receipt\nUpdates booking status' }
+    ]
+  },
+  pdfs: {
+    name: 'Customer PDFs',
+    steps: [
+      { name: 'Deposit Invoice', file: 'HB-2026-003.pdf', copy: 'Invoice HB-2026-003\n\nBill To:\n[Customer name]\n[Email]\n\nEvent: [type]\nDate: [event date]\nTime: [time range]\n\nPackage: [price]\nDeposit (50%): [deposit]\n\nPayment due: Within 48hrs\n\nBank details:\nAccount: 12345678\nSort: 12-34-56\nRef: HB-2026-003', design: 'Hibiscus branding\nTwo-column layout\nItemized line items\nPayment terms at bottom\nBank transfer instructions', logic: 'Generated by admin\nSent within 48hrs of booking\n50% required to secure date\n48hr validity\nAuto-release if unpaid' },
+      { name: 'Final Invoice', file: 'HB-2026-004.pdf', copy: 'Invoice HB-2026-004\n\nBill To:\n[Customer name]\n\nEvent: [type]\nDate: [event date]\n\nPackage: [price]\nDeposit paid: -[deposit]\nBalance: [balance]\n\nDamages deposit: 200\n(refundable)\n\nTotal due: [balance + 200]\n\nDue: Day of event', design: 'Same template as deposit\nFull breakdown shown\nPrevious payments deducted\nDamages deposit separate\nDue date prominent', logic: 'Sent 7 days before event\nRemaining 50% + 200 damages\nDue on event day\nDamages refunded 1-3 days after\nUnpaid = event cancelled' }
+    ]
+  },
+  business: {
+    name: 'Business Logic',
+    steps: [
+      { name: 'Cancellation Policy', file: null, copy: 'Cancellation and refund policy by timeframe.', htmlContent: '<h3>Refund by Timeframe</h3><table><thead><tr><th>When</th><th>Refund</th><th>Rebooking</th></tr></thead><tbody><tr><td>30+ days before</td><td>100% deposit</td><td>Full credit</td></tr><tr><td>15-30 days</td><td>50% deposit</td><td>Full credit</td></tr><tr><td>7-14 days</td><td>25% deposit</td><td>50% credit</td></tr><tr><td>&lt;7 days</td><td>No refund</td><td>No credit</td></tr></tbody></table><h3>Special Cases</h3><table><thead><tr><th>Situation</th><th>Policy</th></tr></thead><tbody><tr><td>No-show</td><td>No refund, damages deposit forfeited</td></tr><tr><td>Weather/emergency</td><td>Full rebooking credit (valid 12 months)</td></tr></tbody></table><p style="color:#666;font-size:11px;margin-top:16px;">Refunds processed within 5-7 business days</p>', design: 'Policy tiered by timeframe\nPercentages clearly stated\nSpecial cases noted\nLast updated date shown', logic: 'Applied automatically\nCalculated from event date\nRefund processed 5-7 days\nCredit tracked in system' },
+      { name: 'Pricing Structure', file: null, copy: 'Package pricing with add-ons and discounts.', htmlContent: '<h3>Package Pricing</h3><table><thead><tr><th>Package</th><th>Duration</th><th>Price</th><th>Notes</th></tr></thead><tbody><tr><td>Flexi</td><td>4 hours</td><td>£345</td><td>Any 4-hour window, setup included</td></tr><tr><td>Half-Day</td><td>6 hours</td><td>£465</td><td>12pm-6pm or 2pm-8pm (most popular)</td></tr><tr><td>Flexi</td><td>8 hours</td><td>£645</td><td>Any 8-hour window</td></tr><tr><td>Full-Day</td><td>12 hours</td><td>£885</td><td>10am-10pm, maximum access</td></tr></tbody></table><h3>Add-ons</h3><table><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody><tr><td>Late finish (after 10pm)</td><td>+£50/hour</td></tr><tr><td>Early access (before 11am)</td><td>+£30/hour</td></tr><tr><td>Extra chairs</td><td>+£2/chair</td></tr><tr><td>Projector</td><td>+£25</td></tr></tbody></table><h3>Discounts</h3><table><thead><tr><th>Type</th><th>Discount</th></tr></thead><tbody><tr><td>Weekday booking</td><td>20% off</td></tr><tr><td>Repeat customer</td><td>10% off</td></tr><tr><td>Referral</td><td>£50 credit</td></tr></tbody></table>', design: 'Tiered pricing table\nAdd-ons listed separately\nDiscounts at bottom\nClear price points', logic: 'Base price + add-ons\nDiscounts applied at checkout\nWeekday auto-applied\nRepeat checked by email' },
+      { name: 'Booking Rules', file: null, copy: 'Booking constraints and requirements.', htmlContent: '<h3>Timing</h3><table><thead><tr><th>Rule</th><th>Requirement</th></tr></thead><tbody><tr><td>Minimum notice</td><td>48 hours (7 days for weekend peak)</td></tr><tr><td>Maximum advance</td><td>6 months ahead</td></tr><tr><td>Earliest start</td><td>10am</td></tr><tr><td>Latest finish</td><td>12am (midnight)</td></tr><tr><td>Minimum duration</td><td>4 hours</td></tr></tbody></table><h3>Capacity</h3><table><thead><tr><th>Type</th><th>Limit</th></tr></thead><tbody><tr><td>Maximum guests</td><td>40 people</td></tr><tr><td>Seated with tables</td><td>30 people</td></tr><tr><td>Under-16s</td><td>Require adult supervision</td></tr></tbody></table><h3>Payment</h3><table><thead><tr><th>Payment</th><th>Details</th></tr></thead><tbody><tr><td>Deposit</td><td>50% at booking, due within 48hrs</td></tr><tr><td>Balance</td><td>Due day of event (cash/card/transfer)</td></tr><tr><td>Damages deposit</td><td>£200 refundable, returned 1-3 days post-event</td></tr></tbody></table>', design: 'Constraint categories\nClear limits stated\nWarnings for edge cases\nFAQ format', logic: 'Enforced in booking flow\nBackend validation\nAdmin can override\nAudit trail for overrides' },
+      { name: 'Email Triggers', file: null, copy: 'AUTOMATED EMAIL TRIGGERS\n\nOn booking submission:\n- Confirmation email (immediate)\n- Admin notification\n\nOn payment received:\n- Payment receipt email\n- Update booking status\n\nScheduled reminders:\n- 7 days before: Final invoice\n- 3 days before: Event reminder\n- 1 day before: Final details\n\nOn date change:\n- Updated confirmation\n- New calendar invite\n\nOn cancellation:\n- Cancellation confirmation\n- Refund details (if applicable)\n\nPost-event:\n- Thank you email (1 day after)\n- Review request (3 days after)', design: 'Trigger -> action format\nTimeline visualization\nEmail templates linked\nSend time specified', logic: 'Managed in email templates\nTriggered by status changes\nScheduled via cron jobs\nRetry on failure' }
+    ]
+  }
+};
+
+function showFlow(id) {
+  currentFlow = id;
+  currentIndex = 0;
+
+  document.getElementById('viewOverview').classList.remove('active');
+  document.getElementById('backBtn').style.display = 'block';
+
+  // Show theme toggle only for booking flow
+  if (id === 'booking') {
+    document.getElementById('themeBtn').classList.add('visible');
+  } else {
+    document.getElementById('themeBtn').classList.remove('visible');
+  }
+
+  // All flows now have a tree view (including business)
+  document.getElementById('viewTree').classList.add('active');
+  document.getElementById('breadcrumb').textContent = flows[id].name;
+  document.getElementById('treeTitle').textContent = 'Tap a node to view details';
+  document.getElementById('treeContainer').innerHTML = trees[id] || '';
+}
+
+function jumpToScreen(index) {
+  currentIndex = index;
+  document.getElementById('viewTree').classList.remove('active');
+  document.getElementById('viewDetail').classList.add('active');
+  document.getElementById('bottomBar').classList.add('visible');
+  loadScreen();
+}
+
+function loadScreen() {
+  var step = flows[currentFlow].steps[currentIndex];
+  var viewDetail = document.getElementById('viewDetail');
+  var screenshotContainer = document.getElementById('screenshotContainer');
+  var docTitle = document.getElementById('docTitle');
+  var docContent = document.getElementById('docContent');
+  var accordionTabs = document.querySelector('.accordion-tabs');
+  var accordionPanels = document.querySelectorAll('.accordion-panel');
+
+  // Business logic: show full-page content, hide accordion
+  if (currentFlow === 'business') {
+    screenshotContainer.style.display = 'none';
+    docTitle.style.display = 'block';
+    docTitle.textContent = step.name;
+    docContent.classList.add('visible');
+    docContent.innerHTML = step.htmlContent || step.copy.replace(/\n/g, '<br>');
+    viewDetail.classList.add('no-screenshot');
+    accordionTabs.style.display = 'none';
+    accordionPanels.forEach(function(p) { p.style.display = 'none'; });
+    updateNavigation();
+    return;
+  }
+
+  // Other flows: show accordion, hide doc-content
+  accordionTabs.style.display = 'flex';
+  docContent.classList.remove('visible');
+
+  // No-file items (shouldn't happen outside business)
+  if (!step.file) {
+    screenshotContainer.style.display = 'none';
+    docTitle.style.display = 'block';
+    docTitle.textContent = step.name;
+    viewDetail.classList.add('no-screenshot');
+    updateNavigation();
+    updatePanels();
+    return;
+  }
+
+  screenshotContainer.style.display = 'block';
+  docTitle.style.display = 'none';
+  viewDetail.classList.remove('no-screenshot');
+
+  var filename = step.file.replace('{theme}', currentTheme);
+
+  var path = '';
+  if (currentFlow === 'booking') {
+    path = 'screenshots/mobile/' + currentTheme + '/' + filename;
+  } else if (currentFlow === 'admin') {
+    path = 'screenshots/Admin Dash/' + filename;
+  } else if (currentFlow === 'emails') {
+    path = 'emails/' + filename;
+  } else if (currentFlow === 'pdfs') {
+    screenshotContainer.innerHTML = '<div class="pdf-preview"><p style="color:#666;margin-bottom:12px;">' + step.name + '</p><a class="pdf-link" href="emails/attachements/' + filename + '" target="_blank">Open PDF</a></div>';
+    updateNavigation();
+    updatePanels();
+    return;
+  }
+
+  screenshotContainer.innerHTML = '<img id="screenshot" src="' + path + '" alt="' + step.name + '" onclick="openFullscreen(this.src)"><span class="tap-hint">Tap to fullscreen</span>';
+  updateNavigation();
+  updatePanels();
+}
+
+function openFullscreen(src) {
+  document.getElementById('fullscreenImg').src = src;
+  document.getElementById('fullscreenOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFullscreen() {
+  document.getElementById('fullscreenOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close fullscreen on tap outside image or Escape key
+document.getElementById('fullscreenOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeFullscreen();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeFullscreen();
+});
+
+function updateNavigation() {
+  var total = flows[currentFlow].steps.length;
+  document.getElementById('stepIndicator').textContent = (currentIndex + 1) + '/' + total;
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  document.getElementById('nextBtn').disabled = currentIndex === total - 1;
+}
+
+function updatePanels() {
+  var step = flows[currentFlow].steps[currentIndex];
+  document.getElementById('panelCopy').textContent = step.copy || 'No copy available';
+  document.getElementById('panelDesign').textContent = step.design || 'No design notes';
+  document.getElementById('panelLogic').textContent = step.logic || 'No logic documentation';
+}
+
+function showPanel(panel) {
+  document.querySelectorAll('.accordion-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('.accordion-tab[onclick*="' + panel + '"]').classList.add('active');
+  document.getElementById('panel' + panel.charAt(0).toUpperCase() + panel.slice(1)).classList.add('active');
+}
+
+function prevScreen() {
+  if (currentIndex > 0) { currentIndex--; loadScreen(); }
+}
+
+function nextScreen() {
+  if (currentIndex < flows[currentFlow].steps.length - 1) { currentIndex++; loadScreen(); }
+}
+
+function toggleTheme() {
+  if (currentFlow === 'booking') {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.getElementById('themeBtn').textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
+    if (document.getElementById('viewDetail').classList.contains('active')) {
+      loadScreen();
+    }
+  }
+}
+
+function goBack() {
+  if (document.getElementById('viewDetail').classList.contains('active')) {
+    document.getElementById('viewDetail').classList.remove('active');
+    document.getElementById('bottomBar').classList.remove('visible');
+    document.getElementById('viewTree').classList.add('active');
+    document.getElementById('breadcrumb').textContent = flows[currentFlow].name;
+  } else if (document.getElementById('viewTree').classList.contains('active')) {
+    document.getElementById('viewTree').classList.remove('active');
+    document.getElementById('viewOverview').classList.add('active');
+    document.getElementById('breadcrumb').textContent = 'HB Review Dashboard';
+    document.getElementById('backBtn').style.display = 'none';
+    document.getElementById('themeBtn').classList.remove('visible');
+    currentFlow = null;
+  }
+}
+
+// Swipe navigation
+var touchStartX = 0;
+document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', function(e) {
+  if (!document.getElementById('viewDetail').classList.contains('active')) return;
+  var diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) nextScreen();
+    else prevScreen();
+  }
+});
+</script>
+</body>
+</html>

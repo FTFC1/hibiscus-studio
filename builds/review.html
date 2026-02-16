@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flour Girls Cakehouse — Your Business, Running Itself</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fef9f4;
+            --cream-deep: #fdf0e6;
+            --rose: #c77d6a;
+            --rose-soft: #e8b4a2;
+            --rose-hover: #b56a58;
+            --chocolate: #2d1f1a;
+            --chocolate-mid: #5a4139;
+            --chocolate-light: #8b7068;
+            --peach: #f5e1d4;
+            --sage: #e2ebe4;
+            --sage-deep: #c8d8cc;
+            --white: #ffffff;
+            --border: #e8ddd4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--chocolate);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        .page { max-width: 480px; margin: 0 auto; padding: 0 20px; }
+
+        /* ── Chapter Nav (sticky) ── */
+        .chapter-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(254,249,244,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 50;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .chapter-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .chapter-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        .chapter-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--rose);
+        }
+        .chapter-dot:hover { background: var(--rose-soft); }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 52px 0 20px;
+        }
+        .hero-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--rose);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 34px;
+            font-weight: 600;
+            color: var(--chocolate);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .hero-intro {
+            font-size: 16px;
+            color: var(--chocolate-mid);
+            line-height: 1.7;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        /* ── Outcome Stats ── */
+        .outcomes {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 28px 0 20px;
+        }
+        .outcome {
+            text-align: center;
+            padding: 14px 6px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(45,31,26,0.05);
+        }
+        .outcome-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--rose);
+            line-height: 1;
+        }
+        .outcome-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--chocolate-mid);
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        /* ── Chapter ── */
+        .chapter {
+            padding: 44px 0 8px;
+        }
+        .chapter-num {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--rose-soft);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .chapter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--chocolate);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+        .chapter-story {
+            font-size: 15px;
+            color: var(--chocolate-mid);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .chapter-story strong { color: var(--chocolate); }
+
+        /* ── Before/After ── */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .ba-card {
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .ba-before {
+            background: var(--cream-deep);
+            border: 1px dashed var(--border);
+        }
+        .ba-after {
+            background: var(--sage);
+            border: 1px solid var(--sage-deep);
+        }
+        .ba-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .ba-before .ba-label { color: var(--chocolate-light); }
+        .ba-after .ba-label { color: #3d6b4a; }
+        .ba-before { color: var(--chocolate-light); }
+        .ba-after { color: #2d5a3d; }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 10px rgba(45,31,26,0.07);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:active { transform: scale(0.98); }
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 4px;
+        }
+        .card-desc {
+            font-size: 14px;
+            color: var(--chocolate-mid);
+            line-height: 1.5;
+        }
+        .card-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+        .badge-live { background: var(--sage); color: #2d5a3d; }
+        .badge-walk { background: var(--peach); color: var(--chocolate); }
+        .badge-doc { background: #e8e4f0; color: #4a3d6b; }
+
+        /* ── Live links ── */
+        .live-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--chocolate);
+            box-shadow: 0 2px 10px rgba(45,31,26,0.07);
+            margin-bottom: 12px;
+            transition: transform 0.2s;
+            border-left: 4px solid var(--sage-deep);
+        }
+        .live-link:active { transform: scale(0.98); }
+        .live-link h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .live-link p {
+            font-size: 13px;
+            color: var(--chocolate-mid);
+        }
+        .live-link-arrow {
+            color: var(--sage-deep);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* ── Pull quote ── */
+        .pull-quote {
+            text-align: center;
+            padding: 32px 20px;
+            margin: 8px 0 24px;
+        }
+        .pull-quote p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 19px;
+            color: var(--chocolate);
+            line-height: 1.5;
+        }
+        .pull-quote .attr {
+            font-family: 'DM Sans', sans-serif;
+            font-style: normal;
+            font-size: 12px;
+            color: var(--chocolate-light);
+            margin-top: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            text-align: center;
+            margin: 16px 0;
+            position: relative;
+        }
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: var(--border);
+        }
+        .divider span {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--rose-soft);
+            padding: 0 16px;
+            background: var(--cream);
+            position: relative;
+        }
+
+        /* ── Detail overlay ── */
+        .detail-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--cream);
+            z-index: 100;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .detail-overlay.active { display: block; }
+        .detail-header {
+            position: sticky;
+            top: 0;
+            background: rgba(254,249,244,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        .detail-back {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--chocolate);
+            cursor: pointer;
+        }
+        .detail-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--chocolate);
+        }
+        .detail-body {
+            padding: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ── Walkthrough ── */
+        .walk-img-wrap {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(45,31,26,0.08);
+            margin-bottom: 16px;
+        }
+        .walk-img-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+        }
+        .walk-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .walk-btn {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--chocolate);
+            cursor: pointer;
+        }
+        .walk-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .walk-step { font-size: 13px; color: var(--chocolate-mid); }
+        .walk-info {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(45,31,26,0.06);
+        }
+        .walk-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--chocolate);
+            margin-bottom: 8px;
+        }
+        .walk-info p {
+            font-size: 14px;
+            color: var(--chocolate-mid);
+            line-height: 1.6;
+        }
+
+        /* ── Detail text ── */
+        .detail-text {
+            font-size: 14px;
+            color: var(--chocolate-mid);
+            line-height: 1.7;
+        }
+        .detail-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--chocolate);
+            margin: 20px 0 8px;
+        }
+        .detail-text h3:first-child { margin-top: 0; }
+        .detail-text table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+        .detail-text th, .detail-text td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+        }
+        .detail-text th { background: var(--peach); color: var(--chocolate); font-weight: 600; }
+        .detail-text td { background: var(--white); }
+        .detail-text ul { padding-left: 20px; margin: 8px 0; }
+        .detail-text li { margin-bottom: 4px; }
+        .detail-text a { color: var(--rose); font-weight: 600; text-decoration: none; }
+        .detail-text a:hover { text-decoration: underline; }
+
+        /* ── Fullscreen ── */
+        .fullscreen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(45,31,26,0.95);
+            z-index: 200;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .fullscreen.active { display: block; }
+        .fullscreen-close {
+            position: fixed;
+            top: 16px; right: 16px;
+            width: 40px; height: 40px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            color: var(--chocolate);
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 201;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .fullscreen img {
+            width: 100%;
+            display: block;
+            padding-top: 60px;
+        }
+
+        /* ── Next section ── */
+        .next-section {
+            background: var(--sage);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            margin: 16px 0 40px;
+        }
+        .next-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--chocolate);
+            margin-bottom: 8px;
+        }
+        .next-section > p {
+            font-size: 14px;
+            color: var(--chocolate-mid);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .next-item {
+            background: rgba(255,255,255,0.5);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        .next-item h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            color: var(--chocolate);
+            margin-bottom: 2px;
+        }
+        .next-item p {
+            font-size: 13px;
+            color: var(--chocolate-mid);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 32px 0 28px;
+            border-top: 1px solid var(--border);
+        }
+        footer .brand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--chocolate);
+            margin-bottom: 6px;
+        }
+        footer .built {
+            font-size: 12px;
+            color: var(--chocolate-light);
+            margin-bottom: 10px;
+        }
+        footer a {
+            font-size: 13px;
+            color: var(--chocolate-mid);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover { color: var(--rose); }
+        footer { padding-bottom: 72px; }
+
+        /* ── Bottom Nav (mobile sticky) ── */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(254,249,244,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            z-index: 60;
+            padding: 10px 16px;
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .bnav-btn {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--chocolate);
+            cursor: pointer;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .bnav-btn:active { background: var(--cream-deep); }
+        .bnav-label {
+            text-align: center;
+            flex: 1;
+            min-width: 0;
+        }
+        .bnav-chapter {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--chocolate);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .bnav-sub {
+            font-size: 10px;
+            color: var(--chocolate-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* ── Chapter Flow (visual journey) ── */
+        .chapter-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 24px;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 1px 6px rgba(45,31,26,0.05);
+        }
+        .flow-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .flow-icon svg { width: 22px; height: 22px; }
+        .flow-icon.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .flow-icon.ig svg { fill: white; }
+        .flow-icon.click { background: var(--sage); }
+        .flow-icon.click svg { fill: #3d6b4a; }
+        .flow-icon.book { background: var(--peach); }
+        .flow-icon.book svg { fill: var(--rose); }
+        .flow-icon.done { background: var(--sage); }
+        .flow-icon.done svg { fill: #2d5a3d; }
+        .flow-text {
+            font-size: 14px;
+            color: var(--chocolate);
+            line-height: 1.4;
+        }
+        .flow-text strong { color: var(--chocolate); }
+        .flow-text span { color: var(--chocolate-mid); font-size: 13px; display: block; }
+        .flow-connector {
+            width: 2px;
+            height: 14px;
+            background: var(--border);
+            margin-left: 36px;
+        }
+
+        /* ── BA Icons ── */
+        .ba-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .ba-icon svg { width: 16px; height: 16px; }
+        .ba-before .ba-icon { background: rgba(139,112,104,0.12); }
+        .ba-before .ba-icon svg { fill: var(--chocolate-light); }
+        .ba-after .ba-icon { background: rgba(45,90,61,0.12); }
+        .ba-after .ba-icon svg { fill: #2d5a3d; }
+
+        /* ── Card preview ── */
+        .card-preview {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .card-preview-thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            background: var(--cream-deep);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .card-preview-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+        .card-preview-more {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            background: var(--cream-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--chocolate-mid);
+            flex-shrink: 0;
+        }
+
+        /* ── Email visual strip ── */
+        .email-strip {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .email-type {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            box-shadow: 0 1px 6px rgba(45,31,26,0.05);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .email-type:active { transform: scale(0.97); }
+        .email-type-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .email-type-icon.confirm { background: var(--sage); }
+        .email-type-icon.reschedule { background: #e8e4f0; }
+        .email-type-icon.cancel { background: var(--peach); }
+        .email-type-icon.payment { background: var(--cream-deep); }
+        .email-type-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--chocolate);
+        }
+        .email-type-sub {
+            font-size: 11px;
+            color: var(--chocolate-mid);
+            margin-top: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Chapter Navigation -->
+<div class="chapter-nav">
+    <div class="chapter-dots" id="chapterDots">
+        <button class="chapter-dot active" onclick="scrollToChapter(0)"></button>
+        <button class="chapter-dot" onclick="scrollToChapter(1)"></button>
+        <button class="chapter-dot" onclick="scrollToChapter(2)"></button>
+        <button class="chapter-dot" onclick="scrollToChapter(3)"></button>
+        <button class="chapter-dot" onclick="scrollToChapter(4)"></button>
+        <button class="chapter-dot" onclick="scrollToChapter(5)"></button>
+        <button class="chapter-dot" onclick="scrollToChapter(6)"></button>
+    </div>
+</div>
+
+<div class="page">
+
+    <!-- ═══ HERO ═══ -->
+    <div class="hero" id="ch0">
+        <div class="hero-label">Flour Girls Cakehouse</div>
+        <h1>Your Business,<br>Running Itself</h1>
+        <p class="hero-intro">
+            From the moment someone finds you online to the day of the event — everything is connected, automated, and designed around how you actually work.
+        </p>
+    </div>
+
+    <div class="outcomes">
+        <div class="outcome">
+            <div class="outcome-num">3</div>
+            <div class="outcome-label">Minute<br>Booking</div>
+        </div>
+        <div class="outcome">
+            <div class="outcome-num">8</div>
+            <div class="outcome-label">Auto<br>Emails</div>
+        </div>
+        <div class="outcome">
+            <div class="outcome-num">0</div>
+            <div class="outcome-label">Missed<br>Bookings</div>
+        </div>
+    </div>
+
+    <div class="pull-quote">
+        <p>"A customer books while you sleep. The confirmation sends itself. It's in your calendar when you wake up."</p>
+        <div class="attr">How it works now</div>
+    </div>
+
+    <!-- ═══ CHAPTER 1: DISCOVERY ═══ -->
+    <div class="divider"><span>~ ~ ~</span></div>
+
+    <div class="chapter" id="ch1">
+        <div class="chapter-num">Chapter One</div>
+        <h2 class="chapter-title">Someone Finds You</h2>
+
+        <div class="chapter-flow">
+            <div class="flow-step">
+                <div class="flow-icon ig">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>They see your Instagram</strong>
+                    <span>Or search "event space East London"</span>
+                </div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <div class="flow-icon click">
+                    <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>They click through</strong>
+                    <span>No Linktree. No "DM for pricing."</span>
+                </div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <div class="flow-icon book">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>Land on your booking page</strong>
+                    <span>See packages, prices, available dates</span>
+                </div>
+            </div>
+            <div class="flow-connector"></div>
+            <div class="flow-step">
+                <div class="flow-icon done">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                </div>
+                <div class="flow-text">
+                    <strong>Pick a date. Book. Done.</strong>
+                    <span>3 minutes, no messages needed</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="before-after">
+            <div class="ba-card ba-before">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
+                </div>
+                <div class="ba-label">Before</div>
+                DMs, back-and-forth, ghosted leads
+            </div>
+            <div class="ba-card ba-after">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                </div>
+                <div class="ba-label">Now</div>
+                Self-serve booking, instant confirmation
+            </div>
+        </div>
+
+        <a href="../book/" class="live-link">
+            <div>
+                <h3>Your Booking Page</h3>
+                <p>Live now &middot; tap to see it</p>
+            </div>
+            <span class="live-link-arrow">&rarr;</span>
+        </a>
+
+        <a href="../fg-ganache-landing.html" class="live-link">
+            <div>
+                <h3>Ganache Masterclass</h3>
+                <p>Your signature 1-2-1 class landing page</p>
+            </div>
+            <span class="live-link-arrow">&rarr;</span>
+        </a>
+    </div>
+
+    <!-- ═══ CHAPTER 2: BOOKING ═══ -->
+    <div class="divider"><span>~ ~ ~</span></div>
+
+    <div class="chapter" id="ch2">
+        <div class="chapter-num">Chapter Two</div>
+        <h2 class="chapter-title">They Book in 3 Minutes</h2>
+        <p class="chapter-story">
+            Your customer picks their event — bridal shower, birthday, photo shoot. Chooses a date. Picks a time. Enters their details. Confirms. <strong>Done.</strong> No phone calls. No waiting for you to reply. No lost leads because you were busy with an event.
+        </p>
+
+        <div class="before-after">
+            <div class="ba-card ba-before">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                </div>
+                <div class="ba-label">Before</div>
+                DMs, hours waiting, dates back-and-forth, ghosted
+            </div>
+            <div class="ba-card ba-after">
+                <div class="ba-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+                </div>
+                <div class="ba-label">Now</div>
+                Self-serve, live dates, instant confirmation
+            </div>
+        </div>
+
+        <div class="card" onclick="openWalk('booking')">
+            <div class="card-top">
+                <div>
+                    <div class="card-title">Walk Through the Booking</div>
+                    <div class="card-desc">Every step — from "What are you planning?" to "Confirmed!"</div>
+                </div>
+                <span class="card-badge badge-walk">12 screens</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-1-event-type.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-5-pick-date.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-11-review.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/mobile/light/funnel-light-step-12-confirmation.png" alt=""></div>
+                <div class="card-preview-more">+8</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ═══ CHAPTER 3: AUTOMATION ═══ -->
+    <div class="divider"><span>~ ~ ~</span></div>
+
+    <div class="chapter" id="ch3">
+        <div class="chapter-num">Chapter Three</div>
+        <h2 class="chapter-title">You Don't Lift a Finger</h2>
+        <p class="chapter-story">
+            The moment someone books, <strong>eight things happen automatically.</strong> A confirmation email lands in their inbox. A calendar event appears in yours. Their details go into a tracking sheet. If you reschedule — the customer gets an updated email and calendar invite. If they cancel — the refund is calculated by your policy. All without you typing a single message.
+        </p>
+
+        <div class="email-strip">
+            <div class="email-type" onclick="openWalkAt('emails',0)">
+                <div class="email-type-icon confirm">&#x2709;</div>
+                <div class="email-type-name">Confirmed</div>
+                <div class="email-type-sub">Instant on booking</div>
+            </div>
+            <div class="email-type" onclick="openWalkAt('emails',1)">
+                <div class="email-type-icon reschedule">&#x1F504;</div>
+                <div class="email-type-name">Rescheduled</div>
+                <div class="email-type-sub">New date + calendar</div>
+            </div>
+            <div class="email-type" onclick="openWalkAt('emails',2)">
+                <div class="email-type-icon cancel">&#x2716;</div>
+                <div class="email-type-name">Cancelled</div>
+                <div class="email-type-sub">Refund calculated</div>
+            </div>
+            <div class="email-type" onclick="openWalkAt('emails',3)">
+                <div class="email-type-icon payment">&#x00A3;</div>
+                <div class="email-type-name">Payment</div>
+                <div class="email-type-sub">Receipt + balance</div>
+            </div>
+        </div>
+
+        <div class="card" onclick="openDetail('calendar')">
+            <div class="card-top">
+                <div>
+                    <div class="card-title">Calendar & Sheets</div>
+                    <div class="card-desc">Every booking syncs to Google Calendar and a tracking spreadsheet. You check your calendar like normal — bookings are just there.</div>
+                </div>
+                <span class="card-badge badge-doc">auto</span>
+            </div>
+        </div>
+
+        <div class="card" onclick="openDetail('invoicing')">
+            <div class="card-top">
+                <div>
+                    <div class="card-title">Invoicing</div>
+                    <div class="card-desc">Deposit invoice within 48hrs. Final invoice 7 days before. Branded PDFs with bank details and unique reference numbers.</div>
+                </div>
+                <span class="card-badge badge-doc">auto</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ CHAPTER 4: COMMAND CENTRE ═══ -->
+    <div class="divider"><span>~ ~ ~</span></div>
+
+    <div class="chapter" id="ch4">
+        <div class="chapter-num">Chapter Four</div>
+        <h2 class="chapter-title">Your Command Centre</h2>
+        <p class="chapter-story">
+            One screen. Everything in front of you. Pending bookings that need confirming. This week's events. Quick actions — confirm payment, reschedule a date, handle a cancellation. <strong>No spreadsheet tabs, no searching through emails, no forgetting.</strong> Log in with just your email (no password to remember), and you're in control.
+        </p>
+
+        <div class="card" onclick="openWalk('admin')">
+            <div class="card-top">
+                <div>
+                    <div class="card-title">Walk Through the Dashboard</div>
+                    <div class="card-desc">Login, bookings, payments, scheduling — one place</div>
+                </div>
+                <span class="card-badge badge-walk">11 screens</span>
+            </div>
+            <div class="card-preview">
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/Admin Dash/CleanShot 2026-01-29 at 11.51.04@2x.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/Admin Dash/CleanShot 2026-01-29 at 11.51.30@2x.png" alt=""></div>
+                <div class="card-preview-thumb"><img src="../docs/review/screenshots/Admin Dash/CleanShot 2026-01-29 at 11.52.39@2x.png" alt=""></div>
+                <div class="card-preview-more">+8</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ CHAPTER 5: NUMBERS ═══ -->
+    <div class="divider"><span>~ ~ ~</span></div>
+
+    <div class="chapter" id="ch5">
+        <div class="chapter-num">Chapter Five</div>
+        <h2 class="chapter-title">Know Your Numbers</h2>
+        <p class="chapter-story">
+            <strong>Decisions backed by data, not guesswork.</strong> Profit per workshop, revenue by event type, every price and policy documented.
+        </p>
+
+        <a href="../calculator/" class="live-link">
+            <div>
+                <h3>Workshop Calculator</h3>
+                <p>Enter your costs, see your profit — instantly</p>
+            </div>
+            <span class="live-link-arrow">&rarr;</span>
+        </a>
+
+        <div class="card" onclick="openDetail('analysis')">
+            <div class="card-top">
+                <div>
+                    <div class="card-title">Business Analysis</div>
+                    <div class="card-desc">Revenue by event type, pricing vs market rates, seasonal demand, growth opportunities</div>
+                </div>
+                <span class="card-badge badge-doc">report</span>
+            </div>
+        </div>
+
+        <div class="card" onclick="openDetail('pricing')">
+            <div class="card-top">
+                <div>
+                    <div class="card-title">Pricing & Policies</div>
+                    <div class="card-desc">Every package, add-on, discount, and cancellation rule — documented and applied automatically</div>
+                </div>
+                <span class="card-badge badge-doc">reference</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ CHAPTER 6: OPS ═══ -->
+    <div class="divider"><span>~ ~ ~</span></div>
+
+    <div class="chapter" id="ch6">
+        <div class="chapter-num">Chapter Six</div>
+        <h2 class="chapter-title">Every Event, Same Standard</h2>
+        <p class="chapter-story">
+            You're not always going to be at every event. Someone else might do the setup. The guide makes sure it's done <strong>your way, every time</strong> — kitchen prep, table layout, AV equipment, cleaning checklist, key handover. The person running setup doesn't need to call you. It's all written down.
+        </p>
+
+        <div class="card" onclick="openDetail('studioops')">
+            <div class="card-top">
+                <div>
+                    <div class="card-title">Setup & Packdown Guide</div>
+                    <div class="card-desc">Step-by-step for every event — kitchen, tables, equipment, cleaning, handover</div>
+                </div>
+                <span class="card-badge badge-doc">guide</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ WHAT'S NEXT ═══ -->
+    <div class="divider"><span>~ ~ ~</span></div>
+
+    <div class="next-section">
+        <h3>What's Coming Next</h3>
+        <p>The foundation is built. Here's what we're working on to take it further.</p>
+        <div class="next-item">
+            <h4>Workshop Accelerator Bot</h4>
+            <p>A WhatsApp-style assistant that helps you plan workshops, check availability, and manage enquiries</p>
+        </div>
+        <div class="next-item">
+            <h4>Client Dashboard</h4>
+            <p>A page where your customers can view their booking, check their balance, and download invoices</p>
+        </div>
+        <div class="next-item">
+            <h4>Automated Follow-ups</h4>
+            <p>Thank you emails after events, review requests, and rebooking reminders — all automatic</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="brand">Flour Girls Cakehouse</div>
+        <div class="built">🌿 Built with care by Aloe Labs</div>
+        <a href="../index.html">Website</a>
+        <a href="../book/">Book</a>
+        <a href="https://www.instagram.com/flourgirlscakehouse" target="_blank">Instagram</a>
+    </footer>
+</div>
+
+<!-- ═══ BOTTOM NAV (mobile sticky) ═══ -->
+<div class="bottom-nav" id="bottomNav">
+    <button class="bnav-btn" id="bnavPrev" onclick="navChapter(-1)">&larr;</button>
+    <div class="bnav-label">
+        <div class="bnav-chapter" id="bnavTitle">Your Business, Running Itself</div>
+        <div class="bnav-sub" id="bnavSub">Scroll to explore</div>
+    </div>
+    <button class="bnav-btn" id="bnavNext" onclick="navChapter(1)">&rarr;</button>
+</div>
+
+<!-- ═══ DETAIL OVERLAY ═══ -->
+<div class="detail-overlay" id="detailOverlay">
+    <div class="detail-header">
+        <button class="detail-back" onclick="closeDetail()">&larr; Back</button>
+        <span class="detail-title" id="detailTitle"></span>
+        <span style="width:60px"></span>
+    </div>
+    <div class="detail-body" id="detailBody"></div>
+</div>
+
+<!-- FULLSCREEN -->
+<div class="fullscreen" id="fullscreen">
+    <button class="fullscreen-close" onclick="closeFs()">&times;</button>
+    <img id="fsImg" src="" alt="Fullscreen">
+</div>
+
+<script>
+// ── CHAPTER DATA ────────────────────────────────
+var chapterNames = [
+    'Your Business, Running Itself',
+    'Someone Finds You',
+    'They Book in 3 Minutes',
+    "You Don't Lift a Finger",
+    'Your Command Centre',
+    'Know Your Numbers',
+    'Every Event, Same Standard'
+];
+var chapterSubs = [
+    'Scroll to explore',
+    'Chapter 1 of 6',
+    'Chapter 2 of 6',
+    'Chapter 3 of 6',
+    'Chapter 4 of 6',
+    'Chapter 5 of 6',
+    'Chapter 6 of 6'
+];
+
+// ── CHAPTER SCROLL TRACKING ────────────────────
+var chapters = [];
+var currentChapter = 0;
+function initChapters() {
+    for (var i = 0; i <= 6; i++) {
+        var el = document.getElementById('ch' + i);
+        if (el) chapters.push(el);
+    }
+}
+
+var dots = null;
+function updateDots() {
+    if (!dots) dots = document.querySelectorAll('.chapter-dot');
+    var scrollY = window.scrollY + 120;
+    var active = 0;
+    for (var i = chapters.length - 1; i >= 0; i--) {
+        if (chapters[i].offsetTop <= scrollY) { active = i; break; }
+    }
+    currentChapter = active;
+    dots.forEach(function(d, idx) {
+        d.classList.toggle('active', idx === active);
+    });
+    // Update bottom nav
+    document.getElementById('bnavTitle').textContent = chapterNames[active] || '';
+    document.getElementById('bnavSub').textContent = chapterSubs[active] || '';
+}
+
+function scrollToChapter(idx) {
+    if (chapters[idx]) {
+        var y = chapters[idx].offsetTop - 50;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+}
+
+function navChapter(dir) {
+    var next = currentChapter + dir;
+    if (next >= 0 && next < chapters.length) {
+        scrollToChapter(next);
+    }
+}
+
+var scrollTimer = null;
+window.addEventListener('scroll', function() {
+    if (scrollTimer) return;
+    scrollTimer = setTimeout(function() { scrollTimer = null; updateDots(); }, 80);
+});
+
+// ── WALKTHROUGH DATA ────────────────────────────
+var walks = {
+    booking: {
+        title: 'The Booking Journey',
+        steps: [
+            { name: 'What are you planning?', file: 'funnel-light-step-1-event-type.png', desc: 'First thing your customer sees. Four clear options: bridal shower, birthday party, photo shoot, or studio viewing. No confusion — just pick your event.' },
+            { name: 'When are you thinking?', file: 'funnel-light-step-2-when.png', desc: 'Quick timing filter. This month, next month, or a specific date. We show what\'s available so they don\'t waste time on dates that are taken.' },
+            { name: 'Which month?', file: 'funnel-light-step-3-month-picker.png', desc: 'If they picked "specific month" — here are the next 6 months. Popular months are highlighted. Past months greyed out.' },
+            { name: 'Weekend or weekday?', file: 'funnel-light-step-4-day-type.png', desc: 'Weekday bookings get 20% off. This helps fill your midweek availability and gives customers who are flexible a reason to book cheaper.' },
+            { name: 'Choose your date', file: 'funnel-light-step-5-pick-date.png', desc: 'Available dates shown as tappable cards. Green means open. Popular dates flagged so they know to act fast.' },
+            { name: 'Pick your time', file: 'funnel-light-step-6-time-slots.png', desc: 'Time slots with prices. Each shows duration and what\'s included. Slots after 10pm have a late-finish fee — clearly marked.' },
+            { name: 'What\'s included', file: 'funnel-light-step-7-time-expanded.png', desc: 'Tap any time slot and it expands to show everything: setup access, chairs, tables, kitchen, parking. No surprises on the day.' },
+            { name: 'How many guests?', file: 'funnel-light-step-8-guests.png', desc: 'Guest count from 1 to 40 (your studio max). Helps with setup recommendations and makes sure they don\'t overbook the space.' },
+            { name: 'Contact details', file: 'funnel-light-step-9-details.png', desc: 'Name, email, phone. Clean form with validation — they can\'t submit without filling everything properly.' },
+            { name: 'Ready to review', file: 'funnel-light-step-10-details-filled.png', desc: 'All details entered. Green checkmarks confirm everything\'s valid. The "Review Booking" button lights up.' },
+            { name: 'Review everything', file: 'funnel-light-step-11-review.png', desc: 'Full summary before they commit: event type, date, time, guests, pricing breakdown. They can edit any detail or confirm.' },
+            { name: 'Booking confirmed!', file: 'funnel-light-step-12-confirmation.png', desc: 'Done! They see exactly what happens next: email confirmation, invoice within 48hrs, pay the deposit. Clear, professional, no confusion.' }
+        ],
+        basePath: '../docs/review/screenshots/mobile/light/'
+    },
+    admin: {
+        title: 'Your Admin Dashboard',
+        steps: [
+            { name: 'Log in with email', file: 'CleanShot 2026-01-29 at 11.49.21@2x.png', desc: 'No passwords to remember. Enter your admin email and we send you a code. Simple and secure.' },
+            { name: 'Check your inbox', file: 'CleanShot 2026-01-29 at 11.50.04@2x.png', desc: 'A login code arrives in your email. Valid for 10 minutes. If it doesn\'t come, there\'s a resend button.' },
+            { name: 'Enter the code', file: 'CleanShot 2026-01-29 at 11.50.29@2x.png', desc: 'Type the 6-digit code and you\'re in. Three attempts before lockout (for security).' },
+            { name: 'Your dashboard', file: 'CleanShot 2026-01-29 at 11.51.04@2x.png', desc: 'Everything in one place. Pending bookings, this week\'s events, quick actions. No tabs to click through — it\'s all here.' },
+            { name: 'Reschedule a booking', file: 'CleanShot 2026-01-29 at 11.51.30@2x.png', desc: 'Customer needs to change their date? Pick a new one here. They automatically get an email with the updated details and calendar invite.' },
+            { name: 'Cancel a booking', file: 'CleanShot 2026-01-29 at 11.51.50@2x.png', desc: 'Cancellation with your policy applied automatically. Shows days until event, calculates the refund, sends the cancellation email. You don\'t calculate anything.' },
+            { name: 'Confirm payment', file: 'CleanShot X 2026-01-29 11.52.07.png', desc: 'One tap. Booking goes green. Confirmation email sent. Calendar updated. That\'s it.' },
+            { name: 'Booking detail', file: 'CleanShot X 2026-01-29 11.52.11.png', desc: 'Full customer information, booking history, and all actions taken — everything about this booking in one view.' },
+            { name: 'Managing bookings', file: 'CleanShot 2026-01-29 at 11.52.39@2x.png', desc: 'Filter and search across all your bookings. Find any customer or event in seconds.' },
+            { name: 'Status overview', file: 'CleanShot X 2026-01-29 11.52.46.png', desc: 'Visual status of all bookings — pending in yellow, confirmed in green, completed in blue.' },
+            { name: 'Quick actions', file: 'CleanShot X 2026-01-29 11.52.49.png', desc: 'Common tasks surfaced at the top. Confirm payments, send reminders, handle the urgent stuff first.' }
+        ],
+        basePath: '../docs/review/screenshots/Admin Dash/'
+    },
+    emails: {
+        title: 'Your Automated Emails',
+        steps: [
+            { name: 'Booking Confirmed', file: 'CleanShot 2026-01-29 at 12.47.05@2x.png', desc: 'Sent the moment someone books. Shows their event details, what happens next (invoice within 48hrs, pay deposit), and attaches a calendar invite. They feel looked after immediately.' },
+            { name: 'Date Changed', file: 'CleanShot 2026-01-29 at 12.47.35@2x.png', desc: 'When you reschedule from the dashboard, this goes out automatically. Shows old date vs new date clearly. Updated calendar invite attached. Their deposit stays valid.' },
+            { name: 'Booking Cancelled', file: 'CleanShot 2026-01-29 at 12.47.54@2x.png', desc: 'Cancellation confirmation with refund details calculated by your policy. They know exactly what they\'re getting back and when.' },
+            { name: 'Payment Received', file: 'CleanShot 2026-01-29 at 12.55.03@2x.png', desc: 'Payment receipt showing the amount, whether it\'s deposit or final, and any remaining balance. Professional, clear, no ambiguity.' }
+        ],
+        basePath: '../docs/review/emails/'
+    }
+};
+
+var details = {
+    calendar: {
+        title: 'Calendar & Sheets',
+        html: '<div class="detail-text"><h3>What Happens Automatically</h3><p>Every booking creates two things without you doing anything:</p><ul><li><strong>A Google Calendar event</strong> with the customer\'s name, event type, time, and guest count</li><li><strong>A Google Sheets row</strong> tracking their booking status, payment, and contact details</li></ul><h3>Every Action Syncs</h3><table><thead><tr><th>When This Happens</th><th>Calendar</th><th>Sheets</th></tr></thead><tbody><tr><td>New booking</td><td>Event created</td><td>New row added</td></tr><tr><td>Date changed</td><td>Event moved</td><td>Row updated</td></tr><tr><td>Cancellation</td><td>Event removed</td><td>Status &rarr; cancelled</td></tr><tr><td>Payment confirmed</td><td>Event turns green</td><td>Payment logged</td></tr></tbody></table><h3>Why This Matters</h3><p>You check your calendar like you always do. Bookings are just <em>there</em>. No manual entry. No double-booking. No forgotten events. It works the way you already work.</p></div>'
+    },
+    analysis: {
+        title: 'Business Analysis',
+        html: '<div class="detail-text"><h3>What We Looked At</h3><ul><li>Revenue breakdown by event type — which events make you the most?</li><li>Your pricing vs East London market rates</li><li>Seasonal demand — when are you busiest, when are there gaps?</li><li>Growth opportunities — weekday bookings, workshop packages, add-ons</li><li>Where you sit in the competitive landscape</li></ul><h3>Key Finding</h3><p><strong>Workshops have the highest profit margin per hour.</strong> That\'s why we built the calculator — so you can plan these profitably every time.</p><p style="margin-top:16px;"><a href="analysis.html">Read the full analysis &rarr;</a></p></div>'
+    },
+    pricing: {
+        title: 'Pricing & Policies',
+        html: '<div class="detail-text"><h3>Your Packages</h3><table><thead><tr><th>Package</th><th>Hours</th><th>Price</th></tr></thead><tbody><tr><td>Flexi 4hr</td><td>4</td><td>&pound;345</td></tr><tr><td>Half-Day</td><td>6</td><td>&pound;465</td></tr><tr><td>Flexi 8hr</td><td>8</td><td>&pound;645</td></tr><tr><td>Full-Day</td><td>12</td><td>&pound;885</td></tr></tbody></table><h3>Discounts Applied Automatically</h3><table><thead><tr><th>Type</th><th>Discount</th></tr></thead><tbody><tr><td>Weekday booking</td><td>20% off</td></tr><tr><td>Repeat customer</td><td>10% off</td></tr><tr><td>Referral</td><td>&pound;50 credit</td></tr></tbody></table><h3>Cancellation Policy</h3><table><thead><tr><th>Notice Given</th><th>Refund</th></tr></thead><tbody><tr><td>30+ days before</td><td>100% deposit back</td></tr><tr><td>15&ndash;30 days</td><td>50% deposit back</td></tr><tr><td>7&ndash;14 days</td><td>25% deposit back</td></tr><tr><td>Under 7 days</td><td>No refund</td></tr></tbody></table><p>This policy is applied automatically when you cancel a booking from the dashboard — no manual calculations.</p><p style="margin-top:16px;"><a href="pricing.html">View the full price list &rarr;</a></p></div>'
+    },
+    studioops: {
+        title: 'Setup & Packdown',
+        html: '<div class="detail-text"><h3>Everything Covered</h3><p>A step-by-step guide anyone can follow — so the studio is ready the same way every time:</p><ul><li><strong>Kitchen</strong> — equipment check, surfaces cleaned, stock verified</li><li><strong>Tables & chairs</strong> — layout by event size (10, 20, 30, 40 guests)</li><li><strong>AV equipment</strong> — speaker, projector, screen setup</li><li><strong>End of event</strong> — cleaning checklist, rubbish, surfaces</li><li><strong>Key handover</strong> — lock-up procedure, alarm codes</li></ul><h3>Why It Matters</h3><p>You can\'t be at every event. But the person who is can follow this guide and deliver <em>your</em> standard. Same quality, every time, without you being there.</p></div>'
+    },
+    invoicing: {
+        title: 'Invoicing',
+        html: '<div class="detail-text"><h3>Two Invoices Per Booking</h3><table><thead><tr><th>Invoice</th><th>When</th><th>Amount</th></tr></thead><tbody><tr><td>Deposit</td><td>Within 48hrs of booking</td><td>50% of package price</td></tr><tr><td>Final</td><td>7 days before event</td><td>Remaining 50% + &pound;200 damages deposit</td></tr></tbody></table><h3>What Each Invoice Includes</h3><ul><li>Flour Girls Cakehouse branding</li><li>Itemised breakdown</li><li>Bank transfer details</li><li>Unique reference number (e.g. HB-2026-003)</li><li>Payment terms and due date</li></ul><p>The &pound;200 damages deposit is refundable — returned 1&ndash;3 days after the event if everything\'s in order.</p></div>'
+    }
+};
+
+// ── STATE ────────────────────────────────────────
+var currentWalk = null;
+var walkIndex = 0;
+
+// ── WALK ─────────────────────────────────────────
+function openWalk(id) {
+    currentWalk = walks[id];
+    walkIndex = 0;
+    document.getElementById('detailTitle').textContent = currentWalk.title;
+    renderWalk();
+    document.getElementById('detailOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderWalk() {
+    var step = currentWalk.steps[walkIndex];
+    var total = currentWalk.steps.length;
+    var imgPath = currentWalk.basePath + step.file;
+
+    document.getElementById('detailBody').innerHTML =
+        '<div class="walk-img-wrap"><img src="' + imgPath + '" alt="' + step.name + '" onclick="openFs(this.src)"></div>' +
+        '<div class="walk-nav">' +
+            '<button class="walk-btn" onclick="walkPrev()"' + (walkIndex === 0 ? ' disabled' : '') + '>&larr; Prev</button>' +
+            '<span class="walk-step">' + (walkIndex + 1) + ' of ' + total + '</span>' +
+            '<button class="walk-btn" onclick="walkNext()"' + (walkIndex === total - 1 ? ' disabled' : '') + '>Next &rarr;</button>' +
+        '</div>' +
+        '<div class="walk-info"><h3>' + step.name + '</h3><p>' + step.desc + '</p></div>';
+}
+
+function walkPrev() { if (walkIndex > 0) { walkIndex--; renderWalk(); } }
+function walkNext() { if (walkIndex < currentWalk.steps.length - 1) { walkIndex++; renderWalk(); } }
+
+function openWalkAt(id, idx) {
+    currentWalk = walks[id];
+    walkIndex = idx;
+    document.getElementById('detailTitle').textContent = currentWalk.title;
+    renderWalk();
+    document.getElementById('detailOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// ── DETAIL ───────────────────────────────────────
+function openDetail(id) {
+    var d = details[id];
+    document.getElementById('detailTitle').textContent = d.title;
+    document.getElementById('detailBody').innerHTML = d.html;
+    document.getElementById('detailOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+    document.getElementById('detailOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+    currentWalk = null;
+}
+
+// ── FULLSCREEN ───────────────────────────────────
+function openFs(src) {
+    document.getElementById('fsImg').src = src;
+    document.getElementById('fullscreen').classList.add('active');
+}
+function closeFs() {
+    document.getElementById('fullscreen').classList.remove('active');
+}
+document.getElementById('fullscreen').addEventListener('click', function(e) {
+    if (e.target === this) closeFs();
+});
+
+// ── SWIPE ────────────────────────────────────────
+var touchX = 0;
+document.addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; });
+document.addEventListener('touchend', function(e) {
+    if (!currentWalk) return;
+    var diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 60) {
+        if (diff > 0) walkNext();
+        else walkPrev();
+    }
+});
+
+// ── KEYBOARD ─────────────────────────────────────
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeFs(); closeDetail(); }
+    if (currentWalk) {
+        if (e.key === 'ArrowLeft') walkPrev();
+        if (e.key === 'ArrowRight') walkNext();
+    }
+});
+
+// ── INIT ─────────────────────────────────────────
+initChapters();
+updateDots();
+</script>
+</body>
+</html>

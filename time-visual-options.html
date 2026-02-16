@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Visual Options — Round 5 (Comparison Focus)</title>
+    <style>
+        :root {
+            --accent: #ec4899;
+            --accent-light: #f472b6;
+            --gradient: linear-gradient(135deg, #ec4899, #f472b6);
+            --blue: #3b82f6;
+            --blue-light: #60a5fa;
+            --purple: #7c3aed;
+            --purple-light: #c084fc;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0f;
+            color: #e5e5e5;
+            padding: 20px;
+        }
+        h1 { font-size: 1.2rem; color: #fff; margin-bottom: 8px; }
+        .subtitle { color: #666; font-size: 0.8rem; margin-bottom: 30px; }
+        .section-label {
+            font-size: 0.65rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 30px 0 12px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+        }
+        .section-label:first-of-type {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .option {
+            background: #111118;
+            border: 2px solid #222;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            max-width: 360px;
+        }
+        .option-label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .slot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+        .time-range { font-size: 1rem; font-weight: 600; color: #fff; }
+        .badge {
+            background: color-mix(in srgb, var(--accent) 20%, transparent);
+            color: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        /* Comparison base styles */
+        .compare {
+            text-align: center;
+            padding: 12px 0;
+        }
+        .compare-main {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+        .compare-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 2px;
+        }
+        .compare-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .compare-example {
+            background: #1a1a1f;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+        }
+        .compare-example .thing {
+            color: #aaa;
+        }
+
+        /* Blue theme for workshop */
+        .workshop .compare-main {
+            color: var(--blue-light);
+        }
+        .workshop .badge {
+            background: color-mix(in srgb, var(--blue) 20%, transparent);
+            color: var(--blue-light);
+        }
+
+        /* Purple theme for private */
+        .private .compare-main {
+            color: var(--purple-light);
+        }
+        .private .badge {
+            background: color-mix(in srgb, var(--purple) 20%, transparent);
+            color: var(--purple-light);
+        }
+
+        /* Interactive style - clickable feel */
+        .compare-example.interactive {
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .compare-example.interactive:hover {
+            background: #222;
+            border-color: #333;
+        }
+
+        /* With subtle CTA */
+        .compare-cta {
+            margin-top: 10px;
+            font-size: 0.65rem;
+            color: #555;
+        }
+        .compare-cta a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Round 6 — Refined Winners</h1>
+    <p class="subtitle">Bridal V2 winner · Shortened copy · Workshop = host perspective</p>
+
+    <div class="section-label">Bridal / Hen — WINNER: V2 Emotional</div>
+
+    <!-- Bridal V2: Emotional moments — THE WINNER -->
+    <div class="option" style="border-color: #4ade80;">
+        <div class="option-label" style="color: #4ade80;">★ WINNER — Bridal V2 Emotional</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of memories</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Tearful speeches</span>
+                    <span>at least 2</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">"Remember when..." stories</span>
+                    <span>dozens</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Group photos you'll frame</span>
+                    <span>~20</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-label">Private Event — Event-specific (correct)</div>
+
+    <!-- Private: Birthday -->
+    <div class="option private">
+        <div class="option-label">Birthday</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of your day</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Friends finally in one room</span>
+                    <span>all of them</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Songs that hit different</span>
+                    <span>~50</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Cake cutting retakes</span>
+                    <span>~5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Private: Baby Shower -->
+    <div class="option private">
+        <div class="option-label">Baby Shower</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of celebration</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Gifts to unwrap</span>
+                    <span>~20</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">"Awww" moments</span>
+                    <span>constant</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Parenting tips (wanted or not)</span>
+                    <span>plenty</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-label">Workshop — HOST perspective (you're teaching)</div>
+
+    <!-- Workshop V1: For the host running a class -->
+    <div class="option workshop">
+        <div class="option-label">Workshop Host V1 — Running your class</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">of teaching time</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Students you can teach</span>
+                    <span>up to 20</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Lightbulb moments to witness</span>
+                    <span>several</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Time to answer questions</span>
+                    <span>plenty</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workshop V2: For corporate team day host -->
+    <div class="option workshop">
+        <div class="option-label">Workshop Host V2 — Corporate team day</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">with your team</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Activities you can fit in</span>
+                    <span>3-4</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Team members engaged</span>
+                    <span>up to 30</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Break time for networking</span>
+                    <span>built in</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workshop V3: Creative workshop host -->
+    <div class="option workshop">
+        <div class="option-label">Workshop Host V3 — Creative class</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">to run your session</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Projects your students complete</span>
+                    <span>2-3</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Techniques you can demo</span>
+                    <span>5+</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">"I made this!" reactions</span>
+                    <span>guaranteed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-label">Generic — FIXED: shorter copy</div>
+
+    <!-- Generic V1 — FIXED -->
+    <div class="option">
+        <div class="option-label">Generic V1 — Fixed (shorter)</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">for your event</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Real conversations</span>
+                    <span>finally</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Songs on your playlist</span>
+                    <span>~90</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Moments you'll remember</span>
+                    <span>plenty</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic V2: Alternative short copy -->
+    <div class="option">
+        <div class="option-label">Generic V2 — Alternative</div>
+        <div class="slot-header">
+            <span class="time-range">12pm → 6pm</span>
+            <span class="badge">6 hours</span>
+        </div>
+        <div class="compare">
+            <div class="compare-main">4.5 hours</div>
+            <div class="compare-label">that's yours</div>
+            <div class="compare-examples">
+                <div class="compare-example">
+                    <span class="thing">Longer than most weddings</span>
+                    <span>yes</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">More than a festival set</span>
+                    <span>3x</span>
+                </div>
+                <div class="compare-example">
+                    <span class="thing">Room for everything planned</span>
+                    <span>definitely</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

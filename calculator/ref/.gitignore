@@ -1,0 +1,9 @@
+# Dev/reference files — don't deploy
+site-ref/
+video-frames/
+screenshot.mjs
+# Original video files (only deploy *-web.mp4)
+clips/v1.mp4
+clips/v2.mp4
+clips/v3.mp4
+clips/v4.mp4
