@@ -119,7 +119,7 @@ async function enrichYouTubeLink(url) {
     const tmpDir = `/tmp/yt-${Date.now()}`;
     mkdirSync(tmpDir, { recursive: true });
     execSync(
-      `yt-dlp --write-auto-sub --sub-lang en --skip-download --no-warnings -o "${tmpDir}/%(id)s" "${url}"`,
+      `yt-dlp --write-auto-sub --sub-lang en --skip-download --no-warnings --extractor-args "youtube:player_client=android" -o "${tmpDir}/%(id)s" "${url}"`,
       { timeout: 30000, stdio: 'pipe' }
     );
 
