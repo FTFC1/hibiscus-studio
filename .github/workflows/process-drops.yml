@@ -2,7 +2,7 @@ name: Process Drops
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Every 30 minutes
+    - cron: '*/5 * * * *'  # Every 5 minutes (public repo = unlimited, $0)
   workflow_dispatch: {}       # Manual trigger from GitHub UI
 
 jobs:

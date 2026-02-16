@@ -1,11 +1,11 @@
 // Ingest Command Center — Data Layer
 // Pattern: update data.js, never regen HTML
-// Last updated: 2026-02-16T00:15Z
-// Session: Sunday mega → night session (agent research, bot-designer, ingest fix, /tmp rescue)
+// Last updated: 2026-02-16T01:30Z
+// Session: Ingest loop closure (drops + GitHub Action + classification + access copy buttons)
 
 const ingestData = {
   meta: {
-    totalItems: 38,
+    totalItems: 42,
     lastUpdated: '2026-02-16T00:15Z',
     streams: [
       { id: 'S1-capture', label: 'Capture Pipeline', color: '#4ecdc4', count: 5 },
@@ -53,6 +53,13 @@ const ingestData = {
   //  SHIPPED — proof of work (most recent first)
   // ═══════════════════════════════════════════
   shipped: [
+    { date: 'Feb 16 (Sun late)', items: [
+      { title: 'GitHub Action: Drop Processor', detail: 'Cron every 5 min. Gemini 2.0 Flash classifies drops (category, tags, priority, route). $0/mo.', tag: 'INGEST' },
+      { title: 'Drop Classification Display', detail: 'Category badges, AI summaries, priority dots, route indicators on processed drops.', tag: 'INGEST' },
+      { title: 'Copy Buttons on Access', detail: 'Link/User/Pass/Share per item. Recency sorting. Relationship arrows. Custom share messages.', tag: 'INGEST' },
+      { title: '12 GitHub Issues Created', detail: 'Full session scrub → issues for every open item. INGEST, SELL, PUMA, OPS coverage.', tag: 'OPS' },
+      { title: 'Session Map Feb 16', detail: 'OPS finally addressed — 4 ACTIVE, 2 PARKED, 4 RAISED. No orphans.', tag: 'OPS' },
+    ]},
     { date: 'Feb 15-16 (Sun night)', items: [
       { title: 'Agent Landscape Research', detail: '5 parallel agents, 200+ sources. Market $7.4B, 90% fail in 30 days. MCP = standard. LangGraph = winner.', tag: 'INFRA' },
       { title: '/bot-designer Skill', detail: 'Knowledge-carrying agent advisor. Reads research + project state. Writes learnings to knowledge.md after each use.', tag: 'INFRA' },
@@ -103,13 +110,15 @@ const ingestData = {
     { label: 'Aloe Labs One-Pager', url: 'https://ftfc1.github.io/aloe-projects/pages/aloe-labs-one-pager.html', status: 'live', note: 'For Monday BASS conversation', updated: '2026-02-14',
       share: 'Aloe Labs — conversational ops for retail brands. One-pager attached' },
     { label: 'HB Calculator', url: 'https://hibiscusstudio.co.uk/calculator/explore.html', status: 'live', note: '', updated: '2026-02-01',
-      related: ['HB Booking', 'HB Admin'] },
+      related: ['HB Booking', 'HB Admin'],
+      share: 'HB Workshop Calculator — instant event quotes for Hibiscus Studio' },
     { label: 'HB Booking', url: 'https://hibiscusstudio.co.uk/book', status: 'live', note: '', updated: '2026-01-29',
-      related: ['HB Calculator', 'HB Admin'] },
-    { label: 'HB Admin', url: 'https://hibiscusstudio.co.uk/admin', status: 'live', note: '', updated: '2026-01-29',
+      related: ['HB Calculator', 'HB Admin'],
+      share: 'Book a workshop at Hibiscus Studio — pick date, time, guests' },
+    { label: 'HB Admin', url: 'https://hibiscusstudio.co.uk/admin', status: 'live', note: 'Internal — admin key required', updated: '2026-01-29',
       related: ['HB Calculator', 'HB Booking'] },
-    { label: 'On Our Own', url: 'https://ftfc1.github.io/on-our-own-brand/', status: 'live', note: '', updated: '2026-02-06' },
-    { label: 'GitHub Board', url: 'https://github.com/orgs/FTFC1/projects/2/views/1', status: 'live', note: '15 open issues', updated: '2026-02-15' },
+    { label: 'On Our Own', url: 'https://ftfc1.github.io/on-our-own-brand/', status: 'stale', note: 'Brand site — not actively updated', updated: '2026-02-06' },
+    { label: 'GitHub Board', url: 'https://github.com/orgs/FTFC1/projects/2/views/1', status: 'live', note: '27+ open issues (12 new from session close)', updated: '2026-02-16' },
   ],
 
   // ═══════════════════════════════════════════
@@ -260,8 +269,16 @@ const ingestData = {
     { label: '/tmp rescue (5 artifacts saved)', done: true },
     { label: 'Send Timmy app link + creds', done: false },
     { label: 'BASS conversation Monday', done: false },
-    { label: 'Triage 22 actions → GH issues', done: false },
-    { label: 'Ingest accessibility pass (boosted view)', done: false },
+    { label: 'Triage 22 actions → GH issues', done: true },
+    { label: 'Ingest accessibility pass (boosted view)', done: true },
+    { label: 'GitHub Action: drop processor (5 min cron)', done: true },
+    { label: 'Drop classification display (badges + summaries)', done: true },
+    { label: 'Copy buttons on Access links', done: true },
+    { label: 'Session map Feb 16 created', done: true },
+    { label: 'Image upload on drops', done: false },
+    { label: 'TG bot relay to /api/drop', done: false },
+    { label: 'Chidera DSG redo (full upstream)', done: false },
+    { label: 'Timmy demo landing page', done: false },
     { label: 'HBS Helper Railway spike', done: false },
   ],
 };
