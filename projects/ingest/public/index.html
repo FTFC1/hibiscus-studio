@@ -408,6 +408,11 @@
   .drop-priority-dot.medium { background: #f39c12; }
   .drop-priority-dot.low { background: #95a5a6; }
 
+  .drop-item { cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background 0.15s; }
+  .drop-item:active { background: #1a1a1a; }
+  .drop-item.expanded .drop-full { display: block !important; }
+  .drop-item.expanded .drop-text:first-of-type { display: none; }
+
   body.boosted .drop-text { font-size: 16px; }
   body.boosted .drop-item { padding: 16px; }
   body.boosted .drop-type { font-size: 12px; padding: 3px 8px; }
@@ -481,8 +486,7 @@
   </div>
 </div>
 
-<!-- Boost toggle — always visible when logged in -->
-<button class="boost-toggle" id="boost-toggle" onclick="toggleBoost()" style="display:none" title="Boosted view">&#9889;</button>
+<!-- Boost toggle removed — drop bar replaces it -->
 
 <!-- Bottom nav (boosted mode) -->
 <div class="bottom-nav" id="bottom-nav">
@@ -653,7 +657,6 @@ async function loadDashboard() {
 
   document.getElementById('loading').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  document.getElementById('boost-toggle').style.display = 'flex';
   document.getElementById('drop-bar').style.display = 'block';
   applyBoost();
   renderAll();
@@ -868,31 +871,62 @@ async function sendDrop() {
 function renderDrops() {
   const panel = document.getElementById('panel-drops');
   if (!dropsData.length) {
-    panel.innerHTML = '<div class="drop-empty">No drops yet. Type below to add one.</div>';
+    panel.innerHTML = '<div class="drop-empty">No drops yet. Send to Telegram to add.</div>';
     return;
   }
-  panel.innerHTML = dropsData.map(d => {
-    const age = timeAgo(d.ts);
-    const c = d.classification;
-    const classificationHtml = c ? `
-      <div class="drop-classification">
-        <span class="drop-priority-dot ${c.priority || 'low'}"></span>
-        <span class="drop-cat ${c.category || 'note'}">${c.category || 'note'}</span>
-        ${(c.tags||[]).map(t => `<span class="drop-tag">${escHtml(t)}</span>`).join('')}
-        <span class="drop-route" style="font-size:9px;color:#4ecdc4;margin-left:auto">→ ${c.route || ''}</span>
-        ${c.summary ? `<div class="drop-summary">${escHtml(c.summary)}</div>` : ''}
-      </div>` : '';
-    return `<div class="drop-item ${d.processed ? 'processed' : 'unprocessed'}">
-      <div class="drop-text">${escHtml(d.text)}</div>
-      <div class="drop-meta">
-        <span class="drop-type">${d.type}</span>
-        <span class="drop-source">${d.source}</span>
-        ${d.processed && !c ? '<span class="drop-type" style="background:#1a2a1a;color:#2ecc71">processed</span>' : ''}
-        <span class="drop-time">${age}</span>
-      </div>
-      ${classificationHtml}
-    </div>`;
-  }).join('');
+
+  // Group drops by date
+  const grouped = {};
+  dropsData.forEach(d => {
+    const dateKey = d.ts ? new Date(d.ts).toLocaleDateString('en-GB', { weekday: 'short', month: 'short', day: 'numeric' }) : 'Unknown';
+    if (!grouped[dateKey]) grouped[dateKey] = [];
+    grouped[dateKey].push(d);
+  });
+
+  // Count stats
+  const unprocessed = dropsData.filter(d => !d.processed).length;
+  const sourceIcon = s => s === 'telegram' ? '&#9992;' : s === 'dashboard' ? '&#9998;' : '&#8226;';
+
+  // Header
+  let html = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+    <span style="font-size:12px;color:#e0e0e0;font-weight:600">${dropsData.length} drops</span>
+    ${unprocessed > 0 ? `<span style="font-size:10px;padding:2px 8px;background:#4ecdc422;color:#4ecdc4;border-radius:10px">${unprocessed} new</span>` : ''}
+    <button onclick="loadDrops()" style="background:#111;border:1px solid #222;color:#4ecdc4;padding:8px 14px;font-size:12px;border-radius:8px;cursor:pointer;font-family:inherit;margin-left:auto;min-height:36px;">&#8635; Refresh</button>
+  </div>`;
+
+  // Render grouped by date
+  for (const [date, drops] of Object.entries(grouped)) {
+    html += `<div style="font-size:11px;color:#4ecdc4;padding:12px 0 6px;border-bottom:1px solid #1a1a1a;margin-bottom:8px;font-weight:600;letter-spacing:0.5px">${date} <span style="color:#444;font-weight:400">(${drops.length})</span></div>`;
+    html += drops.map(d => {
+      const age = timeAgo(d.ts);
+      const c = d.classification;
+      // Compact: show summary or truncated text
+      const displayText = c?.summary || d.text;
+      const truncated = displayText.length > 120 ? displayText.slice(0, 120) + '...' : displayText;
+      const catBadge = c ? `<span class="drop-cat ${c.category || 'note'}">${c.category || 'note'}</span>` : '<span class="drop-cat note">pending</span>';
+      const priorityDot = c?.priority === 'high' ? '<span class="drop-priority-dot high"></span>' : c?.priority === 'medium' ? '<span class="drop-priority-dot medium"></span>' : '';
+      const tags = c?.tags?.length ? c.tags.slice(0, 3).map(t => `<span class="drop-tag">${escHtml(t)}</span>`).join('') : '';
+      const src = sourceIcon(d.source);
+      return `<div class="drop-item ${d.processed ? 'processed' : 'unprocessed'}" onclick="this.classList.toggle('expanded')">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          ${priorityDot}
+          ${catBadge}
+          ${tags}
+          <span style="margin-left:auto;font-size:10px;color:#444">${src} ${age}</span>
+        </div>
+        <div class="drop-text">${escHtml(truncated)}</div>
+        <div class="drop-full" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #1a1a1a">
+          <div class="drop-text" style="color:#ccc">${escHtml(d.text)}</div>
+          <div class="drop-meta" style="margin-top:6px">
+            <span class="drop-type">${d.type}</span>
+            <span class="drop-source">${d.source}</span>
+            ${c?.route ? `<span style="font-size:9px;color:#4ecdc4">→ ${c.route}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  panel.innerHTML = html;
 }
 
 function copyText(text, btn) {
@@ -943,7 +977,8 @@ function toggleBoost() {
 
 function applyBoost() {
   document.body.classList.toggle('boosted', boosted);
-  document.getElementById('boost-toggle').classList.toggle('active', boosted);
+  const toggle = document.getElementById('boost-toggle');
+  if (toggle) toggle.classList.toggle('active', boosted);
   if (ingestData) renderTriage(ingestData);
 }
 
