@@ -1,0 +1,23 @@
+name: Process Drops
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+  workflow_dispatch: {}       # Manual trigger from GitHub UI
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Process unprocessed drops
+        env:
+          GIST_ID: ${{ secrets.DROPS_GIST_ID }}
+          GH_PAT: ${{ secrets.DROPS_GH_PAT }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node projects/ingest/scripts/process-drops.mjs

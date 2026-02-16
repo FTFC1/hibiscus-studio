@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ingest — Command Center</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0a">
+<script src="https://unpkg.com/@simplewebauthn/browser@13/dist/bundle/index.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'SF Mono', 'Fira Code', monospace; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; min-height: 100dvh; }
+
+  /* Auth gate */
+  #auth-gate { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; height: 100dvh; gap: 20px; padding: 20px; }
+  .auth-logo { font-size: 20px; letter-spacing: 6px; text-transform: uppercase; color: #4ecdc4; font-weight: 700; }
+  .auth-sub { font-size: 11px; color: #555; letter-spacing: 2px; text-transform: uppercase; }
+  .auth-btn { background: #111; border: 1px solid #4ecdc4; color: #4ecdc4; padding: 16px 32px; font-size: 14px; font-family: inherit; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.2s; margin-top: 16px; }
+  .auth-btn:hover { background: #4ecdc411; }
+  .auth-btn:active { transform: scale(0.97); }
+  .auth-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .auth-icon { font-size: 20px; }
+  .auth-status { font-size: 11px; color: #666; min-height: 18px; text-align: center; max-width: 280px; }
+  .auth-status.error { color: #e74c3c; }
+
+  /* Loading */
+  #loading { display: flex; align-items: center; justify-content: center; height: 100vh; height: 100dvh; }
+  .spinner { width: 20px; height: 20px; border: 2px solid #1a1a1a; border-top-color: #4ecdc4; border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* App hidden by default */
+  #app { display: none; }
+
+  /* Header */
+  .header { padding: 16px 20px; border-bottom: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
+  .meta { font-size: 11px; color: #555; }
+
+  /* Lens tabs */
+  .lens-bar { display: flex; gap: 0; border-bottom: 1px solid #1a1a1a; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .lens-tab { padding: 10px 16px; font-size: 12px; color: #666; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
+  .lens-tab:hover { color: #aaa; }
+  .lens-tab.active { color: #4ecdc4; border-bottom-color: #4ecdc4; }
+
+  /* Panels */
+  .panel { display: none; padding: 16px 20px 80px; }
+  .panel.active { display: block; }
+
+  /* Triage */
+  .triage-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; margin-bottom: 6px; transition: background 0.2s; }
+  .triage-item:hover { background: #141414; }
+  .urgency { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0; }
+  .urgency.now { background: #e74c3c22; color: #e74c3c; }
+  .urgency.soon { background: #f39c1222; color: #f39c12; }
+  .urgency.week { background: #3498db22; color: #3498db; }
+  .triage-type { font-size: 10px; color: #555; flex-shrink: 0; }
+  .triage-title { font-size: 13px; flex: 1; }
+
+  /* Stream cards */
+  .stream-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .stream-card { background: #111; border-radius: 8px; padding: 14px; border-left: 3px solid; }
+  .stream-card .name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .stream-card .status { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .stream-card .status.building { color: #4ecdc4; }
+  .stream-card .status.blocked { color: #e74c3c; }
+  .stream-card .status.parked { color: #f39c12; }
+  .stream-card .status.reference { color: #9b59b6; }
+  .stream-card .status.documented { color: #95a5a6; }
+  .stream-card .status.accumulating { color: #3498db; }
+  .stream-card .status.ready { color: #2ecc71; }
+  .stream-card .status.idea { color: #e91e63; }
+  .stream-card .note { font-size: 11px; color: #777; }
+  .stream-card .count { font-size: 11px; color: #555; margin-top: 6px; }
+
+  /* Inventory */
+  .inv-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #141414; }
+  .inv-count { font-size: 24px; font-weight: 700; color: #4ecdc4; min-width: 48px; text-align: right; }
+  .inv-label { font-size: 13px; }
+  .inv-bar { flex: 1; height: 4px; background: #1a1a1a; border-radius: 2px; overflow: hidden; }
+  .inv-fill { height: 100%; background: #4ecdc4; border-radius: 2px; }
+
+  /* Timeline */
+  .tl-day { margin-bottom: 16px; }
+  .tl-date { font-size: 12px; color: #4ecdc4; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .tl-date .dot { width: 8px; height: 8px; background: #4ecdc4; border-radius: 50%; }
+  .tl-count { font-size: 11px; color: #555; }
+  .tl-highlights li { font-size: 12px; color: #999; padding: 2px 0 2px 20px; list-style: none; }
+  .tl-highlights li::before { content: '>'; margin-right: 8px; color: #4ecdc4; }
+
+  /* Edge effects */
+  .edge-card { background: #0f1a1a; border: 1px solid #1a3a3a; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .edge-label { font-size: 14px; font-weight: 600; color: #4ecdc4; margin-bottom: 6px; }
+  .edge-streams { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+  .edge-tag { font-size: 10px; padding: 2px 6px; background: #1a2a2a; border-radius: 4px; color: #4ecdc4; }
+  .edge-note { font-size: 11px; color: #888; }
+
+  /* Quick wins */
+  .qw-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 12px; }
+  .qw-check { width: 16px; height: 16px; border-radius: 4px; border: 1px solid #333; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+  .qw-check.done { background: #4ecdc422; border-color: #4ecdc4; color: #4ecdc4; }
+
+  /* Shipped */
+  .shipped-day { margin-bottom: 20px; }
+  .shipped-date { font-size: 12px; color: #4ecdc4; margin-bottom: 8px; font-weight: 600; }
+  .shipped-item { padding: 8px 12px; border-left: 2px solid #1a1a1a; margin-bottom: 4px; }
+  .shipped-item .s-title { font-size: 12px; font-weight: 600; }
+  .shipped-item .s-detail { font-size: 11px; color: #777; }
+  .shipped-item .s-tag { font-size: 9px; color: #4ecdc4; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Access links */
+  .access-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 6px; margin-bottom: 4px; }
+  .access-item:hover { background: #141414; }
+  .access-dot { width: 8px; height: 8px; border-radius: 50%; background: #2ecc71; flex-shrink: 0; }
+  .access-label { font-size: 13px; flex: 1; }
+  .access-label a { color: #4ecdc4; text-decoration: none; }
+  .access-note { font-size: 10px; color: #555; }
+  .access-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .access-copy {
+    background: #1a1a1a; border: 1px solid #222; color: #888;
+    padding: 6px 10px; font-size: 10px; border-radius: 6px;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+    min-height: 32px; transition: all 0.15s;
+  }
+  .access-copy:active { background: #4ecdc422; border-color: #4ecdc4; color: #4ecdc4; }
+  .access-copy.copied { background: #2ecc7122; border-color: #2ecc71; color: #2ecc71; }
+  body.boosted .access-copy { padding: 8px 14px; font-size: 12px; min-height: 44px; }
+  .access-item { flex-wrap: wrap; }
+
+  /* Rules */
+  .rule-item { padding: 10px 0; border-bottom: 1px solid #111; }
+  .rule-title { font-size: 13px; font-weight: 600; color: #4ecdc4; }
+  .rule-detail { font-size: 11px; color: #888; margin-top: 2px; }
+  .rule-origin { font-size: 10px; color: #444; }
+
+  /* Insights */
+  .insight-item { padding: 10px 12px; border-left: 2px solid #4ecdc4; margin-bottom: 8px; }
+  .insight-title { font-size: 12px; font-weight: 600; }
+  .insight-detail { font-size: 11px; color: #777; margin-top: 2px; }
+  .insight-stream { font-size: 10px; color: #4ecdc4; }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .stream-grid { grid-template-columns: 1fr; }
+    .header { flex-direction: column; gap: 4px; }
+    .lens-tab { padding: 8px 12px; font-size: 11px; }
+    .triage-item { flex-wrap: wrap; }
+  }
+
+  /* Safe area for notch */
+  @supports (padding: env(safe-area-inset-top)) {
+    .header { padding-top: calc(16px + env(safe-area-inset-top)); }
+  }
+
+  /* ═══════════════════════════════════════
+     BOOSTED MODE — Accessibility Override
+     ═══════════════════════════════════════ */
+
+  /* Toggle button — always in thumb zone */
+  .boost-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #111;
+    border: 2px solid #4ecdc4;
+    color: #4ecdc4;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .boost-toggle:active { transform: scale(0.9); }
+  .boost-toggle.active { background: #4ecdc4; color: #0a0a0a; border-color: #4ecdc4; }
+
+  @supports (padding: env(safe-area-inset-bottom)) {
+    .boost-toggle { bottom: calc(20px + env(safe-area-inset-bottom)); }
+  }
+
+  /* Bottom nav (boosted only) */
+  .bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0a0a0a;
+    border-top: 1px solid #1a1a1a;
+    z-index: 90;
+    padding: 8px 0;
+  }
+  .bottom-nav-inner {
+    display: flex;
+    justify-content: space-around;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 12px;
+    min-width: 56px;
+    min-height: 48px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bottom-nav-item:active { background: #1a1a1a; }
+  .bottom-nav-item .nav-icon { font-size: 20px; }
+  .bottom-nav-item .nav-label { font-size: 10px; color: #666; letter-spacing: 0.5px; }
+  .bottom-nav-item.active .nav-icon { color: #4ecdc4; }
+  .bottom-nav-item.active .nav-label { color: #4ecdc4; }
+
+  @supports (padding: env(safe-area-inset-bottom)) {
+    .bottom-nav { padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+  }
+
+  /* ── Boosted body overrides ── */
+  body.boosted {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: 0.02em;
+  }
+  body.boosted .boost-toggle { bottom: 80px; }
+  @supports (padding: env(safe-area-inset-bottom)) {
+    body.boosted .boost-toggle { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  }
+
+  /* Show bottom nav in boosted */
+  body.boosted .bottom-nav { display: block; }
+
+  /* Hide top lens bar in boosted */
+  body.boosted .lens-bar { display: none; }
+
+  /* Font + spacing overrides */
+  body.boosted .header h1 { font-size: 16px; font-family: inherit; letter-spacing: 1px; }
+  body.boosted .meta { font-size: 13px; color: #999; }
+
+  body.boosted .triage-title { font-size: 16px; line-height: 1.5; }
+  body.boosted .triage-item { padding: 14px 12px; min-height: 48px; gap: 14px; }
+  body.boosted .urgency { font-size: 12px; padding: 4px 12px; border-radius: 12px; }
+  body.boosted .triage-type { font-size: 12px; color: #999; }
+
+  body.boosted .shipped-date { font-size: 15px; }
+  body.boosted .shipped-item .s-title { font-size: 15px; line-height: 1.5; }
+  body.boosted .shipped-item .s-detail { font-size: 13px; color: #999; line-height: 1.5; }
+  body.boosted .shipped-item .s-tag { font-size: 11px; }
+  body.boosted .shipped-item { padding: 12px 14px; }
+
+  body.boosted .stream-card .name { font-size: 16px; line-height: 1.4; }
+  body.boosted .stream-card .status { font-size: 12px; }
+  body.boosted .stream-card .note { font-size: 14px; color: #999; line-height: 1.5; }
+  body.boosted .stream-card .count { font-size: 12px; color: #888; }
+  body.boosted .stream-card { padding: 18px; }
+
+  body.boosted .edge-label { font-size: 17px; }
+  body.boosted .edge-tag { font-size: 12px; padding: 4px 10px; }
+  body.boosted .edge-note { font-size: 14px; color: #999; line-height: 1.5; }
+  body.boosted .edge-card { padding: 18px; }
+
+  body.boosted .access-label { font-size: 16px; }
+  body.boosted .access-label a { font-size: 16px; }
+  body.boosted .access-note { font-size: 12px; color: #999; }
+  body.boosted .access-item { padding: 14px 12px; min-height: 48px; }
+
+  body.boosted .inv-count { font-size: 28px; }
+  body.boosted .inv-label { font-size: 16px; }
+  body.boosted .inv-row { padding: 14px 0; }
+
+  body.boosted .tl-date { font-size: 15px; }
+  body.boosted .tl-count { font-size: 13px; }
+  body.boosted .tl-highlights li { font-size: 14px; line-height: 1.6; padding: 4px 0 4px 20px; }
+
+  body.boosted .rule-title { font-size: 16px; }
+  body.boosted .rule-detail { font-size: 14px; color: #999; line-height: 1.5; }
+  body.boosted .rule-origin { font-size: 12px; color: #666; }
+  body.boosted .rule-item { padding: 14px 0; }
+
+  body.boosted .insight-title { font-size: 15px; line-height: 1.4; }
+  body.boosted .insight-detail { font-size: 14px; color: #999; line-height: 1.5; }
+  body.boosted .insight-stream { font-size: 12px; }
+  body.boosted .insight-item { padding: 14px; }
+
+  body.boosted .qw-item { font-size: 15px; padding: 8px 0; min-height: 44px; align-items: center; }
+  body.boosted .qw-check { width: 24px; height: 24px; font-size: 14px; }
+
+  body.boosted .panel { padding: 16px 20px 100px; }
+
+  /* Grouping headers (boosted triage) */
+  .triage-group-header {
+    display: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 16px 12px 8px;
+    color: #e0e0e0;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 8px;
+    min-height: 44px;
+    align-items: center;
+  }
+  .triage-group-header:active { background: #141414; }
+  .triage-group-header .group-icon { margin-right: 8px; font-size: 16px; }
+  .triage-group-header .group-count { color: #666; font-weight: 400; margin-left: 8px; font-size: 12px; }
+  .triage-group-header .group-chevron { margin-left: auto; color: #555; transition: transform 0.2s; }
+  .triage-group-header.collapsed .group-chevron { transform: rotate(-90deg); }
+  body.boosted .triage-group-header { display: flex; }
+  body.boosted .triage-group-header.now { color: #e74c3c; }
+  body.boosted .triage-group-header.soon { color: #f39c12; }
+  body.boosted .triage-group-header.week { color: #3498db; }
+
+  /* ── Drop Input Bar ── */
+  .drop-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0a0a0a;
+    border-top: 1px solid #1a1a1a;
+    padding: 10px 12px;
+    z-index: 95;
+    display: none;
+  }
+  body.boosted .drop-bar { bottom: 60px; }
+  @supports (padding: env(safe-area-inset-bottom)) {
+    .drop-bar { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+    body.boosted .drop-bar { padding-bottom: 10px; }
+  }
+  .drop-bar-inner {
+    display: flex;
+    gap: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .drop-input {
+    flex: 1;
+    background: #111;
+    border: 1px solid #222;
+    color: #e0e0e0;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: inherit;
+    border-radius: 10px;
+    outline: none;
+    min-height: 44px;
+  }
+  .drop-input:focus { border-color: #4ecdc4; }
+  .drop-input::placeholder { color: #444; }
+  .drop-send {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #4ecdc4;
+    border: none;
+    color: #0a0a0a;
+    font-size: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+  }
+  .drop-send:active { opacity: 0.7; }
+  .drop-send:disabled { opacity: 0.3; }
+
+  /* ── Drops Panel ── */
+  .drop-item {
+    padding: 12px;
+    border-left: 3px solid #333;
+    margin-bottom: 8px;
+    border-radius: 0 6px 6px 0;
+    background: #111;
+  }
+  .drop-item.unprocessed { border-left-color: #4ecdc4; }
+  .drop-item.processed { border-left-color: #2ecc71; opacity: 0.7; }
+  .drop-text { font-size: 14px; line-height: 1.5; margin-bottom: 4px; }
+  .drop-meta { display: flex; gap: 8px; align-items: center; }
+  .drop-type { font-size: 10px; padding: 2px 6px; background: #1a2a2a; border-radius: 4px; color: #4ecdc4; text-transform: uppercase; }
+  .drop-source { font-size: 10px; color: #555; }
+  .drop-time { font-size: 10px; color: #444; margin-left: auto; }
+  .drop-empty { text-align: center; color: #444; padding: 40px 20px; font-size: 14px; }
+
+  /* Classification results on processed drops */
+  .drop-classification { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .drop-cat { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .drop-cat.action { background: #e74c3c22; color: #e74c3c; }
+  .drop-cat.idea { background: #9b59b622; color: #9b59b6; }
+  .drop-cat.question { background: #f39c1222; color: #f39c12; }
+  .drop-cat.reference { background: #3498db22; color: #3498db; }
+  .drop-cat.feedback { background: #e91e6322; color: #e91e63; }
+  .drop-cat.note { background: #95a5a622; color: #95a5a6; }
+  .drop-tag { font-size: 9px; padding: 2px 6px; background: #1a1a1a; border-radius: 4px; color: #666; }
+  .drop-summary { font-size: 11px; color: #888; width: 100%; margin-top: 4px; font-style: italic; }
+  .drop-priority-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .drop-priority-dot.high { background: #e74c3c; }
+  .drop-priority-dot.medium { background: #f39c12; }
+  .drop-priority-dot.low { background: #95a5a6; }
+
+  body.boosted .drop-text { font-size: 16px; }
+  body.boosted .drop-item { padding: 16px; }
+  body.boosted .drop-type { font-size: 12px; padding: 3px 8px; }
+  body.boosted .drop-cat { font-size: 12px; padding: 3px 10px; }
+  body.boosted .drop-tag { font-size: 11px; }
+  body.boosted .drop-summary { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div id="loading"><div class="spinner"></div></div>
+
+<!-- Auth Gate -->
+<div id="auth-gate" style="display:none">
+  <div class="auth-logo">INGEST</div>
+  <div class="auth-sub">Command Center</div>
+  <button class="auth-btn" id="auth-btn" onclick="doAuth()" style="display:none">
+    <span class="auth-icon" id="auth-icon">&#128274;</span>
+    <span id="auth-label">Unlock</span>
+  </button>
+  <div style="display:flex; gap:8px; margin-top:16px;">
+    <input type="password" id="token-input" placeholder="Token"
+      style="background:#111; border:1px solid #333; color:#e0e0e0; padding:14px 16px; font-size:16px; font-family:inherit; border-radius:12px; width:160px; text-align:center;"
+      onkeydown="if(event.key==='Enter')doTokenAuth()">
+    <button onclick="doTokenAuth()" style="background:#111; border:1px solid #4ecdc4; color:#4ecdc4; padding:14px 20px; font-size:14px; font-family:inherit; border-radius:12px; cursor:pointer;">Go</button>
+  </div>
+  <div class="auth-status" id="auth-status"></div>
+</div>
+
+<!-- Dashboard -->
+<div id="app">
+  <div class="header">
+    <h1>Ingest — Command Center</h1>
+    <div class="meta" id="meta-info"></div>
+  </div>
+
+  <div class="lens-bar" id="lens-bar">
+    <div class="lens-tab active" data-lens="drops">Drops</div>
+    <div class="lens-tab" data-lens="triage">Triage</div>
+    <div class="lens-tab" data-lens="shipped">Shipped</div>
+    <div class="lens-tab" data-lens="streams">Streams</div>
+    <div class="lens-tab" data-lens="edges">Edges</div>
+    <div class="lens-tab" data-lens="access">Access</div>
+    <div class="lens-tab" data-lens="inventory">Inventory</div>
+    <div class="lens-tab" data-lens="timeline">Timeline</div>
+    <div class="lens-tab" data-lens="rules">Rules</div>
+    <div class="lens-tab" data-lens="insights">Insights</div>
+    <div class="lens-tab" data-lens="wins">Wins</div>
+  </div>
+
+  <div class="panel active" id="panel-drops"></div>
+  <div class="panel" id="panel-triage"></div>
+  <div class="panel" id="panel-shipped"></div>
+  <div class="panel" id="panel-streams"></div>
+  <div class="panel" id="panel-edges"></div>
+  <div class="panel" id="panel-access"></div>
+  <div class="panel" id="panel-inventory"></div>
+  <div class="panel" id="panel-timeline"></div>
+  <div class="panel" id="panel-rules"></div>
+  <div class="panel" id="panel-insights"></div>
+  <div class="panel" id="panel-wins"></div>
+</div>
+
+<!-- Drop Input Bar — always visible when logged in -->
+<div class="drop-bar" id="drop-bar">
+  <div class="drop-bar-inner">
+    <input class="drop-input" id="drop-input" type="text" placeholder="Drop a thought..."
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendDrop();}">
+    <button class="drop-send" id="drop-send" onclick="sendDrop()">&#9650;</button>
+  </div>
+</div>
+
+<!-- Boost toggle — always visible when logged in -->
+<button class="boost-toggle" id="boost-toggle" onclick="toggleBoost()" style="display:none" title="Boosted view">&#9889;</button>
+
+<!-- Bottom nav (boosted mode) -->
+<div class="bottom-nav" id="bottom-nav">
+  <div class="bottom-nav-inner">
+    <div class="bottom-nav-item active" data-lens="drops" onclick="switchLens(this)">
+      <span class="nav-icon">&#9998;</span>
+      <span class="nav-label">Drop</span>
+    </div>
+    <div class="bottom-nav-item" data-lens="triage" onclick="switchLens(this)">
+      <span class="nav-icon">&#9888;</span>
+      <span class="nav-label">Triage</span>
+    </div>
+    <div class="bottom-nav-item" data-lens="shipped" onclick="switchLens(this)">
+      <span class="nav-icon">&#9745;</span>
+      <span class="nav-label">Shipped</span>
+    </div>
+    <div class="bottom-nav-item" data-lens="streams" onclick="switchLens(this)">
+      <span class="nav-icon">&#9881;</span>
+      <span class="nav-label">Streams</span>
+    </div>
+    <div class="bottom-nav-item" data-lens="access" onclick="switchLens(this)">
+      <span class="nav-icon">&#128279;</span>
+      <span class="nav-label">Links</span>
+    </div>
+    <div class="bottom-nav-item" data-lens="wins" onclick="switchLens(this)">
+      <span class="nav-icon">&#10003;</span>
+      <span class="nav-label">Wins</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  AUTH
+// ═══════════════════════════════════════
+const SimpleWebAuthnBrowserAvail = typeof SimpleWebAuthnBrowser !== 'undefined';
+const startRegistration = SimpleWebAuthnBrowserAvail ? SimpleWebAuthnBrowser.startRegistration : null;
+const startAuthentication = SimpleWebAuthnBrowserAvail ? SimpleWebAuthnBrowser.startAuthentication : null;
+let authMode = 'login'; // 'login' or 'register'
+
+async function doTokenAuth() {
+  const input = document.getElementById('token-input');
+  const token = input.value.trim();
+  if (!token) return;
+  setStatus('Checking...');
+  try {
+    const res = await fetch('/api/auth?action=token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
+    const result = await res.json();
+    if (result.verified) {
+      await loadDashboard();
+    } else {
+      setStatus('Wrong token', true);
+      input.value = '';
+      input.focus();
+    }
+  } catch (err) {
+    setStatus('Error: ' + err.message, true);
+  }
+}
+
+async function checkSession() {
+  try {
+    const res = await fetch('/api/auth?action=session');
+    return await res.json();
+  } catch {
+    return { authenticated: false, hasDevice: false };
+  }
+}
+
+function setStatus(msg, isError) {
+  const el = document.getElementById('auth-status');
+  el.textContent = msg;
+  el.className = 'auth-status' + (isError ? ' error' : '');
+}
+
+async function doAuth() {
+  const btn = document.getElementById('auth-btn');
+  btn.disabled = true;
+  setStatus('');
+
+  try {
+    if (authMode === 'register') {
+      await doRegister();
+    } else {
+      await doLogin();
+    }
+  } catch (err) {
+    console.error('Auth failed:', err);
+    setStatus(err.name === 'NotAllowedError' ? 'Cancelled. Tap to try again.' : `${err.name}: ${err.message}`, true);
+    btn.disabled = false;
+  }
+}
+
+async function doRegister() {
+  setStatus('Setting up...');
+  const optRes = await fetch('/api/auth?action=register-options', { method: 'POST' });
+  const { options, challengeToken } = await optRes.json();
+
+  setStatus('Scan Face ID or Touch ID');
+  const attestation = await startRegistration({ optionsJSON: options });
+
+  setStatus('Verifying...');
+  const verRes = await fetch('/api/auth?action=register-verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ attestation, challengeToken }),
+  });
+  const result = await verRes.json();
+
+  if (result.verified) {
+    await loadDashboard();
+  } else {
+    throw new Error('Registration failed');
+  }
+}
+
+async function doLogin() {
+  setStatus('Authenticating...');
+  const optRes = await fetch('/api/auth?action=login-options', { method: 'POST' });
+  const data = await optRes.json();
+
+  if (data.needsRegistration) {
+    authMode = 'register';
+    document.getElementById('auth-label').textContent = 'Set up Face ID';
+    document.getElementById('auth-icon').innerHTML = '&#128272;';
+    setStatus('No device registered. Tap to set up.');
+    document.getElementById('auth-btn').disabled = false;
+    return;
+  }
+
+  setStatus('Scan Face ID or Touch ID');
+  const assertion = await startAuthentication({ optionsJSON: data.options });
+
+  setStatus('Verifying...');
+  const verRes = await fetch('/api/auth?action=login-verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assertion, challengeToken: data.challengeToken }),
+  });
+  const result = await verRes.json();
+
+  if (result.verified) {
+    await loadDashboard();
+  } else {
+    throw new Error('Authentication failed');
+  }
+}
+
+// ═══════════════════════════════════════
+//  DASHBOARD
+// ═══════════════════════════════════════
+let ingestData = null;
+
+async function loadDashboard() {
+  document.getElementById('auth-gate').style.display = 'none';
+  document.getElementById('loading').style.display = 'flex';
+
+  const res = await fetch('/api/data');
+  if (!res.ok) {
+    showAuth(false);
+    return;
+  }
+  ingestData = await res.json();
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('boost-toggle').style.display = 'flex';
+  document.getElementById('drop-bar').style.display = 'block';
+  applyBoost();
+  renderAll();
+  loadDrops();
+}
+
+function showAuth(hasDevice) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('auth-gate').style.display = 'flex';
+
+  // Show WebAuthn button only if browser supports it
+  const webAuthnSupported = SimpleWebAuthnBrowserAvail && window.PublicKeyCredential;
+  const authBtn = document.getElementById('auth-btn');
+  if (webAuthnSupported && hasDevice) {
+    authBtn.style.display = 'flex';
+    authMode = 'login';
+    document.getElementById('auth-label').textContent = 'Unlock';
+    document.getElementById('auth-icon').innerHTML = '&#128274;';
+  } else {
+    authBtn.style.display = 'none';
+  }
+
+  // Token input is always visible — works everywhere
+  document.getElementById('token-input').focus();
+}
+
+// Lens switching
+document.querySelectorAll('.lens-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.lens-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.lens).classList.add('active');
+  });
+});
+
+function renderAll() {
+  const d = ingestData;
+
+  // Meta
+  document.getElementById('meta-info').textContent =
+    `${d.meta.totalItems} items · ${d.meta.streams.length} streams · ${d.meta.lastUpdated}`;
+
+  // Triage (uses boosted-aware render)
+  renderTriage(d);
+
+  // Shipped
+  const shippedEl = document.getElementById('panel-shipped');
+  shippedEl.innerHTML = (d.shipped || []).map(day => `
+    <div class="shipped-day">
+      <div class="shipped-date">${day.date}</div>
+      ${day.items.map(i => `
+        <div class="shipped-item">
+          <div class="s-tag">${i.tag}</div>
+          <div class="s-title">${i.title}</div>
+          <div class="s-detail">${i.detail}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  // Streams
+  document.getElementById('panel-streams').innerHTML = '<div class="stream-grid">' + d.streamHealth.map(s => {
+    const meta = d.meta.streams.find(ms => ms.id === s.id);
+    return `
+      <div class="stream-card" style="border-left-color: ${meta?.color || '#333'}">
+        <div class="name">${meta?.label || s.id}</div>
+        <div class="status ${s.status}">${s.status}</div>
+        <div class="note">${s.note}</div>
+        <div class="count">${s.itemCount} items · ${s.lastTouched}</div>
+      </div>`;
+  }).join('') + '</div>';
+
+  // Edge Effects
+  document.getElementById('panel-edges').innerHTML = d.edges.map(edge => `
+    <div class="edge-card">
+      <div class="edge-label">${edge.label}</div>
+      <div class="edge-streams">${edge.streams.map(s => `<span class="edge-tag">${s}</span>`).join('')}</div>
+      <div class="edge-note">${edge.note}</div>
+    </div>
+  `).join('');
+
+  // Access (with copy buttons, recency sorted)
+  const accessEl = document.getElementById('panel-access');
+  const accessItems = [...(d.access || [])].sort((a,b) => (b.updated||'').localeCompare(a.updated||''));
+  accessEl.innerHTML = accessItems.map(a => {
+    const btns = [];
+    btns.push(`<button class="access-copy" onclick="copyText('${a.url}',this)">Link</button>`);
+    // Parse credentials from note
+    const credParts = a.note?.split(/\s*\/\s*/);
+    if (credParts?.length > 1) {
+      btns.push(`<button class="access-copy" onclick="copyText('${credParts[0].trim()}',this)">User</button>`);
+      btns.push(`<button class="access-copy" onclick="copyText('${credParts[1].trim()}',this)">Pass</button>`);
+    }
+    // Share message (custom or generated)
+    const shareText = a.share || a.label;
+    const shareMsg = shareText + ' ' + a.url;
+    btns.push(`<button class="access-copy" onclick="copyText(this.dataset.msg,this)" data-msg="${escHtml(shareMsg)}">Share</button>`);
+    // Recency badge
+    const age = a.updated ? timeAgo(a.updated + 'T00:00:00Z') : '';
+    // Related links
+    const related = a.related ? ' <span style="color:#333;font-size:10px">→ ' + a.related.join(' → ') + '</span>' : '';
+    return `<div class="access-item">
+      <div class="access-dot" style="background:${a.status==='live'?'#2ecc71':'#f39c12'}"></div>
+      <div style="flex:1;min-width:0">
+        <div class="access-label"><a href="${a.url}" target="_blank">${a.label}</a> <span style="color:#333;font-size:10px">${age}</span>${related}</div>
+      </div>
+      <div class="access-actions">${btns.join('')}</div>
+    </div>`;
+  }).join('');
+
+  // Inventory
+  const maxCount = Math.max(...Object.values(d.inventory).map(v => v.count));
+  document.getElementById('panel-inventory').innerHTML = Object.entries(d.inventory).map(([key, val]) => `
+    <div class="inv-row">
+      <div class="inv-count">${val.count}</div>
+      <div class="inv-label">${val.label}</div>
+      <div class="inv-bar"><div class="inv-fill" style="width: ${(val.count / maxCount) * 100}%"></div></div>
+    </div>
+  `).join('');
+
+  // Timeline
+  document.getElementById('panel-timeline').innerHTML = d.timeline.map(day => `
+    <div class="tl-day">
+      <div class="tl-date">
+        <span class="dot"></span>
+        ${day.date}
+        <span class="tl-count">${day.count} items</span>
+      </div>
+      <ul class="tl-highlights">${day.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
+    </div>
+  `).join('');
+
+  // Rules
+  const rulesEl = document.getElementById('panel-rules');
+  rulesEl.innerHTML = (d.rules || []).map(r => `
+    <div class="rule-item">
+      <div class="rule-title">${r.rule}</div>
+      <div class="rule-detail">${r.detail}</div>
+      <div class="rule-origin">${r.origin || ''}</div>
+    </div>
+  `).join('');
+
+  // Insights
+  const insightsEl = document.getElementById('panel-insights');
+  insightsEl.innerHTML = (d.insights || []).map(i => `
+    <div class="insight-item">
+      <div class="insight-stream">${i.stream || ''}</div>
+      <div class="insight-title">${i.insight}</div>
+      <div class="insight-detail">${i.detail}</div>
+    </div>
+  `).join('');
+
+  // Quick Wins
+  document.getElementById('panel-wins').innerHTML = d.quickWins.map(w => `
+    <div class="qw-item">
+      <div class="qw-check ${w.done ? 'done' : ''}">${w.done ? '&#10003;' : ''}</div>
+      <span style="color: ${w.done ? '#666' : '#e0e0e0'}">${w.label}</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════
+//  DROPS
+// ═══════════════════════════════════════
+let dropsData = [];
+
+async function loadDrops() {
+  try {
+    const res = await fetch('/api/drop');
+    if (res.ok) {
+      const data = await res.json();
+      dropsData = data.drops || [];
+      renderDrops();
+    }
+  } catch (e) { console.error('Load drops failed:', e); }
+}
+
+async function sendDrop() {
+  const input = document.getElementById('drop-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const btn = document.getElementById('drop-send');
+  btn.disabled = true;
+  input.disabled = true;
+
+  try {
+    const res = await fetch('/api/drop', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text,
+        type: text.startsWith('http') ? 'link' : 'note',
+        source: 'dashboard',
+      }),
+    });
+    if (res.ok) {
+      const { drop } = await res.json();
+      dropsData.unshift(drop);
+      input.value = '';
+      renderDrops();
+    }
+  } catch (e) { console.error('Send drop failed:', e); }
+
+  btn.disabled = false;
+  input.disabled = false;
+  input.focus();
+}
+
+function renderDrops() {
+  const panel = document.getElementById('panel-drops');
+  if (!dropsData.length) {
+    panel.innerHTML = '<div class="drop-empty">No drops yet. Type below to add one.</div>';
+    return;
+  }
+  panel.innerHTML = dropsData.map(d => {
+    const age = timeAgo(d.ts);
+    const c = d.classification;
+    const classificationHtml = c ? `
+      <div class="drop-classification">
+        <span class="drop-priority-dot ${c.priority || 'low'}"></span>
+        <span class="drop-cat ${c.category || 'note'}">${c.category || 'note'}</span>
+        ${(c.tags||[]).map(t => `<span class="drop-tag">${escHtml(t)}</span>`).join('')}
+        <span class="drop-route" style="font-size:9px;color:#4ecdc4;margin-left:auto">→ ${c.route || ''}</span>
+        ${c.summary ? `<div class="drop-summary">${escHtml(c.summary)}</div>` : ''}
+      </div>` : '';
+    return `<div class="drop-item ${d.processed ? 'processed' : 'unprocessed'}">
+      <div class="drop-text">${escHtml(d.text)}</div>
+      <div class="drop-meta">
+        <span class="drop-type">${d.type}</span>
+        <span class="drop-source">${d.source}</span>
+        ${d.processed && !c ? '<span class="drop-type" style="background:#1a2a1a;color:#2ecc71">processed</span>' : ''}
+        <span class="drop-time">${age}</span>
+      </div>
+      ${classificationHtml}
+    </div>`;
+  }).join('');
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    const orig = btn.textContent;
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function timeAgo(ts) {
+  const diff = Date.now() - new Date(ts).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  return Math.floor(hrs / 24) + 'd ago';
+}
+
+// ═══════════════════════════════════════
+//  BOOSTED MODE
+// ═══════════════════════════════════════
+let boosted = localStorage.getItem('ingest-boosted') === 'true';
+
+function toggleBoost() {
+  boosted = !boosted;
+  localStorage.setItem('ingest-boosted', boosted);
+  applyBoost();
+}
+
+function applyBoost() {
+  document.body.classList.toggle('boosted', boosted);
+  document.getElementById('boost-toggle').classList.toggle('active', boosted);
+  if (ingestData) renderTriage(ingestData);
+}
+
+function switchLens(el) {
+  const lens = el.dataset.lens;
+  // Update bottom nav active state
+  document.querySelectorAll('.bottom-nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  // Update top tabs too (for state sync)
+  document.querySelectorAll('.lens-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.lens === lens);
+  });
+  // Switch panel
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + lens).classList.add('active');
+}
+
+function renderTriage(d) {
+  const panel = document.getElementById('panel-triage');
+  if (!boosted) {
+    // Normal: flat list
+    panel.innerHTML = d.triage.map(item => `
+      <div class="triage-item">
+        <span class="urgency ${item.urgency}">${item.urgency}</span>
+        <span class="triage-title">${item.title}</span>
+        <span class="triage-type">${item.type}</span>
+      </div>
+    `).join('');
+    return;
+  }
+  // Boosted: grouped + collapsible
+  const groups = { now: [], soon: [], week: [] };
+  d.triage.forEach(item => {
+    (groups[item.urgency] || groups.week).push(item);
+  });
+  const icons = { now: '&#9888;&#65039;', soon: '&#9203;', week: '&#128197;' };
+  const labels = { now: 'NOW', soon: 'SOON', week: 'THIS WEEK' };
+  let html = '';
+  for (const [key, items] of Object.entries(groups)) {
+    if (!items.length) continue;
+    const collapsed = key !== 'now' ? 'collapsed' : '';
+    html += `<div class="triage-group-header ${key} ${collapsed}" onclick="this.classList.toggle('collapsed');this.nextElementSibling.style.display=this.classList.contains('collapsed')?'none':'block'">
+      <span class="group-icon">${icons[key]}</span>${labels[key]}<span class="group-count">(${items.length})</span><span class="group-chevron">&#9660;</span>
+    </div>`;
+    html += `<div class="triage-group" style="display:${collapsed ? 'none' : 'block'}">`;
+    html += items.map(item => `
+      <div class="triage-item">
+        <span class="urgency ${item.urgency}">${item.urgency}</span>
+        <span class="triage-title">${item.title}</span>
+        <span class="triage-type">${item.type}</span>
+      </div>
+    `).join('');
+    html += '</div>';
+  }
+  panel.innerHTML = html;
+}
+
+// ═══════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════
+(async () => {
+  const session = await checkSession();
+  if (session.authenticated) {
+    await loadDashboard();
+  } else {
+    showAuth(session.hasDevice);
+  }
+})();
+</script>
+</body>
+</html>
