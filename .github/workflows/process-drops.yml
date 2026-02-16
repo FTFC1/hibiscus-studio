@@ -15,6 +15,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install yt-dlp
+        run: pip install yt-dlp
+
       - name: Process unprocessed drops
         env:
           GIST_ID: ${{ secrets.DROPS_GIST_ID }}

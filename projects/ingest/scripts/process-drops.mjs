@@ -4,6 +4,9 @@
 // Reads unprocessed drops from Gist, classifies with Gemini Flash, writes back
 // Sends TG summary when done
 
+import { execSync } from 'child_process';
+import { readFileSync, readdirSync, mkdirSync } from 'fs';
+
 const GIST_ID = process.env.GIST_ID;
 const GH_PAT = process.env.GH_PAT;
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
@@ -85,15 +88,61 @@ Context: Projects include HB (Hibiscus Studio), PUMA (retail training), MIKANO (
   }
 }
 
-// Fetch content from YouTube links (subtitles via oEmbed metadata)
-async function enrichYouTubeLink(url) {
+// Get YouTube video metadata via oEmbed
+async function getYouTubeMeta(url) {
   try {
-    const oembedRes = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`);
-    if (oembedRes.ok) {
-      const meta = await oembedRes.json();
-      return `[YouTube] "${meta.title}" by ${meta.author_name}`;
-    }
+    const res = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`);
+    if (res.ok) return await res.json();
   } catch (_) {}
+  return null;
+}
+
+// Clean VTT/SRT subtitle content — deduplicate auto-generated repeated lines
+function cleanSubtitles(raw) {
+  return raw
+    .replace(/WEBVTT[\s\S]*?\n\n/, '')  // Remove VTT header
+    .replace(/\d{2}:\d{2}:\d{2}[.,]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[.,]\d{3}[^\n]*/g, '') // Timestamps
+    .replace(/<[^>]*>/g, '')             // HTML tags
+    .split('\n')
+    .map(l => l.trim())
+    .filter(Boolean)
+    .filter((line, i, arr) => i === 0 || line !== arr[i - 1]) // Deduplicate consecutive
+    .join(' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+// Fetch YouTube transcript via yt-dlp (auto-generated subtitles)
+async function enrichYouTubeLink(url) {
+  // Try yt-dlp for full subtitles
+  try {
+    const tmpDir = `/tmp/yt-${Date.now()}`;
+    mkdirSync(tmpDir, { recursive: true });
+    execSync(
+      `yt-dlp --write-auto-sub --sub-lang en --skip-download --no-warnings -o "${tmpDir}/%(id)s" "${url}"`,
+      { timeout: 30000, stdio: 'pipe' }
+    );
+
+    // Find subtitle file (.vtt or .srt)
+    const files = readdirSync(tmpDir).filter(f => f.endsWith('.vtt') || f.endsWith('.srt'));
+    if (files.length > 0) {
+      const rawSubs = readFileSync(`${tmpDir}/${files[0]}`, 'utf-8');
+      const transcript = cleanSubtitles(rawSubs);
+
+      const meta = await getYouTubeMeta(url);
+      const title = meta ? `"${meta.title}" by ${meta.author_name}` : '';
+
+      // Truncate to 2000 chars for classification context
+      const trimmed = transcript.length > 2000 ? transcript.slice(0, 2000) + '...' : transcript;
+      return `[YouTube] ${title}\n\nTranscript:\n${trimmed}`;
+    }
+  } catch (err) {
+    console.log(`[YT] yt-dlp subtitles failed for ${url}: ${err.message?.slice(0, 100)}`);
+  }
+
+  // Fallback: oEmbed metadata only
+  const meta = await getYouTubeMeta(url);
+  if (meta) return `[YouTube] "${meta.title}" by ${meta.author_name}`;
   return null;
 }
 
