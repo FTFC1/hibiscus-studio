@@ -60,3 +60,14 @@ mise.toml
 package-lock.json
 package.json
 read_pdf_prices.py 
+
+# Credentials & Secrets (NEVER commit these)
+.cursor/mcp.json
+**/service_account*.json
+gmail-token.json
+gmail-credentials.json
+*.env keys
+**/.env keys
+**/credentials.json
+**/token.json
+**/*secret*.json
