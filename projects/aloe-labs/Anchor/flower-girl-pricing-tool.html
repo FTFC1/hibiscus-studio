@@ -66,13 +66,10 @@ html, body {
 .screen {
   position: absolute;
   inset: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   display: none;
   flex-direction: column;
   background: var(--cream);
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: calc(32px + var(--safe-b));
 }
 .screen.active { display: flex; }
 .screen.enter  { animation: sEnter .28s ease forwards; }
@@ -117,7 +114,7 @@ html, body {
 /* ─────────────────────────────────────────────
    BODY
 ───────────────────────────────────────────── */
-.screen-body { flex: 1; padding: 0 16px; }
+.screen-body { flex: 1; padding: 0 16px; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; padding-bottom: calc(32px + var(--safe-b)); }
 
 .section-label {
   font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
@@ -424,7 +421,7 @@ html, body {
 /* ─────────────────────────────────────────────
    ONBOARDING
 ───────────────────────────────────────────── */
-.ob-screen { padding: 0 24px 24px; }
+.ob-screen { padding: 0 24px 24px; flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
 .ob-brand { text-align: center; padding: 44px 0 28px; }
 .brand-mark { font-size: 46px; display: block; margin-bottom: 14px; }
 .brand-name { font-family: var(--font-head); font-size: 30px; margin-bottom: 4px; }
@@ -590,6 +587,52 @@ html, body {
 .txt-input::placeholder { color: var(--muted); }
 
 .scroll-end { height: 24px; }
+
+/* ─────────────────────────────────────────────
+   Z-INDEX FIX: numpad/drum always above sheets
+───────────────────────────────────────────── */
+#overlay-numpad, #overlay-drum { z-index: 220; }
+
+/* ─────────────────────────────────────────────
+   CALC — STICKY FOOTER
+───────────────────────────────────────────── */
+.calc-footer {
+  flex-shrink: 0;
+  background: var(--white);
+  border-top: 1px solid var(--linen);
+  padding: 10px 16px calc(12px + var(--safe-b));
+}
+.calc-footer-strip {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 4px; margin-bottom: 10px;
+  background: var(--cream-dk); border-radius: 10px;
+  padding: 10px 8px;
+}
+.footer-stat { text-align: center; }
+.fstat-lbl { font-size: 10px; color: var(--muted); font-weight: 600;
+             letter-spacing: .5px; text-transform: uppercase;
+             display: block; margin-bottom: 2px; }
+.fstat-val  { font-size: 14px; font-weight: 700; color: var(--charcoal); }
+
+/* ─────────────────────────────────────────────
+   CURRENCY PICKER SHEET
+───────────────────────────────────────────── */
+.curr-pick-list { padding: 0 16px; }
+.curr-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 0; border-bottom: 1px solid var(--linen); cursor: pointer;
+}
+.curr-item:last-child { border-bottom: none; }
+.curr-item:active { background: var(--cream-dk); margin: 0 -16px; padding: 14px 16px; }
+.curr-main { font-size: 16px; font-weight: 500; }
+.curr-code { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.curr-check { color: var(--rose); font-size: 20px; }
+
+/* ─────────────────────────────────────────────
+   CLIENT QUOTE — bigger headline treatment
+───────────────────────────────────────────── */
+.client-card { padding: 20px 20px; }
+.client-quote { font-size: 24px; }
 </style>
 </head>
 <body>
@@ -901,21 +944,32 @@ html, body {
       </div>
     </div>
 
-    <!-- Running totals -->
-    <div class="section-label">Cost summary</div>
-    <div class="totals-card" id="calc-totals">
-      <div class="total-row"><span class="total-lbl">Ingredients</span><span class="total-val" id="tot-ing">£ 0.00</span></div>
-      <div class="total-row"><span class="total-lbl">Overheads</span><span class="total-val" id="tot-oh">£ 0.00</span></div>
-      <div class="total-row"><span class="total-lbl">Labour</span><span class="total-val" id="tot-lab">£ 0.00</span></div>
-      <div class="total-row"><span class="total-lbl">Packaging + delivery</span><span class="total-val" id="tot-ext">£ 0.00</span></div>
-      <div class="total-row big"><span class="total-lbl" style="font-weight:600;color:var(--charcoal)">Total cost</span><span class="total-val large" id="tot-total">£ 0.00</span></div>
-    </div>
+    <div class="scroll-end"></div>
+  </div>
 
-    <div style="height:20px"></div>
+  <!-- STICKY FOOTER — costs + CTA -->
+  <div class="calc-footer">
+    <div class="calc-footer-strip">
+      <div class="footer-stat">
+        <span class="fstat-lbl">Ing</span>
+        <span class="fstat-val" id="ft-ing">£0</span>
+      </div>
+      <div class="footer-stat">
+        <span class="fstat-lbl">OH</span>
+        <span class="fstat-val" id="ft-oh">£0</span>
+      </div>
+      <div class="footer-stat">
+        <span class="fstat-lbl">Labour</span>
+        <span class="fstat-val" id="ft-lab">£0</span>
+      </div>
+      <div class="footer-stat">
+        <span class="fstat-lbl">Extras</span>
+        <span class="fstat-val" id="ft-ext">£0</span>
+      </div>
+    </div>
     <button class="btn btn-primary" style="font-size:16px" onclick="showResults()">
       🌸 Show me my price →
     </button>
-    <div class="scroll-end"></div>
   </div>
 </div>
 
@@ -1109,6 +1163,18 @@ html, body {
   </div>
 </div>
 
+<!-- CURRENCY PICKER -->
+<div id="overlay-currency" class="overlay" onclick="onOverlayClick(event,'overlay-currency')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <span class="sheet-title">Currency</span>
+      <button class="sheet-done" onclick="closeOverlay('overlay-currency')">Done</button>
+    </div>
+    <div class="curr-pick-list" id="currency-pick-list"></div>
+  </div>
+</div>
+
 </div><!-- #app -->
 
 <script>
@@ -1117,9 +1183,10 @@ html, body {
 ───────────────────────────────────────────── */
 const CFG = {
   coachName: 'Rochelle',
-  coachLink: 'https://wa.me/', // replace with WhatsApp or Calendly
+  coachLink: 'https://ig.me/m/flourgirlcakehouse', // Instagram DM
+  coachCTA: '📸 DM Rochelle on Instagram',
   workshopLink: '#',
-  upgradeLink: '#', // replace with payment link
+  upgradeLink: '#', // replace with Gumroad / payment link
   upgradePrice: '£5',
 };
 
@@ -1165,10 +1232,11 @@ const DEF_INGREDIENTS = [
 ];
 
 const DEF_OVERHEADS = [
-  {id:'oh-rent', name:'Rent',                 total:800,  period:1},
-  {id:'oh-elec', name:'Electricity',          total:60,   period:1},
-  {id:'oh-oven', name:'Oven (depreciation)',  total:1200, period:60},
-  {id:'oh-mix',  name:'Stand mixer (deprec)',total:400,  period:36},
+  {id:'oh-rent',   name:'Rent',                  total:800,  period:1},
+  {id:'oh-elec',   name:'Electricity',           total:60,   period:1},
+  {id:'oh-travel', name:'Travel',                total:50,   period:1},
+  {id:'oh-oven',   name:'Oven (depreciation)',   total:1200, period:60},
+  {id:'oh-mix',    name:'Stand mixer (deprec)',  total:400,  period:36},
 ];
 
 /* ─────────────────────────────────────────────
@@ -1248,6 +1316,8 @@ function setCurrency(code, el) {
   obCurrency = code;
   document.querySelectorAll('.currency-opt').forEach(e => e.classList.remove('active'));
   el.classList.add('active');
+  // Brief visual feedback, then auto-advance
+  setTimeout(() => obNext(2), 280);
 }
 
 function setObMargin(pct, el) {
@@ -1303,12 +1373,23 @@ function showUpgradeNudge() {
 }
 
 function showCurrencySheet() {
-  const input = prompt('Currency: GBP / USD / NGN / ZAR / EUR / CAD', state.currency);
-  if (input && CURRENCIES[input.toUpperCase()]) {
-    state.currency = input.toUpperCase();
-    saveState();
-    renderHome();
-  }
+  const list = document.getElementById('currency-pick-list');
+  list.innerHTML = Object.entries(CURRENCIES).map(([code, c]) => `
+    <div class="curr-item" onclick="pickCurrency('${code}')">
+      <div>
+        <div class="curr-main">${c.symbol} — ${c.name}</div>
+        <div class="curr-code">${code}</div>
+      </div>
+      <span class="curr-check">${state.currency === code ? '✓' : ''}</span>
+    </div>`).join('');
+  openOverlay('overlay-currency');
+}
+
+function pickCurrency(code) {
+  state.currency = code;
+  saveState();
+  renderHome();
+  closeOverlay('overlay-currency');
 }
 
 /* ─────────────────────────────────────────────
@@ -1524,12 +1605,11 @@ function renderOverheadLines() {
 
 function renderCalcTotals() {
   const r = calcTotals();
-  const s = sym();
-  document.getElementById('tot-ing').textContent = fmt(r.ingredients);
-  document.getElementById('tot-oh').textContent  = fmt(r.overheads);
-  document.getElementById('tot-lab').textContent = fmt(r.labour);
-  document.getElementById('tot-ext').textContent = fmt(r.extras);
-  document.getElementById('tot-total').textContent = fmt(r.total);
+  const ft = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = fmt(val); };
+  ft('ft-ing', r.ingredients);
+  ft('ft-oh',  r.overheads);
+  ft('ft-lab', r.labour);
+  ft('ft-ext', r.extras);
 }
 
 /* ─────────────────────────────────────────────
@@ -1716,8 +1796,11 @@ function priceAt(totalCost, margin) {
 /* ─────────────────────────────────────────────
    RESULTS
 ───────────────────────────────────────────── */
+let lastCalcResult = null;
+
 function showResults() {
   const r = calcTotals();
+  lastCalcResult = r; // store for Copy for ChatGPT
   const name = document.getElementById('recipe-name')?.value || state.recipe.size + ' Cake';
   const srvgs = state.recipe.servings;
   const m = state.targetMargin;
@@ -1759,13 +1842,13 @@ function showResults() {
     </div>
 
     <div class="section-label">What to tell your client</div>
-    <div class="client-card">
+    <div class="client-card" style="background:linear-gradient(135deg,var(--blush) 0%,#fff 100%);border:1.5px solid rgba(196,122,142,.2)">
       <div class="client-quote">"This cake starts from ${fmtRound(atTarget)}"</div>
-      <div class="client-note">Rounded up from ${fmt(atTarget)} — always round up, never down.</div>
+      <div class="client-note" style="margin-top:8px">${s}${(atTarget/srvgs).toFixed(2)} per slice · Rounded up — always go up, never down.</div>
     </div>
 
     <div class="result-actions">
-      <button class="btn btn-secondary" style="font-size:13px" onclick="copyResult('${name}',${rounded})">📋 Copy price</button>
+      <button class="btn btn-secondary" style="font-size:13px" onclick="copyForChatGPT('${name}',${rounded})">💬 Copy for ChatGPT</button>
       <button class="btn btn-secondary" style="font-size:13px" onclick="goBack()">↩ Recalculate</button>
     </div>
 
@@ -1804,7 +1887,7 @@ function showResults() {
       <div class="divider-or">or</div>
 
       <button class="coach-btn" onclick="window.open('${CFG.coachLink}','_blank')">
-        💬 Book a 1:1 with ${CFG.coachName}
+        ${CFG.coachCTA}
       </button>
     </div>
   `;
@@ -1813,11 +1896,31 @@ function showResults() {
   goTo('screen-results');
 }
 
-function copyResult(name, price) {
-  const text = `${name} pricing\nCharge: ${sym()}${price}\n\nCalculated with Flower Girl Pricing Tool`;
+function copyForChatGPT(name, price) {
+  const r = lastCalcResult || {};
+  const s = sym();
+  const m = Math.round(state.targetMargin * 100);
+  const srvgs = state.recipe.servings;
+  const text = [
+    `I'm a home baker and I need help justifying my pricing to a client.`,
+    ``,
+    `Cake: ${name}`,
+    `Servings: ${srvgs}`,
+    ``,
+    `My costs:`,
+    `  Ingredients:       ${s}${(r.ingredients||0).toFixed(2)}`,
+    `  Overheads:         ${s}${(r.overheads||0).toFixed(2)}`,
+    `  Labour:            ${s}${(r.labour||0).toFixed(2)} (${state.recipe.hours}h @ ${s}${state.recipe.hourlyRate}/hr)`,
+    `  Packaging/Delivery:${s}${(r.extras||0).toFixed(2)}`,
+    `  Total cost:        ${s}${(r.total||0).toFixed(2)}`,
+    ``,
+    `My recommended price at ${m}% margin: ${s}${price}`,
+    ``,
+    `Please write 3–4 sentences I can send to my client that explain this price is fair and professional. Keep it warm, not defensive.`,
+  ].join('\n');
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(() => {
-      alert('Copied to clipboard ✓');
+      alert('Copied — paste into ChatGPT ✓');
     }).catch(() => fallbackCopy(text));
   } else {
     fallbackCopy(text);
