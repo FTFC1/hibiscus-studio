@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Flower Girl Pricing Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   DESIGN SYSTEM
+───────────────────────────────────────────── */
+:root {
+  --cream:     #FAF7F2;
+  --cream-dk:  #F2EDE6;
+  --blush:     #F5DDD6;
+  --blush-dk:  #ECC8BC;
+  --rose:      #C47A8E;
+  --rose-dk:   #A85E73;
+  --sage:      #7A9B7A;
+  --sage-lt:   #D4E4D4;
+  --linen:     #E4DDD4;
+  --linen-dk:  #D4CAC0;
+  --charcoal:  #2C2832;
+  --muted:     #8A7F88;
+  --coral:     #C47A7A;
+  --coral-lt:  #F5DADA;
+  --gold:      #B8956A;
+  --gold-lt:   #F0E0C8;
+  --white:     #FFFFFF;
+
+  --font-head: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+
+  --radius:    16px;
+  --radius-sm: 10px;
+  --shadow:    0 2px 16px rgba(44,40,50,0.08);
+  --shadow-sm: 0 1px 4px rgba(44,40,50,0.05);
+  --safe-b:    env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0;
+    -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  height: 100%;
+  background: #D4CAC0;
+  font-family: var(--font-body);
+  color: var(--charcoal);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  max-width: 430px;
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+/* ─────────────────────────────────────────────
+   SCREENS
+───────────────────────────────────────────── */
+.screen {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: none;
+  flex-direction: column;
+  background: var(--cream);
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(32px + var(--safe-b));
+}
+.screen.active { display: flex; }
+.screen.enter  { animation: sEnter .28s ease forwards; }
+.screen.exit   { animation: sExit .28s ease forwards; }
+@keyframes sEnter { from { transform: translateX(100%); opacity:.8; } to { transform: translateX(0); opacity:1; } }
+@keyframes sExit  { from { transform: translateX(0); opacity:1; } to { transform: translateX(-30%); opacity:0; } }
+
+/* ─────────────────────────────────────────────
+   HEADER
+───────────────────────────────────────────── */
+.screen-header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--cream);
+}
+.florals {
+  background: linear-gradient(to right, var(--blush), var(--cream-dk), var(--blush));
+  padding: 7px 16px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--rose);
+  user-select: none;
+}
+.nav-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--linen);
+}
+.nav-back {
+  background: none; border: none;
+  display: flex; align-items: center; gap: 5px;
+  color: var(--rose); font-family: var(--font-body); font-size: 14px;
+  font-weight: 500; cursor: pointer; padding: 4px 0; min-width: 60px;
+}
+.nav-title { font-family: var(--font-head); font-size: 17px; color: var(--charcoal); }
+.nav-action {
+  background: none; border: none; color: var(--rose);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  font-family: var(--font-body); min-width: 60px; text-align: right;
+}
+
+/* ─────────────────────────────────────────────
+   BODY
+───────────────────────────────────────────── */
+.screen-body { flex: 1; padding: 0 16px; }
+
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted); margin: 20px 0 10px;
+}
+
+/* ─────────────────────────────────────────────
+   CARDS
+───────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--linen);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 10px;
+}
+.card-pad { padding: 16px; }
+
+/* ─────────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────────── */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; width: 100%; padding: 15px 16px; border: none;
+  border-radius: var(--radius-sm); font-family: var(--font-body);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: opacity .15s, transform .1s;
+}
+.btn:active { opacity: .82; transform: scale(.98); }
+.btn-primary  { background: var(--rose); color: #fff; }
+.btn-secondary{ background: var(--cream-dk); color: var(--charcoal); border: 1px solid var(--linen); }
+.btn-upgrade  { background: linear-gradient(135deg, var(--rose), var(--rose-dk)); color:#fff;
+                box-shadow: 0 4px 14px rgba(196,122,142,.35); }
+.btn-ghost    { background: none; color: var(--rose); padding: 12px; font-size: 14px; }
+
+/* ─────────────────────────────────────────────
+   HOME — MODE CARDS
+───────────────────────────────────────────── */
+.mode-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--white); border: 1px solid var(--linen);
+  border-radius: var(--radius); padding: 18px 16px; margin-bottom: 10px;
+  cursor: pointer; box-shadow: var(--shadow-sm);
+  transition: transform .15s;
+}
+.mode-card:active { transform: scale(.98); }
+.mode-card.locked { opacity: .55; cursor: default; }
+.mode-icon {
+  width: 50px; height: 50px; border-radius: 14px;
+  background: var(--blush); display: flex; align-items: center;
+  justify-content: center; font-size: 24px; flex-shrink: 0;
+}
+.mode-icon.sage { background: var(--sage-lt); }
+.mode-icon.gold { background: var(--gold-lt); }
+.mode-info { flex: 1; }
+.mode-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 3px; }
+.mode-info p  { font-size: 12px; color: var(--muted); }
+.mode-arrow { color: var(--rose); font-size: 20px; }
+.badge-soon {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--gold);
+  background: var(--gold-lt); padding: 3px 8px; border-radius: 20px;
+}
+.badge-free {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--sage);
+  background: var(--sage-lt); padding: 3px 8px; border-radius: 20px;
+}
+
+.vault-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; background: var(--white);
+  border: 1px solid var(--linen); border-radius: var(--radius-sm);
+  cursor: pointer; margin-top: 4px;
+}
+.vault-link-left { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+.vault-link-count { font-size: 12px; color: var(--muted); }
+
+.currency-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; color: var(--muted); font-size: 13px;
+}
+.currency-chip {
+  background: var(--blush); border-radius: 20px; padding: 4px 12px;
+  font-size: 12px; font-weight: 600; color: var(--rose); cursor: pointer;
+}
+
+/* ─────────────────────────────────────────────
+   VAULT — INGREDIENT ROWS
+───────────────────────────────────────────── */
+.ing-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--white); border: 1px solid var(--linen);
+  border-radius: var(--radius-sm); padding: 14px 16px;
+  margin-bottom: 8px; cursor: pointer; box-shadow: var(--shadow-sm);
+  transition: background .1s;
+}
+.ing-row:active { background: var(--cream-dk); }
+.ing-info h4 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+.ing-info p  { font-size: 12px; color: var(--muted); }
+.ing-edit { color: var(--rose); font-size: 12px; font-weight: 500;
+            display: flex; align-items: center; gap: 4px; }
+
+.add-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 0; color: var(--rose); font-size: 14px;
+  font-weight: 500; cursor: pointer;
+}
+.add-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--blush); display: flex; align-items: center;
+  justify-content: center; font-size: 18px; color: var(--rose);
+}
+
+/* ─────────────────────────────────────────────
+   CALC — CAKE SIZE
+───────────────────────────────────────────── */
+.size-grid  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 6px; }
+.size-grid2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.size-btn {
+  background: var(--cream-dk); border: 2px solid var(--linen);
+  border-radius: 10px; padding: 10px 4px; text-align: center;
+  cursor: pointer; font-family: var(--font-body); font-size: 13px;
+  font-weight: 600; color: var(--charcoal); transition: all .15s;
+}
+.size-btn.active { background: var(--rose); border-color: var(--rose); color: #fff; }
+
+.servings-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0;
+}
+.servings-ctrl {
+  display: flex; align-items: center; gap: 12px;
+}
+.srv-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--blush); border: none; font-size: 18px;
+  color: var(--rose); cursor: pointer; display: flex;
+  align-items: center; justify-content: center; font-family: var(--font-body);
+}
+.srv-val { font-size: 18px; font-weight: 600; min-width: 30px; text-align: center; }
+
+/* ─────────────────────────────────────────────
+   CALC — RECIPE LINES
+───────────────────────────────────────────── */
+.recipe-line {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 0; border-bottom: 1px solid var(--linen);
+}
+.recipe-line:last-child { border-bottom: none; }
+.rline-name  { flex: 1; font-size: 14px; font-weight: 500; color: var(--charcoal);
+               white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qty-btn {
+  background: var(--cream-dk); border: 1.5px solid var(--linen);
+  border-radius: 8px; padding: 8px 12px; font-size: 15px; font-weight: 600;
+  color: var(--charcoal); cursor: pointer; min-width: 68px; text-align: center;
+  font-family: var(--font-body);
+}
+.qty-btn:active { background: var(--linen); }
+.unit-btn {
+  background: var(--blush); border: none; border-radius: 8px;
+  padding: 8px 10px; font-size: 12px; font-weight: 700; color: var(--rose);
+  cursor: pointer; min-width: 42px; text-align: center;
+  font-family: var(--font-body);
+}
+.unit-btn:active { background: var(--blush-dk); }
+.rline-cost { font-size: 12px; color: var(--muted); min-width: 42px; text-align: right; }
+.rm-btn {
+  background: none; border: none; color: var(--muted);
+  font-size: 20px; cursor: pointer; padding: 0 2px; line-height: 1;
+  font-weight: 300;
+}
+
+/* ─────────────────────────────────────────────
+   CALC — OVERHEADS
+───────────────────────────────────────────── */
+.oh-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 0; border-bottom: 1px solid var(--linen);
+}
+.oh-row:last-child { border-bottom: none; }
+.oh-name    { flex: 1; font-size: 14px; }
+.oh-monthly { font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.pct-input  {
+  width: 52px; background: var(--cream-dk); border: 1.5px solid var(--linen);
+  border-radius: 8px; padding: 7px 6px; font-size: 14px; font-weight: 600;
+  text-align: center; font-family: var(--font-body); color: var(--charcoal);
+  outline: none; cursor: pointer;
+}
+.pct-input:focus { border-color: var(--rose); background: #fff; }
+.oh-result { font-size: 12px; color: var(--muted); min-width: 42px; text-align: right; }
+
+/* ─────────────────────────────────────────────
+   CALC — LABOUR + EXTRAS
+───────────────────────────────────────────── */
+.labour-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.field-group { }
+.field-lbl { font-size: 12px; color: var(--muted); margin-bottom: 6px; display: block; }
+.field-tap {
+  background: var(--cream-dk); border: 1.5px solid var(--linen);
+  border-radius: 10px; padding: 12px; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+}
+.field-tap-sym { font-size: 14px; color: var(--muted); }
+.field-tap-val { font-size: 18px; font-weight: 600; color: var(--charcoal); font-family: var(--font-body); }
+.field-tap:active { background: var(--linen); }
+
+/* Totals */
+.totals-card { background: var(--cream-dk); border-radius: var(--radius-sm); padding: 14px; margin-top: 6px; }
+.total-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+.total-row.big { border-top: 1px solid var(--linen-dk); margin-top: 4px; padding-top: 10px; }
+.total-lbl { font-size: 13px; color: var(--muted); }
+.total-val { font-size: 14px; font-weight: 600; color: var(--charcoal); }
+.total-val.large { font-size: 20px; font-weight: 700; color: var(--rose); }
+
+/* Margin selector */
+.margin-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+.margin-btn {
+  background: var(--cream-dk); border: 2px solid var(--linen);
+  border-radius: 10px; padding: 10px 4px; text-align: center;
+  cursor: pointer; font-family: var(--font-body); font-size: 14px;
+  font-weight: 600; color: var(--charcoal); transition: all .15s;
+}
+.margin-btn.active { background: var(--sage); border-color: var(--sage); color: #fff; }
+
+/* ─────────────────────────────────────────────
+   RESULTS
+───────────────────────────────────────────── */
+.result-hero {
+  background: linear-gradient(135deg, var(--blush) 0%, #fff 70%);
+  border: 1px solid rgba(196,122,142,.18);
+  border-radius: var(--radius); padding: 24px 20px;
+  text-align: center; margin-bottom: 16px;
+}
+.result-recipe-name { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.result-hero-lbl { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.result-breakeven { font-family: var(--font-head); font-size: 42px; font-weight: 600; color: var(--charcoal); display: block; margin-bottom: 4px; }
+.result-sub { font-size: 12px; color: var(--muted); font-style: italic; }
+
+.price-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--linen);
+}
+.price-row:last-child { border-bottom: none; }
+.price-left { }
+.price-lbl  { font-size: 14px; color: var(--charcoal); }
+.price-per  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.price-right { text-align: right; }
+.price-amt  { font-size: 20px; font-weight: 700; color: var(--sage); }
+.price-amt.target { color: var(--rose); font-size: 24px; }
+.price-star { color: var(--gold); margin-left: 4px; }
+
+.client-card {
+  background: var(--cream-dk); border-radius: var(--radius-sm);
+  padding: 14px 16px; margin-bottom: 12px;
+}
+.client-quote { font-family: var(--font-head); font-size: 16px; font-style: italic;
+                color: var(--charcoal); margin-bottom: 4px; }
+.client-note  { font-size: 11px; color: var(--muted); }
+
+.result-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+
+/* Breakdown */
+.breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--linen); }
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-lbl { font-size: 13px; color: var(--muted); }
+.breakdown-val { font-size: 13px; font-weight: 500; }
+
+/* ─────────────────────────────────────────────
+   UPSELL
+───────────────────────────────────────────── */
+.floral-divider {
+  text-align: center; font-size: 12px; letter-spacing: 3px;
+  color: rgba(196,122,142,.45); margin: 20px 0;
+}
+.upsell-card {
+  background: linear-gradient(135deg, #fff 0%, var(--blush) 100%);
+  border: 1.5px solid rgba(196,122,142,.22);
+  border-radius: var(--radius); padding: 20px;
+}
+.upsell-title { font-family: var(--font-head); font-size: 20px; margin-bottom: 4px; }
+.upsell-sub   { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.feature-row  { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 14px; }
+.feature-row.locked { color: var(--muted); }
+.f-check { color: var(--sage); font-size: 15px; flex-shrink: 0; }
+.f-lock  { color: var(--linen-dk); font-size: 14px; flex-shrink: 0; }
+.upsell-price { font-family: var(--font-head); font-size: 32px; font-weight: 600;
+                color: var(--rose); text-align: center; margin: 18px 0 4px; }
+.upsell-price-note { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 16px; }
+.divider-or {
+  display: flex; align-items: center; gap: 10px; margin: 12px 0;
+  color: var(--muted); font-size: 12px;
+}
+.divider-or::before, .divider-or::after { content:''; flex:1; height:1px; background: var(--linen); }
+.coach-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px; border: 1.5px solid var(--rose);
+  border-radius: var(--radius-sm); cursor: pointer; background: none;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  color: var(--rose); width: 100%; transition: background .15s;
+}
+.coach-btn:active { background: var(--blush); }
+
+/* ─────────────────────────────────────────────
+   ONBOARDING
+───────────────────────────────────────────── */
+.ob-screen { padding: 0 24px 24px; }
+.ob-brand { text-align: center; padding: 44px 0 28px; }
+.brand-mark { font-size: 46px; display: block; margin-bottom: 14px; }
+.brand-name { font-family: var(--font-head); font-size: 30px; margin-bottom: 4px; }
+.brand-tag  { font-size: 14px; color: var(--muted); font-style: italic; }
+.step-dots { display: flex; justify-content: center; gap: 8px; margin: 0 0 28px; }
+.step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--linen); transition: all .3s; }
+.step-dot.active { background: var(--rose); width: 24px; border-radius: 4px; }
+.step-dot.done   { background: var(--sage); }
+.step-title { font-family: var(--font-head); font-size: 24px; text-align: center; margin-bottom: 6px; }
+.step-desc  { font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 24px; line-height: 1.6; }
+
+.currency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.currency-opt  {
+  background: var(--cream-dk); border: 2px solid var(--linen);
+  border-radius: var(--radius-sm); padding: 16px 12px; text-align: center;
+  cursor: pointer; transition: all .15s;
+}
+.currency-opt.active { background: var(--blush); border-color: var(--rose); }
+.c-symbol { font-size: 26px; font-weight: 700; color: var(--charcoal); display: block; }
+.c-name   { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+.staple-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+.staple-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; background: var(--cream-dk); border-radius: 8px; font-size: 13px;
+}
+.staple-check { color: var(--sage); }
+
+.margin-large { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.margin-opt {
+  background: var(--cream-dk); border: 2px solid var(--linen);
+  border-radius: var(--radius-sm); padding: 18px 12px; text-align: center;
+  cursor: pointer; transition: all .15s;
+}
+.margin-opt.active { background: var(--sage-lt); border-color: var(--sage); }
+.m-pct  { font-size: 30px; font-weight: 700; color: var(--charcoal); display: block; }
+.m-desc { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+/* ─────────────────────────────────────────────
+   OVERLAYS (Drum, Numpad, Sheet)
+───────────────────────────────────────────── */
+.overlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: none; align-items: flex-end;
+  background: rgba(44,40,50,.45);
+}
+.overlay.active { display: flex; }
+
+.sheet {
+  position: relative; width: 100%; max-width: 430px; margin: 0 auto;
+  background: var(--white); border-radius: 22px 22px 0 0;
+  padding-bottom: calc(12px + var(--safe-b)); z-index: 1;
+  animation: shUp .28s ease;
+}
+@keyframes shUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.sheet-handle {
+  width: 36px; height: 4px; background: var(--linen-dk);
+  border-radius: 2px; margin: 12px auto 0;
+}
+.sheet-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px 12px; border-bottom: 1px solid var(--linen);
+}
+.sheet-title { font-size: 16px; font-weight: 600; }
+.sheet-done {
+  background: none; border: none; color: var(--rose);
+  font-size: 16px; font-weight: 600; cursor: pointer; font-family: var(--font-body);
+}
+
+/* DRUM */
+.drum-wrap { padding: 0 16px 8px; }
+.drum-row  { display: flex; gap: 10px; }
+.drum-col  { flex: 1; position: relative; }
+.drum-col::before {
+  content: ''; position: absolute; top: 50%; left: 0; right: 0;
+  height: 48px; transform: translateY(-50%);
+  background: var(--blush); border-radius: 10px;
+  pointer-events: none; z-index: 0;
+}
+.drum-scroll {
+  height: 192px; overflow-y: scroll; scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  position: relative; z-index: 1;
+}
+.drum-scroll::-webkit-scrollbar { display: none; }
+.drum-pad  { height: 72px; } /* padding at start/end */
+.drum-item {
+  height: 48px; scroll-snap-align: center;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 600; color: var(--charcoal);
+  font-family: var(--font-body); cursor: pointer; user-select: none;
+}
+.drum-lbl { text-align: center; font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 8px 0 2px; }
+
+/* NUMPAD */
+.numpad-wrap { padding: 0 16px; }
+.numpad-sub  { text-align: center; font-size: 13px; color: var(--muted); padding: 12px 0 10px; }
+.numpad-display {
+  background: var(--cream-dk); border-radius: 14px; padding: 16px;
+  text-align: center; font-family: var(--font-head); font-size: 40px;
+  color: var(--charcoal); min-height: 74px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.numpad-display.empty { color: var(--muted); }
+.numpad-keys { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 10px; }
+.nk {
+  background: var(--cream-dk); border: none; border-radius: 14px; height: 62px;
+  font-family: var(--font-body); font-size: 22px; font-weight: 500;
+  color: var(--charcoal); cursor: pointer; transition: background .1s;
+}
+.nk:active { background: var(--linen-dk); }
+.nk.sp  { background: var(--blush); color: var(--rose); }
+.nk.ok  { background: var(--rose); color: #fff; grid-column: 1/-1; height: 56px; font-size: 16px; font-weight: 600; }
+.nk.ok:active { background: var(--rose-dk); }
+
+/* BOTTOM SHEET — Edit Ingredient */
+.edit-sheet-body { padding: 14px 16px; }
+.edit-ing-name { font-family: var(--font-head); font-size: 22px; margin-bottom: 4px; }
+.edit-ing-sub  { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.f-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+.edit-row { display: flex; gap: 10px; margin-bottom: 16px; }
+.input-tap {
+  flex: 1; background: var(--cream-dk); border: 1.5px solid var(--linen);
+  border-radius: 10px; padding: 12px; cursor: pointer; transition: background .1s;
+}
+.input-tap:active { background: var(--linen); }
+.input-tap .itl { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.input-tap .itv { font-size: 22px; font-weight: 600; color: var(--charcoal); font-family: var(--font-body); }
+.cost-preview {
+  background: var(--sage-lt); border-radius: 10px;
+  padding: 12px 14px; display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 16px;
+}
+.cp-lbl { font-size: 13px; color: var(--charcoal); }
+.cp-val { font-size: 20px; font-weight: 700; color: var(--sage); font-family: var(--font-head); }
+.edit-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Ingredient picker sheet */
+.ing-pick-list { max-height: 50vh; overflow-y: auto; padding: 0 16px; }
+.ing-pick-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 0; border-bottom: 1px solid var(--linen);
+  cursor: pointer;
+}
+.ing-pick-item:last-child { border-bottom: none; }
+.ing-pick-item:active { background: var(--cream-dk); margin: 0 -16px; padding: 13px 16px; }
+.ipname { font-size: 15px; font-weight: 500; }
+.ipunit { font-size: 12px; color: var(--muted); }
+.ipadd  { color: var(--rose); font-size: 20px; }
+
+/* Misc */
+.empty-hint { text-align: center; color: var(--muted); font-size: 14px; padding: 24px 0; font-style: italic; }
+
+/* Text input */
+.txt-input {
+  width: 100%; background: var(--cream-dk); border: 1.5px solid var(--linen);
+  border-radius: 10px; padding: 14px 16px; font-family: var(--font-body);
+  font-size: 15px; color: var(--charcoal); outline: none; margin-bottom: 12px;
+}
+.txt-input:focus { border-color: var(--rose); background: #fff; }
+.txt-input::placeholder { color: var(--muted); }
+
+.scroll-end { height: 24px; }
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ═══════════════════════════════════════════
+     SCREEN: ONBOARDING
+════════════════════════════════════════════ -->
+<div id="screen-onboarding" class="screen active">
+<div class="ob-screen">
+
+  <!-- Brand -->
+  <div class="ob-brand">
+    <span class="brand-mark">🌸</span>
+    <div class="brand-name">Flower Girl</div>
+    <div class="brand-tag">Pricing Tool — know your number</div>
+  </div>
+
+  <!-- Step dots -->
+  <div class="step-dots">
+    <div class="step-dot active" id="dot-1"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <div class="step-dot" id="dot-3"></div>
+  </div>
+
+  <!-- Step 1: Currency -->
+  <div id="ob-step-1">
+    <div class="step-title">Your currency</div>
+    <div class="step-desc">Where are you based? This sets how prices show throughout the tool.</div>
+    <div class="currency-grid">
+      <div class="currency-opt active" onclick="setCurrency('GBP',this)">
+        <span class="c-symbol">£</span><div class="c-name">British Pound</div>
+      </div>
+      <div class="currency-opt" onclick="setCurrency('USD',this)">
+        <span class="c-symbol">$</span><div class="c-name">US Dollar</div>
+      </div>
+      <div class="currency-opt" onclick="setCurrency('NGN',this)">
+        <span class="c-symbol">₦</span><div class="c-name">Nigerian Naira</div>
+      </div>
+      <div class="currency-opt" onclick="setCurrency('ZAR',this)">
+        <span class="c-symbol">R</span><div class="c-name">South African Rand</div>
+      </div>
+      <div class="currency-opt" onclick="setCurrency('EUR',this)">
+        <span class="c-symbol">€</span><div class="c-name">Euro</div>
+      </div>
+      <div class="currency-opt" onclick="setCurrency('CAD',this)">
+        <span class="c-symbol">C$</span><div class="c-name">Canadian Dollar</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="obNext(2)">Continue →</button>
+  </div>
+
+  <!-- Step 2: Staples pre-load -->
+  <div id="ob-step-2" style="display:none">
+    <div class="step-title">Your ingredients</div>
+    <div class="step-desc">We've loaded the most common baking staples. You'll set your exact prices in the vault — for now, let's get you started.</div>
+    <div class="staple-grid">
+      <div class="staple-item"><span class="staple-check">✓</span> Self-raising flour</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Plain flour</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Butter</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Caster sugar</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Eggs</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Milk</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Icing sugar</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Vanilla extract</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Cocoa powder</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Cream cheese</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Double cream</div>
+      <div class="staple-item"><span class="staple-check">✓</span> Baking powder</div>
+    </div>
+    <div class="step-desc" style="font-size:12px;margin-bottom:20px">Update prices in ⚙ Ingredient Vault to match what you actually pay.</div>
+    <button class="btn btn-primary" onclick="obNext(3)">Looks great →</button>
+    <button class="btn btn-ghost" onclick="obBack(1)">← Back</button>
+  </div>
+
+  <!-- Step 3: Target margin -->
+  <div id="ob-step-3" style="display:none">
+    <div class="step-title">Your profit target</div>
+    <div class="step-desc">What margin do you want to aim for? You can always change this per calculation.</div>
+    <div class="margin-large" id="ob-margin-opts">
+      <div class="margin-opt" onclick="setObMargin(20,this)">
+        <span class="m-pct">20%</span><div class="m-desc">Starting out</div>
+      </div>
+      <div class="margin-opt active" onclick="setObMargin(30,this)">
+        <span class="m-pct">30%</span><div class="m-desc">Established</div>
+      </div>
+      <div class="margin-opt" onclick="setObMargin(40,this)">
+        <span class="m-pct">40%</span><div class="m-desc">Confident</div>
+      </div>
+      <div class="margin-opt" onclick="setObMargin(50,this)">
+        <span class="m-pct">50%</span><div class="m-desc">Premium</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="finishOnboarding()" style="margin-top:8px">Let's price my cakes 🌸</button>
+    <button class="btn btn-ghost" onclick="obBack(2)">← Back</button>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SCREEN: HOME
+════════════════════════════════════════════ -->
+<div id="screen-home" class="screen">
+  <div class="screen-header">
+    <div class="florals">✿ · ✿ · Flower Girl Pricing Tool · ✿ · ✿</div>
+    <div style="padding:16px 16px 10px">
+      <div style="font-family:var(--font-head);font-size:22px">What are you<br>pricing today?</div>
+    </div>
+  </div>
+  <div class="screen-body" style="padding-top:8px">
+
+    <div class="mode-card" onclick="goTo('screen-calc')">
+      <div class="mode-icon">🎂</div>
+      <div class="mode-info">
+        <h3>Bespoke Cake</h3>
+        <p>Wedding · Custom order · Celebration</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge-free">FREE</span>
+        <span class="mode-arrow">›</span>
+      </div>
+    </div>
+
+    <div class="mode-card locked" onclick="showUpgradeNudge()">
+      <div class="mode-icon sage">🛍️</div>
+      <div class="mode-info">
+        <h3>Pop-Up Event</h3>
+        <p>Is this stall worth going to?</p>
+      </div>
+      <span class="badge-soon">£5 unlock</span>
+    </div>
+
+    <div class="mode-card locked" onclick="showUpgradeNudge()">
+      <div class="mode-icon gold">🍽️</div>
+      <div class="mode-info">
+        <h3>Workshop Planner</h3>
+        <p>Will I make profit teaching this?</p>
+      </div>
+      <span class="badge-soon">£5 unlock</span>
+    </div>
+
+    <div style="height:10px"></div>
+
+    <div class="vault-link" onclick="goTo('screen-vault')">
+      <div class="vault-link-left">
+        <span style="font-size:18px">🧺</span>
+        <span>Ingredient Vault</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="vault-link-count" id="vault-count-badge">14 loaded</span>
+        <span style="color:var(--rose)">›</span>
+      </div>
+    </div>
+
+    <div class="currency-row">
+      <span>Currency</span>
+      <div class="currency-chip" id="home-currency-chip" onclick="showCurrencySheet()">£ GBP</div>
+    </div>
+
+    <div class="scroll-end"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SCREEN: VAULT
+════════════════════════════════════════════ -->
+<div id="screen-vault" class="screen">
+  <div class="screen-header">
+    <div class="florals">✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿</div>
+    <div class="nav-bar">
+      <button class="nav-back" onclick="goBack()">‹ Back</button>
+      <span class="nav-title">🧺 Ingredients</span>
+      <button class="nav-action" onclick="openAddIngSheet()">+ Add</button>
+    </div>
+  </div>
+  <div class="screen-body" style="padding-top:10px">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+      Tap any ingredient to update what you actually pay. Accurate prices = accurate costs.
+    </div>
+    <div id="vault-list"></div>
+    <div class="add-row" onclick="openAddIngSheet()">
+      <div class="add-icon">+</div>
+      <span>Add new ingredient</span>
+    </div>
+    <div class="scroll-end"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SCREEN: CALC (Bespoke)
+════════════════════════════════════════════ -->
+<div id="screen-calc" class="screen">
+  <div class="screen-header">
+    <div class="florals">✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿</div>
+    <div class="nav-bar">
+      <button class="nav-back" onclick="goBack()">‹ Back</button>
+      <span class="nav-title">🎂 Bespoke Cake</span>
+      <div style="width:60px"></div>
+    </div>
+  </div>
+  <div class="screen-body" style="padding-top:12px">
+
+    <!-- Recipe name -->
+    <input class="txt-input" id="recipe-name" placeholder="Recipe name (e.g. Vanilla Ganache)">
+
+    <!-- Cake size -->
+    <div class="section-label">Cake size</div>
+    <div class="card card-pad">
+      <div class="size-grid" id="size-grid-1">
+        <button class="size-btn" onclick="selectSize('4&quot;',this)">4″</button>
+        <button class="size-btn" onclick="selectSize('6&quot;',this)">6″</button>
+        <button class="size-btn active" onclick="selectSize('8&quot;',this)">8″</button>
+        <button class="size-btn" onclick="selectSize('10&quot;',this)">10″</button>
+      </div>
+      <div style="height:6px"></div>
+      <div class="size-grid2">
+        <button class="size-btn" onclick="selectSize('2-tier',this)">2-tier</button>
+        <button class="size-btn" onclick="selectSize('3-tier',this)">3-tier</button>
+        <button class="size-btn" onclick="selectSize('custom',this)">Custom</button>
+      </div>
+      <div style="height:12px"></div>
+      <div class="servings-row">
+        <span style="font-size:13px;color:var(--muted)">Servings</span>
+        <div class="servings-ctrl">
+          <button class="srv-btn" onclick="changeServings(-1)">−</button>
+          <span class="srv-val" id="servings-val">24</span>
+          <button class="srv-btn" onclick="changeServings(1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ingredients -->
+    <div class="section-label">Ingredients</div>
+    <div class="card card-pad" id="ingredients-card">
+      <div id="recipe-lines"></div>
+      <div class="add-row" onclick="openIngPicker()" style="padding-top:10px">
+        <div class="add-icon">+</div>
+        <span>Add from vault</span>
+      </div>
+    </div>
+
+    <!-- Overheads -->
+    <div class="section-label">Overheads</div>
+    <div class="card card-pad" id="overheads-card">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">
+        Set what % of each overhead applies to this recipe
+      </div>
+      <div id="overhead-lines"></div>
+      <div class="add-row" onclick="openAddOhSheet()" style="padding-top:10px">
+        <div class="add-icon">+</div>
+        <span>Add overhead</span>
+      </div>
+    </div>
+
+    <!-- Labour -->
+    <div class="section-label">Labour</div>
+    <div class="card card-pad">
+      <div class="labour-grid">
+        <div class="field-group">
+          <span class="field-lbl">Hours worked</span>
+          <div class="field-tap" onclick="openNumpad('Hours worked on this cake',state.recipe.hours,v=>{state.recipe.hours=v;saveState();renderCalc();})">
+            <span class="field-tap-val" id="labour-hours">3</span>
+            <span style="font-size:13px;color:var(--muted)">hrs</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <span class="field-lbl">Your hourly rate</span>
+          <div class="field-tap" onclick="openNumpad('Your hourly rate',state.recipe.hourlyRate,v=>{state.recipe.hourlyRate=v;saveState();renderCalc();})">
+            <span class="field-tap-sym" id="labour-sym">£</span>
+            <span class="field-tap-val" id="labour-rate">15</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extras -->
+    <div class="section-label">Extras</div>
+    <div class="card card-pad">
+      <div class="labour-grid">
+        <div class="field-group">
+          <span class="field-lbl">Packaging</span>
+          <div class="field-tap" onclick="openNumpad('Packaging cost',state.recipe.packaging,v=>{state.recipe.packaging=v;saveState();renderCalc();})">
+            <span class="field-tap-sym" id="pack-sym">£</span>
+            <span class="field-tap-val" id="pack-val">0</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <span class="field-lbl">Delivery</span>
+          <div class="field-tap" onclick="openNumpad('Delivery cost',state.recipe.delivery,v=>{state.recipe.delivery=v;saveState();renderCalc();})">
+            <span class="field-tap-sym" id="del-sym">£</span>
+            <span class="field-tap-val" id="del-val">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Target margin -->
+    <div class="section-label">Target profit margin</div>
+    <div class="card card-pad">
+      <div class="margin-grid" id="calc-margin-grid">
+        <button class="margin-btn" onclick="selectMargin(0.20,this)">20%</button>
+        <button class="margin-btn" onclick="selectMargin(0.30,this)">30%</button>
+        <button class="margin-btn" onclick="selectMargin(0.40,this)">40%</button>
+        <button class="margin-btn" onclick="selectMargin(0.50,this)">50%</button>
+      </div>
+    </div>
+
+    <!-- Running totals -->
+    <div class="section-label">Cost summary</div>
+    <div class="totals-card" id="calc-totals">
+      <div class="total-row"><span class="total-lbl">Ingredients</span><span class="total-val" id="tot-ing">£ 0.00</span></div>
+      <div class="total-row"><span class="total-lbl">Overheads</span><span class="total-val" id="tot-oh">£ 0.00</span></div>
+      <div class="total-row"><span class="total-lbl">Labour</span><span class="total-val" id="tot-lab">£ 0.00</span></div>
+      <div class="total-row"><span class="total-lbl">Packaging + delivery</span><span class="total-val" id="tot-ext">£ 0.00</span></div>
+      <div class="total-row big"><span class="total-lbl" style="font-weight:600;color:var(--charcoal)">Total cost</span><span class="total-val large" id="tot-total">£ 0.00</span></div>
+    </div>
+
+    <div style="height:20px"></div>
+    <button class="btn btn-primary" style="font-size:16px" onclick="showResults()">
+      🌸 Show me my price →
+    </button>
+    <div class="scroll-end"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SCREEN: RESULTS
+════════════════════════════════════════════ -->
+<div id="screen-results" class="screen">
+  <div class="screen-header">
+    <div class="florals">✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿</div>
+    <div class="nav-bar">
+      <button class="nav-back" onclick="goBack()">‹ Back</button>
+      <span class="nav-title">🌸 Your Number</span>
+      <div style="width:60px"></div>
+    </div>
+  </div>
+  <div class="screen-body" style="padding-top:14px">
+    <div id="results-content"></div>
+    <div class="scroll-end"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     OVERLAYS
+════════════════════════════════════════════ -->
+
+<!-- DRUM PICKER -->
+<div id="overlay-drum" class="overlay" onclick="onOverlayClick(event,'overlay-drum')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <span class="sheet-title" id="drum-title">Select</span>
+      <button class="sheet-done" onclick="drumDone()">Done</button>
+    </div>
+    <div class="drum-wrap">
+      <div class="drum-row" id="drum-row"></div>
+    </div>
+  </div>
+</div>
+
+<!-- NUMBER PAD -->
+<div id="overlay-numpad" class="overlay" onclick="onOverlayClick(event,'overlay-numpad')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="numpad-wrap">
+      <div class="numpad-sub" id="numpad-sub">Enter value</div>
+      <div class="numpad-display" id="numpad-display">0</div>
+      <div class="numpad-keys">
+        <button class="nk" onclick="nk('7')">7</button>
+        <button class="nk" onclick="nk('8')">8</button>
+        <button class="nk" onclick="nk('9')">9</button>
+        <button class="nk" onclick="nk('4')">4</button>
+        <button class="nk" onclick="nk('5')">5</button>
+        <button class="nk" onclick="nk('6')">6</button>
+        <button class="nk" onclick="nk('1')">1</button>
+        <button class="nk" onclick="nk('2')">2</button>
+        <button class="nk" onclick="nk('3')">3</button>
+        <button class="nk" onclick="nk('.')">.</button>
+        <button class="nk" onclick="nk('0')">0</button>
+        <button class="nk sp" onclick="nk('⌫')">⌫</button>
+      </div>
+      <div style="padding-bottom:8px">
+        <button class="nk ok" onclick="numpadDone()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT INGREDIENT SHEET -->
+<div id="overlay-sheet" class="overlay" onclick="onOverlayClick(event,'overlay-sheet')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="edit-sheet-body">
+      <div class="edit-ing-name" id="edit-ing-name-title">Flour</div>
+      <div class="edit-ing-sub">Set what you actually pay so your costs are accurate</div>
+      <span class="f-label">I buy this in packs of</span>
+      <div class="edit-row">
+        <div class="input-tap" onclick="editField('packQty')">
+          <div class="itl">Quantity</div>
+          <div class="itv" id="edit-packQty-val">500</div>
+        </div>
+        <div class="input-tap" onclick="editField('unit')">
+          <div class="itl">Unit</div>
+          <div class="itv" id="edit-unit-val">g</div>
+        </div>
+      </div>
+      <span class="f-label">Each pack costs</span>
+      <div class="edit-row">
+        <div class="input-tap" onclick="editField('packPrice')">
+          <div class="itl">Price <span id="edit-price-sym">£</span></div>
+          <div class="itv" id="edit-packPrice-val">0.95</div>
+        </div>
+      </div>
+      <div class="cost-preview">
+        <span class="cp-lbl">Cost per 100 <span id="edit-unit-label">g</span></span>
+        <span class="cp-val" id="edit-cost-preview">£ 0.19</span>
+      </div>
+      <div class="edit-btns">
+        <button class="btn btn-secondary" onclick="closeOverlay('overlay-sheet')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveIngredientEdit()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INGREDIENT PICKER -->
+<div id="overlay-ing-pick" class="overlay" onclick="onOverlayClick(event,'overlay-ing-pick')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <span class="sheet-title">Add ingredient</span>
+      <button class="sheet-done" onclick="closeOverlay('overlay-ing-pick')">Close</button>
+    </div>
+    <div class="ing-pick-list" id="ing-pick-list"></div>
+    <div style="padding:12px 16px 4px">
+      <button class="btn btn-secondary" onclick="closeOverlay('overlay-ing-pick');goTo('screen-vault')">
+        + Add a new ingredient to vault
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD INGREDIENT SHEET (from vault) -->
+<div id="overlay-add-ing" class="overlay" onclick="onOverlayClick(event,'overlay-add-ing')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="edit-sheet-body">
+      <div class="edit-ing-name">New ingredient</div>
+      <div class="edit-ing-sub">Add it to your vault for use in any recipe</div>
+      <span class="f-label">Name</span>
+      <input class="txt-input" id="new-ing-name" placeholder="e.g. Fondant icing">
+      <span class="f-label">I buy this in packs of</span>
+      <div class="edit-row">
+        <div class="input-tap" onclick="addIngField('packQty')">
+          <div class="itl">Quantity</div>
+          <div class="itv" id="new-packQty-val">500</div>
+        </div>
+        <div class="input-tap" onclick="addIngField('unit')">
+          <div class="itl">Unit</div>
+          <div class="itv" id="new-unit-val">g</div>
+        </div>
+      </div>
+      <span class="f-label">Each pack costs</span>
+      <div class="edit-row">
+        <div class="input-tap" onclick="addIngField('packPrice')">
+          <div class="itl">Price <span id="new-price-sym">£</span></div>
+          <div class="itv" id="new-packPrice-val">1.00</div>
+        </div>
+      </div>
+      <div class="cost-preview">
+        <span class="cp-lbl">Cost per 100 <span id="new-unit-label">g</span></span>
+        <span class="cp-val" id="new-cost-preview">£ 0.20</span>
+      </div>
+      <div class="edit-btns">
+        <button class="btn btn-secondary" onclick="closeOverlay('overlay-add-ing')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveNewIngredient()">Add to vault</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD OVERHEAD SHEET -->
+<div id="overlay-add-oh" class="overlay" onclick="onOverlayClick(event,'overlay-add-oh')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="edit-sheet-body">
+      <div class="edit-ing-name">Add Overhead</div>
+      <div class="edit-ing-sub">Set your monthly running costs — they'll be allocated across your recipes</div>
+      <span class="f-label">Name</span>
+      <input class="txt-input" id="new-oh-name" placeholder="e.g. Rent, Electricity, Mixer">
+      <span class="f-label">Total amount</span>
+      <div class="input-tap" style="margin-bottom:12px" onclick="ohField('total')">
+        <div class="itl">Amount <span id="oh-sym">£</span></div>
+        <div class="itv" id="new-oh-total-val">0</div>
+      </div>
+      <span class="f-label">Spread over (months)</span>
+      <div class="input-tap" style="margin-bottom:16px" onclick="ohField('period')">
+        <div class="itl">Period (1 = monthly, 60 = over 5 years)</div>
+        <div class="itv" id="new-oh-period-val">1</div>
+      </div>
+      <div class="cost-preview">
+        <span class="cp-lbl">Per month</span>
+        <span class="cp-val" id="new-oh-monthly">£ 0.00</span>
+      </div>
+      <div class="edit-btns">
+        <button class="btn btn-secondary" onclick="closeOverlay('overlay-add-oh')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveNewOverhead()">Add overhead</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+/* ─────────────────────────────────────────────
+   CONFIG (easy to update)
+───────────────────────────────────────────── */
+const CFG = {
+  coachName: 'Rochelle',
+  coachLink: 'https://wa.me/', // replace with WhatsApp or Calendly
+  workshopLink: '#',
+  upgradeLink: '#', // replace with payment link
+  upgradePrice: '£5',
+};
+
+/* ─────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────── */
+const CURRENCIES = {
+  GBP: { symbol: '£', name: 'British Pound' },
+  USD: { symbol: '$', name: 'US Dollar' },
+  NGN: { symbol: '₦', name: 'Nigerian Naira' },
+  ZAR: { symbol: 'R', name: 'South African Rand' },
+  EUR: { symbol: '€', name: 'Euro' },
+  CAD: { symbol: 'C$', name: 'Canadian Dollar' },
+};
+
+const SIZES = {
+  '4"': 10, '6"': 14, '8"': 24, '10"': 38,
+  '2-tier': 45, '3-tier': 75, 'custom': 0,
+};
+
+const UNITS = ['g','kg','ml','ltr','oz','lb','tsp','tbsp','whole'];
+
+const TO_BASE = { // everything normalised to grams/ml
+  g:1, kg:1000, ml:1, ltr:1000, oz:28.35, lb:453.59,
+  tsp:5, tbsp:15, cup:240, whole:1,
+};
+
+const DEF_INGREDIENTS = [
+  {id:'fl-sr', name:'Self-raising flour', unit:'g', packQty:500,  packPrice:0.95},
+  {id:'fl-pl', name:'Plain flour',        unit:'g', packQty:500,  packPrice:0.85},
+  {id:'butt',  name:'Butter',             unit:'g', packQty:250,  packPrice:1.75},
+  {id:'cas',   name:'Caster sugar',       unit:'g', packQty:500,  packPrice:0.89},
+  {id:'ics',   name:'Icing sugar',        unit:'g', packQty:500,  packPrice:0.99},
+  {id:'eggs',  name:'Eggs',               unit:'whole',packQty:6, packPrice:1.89},
+  {id:'milk',  name:'Milk',               unit:'ml', packQty:1000,packPrice:1.10},
+  {id:'van',   name:'Vanilla extract',    unit:'ml', packQty:38,  packPrice:2.50},
+  {id:'bkp',   name:'Baking powder',      unit:'g', packQty:170,  packPrice:1.20},
+  {id:'coc',   name:'Cocoa powder',       unit:'g', packQty:200,  packPrice:2.00},
+  {id:'cch',   name:'Cream cheese',       unit:'g', packQty:300,  packPrice:1.75},
+  {id:'dcr',   name:'Double cream',       unit:'ml',packQty:300,  packPrice:1.65},
+  {id:'wch',   name:'White chocolate',    unit:'g', packQty:100,  packPrice:1.20},
+  {id:'fcg',   name:'Food colouring gel', unit:'ml',packQty:20,   packPrice:2.50},
+];
+
+const DEF_OVERHEADS = [
+  {id:'oh-rent', name:'Rent',                 total:800,  period:1},
+  {id:'oh-elec', name:'Electricity',          total:60,   period:1},
+  {id:'oh-oven', name:'Oven (depreciation)',  total:1200, period:60},
+  {id:'oh-mix',  name:'Stand mixer (deprec)',total:400,  period:36},
+];
+
+/* ─────────────────────────────────────────────
+   STATE
+───────────────────────────────────────────── */
+let state = {
+  currency: 'GBP',
+  targetMargin: 0.30,
+  setupDone: false,
+  ingredients: [],
+  overheads: [],
+  recipe: {
+    name: '', size: '8"', servings: 24,
+    lines: [],
+    overheadAllocs: [],
+    hours: 3, hourlyRate: 15,
+    packaging: 0, delivery: 0,
+  },
+};
+
+function saveState() {
+  try { localStorage.setItem('fg_state', JSON.stringify(state)); } catch(e){}
+}
+function loadState() {
+  try {
+    const s = localStorage.getItem('fg_state');
+    if (s) state = Object.assign(state, JSON.parse(s));
+  } catch(e){}
+}
+
+function sym() { return CURRENCIES[state.currency]?.symbol || '£'; }
+function fmt(n) {
+  const s = sym();
+  return s + Math.abs(n).toFixed(2);
+}
+function fmtRound(n) { return sym() + Math.ceil(Math.abs(n)); }
+
+/* ─────────────────────────────────────────────
+   SCREEN MANAGEMENT
+───────────────────────────────────────────── */
+let screenStack = [];
+
+function goTo(id) {
+  const cur = document.querySelector('.screen.active');
+  const next = document.getElementById(id);
+  if (!next || cur === next) return;
+  cur.classList.remove('active');
+  next.classList.add('active','enter');
+  next.addEventListener('animationend', () => next.classList.remove('enter'), {once:true});
+  screenStack.push(cur.id);
+  refreshScreen(id);
+}
+
+function goBack() {
+  const prev = screenStack.pop();
+  if (!prev) return;
+  const cur = document.querySelector('.screen.active');
+  cur.classList.remove('active');
+  const back = document.getElementById(prev);
+  back.classList.add('active');
+  refreshScreen(prev);
+}
+
+function refreshScreen(id) {
+  if (id === 'screen-vault') renderVault();
+  if (id === 'screen-calc')  renderCalc();
+  if (id === 'screen-home')  renderHome();
+}
+
+/* ─────────────────────────────────────────────
+   ONBOARDING
+───────────────────────────────────────────── */
+let obCurrency = 'GBP';
+let obMargin = 30;
+
+function setCurrency(code, el) {
+  obCurrency = code;
+  document.querySelectorAll('.currency-opt').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function setObMargin(pct, el) {
+  obMargin = pct;
+  document.querySelectorAll('.margin-opt').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function obNext(step) {
+  document.getElementById('ob-step-' + (step-1)).style.display = 'none';
+  document.getElementById('ob-step-' + step).style.display = '';
+  for (let i=1; i<=3; i++) {
+    const d = document.getElementById('dot-'+i);
+    d.classList.toggle('done', i < step);
+    d.classList.toggle('active', i === step);
+  }
+}
+
+function obBack(step) {
+  document.getElementById('ob-step-' + (step+1)).style.display = 'none';
+  document.getElementById('ob-step-' + step).style.display = '';
+  for (let i=1; i<=3; i++) {
+    const d = document.getElementById('dot-'+i);
+    d.classList.toggle('done', i < step);
+    d.classList.toggle('active', i === step);
+  }
+}
+
+function finishOnboarding() {
+  state.currency    = obCurrency;
+  state.targetMargin = obMargin / 100;
+  state.setupDone   = true;
+  state.ingredients = JSON.parse(JSON.stringify(DEF_INGREDIENTS));
+  state.overheads   = JSON.parse(JSON.stringify(DEF_OVERHEADS));
+  // set default allocs
+  state.recipe.overheadAllocs = state.overheads.map(o => ({overheadId:o.id, percent:5}));
+  saveState();
+  goTo('screen-home');
+}
+
+/* ─────────────────────────────────────────────
+   HOME
+───────────────────────────────────────────── */
+function renderHome() {
+  const chip = document.getElementById('home-currency-chip');
+  if (chip) chip.textContent = sym() + ' ' + state.currency;
+  const badge = document.getElementById('vault-count-badge');
+  if (badge) badge.textContent = state.ingredients.length + ' loaded';
+}
+
+function showUpgradeNudge() {
+  alert('Unlock all 3 modes for ' + CFG.upgradePrice + ' — one-off, no subscription.\n\nComing soon!');
+}
+
+function showCurrencySheet() {
+  const input = prompt('Currency: GBP / USD / NGN / ZAR / EUR / CAD', state.currency);
+  if (input && CURRENCIES[input.toUpperCase()]) {
+    state.currency = input.toUpperCase();
+    saveState();
+    renderHome();
+  }
+}
+
+/* ─────────────────────────────────────────────
+   VAULT
+───────────────────────────────────────────── */
+function renderVault() {
+  const list = document.getElementById('vault-list');
+  if (!list) return;
+  if (!state.ingredients.length) {
+    list.innerHTML = '<div class="empty-hint">No ingredients yet. Tap + Add to start.</div>';
+    return;
+  }
+  list.innerHTML = state.ingredients.map((ing, idx) => {
+    const cper = ing.packPrice / ing.packQty;
+    const perHundred = fmt(cper * 100);
+    return `
+      <div class="ing-row" onclick="openEditIng(${idx})">
+        <div class="ing-info">
+          <h4>${ing.name}</h4>
+          <p>${ing.packQty}${ing.unit} · ${sym()}${ing.packPrice.toFixed(2)} · ${perHundred}/100${ing.unit}</p>
+        </div>
+        <div class="ing-edit">✏ edit</div>
+      </div>`;
+  }).join('');
+}
+
+/* ─────────────────────────────────────────────
+   EDIT INGREDIENT
+───────────────────────────────────────────── */
+let editIngIdx = null;
+let editIng = {};
+let newIng = {name:'', packQty:500, unit:'g', packPrice:1.00};
+
+function openEditIng(idx) {
+  editIngIdx = idx;
+  editIng = Object.assign({}, state.ingredients[idx]);
+  document.getElementById('edit-ing-name-title').textContent = editIng.name;
+  document.getElementById('edit-packQty-val').textContent = editIng.packQty;
+  document.getElementById('edit-unit-val').textContent = editIng.unit;
+  document.getElementById('edit-packPrice-val').textContent = editIng.packPrice.toFixed(2);
+  document.getElementById('edit-price-sym').textContent = sym();
+  updateEditPreview();
+  openOverlay('overlay-sheet');
+}
+
+function updateEditPreview() {
+  if (!editIng.packQty || !editIng.packPrice) return;
+  const costPer100 = (editIng.packPrice / editIng.packQty) * 100;
+  document.getElementById('edit-cost-preview').textContent = fmt(costPer100);
+  document.getElementById('edit-unit-label').textContent = editIng.unit;
+}
+
+function editField(field) {
+  if (field === 'unit') {
+    openDrum('Unit', UNITS, UNITS.indexOf(editIng.unit), (val) => {
+      editIng.unit = val;
+      document.getElementById('edit-unit-val').textContent = val;
+      document.getElementById('edit-unit-label').textContent = val;
+      updateEditPreview();
+    });
+  } else if (field === 'packQty') {
+    openNumpad('Pack quantity', editIng.packQty, (val) => {
+      editIng.packQty = val;
+      document.getElementById('edit-packQty-val').textContent = val;
+      updateEditPreview();
+    });
+  } else if (field === 'packPrice') {
+    openNumpad('Pack price (' + sym() + ')', editIng.packPrice, (val) => {
+      editIng.packPrice = val;
+      document.getElementById('edit-packPrice-val').textContent = val.toFixed(2);
+      updateEditPreview();
+    });
+  }
+}
+
+function saveIngredientEdit() {
+  if (editIngIdx !== null) {
+    state.ingredients[editIngIdx] = Object.assign(state.ingredients[editIngIdx], editIng);
+    saveState();
+    renderVault();
+    renderCalcLines();
+    renderCalcTotals();
+  }
+  closeOverlay('overlay-sheet');
+}
+
+/* ─────────────────────────────────────────────
+   ADD INGREDIENT (from vault)
+───────────────────────────────────────────── */
+function openAddIngSheet() {
+  newIng = {name:'', packQty:500, unit:'g', packPrice:1.00};
+  document.getElementById('new-ing-name').value = '';
+  document.getElementById('new-packQty-val').textContent = '500';
+  document.getElementById('new-unit-val').textContent = 'g';
+  document.getElementById('new-packPrice-val').textContent = '1.00';
+  document.getElementById('new-price-sym').textContent = sym();
+  updateNewPreview();
+  openOverlay('overlay-add-ing');
+}
+
+function updateNewPreview() {
+  const cper = newIng.packPrice / newIng.packQty;
+  document.getElementById('new-cost-preview').textContent = fmt(cper * 100);
+  document.getElementById('new-unit-label').textContent = newIng.unit;
+}
+
+function addIngField(field) {
+  if (field === 'unit') {
+    openDrum('Unit', UNITS, UNITS.indexOf(newIng.unit), (val) => {
+      newIng.unit = val;
+      document.getElementById('new-unit-val').textContent = val;
+      updateNewPreview();
+    });
+  } else if (field === 'packQty') {
+    openNumpad('Pack quantity', newIng.packQty, (val) => {
+      newIng.packQty = val;
+      document.getElementById('new-packQty-val').textContent = val;
+      updateNewPreview();
+    });
+  } else if (field === 'packPrice') {
+    openNumpad('Pack price (' + sym() + ')', newIng.packPrice, (val) => {
+      newIng.packPrice = val;
+      document.getElementById('new-packPrice-val').textContent = val.toFixed(2);
+      updateNewPreview();
+    });
+  }
+}
+
+function saveNewIngredient() {
+  const name = document.getElementById('new-ing-name').value.trim();
+  if (!name) { alert('Please enter an ingredient name'); return; }
+  newIng.name = name;
+  newIng.id = 'custom-' + Date.now();
+  state.ingredients.push(Object.assign({}, newIng));
+  saveState();
+  renderVault();
+  closeOverlay('overlay-add-ing');
+}
+
+/* ─────────────────────────────────────────────
+   CALC — RENDER
+───────────────────────────────────────────── */
+function renderCalc() {
+  // Sync currency symbols
+  document.getElementById('labour-sym').textContent = sym();
+  document.getElementById('labour-rate').textContent = state.recipe.hourlyRate;
+  document.getElementById('labour-hours').textContent = state.recipe.hours;
+  document.getElementById('pack-sym').textContent = sym();
+  document.getElementById('del-sym').textContent = sym();
+  document.getElementById('pack-val').textContent = state.recipe.packaging || 0;
+  document.getElementById('del-val').textContent = state.recipe.delivery || 0;
+
+  // Active margin btn
+  const mg = Math.round(state.targetMargin * 100);
+  document.querySelectorAll('#calc-margin-grid .margin-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === mg);
+  });
+
+  renderCalcLines();
+  renderOverheadLines();
+  renderCalcTotals();
+}
+
+function renderCalcLines() {
+  const cont = document.getElementById('recipe-lines');
+  if (!cont) return;
+  const lines = state.recipe.lines;
+  if (!lines.length) {
+    cont.innerHTML = '<div class="empty-hint" style="padding:12px 0 4px">No ingredients yet. Tap below to add.</div>';
+    return;
+  }
+  cont.innerHTML = lines.map((line, i) => {
+    const ing = state.ingredients.find(x => x.id === line.ingredientId);
+    const cost = ing ? calcIngCost(ing, line.qty, line.unit) : 0;
+    return `
+    <div class="recipe-line">
+      <span class="rline-name">${ing ? ing.name : '?'}</span>
+      <button class="qty-btn" onclick="editLineQty(${i})">${line.qty}</button>
+      <button class="unit-btn" onclick="editLineUnit(${i})">${line.unit}</button>
+      <span class="rline-cost">${fmt(cost)}</span>
+      <button class="rm-btn" onclick="removeLine(${i})">×</button>
+    </div>`;
+  }).join('');
+}
+
+function renderOverheadLines() {
+  const cont = document.getElementById('overhead-lines');
+  if (!cont) return;
+  const allocs = state.recipe.overheadAllocs;
+  if (!allocs.length) {
+    cont.innerHTML = '<div class="empty-hint" style="padding:8px 0">No overheads added yet.</div>';
+    return;
+  }
+  cont.innerHTML = allocs.map((alloc, i) => {
+    const oh = state.overheads.find(o => o.id === alloc.overheadId);
+    if (!oh) return '';
+    const monthly = oh.total / oh.period;
+    const result = monthly * (alloc.percent / 100);
+    return `
+    <div class="oh-row">
+      <span class="oh-name">${oh.name}</span>
+      <span class="oh-monthly">${sym()}${monthly.toFixed(0)}/mo</span>
+      <input class="pct-input" type="number" min="0" max="100"
+             value="${alloc.percent}"
+             onclick="this.select()"
+             oninput="updateOhAlloc(${i},this.value)">
+      <span style="font-size:11px;color:var(--muted);padding:0 4px">%</span>
+      <span class="oh-result">${fmt(result)}</span>
+      <button class="rm-btn" onclick="removeOhAlloc(${i})">×</button>
+    </div>`;
+  }).join('');
+}
+
+function renderCalcTotals() {
+  const r = calcTotals();
+  const s = sym();
+  document.getElementById('tot-ing').textContent = fmt(r.ingredients);
+  document.getElementById('tot-oh').textContent  = fmt(r.overheads);
+  document.getElementById('tot-lab').textContent = fmt(r.labour);
+  document.getElementById('tot-ext').textContent = fmt(r.extras);
+  document.getElementById('tot-total').textContent = fmt(r.total);
+}
+
+/* ─────────────────────────────────────────────
+   CALC — INTERACTIONS
+───────────────────────────────────────────── */
+function selectSize(size, el) {
+  state.recipe.size = size;
+  state.recipe.servings = SIZES[size] || state.recipe.servings;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('servings-val').textContent = state.recipe.servings;
+  renderCalcTotals();
+  saveState();
+}
+
+function changeServings(delta) {
+  const s = Math.max(1, (state.recipe.servings || 1) + delta);
+  state.recipe.servings = s;
+  document.getElementById('servings-val').textContent = s;
+  saveState();
+}
+
+function selectMargin(m, el) {
+  state.targetMargin = m;
+  document.querySelectorAll('#calc-margin-grid .margin-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  saveState();
+  renderCalcTotals();
+}
+
+function editLineQty(idx) {
+  const line = state.recipe.lines[idx];
+  openNumpad('Quantity (' + line.unit + ')', line.qty, (val) => {
+    state.recipe.lines[idx].qty = val;
+    saveState();
+    renderCalcLines();
+    renderCalcTotals();
+  });
+}
+
+function editLineUnit(idx) {
+  const line = state.recipe.lines[idx];
+  openDrum('Unit', UNITS, UNITS.indexOf(line.unit), (val) => {
+    state.recipe.lines[idx].unit = val;
+    saveState();
+    renderCalcLines();
+    renderCalcTotals();
+  });
+}
+
+function removeLine(idx) {
+  state.recipe.lines.splice(idx, 1);
+  saveState();
+  renderCalcLines();
+  renderCalcTotals();
+}
+
+function updateOhAlloc(idx, val) {
+  state.recipe.overheadAllocs[idx].percent = parseFloat(val) || 0;
+  renderCalcTotals();
+  saveState();
+}
+
+function removeOhAlloc(idx) {
+  state.recipe.overheadAllocs.splice(idx, 1);
+  saveState();
+  renderOverheadLines();
+  renderCalcTotals();
+}
+
+/* Ingredient picker */
+function openIngPicker() {
+  const list = document.getElementById('ing-pick-list');
+  list.innerHTML = state.ingredients.map((ing, idx) => `
+    <div class="ing-pick-item" onclick="addIngToRecipe('${ing.id}')">
+      <div>
+        <div class="ipname">${ing.name}</div>
+        <div class="ipunit">${ing.packQty}${ing.unit} · ${sym()}${ing.packPrice.toFixed(2)}</div>
+      </div>
+      <span class="ipadd">+</span>
+    </div>`).join('');
+  openOverlay('overlay-ing-pick');
+}
+
+function addIngToRecipe(ingId) {
+  const ing = state.ingredients.find(i => i.id === ingId);
+  if (!ing) return;
+  // Check if already added
+  const exists = state.recipe.lines.find(l => l.ingredientId === ingId);
+  if (exists) {
+    closeOverlay('overlay-ing-pick');
+    return;
+  }
+  state.recipe.lines.push({ ingredientId: ingId, qty: 100, unit: ing.unit });
+  saveState();
+  closeOverlay('overlay-ing-pick');
+  renderCalcLines();
+  renderCalcTotals();
+}
+
+/* Add overhead */
+let newOh = {name:'', total:0, period:1};
+
+function openAddOhSheet() {
+  newOh = {name:'', total:0, period:1};
+  document.getElementById('new-oh-name').value = '';
+  document.getElementById('new-oh-total-val').textContent = '0';
+  document.getElementById('new-oh-period-val').textContent = '1';
+  document.getElementById('oh-sym').textContent = sym();
+  updateOhPreview();
+  openOverlay('overlay-add-oh');
+}
+
+function ohField(field) {
+  if (field === 'total') {
+    openNumpad('Total amount (' + sym() + ')', newOh.total, (val) => {
+      newOh.total = val;
+      document.getElementById('new-oh-total-val').textContent = val.toFixed(2);
+      updateOhPreview();
+    });
+  } else if (field === 'period') {
+    openNumpad('Spread over months (1 = monthly)', newOh.period, (val) => {
+      newOh.period = Math.max(1, Math.round(val));
+      document.getElementById('new-oh-period-val').textContent = newOh.period;
+      updateOhPreview();
+    });
+  }
+}
+
+function updateOhPreview() {
+  const monthly = newOh.period ? newOh.total / newOh.period : 0;
+  document.getElementById('new-oh-monthly').textContent = fmt(monthly);
+}
+
+function saveNewOverhead() {
+  const name = document.getElementById('new-oh-name').value.trim();
+  if (!name) { alert('Please enter an overhead name'); return; }
+  const oh = { id: 'oh-' + Date.now(), name, total: newOh.total, period: newOh.period };
+  state.overheads.push(oh);
+  state.recipe.overheadAllocs.push({ overheadId: oh.id, percent: 5 });
+  saveState();
+  closeOverlay('overlay-add-oh');
+  renderOverheadLines();
+  renderCalcTotals();
+}
+
+/* ─────────────────────────────────────────────
+   CALCULATIONS
+───────────────────────────────────────────── */
+function calcIngCost(ing, qty, unit) {
+  const toBase = TO_BASE[unit] || 1;
+  const packBase = TO_BASE[ing.unit] || 1;
+  const costPerBase = ing.packPrice / (ing.packQty * packBase);
+  return costPerBase * qty * toBase;
+}
+
+function calcTotals() {
+  const { recipe, ingredients, overheads } = state;
+
+  let ingCost = 0;
+  for (const line of recipe.lines) {
+    const ing = ingredients.find(x => x.id === line.ingredientId);
+    if (ing) ingCost += calcIngCost(ing, line.qty, line.unit);
+  }
+
+  let ohCost = 0;
+  for (const alloc of recipe.overheadAllocs) {
+    const oh = overheads.find(o => o.id === alloc.overheadId);
+    if (oh) ohCost += (oh.total / oh.period) * (alloc.percent / 100);
+  }
+
+  const labourCost = (parseFloat(recipe.hours) || 0) * (parseFloat(recipe.hourlyRate) || 0);
+  const extras = (parseFloat(recipe.packaging) || 0) + (parseFloat(recipe.delivery) || 0);
+  const total = ingCost + ohCost + labourCost + extras;
+
+  return { ingredients: ingCost, overheads: ohCost, labour: labourCost, extras, total };
+}
+
+function priceAt(totalCost, margin) {
+  if (margin >= 1) return totalCost * 2;
+  return totalCost / (1 - margin);
+}
+
+/* ─────────────────────────────────────────────
+   RESULTS
+───────────────────────────────────────────── */
+function showResults() {
+  const r = calcTotals();
+  const name = document.getElementById('recipe-name')?.value || state.recipe.size + ' Cake';
+  const srvgs = state.recipe.servings;
+  const m = state.targetMargin;
+  const s = sym();
+
+  const at20 = priceAt(r.total, 0.20);
+  const at30 = priceAt(r.total, 0.30);
+  const at40 = priceAt(r.total, 0.40);
+  const at50 = priceAt(r.total, 0.50);
+  const atTarget = priceAt(r.total, m);
+  const targetPct = Math.round(m * 100);
+  const rounded = Math.ceil(atTarget);
+
+  const html = `
+    <div class="result-hero">
+      <div class="result-recipe-name">${name} · ${srvgs} servings</div>
+      <div class="result-hero-lbl">Break even at</div>
+      <span class="result-breakeven">${fmt(r.total)}</span>
+      <div class="result-sub">Covers all costs, zero profit</div>
+    </div>
+
+    <div class="section-label">Charge this for your target profit</div>
+    <div class="card card-pad">
+      ${[
+        {label:'20% margin', val:at20, isTarget: targetPct===20},
+        {label:'30% margin', val:at30, isTarget: targetPct===30},
+        {label:'40% margin', val:at40, isTarget: targetPct===40},
+        {label:'50% margin', val:at50, isTarget: targetPct===50},
+      ].map(row => `
+        <div class="price-row">
+          <div class="price-left">
+            <div class="price-lbl">${row.label}${row.isTarget ? ' ★' : ''}</div>
+            <div class="price-per">${s}${(row.val/srvgs).toFixed(2)} per slice</div>
+          </div>
+          <div class="price-right">
+            <span class="price-amt${row.isTarget ? ' target' : ''}">${fmtRound(row.val)}</span>
+          </div>
+        </div>`).join('')}
+    </div>
+
+    <div class="section-label">What to tell your client</div>
+    <div class="client-card">
+      <div class="client-quote">"This cake starts from ${fmtRound(atTarget)}"</div>
+      <div class="client-note">Rounded up from ${fmt(atTarget)} — always round up, never down.</div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-secondary" style="font-size:13px" onclick="copyResult('${name}',${rounded})">📋 Copy price</button>
+      <button class="btn btn-secondary" style="font-size:13px" onclick="goBack()">↩ Recalculate</button>
+    </div>
+
+    <div class="section-label">Cost breakdown</div>
+    <div class="card card-pad">
+      <div class="breakdown-row"><span class="breakdown-lbl">Ingredients</span><span class="breakdown-val">${fmt(r.ingredients)}</span></div>
+      <div class="breakdown-row"><span class="breakdown-lbl">Overheads</span><span class="breakdown-val">${fmt(r.overheads)}</span></div>
+      <div class="breakdown-row"><span class="breakdown-lbl">Labour</span><span class="breakdown-val">${fmt(r.labour)}</span></div>
+      <div class="breakdown-row"><span class="breakdown-lbl">Packaging + delivery</span><span class="breakdown-val">${fmt(r.extras)}</span></div>
+      <div class="breakdown-row" style="border-top:1px solid var(--linen-dk);padding-top:10px;margin-top:4px">
+        <span class="breakdown-lbl" style="font-weight:600;color:var(--charcoal)">Total cost</span>
+        <span class="breakdown-val" style="font-size:16px;font-weight:700">${fmt(r.total)}</span>
+      </div>
+    </div>
+
+    <div class="floral-divider">✿ · · · ✿ · · · ✿</div>
+
+    <div class="upsell-card">
+      <div class="upsell-title">🌸 Want to go further?</div>
+      <div class="upsell-sub">You're on the free plan. Unlock everything for a one-off ${CFG.upgradePrice}.</div>
+
+      <div class="feature-row"><span class="f-check">✓</span> Bespoke cake calculator</div>
+      <div class="feature-row locked"><span class="f-lock">🔒</span> Pop-up event verdict (✅ ⚠️ ❌)</div>
+      <div class="feature-row locked"><span class="f-lock">🔒</span> Workshop profit planner</div>
+      <div class="feature-row locked"><span class="f-lock">🔒</span> PDF price quote to share</div>
+      <div class="feature-row locked"><span class="f-lock">🔒</span> All currencies</div>
+      <div class="feature-row locked"><span class="f-lock">🔒</span> Save recipes</div>
+
+      <div class="upsell-price">${CFG.upgradePrice}</div>
+      <div class="upsell-price-note">One-off. No subscription. No sign in. Just works.</div>
+
+      <button class="btn btn-upgrade" onclick="window.open('${CFG.upgradeLink}','_blank')">
+        Unlock everything →
+      </button>
+
+      <div class="divider-or">or</div>
+
+      <button class="coach-btn" onclick="window.open('${CFG.coachLink}','_blank')">
+        💬 Book a 1:1 with ${CFG.coachName}
+      </button>
+    </div>
+  `;
+
+  document.getElementById('results-content').innerHTML = html;
+  goTo('screen-results');
+}
+
+function copyResult(name, price) {
+  const text = `${name} pricing\nCharge: ${sym()}${price}\n\nCalculated with Flower Girl Pricing Tool`;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied to clipboard ✓');
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  alert('Copied ✓');
+}
+
+/* ─────────────────────────────────────────────
+   DRUM PICKER
+───────────────────────────────────────────── */
+let drumCb = null;
+let drumOpts = [];
+
+function openDrum(title, options, selectedIdx, onSelect) {
+  drumOpts = options;
+  drumCb = onSelect;
+  document.getElementById('drum-title').textContent = title;
+
+  const row = document.getElementById('drum-row');
+  row.innerHTML = '';
+
+  // Build single column
+  const col = document.createElement('div');
+  col.className = 'drum-col';
+
+  const scroll = document.createElement('div');
+  scroll.className = 'drum-scroll';
+  scroll.id = 'drum-scroll-main';
+
+  const padTop = document.createElement('div');
+  padTop.className = 'drum-pad';
+  scroll.appendChild(padTop);
+
+  options.forEach((opt, i) => {
+    const item = document.createElement('div');
+    item.className = 'drum-item';
+    item.textContent = opt;
+    item.onclick = () => { scroll.scrollTop = i * 48; };
+    scroll.appendChild(item);
+  });
+
+  const padBot = document.createElement('div');
+  padBot.className = 'drum-pad';
+  scroll.appendChild(padBot);
+
+  col.appendChild(scroll);
+  row.appendChild(col);
+
+  // Scroll to selected after render
+  requestAnimationFrame(() => {
+    scroll.scrollTop = (selectedIdx || 0) * 48;
+  });
+
+  openOverlay('overlay-drum');
+}
+
+function drumDone() {
+  const scroll = document.getElementById('drum-scroll-main');
+  if (!scroll) { closeOverlay('overlay-drum'); return; }
+  const idx = Math.round(scroll.scrollTop / 48);
+  const val = drumOpts[Math.max(0, Math.min(idx, drumOpts.length - 1))];
+  if (drumCb) drumCb(val);
+  closeOverlay('overlay-drum');
+}
+
+/* ─────────────────────────────────────────────
+   NUMBER PAD
+───────────────────────────────────────────── */
+let numpadCb = null;
+let numpadStr = '';
+
+function openNumpad(label, current, onDone) {
+  numpadCb = onDone;
+  numpadStr = current !== undefined ? String(current) : '';
+  document.getElementById('numpad-sub').textContent = label;
+  updateNumpadDisplay();
+  openOverlay('overlay-numpad');
+}
+
+function nk(key) {
+  if (key === '⌫') {
+    numpadStr = numpadStr.slice(0, -1);
+  } else if (key === '.') {
+    if (!numpadStr.includes('.')) numpadStr += '.';
+  } else {
+    if (numpadStr === '0') numpadStr = key;
+    else numpadStr += key;
+  }
+  updateNumpadDisplay();
+}
+
+function updateNumpadDisplay() {
+  const d = document.getElementById('numpad-display');
+  d.textContent = numpadStr || '0';
+  d.classList.toggle('empty', !numpadStr);
+}
+
+function numpadDone() {
+  const val = parseFloat(numpadStr) || 0;
+  if (numpadCb) numpadCb(val);
+  closeOverlay('overlay-numpad');
+}
+
+/* ─────────────────────────────────────────────
+   OVERLAY HELPERS
+───────────────────────────────────────────── */
+function openOverlay(id) {
+  document.getElementById(id).classList.add('active');
+}
+
+function closeOverlay(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function onOverlayClick(e, id) {
+  if (e.target.id === id) closeOverlay(id);
+}
+
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
+function init() {
+  loadState();
+
+  if (state.setupDone) {
+    document.getElementById('screen-onboarding').classList.remove('active');
+    document.getElementById('screen-home').classList.add('active');
+    screenStack = [];
+    renderHome();
+  }
+
+  // Ensure allocs exist for any overheads without one
+  if (state.overheads && state.recipe) {
+    state.overheads.forEach(oh => {
+      const exists = state.recipe.overheadAllocs.find(a => a.overheadId === oh.id);
+      if (!exists) state.recipe.overheadAllocs.push({ overheadId: oh.id, percent: 5 });
+    });
+  }
+}
+
+init();
+</script>
+</body>
+</html>
