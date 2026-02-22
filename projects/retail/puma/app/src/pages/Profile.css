@@ -1,0 +1,413 @@
+/* ── Profile Page ── */
+
+.profile-page {
+  padding: 0 var(--space-page);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 32px;
+}
+
+/* ── User Card ── */
+.profile-user-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px 24px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--cta-green-dim);
+  border: 2px solid var(--cta-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cta-green);
+  margin: 0 auto 14px;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin-bottom: 4px;
+}
+
+.profile-store-info {
+  font-size: 13px;
+  color: var(--text-on-dark-sub);
+  margin-bottom: 12px;
+}
+
+.profile-role-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  color: var(--text-on-dark-sub);
+}
+
+/* ── Certification Card ── */
+.profile-cert-card {
+  background: var(--bg-glass);
+  border: 1px solid rgba(58, 125, 68, 0.2);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.profile-cert-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--progress-gold);
+  margin-bottom: 4px;
+}
+
+.profile-cert-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin-bottom: 16px;
+}
+
+.profile-cert-bar-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.profile-cert-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--progress-gold);
+  transition: width 0.6s ease;
+}
+
+.profile-cert-remaining {
+  font-size: 12px;
+  color: var(--text-on-dark-sub);
+}
+
+/* ── Stats Grid ── */
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.profile-stat-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+}
+
+.profile-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--progress-gold);
+}
+
+.profile-stat-label {
+  font-size: 10px;
+  color: var(--text-on-dark-sub);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* ── Performance Bars ── */
+.profile-perf-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-perf-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-perf-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-on-dark-sub);
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.profile-perf-track {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.profile-perf-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.6s ease;
+}
+
+.perf-high { background: var(--cta-green); }
+.perf-mid { background: var(--progress-gold); }
+.perf-low { background: var(--accent-red); }
+
+.profile-perf-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.profile-perf-empty {
+  font-size: 12px;
+  color: var(--text-on-dark-sub);
+  text-align: center;
+  padding: 8px 0;
+}
+
+.profile-perf-legend {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.profile-perf-legend-item {
+  font-size: 10px;
+  color: var(--text-on-dark-sub);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.perf-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.perf-dot-high { background: var(--cta-green); }
+.perf-dot-mid { background: var(--progress-gold); }
+.perf-dot-low { background: var(--accent-red); }
+
+/* ── Badges Section ── */
+.profile-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-on-dark-sub);
+  margin-bottom: -12px;
+}
+
+.profile-badges-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.profile-badge {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.profile-badge-earned {
+  background: var(--progress-gold-dim);
+  border-color: var(--progress-gold-glow);
+  opacity: 1;
+}
+
+.profile-badge-next {
+  border: 1px dashed rgba(58, 125, 68, 0.4);
+  background: rgba(58, 125, 68, 0.04);
+  opacity: 0.7;
+}
+
+.profile-badge-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.profile-badge-earned .profile-badge-icon {
+  color: var(--progress-gold);
+}
+
+.profile-badge-icon {
+  color: var(--text-on-dark-sub);
+}
+
+.profile-badge-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-on-dark-sub);
+}
+
+.profile-badge-earned .profile-badge-label {
+  color: var(--text-on-dark);
+}
+
+.profile-badge-hint {
+  font-size: 9px;
+  color: var(--text-on-dark-sub);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ── Your Store ── */
+.profile-store-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.profile-store-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-store-title i {
+  font-size: 14px;
+  color: var(--brand-green);
+}
+
+.profile-store-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.profile-store-row {
+  font-size: 12px;
+  color: var(--text-on-dark-sub);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-store-row span {
+  color: var(--text-on-dark);
+  font-weight: 600;
+}
+
+/* ── Role Switcher ── */
+.profile-role-switcher {
+  margin-top: 4px;
+}
+
+.profile-role-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.profile-role-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-on-dark-sub);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.profile-role-btn i {
+  font-size: 16px;
+}
+
+.profile-role-btn-active {
+  background: var(--cta-green-dim);
+  border-color: var(--cta-green-glow);
+  color: var(--cta-green);
+  font-weight: 600;
+}
+
+/* ── Settings List ── */
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-settings-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.profile-settings-item:last-child {
+  border-bottom: none;
+}
+
+.profile-settings-item:active {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.profile-settings-item i {
+  font-size: 18px;
+  color: var(--text-on-dark-sub);
+  width: 24px;
+  text-align: center;
+}
+
+.profile-settings-item span {
+  font-size: 14px;
+  color: var(--text-on-dark);
+  flex: 1;
+}
+
+.profile-settings-item-logout span {
+  color: var(--accent-red);
+}
+
+.profile-settings-item-logout i {
+  color: var(--accent-red);
+}
