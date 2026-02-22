@@ -1,6 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { missions } from '../data/missions'
+import { supabase } from '../lib/supabase'
+import { useUser } from '../context/UserContext'
 import './Lesson.css'
 
 function SlideText({ slide }) {
@@ -86,7 +88,7 @@ function SlideRule({ slide }) {
   )
 }
 
-function SlideToolkit({ slide }) {
+function SlideToolkit({ slide, onOpenRef }) {
   // Detect action:speech pattern (e.g. "ACKNOWLEDGE: "That's...")
   const parseItem = (item) => {
     const match = item.match(/^([A-Z][A-Z\s]+):\s*(.+)$/)
@@ -94,7 +96,7 @@ function SlideToolkit({ slide }) {
       const action = match[1].trim()
       const rest = match[2].trim()
       // Split speech (in quotes) from description
-      const quoteMatch = rest.match(/^(["'].+?["'])\s*(.*)$/)
+      const quoteMatch = rest.match(/^(".*?"|'.*?')\s*(.*)$/)
       if (quoteMatch) {
         return { action, quote: quoteMatch[1], desc: quoteMatch[2] || null }
       }
@@ -146,7 +148,7 @@ function SlideToolkit({ slide }) {
       {slide.footnote && (
         <p className="toolkit-footnote">{slide.footnote}</p>
       )}
-      <button className="toolkit-ref-btn" onClick={(e) => e.stopPropagation()}>
+      <button className="toolkit-ref-btn" onClick={(e) => { e.stopPropagation(); onOpenRef?.() }}>
         <i className="ri-bookmark-3-line"></i>
         <span>View Reference</span>
       </button>
@@ -189,41 +191,62 @@ function SlideComparison({ slide }) {
   )
 }
 
-function SlidePractice({ slide, checked, onToggle, allChecked }) {
+function SlideComplete({ mission, hasQuiz, onStartQuiz, onHome }) {
+  const practiceSlide = mission?.slides?.find(s => s.type === 'practice')
+
   return (
-    <div className="slide-card glass-panel practice-card">
-      <div className="slide-header">
-        <i className={`${slide.icon} slide-icon slide-icon-lime`}></i>
-        <h2 className="slide-title">{slide.title}</h2>
+    <div className="slide-card glass-panel complete-card">
+      <div className="complete-check-wrap">
+        <div className="complete-check-circle">
+          <i className="ri-check-line complete-check-icon"></i>
+        </div>
       </div>
-      {slide.encouragement && (
-        <p className="practice-encouragement">{slide.encouragement}</p>
-      )}
-      <button className="practice-ready-btn" onClick={(e) => { e.stopPropagation() }}>
-        {allChecked ? (
-          <><i className="ri-check-double-line"></i> Ready for Today</>
-        ) : (
-          <><i className="ri-play-circle-line"></i> Start My Day</>
-        )}
-      </button>
-      <div className="practice-list">
-        {slide.items.map((item, i) => {
-          const isChecked = checked.has(i)
-          return (
-            <div
-              className="practice-item"
-              key={i}
-              onClick={() => onToggle(i)}
-            >
-              <div className={`practice-circle ${isChecked ? 'practice-circle-checked' : ''}`}>
-                {isChecked && <i className="ri-check-line practice-check-icon"></i>}
+      <h2 className="complete-title">Lesson Complete</h2>
+      <p className="complete-mission-name">Mission {mission?.number}: {mission?.title}</p>
+
+      <div className="complete-progress">
+        <div className="complete-progress-track">
+          <div className="complete-progress-fill" style={{ width: `${((mission?.number || 1) / (mission?.totalMissions || 6)) * 100}%` }} />
+        </div>
+        <span className="complete-progress-text">{mission?.number}/{mission?.totalMissions || 6} missions</span>
+      </div>
+
+      {/* Practice card — framed as "do this on the floor" */}
+      {practiceSlide && (
+        <div className="complete-practice-card">
+          <div className="complete-practice-header">
+            <i className="ri-store-2-line"></i>
+            <span>Practice on the Floor</span>
+          </div>
+          <p className="complete-practice-desc">Try these during your next shift:</p>
+          <div className="complete-practice-list">
+            {practiceSlide.items.map((item, i) => (
+              <div key={i} className="complete-practice-item">
+                <span className="complete-practice-bullet">{i + 1}</span>
+                <span className="complete-practice-text">{item}</span>
               </div>
-              <span className={`practice-label ${isChecked ? 'practice-label-checked' : ''}`}>
-                {item}
-              </span>
-            </div>
-          )
-        })}
+            ))}
+          </div>
+          {practiceSlide.encouragement && (
+            <p className="complete-practice-encourage">{practiceSlide.encouragement}</p>
+          )}
+        </div>
+      )}
+
+      {/* Clear CTA hierarchy */}
+      <div className="complete-actions">
+        {hasQuiz ? (
+          <button className="complete-cta-primary" onClick={onStartQuiz}>
+            Take the Quiz <span className="quiz-arrow">&rarr;</span>
+          </button>
+        ) : (
+          <button className="complete-cta-primary" onClick={onHome}>
+            Continue <span className="quiz-arrow">&rarr;</span>
+          </button>
+        )}
+        <button className="complete-cta-secondary" onClick={onHome}>
+          Back to Home
+        </button>
       </div>
     </div>
   )
@@ -262,50 +285,153 @@ function QuickRefOverlay({ isOpen, onClose, items }) {
   )
 }
 
+function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
+  const navigate = useNavigate()
+  const [qIndex, setQIndex] = useState(0)
+  const [answers, setAnswers] = useState([])
+  const [selected, setSelected] = useState(null)
+  const [revealed, setRevealed] = useState(false)
+
+  const question = quiz[qIndex]
+  const total = quiz.length
+
+  const handleSelect = async (optIndex) => {
+    if (revealed) return
+    const isCorrect = optIndex === question.correct
+
+    setSelected(optIndex)
+    setRevealed(true)
+
+    const newAnswers = [
+      ...answers,
+      {
+        id: question.id,
+        question: question.question,
+        selected: optIndex,
+        correct: isCorrect,
+        selectedText: question.options[optIndex],
+        correctText: question.options[question.correct]
+      }
+    ]
+
+    setTimeout(async () => {
+      if (qIndex < total - 1) {
+        setQIndex(i => i + 1)
+        setSelected(null)
+        setRevealed(false)
+      } else {
+        // Quiz complete — calculate score and navigate
+        const correctCount = newAnswers.filter(a => a.correct).length
+        const score = Math.round((correctCount / total) * 100)
+        const elapsed = Math.round((Date.now() - startTime.current) / 1000)
+        const wrongAnswers = newAnswers.filter(a => !a.correct)
+
+        if (userId) {
+          await supabase.from('completions').insert({
+            user_id: userId,
+            mission_id: missionId,
+            score,
+            time_spent: elapsed
+          })
+        }
+
+        navigate(`/result/${missionId}`, { state: { score, wrongAnswers } })
+      }
+    }, 900)
+  }
+
+  return (
+    <div className="quiz-overlay">
+      <header className="lesson-top-bar">
+        <button className="nav-btn back-btn" onClick={onBack}>
+          <i className="ri-arrow-left-line"></i>
+        </button>
+        <div className="progress-dots-inline">
+          {quiz.map((_, i) => (
+            <div
+              key={i}
+              className={`dot ${i === qIndex ? 'dot-active' : ''} ${i < qIndex ? 'dot-done' : ''}`}
+            />
+          ))}
+        </div>
+        <div style={{ width: 80 }} />
+      </header>
+
+      <div className="quiz-body">
+        <p className="quiz-counter">Question {qIndex + 1} of {total}</p>
+        <h2 className="quiz-question">{question.question}</h2>
+
+        <div className="quiz-options">
+          {question.options.map((opt, i) => {
+            let cls = 'quiz-option'
+            if (revealed) {
+              if (i === question.correct) cls += ' quiz-option-correct'
+              else if (i === selected) cls += ' quiz-option-wrong'
+              else cls += ' quiz-option-dim'
+            }
+            return (
+              <button
+                key={i}
+                className={cls}
+                onClick={() => handleSelect(i)}
+                disabled={revealed}
+              >
+                <span className="quiz-option-letter">{String.fromCharCode(65 + i)}</span>
+                <span className="quiz-option-text">{opt}</span>
+                {revealed && i === question.correct && (
+                  <i className="ri-check-line quiz-option-icon"></i>
+                )}
+                {revealed && i === selected && i !== question.correct && (
+                  <i className="ri-close-line quiz-option-icon"></i>
+                )}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Lesson() {
   const navigate = useNavigate()
   const { missionId } = useParams()
   const mission = missions[missionId]
+  const { userId } = useUser()
 
   const [currentSlide, setCurrentSlide] = useState(0)
   const [quickRefOpen, setQuickRefOpen] = useState(false)
-  const [checked, setChecked] = useState(new Set())
   const [footerVisible, setFooterVisible] = useState(false)
+  const [quizMode, setQuizMode] = useState(false)
+  const startTime = useRef(Date.now())
 
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
   const sliderRef = useRef(null)
 
-  const totalSlides = mission?.slides?.length || 0
-  const isLastSlide = currentSlide === totalSlides - 1
-  const isFirstSlide = currentSlide === 0
+  const hasQuiz = mission?.quiz && mission.quiz.length > 0
 
+  // totalSlides is set after contentSlides is computed (below renderSlide)
   const goNext = useCallback(() => {
-    if (currentSlide < totalSlides - 1) setCurrentSlide(s => s + 1)
-  }, [currentSlide, totalSlides])
+    // totalSlidesWithComplete is computed below; use mission.slides to derive max
+    const contentCount = (mission?.slides || []).filter(s => s.type !== 'practice').length
+    if (currentSlide < contentCount) setCurrentSlide(s => s + 1) // +1 for completion screen
+  }, [currentSlide, mission])
 
   const goPrev = useCallback(() => {
     if (currentSlide > 0) setCurrentSlide(s => s - 1)
   }, [currentSlide])
 
-  const toggleCheck = useCallback((index) => {
-    setChecked(prev => {
-      const next = new Set(prev)
-      if (next.has(index)) next.delete(index)
-      else next.add(index)
-      return next
-    })
-  }, [])
-
   // Keyboard navigation
   useEffect(() => {
     const handler = (e) => {
+      if (quizMode) return
       if (e.key === 'ArrowRight') goNext()
       if (e.key === 'ArrowLeft') goPrev()
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [goNext, goPrev])
+  }, [goNext, goPrev, quizMode])
 
   // Show footer after brief delay on each slide
   useEffect(() => {
@@ -313,6 +439,11 @@ export default function Lesson() {
     const timer = setTimeout(() => setFooterVisible(true), 600)
     return () => clearTimeout(timer)
   }, [currentSlide])
+
+  // Scroll to top when entering lesson
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [missionId])
 
   // Touch swipe handlers — horizontal only, prevent iOS back gesture
   const onTouchStart = (e) => {
@@ -341,6 +472,13 @@ export default function Lesson() {
     )
   }
 
+  // Filter out practice slides — they're now embedded in the completion screen
+  const contentSlides = mission.slides.filter(s => s.type !== 'practice')
+  const totalContentSlides = contentSlides.length
+  // Completion screen is the extra "slide" after content
+  const isCompletionScreen = currentSlide === totalContentSlides
+  const totalSlidesWithComplete = totalContentSlides + 1
+
   const renderSlide = (slide, index) => {
     switch (slide.type) {
       case 'text':
@@ -348,14 +486,25 @@ export default function Lesson() {
       case 'rule':
         return <SlideRule slide={slide} />
       case 'toolkit':
-        return <SlideToolkit slide={slide} />
+        return <SlideToolkit slide={slide} onOpenRef={() => setQuickRefOpen(true)} />
       case 'comparison':
         return <SlideComparison slide={slide} />
-      case 'practice':
-        return <SlidePractice slide={slide} checked={checked} onToggle={toggleCheck} allChecked={checked.size === slide.items.length} />
       default:
         return <SlideText slide={slide} />
     }
+  }
+
+  // Quiz mode — full screen overlay
+  if (quizMode && hasQuiz) {
+    return (
+      <SlideQuiz
+        quiz={mission.quiz}
+        missionId={missionId}
+        userId={userId}
+        startTime={startTime}
+        onBack={() => setQuizMode(false)}
+      />
+    )
   }
 
   return (
@@ -379,7 +528,7 @@ export default function Lesson() {
           <i className="ri-arrow-left-line"></i>
         </button>
         <div className="progress-dots-inline">
-          {mission.slides.map((_, i) => (
+          {Array.from({ length: (mission.slides.filter(s => s.type !== 'practice').length) + 1 }).map((_, i) => (
             <div
               key={i}
               className={`dot ${i === currentSlide ? 'dot-active' : ''} ${i < currentSlide ? 'dot-done' : ''}`}
@@ -404,40 +553,45 @@ export default function Lesson() {
           className="slides-track"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {mission.slides.map((slide, i) => (
+          {contentSlides.map((slide, i) => (
             <div className="slide-wrapper" key={i}>
               {renderSlide(slide, i)}
             </div>
           ))}
+          {/* Completion screen — the final "slide" */}
+          <div className="slide-wrapper" key="complete">
+            <SlideComplete
+              mission={mission}
+              hasQuiz={hasQuiz}
+              onStartQuiz={() => setQuizMode(true)}
+              onHome={() => navigate('/')}
+            />
+          </div>
         </div>
         {/* Branded texture zone below content */}
         <div className="branded-texture"></div>
       </div>
 
-      {/* Bottom Nav — appears dynamically */}
-      <div className={`lesson-footer ${footerVisible ? 'lesson-footer-visible' : ''}`}>
-        <div className="footer-inner">
-          <button
-            className={`nav-btn ${isFirstSlide ? 'nav-btn-disabled' : ''}`}
-            onClick={goPrev}
-            disabled={isFirstSlide}
-          >
-            <i className="ri-arrow-left-s-line"></i>
-          </button>
+      {/* Bottom Nav — hidden on completion screen (it has its own CTAs) */}
+      {!isCompletionScreen && (
+        <div className={`lesson-footer ${footerVisible ? 'lesson-footer-visible' : ''}`}>
+          <div className="footer-inner">
+            <button
+              className={`nav-btn ${currentSlide === 0 ? 'nav-btn-disabled' : ''}`}
+              onClick={goPrev}
+              disabled={currentSlide === 0}
+            >
+              <i className="ri-arrow-left-s-line"></i>
+            </button>
 
-          <div className="footer-right">
-            {isLastSlide ? (
-              <button className="quiz-btn" onClick={() => {}}>
-                Take Quiz <span className="quiz-arrow">&rarr;</span>
-              </button>
-            ) : (
+            <div className="footer-right">
               <button className="nav-btn" onClick={goNext}>
                 <i className="ri-arrow-right-s-line"></i>
               </button>
-            )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Quick Ref Overlay */}
       <QuickRefOverlay

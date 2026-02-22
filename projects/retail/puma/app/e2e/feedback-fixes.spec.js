@@ -6,6 +6,52 @@ test.beforeEach(async ({ page }) => {
   await expect(page.locator('.hero-card').first()).toBeVisible({ timeout: 15000 })
 })
 
+test.describe('Fix 4: Lesson completion flow (no dead-end practice screen)', () => {
+  test('Lesson ends with completion screen, not phantom Start Session', async ({ page }) => {
+    // Navigate to first lesson
+    const heroCard = page.locator('.hero-card').first()
+    await heroCard.click()
+    await expect(page.locator('.lesson-top-bar')).toBeVisible({ timeout: 5000 })
+
+    // Swipe through all content slides to reach completion
+    const dots = page.locator('.progress-dots-inline .dot')
+    const dotCount = await dots.count()
+
+    // Click through slides via right arrow
+    for (let i = 0; i < dotCount - 1; i++) {
+      const nextBtn = page.locator('.footer-right .nav-btn')
+      if (await nextBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+        await nextBtn.click()
+        await page.waitForTimeout(400)
+      }
+    }
+
+    // Should now be on completion screen
+    await expect(page.locator('.complete-title')).toBeVisible({ timeout: 5000 })
+    await expect(page.locator('.complete-title')).toContainText('Lesson Complete')
+
+    // Should NOT have the old phantom "Start Session" button
+    await expect(page.locator('text=Start Session')).not.toBeVisible()
+    await expect(page.locator('text=Session Active')).not.toBeVisible()
+
+    // Should have clear CTA
+    const quizBtn = page.locator('.complete-cta-primary')
+    await expect(quizBtn).toBeVisible()
+
+    // Should show practice items as read-only (numbered, not checkboxes)
+    const practiceCard = page.locator('.complete-practice-card')
+    if (await practiceCard.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await expect(practiceCard.locator('.complete-practice-header')).toContainText('Practice on the Floor')
+      // Items should be numbered, not interactive checkboxes
+      const items = practiceCard.locator('.complete-practice-item')
+      expect(await items.count()).toBeGreaterThan(0)
+    }
+
+    // Footer should be hidden (completion screen has its own CTAs)
+    await expect(page.locator('.lesson-footer')).not.toBeVisible()
+  })
+})
+
 test.describe('Fix 1: Quiz options are shuffled (not always option A)', () => {
   test('Approach game options appear in varying order across plays', async ({ page }) => {
     await page.locator('.bottom-nav').locator('text=Games').click()
