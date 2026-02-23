@@ -31,6 +31,28 @@
 
 ---
 
+## Browser Automation (Commet)
+
+**Rule:** Default to automating multi-step platform tasks via Commet before doing them manually.
+
+**When to use:**
+- Creating listings (Peerspace, marketplace platforms)
+- Filling forms across multiple pages
+- Any sequential UI workflow where the user is already logged in
+- Tasks with 5+ steps that would take 15+ minutes manually
+
+**How to write Commet instructions:**
+- Step-by-step, numbered, sequential
+- Copy-paste ready content for every text field
+- Commet adapts when UI differs from instructions (e.g., missing field → woves content elsewhere)
+- Always include a verification step at the end
+
+**Why this matters:** First confirmed use (Feb 23, 2026) — 14-step Peerspace listing created autonomously. Pattern: if you do it once manually, write the instructions, Commet does it next time.
+
+**Codified from:** Knowledge graph conviction `atom-20260221-074` (weight 5, 5 sources).
+
+---
+
 ## Context Management
 
 ### File Reading Strategy
