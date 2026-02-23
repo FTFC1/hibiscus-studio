@@ -8,6 +8,7 @@ on:
       - 'assets/**'
       - 'book/**'
       - 'calculator/**'
+      - 'open-house/**'
       - 'booking-demo.html'
       - 'instant-quote-v2.html'
       - 'event-type-funnel.html'
@@ -38,6 +39,7 @@ jobs:
             assets
             book
             calculator
+            open-house
             booking-demo.html
             instant-quote-v2.html
             event-type-funnel.html
