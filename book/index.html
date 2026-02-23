@@ -2324,6 +2324,68 @@
 
             // Go to time slot selection
             setTimeout(() => goToStep(5), 250);
+
+            // Fetch live availability and mark booked slots (B1/B2 from shaping)
+            if (window.selectedDate) {
+                fetchAndMarkAvailability(window.selectedDate, hours);
+            }
+        }
+
+        // B1: Fetch availability from API, B2: Mark unavailable slots
+        async function fetchAndMarkAvailability(date, duration) {
+            const container = document.getElementById('timeSlotsContainer');
+            // Show loading state
+            container.querySelectorAll('.time-slot').forEach(slot => {
+                slot.style.opacity = '0.5';
+            });
+
+            try {
+                const response = await fetch(
+                    `https://hb-booking.nicholasfcoker.workers.dev/api/availability?date=${date}&duration=${duration}`
+                );
+                if (!response.ok) throw new Error('Availability check failed');
+                const data = await response.json();
+
+                if (data.slots) {
+                    // Build a map of start times to availability
+                    const availMap = {};
+                    data.slots.forEach(s => { availMap[s.start] = s.available; });
+
+                    container.querySelectorAll('.time-slot').forEach(slotEl => {
+                        const start = slotEl.dataset.start;
+                        slotEl.style.opacity = '1';
+
+                        if (start && availMap[start] === false) {
+                            // Mark as unavailable
+                            slotEl.classList.add('unavailable');
+                            slotEl.style.opacity = '0.35';
+                            slotEl.style.pointerEvents = 'none';
+                            // Add booked badge
+                            if (!slotEl.querySelector('.booked-label')) {
+                                const badge = document.createElement('span');
+                                badge.className = 'booked-label';
+                                badge.textContent = 'Booked';
+                                badge.style.cssText = 'position:absolute;top:10px;right:10px;background:#ef4444;color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:0.3px;';
+                                slotEl.style.position = 'relative';
+                                slotEl.appendChild(badge);
+                            }
+                        } else {
+                            // Ensure available slots are interactive
+                            slotEl.classList.remove('unavailable');
+                            slotEl.style.opacity = '1';
+                            slotEl.style.pointerEvents = 'auto';
+                            const badge = slotEl.querySelector('.booked-label');
+                            if (badge) badge.remove();
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Availability fetch failed:', err);
+                // On error, restore all slots to clickable (fail open)
+                container.querySelectorAll('.time-slot').forEach(slot => {
+                    slot.style.opacity = '1';
+                });
+            }
         }
 
         function generateTimeSlots(hours) {
