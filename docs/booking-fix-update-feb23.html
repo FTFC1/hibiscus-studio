@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Fix — Hibiscus Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page { size: A4; margin: 20mm 18mm; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            background: #fff;
+            padding: 48px 40px;
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #1a1a1a;
+        }
+        .header small { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #999; }
+        .header h1 { font-size: 26px; margin: 8px 0 4px; }
+        .header .date { font-size: 12px; color: #999; }
+
+        .card {
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+        .card-red { background: #fef2f2; border-left: 4px solid #ef4444; }
+        .card-green { background: #ecfdf5; border-left: 4px solid #10b981; }
+        .card-dark { background: #1a1a1a; color: #fff; }
+
+        .card-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .card-red .card-label { color: #ef4444; }
+        .card-green .card-label { color: #059669; }
+        .card-dark .card-label { color: #10b981; }
+
+        .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+        .card p { font-size: 14px; color: #555; }
+        .card-dark p { color: #ccc; }
+        .card-dark .hl { color: #10b981; font-weight: 600; }
+
+        .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .compare-side {
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .compare-side.old { background: #fef2f2; border: 1px solid #fecaca; }
+        .compare-side.new { background: #ecfdf5; border: 1px solid #a7f3d0; }
+        .compare-side .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .old .label { color: #ef4444; }
+        .new .label { color: #059669; }
+
+        .slot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 4px 0;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .slot.open { background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
+        .slot.taken { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; opacity: 0.45; }
+        .badge {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
+            letter-spacing: 0.3px;
+        }
+        .badge.red { background: #ef4444; color: #fff; }
+        .badge.green { background: #10b981; color: #fff; }
+
+        .result { font-size: 11px; margin-top: 10px; font-weight: 500; }
+        .old .result { color: #991b1b; }
+        .new .result { color: #166534; }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e5e5;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+        }
+
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <small>Booking System Update</small>
+        <h1>Booking Page Fixed</h1>
+        <div class="date">23 February 2026</div>
+    </div>
+
+    <!-- What happened -->
+    <div class="card card-red">
+        <div class="card-label">What happened</div>
+        <h3>Maame Serwaah couldn't book a bridal shower</h3>
+        <p>She wanted 9 May, 2-8pm, 25 guests. Filled the whole form. Got <strong>"something went wrong"</strong> twice. Had to email instead.</p>
+        <p style="margin-top:8px;">The studio was actually available that evening &mdash; she just wasn't told.</p>
+    </div>
+
+    <!-- Why -->
+    <div class="card card-red" style="background:#fff8f0; border-left-color:#f59e0b;">
+        <div class="card-label" style="color:#d97706;">Why</div>
+        <h3>The system only checked availability at the very end</h3>
+        <p>All time slots looked open. The conflict check happened after she'd already entered all her details and hit Submit.</p>
+    </div>
+
+    <!-- Before / After -->
+    <div class="compare">
+        <div class="compare-side old">
+            <div class="label">Before</div>
+            <div class="slot open">10am - 4pm <span class="badge green">Open</span></div>
+            <div class="slot open">12pm - 6pm <span class="badge green">Open</span></div>
+            <div class="slot open">2pm - 8pm <span class="badge green">Open</span></div>
+            <div class="slot open">4pm - 10pm <span class="badge green">Open</span></div>
+            <div class="result">Picks 2-8pm &rarr; fills form &rarr; error</div>
+        </div>
+        <div class="compare-side new">
+            <div class="label">After</div>
+            <div class="slot taken">10am - 4pm <span class="badge red">Booked</span></div>
+            <div class="slot taken">12pm - 6pm <span class="badge red">Booked</span></div>
+            <div class="slot taken">2pm - 8pm <span class="badge red">Booked</span></div>
+            <div class="slot open">4pm - 10pm <span class="badge green">Open</span></div>
+            <div class="result">Sees what's free &rarr; picks 4-10pm &rarr; books</div>
+        </div>
+    </div>
+
+    <!-- Fix -->
+    <div class="card card-green">
+        <div class="card-label">What we fixed</div>
+        <h3>Time slots now check availability before you pick</h3>
+        <p>Booked times show a red "Booked" badge and can't be selected. Customers only see what's actually open.</p>
+    </div>
+
+    <!-- Action -->
+    <div class="card card-dark">
+        <div class="card-label">Action needed</div>
+        <h3>Reply to Maame Serwaah</h3>
+        <p>She's still waiting. Offer her: <span class="hl">4pm-10pm</span> or <span class="hl">6pm-12am</span> on 9 May.</p>
+        <p style="margin-top:6px;">Or send her back to the booking page &mdash; she'll see the available slots now.</p>
+    </div>
+
+    <div class="footer">
+        <p>Hibiscus Studio &middot; 19a Peto Street North, London E16 1DP</p>
+    </div>
+
+</body>
+</html>
