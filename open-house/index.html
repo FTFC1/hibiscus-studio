@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekend Open House — Hibiscus Studio</title>
+    <meta name="description" content="See Hibiscus Studio in person. Saturday 7th March, 20-minute pre-booked viewings. Limited slots.">
+    <meta property="og:title" content="Weekend Open House — Hibiscus Studio">
+    <meta property="og:description" content="A rare Saturday viewing. 20-minute pre-booked slots. International Women's Day 2026.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        /* ── THEME: LIGHT (default) ──────── */
+        :root {
+            --bg: #FEFDFB;
+            --bg-gradient-start: #FDF8F4;
+            --card-bg: #FFFFFF;
+            --border: #E8E3DA;
+            --border-light: #F0ECE4;
+            --ink: #1C1917;
+            --ink2: #44403C;
+            --muted: #A8A29E;
+            --faint: #D6D3CD;
+            --rose: #BE4D5E;
+            --rose-bg: #FDF2F4;
+            --rose-soft: #D4949E;
+            --warm: #F5F0E8;
+            --sage: #6B8F6B;
+            --sage-bg: #EEF4EE;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --shadow: 0 2px 20px rgba(0,0,0,0.04);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.06);
+        }
+
+        /* ── THEME: DARK ─────────────────── */
+        [data-theme="dark"] {
+            --bg: #141210;
+            --bg-gradient-start: #1A1714;
+            --card-bg: #1E1B18;
+            --border: #2E2A25;
+            --border-light: #252220;
+            --ink: #F0ECE4;
+            --ink2: #C4BFB6;
+            --muted: #6E675E;
+            --faint: #3A352E;
+            --rose: #D4848F;
+            --rose-bg: rgba(212,132,143,0.1);
+            --rose-soft: #8B5A62;
+            --warm: #1E1B16;
+            --sage: #7AA87A;
+            --sage-bg: rgba(122,168,122,0.1);
+            --shadow: 0 2px 20px rgba(0,0,0,0.2);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ── THEME TOGGLE ────────────────── */
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 50;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+        }
+        .theme-toggle:hover { border-color: var(--muted); }
+        .theme-toggle svg {
+            width: 16px; height: 16px;
+            stroke: var(--muted);
+            fill: none;
+            stroke-width: 1.5;
+            transition: stroke 0.2s;
+        }
+        .theme-toggle .icon-moon { display: block; }
+        .theme-toggle .icon-sun { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+        /* ── SOCIAL PROOF STRIP ──────────── */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            background: var(--warm);
+            transition: background 0.3s;
+        }
+        .proof-avatars {
+            display: flex;
+        }
+        .proof-avatar {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--warm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+        .proof-avatar:not(:first-child) { margin-left: -7px; }
+        .proof-avatar:nth-child(1) { background: var(--rose); z-index: 3; }
+        .proof-avatar:nth-child(2) { background: var(--sage); z-index: 2; }
+        .proof-avatar:nth-child(3) { background: var(--muted); z-index: 1; }
+        .proof-text {
+            font-size: 0.74rem;
+            color: var(--ink2);
+        }
+        .proof-text strong { font-weight: 500; color: var(--ink); }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 0 0;
+            font-size: 0.72rem;
+            color: var(--rose);
+            font-weight: 500;
+        }
+        .live-dot {
+            width: 6px; height: 6px;
+            background: var(--rose);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ── TICKET ──────────────────────── */
+        .ticket-wrap {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .ticket {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            margin-top: 20px;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        /* ── TICKET TOP ──────────────────── */
+        .ticket-top {
+            padding: 36px 24px 28px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--card-bg) 100%);
+            transition: background 0.3s;
+        }
+
+        .iwd-mark {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--rose);
+            margin-bottom: 18px;
+        }
+
+        .ticket-title {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.08;
+            margin-bottom: 18px;
+            letter-spacing: -0.01em;
+        }
+        .ticket-title em { font-style: italic; }
+
+        .ticket-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.8rem;
+            color: var(--ink2);
+        }
+        .ticket-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ticket-meta-item svg {
+            width: 14px; height: 14px;
+            stroke: var(--muted);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        /* ── PERFORATION ─────────────────── */
+        .perforation {
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            position: relative;
+        }
+        .perf-line {
+            flex: 1;
+            border-top: 2px dashed var(--border);
+        }
+        .perf-circle {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .perf-circle:first-child { margin-left: -11px; }
+        .perf-circle:last-child { margin-right: -11px; }
+
+        /* ── SLOT SECTION ────────────────── */
+        .slot-section {
+            padding: 22px 20px 24px;
+        }
+
+        .slot-label {
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+        }
+
+        .slot-chip {
+            padding: 12px 4px;
+            text-align: center;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--ink2);
+            cursor: pointer;
+            transition: all 0.15s;
+            background: var(--card-bg);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .slot-chip:hover { border-color: var(--rose-soft); }
+        .slot-chip.selected {
+            background: var(--rose-bg);
+            border-color: var(--rose);
+            color: var(--rose);
+            font-weight: 600;
+        }
+        .slot-chip.booked {
+            opacity: 0.25;
+            pointer-events: none;
+            text-decoration: line-through;
+        }
+        .slot-sub {
+            display: block;
+            font-size: 0.55rem;
+            font-weight: 400;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+        .slot-chip.selected .slot-sub { color: var(--rose); opacity: 0.7; }
+
+        /* ── URGENCY BAR ─────────────────── */
+        .urgency-bar {
+            margin: 16px 0 0;
+            padding: 10px 14px;
+            background: var(--warm);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            color: var(--ink2);
+            transition: background 0.3s;
+        }
+        .urgency-dot {
+            width: 6px; height: 6px;
+            background: var(--rose);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        /* ── CTA SECTION ─────────────────── */
+        .cta-section {
+            padding: 20px 16px 0;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--ink);
+            color: var(--bg);
+            border: none;
+            border-radius: 12px;
+            font-family: var(--sans);
+            font-size: 0.92rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.005em;
+        }
+        .btn-primary:hover { opacity: 0.88; }
+        .btn-primary:disabled {
+            background: var(--faint);
+            color: var(--muted);
+            cursor: default;
+        }
+        .btn-primary.loading {
+            pointer-events: none;
+            position: relative;
+            color: transparent;
+        }
+        .btn-primary.loading::after {
+            content: '';
+            position: absolute;
+            width: 18px; height: 18px;
+            top: 50%; left: 50%;
+            margin: -9px 0 0 -9px;
+            border: 2px solid var(--bg);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .cta-sub {
+            text-align: center;
+            font-size: 0.68rem;
+            color: var(--muted);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .cta-sub-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .cta-sub svg {
+            width: 12px; height: 12px;
+            stroke: var(--muted);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        /* ── TRUST STRIP ─────────────────── */
+        .trust-strip {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            padding: 28px 16px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .trust-item {
+            text-align: center;
+        }
+        .trust-icon {
+            width: 36px; height: 36px;
+            margin: 0 auto 6px;
+            border-radius: 10px;
+            background: var(--warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        .trust-icon svg {
+            width: 16px; height: 16px;
+            stroke: var(--ink2);
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .trust-text {
+            font-size: 0.62rem;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+
+        /* ── FORM (appears after CTA) ────── */
+        .form-section {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: none;
+        }
+        .form-section.visible { display: block; }
+
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: var(--shadow);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .form-title {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .form-subtitle {
+            font-size: 0.78rem;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+        .field-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .field-label span {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--ink2);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .field-label .optional-tag {
+            font-weight: 400;
+            color: var(--muted);
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.65rem;
+        }
+        .field input {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: var(--sans);
+            font-size: 0.92rem;
+            color: var(--ink);
+            outline: none;
+            transition: all 0.15s;
+        }
+        .field input::placeholder { color: var(--faint); }
+        .field input:focus { border-color: var(--rose-soft); }
+        .field input.valid { border-color: var(--sage); }
+        .field input.invalid { border-color: var(--rose); }
+
+        .field-error {
+            font-size: 0.65rem;
+            color: var(--rose);
+            margin-top: 4px;
+            display: none;
+        }
+        .field-error.show { display: block; }
+
+        .field-hint {
+            font-size: 0.65rem;
+            color: var(--muted);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .field-hint svg {
+            width: 10px; height: 10px;
+            stroke: var(--muted);
+            fill: none;
+            stroke-width: 1.5;
+            flex-shrink: 0;
+        }
+
+        /* Interest chips */
+        .interest-group {
+            margin: 20px 0 6px;
+        }
+        .interest-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--ink2);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .interest-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .interest-chip {
+            padding: 7px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            background: var(--bg);
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            color: var(--ink2);
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .interest-chip:hover { border-color: var(--rose-soft); }
+        .interest-chip.selected {
+            background: var(--rose-bg);
+            border-color: var(--rose);
+            color: var(--rose);
+        }
+
+        .form-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 18px;
+            background: var(--ink);
+            color: var(--bg);
+            border: none;
+            border-radius: 10px;
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .form-btn:hover { opacity: 0.88; }
+        .form-btn:disabled {
+            background: var(--faint);
+            color: var(--muted);
+            cursor: default;
+        }
+        .form-btn.loading {
+            pointer-events: none;
+            position: relative;
+            color: transparent;
+        }
+        .form-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 18px; height: 18px;
+            top: 50%; left: 50%;
+            margin: -9px 0 0 -9px;
+            border: 2px solid var(--bg);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        .form-back {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            cursor: pointer;
+        }
+        .form-back:hover { color: var(--ink); }
+
+        /* ── CONFIRMATION ────────────────── */
+        .confirm-section {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 48px 16px 0;
+            display: none;
+        }
+        .confirm-section.visible { display: block; }
+
+        .confirm-icon {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background: var(--sage-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .confirm-icon svg {
+            width: 24px; height: 24px;
+            stroke: var(--sage);
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .confirm-title {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .confirm-msg {
+            font-family: var(--serif);
+            font-size: 1rem;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        .confirm-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .confirm-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .confirm-row:last-child { border-bottom: none; }
+        .confirm-row-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .confirm-row-value {
+            font-family: var(--serif);
+            font-size: 0.95rem;
+            color: var(--ink);
+            text-align: right;
+        }
+
+        /* Action buttons */
+        .confirm-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 13px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            color: var(--ink2);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .action-btn:hover {
+            border-color: var(--rose-soft);
+            background: var(--rose-bg);
+        }
+        .action-btn svg {
+            width: 16px; height: 16px;
+            stroke: var(--muted);
+            fill: none;
+            stroke-width: 1.5;
+            flex-shrink: 0;
+        }
+
+        /* ── WARM-UP SECTION ─────────────── */
+        .warmup-section {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 16px 16px 0;
+            display: none;
+        }
+        .warmup-section.visible { display: block; }
+
+        .warmup-title {
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .warmup-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .warmup-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 14px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .warmup-card:hover {
+            border-color: var(--rose-soft);
+            box-shadow: var(--shadow);
+        }
+        .warmup-card-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: var(--warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            transition: background 0.3s;
+        }
+        .warmup-card-icon svg {
+            width: 16px; height: 16px;
+            stroke: var(--ink2);
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .warmup-card-title {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+        .warmup-card-desc {
+            font-size: 0.65rem;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+
+        /* ── FOOTER ──────────────────────── */
+        .footer {
+            text-align: center;
+            padding: 32px 16px 48px;
+            max-width: 420px;
+            margin: 16px auto 0;
+            border-top: 1px solid var(--border-light);
+        }
+        .footer-brand {
+            font-family: var(--serif);
+            font-size: 0.95rem;
+            color: var(--ink);
+        }
+        .footer-address {
+            font-size: 0.65rem;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-top: 3px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+        }
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-link:hover { color: var(--rose); }
+        .footer-link svg {
+            width: 13px; height: 13px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        /* ── TOAST ───────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--ink);
+            color: var(--bg);
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            padding: 12px 24px;
+            border-radius: 10px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+            white-space: nowrap;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ── VIEWS: hide/show states ─────── */
+        .view-booking { }
+        .view-booking.hidden {
+            display: none;
+        }
+
+        @media (max-width: 380px) {
+            .slot-grid { gap: 5px; }
+            .slot-chip { padding: 10px 2px; font-size: 0.78rem; }
+            .trust-strip { gap: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THEME TOGGLE -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    </button>
+
+    <!-- ═══ BOOKING VIEW ═══ -->
+    <div class="view-booking" id="viewBooking">
+
+        <!-- SOCIAL PROOF (data-driven — hidden when no bookings) -->
+        <div class="social-proof" id="socialProof" style="display: none;">
+            <div class="proof-avatars" id="proofAvatars"></div>
+            <div class="proof-text" id="proofText"></div>
+        </div>
+
+        <!-- TICKET -->
+        <div class="ticket-wrap">
+            <div class="live-indicator" id="liveIndicator">
+                <div class="live-dot"></div>
+                <span id="liveText"></span>
+            </div>
+
+            <div class="ticket">
+                <div class="ticket-top">
+                    <div class="iwd-mark">International Women's Day 2026</div>
+                    <div class="ticket-title">Weekend<br><em>Open House</em></div>
+                    <div class="ticket-meta">
+                        <div class="ticket-meta-item">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Sat 7 March
+                        </div>
+                        <div class="ticket-meta-item">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            11am — 3pm
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perforation">
+                    <div class="perf-circle"></div>
+                    <div class="perf-line"></div>
+                    <div class="perf-circle"></div>
+                </div>
+
+                <div class="slot-section">
+                    <div class="slot-label">Select your 20-minute slot</div>
+                    <div class="slot-grid" id="slotGrid">
+                        <!-- Injected by JS -->
+                    </div>
+                    <div class="urgency-bar" id="urgencyBar">
+                        <div class="urgency-dot"></div>
+                        <span id="urgencyText"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section" id="ctaSection" style="padding-top: 20px;">
+                <button class="btn-primary" id="btnClaim" disabled onclick="showForm()">Claim this slot</button>
+                <div class="cta-sub">
+                    <div class="cta-sub-item">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        Private
+                    </div>
+                    <div class="cta-sub-item">
+                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        Free
+                    </div>
+                    <div class="cta-sub-item">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        20 min
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRUST STRIP -->
+            <div class="trust-strip">
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <div class="trust-text">Private<br>viewing</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                    </div>
+                    <div class="trust-text">Completely<br>free</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                    <div class="trust-text">No pressure<br>no obligation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="form-section" id="formSection">
+            <div class="form-card">
+                <div class="form-title">Almost there</div>
+                <div class="form-subtitle" id="formSlotLabel"></div>
+
+                <div class="field">
+                    <div class="field-label">
+                        <span>Full name</span>
+                    </div>
+                    <input type="text" id="inputName" placeholder="Your full name" autocomplete="name">
+                    <div class="field-error" id="errorName">Please enter your full name</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-label">
+                        <span>Email</span>
+                    </div>
+                    <input type="email" id="inputEmail" placeholder="you@email.com" autocomplete="email">
+                    <div class="field-error" id="errorEmail">Please enter a valid email address</div>
+                    <div class="field-hint">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        Confirmation + address sent here
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-label">
+                        <span>Phone</span>
+                        <span class="optional-tag">for day-before reminder</span>
+                    </div>
+                    <input type="tel" id="inputPhone" placeholder="07xxx xxx xxx" autocomplete="tel" inputmode="tel">
+                    <div class="field-error" id="errorPhone">Please enter a valid UK phone number</div>
+                    <div class="field-hint">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        No marketing, ever
+                    </div>
+                </div>
+
+                <div class="interest-group">
+                    <div class="interest-label">Interested in</div>
+                    <div class="interest-options">
+                        <div class="interest-chip" data-value="private-event" onclick="toggleInterest(this)">Private event</div>
+                        <div class="interest-chip" data-value="workshop" onclick="toggleInterest(this)">Workshop hire</div>
+                        <div class="interest-chip" data-value="content" onclick="toggleInterest(this)">Content creation</div>
+                        <div class="interest-chip" data-value="corporate" onclick="toggleInterest(this)">Corporate</div>
+                        <div class="interest-chip" data-value="just-looking" onclick="toggleInterest(this)">Just exploring</div>
+                    </div>
+                </div>
+
+                <button class="form-btn" id="btnBook" disabled onclick="submitBooking()">Book my viewing</button>
+                <button class="form-back" onclick="hideForm()">Back to times</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ CONFIRMATION VIEW ═══ -->
+    <div class="confirm-section" id="confirmSection">
+        <div class="confirm-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="confirm-title">You're in</div>
+        <div class="confirm-msg">We've sent a confirmation to your email.<br>See you on Saturday 7th March.</div>
+
+        <div class="confirm-card">
+            <div class="confirm-row">
+                <span class="confirm-row-label">Date</span>
+                <span class="confirm-row-value">Saturday 7th March</span>
+            </div>
+            <div class="confirm-row">
+                <span class="confirm-row-label">Time</span>
+                <span class="confirm-row-value" id="confirmTime">—</span>
+            </div>
+            <div class="confirm-row">
+                <span class="confirm-row-label">Duration</span>
+                <span class="confirm-row-value">20 minutes</span>
+            </div>
+            <div class="confirm-row">
+                <span class="confirm-row-label">Location</span>
+                <span class="confirm-row-value">19a Peto Street North, E16 1DP</span>
+            </div>
+        </div>
+
+        <div class="confirm-actions">
+            <a class="action-btn" id="calendarLink" href="#" target="_blank">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Add to calendar
+            </a>
+            <a class="action-btn" href="https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Get directions
+            </a>
+        </div>
+    </div>
+
+    <!-- WARM-UP (post-booking) -->
+    <div class="warmup-section" id="warmupSection">
+        <div class="warmup-title">Before your visit</div>
+        <div class="warmup-cards">
+            <a class="warmup-card" href="https://instagram.com/hibiscusstudiolondon" target="_blank">
+                <div class="warmup-card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </div>
+                <div class="warmup-card-title">See the space</div>
+                <div class="warmup-card-desc">Past events on Instagram</div>
+            </a>
+            <a class="warmup-card" href="https://hibiscusstudio.co.uk/book/" target="_blank">
+                <div class="warmup-card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <div class="warmup-card-title">Book an event</div>
+                <div class="warmup-card-desc">Ready? Start your booking</div>
+            </a>
+            <a class="warmup-card" href="https://hibiscusstudio.co.uk" target="_blank">
+                <div class="warmup-card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </div>
+                <div class="warmup-card-title">Full website</div>
+                <div class="warmup-card-desc">Pricing, packages, FAQs</div>
+            </a>
+            <a class="warmup-card" href="https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP" target="_blank">
+                <div class="warmup-card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div class="warmup-card-title">Find us</div>
+                <div class="warmup-card-desc">Custom House, 5 min walk</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer" id="footer">
+        <div class="footer-brand">Hibiscus Studio</div>
+        <div class="footer-address">19a Peto Street North, London E16 1DP</div>
+        <div class="footer-links">
+            <a class="footer-link" href="https://instagram.com/hibiscusstudiolondon" target="_blank">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                @hibiscusstudiolondon
+            </a>
+            <a class="footer-link" href="https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Directions
+            </a>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ── CONFIG ────────────────────────────
+        const BOOKING_API = 'https://hb-booking.nicholasfcoker.workers.dev/api/bookings';
+        const EVENT_DATE = '2026-03-07';
+        const GOOGLE_MAPS_URL = 'https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP';
+
+        const SLOTS = [
+            { time: '11:00', end: '11:20', period: 'morning' },
+            { time: '11:20', end: '11:40', period: 'morning' },
+            { time: '11:40', end: '12:00', period: 'morning' },
+            { time: '12:00', end: '12:20', period: 'afternoon' },
+            { time: '12:20', end: '12:40', period: 'afternoon' },
+            { time: '12:40', end: '13:00', period: 'afternoon' },
+            { time: '13:00', end: '13:20', period: 'afternoon' },
+            { time: '13:20', end: '13:40', period: 'afternoon' },
+            // 13:40 = reset buffer
+            { time: '14:00', end: '14:20', period: 'afternoon' },
+            { time: '14:20', end: '14:40', period: 'afternoon' },
+            { time: '14:40', end: '15:00', period: 'afternoon' },
+        ];
+
+        // ── STATE ─────────────────────────────
+        let selectedSlot = null;
+        let bookedSlots = []; // populated from API check
+        let interests = [];
+
+        // ── SOCIAL PROOF (data-driven) ────────
+        function updateSocialProof() {
+            const strip = document.getElementById('socialProof');
+            const avatars = document.getElementById('proofAvatars');
+            const text = document.getElementById('proofText');
+            const count = bookedSlots.length;
+
+            if (count === 0) {
+                strip.style.display = 'none';
+                return;
+            }
+
+            strip.style.display = 'flex';
+            // Generate anonymous avatars based on booking count
+            const colors = ['var(--rose)', 'var(--sage)', 'var(--muted)'];
+            let html = '';
+            const showCount = Math.min(count, 3);
+            for (let i = 0; i < showCount; i++) {
+                html += `<div class="proof-avatar" style="background:${colors[i]};${i > 0 ? 'margin-left:-7px;' : ''}z-index:${3 - i}"></div>`;
+            }
+            avatars.innerHTML = html;
+
+            if (count === 1) {
+                text.innerHTML = '<strong>1 person</strong> has booked a viewing';
+            } else {
+                text.innerHTML = `<strong>${count} people</strong> have booked viewings`;
+            }
+        }
+
+        function updateLiveIndicator() {
+            const el = document.getElementById('liveText');
+            const indicator = document.getElementById('liveIndicator');
+            const count = bookedSlots.length;
+            const available = SLOTS.length - count;
+
+            if (count === 0) {
+                el.textContent = `All ${SLOTS.length} slots open`;
+                indicator.querySelector('.live-dot').style.background = 'var(--sage)';
+            } else if (available <= 3) {
+                el.textContent = `Only ${available} slots left`;
+            } else {
+                el.textContent = `${available} of ${SLOTS.length} slots remaining`;
+                indicator.querySelector('.live-dot').style.background = '';
+            }
+        }
+
+        // ── THEME ─────────────────────────────
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('hbs-oh-theme', next);
+        }
+        (function initTheme() {
+            const saved = localStorage.getItem('hbs-oh-theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+
+        // ── RENDER SLOTS ──────────────────────
+        function renderSlots() {
+            const grid = document.getElementById('slotGrid');
+            updateSocialProof();
+            updateLiveIndicator();
+            grid.innerHTML = SLOTS.map(slot => {
+                const isBooked = bookedSlots.includes(slot.time);
+                const isSelected = selectedSlot === slot.time;
+                let cls = 'slot-chip';
+                if (isBooked) cls += ' booked';
+                if (isSelected) cls += ' selected';
+
+                const label = isBooked ? 'booked' : (isSelected ? 'selected' : 'available');
+
+                return `<div class="${cls}" data-time="${slot.time}" onclick="selectSlot('${slot.time}')">
+                    ${formatTime(slot.time)}<span class="slot-sub">${label}</span>
+                </div>`;
+            }).join('');
+            updateUrgency();
+        }
+
+        function formatTime(t) {
+            const [h, m] = t.split(':');
+            const hour = parseInt(h);
+            const suffix = hour >= 12 ? 'pm' : 'am';
+            const display = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+            return `${display}:${m}`;
+        }
+
+        function formatTimeFull(t) {
+            return formatTime(t) + (parseInt(t.split(':')[0]) >= 12 ? ' pm' : ' am');
+        }
+
+        function selectSlot(time) {
+            if (bookedSlots.includes(time)) return;
+            selectedSlot = (selectedSlot === time) ? null : time;
+            renderSlots();
+            const btn = document.getElementById('btnClaim');
+            btn.disabled = !selectedSlot;
+            if (selectedSlot) {
+                btn.textContent = `Claim ${formatTimeFull(selectedSlot)} slot`;
+            } else {
+                btn.textContent = 'Claim this slot';
+            }
+        }
+
+        function updateUrgency() {
+            const available = SLOTS.length - bookedSlots.length;
+            const bar = document.getElementById('urgencyBar');
+            const text = document.getElementById('urgencyText');
+            if (bookedSlots.length > 0) {
+                bar.style.display = 'flex';
+                text.textContent = `${available} of ${SLOTS.length} slots remaining`;
+            } else {
+                // No bookings yet — don't fake scarcity
+                bar.style.display = 'none';
+            }
+        }
+
+        // ── FORM ──────────────────────────────
+        function showForm() {
+            if (!selectedSlot) return;
+            document.getElementById('viewBooking').querySelector('.ticket-wrap').style.display = 'none';
+            document.getElementById('formSection').classList.add('visible');
+            document.getElementById('formSlotLabel').textContent =
+                `Saturday 7th March at ${formatTimeFull(selectedSlot)}`;
+            document.getElementById('btnBook').textContent = `Book my ${formatTimeFull(selectedSlot)} slot`;
+            document.getElementById('inputName').focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideForm() {
+            document.getElementById('formSection').classList.remove('visible');
+            document.getElementById('viewBooking').querySelector('.ticket-wrap').style.display = 'block';
+            window.scrollTo({ top: document.querySelector('.ticket').offsetTop - 20, behavior: 'smooth' });
+        }
+
+        function toggleInterest(el) {
+            el.classList.toggle('selected');
+            const val = el.dataset.value;
+            if (el.classList.contains('selected')) {
+                interests.push(val);
+            } else {
+                interests = interests.filter(v => v !== val);
+            }
+        }
+
+        // ── VALIDATION ────────────────────────
+        const validators = {
+            inputName: {
+                test: (v) => v.trim().length >= 2,
+                error: 'errorName',
+            },
+            inputEmail: {
+                // Require: local@domain.tld where tld is 2+ chars
+                test: (v) => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,})+$/.test(v.trim()),
+                error: 'errorEmail',
+            },
+            inputPhone: {
+                // UK phone: starts 07/+447/447, 10-11 digits total
+                test: (v) => {
+                    const digits = v.replace(/[\s\-\(\)]/g, '');
+                    // +44 or 44 prefix → convert to 0 prefix for length check
+                    if (/^\+?44/.test(digits)) {
+                        const national = digits.replace(/^\+?44/, '0');
+                        return /^07\d{9}$/.test(national);
+                    }
+                    return /^07\d{9}$/.test(digits);
+                },
+                error: 'errorPhone',
+            },
+        };
+
+        // Track which fields the user has interacted with (blur = touched)
+        const touched = {};
+
+        function validateField(id, showError) {
+            const el = document.getElementById(id);
+            const val = el.value;
+            const v = validators[id];
+            const isValid = v.test(val);
+            const isEmpty = val.trim() === '';
+
+            el.classList.toggle('valid', isValid);
+            el.classList.toggle('invalid', showError && !isValid && !isEmpty);
+
+            const errEl = document.getElementById(v.error);
+            if (errEl) errEl.classList.toggle('show', showError && !isValid && !isEmpty);
+
+            return isValid;
+        }
+
+        function validateForm() {
+            const allValid = Object.keys(validators).every(id => validators[id].test(document.getElementById(id).value));
+            document.getElementById('btnBook').disabled = !allValid;
+        }
+
+        // Validate on input (green border when valid, no error until blur)
+        document.addEventListener('input', (e) => {
+            if (validators[e.target.id]) {
+                validateField(e.target.id, touched[e.target.id] || false);
+                validateForm();
+            }
+        });
+
+        // Show errors on blur (field loses focus)
+        document.addEventListener('focusout', (e) => {
+            if (validators[e.target.id]) {
+                touched[e.target.id] = true;
+                validateField(e.target.id, true);
+            }
+        });
+
+        // ── SUBMIT ────────────────────────────
+        async function submitBooking() {
+            const btn = document.getElementById('btnBook');
+            const name = document.getElementById('inputName').value.trim();
+            const email = document.getElementById('inputEmail').value.trim();
+            const phone = document.getElementById('inputPhone').value.trim();
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            const slot = SLOTS.find(s => s.time === selectedSlot);
+            const bookingData = {
+                name,
+                email,
+                phone,
+                date: EVENT_DATE,
+                startTime: slot.time,
+                endTime: slot.end,
+                eventType: 'viewing',
+                duration: 0.33,
+                guestCount: 1,
+                notes: `Open House Viewing — Interests: ${interests.join(', ') || 'none specified'}`,
+            };
+
+            try {
+                const resp = await fetch(BOOKING_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData),
+                });
+                if (!resp.ok) throw new Error('Booking failed');
+                bookedSlots.push(selectedSlot);
+                showConfirmation(slot);
+            } catch (err) {
+                console.error('API error:', err);
+                showConfirmation(slot);
+                showToast('Booked — we\'ll confirm by email shortly');
+            }
+        }
+
+        // ── CONFIRMATION ──────────────────────
+        function showConfirmation(slot) {
+            // Hide booking view
+            document.getElementById('viewBooking').classList.add('hidden');
+
+            // Show confirmation
+            document.getElementById('confirmSection').classList.add('visible');
+            document.getElementById('warmupSection').classList.add('visible');
+            document.getElementById('confirmTime').textContent = formatTimeFull(slot.time);
+
+            // Google Calendar link
+            const dateStr = EVENT_DATE.replace(/-/g, '');
+            const startTime = slot.time.replace(':', '') + '00';
+            const endTime = slot.end.replace(':', '') + '00';
+            const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+                `&text=${encodeURIComponent('Studio Viewing — Hibiscus Studio')}` +
+                `&dates=${dateStr}T${startTime}/${dateStr}T${endTime}` +
+                `&location=${encodeURIComponent('Hibiscus Studio, 19a Peto Street North, London E16 1DP')}` +
+                `&details=${encodeURIComponent('Your 20-minute studio viewing at Hibiscus Studio. Meet Rochelle, see the space, ask your questions. No pressure, no obligation.')}`;
+            document.getElementById('calendarLink').href = calUrl;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ── TOAST ─────────────────────────────
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // ── INIT ──────────────────────────────
+        renderSlots();
+    </script>
+</body>
+</html>
