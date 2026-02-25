@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUMA Staff Home — UI Explore</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-hover: rgba(255,255,255,0.08);
+      --stroke: rgba(255,255,255,0.08);
+      --lime: #D4FF00;
+      --lime-dim: rgba(212,255,0,0.12);
+      --lime-glow: rgba(212,255,0,0.25);
+      --text: #F5F5F5;
+      --text-sub: rgba(255,255,255,0.5);
+      --text-dim: rgba(255,255,255,0.3);
+      --red: #FF4757;
+      --green: #2ED573;
+      --r-md: 16px;
+      --r-lg: 20px;
+      --r-pill: 100px;
+      --space: 20px;
+      --font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      font-family: var(--font);
+      color: var(--text);
+      padding: 30px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    .treatment-wrapper {
+      flex: 0 0 auto;
+    }
+
+    .treatment-label {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .treatment-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--lime);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .treatment-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .badge-rec { background: var(--lime-dim); color: var(--lime); }
+    .badge-social { background: rgba(46,213,115,0.15); color: var(--green); }
+    .badge-minimal { background: rgba(255,255,255,0.08); color: var(--text-sub); }
+    .badge-tabbed { background: rgba(255,71,87,0.15); color: var(--red); }
+    .treatment-desc {
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    .phone {
+      width: 390px;
+      min-height: 844px;
+      background: var(--bg);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .screen {
+      padding: 56px var(--space) 100px;
+      overflow-y: auto;
+    }
+
+    /* Shared: Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0 16px;
+    }
+    .header-brand {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .header-brand span { color: var(--lime); }
+    .header-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--lime-dim);
+      border: 1.5px solid var(--lime);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lime);
+    }
+
+    /* Shared: Bottom Nav */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(8,8,8,0.95);
+      border-top: 1px solid var(--stroke);
+      display: flex;
+      padding: 8px 0 28px;
+      backdrop-filter: blur(20px);
+    }
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+    .nav-item.active { color: var(--lime); }
+    .nav-item i { font-size: 20px; display: block; margin-bottom: 2px; }
+
+    /* Shared elements */
+    .glass-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--stroke);
+      border-radius: var(--r-md);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .lime-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--lime);
+      color: #080808;
+      border: none;
+      border-radius: var(--r-md);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 20px 0 10px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .pill-lime { background: var(--lime-dim); color: var(--lime); }
+    .pill-glass { background: var(--bg-glass); color: var(--text-sub); border: 1px solid var(--stroke); }
+
+    /* Progress bar shared */
+    .progress-segments {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .seg {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.06);
+    }
+    .seg-done { background: var(--lime); }
+    .seg-current { background: var(--lime); opacity: 0.4; animation: pulse-seg 2s infinite; }
+    @keyframes pulse-seg { 0%,100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+
+    /* ─── TREATMENT A: FOCUSED ─── */
+    .a-hero {
+      background: linear-gradient(135deg, rgba(212,255,0,0.08), rgba(212,255,0,0.02));
+      border: 1px solid rgba(212,255,0,0.15);
+      border-radius: var(--r-lg);
+      padding: 24px 20px;
+      margin-bottom: 16px;
+    }
+    .a-hero-module {
+      font-size: 11px;
+      color: var(--lime);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .a-hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .a-hero-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .a-hero-stats {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .a-mission-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .a-mission-row:last-child { border: none; }
+    .a-mission-check {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .a-check-done { background: var(--lime-dim); color: var(--lime); }
+    .a-check-locked { background: rgba(255,255,255,0.04); color: var(--text-dim); }
+    .a-mission-name { font-size: 14px; flex: 1; }
+    .a-mission-name.done { color: var(--text-sub); text-decoration: line-through; }
+    .a-mission-name.locked { color: var(--text-dim); }
+    .a-mission-time { font-size: 12px; color: var(--text-dim); }
+
+    /* ─── TREATMENT B: PROGRESS-FORWARD ─── */
+    .b-progress-hero {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .b-big-number {
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--lime);
+      line-height: 1;
+    }
+    .b-big-label {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+    .b-next-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--lime);
+      border-radius: var(--r-md);
+      padding: 16px;
+      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .b-next-icon {
+      width: 44px; height: 44px;
+      background: var(--lime);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #080808;
+      font-size: 20px;
+    }
+    .b-next-info { flex: 1; }
+    .b-next-label { font-size: 11px; color: var(--lime); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .b-next-title { font-size: 16px; font-weight: 600; margin-top: 2px; }
+    .b-checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-glass);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .b-check-circle {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--stroke);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    .b-check-done { border-color: var(--lime); background: var(--lime-dim); color: var(--lime); }
+    .b-check-text { font-size: 14px; flex: 1; }
+    .b-check-text.done { color: var(--text-sub); text-decoration: line-through; }
+
+    /* ─── TREATMENT C: SOCIAL ─── */
+    .c-leaderboard {
+      margin-bottom: 16px;
+    }
+    .c-lb-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .c-lb-rank {
+      width: 24px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .c-lb-rank.gold { color: #FFD700; }
+    .c-lb-rank.silver { color: #C0C0C0; }
+    .c-lb-rank.bronze { color: #CD7F32; }
+    .c-lb-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--bg-glass);
+      border: 1px solid var(--stroke);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .c-lb-avatar.you { border-color: var(--lime); background: var(--lime-dim); color: var(--lime); }
+    .c-lb-info { flex: 1; }
+    .c-lb-name { font-size: 14px; font-weight: 600; }
+    .c-lb-name .you-tag { color: var(--lime); font-size: 11px; margin-left: 4px; }
+    .c-lb-detail { font-size: 12px; color: var(--text-dim); }
+    .c-lb-xp { font-size: 14px; font-weight: 700; color: var(--lime); }
+    .c-expand-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: none;
+      border: 1px solid var(--stroke);
+      border-radius: 10px;
+      color: var(--text-sub);
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .c-buzz-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+    }
+    .c-buzz-dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .c-buzz-text { font-size: 13px; color: var(--text-sub); }
+    .c-buzz-text strong { color: var(--text); }
+    .c-buzz-time { font-size: 11px; color: var(--text-dim); margin-left: auto; }
+
+    /* ─── TREATMENT D: TAB-FIRST ─── */
+    .d-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .d-tab {
+      flex: 1;
+      padding: 12px 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dim);
+      cursor: pointer;
+      position: relative;
+    }
+    .d-tab.active {
+      color: var(--lime);
+    }
+    .d-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: var(--lime);
+      border-radius: 1px;
+    }
+    .d-tab-content {
+      min-height: 400px;
+    }
+    .d-product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .d-product-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .d-product-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    .d-product-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .d-product-detail {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+    .d-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: var(--bg-glass);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .d-stat-label { font-size: 13px; color: var(--text-sub); }
+    .d-stat-value { font-size: 16px; font-weight: 700; }
+    .d-stat-value.lime { color: var(--lime); }
+  </style>
+</head>
+<body>
+
+<!-- ═══ TREATMENT A: FOCUSED ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">A: Focused <span class="treatment-badge badge-rec">RECOMMENDED</span></div>
+    <div class="treatment-desc">Hero card dominant. All 6 missions visible. Clear next action.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <div class="a-hero">
+        <div class="a-hero-module">Module 1 · Mission 3</div>
+        <div class="a-hero-title">The 70/30 Rule</div>
+        <div class="a-hero-desc">Let the customer talk 70% of the time. You guide with questions, not pitches.</div>
+        <div class="a-hero-stats">
+          <span class="pill pill-lime"><i class="ri-fire-line"></i> 2 done</span>
+          <span class="pill pill-glass">2/6 missions</span>
+        </div>
+        <button class="lime-btn">START SESSION</button>
+      </div>
+
+      <div class="progress-segments">
+        <div class="seg seg-done"></div>
+        <div class="seg seg-done"></div>
+        <div class="seg seg-current"></div>
+        <div class="seg"></div>
+        <div class="seg"></div>
+        <div class="seg"></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px;">2/6 missions complete</div>
+
+      <div class="section-title">All Missions</div>
+      <div class="glass-card" style="padding:4px 16px;">
+        <div class="a-mission-row">
+          <div class="a-mission-check a-check-done"><i class="ri-check-line"></i></div>
+          <div class="a-mission-name done">The 5-30-60 Rule</div>
+          <div class="a-mission-time">4 min</div>
+        </div>
+        <div class="a-mission-row">
+          <div class="a-mission-check a-check-done"><i class="ri-check-line"></i></div>
+          <div class="a-mission-name done">Kill "Can I Help You?"</div>
+          <div class="a-mission-time">3 min</div>
+        </div>
+        <div class="a-mission-row">
+          <div class="a-mission-check" style="background:var(--lime);color:#080808;"><i class="ri-play-line"></i></div>
+          <div class="a-mission-name" style="font-weight:600;">The 70/30 Rule</div>
+          <div class="a-mission-time">5 min</div>
+        </div>
+        <div class="a-mission-row">
+          <div class="a-mission-check a-check-locked"><i class="ri-lock-line"></i></div>
+          <div class="a-mission-name locked">"I'll Think About It"</div>
+          <div class="a-mission-time">4 min</div>
+        </div>
+        <div class="a-mission-row">
+          <div class="a-mission-check a-check-locked"><i class="ri-lock-line"></i></div>
+          <div class="a-mission-name locked">"It's Too Expensive"</div>
+          <div class="a-mission-time">5 min</div>
+        </div>
+        <div class="a-mission-row">
+          <div class="a-mission-check a-check-locked"><i class="ri-lock-line"></i></div>
+          <div class="a-mission-name locked">Exit Protocol</div>
+          <div class="a-mission-time">3 min</div>
+        </div>
+      </div>
+
+      <div class="section-title">Team Pulse</div>
+      <div class="glass-card">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;background:var(--green);border-radius:50%;"></div>
+          <span style="font-size:13px;color:var(--text-sub);"><strong style="color:var(--text);">Adebayo</strong> completed Mission 2 · 1h ago</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Profile</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TREATMENT B: PROGRESS-FORWARD ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">B: Progress-Forward <span class="treatment-badge badge-minimal">MINIMAL</span></div>
+    <div class="treatment-desc">Big number. Progress feels tangible. Checklist energy.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <div class="b-progress-hero">
+        <div class="b-big-number">2<span style="font-size:28px;color:var(--text-dim);">/6</span></div>
+        <div class="b-big-label">missions complete</div>
+        <div class="progress-segments" style="margin-top:12px;">
+          <div class="seg seg-done"></div>
+          <div class="seg seg-done"></div>
+          <div class="seg seg-current"></div>
+          <div class="seg"></div>
+          <div class="seg"></div>
+          <div class="seg"></div>
+        </div>
+      </div>
+
+      <div class="b-next-card">
+        <div class="b-next-icon"><i class="ri-play-fill"></i></div>
+        <div class="b-next-info">
+          <div class="b-next-label">Up Next</div>
+          <div class="b-next-title">The 70/30 Rule</div>
+        </div>
+        <i class="ri-arrow-right-s-line" style="font-size:24px;color:var(--text-dim);"></i>
+      </div>
+
+      <div class="section-title">Your Journey</div>
+      <div class="b-checklist-item">
+        <div class="b-check-circle b-check-done"><i class="ri-check-line"></i></div>
+        <span class="b-check-text done">The 5-30-60 Rule</span>
+        <span style="font-size:11px;color:var(--lime);">92%</span>
+      </div>
+      <div class="b-checklist-item">
+        <div class="b-check-circle b-check-done"><i class="ri-check-line"></i></div>
+        <span class="b-check-text done">Kill "Can I Help You?"</span>
+        <span style="font-size:11px;color:var(--lime);">88%</span>
+      </div>
+      <div class="b-checklist-item" style="border-color:var(--lime);">
+        <div class="b-check-circle" style="border-color:var(--lime);"><i class="ri-play-line" style="color:var(--lime);font-size:10px;"></i></div>
+        <span class="b-check-text" style="font-weight:600;">The 70/30 Rule</span>
+        <span style="font-size:11px;color:var(--text-dim);">5 min</span>
+      </div>
+      <div class="b-checklist-item" style="opacity:0.4;">
+        <div class="b-check-circle"><i class="ri-lock-line" style="font-size:10px;"></i></div>
+        <span class="b-check-text">"I'll Think About It"</span>
+      </div>
+      <div class="b-checklist-item" style="opacity:0.4;">
+        <div class="b-check-circle"><i class="ri-lock-line" style="font-size:10px;"></i></div>
+        <span class="b-check-text">"It's Too Expensive"</span>
+      </div>
+      <div class="b-checklist-item" style="opacity:0.4;">
+        <div class="b-check-circle"><i class="ri-lock-line" style="font-size:10px;"></i></div>
+        <span class="b-check-text">Exit Protocol</span>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="glass-card" style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:11px;color:var(--text-dim);">You've learned</span>
+          <span style="font-size:18px;font-weight:700;color:var(--lime);">12</span>
+          <span style="font-size:11px;color:var(--text-dim);">products</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Profile</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TREATMENT C: SOCIAL ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">C: Social <span class="treatment-badge badge-social">COMPETITIVE</span></div>
+    <div class="treatment-desc">Leaderboard prominent. Team buzz. "I want to catch up" energy.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <!-- Mini progress + CTA -->
+      <div class="glass-card" style="display:flex;align-items:center;gap:14px;">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">Mission 3: The 70/30 Rule</div>
+          <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">2/6 complete · 5 min</div>
+        </div>
+        <button class="lime-btn" style="width:auto;padding:10px 20px;font-size:13px;">GO</button>
+      </div>
+
+      <!-- Collapsed Leaderboard (top 3) -->
+      <div class="section-title">Leaderboard</div>
+      <div class="glass-card c-leaderboard">
+        <div class="c-lb-row">
+          <div class="c-lb-rank gold">1</div>
+          <div class="c-lb-avatar">DA</div>
+          <div class="c-lb-info">
+            <div class="c-lb-name">David A.</div>
+            <div class="c-lb-detail">4/6 missions · 94%</div>
+          </div>
+          <div class="c-lb-xp">480</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank silver">2</div>
+          <div class="c-lb-avatar you">KA</div>
+          <div class="c-lb-info">
+            <div class="c-lb-name">Kemi A. <span class="you-tag">YOU</span></div>
+            <div class="c-lb-detail">2/6 missions · 90%</div>
+          </div>
+          <div class="c-lb-xp">240</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank bronze">3</div>
+          <div class="c-lb-avatar">BO</div>
+          <div class="c-lb-info">
+            <div class="c-lb-name">Bola O.</div>
+            <div class="c-lb-detail">2/6 missions · 85%</div>
+          </div>
+          <div class="c-lb-xp">220</div>
+        </div>
+        <button class="c-expand-btn">Show all 7 staff ↓</button>
+      </div>
+
+      <!-- Expanded (below — shows full list) -->
+      <div class="section-title">Expanded View</div>
+      <div class="glass-card c-leaderboard">
+        <div class="c-lb-row">
+          <div class="c-lb-rank gold">1</div>
+          <div class="c-lb-avatar">DA</div>
+          <div class="c-lb-info"><div class="c-lb-name">David A.</div><div class="c-lb-detail">4/6 · 94%</div></div>
+          <div class="c-lb-xp">480</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank silver">2</div>
+          <div class="c-lb-avatar you">KA</div>
+          <div class="c-lb-info"><div class="c-lb-name">Kemi A. <span class="you-tag">YOU</span></div><div class="c-lb-detail">2/6 · 90%</div></div>
+          <div class="c-lb-xp">240</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank bronze">3</div>
+          <div class="c-lb-avatar">BO</div>
+          <div class="c-lb-info"><div class="c-lb-name">Bola O.</div><div class="c-lb-detail">2/6 · 85%</div></div>
+          <div class="c-lb-xp">220</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank">4</div>
+          <div class="c-lb-avatar">TA</div>
+          <div class="c-lb-info"><div class="c-lb-name">Tunde A.</div><div class="c-lb-detail">1/6 · 78%</div></div>
+          <div class="c-lb-xp">95</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank">5</div>
+          <div class="c-lb-avatar">FI</div>
+          <div class="c-lb-info"><div class="c-lb-name">Fola I.</div><div class="c-lb-detail">1/6 · 72%</div></div>
+          <div class="c-lb-xp">80</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank">6</div>
+          <div class="c-lb-avatar">AJ</div>
+          <div class="c-lb-info"><div class="c-lb-name">Ade J.</div><div class="c-lb-detail">0/6 · —</div></div>
+          <div class="c-lb-xp" style="color:var(--red);">0</div>
+        </div>
+        <div class="c-lb-row">
+          <div class="c-lb-rank">7</div>
+          <div class="c-lb-avatar">CN</div>
+          <div class="c-lb-info"><div class="c-lb-name">Chioma N.</div><div class="c-lb-detail">0/6 · —</div></div>
+          <div class="c-lb-xp" style="color:var(--red);">0</div>
+        </div>
+      </div>
+
+      <!-- Team Buzz -->
+      <div class="section-title">Team Buzz</div>
+      <div class="glass-card">
+        <div class="c-buzz-item">
+          <div class="c-buzz-dot"></div>
+          <span class="c-buzz-text"><strong>David</strong> aced Mission 4</span>
+          <span class="c-buzz-time">22m</span>
+        </div>
+        <div class="c-buzz-item">
+          <div class="c-buzz-dot" style="background:var(--lime);"></div>
+          <span class="c-buzz-text"><strong>Bola</strong> finished Mission 2</span>
+          <span class="c-buzz-time">1h</span>
+        </div>
+        <div class="c-buzz-item">
+          <div class="c-buzz-dot" style="background:var(--text-dim);"></div>
+          <span class="c-buzz-text"><strong>Kemi</strong> completed Mission 2</span>
+          <span class="c-buzz-time">3h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Profile</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TREATMENT D: TAB-FIRST ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">D: Tab-First <span class="treatment-badge badge-tabbed">3 VIEWS</span></div>
+    <div class="treatment-desc">Sessions / Store / Me tabs. Shows all three states.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <!-- Tab bar -->
+      <div class="d-tabs">
+        <div class="d-tab active">Sessions</div>
+        <div class="d-tab">Store</div>
+        <div class="d-tab">Me</div>
+      </div>
+
+      <!-- Sessions Tab (active) -->
+      <div class="d-tab-content">
+        <!-- Compact next mission -->
+        <div class="glass-card" style="border-color:var(--lime);display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;background:var(--lime);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#080808;font-size:20px;flex-shrink:0;"><i class="ri-play-fill"></i></div>
+          <div style="flex:1;">
+            <div style="font-size:11px;color:var(--lime);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Next Up</div>
+            <div style="font-size:15px;font-weight:600;">The 70/30 Rule</div>
+            <div style="font-size:12px;color:var(--text-dim);">5 min · Mission 3</div>
+          </div>
+        </div>
+
+        <div class="progress-segments" style="margin-top:12px;">
+          <div class="seg seg-done"></div>
+          <div class="seg seg-done"></div>
+          <div class="seg seg-current"></div>
+          <div class="seg"></div>
+          <div class="seg"></div>
+          <div class="seg"></div>
+        </div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px;">2/6 complete</div>
+
+        <div class="section-title">Completed</div>
+        <div class="b-checklist-item">
+          <div class="b-check-circle b-check-done"><i class="ri-check-line"></i></div>
+          <span class="b-check-text done">The 5-30-60 Rule</span>
+          <span style="font-size:11px;color:var(--lime);">92%</span>
+        </div>
+        <div class="b-checklist-item">
+          <div class="b-check-circle b-check-done"><i class="ri-check-line"></i></div>
+          <span class="b-check-text done">Kill "Can I Help You?"</span>
+          <span style="font-size:11px;color:var(--lime);">88%</span>
+        </div>
+
+        <div class="section-title" style="margin-top:20px;">Locked</div>
+        <div class="b-checklist-item" style="opacity:0.4;">
+          <div class="b-check-circle"><i class="ri-lock-line" style="font-size:10px;"></i></div>
+          <span class="b-check-text">"I'll Think About It"</span>
+        </div>
+        <div class="b-checklist-item" style="opacity:0.4;">
+          <div class="b-check-circle"><i class="ri-lock-line" style="font-size:10px;"></i></div>
+          <span class="b-check-text">"It's Too Expensive"</span>
+        </div>
+        <div class="b-checklist-item" style="opacity:0.4;">
+          <div class="b-check-circle"><i class="ri-lock-line" style="font-size:10px;"></i></div>
+          <span class="b-check-text">Exit Protocol</span>
+        </div>
+
+        <!-- STORE tab preview (below, separated) -->
+        <div style="margin-top:32px;padding-top:20px;border-top:2px solid var(--stroke);">
+          <div style="text-align:center;margin-bottom:12px;">
+            <div class="d-tabs">
+              <div class="d-tab">Sessions</div>
+              <div class="d-tab active">Store</div>
+              <div class="d-tab">Me</div>
+            </div>
+          </div>
+
+          <div class="glass-card" style="text-align:center;padding:20px;">
+            <div style="font-size:36px;font-weight:800;color:var(--lime);">12</div>
+            <div style="font-size:13px;color:var(--text-sub);">products you've learned</div>
+          </div>
+
+          <div class="d-product-grid">
+            <div class="d-product-card">
+              <div class="d-product-icon">👟</div>
+              <div class="d-product-name">RS-X</div>
+              <div class="d-product-detail">Running · ₦45K</div>
+            </div>
+            <div class="d-product-card">
+              <div class="d-product-icon">👟</div>
+              <div class="d-product-name">Suede Classic</div>
+              <div class="d-product-detail">Lifestyle · ₦38K</div>
+            </div>
+            <div class="d-product-card">
+              <div class="d-product-icon">👕</div>
+              <div class="d-product-name">ESS Tee</div>
+              <div class="d-product-detail">Apparel · ₦12K</div>
+            </div>
+            <div class="d-product-card">
+              <div class="d-product-icon">🎒</div>
+              <div class="d-product-name">Phase BP</div>
+              <div class="d-product-detail">Accessories · ₦18K</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ME tab preview (below, separated) -->
+        <div style="margin-top:32px;padding-top:20px;border-top:2px solid var(--stroke);">
+          <div style="text-align:center;margin-bottom:12px;">
+            <div class="d-tabs">
+              <div class="d-tab">Sessions</div>
+              <div class="d-tab">Store</div>
+              <div class="d-tab active">Me</div>
+            </div>
+          </div>
+
+          <div class="glass-card" style="text-align:center;padding:20px;">
+            <div class="header-avatar" style="width:56px;height:56px;font-size:20px;margin:0 auto 10px;">KA</div>
+            <div style="font-size:16px;font-weight:600;">Kemi Adeyemi</div>
+            <div style="font-size:12px;color:var(--text-dim);">Puma Lekki · Staff</div>
+          </div>
+
+          <div class="d-stat-row">
+            <span class="d-stat-label">Missions</span>
+            <span class="d-stat-value lime">2/6</span>
+          </div>
+          <div class="d-stat-row">
+            <span class="d-stat-label">Accuracy</span>
+            <span class="d-stat-value">90%</span>
+          </div>
+          <div class="d-stat-row">
+            <span class="d-stat-label">Certification</span>
+            <span class="d-stat-value lime">33%</span>
+          </div>
+          <div class="d-stat-row">
+            <span class="d-stat-label">Practice Streak</span>
+            <span class="d-stat-value">🔥 4 days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Profile</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

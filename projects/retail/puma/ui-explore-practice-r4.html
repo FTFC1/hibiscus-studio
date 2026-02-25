@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUMA Practice — Round 4 (Flip Cards)</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg-glass: rgba(255,255,255,0.04);
+      --stroke: rgba(255,255,255,0.08);
+      --lime: #D4FF00;
+      --lime-dim: rgba(212,255,0,0.12);
+      --text: #F5F5F5;
+      --text-sub: rgba(255,255,255,0.5);
+      --text-dim: rgba(255,255,255,0.3);
+      --green: #2ED573;
+      --r-md: 16px;
+      --r-lg: 20px;
+      --r-pill: 100px;
+      --space: 20px;
+      --font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #111; font-family: var(--font); color: var(--text);
+      padding: 30px 16px; display: flex; flex-wrap: wrap; gap: 32px; justify-content: center;
+    }
+    .treatment-wrapper { flex: 0 0 auto; }
+    .treatment-label { text-align: center; margin-bottom: 12px; }
+    .treatment-name { font-size: 14px; font-weight: 700; color: var(--lime); text-transform: uppercase; letter-spacing: 2px; }
+    .treatment-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+    .badge-rec { background: var(--lime-dim); color: var(--lime); }
+    .badge-alt { background: rgba(255,255,255,0.08); color: var(--text-sub); }
+    .treatment-desc { font-size: 11px; color: var(--text-sub); margin-top: 4px; }
+
+    .phone {
+      width: 390px; height: 844px; background: var(--bg); border-radius: 40px;
+      overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+      position: relative; display: flex; flex-direction: column;
+    }
+    .screen { flex: 1; padding: 56px var(--space) 20px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .screen::-webkit-scrollbar { width: 0; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 16px; }
+    .header-brand { font-size: 18px; font-weight: 700; }
+    .header-brand span { color: var(--lime); }
+    .header-avatar {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--lime-dim);
+      border: 1.5px solid var(--lime); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--lime);
+    }
+    .bottom-nav {
+      flex-shrink: 0; background: rgba(8,8,8,0.95); border-top: 1px solid var(--stroke);
+      display: flex; padding: 8px 0 28px; backdrop-filter: blur(20px);
+    }
+    .nav-item { flex: 1; text-align: center; font-size: 10px; color: var(--text-dim); }
+    .nav-item.active { color: var(--lime); }
+    .nav-item i { font-size: 20px; display: block; margin-bottom: 2px; }
+    .glass-card { background: var(--bg-glass); border: 1px solid var(--stroke); border-radius: var(--r-md); padding: 16px; margin-bottom: 12px; }
+    .pill { display: inline-block; padding: 4px 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; }
+    .pill-lime { background: var(--lime-dim); color: var(--lime); }
+    .section-title { font-size: 13px; font-weight: 600; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px; }
+
+    /* ═══ FLIP CARD SYSTEM ═══ */
+    .flip-container {
+      perspective: 1000px;
+      margin-bottom: 16px;
+      cursor: pointer;
+    }
+    .flip-card {
+      position: relative;
+      width: 100%;
+      min-height: 160px;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-container.flipped .flip-card {
+      transform: rotateY(180deg);
+    }
+    .flip-front, .flip-back {
+      width: 100%;
+      border-radius: var(--r-lg);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-front {
+      position: relative;
+    }
+    .flip-back {
+      position: absolute;
+      top: 0; left: 0;
+      transform: rotateY(180deg);
+      min-height: 160px;
+    }
+
+    /* ─── CARD FRONTS (branded) ─── */
+    .card-front-done {
+      background: linear-gradient(145deg, rgba(212,255,0,0.06), rgba(212,255,0,0.02));
+      border: 1px solid rgba(212,255,0,0.15);
+      padding: 24px;
+    }
+    .card-front-current {
+      background: linear-gradient(145deg, rgba(212,255,0,0.12), rgba(212,255,0,0.04));
+      border: 1.5px solid var(--lime);
+      padding: 24px;
+    }
+    .card-front-locked {
+      background: var(--bg-glass);
+      border: 1px solid var(--stroke);
+      padding: 24px;
+      opacity: 0.4;
+    }
+    .card-number {
+      font-size: 48px; font-weight: 800; line-height: 1;
+      color: rgba(212,255,0,0.12);
+      position: absolute; top: 16px; right: 20px;
+    }
+    .card-front-locked .card-number { color: rgba(255,255,255,0.04); }
+    .card-status {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .card-status.done { color: var(--lime); }
+    .card-status.current { color: var(--lime); }
+    .card-status.locked { color: var(--text-dim); }
+    .card-title {
+      font-size: 18px; font-weight: 700; line-height: 1.3;
+      margin-bottom: 8px; position: relative;
+    }
+    .card-subtitle {
+      font-size: 13px; color: var(--text-sub); line-height: 1.4;
+    }
+    .card-front-locked .card-title { color: var(--text-dim); }
+    .card-front-locked .card-subtitle { color: var(--text-dim); }
+    .card-flip-hint {
+      font-size: 11px; color: var(--text-dim); margin-top: 12px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .card-flip-hint i { font-size: 14px; }
+
+    /* ─── CARD BACKS (reference content) ─── */
+    .card-back-content {
+      background: rgba(212,255,0,0.04);
+      border: 1px solid rgba(212,255,0,0.1);
+      padding: 20px;
+    }
+    .card-back-current-content {
+      background: rgba(212,255,0,0.06);
+      border: 1.5px solid var(--lime);
+      padding: 20px;
+    }
+    .back-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--lime); margin-bottom: 8px;
+    }
+    .back-rule {
+      font-size: 14px; font-weight: 600; line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .back-tip {
+      font-size: 13px; color: var(--text-sub); line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .back-tip strong { color: var(--text); }
+    .key-phrase {
+      display: inline-block; padding: 4px 10px;
+      background: var(--lime-dim); border-radius: 8px;
+      font-size: 12px; color: var(--lime); font-weight: 600;
+      margin: 3px 3px 3px 0;
+    }
+    .back-scenario {
+      font-size: 13px; color: var(--text-sub); line-height: 1.5;
+      padding: 10px 12px; margin-top: 10px;
+      background: rgba(255,255,255,0.02);
+      border-left: 2px solid var(--lime-dim);
+      border-radius: 0 8px 8px 0;
+    }
+    .back-flip-hint {
+      font-size: 11px; color: var(--text-dim); margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ─── MOOD ─── */
+    .mood-grid { display: flex; gap: 8px; justify-content: center; }
+    .mood-btn {
+      flex: 1; max-width: 72px; padding: 14px 0; border-radius: 12px;
+      background: var(--bg-glass); border: 1px solid var(--stroke);
+      font-size: 13px; color: var(--text-sub); cursor: pointer;
+      text-align: center; font-weight: 500;
+    }
+    .mood-btn.selected { background: var(--lime-dim); border-color: var(--lime); color: var(--lime); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PRACTICE: CARDS FACE-UP (default state) ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">Practice — Fronts <span class="treatment-badge badge-rec">DEFAULT VIEW</span></div>
+    <div class="treatment-desc">Branded cards. Tap to flip. Progressive disclosure.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <!-- Shift context -->
+      <div class="glass-card" style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;color:var(--text-sub);">Afternoon shift</span>
+        <span class="pill pill-lime">4 day streak</span>
+      </div>
+
+      <!-- Card 1: DONE — flippable -->
+      <div class="flip-container" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card">
+          <div class="flip-front card-front-done" style="border-radius:var(--r-lg);">
+            <div class="card-number">01</div>
+            <div class="card-status done">Completed</div>
+            <div class="card-title">The 5-30-60 Rule</div>
+            <div class="card-subtitle">First contact timing. The numbers that make greeting feel natural.</div>
+            <div class="card-flip-hint"><i class="ri-refresh-line"></i> Tap to review</div>
+          </div>
+          <div class="flip-back card-back-content" style="border-radius:var(--r-lg);">
+            <div class="back-section-label">The Rule</div>
+            <div class="back-rule">Eye contact within 5 seconds. Greet within 30. Approach within 60.</div>
+            <div class="back-tip"><strong>Watch for:</strong> Customers lingering near a display 20+ seconds — they want help but won't ask.</div>
+            <div style="margin-top:8px;">
+              <span class="key-phrase">"What brings you in today?"</span>
+              <span class="key-phrase">"Looking for anything specific?"</span>
+            </div>
+            <div class="back-flip-hint">Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: DONE — flippable -->
+      <div class="flip-container" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card">
+          <div class="flip-front card-front-done" style="border-radius:var(--r-lg);">
+            <div class="card-number">02</div>
+            <div class="card-status done">Completed</div>
+            <div class="card-title">Kill "Can I Help You?"</div>
+            <div class="card-subtitle">Replace the question that kills conversations before they start.</div>
+            <div class="card-flip-hint"><i class="ri-refresh-line"></i> Tap to review</div>
+          </div>
+          <div class="flip-back card-back-content" style="border-radius:var(--r-lg);">
+            <div class="back-section-label">Why It Fails</div>
+            <div class="back-rule">Closed question. Customer says "just looking" reflexively. Conversation dead.</div>
+            <div class="back-tip"><strong>Instead:</strong> Comment on what they're looking at. Be a person first, salesperson second.</div>
+            <div style="margin-top:8px;">
+              <span class="key-phrase">"Those just came in yesterday"</span>
+              <span class="key-phrase">"That's our best seller this month"</span>
+            </div>
+            <div class="back-scenario">Customer picks up a shoe, checks the price, puts it down. Don't ask if they need help — say "That one runs really well for the price. What are you using it for?"</div>
+            <div class="back-flip-hint">Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: CURRENT — flippable, highlighted -->
+      <div class="flip-container" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card">
+          <div class="flip-front card-front-current" style="border-radius:var(--r-lg);">
+            <div class="card-number" style="color:rgba(212,255,0,0.2);">03</div>
+            <div class="card-status current">In Progress</div>
+            <div class="card-title">The 70/30 Rule</div>
+            <div class="card-subtitle">Let the customer do the talking. Your job is questions, not pitches.</div>
+            <div class="card-flip-hint"><i class="ri-refresh-line"></i> Tap for today's focus</div>
+          </div>
+          <div class="flip-back card-back-current-content" style="border-radius:var(--r-lg);">
+            <div class="back-section-label">Today's Focus</div>
+            <div class="back-rule">Customer talks 70%. You talk 30%. Guide with questions.</div>
+            <div class="back-tip"><strong>Watch for:</strong> When you catch yourself explaining for more than 15 seconds — stop. Ask a question instead.</div>
+            <div style="margin-top:8px;">
+              <span class="key-phrase">"What do you use them for?"</span>
+              <span class="key-phrase">"Comfort or looks — what matters more?"</span>
+              <span class="key-phrase">"Tried this brand before?"</span>
+            </div>
+            <div class="back-scenario">Customer: "I need running shoes." Don't launch into features. Say: "Nice — training for something specific, or general fitness?" Let them tell you what they need. Then match.</div>
+            <div class="back-flip-hint">Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: LOCKED -->
+      <div class="flip-container">
+        <div class="flip-card">
+          <div class="flip-front card-front-locked" style="border-radius:var(--r-lg);">
+            <div class="card-number">04</div>
+            <div class="card-status locked">Locked</div>
+            <div class="card-title">"I'll Think About It"</div>
+            <div class="card-subtitle">Complete Mission 3 to unlock</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: LOCKED -->
+      <div class="flip-container">
+        <div class="flip-card">
+          <div class="flip-front card-front-locked" style="border-radius:var(--r-lg);">
+            <div class="card-number">05</div>
+            <div class="card-status locked">Locked</div>
+            <div class="card-title">"It's Too Expensive"</div>
+            <div class="card-subtitle">Complete Mission 4 to unlock</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: LOCKED -->
+      <div class="flip-container">
+        <div class="flip-card">
+          <div class="flip-front card-front-locked" style="border-radius:var(--r-lg);">
+            <div class="card-number">06</div>
+            <div class="card-status locked">Locked</div>
+            <div class="card-title">Exit Protocol</div>
+            <div class="card-subtitle">Complete Mission 5 to unlock</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- End of day -->
+      <div class="section-title">End of Day</div>
+      <div class="glass-card" style="text-align:center;padding:20px;">
+        <div style="font-size:14px;margin-bottom:12px;">How did today go?</div>
+        <div class="mood-grid">
+          <div class="mood-btn">Rough</div>
+          <div class="mood-btn">OK</div>
+          <div class="mood-btn">Good</div>
+          <div class="mood-btn">Great</div>
+        </div>
+      </div>
+
+      <div style="height:20px;"></div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item active"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Me</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRACTICE: CARD 2 FLIPPED (showing back state) ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">Flipped State <span class="treatment-badge badge-alt">TAP RESULT</span></div>
+    <div class="treatment-desc">What you see after tapping a completed card.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <div class="glass-card" style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;color:var(--text-sub);">Afternoon shift</span>
+        <span class="pill pill-lime">4 day streak</span>
+      </div>
+
+      <!-- Card 1: front (not flipped) -->
+      <div style="margin-bottom:16px;">
+        <div class="card-front-done" style="border-radius:var(--r-lg);padding:24px;position:relative;">
+          <div class="card-number">01</div>
+          <div class="card-status done">Completed</div>
+          <div class="card-title">The 5-30-60 Rule</div>
+          <div class="card-subtitle">First contact timing. The numbers that make greeting feel natural.</div>
+          <div class="card-flip-hint"><i class="ri-refresh-line"></i> Tap to review</div>
+        </div>
+      </div>
+
+      <!-- Card 2: SHOWING BACK (flipped state) -->
+      <div style="margin-bottom:16px;">
+        <div class="card-back-content" style="border-radius:var(--r-lg);padding:20px;">
+          <div class="back-section-label">Why It Fails</div>
+          <div class="back-rule">Closed question. Customer says "just looking" reflexively. Conversation dead.</div>
+          <div class="back-tip"><strong>Instead:</strong> Comment on what they're looking at. Be a person first, salesperson second.</div>
+          <div style="margin-top:8px;">
+            <span class="key-phrase">"Those just came in yesterday"</span>
+            <span class="key-phrase">"That's our best seller this month"</span>
+          </div>
+          <div class="back-scenario">Customer picks up a shoe, checks the price, puts it down. Don't ask if they need help — say "That one runs really well for the price. What are you using it for?"</div>
+          <div class="back-flip-hint">Tap to flip back</div>
+        </div>
+      </div>
+
+      <!-- Card 3: CURRENT — showing back -->
+      <div style="margin-bottom:16px;">
+        <div class="card-back-current-content" style="border-radius:var(--r-lg);padding:20px;">
+          <div class="back-section-label">Today's Focus</div>
+          <div class="back-rule">Customer talks 70%. You talk 30%. Guide with questions.</div>
+          <div class="back-tip"><strong>Watch for:</strong> When you catch yourself explaining for more than 15 seconds — stop. Ask a question instead.</div>
+          <div style="margin-top:8px;">
+            <span class="key-phrase">"What do you use them for?"</span>
+            <span class="key-phrase">"Comfort or looks?"</span>
+            <span class="key-phrase">"Tried this brand before?"</span>
+          </div>
+          <div class="back-scenario">Customer: "I need running shoes." Don't launch into features. Say: "Nice — training for something specific, or general fitness?" Let them tell you what they need. Then match.</div>
+          <div class="back-flip-hint">Tap to flip back</div>
+        </div>
+      </div>
+
+      <!-- Card 4-6: still locked -->
+      <div style="margin-bottom:16px;opacity:0.4;">
+        <div style="background:var(--bg-glass);border:1px solid var(--stroke);border-radius:var(--r-lg);padding:24px;position:relative;">
+          <div class="card-number">04</div>
+          <div class="card-status locked">Locked</div>
+          <div class="card-title" style="color:var(--text-dim);">"I'll Think About It"</div>
+          <div class="card-subtitle" style="color:var(--text-dim);">Complete Mission 3 to unlock</div>
+        </div>
+      </div>
+
+      <div style="height:20px;"></div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item active"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Me</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

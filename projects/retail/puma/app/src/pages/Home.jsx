@@ -1,150 +1,310 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { missionList } from '../data/missions'
+import { useUser } from '../context/UserContext'
+import { supabase } from '../lib/supabase'
 import Header from '../components/Header'
-import StatsStrip from '../components/StatsStrip'
-import QuickActions from '../components/QuickActions'
-import TeamActivity from '../components/TeamActivity'
 import './Home.css'
 
-const teamActivities = [
-  { initial: 'P', name: 'Peter', action: 'completed Mission 4' },
-  { initial: 'A', name: 'Adedolapo', action: 'scored 92% on Quiz' },
-]
+// Configurable thresholds — change here, affects all manager logic
+const THRESHOLDS = {
+  inactiveDays: 2,
+  minAvgScore: 70,
+}
 
-const stats = [
-  { value: '12', label: 'XP Earned' },
-  { value: '85%', label: 'Accuracy' },
-  { value: '#4', label: 'Ranking' },
-]
+function getDaysInactive(dateStr) {
+  if (!dateStr) return Infinity
+  return Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24))
+}
 
-const managerStats = [
-  { value: '5', label: 'Staff' },
-  { value: '68%', label: 'Avg Score' },
-  { value: '3/5', label: 'Active' },
-]
-
-const staffRoster = [
-  { name: 'Peter', initials: 'PO', missions: '5/6', score: '88%', streak: 7, status: 'ahead' },
-  { name: 'Adedolapo', initials: 'AD', missions: '4/6', score: '92%', streak: 5, status: 'ahead' },
-  { name: 'Chidi', initials: 'CE', missions: '3/6', score: '75%', streak: 2, status: 'on-track' },
-  { name: 'Junior', initials: 'JM', missions: '3/6', score: '85%', streak: 4, status: 'on-track' },
-  { name: 'Molade', initials: 'MK', missions: '1/6', score: '60%', streak: 0, status: 'behind' },
-]
-
-const completedCount = missionList.filter(m => m.status === 'completed').length
+function getLastActiveText(dateStr) {
+  const days = getDaysInactive(dateStr)
+  if (days === Infinity) return 'No activity'
+  if (days === 0) return 'Active today'
+  if (days === 1) return 'Active yesterday'
+  return `Inactive ${days} days`
+}
 
 export default function Home() {
   const navigate = useNavigate()
-  const [view, setView] = useState('staff')
+  const { role, profile, userId } = useUser()
 
-  const currentMission = missionList.find(m => m.status === 'current')
+  const [completedIds, setCompletedIds] = useState(new Set())
+  const [staffData, setStaffData] = useState([])
+  const [recentBuzz, setRecentBuzz] = useState([])
+  const [loadingData, setLoadingData] = useState(true)
 
-  const quickActions = [
-    { icon: 'ri-gamepad-line', label: `Play<br/>Mission ${currentMission?.number || 4}`, primary: true, onClick: () => navigate(`/lesson/${currentMission?.id || 'mission-4'}`) },
-    { icon: 'ri-checkbox-circle-line', label: 'Review<br/>Today', primary: false, onClick: () => navigate('/practice') },
-    { icon: 'ri-line-chart-line', label: 'View<br/>Progress', primary: false, onClick: () => navigate('/activity') },
-  ]
+  // Scroll to top on mount
+  useEffect(() => { window.scrollTo(0, 0) }, [])
+
+  useEffect(() => {
+    if (!userId) return
+    loadData()
+  }, [userId, role])
+
+  async function loadData() {
+    setLoadingData(true)
+
+    // Load user's own completions
+    const { data: myCompletions } = await supabase
+      .from('completions')
+      .select('mission_id')
+      .eq('user_id', userId)
+    if (myCompletions) {
+      setCompletedIds(new Set(myCompletions.map(c => c.mission_id)))
+    }
+
+    if (role === 'manager') {
+      // Load manager dashboard
+      const { data: dashboard } = await supabase
+        .from('manager_dashboard')
+        .select('*')
+      if (dashboard) setStaffData(dashboard)
+    }
+
+    // Load recent completions for buzz
+    const { data: recent } = await supabase
+      .from('completions')
+      .select('*, profiles(full_name, avatar_initials)')
+      .order('completed_at', { ascending: false })
+      .limit(3)
+    if (recent) {
+      setRecentBuzz(recent.map(r => ({
+        initial: r.profiles?.avatar_initials?.[0] || '?',
+        name: r.profiles?.full_name || 'Unknown',
+        action: `completed ${missionList.find(m => m.id === r.mission_id)?.title || r.mission_id}`,
+        time: getTimeAgo(r.completed_at),
+        isDemoData: r.is_demo
+      })))
+    }
+
+    setLoadingData(false)
+  }
+
+  function getTimeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime()
+    const mins = Math.floor(diff / 60000)
+    if (mins < 60) return `${mins}m ago`
+    const hrs = Math.floor(mins / 60)
+    if (hrs < 24) return `${hrs}h ago`
+    return `${Math.floor(hrs / 24)}d ago`
+  }
+
+  // Derive mission statuses from DB completions
+  const enrichedMissions = missionList.map((m, i) => {
+    if (completedIds.has(m.id)) return { ...m, status: 'completed' }
+    // First non-completed mission is current
+    const firstIncomplete = missionList.findIndex(mm => !completedIds.has(mm.id))
+    if (i === firstIncomplete) return { ...m, status: 'current' }
+    return { ...m, status: 'locked' }
+  })
+
+  const currentMission = enrichedMissions.find(m => m.status === 'current')
+  const completedMissions = enrichedMissions.filter(m => m.status === 'completed')
+  const completedCount = completedMissions.length
+  const totalMissions = enrichedMissions.length
+
+  // Manager: categorize staff using configurable thresholds
+  const alerts = staffData.filter(s =>
+    getDaysInactive(s.last_active) > THRESHOLDS.inactiveDays ||
+    Number(s.avg_score) < THRESHOLDS.minAvgScore
+  )
+  const onTrack = staffData.filter(s =>
+    getDaysInactive(s.last_active) <= THRESHOLDS.inactiveDays &&
+    Number(s.avg_score) >= THRESHOLDS.minAvgScore
+  )
+  const teamCertPct = staffData.length > 0
+    ? Math.round(staffData.reduce((sum, s) => sum + Number(s.cert_progress || 0), 0) / staffData.length)
+    : 0
+
+  const initials = profile?.avatar_initials || 'U'
 
   return (
     <>
-      <Header brandSplit={['PUMA', 'Training']} initials="JM" />
+      <Header brandSplit={['PUMA', 'Training']} initials={initials} />
 
-      {/* View Switcher */}
-      <div className="view-switcher">
-        <button
-          className={`vs-tab ${view === 'staff' ? 'vs-tab-active' : ''}`}
-          onClick={() => setView('staff')}
-        >
-          <i className="ri-user-line"></i> My Training
-        </button>
-        <button
-          className={`vs-tab ${view === 'manager' ? 'vs-tab-active' : ''}`}
-          onClick={() => setView('manager')}
-        >
-          <i className="ri-team-line"></i> Manager
-        </button>
-      </div>
-
-      {view === 'staff' ? (
+      {role === 'staff' ? (
         <>
-          {/* Module Header — replaces ProgressBanner + section title */}
-          <div className="module-header">
-            <div className="module-header-icon">
-              <i className="ri-chat-smile-3-line"></i>
-            </div>
-            <div className="module-header-info">
-              <div className="module-header-label">Module 1</div>
-              <div className="module-header-title">Customer Engagement</div>
-              <div className="module-header-meta">
-                {completedCount}/6 missions
-                <span className="module-header-streak"><i className="ri-fire-line"></i> 4d streak</span>
+          {/* Hero Card */}
+          {currentMission && (
+            <div className="hero-card">
+              <div className="hero-module-label">
+                Module 1 · Mission {currentMission.number}
               </div>
+              <div className="hero-title">{currentMission.title}</div>
+              <div className="hero-desc">{currentMission.description}</div>
+
+              <div className="hero-stats">
+                <div className="hero-stat-pill">
+                  <i className="ri-fire-line hero-stat-fire"></i> {completedCount} done
+                </div>
+                <div className="hero-stat-pill">
+                  {completedCount}/{totalMissions} missions
+                </div>
+              </div>
+
+              <button
+                className="hero-cta"
+                onClick={() => navigate(`/lesson/${currentMission.id}`)}
+              >
+                START SESSION
+              </button>
             </div>
-          </div>
+          )}
 
-          {/* Mission List — THE HERO, immediately after module header */}
-          <div className="mission-list">
-            {missionList.map((m) => {
-              const isLocked = m.status === 'locked'
-              const isCurrent = m.status === 'current'
-              const isCompleted = m.status === 'completed'
+          {!currentMission && completedCount === totalMissions && (
+            <div className="hero-card">
+              <div className="hero-module-label">Module 1</div>
+              <div className="hero-title">All Missions Complete</div>
+              <div className="hero-desc">You've finished all missions. Review them below or check Games.</div>
+            </div>
+          )}
 
-              return (
+          {/* Team Pulse */}
+          {recentBuzz.length > 0 && (
+            <div className="team-pulse">
+              <i className="ri-team-line team-pulse-icon"></i>
+              <span className="team-pulse-text">
+                {recentBuzz[0].name} {recentBuzz[0].action} · {recentBuzz[0].time}
+              </span>
+            </div>
+          )}
+
+          {/* Segmented Progress Bar */}
+          <div className="progress-section">
+            <div className="progress-segments">
+              {enrichedMissions.map((m) => (
                 <div
                   key={m.id}
-                  className={`ml-card ${isCurrent ? 'ml-card-current' : ''} ${isLocked ? 'ml-card-locked' : ''}`}
-                  onClick={() => !isLocked && navigate(`/lesson/${m.id}`)}
-                >
-                  <div className={`ml-number ${isCompleted ? 'ml-number-done' : ''} ${isCurrent ? 'ml-number-current' : ''}`}>
-                    {isCompleted ? <i className="ri-check-line"></i> : m.number}
-                  </div>
-                  <div className="ml-content">
-                    <div className="ml-title">{m.title}</div>
-                    <div className="ml-desc">{m.description}</div>
-                  </div>
-                  <div className="ml-right">
-                    {isLocked ? (
-                      <i className="ri-lock-line ml-lock-icon"></i>
-                    ) : isCurrent ? (
-                      <div className="ml-start-pill">Start <i className="ri-arrow-right-s-line"></i></div>
-                    ) : (
-                      <span className="ml-time">{m.readTime}</span>
-                    )}
-                  </div>
-                </div>
-              )
-            })}
+                  className={`progress-seg ${
+                    m.status === 'completed'
+                      ? 'progress-seg-done'
+                      : m.status === 'current'
+                      ? 'progress-seg-current'
+                      : 'progress-seg-locked'
+                  }`}
+                />
+              ))}
+            </div>
+            <div className="progress-label">
+              {completedCount}/{totalMissions} missions complete
+            </div>
           </div>
 
-          {/* Quick Actions — moved up, before stats */}
-          <QuickActions actions={quickActions} />
-          <StatsStrip stats={stats} />
+          {/* Completed History */}
+          {completedMissions.length > 0 && (
+            <div className="completed-section">
+              <div className="completed-title">Completed</div>
+              <div className="completed-list">
+                {completedMissions.map(m => (
+                  <div
+                    key={m.id}
+                    className="completed-item"
+                    onClick={() => navigate(`/lesson/${m.id}`)}
+                  >
+                    <div className="completed-check">
+                      <i className="ri-check-line"></i>
+                    </div>
+                    <div className="completed-name">{m.title}</div>
+                    <div className="completed-time">{m.readTime}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </>
       ) : (
         <>
-          <StatsStrip stats={managerStats} />
+          {/* Manager View — Admin Dashboard Principle: Alerts > On Track */}
 
-          <div className="section-title" style={{ marginTop: 8 }}>Team Progress</div>
-          <div className="staff-roster">
-            {staffRoster.map((s) => (
-              <div key={s.name} className={`sr-card sr-card-${s.status}`}>
-                <div className="sr-avatar">{s.initials}</div>
-                <div className="sr-info">
-                  <div className="sr-name">{s.name}</div>
-                  <div className="sr-detail">
-                    {s.missions} missions &middot; {s.score} avg
-                    {s.streak > 0 && <span className="sr-streak"><i className="ri-fire-line"></i>{s.streak}d</span>}
-                  </div>
-                </div>
-                <div className={`sr-status-pill sr-pill-${s.status}`}>
-                  {s.status === 'ahead' ? 'Ahead' : s.status === 'on-track' ? 'On Track' : 'Behind'}
-                </div>
+          {/* Store + team cert strip */}
+          <div className="mgr-header-strip">
+            <span className="mgr-store-name">Puma Lekki</span>
+            <div className="mgr-cert-strip">
+              <div className="mgr-cert-bar-mini">
+                <div className="mgr-cert-bar-fill" style={{ width: `${teamCertPct}%` }} />
               </div>
-            ))}
+              <span className="mgr-cert-pct">{teamCertPct}%</span>
+            </div>
           </div>
 
-          <TeamActivity activities={teamActivities} />
+          {/* NEEDS ATTENTION — first content block */}
+          <div className="mgr-section">
+            {alerts.length > 0 ? (
+              <div className="mgr-alert-card">
+                <div className="mgr-section-header mgr-alert-header">
+                  <span className="mgr-dot mgr-dot-red" />
+                  Needs Attention
+                </div>
+                {alerts.map(s => {
+                  const activeText = getLastActiveText(s.last_active)
+                  const isInactive = getDaysInactive(s.last_active) > THRESHOLDS.inactiveDays
+                  return (
+                    <div
+                      key={s.user_id}
+                      className="mgr-card mgr-card-alert mgr-card-tappable"
+                      onClick={() => navigate(`/staff/${s.user_id}`)}
+                    >
+                      <div className="mgr-avatar mgr-avatar-alert">{s.avatar_initials}</div>
+                      <div className="mgr-info">
+                        <div className="mgr-name">{s.full_name}</div>
+                        <div className="mgr-detail">
+                          <span>{s.missions_completed}/6 missions</span>
+                          <span>·</span>
+                          <span className={isInactive ? 'mgr-detail-alert' : ''}>
+                            {activeText}
+                          </span>
+                        </div>
+                      </div>
+                      <i className="ri-arrow-right-s-line mgr-chevron" />
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="mgr-all-clear">
+                <i className="ri-shield-check-line mgr-all-clear-icon" />
+                <div>
+                  <div className="mgr-all-clear-title">All clear</div>
+                  <div className="mgr-all-clear-sub">Everyone is on track today</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* ON TRACK */}
+          {onTrack.length > 0 && (
+            <div className="mgr-section">
+              <div className="mgr-section-header mgr-win-header">
+                <span className="mgr-dot mgr-dot-green" />
+                On Track
+              </div>
+              {onTrack.map(s => (
+                <div
+                  key={s.user_id}
+                  className="mgr-card mgr-card-tappable"
+                  onClick={() => navigate(`/staff/${s.user_id}`)}
+                >
+                  <div className="mgr-avatar mgr-avatar-on-track">{s.avatar_initials}</div>
+                  <div className="mgr-info">
+                    <div className="mgr-name">{s.full_name}</div>
+                    <div className="mgr-detail">
+                      <span>{s.missions_completed}/6 missions</span>
+                      <span>·</span>
+                      <span>{getLastActiveText(s.last_active)}</span>
+                    </div>
+                  </div>
+                  <i className="ri-arrow-right-s-line mgr-chevron" />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Full team — scoped out, coming soon */}
+          <div className="mgr-full-team-link">
+            Full team view
+            <span className="mgr-coming-soon">coming soon</span>
+          </div>
         </>
       )}
     </>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Games V2 — Bold Typography</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #080808; --surface: #111; --card: rgba(255,255,255,0.03);
+    --text: #F5F5F5; --sub: #8E9BA0; --dim: #5a6368;
+    --lime: #DCEE56; --lime-bg: rgba(220,238,86,0.06);
+    --green: #81C784; --red: #E57373;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
+  .phone-frame { max-width: 390px; margin: 0 auto; padding: 0 0 100px; }
+
+  .variant-label {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: #F5F5F5; color: #080808; text-align: center;
+    font-size: 11px; font-weight: 700; padding: 6px; letter-spacing: 0.08em;
+  }
+
+  /* Header */
+  .header {
+    padding: 52px 20px 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(220,238,86,0.1); border: 1.5px solid rgba(220,238,86,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--lime);
+  }
+
+  /* V2: BOLD TYPOGRAPHY — type-driven hierarchy, minimal decoration */
+
+  .page-sub {
+    padding: 0 20px 20px; font-size: 14px; color: var(--sub); line-height: 1.5;
+  }
+
+  .games-list { padding: 0 20px; display: flex; flex-direction: column; gap: 2px; }
+
+  .game-card {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 0; cursor: pointer; transition: opacity 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .game-card:active { opacity: 0.7; }
+  .game-card:last-child { border-bottom: none; }
+  .game-card-locked { opacity: 0.3; cursor: default; }
+
+  .game-num {
+    font-size: 32px; font-weight: 900; color: rgba(255,255,255,0.08);
+    width: 44px; text-align: center; flex-shrink: 0;
+    letter-spacing: -0.03em;
+  }
+  .game-card-locked .game-num { color: rgba(255,255,255,0.04); }
+
+  .game-body { flex: 1; }
+  .game-title {
+    font-size: 18px; font-weight: 700; margin-bottom: 2px;
+    letter-spacing: -0.015em;
+  }
+  .game-desc { font-size: 12px; color: var(--sub); }
+  .game-meta {
+    font-size: 10px; font-weight: 600; color: var(--lime);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px;
+  }
+  .game-card-locked .game-meta { color: var(--dim); }
+
+  .game-arrow { font-size: 18px; color: rgba(255,255,255,0.2); flex-shrink: 0; }
+
+  /* ── GAME PLAY ── */
+  .game-view { padding: 8px 20px; display: none; flex-direction: column; gap: 20px; }
+  .game-view.active { display: flex; }
+
+  .round-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--lime);
+  }
+
+  .progress-strip {
+    display: flex; gap: 4px; margin-top: 4px;
+  }
+  .pip {
+    flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.08);
+  }
+  .pip.active { background: var(--lime); }
+  .pip.done { background: rgba(220,238,86,0.3); }
+
+  .scene {
+    font-size: 20px; font-weight: 700; color: var(--text);
+    line-height: 1.35; letter-spacing: -0.015em;
+  }
+
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+
+  .choice {
+    padding: 18px 20px; border-radius: 14px; cursor: pointer;
+    background: var(--card); border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+  .choice:active { transform: scale(0.98); }
+
+  .choice-label {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+    color: var(--dim); margin-bottom: 6px;
+  }
+  .choice-text { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; }
+
+  .choice.correct { border-color: rgba(76,175,80,0.5); background: rgba(76,175,80,0.05); }
+  .choice.wrong { border-color: rgba(244,67,54,0.35); background: rgba(244,67,54,0.03); }
+
+  .choice-result {
+    margin-top: 12px; padding-top: 12px; font-size: 13px; font-weight: 500; line-height: 1.4;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .result-good { color: var(--green); }
+  .result-bad { color: var(--red); }
+
+  .next-btn {
+    padding: 16px 28px; border-radius: 50px; border: none;
+    background: var(--lime); color: #080808;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    text-align: center;
+  }
+
+  .design-notes {
+    margin: 32px 20px; padding: 20px; border-radius: 16px;
+    background: rgba(245,245,245,0.03); border: 1px solid rgba(255,255,255,0.05);
+  }
+  .design-notes h3 { font-size: 12px; font-weight: 700; color: var(--sub); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .design-notes li { font-size: 12px; color: var(--dim); margin-bottom: 6px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="variant-label">V2 — BOLD TYPOGRAPHY (type hierarchy + minimal decoration)</div>
+<div class="phone-frame">
+
+  <div class="header">
+    <h1>Games</h1>
+    <div class="avatar">CA</div>
+  </div>
+  <div class="page-sub">Practice what you learned. Pick the better approach.</div>
+
+  <div id="list-view">
+    <div class="games-list">
+      <div class="game-card" onclick="showGame()">
+        <div class="game-num">01</div>
+        <div class="game-body">
+          <div class="game-title">Spot the Difference</div>
+          <div class="game-desc">Two approaches. One converts.</div>
+          <div class="game-meta">5 rounds &middot; Play now</div>
+        </div>
+        <div class="game-arrow"><i class="ri-arrow-right-s-line"></i></div>
+      </div>
+
+      <div class="game-card" onclick="showGame()">
+        <div class="game-num">02</div>
+        <div class="game-body">
+          <div class="game-title">Quick Role Play</div>
+          <div class="game-desc">Handle real customer scenarios.</div>
+          <div class="game-meta">4 scenarios &middot; Play now</div>
+        </div>
+        <div class="game-arrow"><i class="ri-arrow-right-s-line"></i></div>
+      </div>
+
+      <div class="game-card game-card-locked">
+        <div class="game-num">03</div>
+        <div class="game-body">
+          <div class="game-title">Price Defense</div>
+          <div class="game-desc">Hold margin against price objections.</div>
+          <div class="game-meta">Coming soon</div>
+        </div>
+        <div class="game-arrow"><i class="ri-lock-line"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-view" id="game-view">
+    <div>
+      <div class="round-label">Round 1 of 5</div>
+      <div class="progress-strip">
+        <div class="pip active"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+      </div>
+    </div>
+
+    <div class="scene">Customer walks in and picks up a shoe.</div>
+
+    <div class="choices">
+      <div class="choice wrong">
+        <div class="choice-label">A</div>
+        <div class="choice-text">"Can I help you?"</div>
+        <div class="choice-result result-bad">&#10007; "Just looking." They leave.</div>
+      </div>
+      <div class="choice correct">
+        <div class="choice-label">B</div>
+        <div class="choice-text">"Those are popular — looking for running shoes or casual?"</div>
+        <div class="choice-result result-good">&#10003; They engage. You learn their need.</div>
+      </div>
+    </div>
+
+    <button class="next-btn">Next &rarr;</button>
+  </div>
+
+  <div class="design-notes">
+    <h3>V2 Design Decisions</h3>
+    <ul>
+      <li><strong>Type scale:</strong> 28px header / 20px scene / 18px titles / 15px body / 12px sub / 11px labels — clear 6-step hierarchy (SN #13 Hierarchy).</li>
+      <li><strong>Weight as hierarchy:</strong> 900/800/700/600/500 — weight does the work, not just size (SN #12 Font Weight).</li>
+      <li><strong>Numbered list:</strong> Giant muted "01/02/03" replaces icon boxes — type IS the decoration (SN #14 Titles & Body).</li>
+      <li><strong>Minimal borders:</strong> Single bottom border instead of card borders — low visual noise (SN #45 Borders & Dividers).</li>
+      <li><strong>Scene prominence:</strong> 20px/700 — the scenario text is the hero, not UI chrome (SN #28 Density).</li>
+      <li><strong>Progress strip:</strong> Thin bar instead of dots — takes less visual space, clearer proportion (SN #25 Negative Space).</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function showGame() {
+  document.getElementById('list-view').style.display = 'none';
+  document.getElementById('game-view').classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUMA Staff Home — Round 2</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-hover: rgba(255,255,255,0.08);
+      --stroke: rgba(255,255,255,0.08);
+      --lime: #D4FF00;
+      --lime-dim: rgba(212,255,0,0.12);
+      --lime-glow: rgba(212,255,0,0.25);
+      --text: #F5F5F5;
+      --text-sub: rgba(255,255,255,0.5);
+      --text-dim: rgba(255,255,255,0.3);
+      --red: #FF4757;
+      --green: #2ED573;
+      --r-md: 16px;
+      --r-lg: 20px;
+      --r-pill: 100px;
+      --space: 20px;
+      --font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      font-family: var(--font);
+      color: var(--text);
+      padding: 30px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    .treatment-wrapper { flex: 0 0 auto; }
+    .treatment-label { text-align: center; margin-bottom: 12px; }
+    .treatment-name {
+      font-size: 14px; font-weight: 700; color: var(--lime);
+      text-transform: uppercase; letter-spacing: 2px;
+    }
+    .treatment-badge {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px; margin-left: 8px;
+      vertical-align: middle;
+    }
+    .badge-rec { background: var(--lime-dim); color: var(--lime); }
+    .badge-alt { background: rgba(255,255,255,0.08); color: var(--text-sub); }
+    .treatment-desc { font-size: 11px; color: var(--text-sub); margin-top: 4px; }
+
+    .phone {
+      width: 390px; min-height: 844px;
+      background: var(--bg); border-radius: 40px;
+      overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .screen { padding: 56px var(--space) 100px; overflow-y: auto; }
+
+    .header {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 8px 0 16px;
+    }
+    .header-brand { font-size: 18px; font-weight: 700; }
+    .header-brand span { color: var(--lime); }
+    .header-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--lime-dim); border: 1.5px solid var(--lime);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--lime);
+    }
+
+    .bottom-nav {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(8,8,8,0.95); border-top: 1px solid var(--stroke);
+      display: flex; padding: 8px 0 28px; backdrop-filter: blur(20px);
+    }
+    .nav-item { flex: 1; text-align: center; font-size: 10px; color: var(--text-dim); }
+    .nav-item.active { color: var(--lime); }
+    .nav-item i { font-size: 20px; display: block; margin-bottom: 2px; }
+
+    .glass-card {
+      background: var(--bg-glass); border: 1px solid var(--stroke);
+      border-radius: var(--r-md); padding: 16px; margin-bottom: 12px;
+    }
+    .lime-btn {
+      display: block; width: 100%; padding: 14px;
+      background: var(--lime); color: #080808; border: none;
+      border-radius: var(--r-md); font-size: 15px; font-weight: 700;
+      letter-spacing: 0.5px; cursor: pointer; text-align: center;
+    }
+    .section-title {
+      font-size: 13px; font-weight: 600; color: var(--text-sub);
+      text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px;
+    }
+    .pill {
+      display: inline-block; padding: 4px 10px;
+      border-radius: var(--r-pill); font-size: 12px; font-weight: 600;
+    }
+    .pill-lime { background: var(--lime-dim); color: var(--lime); }
+    .pill-glass { background: var(--bg-glass); color: var(--text-sub); border: 1px solid var(--stroke); }
+
+    .progress-segments { display: flex; gap: 4px; margin-bottom: 6px; }
+    .seg { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); }
+    .seg-done { background: var(--lime); }
+    .seg-current { background: var(--lime); opacity: 0.4; animation: pulse-seg 2s infinite; }
+    @keyframes pulse-seg { 0%,100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+
+    /* ─── HERO CARD ─── */
+    .hero {
+      background: linear-gradient(135deg, rgba(212,255,0,0.08), rgba(212,255,0,0.02));
+      border: 1px solid rgba(212,255,0,0.15);
+      border-radius: var(--r-lg); padding: 24px 20px; margin-bottom: 16px;
+    }
+    .hero-module {
+      font-size: 11px; color: var(--lime); font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .hero-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; line-height: 1.2; }
+    .hero-desc { font-size: 14px; color: var(--text-sub); margin-bottom: 16px; line-height: 1.4; }
+    .hero-stats { display: flex; gap: 8px; margin-bottom: 16px; }
+
+    /* ─── MISSION ROWS ─── */
+    .mission-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--stroke);
+    }
+    .mission-row:last-child { border: none; }
+    .mission-check {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
+    }
+    .check-done { background: var(--lime-dim); color: var(--lime); }
+    .check-current { background: var(--lime); color: #080808; }
+    .check-locked { background: rgba(255,255,255,0.04); color: var(--text-dim); }
+    .mission-name { font-size: 14px; flex: 1; }
+    .mission-name.done { color: var(--text-sub); text-decoration: line-through; }
+    .mission-name.current { font-weight: 600; }
+    .mission-name.locked { color: var(--text-dim); }
+    .mission-time { font-size: 12px; color: var(--text-dim); }
+
+    /* ─── TEAM PULSE ─── */
+    .pulse-item {
+      display: flex; align-items: center; gap: 10px; padding: 6px 0;
+    }
+    .pulse-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+    .pulse-text { font-size: 13px; color: var(--text-sub); }
+    .pulse-text strong { color: var(--text); }
+    .pulse-time { font-size: 11px; color: var(--text-dim); margin-left: auto; }
+
+    /* ─── ME SECTION (from D, simplified) ─── */
+    .me-header {
+      text-align: center; padding: 16px 0 12px;
+    }
+    .me-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--lime-dim); border: 2px solid var(--lime);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; color: var(--lime);
+      margin: 0 auto 10px;
+    }
+    .me-name { font-size: 16px; font-weight: 600; }
+    .me-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .stat-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; background: var(--bg-glass);
+      border: 1px solid var(--stroke); border-radius: 12px; margin-bottom: 8px;
+    }
+    .stat-label { font-size: 13px; color: var(--text-sub); }
+    .stat-value { font-size: 16px; font-weight: 700; }
+    .stat-value.lime { color: var(--lime); }
+
+    /* ─── TABS ─── */
+    .tabs {
+      display: flex; gap: 0; margin-bottom: 20px;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .tab {
+      flex: 1; padding: 12px 0; text-align: center;
+      font-size: 14px; font-weight: 600; color: var(--text-dim);
+      cursor: pointer; position: relative;
+    }
+    .tab.active { color: var(--lime); }
+    .tab.active::after {
+      content: ''; position: absolute;
+      bottom: -1px; left: 20%; right: 20%;
+      height: 2px; background: var(--lime); border-radius: 1px;
+    }
+    .tab-divider {
+      margin-top: 32px; padding-top: 20px;
+      border-top: 2px solid var(--stroke);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ ROUND 2A: HOME TAB (Treatment A base, refined) ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">Home <span class="treatment-badge badge-rec">PRIMARY</span></div>
+    <div class="treatment-desc">Treatment A base. Hero + all 6 missions + team pulse. No emojis.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <!-- Hero: Current Mission -->
+      <div class="hero">
+        <div class="hero-module">Module 1 · Mission 3 of 6</div>
+        <div class="hero-title">The 70/30 Rule</div>
+        <div class="hero-desc">Let the customer talk 70% of the time. You guide with questions, not pitches.</div>
+        <div class="hero-stats">
+          <span class="pill pill-lime">2 done</span>
+          <span class="pill pill-glass">2 of 6 missions</span>
+        </div>
+        <button class="lime-btn">START SESSION</button>
+      </div>
+
+      <!-- Segmented progress -->
+      <div class="progress-segments">
+        <div class="seg seg-done"></div>
+        <div class="seg seg-done"></div>
+        <div class="seg seg-current"></div>
+        <div class="seg"></div>
+        <div class="seg"></div>
+        <div class="seg"></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px;">2 of 6 missions complete</div>
+
+      <!-- All Missions -->
+      <div class="section-title">All Missions</div>
+      <div class="glass-card" style="padding:4px 16px;">
+        <div class="mission-row">
+          <div class="mission-check check-done"><i class="ri-check-line"></i></div>
+          <div class="mission-name done">The 5-30-60 Rule</div>
+          <div class="mission-time">4 min</div>
+        </div>
+        <div class="mission-row">
+          <div class="mission-check check-done"><i class="ri-check-line"></i></div>
+          <div class="mission-name done">Kill "Can I Help You?"</div>
+          <div class="mission-time">3 min</div>
+        </div>
+        <div class="mission-row">
+          <div class="mission-check check-current"><i class="ri-play-line"></i></div>
+          <div class="mission-name current">The 70/30 Rule</div>
+          <div class="mission-time">5 min</div>
+        </div>
+        <div class="mission-row">
+          <div class="mission-check check-locked"><i class="ri-lock-line"></i></div>
+          <div class="mission-name locked">"I'll Think About It"</div>
+          <div class="mission-time">4 min</div>
+        </div>
+        <div class="mission-row">
+          <div class="mission-check check-locked"><i class="ri-lock-line"></i></div>
+          <div class="mission-name locked">"It's Too Expensive"</div>
+          <div class="mission-time">5 min</div>
+        </div>
+        <div class="mission-row">
+          <div class="mission-check check-locked"><i class="ri-lock-line"></i></div>
+          <div class="mission-name locked">Exit Protocol</div>
+          <div class="mission-time">3 min</div>
+        </div>
+      </div>
+
+      <!-- Team Pulse -->
+      <div class="section-title">Team Pulse</div>
+      <div class="glass-card">
+        <div class="pulse-item">
+          <div class="pulse-dot"></div>
+          <span class="pulse-text"><strong>Adebayo</strong> completed Mission 2</span>
+          <span class="pulse-time">1h ago</span>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-dot" style="background:var(--lime);"></div>
+          <span class="pulse-text"><strong>Bola</strong> started Mission 3</span>
+          <span class="pulse-time">2h ago</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Me</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ROUND 2B: ME TAB (stolen from D, simplified, no emojis) ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">Me Tab <span class="treatment-badge badge-alt">FROM D</span></div>
+    <div class="treatment-desc">Missions / Quizzes / Certification / Practice / Week done. Simple rows. No emojis.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <!-- Tabs showing Me active -->
+      <div class="tabs">
+        <div class="tab">Home</div>
+        <div class="tab">Practice</div>
+        <div class="tab">Activity</div>
+        <div class="tab active">Me</div>
+      </div>
+
+      <!-- Profile header -->
+      <div class="me-header">
+        <div class="me-avatar">KA</div>
+        <div class="me-name">Kemi Adeyemi</div>
+        <div class="me-sub">Puma Lekki · Staff</div>
+      </div>
+
+      <!-- Stats: simple rows, no emojis -->
+      <div style="margin-top:16px;">
+        <div class="stat-row">
+          <span class="stat-label">Missions</span>
+          <span class="stat-value lime">2 of 6</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Quizzes passed</span>
+          <span class="stat-value">2</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Certification</span>
+          <span class="stat-value lime">33%</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Practice streak</span>
+          <span class="stat-value">4 days</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Products learned</span>
+          <span class="stat-value">12</span>
+        </div>
+      </div>
+
+      <!-- Week summary -->
+      <div class="section-title">This Week</div>
+      <div class="glass-card">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+          <span style="font-size:13px;color:var(--text-sub);">Sessions completed</span>
+          <span style="font-size:16px;font-weight:700;">3</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+          <span style="font-size:13px;color:var(--text-sub);">Time spent</span>
+          <span style="font-size:16px;font-weight:700;">18 min</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span style="font-size:13px;color:var(--text-sub);">Avg quiz score</span>
+          <span style="font-size:16px;font-weight:700;color:var(--lime);">90%</span>
+        </div>
+      </div>
+
+      <!-- Certification progress -->
+      <div class="section-title">Certification</div>
+      <div class="glass-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <span style="font-size:14px;font-weight:600;">Puma Sales Pro</span>
+          <span style="font-size:14px;font-weight:700;color:var(--lime);">33%</span>
+        </div>
+        <div class="progress-segments">
+          <div class="seg seg-done"></div>
+          <div class="seg seg-done"></div>
+          <div class="seg seg-current"></div>
+          <div class="seg"></div>
+          <div class="seg"></div>
+          <div class="seg"></div>
+        </div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Complete all 6 missions + pass all quizzes</div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item active"><i class="ri-user-line"></i>Me</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ROUND 2C: PRACTICE TAB (what current Practice.jsx should become) ═══ -->
+<div class="treatment-wrapper">
+  <div class="treatment-label">
+    <div class="treatment-name">Practice Tab <span class="treatment-badge badge-alt">ALL 6 MISSIONS</span></div>
+    <div class="treatment-desc">Daily practice tasks for ALL 6 missions. No hardcoded data. No emojis.</div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="header">
+        <div class="header-brand"><span>PUMA</span> Training</div>
+        <div class="header-avatar">KA</div>
+      </div>
+
+      <!-- Tabs showing Practice active -->
+      <div class="tabs">
+        <div class="tab">Home</div>
+        <div class="tab active">Practice</div>
+        <div class="tab">Activity</div>
+        <div class="tab">Me</div>
+      </div>
+
+      <!-- Shift context -->
+      <div class="glass-card" style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;color:var(--text-sub);">Afternoon shift · 5 tasks today</span>
+        <span class="pill pill-lime">4 day streak</span>
+      </div>
+
+      <!-- Team check-in -->
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0 4px;">
+        <div style="width:8px;height:8px;background:var(--green);border-radius:50%;"></div>
+        <span style="font-size:12px;color:var(--text-sub);">3 of 5 staff checked in today</span>
+      </div>
+
+      <!-- Mission 1 tasks -->
+      <div class="section-title" style="margin-top:16px;">The 5-30-60 Rule</div>
+      <div class="glass-card" style="padding:8px 16px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--stroke);">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--lime-dim);border:2px solid var(--lime);display:flex;align-items:center;justify-content:center;"><i class="ri-check-line" style="font-size:12px;color:var(--lime);"></i></div>
+          <span style="font-size:14px;color:var(--text-sub);text-decoration:line-through;">Count to 5 when customer walks in</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--stroke);">
+          <div style="width:24px;height:24px;border-radius:50%;border:2px solid var(--stroke);"></div>
+          <span style="font-size:14px;">60-second mental timer before approach</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;">
+          <div style="width:24px;height:24px;border-radius:50%;border:2px solid var(--stroke);"></div>
+          <span style="font-size:14px;">Use "What brings you in today?"</span>
+        </div>
+      </div>
+
+      <!-- Mission 2 tasks -->
+      <div class="section-title">Kill "Can I Help You?"</div>
+      <div class="glass-card" style="padding:8px 16px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--stroke);">
+          <div style="width:24px;height:24px;border-radius:50%;border:2px solid var(--stroke);"></div>
+          <span style="font-size:14px;">Pick ONE warm opening for the day</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;">
+          <div style="width:24px;height:24px;border-radius:50%;border:2px solid var(--stroke);"></div>
+          <span style="font-size:14px;">Count engages vs "just looking"</span>
+        </div>
+      </div>
+
+      <!-- Mission 3 tasks -->
+      <div class="section-title">The 70/30 Rule</div>
+      <div class="glass-card" style="padding:8px 16px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--stroke);">
+          <div style="width:24px;height:24px;border-radius:50%;border:2px solid var(--stroke);"></div>
+          <span style="font-size:14px;">Ask 3 open-ended questions before pitching</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;">
+          <div style="width:24px;height:24px;border-radius:50%;border:2px solid var(--stroke);"></div>
+          <span style="font-size:14px;">Let customer finish before responding</span>
+        </div>
+      </div>
+
+      <!-- Missions 4-6 (locked, collapsed) -->
+      <div class="section-title" style="color:var(--text-dim);">Upcoming</div>
+      <div class="glass-card" style="opacity:0.4;padding:8px 16px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--stroke);">
+          <i class="ri-lock-line" style="font-size:16px;color:var(--text-dim);"></i>
+          <span style="font-size:14px;color:var(--text-dim);">"I'll Think About It" — 2 tasks</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--stroke);">
+          <i class="ri-lock-line" style="font-size:16px;color:var(--text-dim);"></i>
+          <span style="font-size:14px;color:var(--text-dim);">"It's Too Expensive" — 3 tasks</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;">
+          <i class="ri-lock-line" style="font-size:16px;color:var(--text-dim);"></i>
+          <span style="font-size:14px;color:var(--text-dim);">Exit Protocol — 2 tasks</span>
+        </div>
+      </div>
+
+      <!-- End of day mood (hidden until 5pm, shown here for design) -->
+      <div class="section-title">End of Day</div>
+      <div class="glass-card" style="text-align:center;padding:20px;">
+        <div style="font-size:14px;margin-bottom:12px;">How did today go?</div>
+        <div style="display:flex;gap:8px;justify-content:center;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--bg-glass);border:1px solid var(--stroke);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-sub);cursor:pointer;">Rough</div>
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--bg-glass);border:1px solid var(--stroke);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-sub);cursor:pointer;">OK</div>
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--bg-glass);border:1px solid var(--stroke);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-sub);cursor:pointer;">Good</div>
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--lime-dim);border:1px solid var(--lime);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--lime);font-weight:600;cursor:pointer;">Great</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><i class="ri-home-5-line"></i>Home</div>
+      <div class="nav-item active"><i class="ri-gamepad-line"></i>Practice</div>
+      <div class="nav-item"><i class="ri-bar-chart-line"></i>Activity</div>
+      <div class="nav-item"><i class="ri-user-line"></i>Me</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

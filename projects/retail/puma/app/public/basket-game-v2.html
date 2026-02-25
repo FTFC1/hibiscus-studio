@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Build the Basket | PUMA Training</title>
+    <style>
+        /*
+         * PUMA Training Game — Build the Basket
+         * Design: Clean, sporty, confident
+         * Palette: Warm light + PUMA black/red
+         */
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg: #faf9f7;
+            --bg-card: #ffffff;
+            --bg-card-alt: #f5f4f2;
+            --text: #1a1a1a;
+            --text-secondary: #6b6b6b;
+            --text-muted: #999999;
+            --border: #e5e4e2;
+            --puma-red: #e4002b;
+            --puma-black: #1a1a1a;
+            --success: #1a7f37;
+            --success-bg: #dafbe1;
+            --error: #cf222e;
+            --error-bg: #ffebe9;
+            --warning: #9a6700;
+            --warning-bg: #fff8c5;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .game-container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--puma-black);
+            letter-spacing: -0.02em;
+        }
+
+        .back-link {
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 8px;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 44px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .back-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--puma-red);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* Scenario Card */
+        .scenario-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .customer-type {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: var(--puma-black);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .customer-says {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .customer-says::before { content: '"'; color: var(--puma-red); }
+        .customer-says::after { content: '"'; color: var(--puma-red); }
+
+        .main-product {
+            background: var(--bg-card-alt);
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-product-info { flex: 1; }
+
+        .main-product-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+
+        .main-product-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .main-product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Add-ons Section — R6.2 SPACIOUS */
+        .addons-section { margin-bottom: 16px; }
+
+        .addons-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #333;
+        }
+
+        .addons-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .addon-item {
+            background: #fff;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        .addon-item:active { transform: scale(0.99); }
+
+        .addon-item.selected {
+            border-color: #1a1a1a;
+        }
+
+        .addon-item.correct {
+            border-color: #22c55e;
+            background: #fafffe;
+        }
+
+        .addon-item.wrong {
+            border-color: #ef4444;
+            background: #fffafa;
+        }
+
+        .addon-item.missed {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .addon-item.optional {
+            border-color: #9ca3af;
+            background: #f9fafb;
+        }
+
+        /* Feedback badge in corner */
+        .addon-feedback {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .addon-item.correct .addon-feedback,
+        .addon-item.wrong .addon-feedback,
+        .addon-item.missed .addon-feedback {
+            display: flex;
+        }
+
+        .addon-item.correct .addon-feedback { background: #22c55e; }
+        .addon-item.wrong .addon-feedback { background: #ef4444; }
+        .addon-item.missed .addon-feedback { background: #f59e0b; }
+
+        .addon-info { flex: 1; min-width: 0; }
+
+        /* Product thumbnail placeholder */
+        .addon-thumbnail {
+            width: 60px;
+            height: 60px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 9px;
+            color: #aaa;
+            text-align: center;
+            padding: 4px;
+        }
+
+        .addon-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+
+        .addon-price {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #000;
+            flex-shrink: 0;
+        }
+
+        .addon-reason {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: none;
+            line-height: 1.4;
+        }
+
+        .addon-item.correct .addon-reason,
+        .addon-item.wrong .addon-reason,
+        .addon-item.missed .addon-reason,
+        .addon-item.optional .addon-reason {
+            display: block;
+        }
+
+        .addon-item.correct .addon-reason { color: #16a34a; }
+        .addon-item.wrong .addon-reason { color: #dc2626; }
+        .addon-item.missed .addon-reason { color: #d97706; }
+
+        /* Basket Summary — Cash Register Strip (top, always visible) */
+        .basket-summary {
+            background: var(--puma-black);
+            color: white;
+            padding: 12px 16px;
+            margin: 0 -16px 16px -16px;
+        }
+
+        .basket-state {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .basket-state.hidden {
+            display: none;
+        }
+
+        .basket-col {
+            text-align: center;
+            flex: 1;
+        }
+
+        .basket-label {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 2px;
+        }
+
+        .basket-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .addon-rate { color: white; }
+        .addon-rate.low { color: #fca5a5; }
+        .addon-rate.medium { color: #fcd34d; }
+        .addon-rate.high { color: #86efac; }
+
+        .result-correct { color: #86efac; }
+        .result-wrong { color: #fca5a5; }
+        .result-missed { color: #fcd34d; }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            background: var(--puma-black);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.15s ease;
+        }
+
+        .btn:active { transform: scale(0.98); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-fixed-bottom {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            max-width: 388px;
+            margin: 0 auto;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid var(--puma-black);
+            color: var(--puma-black);
+        }
+
+        /* Start Screen */
+        .start-screen {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .start-screen.hidden { display: none; }
+
+        .start-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--puma-black);
+            letter-spacing: -0.02em;
+        }
+
+        .start-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .leaderboard-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .leaderboard-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .leaderboard-entry:last-child { border-bottom: none; }
+
+        .leaderboard-rank {
+            color: var(--text-muted);
+            width: 24px;
+            font-weight: 500;
+        }
+
+        .leaderboard-name {
+            flex: 1;
+            color: var(--text);
+        }
+
+        .leaderboard-score {
+            color: var(--puma-red);
+            font-weight: 600;
+        }
+
+        .leaderboard-entry.you {
+            color: var(--puma-red);
+        }
+
+        .leaderboard-entry.you .leaderboard-name {
+            color: var(--puma-red);
+            font-weight: 600;
+        }
+
+        /* Results Screen */
+        .results-screen { display: none; padding: 20px; }
+        .results-screen.visible { display: block; }
+
+        .results-header { text-align: center; margin-bottom: 24px; }
+        .results-emoji { font-size: 3.5rem; margin-bottom: 12px; }
+
+        .results-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--puma-black);
+        }
+
+        .results-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .results-stats {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: var(--text-secondary); }
+        .stat-value { font-weight: 600; color: var(--text); }
+        .stat-value.good { color: var(--success); }
+
+        .game-screen {
+            display: none;
+            padding-bottom: 80px;
+        }
+
+        .game-screen.visible { display: block; }
+
+
+        /* Name Input */
+        .name-input-section {
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .name-input {
+            width: 100%;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 1rem;
+            color: var(--text);
+            outline: none;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .name-input:focus { border-color: var(--puma-black); }
+        .name-input::placeholder { color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <a href="course-outline.html" class="back-btn">← Back</a>
+            <div class="start-title">Build the Basket</div>
+            <div class="start-subtitle">
+                A customer arrives. They're buying something.<br>
+                Your job: add the right products to their basket.
+            </div>
+
+            <div class="name-input-section">
+                <input type="text" class="name-input" id="playerName" placeholder="Enter your name" maxlength="20" oninput="checkNameInput()">
+            </div>
+
+            <div class="leaderboard" id="startLeaderboard">
+                <div class="leaderboard-title">Top Scores</div>
+                <div id="leaderboardList">
+                    <div class="leaderboard-entry">
+                        <span class="leaderboard-rank">-</span>
+                        <span class="leaderboard-name">No scores yet</span>
+                        <span class="leaderboard-score"></span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" id="startBtn" onclick="startGame()" disabled>Enter name to start</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="header">
+                <a href="index.html" class="back-link">← Back</a>
+                <h1>Build the Basket</h1>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progressText">Scenario 1 of 5</div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="customer-type" id="customerType">ACTIVITY BUYER</div>
+                <div class="customer-says" id="customerSays">I want to start running</div>
+                <div class="main-product">
+                    <div class="main-product-info">
+                        <div class="main-product-label">They're buying</div>
+                        <div class="main-product-name" id="mainProductName">Velocity Nitro 3</div>
+                    </div>
+                    <div class="main-product-price" id="mainProductPrice">₦85,000</div>
+                </div>
+            </div>
+
+            <!-- Cash register strip — transforms on submit -->
+            <div class="basket-summary" id="basketSummary">
+                <!-- Before submit: running total -->
+                <div class="basket-state" id="basketStateLive">
+                    <div class="basket-col">
+                        <div class="basket-label">Basket</div>
+                        <div class="basket-value" id="basketTotal">₦85,000</div>
+                    </div>
+                    <div class="basket-col">
+                        <div class="basket-label">Add-on Rate</div>
+                        <div class="basket-value addon-rate" id="addonRate">0%</div>
+                    </div>
+                </div>
+                <!-- After submit: accuracy feedback -->
+                <div class="basket-state hidden" id="basketStateResult">
+                    <div class="basket-col">
+                        <div class="basket-label">Correct</div>
+                        <div class="basket-value result-correct" id="resultCorrect">0</div>
+                    </div>
+                    <div class="basket-col">
+                        <div class="basket-label">Wrong</div>
+                        <div class="basket-value result-wrong" id="resultWrong">0</div>
+                    </div>
+                    <div class="basket-col">
+                        <div class="basket-label">Missed</div>
+                        <div class="basket-value result-missed" id="resultMissed">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="addons-section">
+                <div class="addons-header">What else should they get?</div>
+                <div class="addons-grid" id="addonsList"></div>
+            </div>
+
+            <button class="btn btn-fixed-bottom" id="submitBtn" onclick="submitAnswer()">Check My Basket</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-screen" id="resultsScreen">
+            <div class="results-header">
+                <div class="results-emoji" id="resultsEmoji">🏆</div>
+                <div class="results-title" id="resultsTitle">Well done!</div>
+                <div class="results-subtitle" id="resultsSubtitle">You're learning to read customers well</div>
+            </div>
+
+            <div class="results-stats">
+                <div class="stat-row">
+                    <span class="stat-label">Your Score</span>
+                    <span class="stat-value good" id="finalScore">850</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Correct Add-ons</span>
+                    <span class="stat-value good" id="correctAddons">12/15</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Average Add-on Rate</span>
+                    <span class="stat-value good" id="avgAddonRate">14%</span>
+                </div>
+            </div>
+
+            <div class="leaderboard" id="resultsLeaderboard">
+                <div class="leaderboard-title">Leaderboard</div>
+                <div id="resultsLeaderboardList"></div>
+            </div>
+
+            <button class="btn" onclick="playAgain()">Try Again</button>
+            <a href="course-outline.html" class="btn btn-secondary">← Back</a>
+        </div>
+    </div>
+
+    <script>
+        // Customer type definitions
+        const customerTypes = {
+            ACTIVITY_RUNNING: {
+                name: "ACTIVITY BUYER",
+                quotes: [
+                    "I want to start running",
+                    "Training for Lagos Marathon",
+                    "Need shoes for my morning jogs",
+                    "Looking for running gear"
+                ],
+                validAddons: ['addon_socks', 'addon_socks_performance', 'addon_belt', 'addon_bag'],
+                invalidAddons: ['addon_headwear'],
+                mainCategories: ['main_running', 'main_running_apparel']
+            },
+            ACTIVITY_TRAINING: {
+                name: "ACTIVITY BUYER",
+                quotes: [
+                    "I go to the gym, weights and cardio",
+                    "Need gear for CrossFit",
+                    "Looking for training shoes",
+                    "I do HIIT classes"
+                ],
+                validAddons: ['addon_socks', 'addon_bag', 'addon_bodywear'],
+                invalidAddons: ['addon_belt'],
+                mainCategories: ['main_training', 'main_training_apparel']
+            },
+            GUIDED: {
+                name: "GUIDED BUYER",
+                quotes: [
+                    "I just want clothes, give me things that fit",
+                    "What do you recommend?",
+                    "I don't know what I'm looking for",
+                    "Help me pick something nice"
+                ],
+                validAddons: ['addon_socks', 'addon_headwear', 'addon_accessory'],
+                invalidAddons: [],
+                mainCategories: ['main_apparel', 'main_lifestyle', 'main_footwear']
+            },
+            GIFT: {
+                name: "GIFT BUYER",
+                quotes: [
+                    "It's for my son's birthday",
+                    "Looking for a gift for my colleague",
+                    "Shopping for my wife's anniversary",
+                    "Need something nice to give"
+                ],
+                validAddons: ['addon_bag', 'addon_accessory'],
+                invalidAddons: ['addon_bodywear'],
+                mainCategories: ['main_lifestyle', 'main_footwear', 'main_apparel']
+            },
+            CASUAL: {
+                name: "CASUAL BUYER",
+                quotes: [
+                    "Just something comfortable for weekends",
+                    "Something to wear to the mall",
+                    "Just everyday wear, nothing serious",
+                    "Looking for something relaxed"
+                ],
+                validAddons: ['addon_socks', 'addon_headwear'],
+                invalidAddons: ['addon_belt', 'addon_socks_performance'],
+                mainCategories: ['main_lifestyle', 'main_apparel', 'main_footwear']
+            }
+        };
+
+        // Product data - REAL PUMA Lekki inventory (embedded for offline use)
+        let productData = {
+            main_products: [
+                // Running
+                { name: "RUN ULTRASPUN CROP T Sun Stream", price: 45000, category: "main_running" },
+                { name: "Velocity Nitro 3", price: 85000, category: "main_running" },
+                { name: "Deviate Nitro Elite 2", price: 145000, category: "main_running" },
+                // Lifestyle / Suede
+                { name: "Suede No Filter Wns Putty", price: 88200, category: "main_lifestyle" },
+                { name: "Suede Classic XXI", price: 65000, category: "main_lifestyle" },
+                { name: "Court Classy PUMA White", price: 53400, category: "main_lifestyle" },
+                { name: "Carina 2.0 PUMA White", price: 57900, category: "main_lifestyle" },
+                { name: "CA Pro Classic", price: 72000, category: "main_lifestyle" },
+                { name: "RS-X Efekt", price: 95000, category: "main_lifestyle" },
+                // Training
+                { name: "FUSE 7 4-way Stretch", price: 41600, category: "main_training" },
+                { name: "PWR Nitro Training", price: 78000, category: "main_training" },
+                // Apparel
+                { name: "PUMA SQUAD Tee Pink Lilac", price: 15100, category: "main_apparel" },
+                { name: "ESS ELEVATED Shorts", price: 79050, category: "main_apparel" },
+                { name: "DOWNTOWN Relaxed Graphic Tee", price: 30400, category: "main_apparel" },
+                { name: "PUMA POWER Colorblock Hoodie", price: 62400, category: "main_apparel" },
+                // Motorsport
+                { name: "Ferrari CA Pro Rosso Corsa", price: 107100, category: "main_lifestyle" },
+                { name: "BMW MMS Shorts", price: 156960, category: "main_apparel" }
+            ],
+            addons: [
+                // Socks (highest attach opportunity)
+                { name: "PUMA CREW SOCK LIGHT 3P", price: 8200, category: "addon_socks" },
+                { name: "PUMA KIDS INVISIBLE 3P", price: 6300, category: "addon_socks" },
+                { name: "PUMA UNISEX SNEAKER PLAIN 3P", price: 18000, category: "addon_socks" },
+                { name: "Performance Running Socks", price: 12000, category: "addon_socks_performance" },
+                // Headwear
+                { name: "Ess Cap III Puma White", price: 10100, category: "addon_headwear" },
+                { name: "Ess Running Cap Midnight Plum", price: 11100, category: "addon_headwear" },
+                { name: "ESS METAL PUMA CAT BB Cap", price: 27600, category: "addon_headwear" },
+                { name: "BMW MMS BB Cap PUMA White", price: 32600, category: "addon_headwear" },
+                { name: "Gym2k Bucket Hat Galactic Gray", price: 23500, category: "addon_headwear" },
+                // Bags
+                { name: "Core Up Mini Grip Bag PUMA Black", price: 10100, category: "addon_bag" },
+                { name: "PUMA Buzz Backpack Olive Green", price: 39500, category: "addon_bag" },
+                { name: "Basketball Backpack PUMA Black", price: 14600, category: "addon_bag" },
+                // Accessories
+                { name: "Puma Fit wristbands Olive Green", price: 9100, category: "addon_accessory" },
+                { name: "Cat Wristband", price: 48600, category: "addon_accessory" },
+                // Bodywear
+                { name: "PUMA BASIC 2P CREW TEE", price: 13200, category: "addon_bodywear" },
+                { name: "PUMA BASIC 2P V-NECK", price: 22000, category: "addon_bodywear" }
+            ]
+        };
+
+        // Game state
+        let currentScenario = 0;
+        let selectedAddons = new Set();
+        let totalScenarios = 5;
+        let score = 0;
+        let totalValidAddons = 0;
+        let totalSelectedValid = 0;
+        let totalBasketValue = 0;
+        let totalMainProductValue = 0;
+        let submitted = false;
+        let currentGameScenarios = [];
+        let playerName = '';
+
+        // Load product data (try JSON first, fallback to embedded)
+        async function loadProductData() {
+            try {
+                const response = await fetch('puma-products.json');
+                const jsonData = await response.json();
+                // Only use JSON if it has more products than embedded
+                if (jsonData.main_products.length > productData.main_products.length) {
+                    productData = jsonData;
+                    console.log('Loaded full inventory:', productData.main_products.length, 'main,', productData.addons.length, 'addons');
+                } else {
+                    console.log('Using embedded PUMA Lekki products');
+                }
+            } catch (e) {
+                console.log('Using embedded PUMA Lekki products (offline mode)');
+            }
+            updateLeaderboard();
+        }
+
+        function formatPrice(price) {
+            return '₦' + price.toLocaleString();
+        }
+
+        function toTitleCase(str) {
+            // Handle all caps product names like "PUMA CREW SOCK LIGHT 3P"
+            return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
+                .replace(/\bPuma\b/gi, 'Puma')
+                .replace(/\b3p\b/gi, '3P')
+                .replace(/\bBb\b/gi, 'BB')
+                .replace(/\bMms\b/gi, 'MMS')
+                .replace(/\bBmw\b/gi, 'BMW');
+        }
+
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function generateScenario() {
+            // Pick random customer type
+            const typeKeys = Object.keys(customerTypes);
+            const typeKey = typeKeys[Math.floor(Math.random() * typeKeys.length)];
+            const type = customerTypes[typeKey];
+
+            // Pick random quote
+            const quote = type.quotes[Math.floor(Math.random() * type.quotes.length)];
+
+            // Pick random main product from valid categories
+            const validMainProducts = productData.main_products.filter(p =>
+                type.mainCategories.some(cat => p.category.includes(cat.replace('main_', '')))
+            );
+            const mainProduct = validMainProducts.length > 0
+                ? validMainProducts[Math.floor(Math.random() * validMainProducts.length)]
+                : productData.main_products[Math.floor(Math.random() * productData.main_products.length)];
+
+            // Generate addon options (2 valid, 1 optional, 1 invalid)
+            const validAddonProducts = productData.addons.filter(p =>
+                type.validAddons.includes(p.category)
+            );
+            const invalidAddonProducts = productData.addons.filter(p =>
+                type.invalidAddons.includes(p.category) ||
+                (!type.validAddons.includes(p.category) && !type.invalidAddons.includes(p.category))
+            );
+
+            const addons = [];
+
+            // Add 2 valid addons
+            const shuffledValid = shuffle(validAddonProducts);
+            for (let i = 0; i < Math.min(2, shuffledValid.length); i++) {
+                addons.push({
+                    ...shuffledValid[i],
+                    valid: true,
+                    reason: `Good match for ${type.name}`
+                });
+            }
+
+            // Add 1 optional addon
+            if (shuffledValid.length > 2) {
+                addons.push({
+                    ...shuffledValid[2],
+                    optional: true,
+                    reason: "Optional — nice to have"
+                });
+            }
+
+            // Add 1 invalid addon
+            const shuffledInvalid = shuffle(invalidAddonProducts);
+            if (shuffledInvalid.length > 0) {
+                addons.push({
+                    ...shuffledInvalid[0],
+                    valid: false,
+                    reason: `Wrong for ${type.name}`
+                });
+            }
+
+            return {
+                customerType: type.name,
+                customerSays: quote,
+                mainProduct: { name: mainProduct.name, price: mainProduct.price },
+                addons: shuffle(addons)
+            };
+        }
+
+        function startGame() {
+            const nameInput = document.getElementById('playerName').value.trim();
+            if (!nameInput && !playerName) {
+                alert('Please enter your name');
+                return;
+            }
+            if (nameInput) {
+                playerName = nameInput;
+                saveName(playerName);
+            }
+
+            // Reset state
+            currentScenario = 0;
+            selectedAddons = new Set();
+            score = 0;
+            totalValidAddons = 0;
+            totalSelectedValid = 0;
+            totalBasketValue = 0;
+            totalMainProductValue = 0;
+            submitted = false;
+
+            // Generate scenarios
+            currentGameScenarios = [];
+            for (let i = 0; i < totalScenarios; i++) {
+                currentGameScenarios.push(generateScenario());
+            }
+
+            // Show game screen
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('visible');
+            document.getElementById('gameScreen').classList.add('visible');
+
+            loadScenario();
+        }
+
+        function loadScenario() {
+            submitted = false;
+            selectedAddons = new Set();
+
+            // Reset cash register to live state
+            document.getElementById('basketStateLive').classList.remove('hidden');
+            document.getElementById('basketStateResult').classList.add('hidden');
+
+            const scenario = currentGameScenarios[currentScenario];
+
+            // Update progress
+            document.getElementById('progressFill').style.width =
+                ((currentScenario) / totalScenarios * 100) + '%';
+            document.getElementById('progressText').textContent =
+                `Scenario ${currentScenario + 1} of ${totalScenarios}`;
+
+            // Update scenario card
+            document.getElementById('customerType').textContent = scenario.customerType;
+            document.getElementById('customerSays').textContent = scenario.customerSays;
+            document.getElementById('mainProductName').textContent = scenario.mainProduct.name;
+            document.getElementById('mainProductPrice').textContent = formatPrice(scenario.mainProduct.price);
+
+            // Render addons
+            const addonsList = document.getElementById('addonsList');
+            addonsList.innerHTML = scenario.addons.map((addon, i) => `
+                <div class="addon-item" data-index="${i}" onclick="toggleAddon(this)">
+                    <div class="addon-thumbnail">IMG</div>
+                    <div class="addon-info">
+                        <div class="addon-name">${toTitleCase(addon.name)}</div>
+                        <div class="addon-reason">${addon.reason}</div>
+                    </div>
+                    <div class="addon-price">${formatPrice(addon.price)}</div>
+                    <div class="addon-feedback"></div>
+                </div>
+            `).join('');
+
+            // Reset basket
+            updateBasket(scenario.mainProduct.price);
+
+            // Reset button
+            document.getElementById('submitBtn').textContent = 'Check My Basket';
+        }
+
+        function toggleAddon(element) {
+            if (submitted) return;
+
+            const index = parseInt(element.dataset.index);
+
+            if (selectedAddons.has(index)) {
+                selectedAddons.delete(index);
+                element.classList.remove('selected');
+            } else {
+                selectedAddons.add(index);
+                element.classList.add('selected');
+            }
+
+            const scenario = currentGameScenarios[currentScenario];
+            const mainPrice = scenario.mainProduct.price;
+            let addonsPrice = 0;
+
+            selectedAddons.forEach(i => {
+                addonsPrice += scenario.addons[i].price;
+            });
+
+            updateBasket(mainPrice, addonsPrice);
+        }
+
+        function updateBasket(mainPrice, addonsPrice = 0) {
+            const total = mainPrice + addonsPrice;
+            const rate = addonsPrice > 0 ? Math.round((addonsPrice / mainPrice) * 100) : 0;
+
+            document.getElementById('basketTotal').textContent = formatPrice(total);
+
+            const rateEl = document.getElementById('addonRate');
+            rateEl.textContent = rate + '%';
+            rateEl.className = 'basket-value addon-rate';
+
+            if (rate === 0) {
+                rateEl.classList.add('low');
+            } else if (rate < 10) {
+                rateEl.classList.add('medium');
+            } else {
+                rateEl.classList.add('high');
+            }
+        }
+
+        function submitAnswer() {
+            if (submitted) {
+                currentScenario++;
+                if (currentScenario >= totalScenarios) {
+                    showResults();
+                } else {
+                    loadScenario();
+                }
+                return;
+            }
+
+            submitted = true;
+            const scenario = currentGameScenarios[currentScenario];
+
+            totalMainProductValue += scenario.mainProduct.price;
+            let thisBasketAddons = 0;
+            let correctThisRound = 0;
+            let totalValidThisRound = 0;
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let missedCount = 0;
+
+            const addonItems = document.querySelectorAll('.addon-item');
+            addonItems.forEach(item => {
+                const index = parseInt(item.dataset.index);
+                const addon = scenario.addons[index];
+                const wasSelected = selectedAddons.has(index);
+                const feedbackEl = item.querySelector('.addon-feedback');
+
+                if (addon.valid) {
+                    totalValidAddons++;
+                    totalValidThisRound++;
+                    if (wasSelected) {
+                        item.classList.add('correct');
+                        feedbackEl.textContent = '✓';
+                        totalSelectedValid++;
+                        correctThisRound++;
+                        correctCount++;
+                        thisBasketAddons += addon.price;
+                    } else {
+                        item.classList.add('missed');
+                        feedbackEl.textContent = '!';
+                        missedCount++;
+                    }
+                } else if (addon.optional) {
+                    item.classList.add('optional');
+                    if (wasSelected) {
+                        thisBasketAddons += addon.price;
+                    }
+                } else {
+                    if (wasSelected) {
+                        item.classList.add('wrong');
+                        feedbackEl.textContent = '✗';
+                        wrongCount++;
+                    }
+                }
+            });
+
+            totalBasketValue += thisBasketAddons;
+
+            // Calculate score for this round (penalize wrong picks)
+            const roundScore = (correctThisRound * 100) - (wrongCount * 50);
+            score += Math.max(0, roundScore);
+
+            // Transform cash register strip to show accuracy
+            document.getElementById('resultCorrect').textContent = correctCount;
+            document.getElementById('resultWrong').textContent = wrongCount;
+            document.getElementById('resultMissed').textContent = missedCount;
+
+            // Switch to result state
+            document.getElementById('basketStateLive').classList.add('hidden');
+            document.getElementById('basketStateResult').classList.remove('hidden');
+
+            document.getElementById('submitBtn').textContent =
+                currentScenario < totalScenarios - 1 ? 'Next Customer →' : 'See Results';
+        }
+
+        function showResults() {
+            document.getElementById('gameScreen').classList.remove('visible');
+            document.getElementById('resultsScreen').classList.add('visible');
+
+            const accuracy = totalValidAddons > 0 ? Math.round((totalSelectedValid / totalValidAddons) * 100) : 0;
+            const avgRate = totalMainProductValue > 0
+                ? Math.round((totalBasketValue / totalMainProductValue) * 100)
+                : 0;
+
+            // Add bonus points for accuracy and rate
+            score += accuracy * 2;
+            score += avgRate * 5;
+
+            let emoji, title, subtitle;
+            if (accuracy >= 80 && avgRate >= 12) {
+                emoji = '🏆';
+                title = 'Basket Builder Pro!';
+                subtitle = 'You know how to read customers';
+            } else if (accuracy >= 60) {
+                emoji = '🌟';
+                title = 'Great Progress!';
+                subtitle = 'Keep practicing the customer types';
+            } else {
+                emoji = '💪';
+                title = 'Keep Learning!';
+                subtitle = 'Review the customer types and try again';
+            }
+
+            document.getElementById('resultsEmoji').textContent = emoji;
+            document.getElementById('resultsTitle').textContent = title;
+            document.getElementById('resultsSubtitle').textContent = subtitle;
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctAddons').textContent = `${totalSelectedValid}/${totalValidAddons}`;
+            document.getElementById('avgAddonRate').textContent = avgRate + '%';
+
+            // Save score to leaderboard
+            saveScore(playerName, score);
+            updateResultsLeaderboard();
+        }
+
+        // Leaderboard functions
+        function getLeaderboard() {
+            const data = localStorage.getItem('pumaBasketLeaderboard');
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveScore(name, score) {
+            const leaderboard = getLeaderboard();
+            leaderboard.push({ name, score, date: new Date().toISOString() });
+            leaderboard.sort((a, b) => b.score - a.score);
+            // Keep top 10
+            const top10 = leaderboard.slice(0, 10);
+            localStorage.setItem('pumaBasketLeaderboard', JSON.stringify(top10));
+        }
+
+        function updateLeaderboard() {
+            const leaderboard = getLeaderboard();
+            const list = document.getElementById('leaderboardList');
+
+            if (leaderboard.length === 0) {
+                list.innerHTML = `
+                    <div class="leaderboard-entry">
+                        <span class="leaderboard-rank">-</span>
+                        <span class="leaderboard-name">No scores yet</span>
+                        <span class="leaderboard-score"></span>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = leaderboard.slice(0, 5).map((entry, i) => `
+                <div class="leaderboard-entry">
+                    <span class="leaderboard-rank">${i + 1}.</span>
+                    <span class="leaderboard-name">${entry.name}</span>
+                    <span class="leaderboard-score">${entry.score}</span>
+                </div>
+            `).join('');
+        }
+
+        function updateResultsLeaderboard() {
+            const leaderboard = getLeaderboard();
+            const list = document.getElementById('resultsLeaderboardList');
+
+            list.innerHTML = leaderboard.slice(0, 5).map((entry, i) => `
+                <div class="leaderboard-entry ${entry.name === playerName && entry.score === score ? 'you' : ''}">
+                    <span class="leaderboard-rank">${i + 1}.</span>
+                    <span class="leaderboard-name">${entry.name}${entry.name === playerName && entry.score === score ? ' (You)' : ''}</span>
+                    <span class="leaderboard-score">${entry.score}</span>
+                </div>
+            `).join('');
+        }
+
+        function shareResults() {
+            alert('Screenshot this screen and share it in the Telegram group!');
+        }
+
+        function playAgain() {
+            // Skip name entry, go straight to game
+            startGame();
+        }
+
+        function checkNameInput() {
+            const name = document.getElementById('playerName').value.trim();
+            const btn = document.getElementById('startBtn');
+            if (name.length > 0) {
+                btn.disabled = false;
+                btn.textContent = 'Start Training';
+            } else {
+                btn.disabled = true;
+                btn.textContent = 'Enter name to start';
+            }
+        }
+
+        function loadSavedName() {
+            const savedName = localStorage.getItem('pumaPlayerName');
+            if (savedName) {
+                document.getElementById('playerName').value = savedName;
+                checkNameInput();
+            }
+        }
+
+        function saveName(name) {
+            localStorage.setItem('pumaPlayerName', name);
+        }
+
+        // Initialize
+        loadProductData();
+        loadSavedName();
+    </script>
+</body>
+</html>

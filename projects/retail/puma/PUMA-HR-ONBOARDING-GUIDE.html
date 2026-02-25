@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUMA Sales Training — HR Onboarding Guide</title>
+<style>
+  @page { margin: 20mm; size: A4; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #fff;
+  }
+
+  /* Print styles */
+  @media print {
+    body { padding: 0; max-width: 100%; font-size: 11px; }
+    .no-print { display: none !important; }
+    .page-break { page-break-before: always; }
+    h2 { page-break-after: avoid; }
+    .step-card { break-inside: avoid; }
+  }
+
+  /* Header */
+  .header { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #000; margin-bottom: 24px; }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .header .subtitle { font-size: 14px; color: #555; }
+  .header .meta { font-size: 11px; color: #888; margin-top: 8px; }
+
+  /* Sections */
+  h2 {
+    font-size: 16px; font-weight: 700; color: #000;
+    border-bottom: 1px solid #ddd; padding-bottom: 6px;
+    margin-top: 28px; margin-bottom: 12px;
+  }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 16px; margin-bottom: 8px; }
+
+  /* Step cards */
+  .step-card {
+    background: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 14px; margin-bottom: 10px;
+  }
+  .step-num {
+    display: inline-block; background: #000; color: #fff;
+    width: 24px; height: 24px; border-radius: 50%; text-align: center;
+    line-height: 24px; font-size: 12px; font-weight: 700; margin-right: 8px;
+    vertical-align: middle;
+  }
+  .step-title { font-weight: 600; font-size: 14px; display: inline; vertical-align: middle; }
+  .step-body { margin-top: 8px; padding-left: 32px; }
+  .step-body li { margin-bottom: 4px; }
+  .step-body .time { color: #888; font-size: 11px; font-style: italic; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 6px 0; border-bottom: 1px solid #eee; }
+  .checklist li:last-child { border-bottom: none; }
+  .check { display: inline-block; width: 16px; height: 16px; border: 2px solid #999; border-radius: 3px; margin-right: 8px; vertical-align: middle; }
+
+  /* Info box */
+  .info-box {
+    background: #f0f7ff; border: 1px solid #b3d4fc; border-radius: 6px;
+    padding: 12px; margin: 12px 0; font-size: 12px;
+  }
+  .info-box strong { color: #1a5276; }
+
+  .warn-box {
+    background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px;
+    padding: 12px; margin: 12px 0; font-size: 12px;
+  }
+  .warn-box strong { color: #e65100; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+  th { background: #f0f0f0; text-align: left; padding: 8px; border: 1px solid #ddd; font-weight: 600; }
+  td { padding: 8px; border: 1px solid #ddd; vertical-align: top; }
+
+  /* QR placeholder */
+  .qr-section { text-align: center; margin: 16px 0; padding: 16px; border: 2px dashed #ccc; border-radius: 8px; }
+  .qr-section .label { font-size: 11px; color: #888; margin-top: 4px; }
+
+  /* Footer */
+  .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 11px; color: #888; text-align: center; }
+
+  p { margin-bottom: 8px; }
+  ul, ol { padding-left: 20px; margin-bottom: 8px; }
+  li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="header">
+  <h1>PUMA Sales Training</h1>
+  <div class="subtitle">HR Onboarding Guide — Puma Palms Store</div>
+  <div class="meta">
+    Prepared for: Molade (HR, PRL) &nbsp;|&nbsp; Date: February 2026<br>
+    Pilot: 7 Staff &nbsp;|&nbsp; Duration: 6 Weeks &nbsp;|&nbsp; Cost: Waived (trial)
+  </div>
+</div>
+
+<!-- WHAT IS THIS -->
+<h2>What Is This Program?</h2>
+
+<p>A <strong>cross-selling and upselling game</strong> that teaches your sales staff how to sell more — on their phones, during work. Staff play games, complete short lessons, and take quizzes. A manager dashboard tracks who's progressing and who needs a nudge.</p>
+
+<p><strong>What staff will do:</strong></p>
+<ul>
+  <li>Play 3 sales games (Customer Says, The Approach, Build Your Basket)</li>
+  <li>Read short lessons (3-5 minutes each)</li>
+  <li>Pass quizzes (80% threshold, can retry)</li>
+  <li>Practice techniques on the shop floor</li>
+</ul>
+
+<p><strong>What this is NOT:</strong></p>
+<ul>
+  <li>Not a classroom course. No sitting in a room for hours.</li>
+  <li>Not a textbook. Content is game-first, then lessons.</li>
+  <li>Not extra work. 15 minutes, 3 times a week. That's it.</li>
+</ul>
+
+<div class="info-box">
+  <strong>App link:</strong> <a href="https://puma-training.vercel.app">puma-training.vercel.app</a><br>
+  <strong>Works on:</strong> Any phone with a browser (Chrome, Safari). No download needed.
+</div>
+
+<!-- HR ROLE -->
+<h2>Your Role (HR)</h2>
+
+<p>HR's role is <strong>enrollment, compliance, and escalation</strong> — not day-to-day coaching. The store manager handles coaching. You handle the system.</p>
+
+<table>
+  <tr><th>HR Does</th><th>Manager Does</th><th>Staff Does</th></tr>
+  <tr>
+    <td>
+      <ul style="padding-left:14px; margin:0">
+        <li>Collect staff details (names, emails, phones)</li>
+        <li>Coordinate onboarding session</li>
+        <li>Track overall completion</li>
+        <li>Escalate non-engagement</li>
+        <li>Link training to performance reviews</li>
+      </ul>
+    </td>
+    <td>
+      <ul style="padding-left:14px; margin:0">
+        <li>Monitor dashboard Mon/Wed/Fri</li>
+        <li>Nudge stragglers</li>
+        <li>Verify practical application on floor</li>
+        <li>Post wins in Telegram group</li>
+        <li>Weekly 10-min reviews</li>
+      </ul>
+    </td>
+    <td>
+      <ul style="padding-left:14px; margin:0">
+        <li>Open app on phone</li>
+        <li>Complete lessons + quizzes</li>
+        <li>Play games</li>
+        <li>Practice techniques with customers</li>
+        <li>Share wins in Telegram</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<p><strong>Your time commitment:</strong> 2 hours in Week 1 (onboarding setup), then 15-20 minutes per week (check dashboard, follow up on non-completers).</p>
+
+<!-- ONBOARDING STEPS -->
+<div class="page-break"></div>
+<h2>Onboarding Steps (Week 1)</h2>
+
+<div class="step-card">
+  <span class="step-num">1</span>
+  <span class="step-title">Collect Staff Information</span>
+  <div class="step-body">
+    <p>Gather from each of the 7 pilot staff:</p>
+    <ul>
+      <li>Full name</li>
+      <li>Email address (for account creation)</li>
+      <li>Phone number (for Telegram group)</li>
+      <li>Confirm they have a smartphone with browser access</li>
+    </ul>
+    <p class="time">Time: 10-15 minutes (can do via WhatsApp group message)</p>
+  </div>
+</div>
+
+<div class="step-card">
+  <span class="step-num">2</span>
+  <span class="step-title">Schedule Physical Onboarding Session</span>
+  <div class="step-body">
+    <p>Staff need to be physically together for the first session. This is where they:</p>
+    <ul>
+      <li>Download Telegram (if not already installed)</li>
+      <li>Join the "PUMA Sales Mastery" Telegram group</li>
+      <li>Open the training app in their browser</li>
+      <li>Log in with their credentials</li>
+      <li>Try the first game together (builds excitement)</li>
+    </ul>
+    <div class="warn-box">
+      <strong>This must be in-person.</strong> Sending a link by WhatsApp alone won't work. Staff need to see each other using it, ask questions live, and feel that this is real — not optional.
+    </div>
+    <p><strong>Best time:</strong> Before store opens or during a quiet period. 30-45 minutes.</p>
+    <p class="time">Time: 30-45 minutes (coordinate with store manager)</p>
+  </div>
+</div>
+
+<div class="step-card">
+  <span class="step-num">3</span>
+  <span class="step-title">Send Staff Details to FORJE</span>
+  <div class="step-body">
+    <p>Send the collected names + emails to FORJE (Nicholas) via WhatsApp or email. FORJE will:</p>
+    <ul>
+      <li>Create accounts for each staff member</li>
+      <li>Send login credentials back to you</li>
+      <li>Set up the Telegram group</li>
+    </ul>
+    <p class="time">Time: 5 minutes (one message)</p>
+  </div>
+</div>
+
+<div class="step-card">
+  <span class="step-num">4</span>
+  <span class="step-title">Distribute Credentials</span>
+  <div class="step-body">
+    <p>At the physical onboarding session, give each staff member:</p>
+    <ul>
+      <li>The app link: <strong>puma-training.vercel.app</strong></li>
+      <li>Their login email and password</li>
+      <li>The Telegram group invite link</li>
+    </ul>
+    <p>Walk through the first login together. Make sure everyone can see their home screen before leaving.</p>
+    <p class="time">Time: 15 minutes (part of the physical session)</p>
+  </div>
+</div>
+
+<div class="step-card">
+  <span class="step-num">5</span>
+  <span class="step-title">Confirm Enrollment with Manager</span>
+  <div class="step-body">
+    <p>After the onboarding session, confirm with the store manager:</p>
+    <ul>
+      <li>All 7 staff are logged in (check dashboard shows 7 users)</li>
+      <li>All 7 are in the Telegram group</li>
+      <li>Manager knows to check dashboard Mon/Wed/Fri</li>
+      <li>Manager has the Manager Guide (separate document)</li>
+    </ul>
+    <p class="time">Time: 5 minutes (quick confirmation)</p>
+  </div>
+</div>
+
+<!-- WEEK 1 CHECKLIST -->
+<h2>Week 1 Checklist</h2>
+<ul class="checklist">
+  <li><span class="check"></span> Staff names, emails, and phone numbers collected</li>
+  <li><span class="check"></span> Physical onboarding session scheduled</li>
+  <li><span class="check"></span> Staff details sent to FORJE</li>
+  <li><span class="check"></span> Credentials received from FORJE</li>
+  <li><span class="check"></span> Physical session held — all 7 staff logged in</li>
+  <li><span class="check"></span> All 7 staff in Telegram group</li>
+  <li><span class="check"></span> Store manager confirmed and briefed</li>
+  <li><span class="check"></span> First game played together during session</li>
+</ul>
+
+<!-- ONGOING (WEEKS 2-6) -->
+<div class="page-break"></div>
+<h2>Ongoing Monitoring (Weeks 2-6)</h2>
+
+<h3>Weekly HR Check (15-20 minutes)</h3>
+
+<table>
+  <tr><th>Check</th><th>What to Look For</th><th>Action If Problem</th></tr>
+  <tr>
+    <td>Dashboard completion rate</td>
+    <td>Are all 7 staff progressing? Anyone stuck?</td>
+    <td>Flag to manager for 1-on-1 follow-up</td>
+  </tr>
+  <tr>
+    <td>Telegram activity</td>
+    <td>Are staff posting wins? Is the group alive?</td>
+    <td>Ask manager to post more prompts</td>
+  </tr>
+  <tr>
+    <td>Manager engagement</td>
+    <td>Is the manager checking dashboard?</td>
+    <td>Remind manager of Mon/Wed/Fri check</td>
+  </tr>
+  <tr>
+    <td>Staff complaints/feedback</td>
+    <td>Any accessibility issues? Content too hard?</td>
+    <td>Report to FORJE for content adjustment</td>
+  </tr>
+</table>
+
+<h3>Escalation Path</h3>
+<table>
+  <tr><th>Issue</th><th>First Action</th><th>Escalate To</th></tr>
+  <tr>
+    <td>Staff can't log in</td>
+    <td>Check email/password correct</td>
+    <td>FORJE (WhatsApp)</td>
+  </tr>
+  <tr>
+    <td>Staff not completing lessons</td>
+    <td>Manager nudges directly</td>
+    <td>HR if persistent (performance note)</td>
+  </tr>
+  <tr>
+    <td>Content issue (wrong info, confusing)</td>
+    <td>Screenshot the problem</td>
+    <td>FORJE for fix (usually same day)</td>
+  </tr>
+  <tr>
+    <td>Manager not monitoring</td>
+    <td>Remind of commitment</td>
+    <td>Operations (Ate)</td>
+  </tr>
+  <tr>
+    <td>Staff left the company / new hire</td>
+    <td>Notify FORJE to remove/add account</td>
+    <td>FORJE creates new account</td>
+  </tr>
+</table>
+
+<!-- LINKING TO PERFORMANCE -->
+<h2>Linking Training to Performance</h2>
+
+<p>The dashboard gives you data you can use in performance reviews:</p>
+
+<table>
+  <tr><th>Data Point</th><th>What It Shows</th><th>HR Use</th></tr>
+  <tr>
+    <td>Lesson completion %</td>
+    <td>Did they do the training?</td>
+    <td>Compliance record</td>
+  </tr>
+  <tr>
+    <td>Quiz scores</td>
+    <td>Did they understand?</td>
+    <td>Knowledge assessment</td>
+  </tr>
+  <tr>
+    <td>Game high scores</td>
+    <td>Can they apply it?</td>
+    <td>Skills demonstration</td>
+  </tr>
+  <tr>
+    <td>Time to complete</td>
+    <td>Did they engage or rush?</td>
+    <td>Effort indicator</td>
+  </tr>
+</table>
+
+<div class="info-box">
+  <strong>Recommendation:</strong> After the 6-week trial, training completion status can become part of the quarterly review criteria. Staff who complete all modules demonstrate initiative and willingness to develop skills.
+</div>
+
+<!-- NEW HIRE PROCESS -->
+<h2>Adding New Staff (After Pilot)</h2>
+
+<p>When a new hire joins after the pilot is running:</p>
+
+<ol>
+  <li>Collect name + email + phone number</li>
+  <li>Send to FORJE — account created within 24 hours</li>
+  <li>Existing staff member walks them through first login (peer onboarding)</li>
+  <li>They join the same Telegram group</li>
+  <li>They start from Mission 1 (everyone goes through the same content)</li>
+</ol>
+
+<div class="info-box">
+  <strong>No extra cost.</strong> The platform fee is flat — whether 7 or 50 staff use it, the cost doesn't change. Adding new hires is free.
+</div>
+
+<!-- SUCCESS METRICS -->
+<div class="page-break"></div>
+<h2>What Success Looks Like</h2>
+
+<table>
+  <tr><th>Week</th><th>Target</th><th>How to Measure</th></tr>
+  <tr>
+    <td><strong>Week 2</strong></td>
+    <td>80%+ staff completing missions on time</td>
+    <td>Dashboard: completion column</td>
+  </tr>
+  <tr>
+    <td><strong>Week 4</strong></td>
+    <td>15-20% increase in average basket size</td>
+    <td>POS data (compare to pre-trial baseline)</td>
+  </tr>
+  <tr>
+    <td><strong>Week 6</strong></td>
+    <td>1.8 items per transaction (up from ~1.3)</td>
+    <td>POS data + FORJE analysis</td>
+  </tr>
+</table>
+
+<p>FORJE will deliver a final report at Week 7 with:</p>
+<ul>
+  <li>Completion rates per staff member</li>
+  <li>Quiz score averages</li>
+  <li>Sales data comparison (before vs after)</li>
+  <li>Recommendations for scale (20 staff, 50 staff, other brands)</li>
+</ul>
+
+<!-- KEY CONTACTS -->
+<h2>Key Contacts</h2>
+
+<table>
+  <tr><th>Who</th><th>Role</th><th>Contact For</th></tr>
+  <tr>
+    <td><strong>Nicholas (FORJE)</strong></td>
+    <td>Platform provider</td>
+    <td>Technical issues, content fixes, account creation, reporting</td>
+  </tr>
+  <tr>
+    <td><strong>Timmy</strong></td>
+    <td>Commercial lead</td>
+    <td>Business decisions, trial terms, rollout planning</td>
+  </tr>
+  <tr>
+    <td><strong>Store Manager</strong></td>
+    <td>Day-to-day operations</td>
+    <td>Staff engagement, practical verification, Telegram group</td>
+  </tr>
+  <tr>
+    <td><strong>Ate</strong></td>
+    <td>Operations</td>
+    <td>Scheduling, store logistics</td>
+  </tr>
+</table>
+
+<!-- QUICK REFERENCE -->
+<h2>Quick Reference</h2>
+
+<table>
+  <tr><th></th><th>Detail</th></tr>
+  <tr><td><strong>App URL</strong></td><td>puma-training.vercel.app</td></tr>
+  <tr><td><strong>Pilot store</strong></td><td>Puma Palms / Lekki</td></tr>
+  <tr><td><strong>Staff count</strong></td><td>7 (beta cohort)</td></tr>
+  <tr><td><strong>Duration</strong></td><td>6 weeks</td></tr>
+  <tr><td><strong>Trial cost</strong></td><td>Waived</td></tr>
+  <tr><td><strong>Staff time needed</strong></td><td>15 mins, 3x per week</td></tr>
+  <tr><td><strong>Manager time needed</strong></td><td>~1 hour per week</td></tr>
+  <tr><td><strong>HR time needed</strong></td><td>2 hours Week 1, then 15-20 mins/week</td></tr>
+  <tr><td><strong>Content</strong></td><td>6 lessons + 3 games + quizzes (Module 1: Cross-Selling)</td></tr>
+  <tr><td><strong>Support</strong></td><td>FORJE via WhatsApp (same-day response)</td></tr>
+</table>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>PUMA Sales Training Pilot — HR Onboarding Guide<br>
+  Prepared by FORJE for PRL &nbsp;|&nbsp; February 2026<br>
+  Questions? WhatsApp Nicholas (FORJE) or message in the Telegram group.</p>
+</div>
+
+</body>
+</html>

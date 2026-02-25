@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>PUMA Sales Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --red: #e4002b;
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --grey: #8a8a8a;
+    --light: #f5f5f5;
+    --surface: #161616;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ SECTION SYSTEM ============ */
+  .section {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 28px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .section.hidden { display: none; }
+
+  /* Section 1 always visible */
+  #s1 { opacity: 1; transform: none; pointer-events: all; }
+
+  /* ============ SECTION 1: WHAT WE BUILT ============ */
+  .s1-brand {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+  }
+
+  .s1-headline {
+    font-size: clamp(32px, 8vw, 52px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .s1-headline .accent { color: var(--red); }
+
+  .s1-sub {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--grey);
+    line-height: 1.5;
+    max-width: 340px;
+    margin-bottom: 40px;
+  }
+
+  .s1-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--grey);
+    margin-bottom: 48px;
+  }
+
+  .s1-live .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+  }
+
+  /* ============ CTA BUTTONS ============ */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .cta:active { transform: scale(0.97); }
+  .cta:hover { box-shadow: 0 8px 32px rgba(228,0,43,0.3); }
+
+  .cta .arrow {
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  .cta:hover .arrow { transform: translateX(3px); }
+
+  .cta-outline {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.15);
+    color: var(--white);
+  }
+  .cta-outline:hover {
+    border-color: var(--red);
+    box-shadow: 0 8px 32px rgba(228,0,43,0.15);
+  }
+
+  /* ============ SECTION 2: HOW IT WORKS ============ */
+  .s2-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .s2-title {
+    font-size: clamp(26px, 6vw, 38px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 36px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 44px;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .section.visible .step {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .section.visible .step:nth-child(1) { transition-delay: 0.1s; }
+  .section.visible .step:nth-child(2) { transition-delay: 0.2s; }
+  .section.visible .step:nth-child(3) { transition-delay: 0.3s; }
+  .section.visible .step:nth-child(4) { transition-delay: 0.4s; }
+
+  .step-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(228,0,43,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .step-content { flex: 1; }
+
+  .step-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.45;
+  }
+
+  /* ============ SECTION 3: WHAT YOUR TEAM GETS ============ */
+  .s3-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .s3-card {
+    padding: 20px 16px;
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .section.visible .s3-card {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .section.visible .s3-card:nth-child(1) { transition-delay: 0.1s; }
+  .section.visible .s3-card:nth-child(2) { transition-delay: 0.15s; }
+  .section.visible .s3-card:nth-child(3) { transition-delay: 0.2s; }
+  .section.visible .s3-card:nth-child(4) { transition-delay: 0.25s; }
+  .section.visible .s3-card:nth-child(5) { transition-delay: 0.3s; }
+  .section.visible .s3-card:nth-child(6) { transition-delay: 0.35s; }
+
+  .s3-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .s3-label {
+    font-size: 13px;
+    color: var(--grey);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .s3-manager {
+    padding: 24px 20px;
+    background: rgba(228,0,43,0.06);
+    border: 1px solid rgba(228,0,43,0.15);
+    border-radius: 16px;
+    margin-bottom: 40px;
+  }
+
+  .s3-manager-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .s3-manager-desc {
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+
+  /* ============ SECTION 4: TRY IT ============ */
+  .s4-box {
+    padding: 28px 24px;
+    background: var(--surface);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+  }
+
+  .s4-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .s4-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .s4-row:last-child { border-bottom: none; }
+
+  .s4-key {
+    font-size: 13px;
+    color: var(--grey);
+  }
+
+  .s4-val {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  .s4-pw {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+    color: var(--grey);
+  }
+  .s4-pw code {
+    color: var(--white);
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  .s4-app-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .s4-app-btn:active { transform: scale(0.98); }
+  .s4-app-btn:hover { box-shadow: 0 8px 32px rgba(228,0,43,0.35); }
+
+  .s4-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--grey);
+    margin-top: 8px;
+  }
+
+  /* ============ PROGRESS DOTS ============ */
+  .progress {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+
+  .progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .progress-dot.active {
+    background: var(--red);
+    box-shadow: 0 0 8px rgba(228,0,43,0.4);
+    transform: scale(1.3);
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    text-align: center;
+    padding: 24px 28px 40px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 380px) {
+    .section { padding: 40px 20px; }
+    .s3-grid { gap: 8px; }
+    .s3-card { padding: 16px 12px; }
+    .s3-num { font-size: 24px; }
+  }
+
+  @media (min-width: 768px) {
+    .section { padding: 48px 48px; max-width: 600px; margin: 0 auto; }
+    .s3-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PROGRESS DOTS -->
+<div class="progress" id="progress">
+  <div class="progress-dot active" data-section="1"></div>
+  <div class="progress-dot" data-section="2"></div>
+  <div class="progress-dot" data-section="3"></div>
+  <div class="progress-dot" data-section="4"></div>
+</div>
+
+<!-- ═══════════ SECTION 1: WHAT WE BUILT ═══════════ -->
+<div class="section visible" id="s1">
+  <div class="s1-brand">PUMA Training</div>
+  <h1 class="s1-headline">
+    Your team's<br>
+    sales training.<br>
+    <span class="accent">Built. Live.</span>
+  </h1>
+  <p class="s1-sub">
+    A phone-first app that teaches your staff to sell more — through games, daily practice, and a manager dashboard that shows who's performing.
+  </p>
+  <div class="s1-live">
+    <span class="dot"></span>
+    Live at puma-training.vercel.app
+  </div>
+  <button class="cta" onclick="reveal(2)">
+    See how it works <span class="arrow">&darr;</span>
+  </button>
+</div>
+
+<!-- ═══════════ SECTION 2: HOW IT WORKS ═══════════ -->
+<div class="section hidden" id="s2">
+  <div class="s2-label">How It Works</div>
+  <h2 class="s2-title">Four things happen<br>every week.</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">📖</div>
+      <div class="step-content">
+        <div class="step-name">Learn</div>
+        <div class="step-desc">Short lessons on cross-selling & upselling. Swipe through on their phone. 5 minutes each.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-icon">✅</div>
+      <div class="step-content">
+        <div class="step-name">Practice</div>
+        <div class="step-desc">Daily checklist tied to what they learned. Done on the shop floor, with real customers.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-icon">🎮</div>
+      <div class="step-content">
+        <div class="step-name">Compete</div>
+        <div class="step-desc">Sales games — spot the better approach, handle customer objections. Scores go on the leaderboard.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-icon">📊</div>
+      <div class="step-content">
+        <div class="step-name">Track</div>
+        <div class="step-desc">Manager dashboard shows who's ahead, who's behind, who needs a nudge. Check it 3x a week.</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cta" onclick="reveal(3)">
+    What your team gets <span class="arrow">&darr;</span>
+  </button>
+</div>
+
+<!-- ═══════════ SECTION 3: WHAT YOUR TEAM GETS ═══════════ -->
+<div class="section hidden" id="s3">
+  <div class="s2-label">What's Inside</div>
+  <h2 class="s2-title">Everything is ready.</h2>
+
+  <div class="s3-grid">
+    <div class="s3-card">
+      <div class="s3-num">6</div>
+      <div class="s3-label">Sales lessons</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">3</div>
+      <div class="s3-label">Interactive games</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">7</div>
+      <div class="s3-label">Staff accounts</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">15</div>
+      <div class="s3-label">Mins, 3x/week</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">0</div>
+      <div class="s3-label">Downloads needed</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-num">6</div>
+      <div class="s3-label">Week pilot</div>
+    </div>
+  </div>
+
+  <div class="s3-manager">
+    <div class="s3-manager-title">📊 Manager Dashboard</div>
+    <div class="s3-manager-desc">See who's completing lessons, who's scoring highest, and who's falling behind — all in one view. No spreadsheets. No guesswork.</div>
+  </div>
+
+  <button class="cta" onclick="reveal(4)">
+    Try it yourself <span class="arrow">&darr;</span>
+  </button>
+</div>
+
+<!-- ═══════════ SECTION 4: TRY IT NOW ═══════════ -->
+<div class="section hidden" id="s4">
+  <div class="s2-label">Try It Now</div>
+  <h2 class="s2-title">Log in as<br>the manager.</h2>
+
+  <div class="s4-box">
+    <div class="s4-label">Manager Login</div>
+    <div class="s4-row">
+      <span class="s4-key">Email</span>
+      <span class="s4-val">manager@pumatrial.com</span>
+    </div>
+    <div class="s4-row">
+      <span class="s4-key">Role</span>
+      <span class="s4-val" style="color: var(--red);">Manager</span>
+    </div>
+    <div class="s4-pw">Password: <code>PumaTrial2026!</code></div>
+  </div>
+
+  <a href="https://puma-training.vercel.app" class="s4-app-btn" target="_blank">
+    Open the App &rarr;
+  </a>
+
+  <p class="s4-note">Works on any phone. No download. Just open and log in.</p>
+
+  <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06);">
+    <button class="cta cta-outline" style="width: 100%; justify-content: center;" onclick="reveal(1)">
+      Back to top <span class="arrow">&uarr;</span>
+    </button>
+  </div>
+</div>
+
+<div class="footer">
+  PUMA Sales Training &bull; PRL Nigeria &bull; Feb 2026
+</div>
+
+<script>
+  let currentSection = 1;
+  const maxRevealed = { value: 1 };
+
+  function reveal(n) {
+    const target = document.getElementById('s' + n);
+    if (!target) return;
+
+    // Unhide if hidden
+    target.classList.remove('hidden');
+
+    // Track max revealed for progress dots
+    if (n > maxRevealed.value) maxRevealed.value = n;
+
+    // Small delay then scroll + animate
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        target.classList.add('visible');
+        updateProgress(n);
+      }, 100);
+    });
+
+    currentSection = n;
+  }
+
+  function updateProgress(n) {
+    document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i + 1 === n);
+      // Show dots for revealed sections
+      dot.style.opacity = (i + 1 <= maxRevealed.value) ? '1' : '0.3';
+    });
+  }
+
+  // Progress dot clicks (only for already-revealed sections)
+  document.querySelectorAll('.progress-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const n = parseInt(dot.dataset.section);
+      if (n <= maxRevealed.value) {
+        reveal(n);
+      }
+    });
+  });
+
+  // Intersection observer for progress dots during scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const n = parseInt(entry.target.id.replace('s', ''));
+        updateProgress(n);
+        currentSection = n;
+      }
+    });
+  }, { threshold: 0.5 });
+
+  // Observe s1 immediately
+  observer.observe(document.getElementById('s1'));
+</script>
+
+</body>
+</html>

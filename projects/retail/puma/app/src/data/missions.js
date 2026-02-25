@@ -17,15 +17,15 @@ export const missions = {
       {
         type: 'text',
         icon: 'ri-alarm-warning-line',
-        title: 'The Problem',
+        title: '\u20A615.6 Million Lost Every Year',
         scenario: [
           { icon: 'ri-walk-line', label: 'Customer enters', tone: 'scenario-neutral' },
           { icon: 'ri-smartphone-line', label: 'Staff on phone', tone: 'scenario-warn' },
           { icon: 'ri-time-line', label: '3 minutes pass', tone: 'scenario-warn' },
           { icon: 'ri-door-open-line', label: 'They leave', tone: 'scenario-bad' }
         ],
-        body: "They picked up a shoe, looked at the price, put it back. You didn't even get a chance to help.",
-        highlight: "That's \u20A615.6 million/year walking out the door."
+        body: "That's how much walks out the door when staff don't engage. A customer picks up a shoe, checks the price, puts it back.",
+        highlight: "No one said a word."
       },
       {
         type: 'rule',
@@ -75,6 +75,11 @@ export const missions = {
       { num: 2, label: '30 SECONDS', question: 'Approach (if browsing)', examples: ['Looking around', 'Touching products', 'Clearly browsing'] },
       { num: 3, label: '60 SECONDS', question: 'Engage (no matter what)', examples: ['Warm opener', 'Open question', 'Never "Can I help you?"'] },
       { num: 4, label: '"JUST LOOKING"', question: '"No problem, I\'m right here"', examples: ['Stay visible', 'Check back in 3 min', 'Don\'t disappear'] }
+    ],
+    quiz: [
+      { id: 'q1', question: 'A customer walked in 45 seconds ago. Which time windows have already passed?', options: ['None yet', 'Acknowledge only (5s)', 'Acknowledge AND approach (5s + 30s)', 'All three windows'], correct: 2 },
+      { id: 'q2', question: 'Which opener follows the rule when approaching a browser?', options: ['"Can I help you?"', '"Are you finding everything okay?"', '"What brings you in today?"', '"Just shout if you need help!"'], correct: 2 },
+      { id: 'q3', question: 'Customer says "Just looking." What does the rule say?', options: ['Respect it and give them space', '"No problem, I\'m right here" — stay visible', 'Ask a follow-up question immediately', 'Hand off to a colleague'], correct: 1 }
     ]
   },
 
@@ -146,6 +151,11 @@ export const missions = {
       { num: 3, label: 'PRODUCT', question: '"That one\'s popular \u2014 try it?"', examples: ['When holding item', 'Give info first', 'Invite action'] },
       { num: 4, label: 'SELF/GIFT', question: '"For yourself or a gift?"', examples: ['Forces engagement', 'Reveals need', 'Unlocks follow-ups'] },
       { num: 5, label: 'COMPLIMENT', question: '"Love those \u2014 similar or different?"', examples: ['Builds rapport', 'Two-path choice', 'Personal touch'] }
+    ],
+    quiz: [
+      { id: 'q1', question: 'Why does "Can I help you?" fail 90% of the time?', options: ['It sounds too casual', 'It\'s a closed question — shut down with one word', 'It comes too early in the conversation', 'It sounds scripted'], correct: 1 },
+      { id: 'q2', question: 'Which of these is an open question?', options: ['"Can I help you?"', '"Are you finding everything?"', '"What brings you in today?"', '"Do you need anything?"'], correct: 2 },
+      { id: 'q3', question: 'Customer says "Running shoes." What\'s the best follow-up?', options: ['"Great, follow me!"', '"We have lots of options"', '"What kind of running?"', '"Let me show you our best ones"'], correct: 2 }
     ]
   },
 
@@ -217,6 +227,11 @@ export const missions = {
       { num: 2, label: 'PROBLEM', question: '"What\'s not working now?"', examples: ['Hurts my feet', 'Wore out fast', 'Too heavy', 'No grip', 'Looks old'] },
       { num: 3, label: 'PRIORITY', question: '"What matters most?"', examples: ['Comfort', 'Durability', 'Style', 'Price', 'Lightweight'] },
       { num: 4, label: 'DECISION', question: '"Buying today or browsing?"', examples: ['Ready now', 'Comparing', 'Waiting for payday', 'Just looking'] }
+    ],
+    quiz: [
+      { id: 'q1', question: 'Under the 70/30 rule, who should be talking more?', options: ['Staff — you know the products best', 'Customer — you\'re learning their need', '50/50 is ideal', 'Depends on the customer'], correct: 1 },
+      { id: 'q2', question: 'When should you show products to a customer?', options: ['When they seem interested', 'After the first qualifying question', 'After asking all 4 questions', 'When they pick something up'], correct: 2 },
+      { id: 'q3', question: 'You talk for 3 minutes listing shoe features. Customer\'s eyes glaze over. What went wrong?', options: ['Too many options shown', 'Feature-dumping — you talked more than you listened', 'Wrong products for the customer', 'Bad timing'], correct: 1 }
     ]
   },
 
@@ -284,6 +299,11 @@ export const missions = {
       { num: 1, label: 'ACKNOWLEDGE', question: '"That\'s totally fair. Can I ask..."', examples: ['Don\'t surrender', 'Don\'t push', 'Show respect'] },
       { num: 2, label: 'PROBE', question: '"Is it the price, or...?"', examples: ['Price concern', 'Need approval', 'Comparing options', 'Something off'] },
       { num: 3, label: 'BRIDGE', question: 'Offer a smaller action', examples: ['Show alternative', 'Hold item 24h', 'Take a photo', 'Give your card'] }
+    ],
+    quiz: [
+      { id: 'q1', question: '"I\'ll think about it" usually means:', options: ['They genuinely need time to decide', 'Something is stopping them — price, doubt, or comparison', 'They will come back tomorrow', 'They can\'t afford it'], correct: 1 },
+      { id: 'q2', question: 'Customer says "I\'ll think about it." What\'s your first move?', options: ['"Okay, no problem!"', '"We have a sale tomorrow, so..."', '"That\'s totally fair — what\'s making you think it over?"', '"Let me give you a discount"'], correct: 2 },
+      { id: 'q3', question: 'You ask "Is it the price, or not sure it\'s right?" What are you doing?', options: ['Convincing them to buy', 'Uncovering the real objection behind the polite exit', 'Closing the sale', 'Ending the conversation politely'], correct: 1 }
     ]
   },
 
@@ -353,6 +373,11 @@ export const missions = {
       { num: 2, label: 'ANCHOR', question: '"The reason this costs more..."', examples: ['Their specific need', 'Not generic brand', 'Cost per use'] },
       { num: 3, label: 'SHOW', question: '"See the difference side-by-side"', examples: ['Physical comparison', 'Let them feel', 'Often sells premium'] },
       { num: 4, label: 'FLEX', question: '"Installments or cost-per-wear"', examples: ['\u20A615K \u00D7 3 months', '\u20A6300/wear', 'Remove lump-sum barrier'] }
+    ],
+    quiz: [
+      { id: 'q1', question: '"It\'s too expensive" is actually:', options: ['A clear no — move on', 'A buying signal — they\'re interested but need value justified', 'A request for a discount', 'A product quality concern'], correct: 1 },
+      { id: 'q2', question: 'What\'s the FIRST step when a customer says "too expensive"?', options: ['Offer 10% off immediately', 'Ask: "What were you thinking price-wise?"', 'Show a cheaper option', 'Justify the price immediately'], correct: 1 },
+      { id: 'q3', question: 'Why does showing the cheaper option side-by-side often sell the premium?', options: ['It makes the premium look more affordable', 'Customer feels and sees the quality difference directly', 'It confuses them into buying', 'It looks like more value for money'], correct: 1 }
     ]
   },
 
@@ -422,6 +447,11 @@ export const missions = {
       { num: 2, label: 'CAPTURE', question: 'Name + Number + Need', examples: ['First name only', 'WhatsApp number', 'What they wanted'] },
       { num: 3, label: 'TRIGGER', question: '"I\'ll text you if..."', examples: ['Goes on sale', 'Size restocked', 'New arrival', 'Similar item'] },
       { num: 4, label: 'EXIT', question: '"I\'m [name], nice meeting you!"', examples: ['Personal touch', 'They know you', 'Follow up in 3-7 days'] }
+    ],
+    quiz: [
+      { id: 'q1', question: 'What percentage of non-buying browsers would buy later if you follow up?', options: ['10%', '25%', '40%', '70%'], correct: 2 },
+      { id: 'q2', question: 'The exit capture needs three things. Which combo is right?', options: ['Name + email + address', 'Name + number + need', 'Name + social media + size', 'Number + purchase history + budget'], correct: 1 },
+      { id: 'q3', question: 'When do you use the exit capture line?', options: ['Only if they seemed very interested', 'As soon as they enter the store', 'When a customer leaves without buying', 'After they\'ve made a purchase'], correct: 2 }
     ]
   }
 }

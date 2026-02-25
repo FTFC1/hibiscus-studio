@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUMA Training App — Demo Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #080808; --surface: #111; --border: rgba(255,255,255,0.08);
+    --text: #F5F5F5; --sub: #8E9BA0; --lime: #DCEE56; --lime-bg: rgba(220,238,86,0.08);
+    --green: #81C784; --red: #E57373; --amber: #FFD54F;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 680px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* Hero */
+  .hero { text-align: center; margin-bottom: 48px; padding: 40px 0; }
+  .hero-brand { font-size: 32px; font-weight: 800; letter-spacing: 0.12em; color: var(--lime); }
+  .hero-sub { font-size: 18px; font-weight: 500; color: var(--sub); margin-left: 6px; }
+  .hero-title { font-size: 22px; font-weight: 700; margin: 16px 0 8px; }
+  .hero-desc { font-size: 14px; color: var(--sub); max-width: 400px; margin: 0 auto; }
+  .hero-link {
+    display: inline-block; margin-top: 24px; padding: 14px 32px; border-radius: 50px;
+    background: var(--lime); color: #080808; font-weight: 700; font-size: 14px;
+    text-decoration: none; letter-spacing: 0.02em;
+  }
+
+  /* Sections */
+  .section { margin-bottom: 40px; }
+  .section-num { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--lime); text-transform: uppercase; margin-bottom: 4px; }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+  .section-desc { font-size: 14px; color: var(--sub); margin-bottom: 16px; }
+
+  /* Cards */
+  .card {
+    padding: 20px; border-radius: 16px; margin-bottom: 10px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  }
+  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .card-desc { font-size: 13px; color: var(--sub); line-height: 1.5; }
+  .card-badge {
+    display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+    padding: 2px 8px; border-radius: 4px; margin-top: 8px; text-transform: uppercase;
+  }
+  .badge-live { background: rgba(76,175,80,0.12); color: var(--green); }
+  .badge-demo { background: var(--lime-bg); color: var(--lime); }
+  .badge-coming { background: rgba(255,255,255,0.06); color: var(--sub); }
+
+  /* User flows */
+  .flow { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .flow-step {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  }
+  .flow-num {
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+    background: var(--lime-bg); color: var(--lime); font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .flow-text { font-size: 13px; color: var(--text); }
+  .flow-text small { color: var(--sub); }
+
+  /* Login box */
+  .login-box {
+    padding: 20px; border-radius: 16px; margin: 16px 0;
+    background: rgba(220,238,86,0.04); border: 1px solid rgba(220,238,86,0.12);
+  }
+  .login-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--lime); margin-bottom: 10px; text-transform: uppercase; }
+  .login-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+  .login-email { font-size: 13px; font-weight: 500; color: var(--text); font-family: monospace; }
+  .login-role { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .role-mgr { background: rgba(220,238,86,0.12); color: var(--lime); }
+  .role-staff { background: rgba(255,255,255,0.06); color: var(--sub); }
+  .login-pw { font-size: 12px; color: var(--sub); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .login-pw code { color: var(--lime); font-family: monospace; }
+
+  /* Comparison table */
+  .compare { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .compare th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--sub); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .compare td { font-size: 13px; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .compare .check { color: var(--green); }
+  .compare .soon { color: var(--amber); }
+  .compare .no { color: var(--sub); opacity: 0.4; }
+
+  /* Pricing hint */
+  .pricing-section {
+    padding: 24px; border-radius: 16px; text-align: center;
+    background: rgba(220,238,86,0.04); border: 1px solid rgba(220,238,86,0.15);
+  }
+  .pricing-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .pricing-desc { font-size: 13px; color: var(--sub); line-height: 1.5; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .footer-text { font-size: 12px; color: var(--sub); }
+  .footer-text a { color: var(--lime); text-decoration: none; }
+
+  /* Divider */
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div><span class="hero-brand">PUMA</span><span class="hero-sub">Training</span></div>
+    <div class="hero-title">Staff Training & Development App</div>
+    <div class="hero-desc">An interactive training platform that turns retail knowledge into daily practice. Built for PUMA Ikeja.</div>
+    <a href="https://puma-training.vercel.app" class="hero-link" target="_blank">OPEN THE APP →</a>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- What it is -->
+  <div class="section">
+    <div class="section-num">01</div>
+    <div class="section-title">What This Is</div>
+    <div class="section-desc">A mobile-first training app where sales staff learn customer engagement techniques through bite-sized lessons, practice checklists, and interactive games — then track their progress on a leaderboard.</div>
+
+    <div class="card">
+      <div class="card-title">Not a PDF. Not slides. An actual app.</div>
+      <div class="card-desc">Staff log in on their phones, swipe through lessons during quiet moments, practice techniques on the floor, then play games to reinforce what they learned. Manager sees who's ahead, who needs help.</div>
+    </div>
+  </div>
+
+  <!-- Login -->
+  <div class="section">
+    <div class="section-num">02</div>
+    <div class="section-title">Login Credentials</div>
+    <div class="section-desc">4 test accounts pre-loaded with demo data. Try both the manager and staff experience.</div>
+
+    <div class="login-box">
+      <div class="login-label">Test Accounts</div>
+      <div class="login-row">
+        <span class="login-email">manager@pumatrial.com</span>
+        <span class="login-role role-mgr">Manager</span>
+      </div>
+      <div class="login-row">
+        <span class="login-email">staff1@pumatrial.com</span>
+        <span class="login-role role-staff">Chioma A.</span>
+      </div>
+      <div class="login-row">
+        <span class="login-email">staff2@pumatrial.com</span>
+        <span class="login-role role-staff">Sarah O.</span>
+      </div>
+      <div class="login-row">
+        <span class="login-email">staff3@pumatrial.com</span>
+        <span class="login-role role-staff">Tunde A.</span>
+      </div>
+      <div class="login-pw">Password for all: <code>PumaTrial2026!</code></div>
+    </div>
+  </div>
+
+  <!-- User Flows -->
+  <div class="section">
+    <div class="section-num">03</div>
+    <div class="section-title">User Flows</div>
+
+    <div class="section-desc" style="font-weight:600; color: var(--lime); margin-bottom: 8px;">Staff Experience</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-text"><strong>Home</strong> — See your current mission, progress bar, team activity. Tap "Start Session" to begin.<br><small>Missions unlock sequentially. Complete one to unlock the next.</small></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text"><strong>Lessons</strong> — Swipe through 5 slides: problem → rule → toolkit → comparison → practice tasks.<br><small>Each lesson is 5-8 minutes. Tap "Complete Mission" when done.</small></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-text"><strong>Practice</strong> — Daily checklist tied to what you learned. Check off tasks during your shift.<br><small>Includes end-of-day mood check (after 5pm).</small></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-text"><strong>Games</strong> — "Spot the Difference" (pick the better sales approach) and "Role Play" (handle customer scenarios).<br><small>Scores save to your profile and leaderboard.</small></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-text"><strong>Activity</strong> — Leaderboard + team buzz. See who's ahead, compete for top spot.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">6</div>
+        <div class="flow-text"><strong>Profile</strong> — Stats, badges, certification progress, logout.</div>
+      </div>
+    </div>
+
+    <div class="section-desc" style="font-weight:600; color: var(--lime); margin-bottom: 8px;">Manager Experience</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-text"><strong>Dashboard</strong> — Alerts (who's behind) → Wins (who's performing) → Full staff list.<br><small>Admin Dashboard Principle: What's wrong? What's good? What needs attention?</small></div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text"><strong>Role Switcher</strong> — On Profile page, managers can toggle between Manager and Staff views.<br><small>Same app, two experiences.</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Status -->
+  <div class="section">
+    <div class="section-num">04</div>
+    <div class="section-title">What's Live vs Coming</div>
+
+    <table class="compare">
+      <tr>
+        <th>Feature</th>
+        <th>Status</th>
+      </tr>
+      <tr><td>Login / Authentication</td><td class="check">✓ Live</td></tr>
+      <tr><td>6 Sales Lessons (swipe)</td><td class="check">✓ Live</td></tr>
+      <tr><td>Completion Tracking</td><td class="check">✓ Live</td></tr>
+      <tr><td>Manager Dashboard</td><td class="check">✓ Live</td></tr>
+      <tr><td>Leaderboard</td><td class="check">✓ Live</td></tr>
+      <tr><td>Spot the Difference Game</td><td class="check">✓ Live</td></tr>
+      <tr><td>Role Play Game</td><td class="check">✓ Live</td></tr>
+      <tr><td>Practice Checklists</td><td class="check">✓ Live</td></tr>
+      <tr><td>Profile + Badges</td><td class="check">✓ Live</td></tr>
+      <tr><td>Certification Progress</td><td class="check">✓ Live</td></tr>
+      <tr><td>Scored Quizzes</td><td class="soon">◐ Coming</td></tr>
+      <tr><td>Push Notifications</td><td class="soon">◐ Coming</td></tr>
+      <tr><td>Multi-Store Support</td><td class="soon">◐ Coming</td></tr>
+      <tr><td>Analytics / Reports</td><td class="soon">◐ Coming</td></tr>
+      <tr><td>Custom Lesson Builder</td><td class="soon">◐ Coming</td></tr>
+    </table>
+  </div>
+
+  <!-- Why this is better -->
+  <div class="section">
+    <div class="section-num">05</div>
+    <div class="section-title">Why This Beats the Alternatives</div>
+
+    <div class="card">
+      <div class="card-title">vs. PDF Training Manuals</div>
+      <div class="card-desc">Nobody reads them. No tracking. No accountability. No feedback loop. You print them, hand them out, hope for the best.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">vs. WhatsApp Groups</div>
+      <div class="card-desc">Messages get buried. No structure. Can't track who completed what. No scoring. No games. No progression.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">vs. Classroom Training</div>
+      <div class="card-desc">Expensive. Takes staff off the floor. One session, then forgotten. This app reinforces daily — on the floor, during quiet moments.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">vs. Generic LMS (Udemy, etc.)</div>
+      <div class="card-desc">Not built for retail. Not mobile-first. Not tied to daily practice. Not gamified for sales staff. This is purpose-built.</div>
+    </div>
+  </div>
+
+  <!-- How it connects -->
+  <div class="section">
+    <div class="section-num">06</div>
+    <div class="section-title">How This Connects to the Business</div>
+
+    <div class="card">
+      <div class="card-title">Phase 1: Training Platform (now)</div>
+      <div class="card-desc">Lessons + Practice + Games. Staff get better at selling. Manager tracks progress. Immediate impact on conversion and customer experience.</div>
+      <span class="card-badge badge-live">We are here</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase 2: Performance Intelligence</div>
+      <div class="card-desc">Connect training scores to actual sales data. See which staff improved after completing missions. Automated weekly reports to managers.</div>
+      <span class="card-badge badge-coming">Next</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase 3: Multi-Store Rollout</div>
+      <div class="card-desc">Same app, multiple stores. Cross-store leaderboards. Regional manager view. Custom content per store or brand.</div>
+      <span class="card-badge badge-coming">Future</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Pricing hint -->
+  <div class="pricing-section">
+    <div class="pricing-title">Interested?</div>
+    <div class="pricing-desc">This is a bespoke solution. We build custom training platforms tailored to your brand, your products, and your staff's actual needs. Let's talk about what you want your team to learn.</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">
+      Demo: <a href="https://puma-training.vercel.app">puma-training.vercel.app</a><br>
+      Built Feb 2026
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

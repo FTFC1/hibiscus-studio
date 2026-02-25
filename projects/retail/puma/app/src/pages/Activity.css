@@ -1,0 +1,338 @@
+/* ── Activity Page ── */
+
+.activity-page {
+  padding: 0 var(--space-page);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+/* ── Trend Verdict ── */
+.trend-verdict {
+  margin-top: 4px;
+}
+
+.trend-verdict-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cta-green);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trend-verdict-sub {
+  font-size: 12px;
+  color: var(--text-on-dark-sub);
+  margin-top: 2px;
+}
+
+/* ── Weekly Bar Chart ── */
+.weekly-chart {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+  padding: 20px 16px 16px;
+}
+
+.weekly-chart-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-on-dark-sub);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.weekly-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 120px;
+  gap: 12px;
+}
+
+.weekly-chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.weekly-chart-bar {
+  width: 100%;
+  max-width: 40px;
+  border-radius: 6px 6px 4px 4px;
+  background: var(--progress-gold);
+  opacity: 0.6;
+  transition: height 0.4s ease;
+}
+
+.weekly-chart-bar-today {
+  opacity: 1;
+  box-shadow: 0 0 16px var(--progress-gold-glow);
+}
+
+.weekly-chart-bar-future {
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+
+.weekly-chart-day {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-on-dark-sub);
+  margin-top: 10px;
+}
+
+.weekly-chart-day-today {
+  color: var(--progress-gold);
+  font-weight: 700;
+}
+
+/* ── Progress Ring Section ── */
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+  padding: 20px 16px;
+}
+
+.progress-ring-wrap {
+  flex-shrink: 0;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.progress-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring-count {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  line-height: 1;
+}
+
+.progress-ring-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-on-dark-sub);
+  margin-top: 2px;
+}
+
+.progress-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.progress-info-next {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cta-green);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.progress-info-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.progress-info-xp {
+  font-size: 12px;
+  color: var(--text-on-dark-sub);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress-info-xp-value {
+  color: var(--progress-gold);
+  font-weight: 600;
+}
+
+/* ── Leaderboard ── */
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-on-dark-sub);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 56px;
+  padding: 0 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+}
+
+.lb-row-you {
+  background: var(--cta-green-dim);
+  border-color: var(--cta-green-glow);
+}
+
+.lb-rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.lb-rank-medal {
+  background: var(--progress-gold-dim);
+  color: var(--progress-gold);
+}
+
+.lb-rank-default {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-on-dark-sub);
+}
+
+.lb-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-on-dark);
+}
+
+.lb-name-you {
+  font-weight: 600;
+  color: var(--cta-green);
+}
+
+.lb-xp {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-on-dark-sub);
+  margin-right: 8px;
+}
+
+.lb-trend {
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.lb-trend-up {
+  color: var(--alert-green);
+}
+
+.lb-trend-down {
+  color: var(--accent-red);
+}
+
+.lb-trend-same {
+  color: var(--text-on-dark-sub);
+}
+
+/* ── Team Buzz ── */
+.team-buzz {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.team-buzz-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-on-dark-sub);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.buzz-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.buzz-item:last-child {
+  border-bottom: none;
+}
+
+.buzz-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--cta-green-dim);
+  border: 1px solid var(--cta-green-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cta-green);
+  flex-shrink: 0;
+}
+
+.buzz-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.buzz-text {
+  font-size: 13px;
+  color: var(--text-on-dark);
+  line-height: 1.3;
+}
+
+.buzz-text strong {
+  font-weight: 600;
+}
+
+.buzz-time {
+  font-size: 11px;
+  color: var(--text-on-dark-sub);
+  margin-top: 2px;
+}
+
+.buzz-empty {
+  font-size: 13px;
+  color: var(--text-on-dark-sub);
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+}

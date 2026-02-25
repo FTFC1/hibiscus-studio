@@ -1,0 +1,52 @@
+[
+  {
+    "name": "01-login",
+    "label": "Login",
+    "file": "01-login.png"
+  },
+  {
+    "name": "02-home-staff",
+    "label": "Home (Staff)",
+    "file": "02-home-staff.png"
+  },
+  {
+    "name": "03-home-manager",
+    "label": "Home (Manager)",
+    "file": "03-home-manager.png"
+  },
+  {
+    "name": "04-lesson-slide1",
+    "label": "Lesson — Slide 1",
+    "file": "04-lesson-slide1.png"
+  },
+  {
+    "name": "05-lesson-practice",
+    "label": "Lesson — Practice Slide",
+    "file": "05-lesson-practice.png"
+  },
+  {
+    "name": "06-quiz-question",
+    "label": "Quiz — Question",
+    "file": "06-quiz-question.png"
+  },
+  {
+    "name": "07-result",
+    "label": "Result",
+    "file": "07-result.png"
+  },
+  {
+    "name": "08-games",
+    "label": "Games",
+    "file": "08-games.png"
+  },
+  {
+    "name": "09-game-open",
+    "label": "Game — Open",
+    "file": "09-game-open.png"
+  },
+  {
+    "name": "10-practice",
+    "label": "Practice",
+    "file": "10-practice.png"
+  }
+]

@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUMA Training — Screen Review</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+/* ── Reviewer Shell ───────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #080808;
+  --surface: #111111;
+  --elevated: #161616;
+  --stroke: rgba(255,255,255,0.08);
+  --text: #FFFFFF;
+  --sub: #8E9BA0;
+  --dim: #4A5358;
+  --green: #4CA858;
+  --green-dim: rgba(76,168,88,0.15);
+  --brand: #3A7D44;
+  --gold: #E8B931;
+  --gold-dim: rgba(232,185,49,0.15);
+  --red: #FF6464;
+  --red-dim: rgba(255,100,100,0.15);
+  --blue: #4A89D8;
+  --blue-dim: rgba(74,137,216,0.15);
+  --r-lg: 28px; --r-md: 16px; --r-sm: 8px; --r-pill: 100px;
+}
+body {
+  background: #05050A;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ── Page Header ─────────────────────────── */
+.review-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--stroke);
+  padding: 20px 32px;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 20px;
+}
+.review-logo {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--green); text-transform: uppercase;
+}
+.review-title { font-size: 18px; font-weight: 700; }
+.review-sub { font-size: 13px; color: var(--sub); margin-left: auto; }
+.btn-export {
+  background: var(--elevated); border: 1px solid var(--stroke);
+  color: var(--text); padding: 8px 14px; border-radius: var(--r-sm);
+  font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px;
+}
+.btn-export:hover { border-color: var(--green); }
+
+/* ── Nav Pills ───────────────────────────── */
+.section-nav {
+  padding: 16px 32px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--stroke);
+  background: var(--surface);
+  position: sticky; top: 69px; z-index: 99;
+}
+.nav-pill {
+  padding: 6px 14px; border-radius: var(--r-pill);
+  background: var(--elevated); border: 1px solid var(--stroke);
+  font-size: 12px; color: var(--sub); cursor: pointer;
+  transition: all 0.15s;
+}
+.nav-pill:hover { color: var(--text); border-color: var(--green); }
+.nav-pill.status-approved { border-color: var(--green); color: var(--green); }
+.nav-pill.status-needs-work { border-color: var(--red); color: var(--red); }
+
+/* ── Role Divider ────────────────────────── */
+.role-divider {
+  padding: 32px 32px 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--sub);
+  display: flex; align-items: center; gap: 12px;
+}
+.role-divider::after { content: ''; flex: 1; height: 1px; background: var(--stroke); }
+
+/* ── Screen Row ──────────────────────────── */
+.screen-row {
+  display: flex; gap: 32px; padding: 24px 32px 40px;
+  border-bottom: 1px solid var(--stroke);
+  scroll-margin-top: 140px;
+}
+.screen-label-col { width: 100px; flex-shrink: 0; padding-top: 8px; }
+.screen-id {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--dim); text-transform: uppercase; margin-bottom: 4px;
+}
+.screen-name { font-size: 13px; font-weight: 600; color: var(--sub); }
+
+/* ── Phone Frame ─────────────────────────── */
+.phone-wrap {
+  flex-shrink: 0; position: relative;
+}
+.phone-frame {
+  width: 390px;
+  background: var(--bg);
+  border-radius: 44px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  position: relative;
+}
+.phone-notch {
+  width: 120px; height: 34px;
+  background: #000;
+  border-radius: 0 0 22px 22px;
+  margin: 0 auto;
+  position: relative; z-index: 10;
+}
+.phone-status {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 24px 0;
+  font-size: 12px; font-weight: 600; color: var(--text);
+  margin-top: -34px; position: relative; z-index: 9;
+}
+.phone-status-right { display: flex; gap: 6px; align-items: center; }
+.phone-content {
+  overflow-y: auto;
+  max-height: 720px;
+  scrollbar-width: none;
+  padding-bottom: 80px;
+}
+.phone-content::-webkit-scrollbar { display: none; }
+.phone-bottom-safe { height: 20px; }
+
+/* ── App Components (replica) ────────────── */
+.app-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 20px;
+  background: rgba(8,8,8,0.9);
+  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 10;
+}
+.app-header-title { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; }
+.app-header-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--brand); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.app-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+
+/* Mission card */
+.mission-card {
+  background: var(--brand);
+  border-radius: var(--r-md);
+  padding: 16px;
+}
+.mission-label { font-size: 11px; font-weight: 600; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.mission-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.mission-desc { font-size: 13px; opacity: 0.75; margin-bottom: 12px; }
+.mission-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.mission-pill {
+  background: rgba(255,255,255,0.15);
+  padding: 4px 10px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 4px;
+}
+.mission-cta {
+  background: #fff; color: var(--brand);
+  padding: 10px 20px; border-radius: var(--r-pill);
+  font-size: 13px; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+
+/* Team pulse */
+.team-pulse {
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+}
+.pulse-text { font-size: 12px; color: var(--sub); }
+.pulse-text b { color: var(--text); }
+
+/* Progress track */
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sub); }
+.progress-track {
+  display: flex; gap: 4px; align-items: center;
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px 14px; gap: 12px;
+}
+.progress-blocks { display: flex; gap: 3px; flex: 1; }
+.prog-block {
+  flex: 1; height: 6px; border-radius: 3px;
+  background: var(--stroke);
+}
+.prog-block.done { background: var(--green); }
+.prog-block.current { background: var(--gold); }
+.prog-label { font-size: 12px; color: var(--sub); white-space: nowrap; }
+
+/* Manager home cards */
+.section-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; color: var(--sub);
+}
+.dot-red { width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+.dot-green { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.store-strip {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px 14px;
+}
+.store-name { font-size: 14px; font-weight: 700; }
+.store-cert { display: flex; align-items: center; gap: 8px; }
+.cert-bar-wrap { width: 60px; height: 4px; background: var(--stroke); border-radius: 2px; }
+.cert-bar { height: 100%; border-radius: 2px; background: var(--green); }
+.cert-pct { font-size: 12px; color: var(--green); font-weight: 700; }
+
+.staff-card {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.staff-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+  color: #fff;
+}
+.av-red { background: rgba(255,100,100,0.2); color: var(--red); }
+.av-green { background: rgba(76,168,88,0.2); color: var(--green); }
+.av-blue { background: rgba(74,137,216,0.2); color: var(--blue); }
+.staff-info { flex: 1; }
+.staff-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.staff-sub { font-size: 12px; color: var(--sub); }
+.staff-chevron { color: var(--dim); font-size: 18px; }
+
+/* Practice tasks */
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--stroke);
+}
+.task-item:last-child { border-bottom: none; }
+.checkbox {
+  width: 20px; height: 20px; border-radius: 6px;
+  border: 1.5px solid var(--stroke); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.checkbox.done { background: var(--green); border-color: var(--green); color: #fff; font-size: 12px; }
+.task-text { font-size: 14px; line-height: 1.4; }
+.task-text.done { text-decoration: line-through; color: var(--dim); }
+
+.progress-row {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.prog-header { display: flex; justify-content: space-between; align-items: center; }
+.prog-count { font-size: 13px; color: var(--sub); }
+.prog-pct { font-size: 14px; font-weight: 700; color: var(--green); }
+.prog-bar { height: 4px; background: var(--stroke); border-radius: 2px; }
+.prog-fill { height: 100%; border-radius: 2px; background: var(--green); }
+
+/* Game cards */
+.game-card {
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: var(--r-md);
+  overflow: hidden; cursor: pointer;
+}
+.game-card-img { position: relative; width: 100%; height: 120px; overflow: hidden; }
+.game-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.game-card-img-placeholder {
+  width: 100%; height: 120px;
+  background: linear-gradient(135deg, #1a2a1a 0%, #0D1F0D 50%, #0A150A 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; opacity: 0.4;
+}
+.game-card-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+}
+.game-card-content {
+  display: flex; align-items: center; gap: 14px; padding: 14px;
+}
+.game-card-icon-wrap {
+  width: 40px; height: 40px; border-radius: var(--r-sm);
+  background: var(--green-dim); color: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.game-card-icon-wrap.locked { background: rgba(255,255,255,0.04); color: var(--dim); }
+.game-card-body { flex: 1; }
+.game-card-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.game-card-desc { font-size: 12px; color: var(--sub); }
+.game-card-best { font-size: 11px; color: var(--gold); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.game-card-play {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.game-card-soon {
+  font-size: 11px; font-weight: 700; color: var(--dim);
+  background: var(--elevated); padding: 4px 10px;
+  border-radius: var(--r-pill); flex-shrink: 0;
+}
+.game-mission-card {
+  background: rgba(58,125,68,0.12); border: 1px solid rgba(58,125,68,0.25);
+  border-radius: var(--r-md); padding: 12px 14px;
+}
+.game-mission-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); margin-bottom: 2px; }
+.game-mission-name { font-size: 14px; font-weight: 700; }
+.game-mission-desc { font-size: 12px; color: var(--sub); margin-top: 2px; }
+
+/* Approach game play state */
+.game-play-header {
+  display: flex; align-items: center; gap: 12px; padding: 14px 20px;
+  border-bottom: 1px solid var(--stroke);
+}
+.game-back { font-size: 14px; color: var(--sub); cursor: pointer; }
+.game-progress-pill {
+  background: var(--elevated); border-radius: var(--r-pill);
+  padding: 4px 12px; font-size: 12px; font-weight: 700; margin-left: auto;
+}
+.game-scenario-body { padding: 20px; }
+.scenario-type-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--blue-dim); color: var(--blue);
+  padding: 6px 12px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 16px;
+}
+.scenario-customer-quote {
+  background: var(--elevated); border-radius: var(--r-md);
+  padding: 16px; margin-bottom: 16px;
+}
+.scenario-quote-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sub); margin-bottom: 6px; }
+.scenario-quote-text { font-size: 14px; font-style: italic; line-height: 1.5; }
+.scenario-options { display: flex; flex-direction: column; gap: 10px; }
+.scenario-option {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px 14px;
+  font-size: 13px; line-height: 1.4; cursor: pointer;
+}
+.scenario-option.correct { border-color: var(--green); background: var(--green-dim); }
+.scenario-option.wrong { border-color: var(--red); background: var(--red-dim); }
+
+/* Profile */
+.profile-user-card {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.profile-avatar-lg {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--brand); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700;
+}
+.profile-name { font-size: 18px; font-weight: 700; }
+.profile-store { font-size: 13px; color: var(--sub); }
+.profile-role-pill {
+  background: var(--elevated); border: 1px solid var(--stroke);
+  padding: 4px 14px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 600; margin-top: 4px;
+}
+.cert-card {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 16px;
+}
+.cert-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sub); margin-bottom: 4px; }
+.cert-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+.stats-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.stat-card {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px;
+  text-align: center;
+}
+.stat-value { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+.stat-label { font-size: 11px; color: var(--sub); }
+.badges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.badge-card {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.badge-icon { font-size: 24px; }
+.badge-label { font-size: 10px; color: var(--sub); text-align: center; line-height: 1.2; }
+.badge-card.earned { border-color: var(--gold); }
+.badge-card.earned .badge-icon { color: var(--gold); }
+.role-switcher { display: flex; gap: 8px; }
+.role-btn {
+  flex: 1; padding: 10px; border-radius: var(--r-md);
+  background: var(--elevated); border: 1px solid var(--stroke);
+  font-size: 13px; font-weight: 600; color: var(--sub); text-align: center;
+}
+.role-btn.active { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+
+/* StaffDetail */
+.staff-detail-profile {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+}
+.staff-detail-info { }
+.staff-detail-name { font-size: 18px; font-weight: 700; }
+.staff-detail-role { font-size: 13px; color: var(--sub); }
+.cert-progress-section { padding: 0 20px 16px; }
+.cert-prog-bar { height: 6px; background: var(--stroke); border-radius: 3px; margin-bottom: 8px; }
+.cert-prog-fill { height: 100%; border-radius: 3px; }
+.cert-prog-row { display: flex; justify-content: space-between; align-items: center; }
+.cert-prog-label { font-size: 12px; color: var(--sub); }
+.cert-prog-pct { font-size: 13px; font-weight: 700; }
+.stats-row { display: flex; padding: 0 20px 16px; gap: 8px; }
+.stat-item { flex: 1; background: var(--surface); border: 1px solid var(--stroke); border-radius: var(--r-sm); padding: 10px; }
+.stat-item-val { font-size: 16px; font-weight: 700; }
+.stat-item-lbl { font-size: 10px; color: var(--sub); }
+.mission-list-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px; border-bottom: 1px solid var(--stroke);
+}
+.mission-list-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.mi-done { background: var(--green-dim); color: var(--green); }
+.mi-overdue { background: var(--red-dim); color: var(--red); }
+.mi-locked { background: rgba(255,255,255,0.04); color: var(--dim); }
+.mission-list-body { flex: 1; }
+.mission-list-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
+.mission-list-title { font-size: 13px; font-weight: 600; }
+
+/* Bottom Nav */
+.app-bottomnav {
+  position: sticky; bottom: 0;
+  display: flex; background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--stroke);
+  padding: 8px 0 4px;
+}
+.bnav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px; padding: 4px 0;
+  cursor: pointer;
+}
+.bnav-item i { font-size: 22px; color: var(--dim); }
+.bnav-item span { font-size: 10px; color: var(--dim); }
+.bnav-item.active i, .bnav-item.active span { color: var(--green); }
+
+/* ── Annotation Panel ────────────────────── */
+.annotation-panel {
+  width: 360px; flex-shrink: 0;
+  display: flex; flex-direction: column; gap: 12px;
+  padding-top: 8px;
+}
+.ann-status-row { display: flex; align-items: center; gap: 10px; }
+.ann-status-badge {
+  padding: 6px 16px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 700;
+  cursor: pointer; border: 1.5px solid;
+  transition: all 0.15s; user-select: none;
+}
+.status-review { color: var(--gold); border-color: var(--gold); background: var(--gold-dim); }
+.status-approved { color: var(--green); border-color: var(--green); background: var(--green-dim); }
+.status-needs-work { color: var(--red); border-color: var(--red); background: var(--red-dim); }
+.ann-timestamp { font-size: 11px; color: var(--dim); margin-left: auto; }
+
+.ann-section-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--dim); margin-bottom: 6px;
+}
+.ann-textarea {
+  width: 100%; background: var(--surface);
+  border: 1px solid var(--stroke); border-radius: var(--r-md);
+  color: var(--text); font-family: inherit; font-size: 13px;
+  line-height: 1.5; padding: 12px; resize: vertical;
+  min-height: 80px; outline: none;
+  transition: border-color 0.15s;
+}
+.ann-textarea:focus { border-color: var(--green); }
+.ann-textarea::placeholder { color: var(--dim); }
+.ann-voice-area {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 12px;
+}
+.ann-voice-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.ann-voice-icon { color: var(--sub); font-size: 16px; }
+.ann-voice-label { font-size: 12px; color: var(--sub); }
+.ann-voice-hint { font-size: 11px; color: var(--dim); }
+
+/* ── Footer ──────────────────────────────── */
+.review-footer {
+  max-width: 1200px; margin: 40px auto 0; padding: 0 32px;
+  display: flex; gap: 12px; align-items: center;
+}
+.btn-clear {
+  background: var(--red-dim); border: 1px solid var(--red);
+  color: var(--red); padding: 8px 16px; border-radius: var(--r-sm);
+  font-size: 12px; cursor: pointer;
+}
+.footer-note { font-size: 11px; color: var(--dim); margin-left: auto; }
+
+/* ── Mobile Responsive ───────────────────── */
+@media (max-width: 860px) {
+  .review-header { padding: 14px 16px; gap: 10px; }
+  .review-title { font-size: 14px; }
+  .review-sub { display: none; }
+  .section-nav { padding: 10px 16px; top: 57px; }
+  .role-divider { padding: 20px 16px 6px; }
+  .screen-row { flex-direction: column; padding: 16px; gap: 16px; }
+  .screen-label-col { width: auto; padding: 0; display: flex; gap: 10px; align-items: baseline; }
+  .screen-id { font-size: 11px; }
+  .screen-name { font-size: 14px; color: var(--text); }
+  .phone-wrap { align-self: center; }
+  .phone-frame { width: min(390px, calc(100vw - 32px)); }
+  .annotation-panel { width: 100%; }
+  .review-footer { padding: 0 16px; flex-wrap: wrap; }
+}
+@media (max-width: 440px) {
+  .phone-frame { width: calc(100vw - 32px); }
+  .phone-content { max-height: 60vh; }
+}
+
+/* ── QR Modal ────────────────────────────── */
+.qr-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  display: none; align-items: center; justify-content: center; z-index: 999;
+}
+.qr-modal-overlay.visible { display: flex; }
+.qr-modal {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-lg); padding: 28px 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  max-width: 300px; text-align: center;
+}
+.qr-modal h3 { font-size: 15px; font-weight: 700; }
+.qr-modal p { font-size: 12px; color: var(--sub); line-height: 1.5; }
+.qr-modal img { border-radius: 12px; background: #fff; padding: 8px; }
+.qr-url {
+  font-size: 11px; color: var(--dim); word-break: break-all;
+  background: var(--elevated); padding: 8px 12px; border-radius: var(--r-sm);
+  width: 100%;
+}
+
+/* ── Mic button ──────────────────────────── */
+.mic-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--sub); font-size: 18px; padding: 2px;
+  display: flex; align-items: center; transition: color 0.15s;
+  margin-left: auto;
+}
+.mic-btn:hover { color: var(--text); }
+.mic-btn.recording { color: var(--red) !important; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ── Export Modal ────────────────────────── */
+.export-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+  display: none; align-items: center; justify-content: center;
+  z-index: 999;
+}
+.export-overlay.visible { display: flex; }
+.export-modal {
+  background: var(--surface); border: 1px solid var(--stroke);
+  border-radius: var(--r-lg); padding: 24px;
+  width: 600px; max-height: 80vh; overflow-y: auto;
+}
+.export-modal h2 { font-size: 16px; margin-bottom: 16px; }
+.export-pre {
+  background: var(--bg); border: 1px solid var(--stroke);
+  border-radius: var(--r-md); padding: 16px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px;
+  white-space: pre-wrap; max-height: 50vh; overflow-y: auto;
+  color: var(--sub);
+}
+.export-actions { display: flex; gap: 8px; margin-top: 16px; }
+.btn-copy {
+  background: var(--green-dim); border: 1px solid var(--green);
+  color: var(--green); padding: 8px 16px; border-radius: var(--r-sm);
+  font-size: 12px; cursor: pointer;
+}
+.btn-close-modal {
+  background: var(--elevated); border: 1px solid var(--stroke);
+  color: var(--sub); padding: 8px 16px; border-radius: var(--r-sm);
+  font-size: 12px; cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="review-header">
+  <div class="review-logo">Aloe Labs</div>
+  <div class="review-title">PUMA Training — Screen Review</div>
+  <div class="review-sub" id="review-date">Feb 19, 2026</div>
+  <button class="btn-export" onclick="showQR()" style="margin-left:0"><i class="ri-qr-code-line"></i> Open on Phone</button>
+  <button class="btn-export" onclick="showExport()"><i class="ri-share-line"></i> Export Notes</button>
+</div>
+
+<!-- Nav Pills -->
+<div class="section-nav" id="section-nav">
+  <div class="nav-pill" onclick="goToScreen('s1')" data-nav="s1">S1 Staff Home</div>
+  <div class="nav-pill" onclick="goToScreen('s2')" data-nav="s2">S2 Staff Practice</div>
+  <div class="nav-pill" onclick="goToScreen('s3')" data-nav="s3">S3 Games List</div>
+  <div class="nav-pill" onclick="goToScreen('s4')" data-nav="s4">S4 Approach Game</div>
+  <div class="nav-pill" onclick="goToScreen('s5')" data-nav="s5">S5 Basket Game</div>
+  <div class="nav-pill" onclick="goToScreen('s6')" data-nav="s6">S6 Profile</div>
+  <div class="nav-pill" onclick="goToScreen('m1')" data-nav="m1">M1 Manager Home</div>
+  <div class="nav-pill" onclick="goToScreen('m2')" data-nav="m2">M2 Manager Practice</div>
+  <div class="nav-pill" onclick="goToScreen('m3')" data-nav="m3">M3 Manager Games</div>
+  <div class="nav-pill" onclick="goToScreen('m4')" data-nav="m4">M4 Staff Detail</div>
+  <div class="nav-pill" onclick="goToScreen('x1')" data-nav="x1">X1 Demo Guide</div>
+</div>
+
+<!-- ── STAFF SCREENS ─────────────────────── -->
+<div class="role-divider">Staff Role</div>
+
+<!-- S1: Staff Home -->
+<div class="screen-row" id="s1">
+  <div class="screen-label-col">
+    <div class="screen-id">S1</div>
+    <div class="screen-name">Staff Home</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">PUMA | Training</div><div class="app-header-avatar">TD</div></div>
+      <div class="phone-content">
+        <div class="app-body">
+          <div class="mission-card">
+            <div class="mission-label">Module 1 · Mission 3</div>
+            <div class="mission-title">The Add-On Play</div>
+            <div class="mission-desc">Complete the basket with the right accessories.</div>
+            <div class="mission-pills">
+              <div class="mission-pill"><i class="ri-fire-line"></i> 2 done</div>
+              <div class="mission-pill"><i class="ri-map-pin-line"></i> 3 of 6 missions</div>
+            </div>
+            <div class="mission-cta"><i class="ri-play-fill"></i> START SESSION</div>
+          </div>
+          <div class="team-pulse">
+            <div class="pulse-dot"></div>
+            <div class="pulse-text"><b>Bola</b> completed The 5-30-60 Rule · 2m ago</div>
+          </div>
+          <div class="section-label">Your Progress</div>
+          <div class="progress-track">
+            <div class="progress-blocks">
+              <div class="prog-block done"></div>
+              <div class="prog-block done"></div>
+              <div class="prog-block current"></div>
+              <div class="prog-block"></div>
+              <div class="prog-block"></div>
+              <div class="prog-block"></div>
+            </div>
+            <div class="prog-label">2/6 complete</div>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottomnav">
+        <div class="bnav-item active"><i class="ri-home-5-fill"></i><span>Home</span></div>
+        <div class="bnav-item"><i class="ri-chat-check-line"></i><span>Practice</span></div>
+        <div class="bnav-item"><i class="ri-gamepad-line"></i><span>Games</span></div>
+        <div class="bnav-item"><i class="ri-user-line"></i><span>Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="s1">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'s1')">Review</div>
+      <div class="ann-timestamp" id="ts-s1"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="What do you see? What feels off? What's working?" oninput="saveComment('s1',this.value)" id="comment-s1"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header">
+        <i class="ri-mic-line ann-voice-icon"></i>
+        <span class="ann-voice-label">Voice Note</span>
+        <button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button>
+      </div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('s1',this.value)" id="voice-s1"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- S2: Staff Practice -->
+<div class="screen-row" id="s2">
+  <div class="screen-label-col">
+    <div class="screen-id">S2</div>
+    <div class="screen-name">Staff Practice</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">Practice</div><div class="app-header-avatar">TD</div></div>
+      <div class="phone-content">
+        <div class="app-body">
+          <div class="game-mission-card">
+            <div class="game-mission-label">Mission 3 of 6</div>
+            <div class="game-mission-name">The Add-On Play</div>
+            <div class="game-mission-desc">Complete the basket with the right accessories.</div>
+          </div>
+          <div class="section-label">Today's Tasks</div>
+          <div style="background:var(--surface);border:1px solid var(--stroke);border-radius:var(--r-md);padding:4px 14px">
+            <div class="task-item"><div class="checkbox done"><i class="ri-check-line"></i></div><div class="task-text done">Greet every customer within 30 seconds of entry</div></div>
+            <div class="task-item"><div class="checkbox done"><i class="ri-check-line"></i></div><div class="task-text done">Ask one open question about their activity type</div></div>
+            <div class="task-item"><div class="checkbox"></div><div class="task-text">Suggest one accessory for every footwear purchase</div></div>
+            <div class="task-item"><div class="checkbox"></div><div class="task-text">Log your best upsell of the day</div></div>
+          </div>
+          <div class="progress-row">
+            <div class="prog-header"><span class="prog-count">2 of 4 done</span><span class="prog-pct">50%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottomnav">
+        <div class="bnav-item"><i class="ri-home-5-line"></i><span>Home</span></div>
+        <div class="bnav-item active"><i class="ri-chat-check-fill"></i><span>Practice</span></div>
+        <div class="bnav-item"><i class="ri-gamepad-line"></i><span>Games</span></div>
+        <div class="bnav-item"><i class="ri-user-line"></i><span>Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="s2">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'s2')">Review</div>
+      <div class="ann-timestamp" id="ts-s2"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Task content, priority order, missing tasks?" oninput="saveComment('s2',this.value)" id="comment-s2"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('s2',this.value)" id="voice-s2"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- S3: Games List -->
+<div class="screen-row" id="s3">
+  <div class="screen-label-col">
+    <div class="screen-id">S3</div>
+    <div class="screen-name">Games List</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">Games</div><div class="app-header-avatar">TD</div></div>
+      <div class="phone-content">
+        <div class="app-body">
+          <div class="game-mission-card">
+            <div class="game-mission-label">Your Mission</div>
+            <div class="game-mission-name">Mission 3: The Add-On Play</div>
+            <div class="game-mission-desc">These games practise what you're learning this week.</div>
+          </div>
+          <div class="section-label">Games</div>
+          <!-- Approach Game Card -->
+          <div class="game-card">
+            <div class="game-card-img">
+              <img src="./images/game-approach.jpeg" alt="The Approach" onerror="this.parentElement.innerHTML='<div class=\'game-card-img-placeholder\'>👟</div>'">
+              <div class="game-card-img-overlay"></div>
+            </div>
+            <div class="game-card-content">
+              <div class="game-card-icon-wrap"><i class="ri-chat-voice-line"></i></div>
+              <div class="game-card-body">
+                <div class="game-card-title">The Approach</div>
+                <div class="game-card-desc">Customer walks in. What do you say?</div>
+                <div class="game-card-best"><i class="ri-trophy-line"></i> Best: 75%</div>
+              </div>
+              <div class="game-card-play"><i class="ri-play-fill"></i></div>
+            </div>
+          </div>
+          <!-- Basket Game Card -->
+          <div class="game-card">
+            <div class="game-card-img">
+              <img src="./images/game-basket.jpeg" alt="Build the Basket" onerror="this.parentElement.innerHTML='<div class=\'game-card-img-placeholder\'>🧺</div>'">
+              <div class="game-card-img-overlay"></div>
+            </div>
+            <div class="game-card-content">
+              <div class="game-card-icon-wrap"><i class="ri-shopping-basket-2-line"></i></div>
+              <div class="game-card-body">
+                <div class="game-card-title">Build the Basket</div>
+                <div class="game-card-desc">Add the right products to their basket.</div>
+              </div>
+              <div class="game-card-play"><i class="ri-play-fill"></i></div>
+            </div>
+          </div>
+          <!-- Price Defense (locked) -->
+          <div class="game-card" style="opacity:0.5">
+            <div class="game-card-content" style="padding:16px 14px">
+              <div class="game-card-icon-wrap locked"><i class="ri-price-tag-3-line"></i></div>
+              <div class="game-card-body">
+                <div class="game-card-title">Price Defense</div>
+                <div class="game-card-desc">Hold margin against price objections.</div>
+              </div>
+              <div class="game-card-soon">Soon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottomnav">
+        <div class="bnav-item"><i class="ri-home-5-line"></i><span>Home</span></div>
+        <div class="bnav-item"><i class="ri-chat-check-line"></i><span>Practice</span></div>
+        <div class="bnav-item active"><i class="ri-gamepad-fill"></i><span>Games</span></div>
+        <div class="bnav-item"><i class="ri-user-line"></i><span>Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="s3">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'s3')">Review</div>
+      <div class="ann-timestamp" id="ts-s3"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Card layout, image quality, hierarchy, locked state treatment?" oninput="saveComment('s3',this.value)" id="comment-s3"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('s3',this.value)" id="voice-s3"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- S4: Approach Game — Playing -->
+<div class="screen-row" id="s4">
+  <div class="screen-label-col">
+    <div class="screen-id">S4</div>
+    <div class="screen-name">Approach Game — Playing</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">The Approach</div><div class="app-header-avatar">TD</div></div>
+      <div class="phone-content">
+        <div class="game-play-header">
+          <span class="game-back"><i class="ri-arrow-left-s-line"></i> Back</span>
+          <div class="game-progress-pill">Round 3 / 8</div>
+        </div>
+        <div class="game-scenario-body">
+          <div class="scenario-type-badge"><i class="ri-user-heart-line"></i> Material-Curious</div>
+          <div class="scenario-customer-quote">
+            <div class="scenario-quote-label">Customer says</div>
+            <div class="scenario-quote-text">"Are these shoes actually waterproof or just water-resistant?"</div>
+          </div>
+          <div style="font-size:12px;color:var(--sub);margin-bottom:12px">What do you say?</div>
+          <div class="scenario-options">
+            <div class="scenario-option">They're water-resistant. Great for light rain.</div>
+            <div class="scenario-option correct">Good question — they're rated DWR, which means they repel light moisture. Let me show you the full care spec...</div>
+            <div class="scenario-option">I'll have to check the tag for you.</div>
+            <div class="scenario-option">They're one of our most popular styles.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="s4">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'s4')">Review</div>
+      <div class="ann-timestamp" id="ts-s4"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Question format, option length, correct answer styling, progress indicator?" oninput="saveComment('s4',this.value)" id="comment-s4"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('s4',this.value)" id="voice-s4"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- S5: Basket Game — Playing -->
+<div class="screen-row" id="s5">
+  <div class="screen-label-col">
+    <div class="screen-id">S5</div>
+    <div class="screen-name">Basket Game — Playing</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">Build the Basket</div><div class="app-header-avatar">TD</div></div>
+      <div class="phone-content">
+        <div class="game-play-header">
+          <span class="game-back"><i class="ri-arrow-left-s-line"></i> Back</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+            <div style="font-size:12px;color:var(--sub)">₦0</div>
+            <div class="game-progress-pill">Scenario 2 / 5</div>
+          </div>
+        </div>
+        <!-- Customer type header -->
+        <div style="padding:14px 20px;background:var(--blue-dim);border-bottom:1px solid rgba(74,137,216,0.2)">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:4px">Customer Type</div>
+          <div style="font-size:16px;font-weight:700">Gift Buyer</div>
+          <div style="font-size:12px;color:var(--sub);font-style:italic;margin-top:4px">"I need something for my husband — he runs marathons."</div>
+        </div>
+        <!-- Main product -->
+        <div style="padding:14px 20px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--sub);margin-bottom:8px">Main Product</div>
+          <div style="background:var(--surface);border:1px solid var(--stroke);border-radius:var(--r-md);padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:14px;font-weight:600">Velocity NITRO 3</div>
+              <div style="font-size:12px;color:var(--sub)">Men's Running Shoe</div>
+            </div>
+            <div style="font-size:14px;font-weight:700;color:var(--green)">₦95,000</div>
+          </div>
+        </div>
+        <!-- Addons -->
+        <div style="padding:0 20px">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--sub);margin-bottom:8px">Add the right extras</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="background:var(--surface);border:1px solid var(--stroke);border-radius:var(--r-md);padding:10px 14px;display:flex;align-items:center;gap:12px">
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--sub)"><i class="ri-run-line"></i></div>
+              <div style="flex:1"><div style="font-size:13px;font-weight:600">Running Socks (3-pack)</div><div style="font-size:12px;color:var(--sub)">₦8,500</div></div>
+              <div style="width:24px;height:24px;border-radius:6px;border:1.5px solid var(--stroke)"></div>
+            </div>
+            <div style="background:var(--green-dim);border:1px solid var(--green);border-radius:var(--r-md);padding:10px 14px;display:flex;align-items:center;gap:12px">
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(76,168,88,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--green)"><i class="ri-shopping-bag-3-line"></i></div>
+              <div style="flex:1"><div style="font-size:13px;font-weight:600">PUMA Gift Bag</div><div style="font-size:12px;color:var(--sub)">₦5,000</div></div>
+              <div style="width:24px;height:24px;border-radius:6px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px"><i class="ri-check-line"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="s5">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'s5')">Review</div>
+      <div class="ann-timestamp" id="ts-s5"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Customer type display, product layout, addon selection UX, pricing?" oninput="saveComment('s5',this.value)" id="comment-s5"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('s5',this.value)" id="voice-s5"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- S6: Profile (Staff) -->
+<div class="screen-row" id="s6">
+  <div class="screen-label-col">
+    <div class="screen-id">S6</div>
+    <div class="screen-name">Profile</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">Profile</div><div class="app-header-avatar">TD</div></div>
+      <div class="phone-content">
+        <div class="app-body">
+          <div class="profile-user-card">
+            <div class="profile-avatar-lg">TD</div>
+            <div class="profile-name">Tade Daniels</div>
+            <div class="profile-store">PUMA Lekki</div>
+            <div class="profile-role-pill">Sales Associate</div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-label">PUMA Certified</div>
+            <div class="cert-title">Customer Engagement Expert</div>
+            <div style="height:4px;background:var(--stroke);border-radius:2px;margin-bottom:8px"><div style="width:33%;height:100%;border-radius:2px;background:var(--green)"></div></div>
+            <div style="font-size:12px;color:var(--sub)">4 more missions to certify</div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-value">2/6</div><div class="stat-label">Missions</div></div>
+            <div class="stat-card"><div class="stat-value" style="color:var(--green)">75%</div><div class="stat-label">Accuracy</div></div>
+            <div class="stat-card"><div class="stat-value" style="color:var(--sub)">33%</div><div class="stat-label">Certified</div></div>
+          </div>
+          <div class="section-label">Badges</div>
+          <div class="badges-grid">
+            <div class="badge-card earned"><div class="badge-icon">🥇</div><div class="badge-label">First Mission</div></div>
+            <div class="badge-card earned"><div class="badge-icon">⚡</div><div class="badge-label">Quick Learner</div></div>
+            <div class="badge-card"><div class="badge-icon" style="opacity:0.3">🎯</div><div class="badge-label" style="color:var(--dim)">Quiz Master</div></div>
+            <div class="badge-card"><div class="badge-icon" style="opacity:0.3">🏆</div><div class="badge-label" style="color:var(--dim)">Top Seller</div></div>
+            <div class="badge-card"><div class="badge-icon" style="opacity:0.3">📅</div><div class="badge-label" style="color:var(--dim)">Perfect Week</div></div>
+            <div class="badge-card"><div class="badge-icon" style="opacity:0.3">🔥</div><div class="badge-label" style="color:var(--dim)">7-Day Streak</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottomnav">
+        <div class="bnav-item"><i class="ri-home-5-line"></i><span>Home</span></div>
+        <div class="bnav-item"><i class="ri-chat-check-line"></i><span>Practice</span></div>
+        <div class="bnav-item"><i class="ri-gamepad-line"></i><span>Games</span></div>
+        <div class="bnav-item active"><i class="ri-user-fill"></i><span>Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="s6">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'s6')">Review</div>
+      <div class="ann-timestamp" id="ts-s6"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Avatar, badge states, cert progress, stats hierarchy?" oninput="saveComment('s6',this.value)" id="comment-s6"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('s6',this.value)" id="voice-s6"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── MANAGER SCREENS ────────────────────── -->
+<div class="role-divider">Manager Role</div>
+
+<!-- M1: Manager Home -->
+<div class="screen-row" id="m1">
+  <div class="screen-label-col">
+    <div class="screen-id">M1</div>
+    <div class="screen-name">Manager Home</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">PUMA | Training</div><div class="app-header-avatar">AM</div></div>
+      <div class="phone-content">
+        <div class="app-body">
+          <div class="store-strip">
+            <div class="store-name">Puma Lekki</div>
+            <div class="store-cert">
+              <div class="cert-bar-wrap"><div class="cert-bar" style="width:40%"></div></div>
+              <div class="cert-pct">40%</div>
+            </div>
+          </div>
+          <div class="section-head"><div class="dot-red"></div> Needs Attention</div>
+          <div class="staff-card">
+            <div class="staff-avatar av-red">JA</div>
+            <div class="staff-info"><div class="staff-name">James Adewale</div><div class="staff-sub" style="color:var(--red)">1/6 missions · Inactive 4 days</div></div>
+            <i class="ri-arrow-right-s-line staff-chevron"></i>
+          </div>
+          <div class="staff-card">
+            <div class="staff-avatar av-red">KO</div>
+            <div class="staff-info"><div class="staff-name">Kemi Okonkwo</div><div class="staff-sub" style="color:var(--red)">0/6 missions · Inactive 7 days</div></div>
+            <i class="ri-arrow-right-s-line staff-chevron"></i>
+          </div>
+          <div class="section-head"><div class="dot-green"></div> On Track</div>
+          <div class="staff-card">
+            <div class="staff-avatar av-green">TD</div>
+            <div class="staff-info"><div class="staff-name">Tade Daniels</div><div class="staff-sub">2/6 missions · Active today</div></div>
+            <i class="ri-arrow-right-s-line staff-chevron"></i>
+          </div>
+          <div class="staff-card">
+            <div class="staff-avatar av-green">BO</div>
+            <div class="staff-info"><div class="staff-name">Bola Osei</div><div class="staff-sub">3/6 missions · Active today</div></div>
+            <i class="ri-arrow-right-s-line staff-chevron"></i>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottomnav">
+        <div class="bnav-item active"><i class="ri-home-5-fill"></i><span>Home</span></div>
+        <div class="bnav-item"><i class="ri-chat-check-line"></i><span>Practice</span></div>
+        <div class="bnav-item"><i class="ri-gamepad-line"></i><span>Games</span></div>
+        <div class="bnav-item"><i class="ri-user-line"></i><span>Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="m1">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'m1')">Review</div>
+      <div class="ann-timestamp" id="ts-m1"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Alert priority, staff card info density, store strip, coaching triggers?" oninput="saveComment('m1',this.value)" id="comment-m1"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('m1',this.value)" id="voice-m1"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- M2: Manager Practice -->
+<div class="screen-row" id="m2">
+  <div class="screen-label-col">
+    <div class="screen-id">M2</div>
+    <div class="screen-name">Manager Practice</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">Practice</div><div class="app-header-avatar">AM</div></div>
+      <div class="phone-content">
+        <div class="app-body">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:16px;font-weight:700">Team Practice Today</div>
+            <div style="font-size:13px;color:var(--green);font-weight:700">6 / 16 tasks done</div>
+          </div>
+          <!-- Staff cards with progress -->
+          <div class="staff-card" style="flex-direction:column;align-items:stretch;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="staff-avatar av-green">BO</div>
+              <div class="staff-info"><div class="staff-name">Bola Osei</div><div class="staff-sub">Mission 3 · The Add-On Play</div></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--green)"></div>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+            <div style="font-size:11px;color:var(--green)">All tasks done</div>
+          </div>
+          <div class="staff-card" style="flex-direction:column;align-items:stretch;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="staff-avatar av-blue">TD</div>
+              <div class="staff-info"><div class="staff-name">Tade Daniels</div><div class="staff-sub">Mission 3 · The Add-On Play</div></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--blue)"></div>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:50%;background:var(--blue)"></div></div>
+            <div style="font-size:11px;color:var(--sub)">2/4 tasks done</div>
+          </div>
+          <div class="staff-card" style="flex-direction:column;align-items:stretch;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="staff-avatar av-red">JA</div>
+              <div class="staff-info"><div class="staff-name">James Adewale</div><div class="staff-sub" style="color:var(--red)">Mission 1 · Behind</div></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--red)"></div>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:0%;background:var(--red)"></div></div>
+            <div style="font-size:11px;color:var(--red)">No tasks done today</div>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottomnav">
+        <div class="bnav-item"><i class="ri-home-5-line"></i><span>Home</span></div>
+        <div class="bnav-item active"><i class="ri-chat-check-fill"></i><span>Practice</span></div>
+        <div class="bnav-item"><i class="ri-gamepad-line"></i><span>Games</span></div>
+        <div class="bnav-item"><i class="ri-user-line"></i><span>Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="m2">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'m2')">Review</div>
+      <div class="ann-timestamp" id="ts-m2"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Team header, card sorting (behind first?), progress bar colors, clickability?" oninput="saveComment('m2',this.value)" id="comment-m2"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('m2',this.value)" id="voice-m2"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- M3: Manager Games -->
+<div class="screen-row" id="m3">
+  <div class="screen-label-col">
+    <div class="screen-id">M3</div>
+    <div class="screen-name">Manager Games</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="app-header"><div class="app-header-title">Games</div><div class="app-header-avatar">AM</div></div>
+      <div class="phone-content">
+        <div class="app-body">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:16px;font-weight:700">Team Games</div>
+            <div style="font-size:12px;color:var(--sub)">4 staff · Practice through play</div>
+          </div>
+          <!-- Leaderboard style -->
+          <div class="section-label">The Approach</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div class="staff-card">
+              <div style="font-size:14px;font-weight:700;color:var(--gold);width:20px">1</div>
+              <div class="staff-avatar av-green">BO</div>
+              <div class="staff-info"><div class="staff-name">Bola Osei</div></div>
+              <div style="font-size:14px;font-weight:700;color:var(--green)">88%</div>
+            </div>
+            <div class="staff-card">
+              <div style="font-size:14px;font-weight:700;color:var(--sub);width:20px">2</div>
+              <div class="staff-avatar av-blue">TD</div>
+              <div class="staff-info"><div class="staff-name">Tade Daniels</div></div>
+              <div style="font-size:14px;font-weight:700;color:var(--sub)">75%</div>
+            </div>
+            <div class="staff-card">
+              <div style="font-size:14px;font-weight:700;color:var(--dim);width:20px">—</div>
+              <div class="staff-avatar av-red">JA</div>
+              <div class="staff-info"><div class="staff-name">James Adewale</div><div class="staff-sub" style="color:var(--red)">Not played</div></div>
+              <div style="font-size:12px;color:var(--dim)">—</div>
+            </div>
+          </div>
+          <div class="section-label">Build the Basket</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div class="staff-card">
+              <div style="font-size:14px;font-weight:700;color:var(--gold);width:20px">1</div>
+              <div class="staff-avatar av-green">TD</div>
+              <div class="staff-info"><div class="staff-name">Tade Daniels</div></div>
+              <div style="font-size:14px;font-weight:700;color:var(--green)">92%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottomnav">
+        <div class="bnav-item"><i class="ri-home-5-line"></i><span>Home</span></div>
+        <div class="bnav-item"><i class="ri-chat-check-line"></i><span>Practice</span></div>
+        <div class="bnav-item active"><i class="ri-gamepad-fill"></i><span>Games</span></div>
+        <div class="bnav-item"><i class="ri-user-line"></i><span>Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="m3">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'m3')">Review</div>
+      <div class="ann-timestamp" id="ts-m3"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Leaderboard design, 'not played' state, game section separation?" oninput="saveComment('m3',this.value)" id="comment-m3"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('m3',this.value)" id="voice-m3"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- M4: Staff Detail -->
+<div class="screen-row" id="m4">
+  <div class="screen-label-col">
+    <div class="screen-id">M4</div>
+    <div class="screen-name">Staff Detail</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--stroke)">
+        <span style="font-size:14px;color:var(--sub);cursor:pointer"><i class="ri-arrow-left-s-line"></i> Back</span>
+      </div>
+      <div class="phone-content">
+        <div class="staff-detail-profile">
+          <div class="staff-avatar av-red" style="width:48px;height:48px;font-size:15px">JA</div>
+          <div class="staff-detail-info"><div class="staff-detail-name">James Adewale</div><div class="staff-detail-role">Store Officer · Puma Lekki</div></div>
+        </div>
+        <div class="cert-progress-section">
+          <div class="cert-prog-bar"><div class="cert-prog-fill" style="width:17%;background:var(--red)"></div></div>
+          <div class="cert-prog-row"><div class="cert-prog-label">1 of 6 missions complete</div><div class="cert-prog-pct" style="color:var(--red)">17%</div></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-item"><div class="stat-item-val">1/6</div><div class="stat-item-lbl">Completed</div></div>
+          <div class="stat-item"><div class="stat-item-val" style="color:var(--red)">4d</div><div class="stat-item-lbl">Last Active</div></div>
+          <div class="stat-item"><div class="stat-item-val" style="color:var(--red);font-size:12px">Needs<br>Attention</div><div class="stat-item-lbl">Status</div></div>
+        </div>
+        <!-- Stuck callout -->
+        <div style="margin:0 20px 16px;background:var(--red-dim);border:1px solid rgba(255,100,100,0.3);border-radius:var(--r-md);padding:12px 14px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <i class="ri-alert-line" style="color:var(--red);font-size:14px"></i>
+            <span style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.08em">Stuck here</span>
+          </div>
+          <div style="font-size:14px;font-weight:600">Mission 2: The 5-30-60 Rule</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">Not done · Inactive 4 days</div>
+        </div>
+        <!-- Mission list -->
+        <div style="padding:0 20px 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--sub)">Missions</div>
+        <div class="mission-list-item"><div class="mission-list-icon mi-done"><i class="ri-check-line"></i></div><div class="mission-list-body"><div class="mission-list-label" style="color:var(--green)">Mission 1</div><div class="mission-list-title">The First Impression</div></div></div>
+        <div class="mission-list-item"><div class="mission-list-icon mi-overdue"><i class="ri-time-line"></i></div><div class="mission-list-body"><div class="mission-list-label" style="color:var(--red)">Mission 2 · Overdue</div><div class="mission-list-title">The 5-30-60 Rule</div><div style="font-size:11px;color:var(--red);margin-top:2px">Not done · Inactive 4 days</div></div></div>
+        <div class="mission-list-item"><div class="mission-list-icon mi-locked"><i class="ri-lock-line"></i></div><div class="mission-list-body"><div class="mission-list-label" style="color:var(--dim)">Mission 3</div><div class="mission-list-title" style="color:var(--dim)">Not reached yet</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="m4">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'m4')">Review</div>
+      <div class="ann-timestamp" id="ts-m4"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">Comments</div>
+      <textarea class="ann-textarea" placeholder="Alert callout, stats row, mission list states, coaching trigger info?" oninput="saveComment('m4',this.value)" id="comment-m4"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('m4',this.value)" id="voice-m4"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── SPECIAL SCREENS ────────────────────── -->
+<div class="role-divider">Special / Not Yet Built</div>
+
+<!-- X1: Demo Guide -->
+<div class="screen-row" id="x1">
+  <div class="screen-label-col">
+    <div class="screen-id">X1</div>
+    <div class="screen-name">Demo Guide</div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status"><span>9:41</span><div class="phone-status-right"><i class="ri-signal-wifi-fill" style="font-size:14px"></i><i class="ri-battery-fill" style="font-size:14px"></i></div></div>
+      <div class="phone-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:500px;gap:16px;padding:40px 20px;text-align:center">
+        <div style="width:60px;height:60px;border-radius:50%;background:var(--elevated);border:1.5px dashed var(--stroke);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--dim)">⏳</div>
+        <div style="font-size:16px;font-weight:700">Demo Guide</div>
+        <div style="font-size:13px;color:var(--sub)">puma-training.vercel.app/demo-guide.html</div>
+        <div style="font-size:12px;color:var(--dim);max-width:260px;line-height:1.6">Not yet built. Next screen after Games QA approved. Non-technical overview for Timmy — what's in it, how it works, login creds.</div>
+      </div>
+    </div>
+  </div>
+  <div class="annotation-panel" data-screen="x1">
+    <div class="ann-status-row">
+      <div class="ann-status-badge status-review" onclick="cycleStatus(this,'x1')">Review</div>
+      <div class="ann-timestamp" id="ts-x1"></div>
+    </div>
+    <div>
+      <div class="ann-section-label">What needs to be on this screen?</div>
+      <textarea class="ann-textarea" placeholder="What content should the demo guide show? Sections, tone, what credentials? What should Timmy see first?" oninput="saveComment('x1',this.value)" id="comment-x1"></textarea>
+    </div>
+    <div class="ann-voice-area">
+      <div class="ann-voice-header"><i class="ri-mic-line ann-voice-icon"></i><span class="ann-voice-label">Voice Note</span><button class="mic-btn" onclick="toggleVoiceBtn(this)" title="Tap to record — uses Chrome mic"><i class="ri-mic-line"></i></button></div>
+      <textarea class="ann-textarea" style="min-height:60px" placeholder="Paste voice note transcript..." oninput="saveVoice('x1',this.value)" id="voice-x1"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="review-footer">
+  <button class="btn-export" onclick="showExport()"><i class="ri-share-line"></i> Export All Notes</button>
+  <button class="btn-clear" onclick="clearAll()"><i class="ri-delete-bin-line"></i> Clear All</button>
+  <div class="footer-note">Notes saved locally in browser. Export to share.</div>
+</div>
+
+<!-- QR Modal -->
+<div class="qr-modal-overlay" id="qr-overlay" onclick="hideQR(event)">
+  <div class="qr-modal" onclick="event.stopPropagation()">
+    <h3>Open on iPhone</h3>
+    <p>Scan to open this review on your phone. Annotations sync via localStorage on the same device.</p>
+    <img id="qr-img" src="" alt="QR Code" width="200" height="200">
+    <div class="qr-url" id="qr-url-text"></div>
+    <button class="btn-close-modal" onclick="hideQR()">Close</button>
+  </div>
+</div>
+
+<!-- Export Modal -->
+<div class="export-overlay" id="export-overlay" onclick="hideExport(event)">
+  <div class="export-modal" onclick="event.stopPropagation()">
+    <h2>Screen Review Notes — PUMA Training</h2>
+    <div class="export-pre" id="export-content"></div>
+    <div class="export-actions">
+      <button class="btn-copy" onclick="copyExport()"><i class="ri-clipboard-line"></i> Copy to Clipboard</button>
+      <button class="btn-close-modal" onclick="hideExport()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCREENS = ['s1','s2','s3','s4','s5','s6','m1','m2','m3','m4','x1']
+const SCREEN_NAMES = {
+  s1:'S1 Staff Home', s2:'S2 Staff Practice', s3:'S3 Games List',
+  s4:'S4 Approach Game', s5:'S5 Basket Game', s6:'S6 Profile',
+  m1:'M1 Manager Home', m2:'M2 Manager Practice', m3:'M3 Manager Games',
+  m4:'M4 Staff Detail', x1:'X1 Demo Guide'
+}
+
+// ── Storage ───────────────────────────────
+function load(id) {
+  try { return JSON.parse(localStorage.getItem('puma-review-' + id)) || {} } catch(e) { return {} }
+}
+function save(id, data) {
+  const existing = load(id)
+  localStorage.setItem('puma-review-' + id, JSON.stringify({...existing, ...data, updatedAt: new Date().toISOString()}))
+  updateNavPill(id)
+}
+function saveComment(id, val) { save(id, { comment: val }) }
+function saveVoice(id, val) { save(id, { voice: val }) }
+
+// ── Status badge ──────────────────────────
+function cycleStatus(el, id) {
+  const states = ['review','approved','needs-work']
+  const labels = { review:'Review', approved:'Approved', 'needs-work':'Needs Work' }
+  const classes = { review:'status-review', approved:'status-approved', 'needs-work':'status-needs-work' }
+  const cur = load(id).status || 'review'
+  const next = states[(states.indexOf(cur) + 1) % states.length]
+  el.textContent = labels[next]
+  el.className = 'ann-status-badge ' + classes[next]
+  save(id, { status: next })
+  const ts = document.getElementById('ts-' + id)
+  if (ts) ts.textContent = new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'})
+}
+
+function updateNavPill(id) {
+  const data = load(id)
+  const pill = document.querySelector(`[data-nav="${id}"]`)
+  if (!pill) return
+  pill.className = 'nav-pill'
+  if (data.status === 'approved') pill.classList.add('status-approved')
+  if (data.status === 'needs-work') pill.classList.add('status-needs-work')
+}
+
+// ── Navigation (fixed — was shadowing window.scrollTo) ──
+function goToScreen(id) {
+  const el = document.getElementById(id)
+  if (!el) return
+  const header = document.querySelector('.review-header')
+  const nav = document.querySelector('.section-nav')
+  const offset = (header ? header.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 12
+  const top = el.getBoundingClientRect().top + window.scrollY - offset
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+}
+
+// ── Voice recording (Web Speech API) ─────
+let activeRecognition = null
+let activeRecordBtn = null
+
+function toggleVoiceBtn(btn) {
+  const panel = btn.closest('[data-screen]')
+  if (!panel) return
+  const id = panel.dataset.screen
+  toggleVoice(id, btn)
+}
+
+function toggleVoice(id, btn) {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition
+  if (!SR) {
+    alert('Voice recording needs Chrome. Paste your transcript instead.')
+    return
+  }
+  // Stop if already recording
+  if (activeRecognition) {
+    activeRecognition.stop()
+    activeRecognition = null
+    if (activeRecordBtn) { activeRecordBtn.classList.remove('recording'); activeRecordBtn.querySelector('i').className = 'ri-mic-line' }
+    activeRecordBtn = null
+    return
+  }
+  // Start recording
+  const r = new SR()
+  r.continuous = true
+  r.interimResults = false
+  r.lang = 'en-US'
+  activeRecognition = r
+  activeRecordBtn = btn
+  btn.classList.add('recording')
+  btn.querySelector('i').className = 'ri-stop-circle-line'
+
+  r.onresult = (e) => {
+    const transcript = Array.from(e.results)
+      .slice(e.resultIndex)
+      .map(res => res[0].transcript)
+      .join(' ').trim()
+    if (!transcript) return
+    const ta = document.getElementById('voice-' + id)
+    if (ta) {
+      ta.value = (ta.value ? ta.value + ' ' : '') + transcript
+      saveVoice(id, ta.value)
+    }
+  }
+  r.onerror = (e) => {
+    if (e.error !== 'aborted') console.warn('Speech error:', e.error)
+    btn.classList.remove('recording')
+    btn.querySelector('i').className = 'ri-mic-line'
+    activeRecognition = null; activeRecordBtn = null
+  }
+  r.onend = () => {
+    btn.classList.remove('recording')
+    btn.querySelector('i').className = 'ri-mic-line'
+    activeRecognition = null; activeRecordBtn = null
+  }
+  r.start()
+}
+
+// ── QR Code ───────────────────────────────
+function showQR() {
+  const url = window.location.href
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&bgcolor=ffffff&color=000000`
+  document.getElementById('qr-img').src = qrUrl
+  document.getElementById('qr-url-text').textContent = url
+  document.getElementById('qr-overlay').classList.add('visible')
+}
+function hideQR(e) {
+  if (!e || e.target === document.getElementById('qr-overlay')) {
+    document.getElementById('qr-overlay').classList.remove('visible')
+  }
+}
+
+// ── Export ────────────────────────────────
+function showExport() {
+  let out = `PUMA Training — Screen Review\nExported: ${new Date().toLocaleString()}\n${'─'.repeat(50)}\n\n`
+  let hasNotes = false
+  SCREENS.forEach(id => {
+    const d = load(id)
+    if (!d.comment && !d.voice && (!d.status || d.status === 'review')) return
+    hasNotes = true
+    out += `## ${SCREEN_NAMES[id]}\nStatus: ${(d.status || 'review').toUpperCase()}\n`
+    if (d.comment) out += `\nComments:\n${d.comment.trim()}\n`
+    if (d.voice) out += `\nVoice Note:\n${d.voice.trim()}\n`
+    out += `\n${'─'.repeat(40)}\n\n`
+  })
+  if (!hasNotes) out += '(No notes yet — click status badges and add comments to get started)\n'
+  document.getElementById('export-content').textContent = out
+  document.getElementById('export-overlay').classList.add('visible')
+}
+function hideExport(e) {
+  if (!e || e.target === document.getElementById('export-overlay')) {
+    document.getElementById('export-overlay').classList.remove('visible')
+  }
+}
+function copyExport() {
+  const btn = document.querySelector('.btn-copy')
+  navigator.clipboard.writeText(document.getElementById('export-content').textContent)
+    .then(() => { btn.textContent = '✓ Copied!'; setTimeout(() => { btn.innerHTML = '<i class="ri-clipboard-line"></i> Copy to Clipboard' }, 2000) })
+    .catch(() => {})
+}
+function clearAll() {
+  if (!confirm('Clear all annotations? This cannot be undone.')) return
+  SCREENS.forEach(id => localStorage.removeItem('puma-review-' + id))
+  location.reload()
+}
+
+// ── Init ──────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const labels = { review:'Review', approved:'Approved', 'needs-work':'Needs Work' }
+  const classes = { review:'status-review', approved:'status-approved', 'needs-work':'status-needs-work' }
+  SCREENS.forEach(id => {
+    const d = load(id)
+    const status = d.status || 'review'
+    const badge = document.querySelector(`[data-screen="${id}"] .ann-status-badge`)
+    if (badge) { badge.textContent = labels[status]; badge.className = 'ann-status-badge ' + classes[status] }
+    if (d.comment) { const el = document.getElementById('comment-' + id); if (el) el.value = d.comment }
+    if (d.voice) { const el = document.getElementById('voice-' + id); if (el) el.value = d.voice }
+    if (d.updatedAt) {
+      const ts = document.getElementById('ts-' + id)
+      if (ts) ts.textContent = new Date(d.updatedAt).toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'})
+    }
+    updateNavPill(id)
+  })
+  document.getElementById('review-date').textContent = new Date().toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})
+})
+</script>
+</body>
+</html>

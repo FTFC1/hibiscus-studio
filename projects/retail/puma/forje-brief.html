@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aloe Labs × FORJE</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f0f1a;
+    color: #e9d8ff;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .header {
+    padding: 40px 0 32px;
+    border-bottom: 1px solid rgba(140,82,255,0.2);
+    margin-bottom: 32px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8C52FF;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #f9f4ec;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .header p {
+    font-size: 14px;
+    color: #a78bfa;
+    line-height: 1.6;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 16px;
+    border: 1px solid rgba(140,82,255,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.03);
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-header:active { background: rgba(140,82,255,0.08); }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8C52FF;
+  }
+  .section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f9f4ec;
+    margin-top: 2px;
+  }
+  .chevron {
+    font-size: 18px;
+    color: #8C52FF;
+    transition: transform 0.2s;
+  }
+  .section-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid rgba(140,82,255,0.1);
+  }
+  .section.open .section-body { display: block; }
+  .section.open .chevron { transform: rotate(90deg); }
+  .section.open .section-header { background: rgba(140,82,255,0.06); }
+  .section.first-open .section-body { display: block; }
+  .section.first-open .chevron { transform: rotate(90deg); }
+  .section.first-open .section-header { background: rgba(140,82,255,0.06); }
+
+  /* ASSET CARDS (Section 01) */
+  .asset-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(140,82,255,0.06);
+    border: 1px solid rgba(140,82,255,0.15);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .asset-card::after {
+    content: 'Open →';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    font-weight: 600;
+    color: #8C52FF;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .asset-card:hover, .asset-card:active {
+    background: rgba(140,82,255,0.15);
+    border-color: rgba(140,82,255,0.4);
+  }
+  .asset-card:hover::after { opacity: 1; }
+  .asset-card:hover .asset-arrow { opacity: 0; }
+  .asset-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f9f4ec;
+  }
+  .asset-desc {
+    font-size: 12px;
+    color: #a78bfa;
+    margin-top: 2px;
+  }
+  .asset-arrow {
+    font-size: 16px;
+    color: #8C52FF;
+    transition: opacity 0.15s;
+  }
+  .asset-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(74,222,128,0.15);
+    color: #4ade80;
+    margin-right: 8px;
+  }
+
+  /* VV CARDS (Section 02) */
+  .vv-grid {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .vv-card {
+    border-radius: 10px;
+    padding: 16px;
+    border-left: 3px solid;
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .vv-card-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .vv-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f9f4ec;
+    margin-bottom: 4px;
+  }
+  .vv-card-body {
+    font-size: 12px;
+    color: #a78bfa;
+    line-height: 1.5;
+  }
+  .vv-card.purple { border-left-color: #8C52FF; }
+  .vv-card.teal   { border-left-color: #2dd4bf; }
+  .vv-card.amber  { border-left-color: #fbbf24; }
+  .vv-card.rose   { border-left-color: #f472b6; }
+  .vv-card.green  { border-left-color: #4ade80; }
+
+  /* PHASE TABLE (Section 03) */
+  .phase-row {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .phase-row:last-child { border-bottom: none; }
+  .phase-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .phase-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f9f4ec;
+  }
+  .phase-desc {
+    font-size: 12px;
+    color: #a78bfa;
+    line-height: 1.5;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-live  { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .badge-next  { background: rgba(140,82,255,0.15); color: #c4b5fd; }
+  .badge-tbd   { background: rgba(255,255,255,0.08); color: #94a3b8; }
+
+  /* DIAGRAM (Section 04) */
+  .diagram {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .diagram-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .diagram-node {
+    flex: 1;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .node-aloe {
+    background: rgba(140,82,255,0.12);
+    border: 1px solid rgba(140,82,255,0.3);
+  }
+  .node-forje {
+    background: rgba(249,244,236,0.06);
+    border: 1px solid rgba(249,244,236,0.15);
+  }
+  .node-shared {
+    background: rgba(45,212,191,0.08);
+    border: 1px solid rgba(45,212,191,0.2);
+  }
+  .node-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .node-aloe .node-label { color: #8C52FF; }
+  .node-forje .node-label { color: #e9d8ff; }
+  .node-shared .node-label { color: #2dd4bf; }
+  .node-value {
+    font-size: 13px;
+    color: #f9f4ec;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .node-sub {
+    font-size: 11px;
+    color: #a78bfa;
+    margin-top: 4px;
+  }
+  .diagram-connector {
+    text-align: center;
+    font-size: 11px;
+    color: #6d6d8a;
+    padding: 2px 0;
+  }
+
+  /* NOTE BOX */
+  .note {
+    background: rgba(251,191,36,0.07);
+    border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #fbbf24;
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 40px;
+    padding: 24px;
+    border: 1px solid rgba(140,82,255,0.2);
+    border-radius: 12px;
+    background: rgba(140,82,255,0.06);
+    text-align: center;
+  }
+  .footer p { font-size: 14px; color: #a78bfa; margin-bottom: 4px; }
+  .footer .name { font-size: 15px; font-weight: 700; color: #f9f4ec; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Private — Feb 2026</div>
+  <h1>Aloe Labs<br>× FORJE/PRL</h1>
+  <p>What we've built together. Wanted to get your eyes on this before we go further.</p>
+</div>
+
+<!-- SECTION 01: What's built -->
+<div class="section first-open" onclick="toggle(this)">
+  <div class="section-header">
+    <div>
+      <div class="section-title">01</div>
+      <div class="section-label">What's been built</div>
+    </div>
+    <div class="chevron">›</div>
+  </div>
+  <div class="section-body">
+
+    <a class="asset-card" href="https://puma-training.vercel.app/demo-guide.html" target="_blank">
+      <div>
+        <div class="asset-name">Training Platform <span class="asset-status">Live</span></div>
+        <div class="asset-desc">Staff modules, quizzes, progress tracking</div>
+      </div>
+      <div class="asset-arrow">›</div>
+    </a>
+
+    <a class="asset-card" href="https://puma-training.vercel.app/demo-guide.html" target="_blank" style="border-color: rgba(140,82,255,0.5); background: rgba(140,82,255,0.12);">
+      <div>
+        <div class="asset-name" style="color:#c4b5fd;">→ Start Demo</div>
+        <div class="asset-desc">Overview + how to get in</div>
+      </div>
+      <div class="asset-arrow">›</div>
+    </a>
+
+    <a class="asset-card" href="https://puma-training.vercel.app/approach-game.html" target="_blank">
+      <div>
+        <div class="asset-name">Approach Game <span class="asset-status">Live</span></div>
+        <div class="asset-desc">How to open a customer — decision-based</div>
+      </div>
+      <div class="asset-arrow">›</div>
+    </a>
+
+    <a class="asset-card" href="https://puma-training.vercel.app/basket-game-v2.html" target="_blank">
+      <div>
+        <div class="asset-name">Basket Game <span class="asset-status">Live</span></div>
+        <div class="asset-desc">Product knowledge + upsell simulation</div>
+      </div>
+      <div class="asset-arrow">›</div>
+    </a>
+
+    <a class="asset-card" href="https://puma-training.vercel.app/PUMA-HR-ONBOARDING-GUIDE.html" target="_blank">
+      <div>
+        <div class="asset-name">HR Onboarding Guide <span class="asset-status">Live</span></div>
+        <div class="asset-desc">New hire flow, Week 1 checklist, escalation paths</div>
+      </div>
+      <div class="asset-arrow">›</div>
+    </a>
+
+  </div>
+</div>
+
+<!-- SECTION 02: What makes it different -->
+<div class="section" onclick="toggle(this)">
+  <div class="section-header">
+    <div>
+      <div class="section-title">02</div>
+      <div class="section-label">What makes it different</div>
+    </div>
+    <div class="chevron">›</div>
+  </div>
+  <div class="section-body">
+    <div class="vv-grid">
+
+      <div class="vv-card purple">
+        <span class="vv-card-icon">🎮</span>
+        <div class="vv-card-title">Challenges, not videos</div>
+        <div class="vv-card-body">Staff make real decisions and get feedback. Not passive watching — active thinking. Retention stays high.</div>
+      </div>
+
+      <div class="vv-card teal">
+        <span class="vv-card-icon">📱</span>
+        <div class="vv-card-title">Built for the shop floor</div>
+        <div class="vv-card-body">Mobile-first. No desk required. Works during shift gaps, before store opens, on the go.</div>
+      </div>
+
+      <div class="vv-card amber">
+        <span class="vv-card-icon">📈</span>
+        <div class="vv-card-title">Progression, not just content</div>
+        <div class="vv-card-body">Skill levels, tracks, and visible progress. Staff know where they stand and what's next.</div>
+      </div>
+
+      <div class="vv-card rose">
+        <span class="vv-card-icon">🔍</span>
+        <div class="vv-card-title">Manager intelligence</div>
+        <div class="vv-card-body">Not a stats dashboard — a triage view. Who's behind, who's ahead, what needs attention. Alerts, not noise.</div>
+      </div>
+
+      <div class="vv-card green">
+        <span class="vv-card-icon">⚡</span>
+        <div class="vv-card-title">One week to first version</div>
+        <div class="vv-card-body">No months of build time. Working product in a week. Adjust from there based on what staff actually do.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 03: Where this goes -->
+<div class="section" onclick="toggle(this)">
+  <div class="section-header">
+    <div>
+      <div class="section-title">03</div>
+      <div class="section-label">Where this goes</div>
+    </div>
+    <div class="chevron">›</div>
+  </div>
+  <div class="section-body" style="padding-top:12px;">
+
+    <div class="phase-row">
+      <div class="phase-top">
+        <div class="phase-name">PUMA — Lecky, Palms, Branch</div>
+        <span class="badge badge-live">Now</span>
+      </div>
+      <div class="phase-desc">Platform live. Trial running. Staff training active across current sites.</div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-top">
+        <div class="phase-name">12 PUMA locations + Lacoste</div>
+        <span class="badge badge-next">Next</span>
+      </div>
+      <div class="phase-desc">Same platform, rolled out across all stores. Configuration per site, not a rebuild.</div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-top">
+        <div class="phase-name">Platform options</div>
+        <span class="badge badge-next">Planned</span>
+      </div>
+      <div class="phase-desc">LMS is one option. Corporate apps, branded installs, white-label for other retail clients. We decide together what fits the FORJE model.</div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-top">
+        <div class="phase-name">Brand & identity work</div>
+        <span class="badge badge-tbd">Separate track</span>
+      </div>
+      <div class="phase-desc">The brand PRL wants to build — visual identity, positioning, the whole thing. Runs alongside the platform, not dependent on it. Different conversation.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 04: How this works -->
+<div class="section" onclick="toggle(this)">
+  <div class="section-header">
+    <div>
+      <div class="section-title">04</div>
+      <div class="section-label">How we work together</div>
+    </div>
+    <div class="chevron">›</div>
+  </div>
+  <div class="section-body">
+
+    <!-- FLOW DIAGRAM -->
+    <div style="margin-top:16px;">
+
+      <!-- FORJE box -->
+      <div style="border:1px solid rgba(249,244,236,0.15); border-radius:10px; padding:14px 16px; background:rgba(249,244,236,0.04);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#e9d8ff; margin-bottom:6px;">FORJE / PRL</div>
+        <div style="font-size:13px; color:#f9f4ec; font-weight:500;">Your brands. Your clients. Your relationship.</div>
+        <div style="font-size:12px; color:#a78bfa; margin-top:4px;">PUMA · Lacoste · Future retail brands</div>
+      </div>
+
+      <!-- Arrow down -->
+      <div style="text-align:center; padding:8px 0; font-size:20px; color:#8C52FF;">↓</div>
+
+      <!-- Platform box -->
+      <div style="border:1px solid rgba(140,82,255,0.3); border-radius:10px; padding:14px 16px; background:rgba(140,82,255,0.08);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#8C52FF; margin-bottom:6px;">The Platform</div>
+        <div style="font-size:13px; color:#f9f4ec; font-weight:500;">What staff see on their phones</div>
+        <div style="font-size:12px; color:#a78bfa; margin-top:4px;">Training · Games · Progress · Manager view</div>
+        <div style="font-size:12px; color:#6d6d8a; margin-top:4px;">Looks like your product. Runs on ours.</div>
+      </div>
+
+      <!-- Arrow down -->
+      <div style="text-align:center; padding:8px 0; font-size:20px; color:#8C52FF;">↓</div>
+
+      <!-- Aloe box -->
+      <div style="border:1px solid rgba(140,82,255,0.2); border-radius:10px; padding:14px 16px; background:rgba(140,82,255,0.05);">
+        <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#8C52FF; margin-bottom:6px;">Aloe Labs</div>
+        <div style="font-size:13px; color:#f9f4ec; font-weight:500;">Builds, maintains, adapts</div>
+        <div style="font-size:12px; color:#a78bfa; margin-top:4px;">Invisible to staff. You don't need to manage it.</div>
+      </div>
+
+      <!-- Shared band -->
+      <div style="border:1px solid rgba(45,212,191,0.2); border-radius:10px; padding:12px 16px; background:rgba(45,212,191,0.05); margin-top:10px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#2dd4bf; margin-bottom:4px;">Built together</div>
+        <div style="font-size:12px; color:#a78bfa;">Curriculum · What gets built next · Research</div>
+      </div>
+    </div>
+
+    <div class="note">
+      Ownership structure is a conversation we should have. This is the working model — open to structuring it properly as we grow.
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>Trying to collate everything we've built.</p>
+  <p style="margin-bottom:16px; font-size:13px; color:#6d6d8a;">Let me know what you think — what to add, change, or cut.</p>
+  <div class="name">FT</div>
+</div>
+
+<script>
+function toggle(el) {
+  const isOpen = el.classList.contains('open') || el.classList.contains('first-open');
+  if (isOpen) { el.classList.remove('open', 'first-open'); }
+  else { el.classList.add('open'); }
+}
+</script>
+</body>
+</html>

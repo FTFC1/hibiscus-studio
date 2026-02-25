@@ -1,0 +1,156 @@
+{
+  "_meta": {
+    "project": "PUMA Training App",
+    "version": "1.0",
+    "date": "2026-02-19",
+    "usage": "Paste this JSON at the top of any Variant / UI conversation as the design brief. No screenshots needed."
+  },
+
+  "brand": {
+    "name": "PUMA Training",
+    "tone": ["sport", "serious", "direct", "not corporate"],
+    "context": "Nigerian retail sales training platform. Staff learn DSG objection-handling and upselling techniques. Manager tracks progress.",
+    "audience": {
+      "staff": "PUMA store staff, Nigerian market, mobile-first, in-store use",
+      "manager": "Store manager, reviews staff progress and scores"
+    }
+  },
+
+  "colors": {
+    "bg_body": "#080808",
+    "bg_card": "#121212",
+    "bg_card_hover": "#1A1A1A",
+    "bg_input": "#1E1E1E",
+    "primary": "#3A7D44",
+    "primary_glow": "rgba(58, 125, 68, 0.2)",
+    "primary_glow_hover": "rgba(58, 125, 68, 0.35)",
+    "white": "#FFFFFF",
+    "text_secondary": "rgba(255,255,255,0.5)",
+    "text_muted": "rgba(255,255,255,0.25)",
+    "border_subtle": "rgba(255,255,255,0.06)",
+    "border_primary": "rgba(58,125,68,0.3)",
+    "danger": "#FF4444",
+    "warning": "#F59E0B",
+    "locked": "#2A2A2A",
+    "module_tag_bg": "rgba(58,125,68,0.12)",
+    "module_tag_text": "#3A7D44"
+  },
+
+  "typography": {
+    "font_family": "Inter, sans-serif",
+    "heading_weight": 900,
+    "subheading_weight": 700,
+    "body_weight": 400,
+    "label_weight": 600,
+    "heading_style": "uppercase tracking, tight letter-spacing",
+    "scale": {
+      "xs": "10px",
+      "sm": "12px",
+      "base": "14px",
+      "md": "16px",
+      "lg": "20px",
+      "xl": "24px",
+      "2xl": "32px",
+      "hero": "40px"
+    }
+  },
+
+  "spacing": {
+    "screen_padding_x": "16px",
+    "card_padding": "16px",
+    "card_radius": "16px",
+    "card_radius_large": "20px",
+    "gap_xs": "4px",
+    "gap_sm": "8px",
+    "gap_md": "12px",
+    "gap_lg": "16px",
+    "gap_xl": "24px",
+    "bottom_nav_height": "72px",
+    "bottom_nav_padding_bottom": "16px",
+    "status_badge_radius": "999px"
+  },
+
+  "effects": {
+    "card_shadow": "0 0 0 1px rgba(255,255,255,0.04), 0 4px 16px rgba(0,0,0,0.4)",
+    "primary_glow_shadow": "0 0 20px rgba(58,125,68,0.25)",
+    "active_card_border": "1px solid rgba(58,125,68,0.3)",
+    "input_focus_ring": "1px solid rgba(58,125,68,0.5)",
+    "locked_overlay": "opacity: 0.4, cursor: not-allowed"
+  },
+
+  "components": {
+    "bottom_nav": {
+      "tabs": ["Home", "Practice", "Games", "Activity", "Profile"],
+      "tab_count": 5,
+      "style": "pill floating bar, backdrop-blur, dark glass, active tab gets primary underline dot",
+      "position": "fixed bottom-0, full-width, safe area inset"
+    },
+    "mission_card": {
+      "purpose": "Hero card on Home — shows current or next mission",
+      "elements": ["module + mission label (e.g. Module 1 · Mission 4)", "mission title (bold, large)", "scenario preview text", "progress badge (X done)", "CTA button (green, full-width)"],
+      "locked_state": "greyed card with lock icon, no CTA"
+    },
+    "progress_bar": {
+      "track": "bg_card_hover, 4px height, rounded",
+      "fill": "primary green, rounded",
+      "label": "percentage text right-aligned"
+    },
+    "staff_row": {
+      "purpose": "Manager view — one row per staff member",
+      "elements": ["avatar initial circle", "name + role", "progress % badge", "last active text"],
+      "alert_state": "red left border for staff behind"
+    },
+    "game_card": {
+      "elements": ["image banner (400px JPEG)", "game title", "short description", "locked/play badge"],
+      "locked_style": "dim image, lock icon overlay"
+    },
+    "score_badge": {
+      "variants": ["green (pass)", "red (fail)", "neutral (not taken)"],
+      "shape": "pill",
+      "content": "score % or 'Locked'"
+    },
+    "section_header": {
+      "style": "ALL CAPS, tracking-widest, text_muted, 11px, font-weight 700"
+    }
+  },
+
+  "screens": {
+    "total": 11,
+    "staff": [
+      { "id": "S1", "name": "Home", "role": "staff", "hero": "mission_card", "sections": ["active mission", "team activity feed", "module progress bar"] },
+      { "id": "S2", "name": "Practice", "role": "staff", "hero": "mission list", "sections": ["module accordion", "mission rows with completion status"] },
+      { "id": "S3", "name": "Games", "role": "staff", "hero": "game cards grid", "sections": ["unlocked games (2)", "locked game (1: Price Defense)"] },
+      { "id": "S4", "name": "Profile", "role": "staff", "hero": "user info", "sections": ["avatar + name + role", "overall score", "role switcher (for demo)"] },
+      { "id": "S5", "name": "Mission Detail", "role": "staff", "hero": "lesson content", "sections": ["mission title", "scenario text", "multiple choice or voice practice", "submit CTA"] },
+      { "id": "S6", "name": "Mission Result", "role": "staff", "hero": "score reveal", "sections": ["score badge (pass/fail)", "feedback text", "next mission CTA"] }
+    ],
+    "manager": [
+      { "id": "M1", "name": "Manager Home", "role": "manager", "hero": "team dashboard", "sections": ["team score overview", "alerts (staff behind)", "wins (staff ahead)", "module breakdown"] },
+      { "id": "M2", "name": "Staff Detail", "role": "manager", "hero": "individual progress", "sections": ["staff name + avatar", "mission-by-mission scores", "last active"] },
+      { "id": "M3", "name": "Leaderboard", "role": "manager", "sections": ["ranked staff list", "score bars"] },
+      { "id": "M4", "name": "Module Overview", "role": "manager", "sections": ["all modules", "completion % per module", "drill-down to staff list per mission"] }
+    ],
+    "demo": [
+      { "id": "X1", "name": "Demo Guide", "role": "public", "sections": ["overview of app", "login creds", "what to try"] }
+    ]
+  },
+
+  "constraints": {
+    "dark_mode_only": true,
+    "light_mode": "never",
+    "nav_tabs": 5,
+    "mobile_only": true,
+    "viewport": "390x844 (iPhone 14 base)",
+    "image_format": "JPEG for game banners, SVG for icons",
+    "icon_library": "Remix Icons (ri-*)",
+    "no_shadcn": "commercial license conflict",
+    "no_glassmorphism_on_input": "inputs are solid bg_input, no blur"
+  },
+
+  "variant_instructions": {
+    "role": "You are a senior mobile UI designer building screens for a Nigerian retail sales training app. Dark mode only. Serious sport aesthetic — think Nike Training meets a professional dashboard.",
+    "output_format": "Single screen, mobile viewport (390px wide), no desktop layout",
+    "do": ["Use Inter font", "Keep nav fixed at bottom (5 tabs: Home, Practice, Games, Activity, Profile)", "Green accents only for primary actions and progress", "Bold headings in uppercase or tight tracking", "Cards with subtle borders (rgba white 0.06)"],
+    "dont": ["Light backgrounds", "4 nav tabs (app has 5)", "Rounded pill buttons for secondary actions", "Gradient backgrounds (keep flat dark)", "Corporate/generic UI patterns"]
+  }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Games V1 — Elevated Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #080808; --surface: #111; --card: #151515;
+    --text: #F5F5F5; --sub: #8E9BA0; --dim: #5a6368;
+    --lime: #DCEE56; --lime-bg: rgba(220,238,86,0.08); --lime-glow: rgba(220,238,86,0.15);
+    --green: #81C784; --red: #E57373; --amber: #FFD54F;
+    --radius: 20px; --radius-sm: 14px;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
+  .phone-frame { max-width: 390px; margin: 0 auto; padding: 0 0 100px; position: relative; }
+
+  /* Variant Label */
+  .variant-label {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: var(--lime); color: #080808; text-align: center;
+    font-size: 11px; font-weight: 700; padding: 6px; letter-spacing: 0.08em;
+  }
+
+  /* Header */
+  .header {
+    padding: 52px 20px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(220,238,86,0.1); border: 1.5px solid rgba(220,238,86,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--lime);
+  }
+
+  /* V1: ELEVATED CARDS — generous spacing, shadow depth, big touch targets */
+
+  .games-list { padding: 8px 20px; display: flex; flex-direction: column; gap: 16px; }
+
+  .game-card {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px; border-radius: var(--radius);
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .game-card:active { transform: scale(0.97); box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+  .game-card-locked { opacity: 0.35; cursor: default; box-shadow: none; }
+
+  .game-icon {
+    width: 52px; height: 52px; border-radius: 16px;
+    background: var(--lime-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; color: var(--lime); flex-shrink: 0;
+  }
+  .game-card-locked .game-icon { background: rgba(255,255,255,0.04); color: var(--dim); }
+
+  .game-body { flex: 1; }
+  .game-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.01em; }
+  .game-desc { font-size: 13px; color: var(--sub); line-height: 1.45; }
+
+  .game-play-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--lime); color: #080808;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(220,238,86,0.3);
+  }
+  .game-week {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px;
+    background: rgba(255,255,255,0.06); color: var(--dim); flex-shrink: 0;
+  }
+
+  /* Section divider */
+  .section-label {
+    padding: 24px 20px 8px; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim);
+  }
+
+  /* ── GAME PLAY VIEW ── */
+  .game-view { padding: 8px 20px; display: none; flex-direction: column; gap: 16px; }
+  .game-view.active { display: flex; }
+
+  .progress-bar {
+    display: flex; gap: 6px; justify-content: center; padding: 8px 0;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+  .dot.active { background: var(--lime); width: 24px; border-radius: 5px; }
+  .dot.done { background: rgba(220,238,86,0.35); }
+
+  .scene-context {
+    font-size: 16px; font-weight: 600; color: var(--text);
+    padding: 20px; border-radius: var(--radius);
+    background: var(--card); border: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.5; box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+
+  .choices { display: flex; flex-direction: column; gap: 12px; }
+
+  .choice {
+    padding: 20px; border-radius: var(--radius-sm); cursor: pointer;
+    background: var(--card); border: 1.5px solid rgba(255,255,255,0.08);
+    transition: all 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .choice:active { transform: scale(0.98); }
+
+  .choice-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--dim); margin-bottom: 8px; text-transform: uppercase;
+  }
+  .choice-text { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.45; }
+
+  .choice.correct { border-color: rgba(76,175,80,0.5); background: rgba(76,175,80,0.06); }
+  .choice.wrong { border-color: rgba(244,67,54,0.4); background: rgba(244,67,54,0.04); }
+
+  .choice-result {
+    margin-top: 12px; padding-top: 12px; font-size: 13px; line-height: 1.4;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .result-good { color: var(--green); }
+  .result-bad { color: var(--red); }
+
+  .next-btn {
+    padding: 16px 28px; border-radius: 50px; border: none;
+    background: var(--lime); color: #080808;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    text-align: center; margin-top: 4px;
+    box-shadow: 0 4px 16px rgba(220,238,86,0.25);
+  }
+
+  /* Design notes */
+  .design-notes {
+    margin: 32px 20px; padding: 20px; border-radius: var(--radius);
+    background: rgba(220,238,86,0.04); border: 1px solid rgba(220,238,86,0.1);
+  }
+  .design-notes h3 { font-size: 12px; font-weight: 700; color: var(--lime); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .design-notes li { font-size: 12px; color: var(--sub); margin-bottom: 6px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="variant-label">V1 — ELEVATED CARDS (depth + spacing + touch targets)</div>
+<div class="phone-frame">
+
+  <div class="header">
+    <h1>Games</h1>
+    <div class="avatar">CA</div>
+  </div>
+
+  <!-- GAME LIST -->
+  <div id="list-view">
+    <div class="section-label">Available Now</div>
+    <div class="games-list">
+      <div class="game-card" onclick="showGame()">
+        <div class="game-icon"><i class="ri-search-eye-line"></i></div>
+        <div class="game-body">
+          <div class="game-title">Spot the Difference</div>
+          <div class="game-desc">Two approaches. One converts. Pick the right one.</div>
+        </div>
+        <div class="game-play-btn"><i class="ri-play-fill"></i></div>
+      </div>
+
+      <div class="game-card" onclick="showGame()">
+        <div class="game-icon"><i class="ri-chat-voice-line"></i></div>
+        <div class="game-body">
+          <div class="game-title">Quick Role Play</div>
+          <div class="game-desc">Handle real customer scenarios. Pick your response.</div>
+        </div>
+        <div class="game-play-btn"><i class="ri-play-fill"></i></div>
+      </div>
+    </div>
+
+    <div class="section-label">Coming Soon</div>
+    <div class="games-list">
+      <div class="game-card game-card-locked">
+        <div class="game-icon"><i class="ri-price-tag-3-line"></i></div>
+        <div class="game-body">
+          <div class="game-title">Price Defense</div>
+          <div class="game-desc">Hold margin against price objections.</div>
+        </div>
+        <div class="game-week">Soon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME PLAY VIEW -->
+  <div class="game-view" id="game-view">
+    <div class="progress-bar">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="scene-context">Customer walks in and picks up a shoe.</div>
+
+    <div class="choices">
+      <div class="choice wrong" id="choiceA">
+        <div class="choice-label">Option A</div>
+        <div class="choice-text">"Can I help you?"</div>
+        <div class="choice-result result-bad">&#10007; "Just looking." They leave.</div>
+      </div>
+      <div class="choice correct" id="choiceB">
+        <div class="choice-label">Option B</div>
+        <div class="choice-text">"Those are popular — looking for running shoes or casual?"</div>
+        <div class="choice-result result-good">&#10003; They engage. You learn their need.</div>
+      </div>
+    </div>
+
+    <button class="next-btn">Next &rarr;</button>
+  </div>
+
+  <!-- Design Notes -->
+  <div class="design-notes">
+    <h3>V1 Design Decisions</h3>
+    <ul>
+      <li><strong>Elevation:</strong> Cards lifted with box-shadow (Shift Nudge #46 — depth + shadow). Creates tactile feel.</li>
+      <li><strong>Spacing:</strong> 20px padding inside cards, 16px gap between (SN #22 Box Model, #28 Density). Generous breathing room.</li>
+      <li><strong>Touch targets:</strong> 44px play button, 52px icon — exceeds Apple's 44pt minimum (SN #78 iOS Design).</li>
+      <li><strong>Typography:</strong> 16px titles (up from 14), clear size steps: 16/13/11/10 (SN #11 Font Size, #13 Hierarchy).</li>
+      <li><strong>Section labels:</strong> "Available Now" / "Coming Soon" groups cards with purpose (SN #69 Lists & Cards).</li>
+      <li><strong>Corner radius:</strong> 20px cards, 16px icons, 14px choices — consistent nested radius (SN #44 Corner Radius).</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function showGame() {
+  document.getElementById('list-view').style.display = 'none';
+  document.getElementById('game-view').classList.add('active');
+}
+</script>
+</body>
+</html>

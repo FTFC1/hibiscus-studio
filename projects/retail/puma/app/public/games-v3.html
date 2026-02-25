@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Games V3 — Immersive Dark</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #050508; --surface: #0d0d12;
+    --text: #F5F5F5; --sub: #8E9BA0; --dim: #4a5156;
+    --lime: #DCEE56; --lime-bg: rgba(220,238,86,0.06);
+    --green: #81C784; --red: #E57373;
+    --glass: rgba(255,255,255,0.04); --glass-stroke: rgba(255,255,255,0.06);
+    --glow: 0 0 40px rgba(220,238,86,0.08);
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
+  .phone-frame { max-width: 390px; margin: 0 auto; padding: 0 0 100px; }
+
+  .variant-label {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: linear-gradient(135deg, #DCEE56, #a8c73e); color: #080808; text-align: center;
+    font-size: 11px; font-weight: 700; padding: 6px; letter-spacing: 0.08em;
+  }
+
+  .header {
+    padding: 52px 20px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .header-left { display: flex; align-items: baseline; gap: 8px; }
+  .header h1 { font-size: 22px; font-weight: 700; }
+  .header .badge {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 3px 8px; border-radius: 4px;
+    background: var(--lime-bg); color: var(--lime);
+  }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(220,238,86,0.1); border: 1.5px solid rgba(220,238,86,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--lime);
+  }
+
+  /* V3: IMMERSIVE DARK — glass, gradients, glow, game-feel */
+
+  .games-list { padding: 8px 20px; display: flex; flex-direction: column; gap: 12px; }
+
+  .game-card {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 20px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid var(--glass-stroke);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .game-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  }
+  .game-card:active { transform: scale(0.97); }
+  .game-card-locked { opacity: 0.3; cursor: default; backdrop-filter: none; }
+  .game-card-locked::before { display: none; }
+
+  .game-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(220,238,86,0.12), rgba(220,238,86,0.04));
+    border: 1px solid rgba(220,238,86,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: var(--lime); flex-shrink: 0;
+    box-shadow: var(--glow);
+  }
+  .game-card-locked .game-icon {
+    background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.04);
+    color: var(--dim); box-shadow: none;
+  }
+
+  .game-body { flex: 1; }
+  .game-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+  .game-desc { font-size: 12px; color: var(--sub); line-height: 1.4; }
+
+  .game-play-btn {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--lime), #c4d44e);
+    color: #080808;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+    box-shadow: 0 2px 16px rgba(220,238,86,0.25);
+  }
+  .game-soon {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 4px 10px; border-radius: 6px;
+    background: rgba(255,255,255,0.04); color: var(--dim);
+    border: 1px solid rgba(255,255,255,0.04); flex-shrink: 0;
+  }
+
+  /* Score pill in card */
+  .score-pill {
+    display: flex; align-items: center; gap: 4px; margin-top: 6px;
+    font-size: 10px; font-weight: 600; color: var(--lime);
+  }
+  .score-pill i { font-size: 12px; }
+
+  /* ── GAME PLAY ── */
+  .game-view { padding: 8px 20px; display: none; flex-direction: column; gap: 16px; }
+  .game-view.active { display: flex; }
+
+  .progress-ring {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 8px 0;
+  }
+  .ring-step {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.04); border: 2px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--dim);
+    transition: all 0.3s;
+  }
+  .ring-step.active {
+    background: var(--lime-bg); border-color: var(--lime); color: var(--lime);
+    box-shadow: var(--glow);
+  }
+  .ring-step.done {
+    background: rgba(220,238,86,0.1); border-color: rgba(220,238,86,0.3);
+    color: rgba(220,238,86,0.5);
+  }
+  .ring-line { width: 16px; height: 2px; background: rgba(255,255,255,0.06); }
+
+  .scene-card {
+    padding: 20px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid var(--glass-stroke);
+    position: relative; overflow: hidden;
+  }
+  .scene-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  }
+  .scene-label { font-size: 10px; font-weight: 600; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .scene-text { font-size: 16px; font-weight: 600; line-height: 1.45; }
+
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+
+  .choice {
+    padding: 18px 20px; border-radius: 16px; cursor: pointer;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1.5px solid rgba(255,255,255,0.06);
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .choice:active { transform: scale(0.98); }
+
+  .choice-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--dim); margin-bottom: 6px;
+  }
+  .choice-text { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+
+  .choice.correct {
+    border-color: rgba(76,175,80,0.4);
+    background: linear-gradient(135deg, rgba(76,175,80,0.08), rgba(76,175,80,0.03));
+  }
+  .choice.wrong {
+    border-color: rgba(244,67,54,0.3);
+    background: linear-gradient(135deg, rgba(244,67,54,0.06), rgba(244,67,54,0.02));
+  }
+
+  .choice-result {
+    margin-top: 12px; padding-top: 12px; font-size: 13px; font-weight: 500; line-height: 1.4;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .result-good { color: var(--green); }
+  .result-bad { color: var(--red); }
+
+  .next-btn {
+    padding: 16px 28px; border-radius: 14px; border: none;
+    background: linear-gradient(135deg, var(--lime), #c4d44e);
+    color: #080808;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(220,238,86,0.2);
+  }
+
+  .design-notes {
+    margin: 32px 20px; padding: 20px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(220,238,86,0.03), transparent);
+    border: 1px solid rgba(220,238,86,0.08);
+  }
+  .design-notes h3 { font-size: 12px; font-weight: 700; color: var(--lime); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .design-notes li { font-size: 12px; color: var(--sub); margin-bottom: 6px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="variant-label">V3 — IMMERSIVE DARK (glass + gradients + glow + game-feel)</div>
+<div class="phone-frame">
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Games</h1>
+      <span class="badge">2 available</span>
+    </div>
+    <div class="avatar">CA</div>
+  </div>
+
+  <div id="list-view">
+    <div class="games-list">
+      <div class="game-card" onclick="showGame()">
+        <div class="game-icon"><i class="ri-search-eye-line"></i></div>
+        <div class="game-body">
+          <div class="game-title">Spot the Difference</div>
+          <div class="game-desc">Two approaches. One converts. Pick the right one.</div>
+          <div class="score-pill"><i class="ri-trophy-line"></i> Best: 80%</div>
+        </div>
+        <div class="game-play-btn"><i class="ri-play-fill"></i></div>
+      </div>
+
+      <div class="game-card" onclick="showGame()">
+        <div class="game-icon"><i class="ri-chat-voice-line"></i></div>
+        <div class="game-body">
+          <div class="game-title">Quick Role Play</div>
+          <div class="game-desc">Handle real customer scenarios. Pick your response.</div>
+          <div class="score-pill"><i class="ri-trophy-line"></i> Best: 67%</div>
+        </div>
+        <div class="game-play-btn"><i class="ri-play-fill"></i></div>
+      </div>
+
+      <div class="game-card game-card-locked">
+        <div class="game-icon"><i class="ri-price-tag-3-line"></i></div>
+        <div class="game-body">
+          <div class="game-title">Price Defense</div>
+          <div class="game-desc">Hold margin against price objections.</div>
+        </div>
+        <div class="game-soon">Soon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-view" id="game-view">
+    <div class="progress-ring">
+      <div class="ring-step active">1</div>
+      <div class="ring-line"></div>
+      <div class="ring-step">2</div>
+      <div class="ring-line"></div>
+      <div class="ring-step">3</div>
+      <div class="ring-line"></div>
+      <div class="ring-step">4</div>
+      <div class="ring-line"></div>
+      <div class="ring-step">5</div>
+    </div>
+
+    <div class="scene-card">
+      <div class="scene-label">Scenario</div>
+      <div class="scene-text">Customer walks in and picks up a shoe.</div>
+    </div>
+
+    <div class="choices">
+      <div class="choice wrong">
+        <div class="choice-label">Option A</div>
+        <div class="choice-text">"Can I help you?"</div>
+        <div class="choice-result result-bad">&#10007; "Just looking." They leave.</div>
+      </div>
+      <div class="choice correct">
+        <div class="choice-label">Option B</div>
+        <div class="choice-text">"Those are popular — looking for running shoes or casual?"</div>
+        <div class="choice-result result-good">&#10003; They engage. You learn their need.</div>
+      </div>
+    </div>
+
+    <button class="next-btn">Next &rarr;</button>
+  </div>
+
+  <div class="design-notes">
+    <h3>V3 Design Decisions</h3>
+    <ul>
+      <li><strong>Glass morphism:</strong> Cards use gradient bg + backdrop-blur + subtle top highlight (SN #47 Opacity & Blur, #41 Dark UI).</li>
+      <li><strong>Gradient buttons:</strong> Lime gradient instead of flat — adds depth without weight (SN #38 Gradients).</li>
+      <li><strong>Glow accents:</strong> Icon boxes emit subtle lime glow — creates focal points in dark UI (SN #46 Depth & Shadow).</li>
+      <li><strong>Numbered progress:</strong> Circled numbers with connecting lines — more game-like than dots (SN #30 Affordance).</li>
+      <li><strong>Score history:</strong> "Best: 80%" pill on game cards — creates replayability incentive (UXD Goal Gradient Effect).</li>
+      <li><strong>Consistent gradients:</strong> All surfaces use 135deg gradient angle — unified direction of light (SN #41 Dark UI).</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function showGame() {
+  document.getElementById('list-view').style.display = 'none';
+  document.getElementById('game-view').classList.add('active');
+}
+</script>
+</body>
+</html>

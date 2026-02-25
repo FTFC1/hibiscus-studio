@@ -1,0 +1,420 @@
+/* ── Practice Page ── */
+.practice-page {
+  padding: 16px var(--space-page) 100px;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+/* Grid texture */
+.practice-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+}
+
+.practice-page > * { position: relative; z-index: 1; }
+
+/* ── Loading ── */
+.prac-loading {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 24px 0;
+  text-align: center;
+}
+
+/* ── Certified State ── */
+.prac-certified {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  text-align: center;
+}
+.prac-certified-icon { font-size: 48px; }
+.prac-certified-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--progress-gold);
+  line-height: 1.4;
+}
+
+/* ── Mission Card ── */
+.prac-mission-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+.prac-mission-card.all-done {
+  border-color: var(--progress-gold-glow);
+  box-shadow: 0 0 20px var(--progress-gold-dim);
+}
+.prac-mission-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cta-green);
+  margin-bottom: 4px;
+}
+.prac-mission-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+.prac-mission-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Section Label ── */
+.prac-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  padding: 0 2px;
+  margin-top: 2px;
+}
+
+/* ── Tasks ── */
+.prac-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prac-task-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s;
+}
+.prac-task-row:active { opacity: 0.75; }
+
+.prac-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.prac-check.checked {
+  background: var(--cta-green);
+  border-color: var(--cta-green);
+  transform: scale(1.1);
+}
+.prac-check-icon {
+  font-size: 12px;
+  color: var(--bg-body);
+  font-weight: 700;
+}
+
+.prac-task-text {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  transition: color 0.2s;
+}
+.prac-task-text.done {
+  color: var(--text-disabled);
+  text-decoration: line-through;
+  text-decoration-color: var(--progress-gold);
+  text-decoration-thickness: 1.5px;
+}
+
+/* ── Progress Row ── */
+.prac-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 2px;
+}
+.prac-progress-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.prac-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prac-progress-fill {
+  height: 100%;
+  background: var(--cta-green);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.prac-progress-pct {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.3s;
+}
+
+/* ── Reference Card ── */
+.prac-ref-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.prac-ref-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cta-green);
+}
+.prac-ref-arrow {
+  font-size: 18px;
+  color: var(--text-secondary);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+.prac-ref-arrow.open { transform: rotate(90deg); }
+
+.prac-ref-card {
+  background: var(--surface-card);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.prac-ref-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cta-green);
+  margin-top: 4px;
+}
+.prac-ref-section-label:first-child { margin-top: 0; }
+.prac-ref-text {
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.prac-ref-phrases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.prac-ref-phrase {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--cta-green-dim);
+  color: var(--cta-green);
+  border: 1px solid rgba(76,168,88,0.2);
+}
+
+/* ── Compact Rows (Completed + Locked) ── */
+.prac-compact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: 12px;
+}
+.prac-compact-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  width: 52px;
+  flex-shrink: 0;
+}
+.prac-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.prac-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.prac-chip-done { background: var(--cta-green-dim); color: var(--cta-green); }
+.prac-chip-locked { background: rgba(255,255,255,0.05); color: var(--text-disabled); }
+
+/* ── Manager: Header ── */
+.prac-mgr-header { padding: 4px 2px 4px; }
+.prac-mgr-title {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.prac-mgr-total {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ── Manager: Staff Cards ── */
+.prac-staff-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.prac-staff-card.alert {
+  border-color: rgba(255,100,100,0.3);
+  background: var(--alert-red-dim);
+}
+.prac-staff-card.complete {
+  border-color: rgba(74,222,128,0.2);
+}
+
+.prac-staff-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prac-staff-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.prac-staff-avatar.avatar-ok {
+  background: var(--cta-green-dim);
+  border: 1.5px solid var(--cta-green);
+  color: var(--cta-green);
+}
+.prac-staff-avatar.avatar-alert {
+  background: var(--alert-red-dim);
+  border: 1.5px solid var(--alert-red);
+  color: var(--alert-red);
+}
+.prac-staff-avatar.avatar-complete {
+  background: rgba(74,222,128,0.12);
+  border: 1.5px solid var(--alert-green);
+  color: var(--alert-green);
+}
+
+.prac-staff-info { flex: 1; min-width: 0; }
+.prac-staff-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.prac-staff-mission {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prac-staff-flag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.prac-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.prac-dot.dot-green { background: var(--alert-green); }
+.prac-dot.dot-red { background: var(--alert-red); }
+.prac-behind {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--alert-red);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prac-staff-bar-wrap {
+  height: 5px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.prac-staff-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.prac-staff-bar-fill.bar-alert { background: var(--alert-red); opacity: 0.5; }
+.prac-staff-bar-fill.bar-complete { background: var(--alert-green); }
+.prac-staff-bar-fill.bar-progress { background: var(--progress-gold); }
+
+.prac-staff-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.prac-staff-count.count-alert { color: var(--alert-red); }
+.prac-staff-count.count-complete { color: var(--alert-green); }
+.prac-staff-count-sub {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+.prac-staff-count.count-alert .prac-staff-count-sub { color: var(--alert-red); opacity: 0.7; }
+.prac-staff-count.count-complete .prac-staff-count-sub { color: var(--alert-green); opacity: 0.8; }

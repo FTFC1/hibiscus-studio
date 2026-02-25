@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>The Approach | PUMA Training</title>
+    <style>
+        :root {
+            --puma-black: #000;
+            --puma-red: #e30613;
+            --bg: #f5f5f5;
+            --card-bg: #fff;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --correct: #22c55e;
+            --wrong: #ef4444;
+            --missed: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .game-container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text);
+        }
+
+        .back-link {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        /* Progress bar - Cash register style */
+        .progress-strip {
+            background: var(--puma-black);
+            color: white;
+            padding: 12px 16px;
+            margin: 0 -16px 16px -16px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--correct), #86efac);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        .scenario-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .customer-type-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            background: var(--puma-red);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .scenario-context {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .customer-quote {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .customer-quote::before { content: '"'; color: var(--puma-red); }
+        .customer-quote::after { content: '"'; color: var(--puma-red); }
+
+        .question-prompt {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 10px;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* R6.2 SPACIOUS option styling */
+        .option {
+            background: var(--card-bg);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        .option:active { transform: scale(0.98); }
+        .option.selected { border-color: var(--puma-black); }
+        .option.correct { border-color: var(--correct); background: #fafffe; }
+        .option.wrong { border-color: var(--wrong); background: #fffafa; }
+        .option.was-correct { border-color: var(--correct); background: #fafffe; opacity: 0.7; }
+
+        /* Corner badge */
+        .option-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .option.correct .option-badge,
+        .option.was-correct .option-badge {
+            display: flex;
+            background: var(--correct);
+        }
+
+        .option.correct .option-badge::after,
+        .option.was-correct .option-badge::after {
+            content: '✓';
+        }
+
+        .option.wrong .option-badge {
+            display: flex;
+            background: var(--wrong);
+        }
+
+        .option.wrong .option-badge::after {
+            content: '✗';
+        }
+
+        .option-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .option-letter {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            color: var(--text);
+        }
+
+        .option.correct .option-letter,
+        .option.was-correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option.wrong .option-letter {
+            background: var(--wrong);
+            color: white;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-script {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .option-explanation {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .option.correct .option-explanation,
+        .option.wrong .option-explanation,
+        .option.was-correct .option-explanation {
+            display: block;
+        }
+
+        .option.correct .option-explanation { color: var(--correct); }
+        .option.wrong .option-explanation { color: var(--wrong); }
+
+        .btn {
+            width: 100%;
+            background: var(--puma-black);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .btn:active { transform: scale(0.98); }
+        .btn:disabled { opacity: 0.4; }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--puma-black);
+            color: var(--puma-black);
+        }
+
+        /* Start screen */
+        .start-screen {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 44px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .back-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .start-screen.hidden { display: none; }
+
+        .start-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .start-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .game-screen { display: none; }
+        .game-screen.visible { display: block; }
+
+        /* Results screen */
+        .results-screen { display: none; padding: 20px; }
+        .results-screen.visible { display: block; }
+
+        .results-header { text-align: center; margin-bottom: 24px; }
+        .results-emoji { font-size: 4rem; margin-bottom: 12px; }
+        .results-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+
+        .results-stats {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: var(--text-muted); }
+        .stat-value { font-weight: 600; }
+        .stat-value.good { color: var(--correct); }
+
+        /* Review section */
+        .review-section {
+            background: #fffbeb;
+            border: 1px solid var(--missed);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .review-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b45309;
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .review-header::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.2s ease;
+        }
+
+        .review-section.collapsed .review-header::after {
+            transform: rotate(-90deg);
+        }
+
+        .review-list { padding: 0 16px 16px 16px; }
+        .review-section.collapsed .review-list { display: none; }
+
+        .review-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .review-item:last-child { margin-bottom: 0; }
+
+        .review-type {
+            font-size: 0.7rem;
+            color: var(--puma-red);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .review-situation {
+            font-size: 0.8rem;
+            color: var(--text);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .review-you-said {
+            font-size: 0.75rem;
+            color: var(--wrong);
+            margin-bottom: 4px;
+        }
+
+        .review-should-say {
+            font-size: 0.75rem;
+            color: var(--correct);
+        }
+
+        /* Key insight card */
+        .insight-card {
+            background: #f0fdf4;
+            border: 1px solid var(--correct);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .insight-title {
+            font-size: 0.75rem;
+            color: var(--correct);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .insight-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <a href="course-outline.html" class="back-btn">← Back</a>
+            <div class="start-title">The Approach</div>
+            <div class="start-subtitle">
+                You've identified the customer type.<br>
+                Now — what do you actually SAY?
+            </div>
+            <button class="btn" onclick="startGame()">Start Training</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="header">
+                <a href="index.html" class="back-link">← Back</a>
+                <h1>The Approach</h1>
+            </div>
+
+            <div class="progress-strip">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progressText">Scenario 1 of 8</div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="customer-type-badge" id="customerType">MATERIAL-CURIOUS</div>
+                <div class="scenario-context" id="scenarioContext">Customer is looking at suede shoes</div>
+                <div class="customer-quote" id="customerQuote">How do I clean these?</div>
+                <div class="question-prompt">What do you say?</div>
+            </div>
+
+            <div class="options" id="optionsList"></div>
+
+            <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Scenario</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-screen" id="resultsScreen">
+            <div class="results-header">
+                <div class="results-emoji" id="resultsEmoji">🏆</div>
+                <div class="results-title" id="resultsTitle">Approach Master!</div>
+            </div>
+
+            <div class="results-stats">
+                <div class="stat-row">
+                    <span class="stat-label">Correct Approaches</span>
+                    <span class="stat-value good" id="finalCorrect">7/8</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value good" id="accuracy">88%</span>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-title">Key Insight</div>
+                <div class="insight-text" id="keyInsight">
+                    When a customer asks about care or materials, they're giving you permission to cross-sell. Don't miss it!
+                </div>
+            </div>
+
+            <div class="review-section collapsed" id="reviewSection" style="display: none;">
+                <div class="review-header" onclick="toggleReview()">
+                    <span>Review Your Mistakes (<span id="reviewCount">0</span>)</span>
+                </div>
+                <div class="review-list" id="reviewList"></div>
+            </div>
+
+            <button class="btn" onclick="startGame()">Play Again</button>
+            <a href="course-outline.html" class="btn btn-secondary">← Back</a>
+        </div>
+    </div>
+
+    <script>
+        // Scenarios: Customer type + situation + what they said + response options
+        const scenarios = [
+            // MATERIAL-CURIOUS scenarios
+            {
+                type: "MATERIAL-CURIOUS",
+                context: "Customer is looking at suede shoes",
+                quote: "How do I clean these?",
+                options: [
+                    {
+                        script: "We have a Suede Protector Spray for ₦3,500. It prevents stains before they happen.",
+                        correct: true,
+                        explanation: "They asked about care — give them the solution with the price."
+                    },
+                    {
+                        script: "Try our White Sneaker Cleaner — ₦4,500. Works on most materials.",
+                        correct: false,
+                        explanation: "Wrong product. They have SUEDE, not white leather."
+                    },
+                    {
+                        script: "Should I show you something else instead?",
+                        correct: false,
+                        explanation: "They're interested! Don't redirect — solve their concern."
+                    },
+                    {
+                        script: "Just use a damp cloth, that's all.",
+                        correct: false,
+                        explanation: "Generic advice that doesn't help them AND misses the sale."
+                    }
+                ]
+            },
+            {
+                type: "MATERIAL-CURIOUS",
+                context: "Customer examining white sneakers",
+                quote: "White shoes get dirty so fast...",
+                options: [
+                    {
+                        script: "That's why we have a White Sneaker Cleaner — ₦4,500. Keeps them fresh.",
+                        correct: true,
+                        explanation: "You acknowledged their concern and offered the solution."
+                    },
+                    {
+                        script: "True sha. White is hard to maintain.",
+                        correct: false,
+                        explanation: "You agreed but offered nothing. That's not helpful."
+                    },
+                    {
+                        script: "The Suede Protector Spray — ₦3,500 — helps with stains.",
+                        correct: false,
+                        explanation: "Wrong product. These are WHITE shoes, not suede."
+                    },
+                    {
+                        script: "It's not that bad sha.",
+                        correct: false,
+                        explanation: "Dismissing their valid concern doesn't build trust."
+                    }
+                ]
+            },
+            // GUIDED BUYER scenarios
+            {
+                type: "GUIDED BUYER",
+                context: "Customer just walked in, looking around",
+                quote: "I don't know what I'm looking for...",
+                options: [
+                    {
+                        script: "No wahala! What's the occasion? Casual, gym, or something specific?",
+                        correct: true,
+                        explanation: "Lead with a question to understand their needs. They WANT guidance."
+                    },
+                    {
+                        script: "Take your time, let me know if you need anything o.",
+                        correct: false,
+                        explanation: "They just told you they need help! Don't abandon them."
+                    },
+                    {
+                        script: "Our best sellers are this side.",
+                        correct: false,
+                        explanation: "You're guessing. Ask first, then recommend."
+                    },
+                    {
+                        script: "What size are you?",
+                        correct: false,
+                        explanation: "Too early for size. First understand what they need."
+                    }
+                ]
+            },
+            {
+                type: "GUIDED BUYER",
+                context: "Customer trying on a t-shirt",
+                quote: "What do you think? Does this fit me?",
+                options: [
+                    {
+                        script: "That fits great! Want me to grab the matching shorts? They'd complete the look.",
+                        correct: true,
+                        explanation: "Affirm their choice AND suggest the add-on. They want your opinion."
+                    },
+                    {
+                        script: "Yeah, it looks fine.",
+                        correct: false,
+                        explanation: "Missed the opportunity to build the outfit. They asked for your input!"
+                    },
+                    {
+                        script: "It depends on what you like.",
+                        correct: false,
+                        explanation: "They're asking YOU. Be confident and guide them."
+                    },
+                    {
+                        script: "We have other colors too.",
+                        correct: false,
+                        explanation: "They're happy with this one. Don't confuse them — build on it."
+                    }
+                ]
+            },
+            // ACTIVITY BUYER scenarios
+            {
+                type: "ACTIVITY BUYER",
+                context: "Customer looking at running shoes",
+                quote: "I want to start running",
+                options: [
+                    {
+                        script: "Great choice! For running, you'll want good socks too — the Performance 3-pack is ₦6,000.",
+                        correct: true,
+                        explanation: "Match the add-on to their ACTIVITY, not just the product."
+                    },
+                    {
+                        script: "Nice! We have a Gym Bag for ₦35,000 if you need to carry gear.",
+                        correct: false,
+                        explanation: "Wrong activity. They said RUNNING, not gym. Stay focused."
+                    },
+                    {
+                        script: "Have you run before?",
+                        correct: false,
+                        explanation: "Unnecessary question. They said they want to start — help them."
+                    },
+                    {
+                        script: "Should I show you our casual shoes too?",
+                        correct: false,
+                        explanation: "Wrong category. They said RUNNING. Stay focused."
+                    }
+                ]
+            },
+            {
+                type: "ACTIVITY BUYER",
+                context: "Customer mentioned they go to the gym",
+                quote: "I need shoes for weights and cardio",
+                options: [
+                    {
+                        script: "The Training line is perfect for both. Do you have a gym bag? This one's ₦35,000.",
+                        correct: true,
+                        explanation: "Match their activity (gym) with relevant add-on (bag)."
+                    },
+                    {
+                        script: "Great! The Running Cap is ₦11,000 — keeps sweat out of your eyes.",
+                        correct: false,
+                        explanation: "Wrong activity. Running cap for gym? Listen to what THEY said."
+                    },
+                    {
+                        script: "How often do you go to the gym?",
+                        correct: false,
+                        explanation: "Doesn't matter. They're here, they're buying. Make the suggestion."
+                    },
+                    {
+                        script: "Training shoes are this side.",
+                        correct: false,
+                        explanation: "Too passive. Lead them AND suggest the add-on."
+                    }
+                ]
+            },
+            // GIFT BUYER scenarios
+            {
+                type: "GIFT BUYER",
+                context: "Customer shopping for someone else",
+                quote: "It's for my son's birthday",
+                options: [
+                    {
+                        script: "Nice! Want me to add a Premium Shoe Bag? Makes it look like proper gift — ₦10,000.",
+                        correct: true,
+                        explanation: "Gifts need presentation. The bag adds perceived value."
+                    },
+                    {
+                        script: "We have the Care Kit for ₦8,000 — keeps shoes looking new.",
+                        correct: false,
+                        explanation: "Practical, but a gift buyer wants PRESENTATION first."
+                    },
+                    {
+                        script: "Does he like these colors?",
+                        correct: false,
+                        explanation: "They're the parent — they know. Focus on making it special."
+                    },
+                    {
+                        script: "These ones sell well with young guys.",
+                        correct: false,
+                        explanation: "Generic. Make it personal — it's a birthday gift!"
+                    }
+                ]
+            },
+            // EXPERT BUYER scenarios
+            {
+                type: "EXPERT BUYER",
+                context: "Customer who knows the product line",
+                quote: "I buy the Nitro every year. Just here for the new one.",
+                options: [
+                    {
+                        script: "Welcome back o! The new Nitro is here. How's your sock situation — need a fresh 3-pack?",
+                        correct: true,
+                        explanation: "Acknowledge their expertise, then casually suggest the add-on."
+                    },
+                    {
+                        script: "Let me tell you about the new features...",
+                        correct: false,
+                        explanation: "They know more than you. Don't lecture an expert."
+                    },
+                    {
+                        script: "It's right over here.",
+                        correct: false,
+                        explanation: "Helpful but passive. You can still cross-sell to experts."
+                    },
+                    {
+                        script: "Have you considered the Deviate instead?",
+                        correct: false,
+                        explanation: "They told you what they want. Respect that. Just add to it."
+                    }
+                ]
+            }
+        ];
+
+        // Key insights by customer type
+        const keyInsights = {
+            "MATERIAL-CURIOUS": "When customers ask about care or materials, they're ASKING for the cross-sell. Don't miss it!",
+            "GUIDED BUYER": "Guided buyers want you to lead. Build them a full outfit — they'll say yes.",
+            "ACTIVITY BUYER": "Match the add-on to their ACTIVITY, not just the product. Running → running gear.",
+            "GIFT BUYER": "Gifts are about presentation. Bags, boxes, and kits add perceived value.",
+            "EXPERT BUYER": "Respect their knowledge, but still ask about basics: socks, care products."
+        };
+
+        // Game state
+        let currentQuestion = 0;
+        let correct = 0;
+        let totalQuestions = 8;
+        let gameScenarios = [];
+        let answered = false;
+        let wrongAnswers = [];
+
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function startGame() {
+            currentQuestion = 0;
+            correct = 0;
+            answered = false;
+            wrongAnswers = [];
+
+            gameScenarios = shuffle(scenarios).slice(0, totalQuestions);
+
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('visible');
+            document.getElementById('gameScreen').classList.add('visible');
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const scenario = gameScenarios[currentQuestion];
+
+            // Update progress
+            document.getElementById('progressFill').style.width =
+                ((currentQuestion) / totalQuestions * 100) + '%';
+            document.getElementById('progressText').textContent =
+                `Scenario ${currentQuestion + 1} of ${totalQuestions}`;
+
+            // Update scenario card
+            document.getElementById('customerType').textContent = scenario.type;
+            document.getElementById('scenarioContext').textContent = scenario.context;
+            document.getElementById('customerQuote').textContent = scenario.quote;
+
+            // Build options (shuffled)
+            const shuffledOptions = shuffle(scenario.options.map((opt, i) => ({ ...opt, originalIndex: i })));
+
+            const optionsList = document.getElementById('optionsList');
+            optionsList.innerHTML = shuffledOptions.map((opt, i) => `
+                <div class="option" data-correct="${opt.correct}" data-explanation="${opt.explanation}" data-script="${opt.script}" onclick="selectOption(this)">
+                    <div class="option-badge"></div>
+                    <div class="option-content">
+                        <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                        <div class="option-text">
+                            <div class="option-script">"${opt.script}"</div>
+                            <div class="option-explanation">${opt.explanation}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').textContent =
+                currentQuestion < totalQuestions - 1 ? 'Next Scenario' : 'See Results';
+        }
+
+        function selectOption(element) {
+            if (answered) return;
+            answered = true;
+
+            const isCorrect = element.dataset.correct === 'true';
+            const scenario = gameScenarios[currentQuestion];
+
+            // Mark all options
+            document.querySelectorAll('.option').forEach(opt => {
+                if (opt.dataset.correct === 'true') {
+                    opt.classList.add(opt === element ? 'correct' : 'was-correct');
+                } else if (opt === element) {
+                    opt.classList.add('wrong');
+                }
+            });
+
+            if (isCorrect) {
+                correct++;
+            } else {
+                // Track wrong answer for review
+                const correctOption = document.querySelector('.option.was-correct, .option.correct');
+                wrongAnswers.push({
+                    type: scenario.type,
+                    quote: scenario.quote,
+                    youSaid: element.dataset.script,
+                    shouldSay: correctOption ? correctOption.dataset.script : ''
+                });
+            }
+
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= totalQuestions) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('gameScreen').classList.remove('visible');
+            document.getElementById('resultsScreen').classList.add('visible');
+
+            const accuracy = Math.round((correct / totalQuestions) * 100);
+
+            let emoji, title;
+            if (accuracy >= 90) {
+                emoji = '🏆';
+                title = 'Approach Master!';
+            } else if (accuracy >= 70) {
+                emoji = '🌟';
+                title = 'Great Instincts!';
+            } else if (accuracy >= 50) {
+                emoji = '👍';
+                title = 'Getting There!';
+            } else {
+                emoji = '💪';
+                title = 'Keep Practicing!';
+            }
+
+            document.getElementById('resultsEmoji').textContent = emoji;
+            document.getElementById('resultsTitle').textContent = title;
+            document.getElementById('finalCorrect').textContent = `${correct}/${totalQuestions}`;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+
+            // Set key insight based on most common type they got wrong
+            const typeCounts = {};
+            wrongAnswers.forEach(wa => {
+                typeCounts[wa.type] = (typeCounts[wa.type] || 0) + 1;
+            });
+
+            let focusType = Object.keys(typeCounts).sort((a, b) => typeCounts[b] - typeCounts[a])[0];
+            if (!focusType) {
+                focusType = gameScenarios[0].type;
+            }
+            document.getElementById('keyInsight').textContent = keyInsights[focusType] || keyInsights["GUIDED BUYER"];
+
+            // Show review section if they got things wrong
+            const reviewSection = document.getElementById('reviewSection');
+            const reviewList = document.getElementById('reviewList');
+
+            if (wrongAnswers.length > 0) {
+                reviewSection.style.display = 'block';
+                document.getElementById('reviewCount').textContent = wrongAnswers.length;
+                reviewList.innerHTML = wrongAnswers.map(wa => `
+                    <div class="review-item">
+                        <div class="review-type">${wa.type}</div>
+                        <div class="review-situation">"${wa.quote}"</div>
+                        <div class="review-you-said">You: "${wa.youSaid.substring(0, 50)}..."</div>
+                        <div class="review-should-say">Better: "${wa.shouldSay.substring(0, 50)}..."</div>
+                    </div>
+                `).join('');
+            } else {
+                reviewSection.style.display = 'none';
+            }
+        }
+
+        function toggleReview() {
+            document.getElementById('reviewSection').classList.toggle('collapsed');
+        }
+
+        function shareResults() {
+            alert('Screenshot this and share in the Telegram group!');
+        }
+    </script>
+</body>
+</html>
