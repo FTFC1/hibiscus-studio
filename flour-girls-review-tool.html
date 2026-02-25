@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>FLOUR Girls — Rochelle's Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#FAF7F2; --cream-dk:#F2EDE6; --blush:#F5DDD6; --blush-dk:#ECC8BC;
+    --rose:#C47A8E; --rose-dk:#A85E73; --sage:#7A9B7A; --sage-lt:#D4E4D4;
+    --linen:#E4DDD4; --linen-dk:#D4CAC0; --charcoal:#2C2832; --muted:#8A7F88;
+    --coral:#C47A7A; --coral-lt:#F5DADA; --gold:#B8956A; --gold-lt:#F0E0C8;
+    --warm-white:#FFFCF8;
+    --font-head:'Playfair Display',Georgia,serif;
+    --font-body:'DM Sans',system-ui,sans-serif;
+    --radius:16px; --radius-sm:10px;
+    --shadow:0 2px 16px rgba(44,40,50,0.08); --shadow-sm:0 1px 4px rgba(44,40,50,0.05);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background: #0D0B0E;
+    font-family: var(--font-body);
+    color: #fff;
+  }
+
+  /* ── SNAP SCROLL CONTAINER ── */
+  .scroll-wrap {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── EACH SCREEN ── */
+  .review-screen {
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 16px 100px;
+    position: relative;
+  }
+
+  /* ── SECTION LABEL (top left) ── */
+  .screen-number {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #444;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── GUIDED PROMPT (bottom center, above pill) ── */
+  .review-prompt {
+    position: absolute;
+    bottom: 70px;
+    left: 0; right: 0;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .review-prompt p {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--rose);
+    line-height: 1.5;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .review-prompt .prompt-label {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  /* ── PHONE FRAME ── */
+  .phone-wrap {
+    width: 100%;
+    max-width: 375px;
+    flex-shrink: 0;
+  }
+  .phone-frame {
+    width: 375px;
+    max-width: 100%;
+    background: var(--cream);
+    border-radius: 28px;
+    overflow: hidden;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    position: relative;
+  }
+  .phone-frame::-webkit-scrollbar { display: none; }
+  .phone-frame.fg { font-family: var(--font-body); color: var(--charcoal); }
+
+  /* ── FG COMPONENT STYLES ── */
+  .fg .app-bar {
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--linen);
+    text-align: center;
+    background: var(--cream);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .fg .app-bar-brand { font-family: var(--font-head); font-size: 19px; color: var(--rose-dk); letter-spacing: .01em; }
+  .fg .back-btn { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 22px; color: var(--rose); cursor: pointer; background: none; border: none; font-family: var(--font-body); }
+  .fg .nav-title { font-size: 15px; font-weight: 600; color: var(--charcoal); }
+  .fg .gear { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: var(--cream-dk); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--muted); cursor: pointer; border: none; }
+  .fg .screen-body { padding: 0 16px 32px; }
+  .fg .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 600; margin: 18px 0 8px; }
+  .fg .hero-text { font-family: var(--font-head); font-size: 22px; color: var(--charcoal); padding: 16px 0 10px; line-height: 1.3; }
+  .fg .floral-divider { text-align: center; font-size: 12px; color: var(--rose); opacity: .45; margin: 20px 0; }
+  .fg .mode-card { display: flex; align-items: center; gap: 14px; padding: 14px; background: #fff; border: 1px solid var(--linen); border-radius: var(--radius); margin-bottom: 10px; cursor: pointer; }
+  .fg .mode-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .fg .mode-icon.blush { background: var(--blush); }
+  .fg .mode-icon.gold { background: var(--gold-lt); }
+  .fg .mode-icon.sage { background: var(--sage-lt); }
+  .fg .mode-info { flex: 1; }
+  .fg .mode-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .fg .mode-info p { font-size: 12px; color: var(--muted); }
+  .fg .mode-arrow { font-size: 20px; color: var(--muted); }
+  .fg .tier-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+  .fg .tier-badge.free { color: var(--sage); background: var(--sage-lt); }
+  .fg .tier-badge.pro { color: var(--rose-dk); background: var(--blush); }
+  .fg .btn-upgrade { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dk) 100%); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; font-family: var(--font-body); cursor: pointer; box-shadow: 0 4px 12px rgba(196,122,142,.3); }
+  .fg .btn-secondary { width: 100%; padding: 12px; background: var(--cream-dk); color: var(--charcoal); border: 1px solid var(--linen); border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; font-family: var(--font-body); cursor: pointer; margin-bottom: 12px; }
+  .fg .input-field { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #fff; border: 1px solid var(--linen); border-radius: var(--radius-sm); margin-bottom: 8px; }
+  .fg .input-field.active { border-color: var(--rose); box-shadow: 0 0 0 2px rgba(196,122,142,0.15); }
+  .fg .input-label { font-size: 13px; color: var(--muted); }
+  .fg .input-value { font-size: 14px; font-weight: 600; color: var(--charcoal); }
+  .fg .input-value.active { color: var(--rose); }
+  .fg .result-sell-hero { background: #fff; border: 1px solid var(--linen); border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; padding: 24px 16px 18px; margin: 16px 0; position: relative; overflow: hidden; }
+  .fg .result-sell-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--rose); }
+  .fg .rsh-recipe { font-size: 11px; color: var(--muted); font-weight: 500; margin-bottom: 8px; }
+  .fg .rsh-price { font-family: var(--font-head); font-size: 64px; font-weight: 600; color: var(--rose); display: block; line-height: 1.1; }
+  .fg .rsh-label { font-size: 13px; font-weight: 700; color: var(--charcoal); margin-top: 4px; }
+  .fg .rsh-divider { border: none; border-top: 1px solid var(--linen); margin: 14px 0; }
+  .fg .rsh-per { font-size: 12px; color: var(--muted); }
+  .fg .dust-divider { height: 1px; margin: 20px 0; background: linear-gradient(90deg, transparent 0%, var(--linen) 20%, var(--linen) 80%, transparent 100%); position: relative; }
+  .fg .dust-divider::before { content: ''; position: absolute; top: -2px; left: 50%; transform: translateX(-50%); width: 40px; height: 5px; border-radius: 3px; background: radial-gradient(ellipse, rgba(196,122,142,0.15) 0%, transparent 70%); }
+  .noise-bg { position: relative; }
+  .noise-bg::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 100px 100px; }
+  .view-tabs { display: flex; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--linen); margin-bottom: 12px; }
+  .view-tab { flex: 1; padding: 8px; text-align: center; font-size: 11px; font-weight: 600; cursor: pointer; background: #fff; color: var(--muted); border: none; font-family: var(--font-body); transition: all 0.15s; }
+  .view-tab.active { background: var(--charcoal); color: #fff; }
+
+  /* textural extras */
+  .fg .header-band { padding: 20px 16px 12px; }
+  .fg .header-band.mode-cake { background: linear-gradient(180deg, #FFF5F0 0%, #F5E8E2 100%); }
+  .fg .header-band.mode-brownie { background: linear-gradient(180deg, #FFF8F0 0%, #F5E8D2 100%); }
+  .fg.textural .mode-card { box-shadow: 0 2px 8px rgba(44,40,50,0.06); }
+
+  /* wizard extras */
+  .fg .wizard-progress { display: flex; align-items: center; justify-content: center; padding: 16px; gap: 0; }
+  .fg .wizard-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--linen); }
+  .fg .wizard-dot.active { background: var(--rose); }
+  .fg .wizard-line { width: 32px; height: 2px; background: var(--linen); }
+  .fg .wizard-q { font-family: var(--font-head); font-size: 22px; color: var(--charcoal); margin: 12px 0 6px; line-height: 1.3; }
+  .fg .wizard-sub { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
+  .fg .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .fg .chip { padding: 10px 14px; background: #fff; border: 1.5px solid var(--linen); border-radius: 24px; font-size: 13px; font-weight: 500; color: var(--charcoal); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .fg .chip.selected { border-color: var(--rose); background: var(--blush); color: var(--rose-dk); }
+  .fg .chip-emoji { font-size: 16px; }
+
+  /* ── UPGRADE PROMPT BLOCK (R3 inline) ── */
+  .fg .upgrade-prompt { background: linear-gradient(160deg, #fff 0%, var(--blush) 100%); border: 1px solid rgba(196,122,142,0.25); border-radius: var(--radius); padding: 20px 16px; margin: 12px 0; text-align: center; }
+  .fg .up-emoji { font-size: 28px; margin-bottom: 6px; }
+  .fg .up-headline { font-family: var(--font-head); font-size: 18px; color: var(--charcoal); margin-bottom: 6px; }
+  .fg .up-body { font-size: 12px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+  .fg .up-features { text-align: left; margin-bottom: 14px; }
+  .fg .up-feat-row { font-size: 12px; color: var(--charcoal); padding: 3px 0; display: flex; align-items: center; gap: 8px; }
+  .fg .f-check { color: var(--sage); font-weight: 700; font-size: 13px; }
+  .fg .up-payback { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 12px; line-height: 1.5; }
+  .fg .up-price { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: var(--rose); margin-bottom: 2px; }
+  .fg .up-price-note { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+  .fg .undercharge-callout { background: var(--coral-lt); border: 1px solid var(--coral); border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; }
+  .fg .uc-icon { font-size: 20px; flex-shrink: 0; }
+  .fg .uc-text { font-size: 13px; color: var(--charcoal); line-height: 1.5; }
+  .fg .uc-amount { font-weight: 700; color: var(--coral); }
+  .fg .chatgpt-card { display: flex; align-items: center; gap: 12px; padding: 13px 14px; background: linear-gradient(135deg, var(--warm-white) 0%, #F0EBE4 100%); border: 1px solid var(--linen); border-radius: var(--radius); margin: 12px 0; cursor: pointer; }
+  .fg .chatgpt-icon { font-size: 22px; }
+  .fg .chatgpt-info { flex: 1; }
+  .fg .chatgpt-title { font-size: 13px; font-weight: 600; color: var(--charcoal); }
+  .fg .chatgpt-sub { font-size: 11px; color: var(--muted); }
+  .fg .chatgpt-arrow { font-size: 18px; color: var(--rose); }
+  .fg .action-bar { display: flex; gap: 8px; margin: 10px 0; }
+  .fg .action-btn { flex: 1; padding: 10px; text-align: center; background: #fff; border: 1px solid var(--linen); border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; cursor: pointer; }
+
+  /* ── WELCOME SCREEN ── */
+  .welcome-content {
+    text-align: center;
+    max-width: 320px;
+    padding: 24px;
+  }
+  .welcome-logo {
+    font-family: var(--font-head);
+    font-size: 28px;
+    color: var(--rose);
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .welcome-sub {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 32px;
+  }
+  .welcome-title {
+    font-family: var(--font-head);
+    font-size: 24px;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .welcome-body {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .welcome-steps {
+    text-align: left;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+  }
+  .welcome-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.5;
+  }
+  .welcome-step:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--rose);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .start-hint {
+    font-size: 13px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .start-arrow { color: var(--rose); font-size: 18px; }
+
+  /* ── WRAP-UP SCREEN ── */
+  .wrapup-content {
+    text-align: center;
+    max-width: 300px;
+  }
+  .wrapup-icon { font-size: 48px; margin-bottom: 16px; }
+  .wrapup-title { font-family: var(--font-head); font-size: 26px; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+  .wrapup-body { font-size: 14px; color: #888; line-height: 1.6; margin-bottom: 24px; }
+  .wrapup-questions {
+    background: rgba(196,122,142,0.08);
+    border: 1px solid rgba(196,122,142,0.2);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: left;
+  }
+  .wrapup-q { font-size: 13px; color: #bbb; padding: 6px 0; line-height: 1.5; display: flex; gap: 8px; }
+  .wrapup-q::before { content: '◈'; color: var(--rose); flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+
+  /* ── FLOATING PILL NAV ── */
+  .nav-pill {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 18, 24, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    white-space: nowrap;
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    color: var(--rose);
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 4px;
+    opacity: 0.9;
+  }
+  .nav-btn:hover { opacity: 1; }
+  .nav-btn:disabled { color: #333; cursor: default; }
+  .nav-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 140px;
+  }
+  .nav-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+  }
+  .nav-progress {
+    font-size: 10px;
+    color: #555;
+    margin-top: 3px;
+  }
+  .nav-dots {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .nav-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #333;
+    transition: background 0.2s;
+  }
+  .nav-dot.active { background: var(--rose); }
+
+  /* ── SECTION ACCENT COLOURS ── */
+  .review-screen:nth-child(1) { background: #0D0B0E; }
+  .review-screen:nth-child(2) { background: #0F0D11; }
+  .review-screen:nth-child(3) { background: #100E12; }
+  .review-screen:nth-child(4) { background: #0F0D11; }
+  .review-screen:nth-child(5) { background: #110D0F; }
+  .review-screen:nth-child(6) { background: #0D0F11; }
+  .review-screen:nth-child(7) { background: #0F100D; }
+  .review-screen:nth-child(8) { background: #110F0D; }
+  .review-screen:nth-child(9) { background: #0D0E11; }
+  .review-screen:nth-child(10) { background: #0E0D10; }
+
+  /* ── SECTION LABEL BADGE ── */
+  .screen-tag {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-wrap" id="scrollWrap">
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 0: WELCOME                   -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s0">
+  <div class="welcome-content">
+    <div class="welcome-logo">FLOUR Girls</div>
+    <div class="welcome-sub">Design Review · February 2026</div>
+    <div class="welcome-title">Rochelle, this is for you.</div>
+    <div class="welcome-body">
+      10 screens. Each one is a real design decision.<br>
+      Screen-record yourself scrolling through and talking.
+    </div>
+    <div class="welcome-steps">
+      <div class="welcome-step">
+        <div class="step-num">1</div>
+        <div>Scroll down slowly through each screen</div>
+      </div>
+      <div class="welcome-step">
+        <div class="step-num">2</div>
+        <div>Read the <span style="color:var(--rose);font-style:italic;">pink question</span> below each phone — that's what I need your honest answer to</div>
+      </div>
+      <div class="welcome-step">
+        <div class="step-num">3</div>
+        <div>Speak your reactions out loud — the screen-record captures it all</div>
+      </div>
+    </div>
+    <div class="start-hint">
+      <span>Scroll down to begin</span>
+      <span class="start-arrow">↓</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 1: HOME                      -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s1">
+  <div class="screen-number">Screen 1 of 9</div>
+  <div class="screen-tag">HOME SCREEN</div>
+  <div class="phone-wrap">
+    <div class="phone-frame fg">
+      <div class="app-bar">
+        <span class="app-bar-brand">FLOUR Girls</span>
+        <button class="gear">⚙</button>
+      </div>
+      <div class="screen-body" style="padding-top:8px">
+        <div class="hero-text">What are you<br>pricing today?</div>
+        <div class="mode-card">
+          <div class="mode-icon blush">🎂</div>
+          <div class="mode-info"><h3>Cake</h3><p>Whole cakes, tiered, per-slice pricing</p></div>
+          <span class="mode-arrow">›</span>
+        </div>
+        <div class="mode-card">
+          <div class="mode-icon gold">🍫</div>
+          <div class="mode-info"><h3>Brownies</h3><p>Batches, boxes, per-unit pricing</p></div>
+          <span class="mode-arrow">›</span>
+        </div>
+        <div class="mode-card">
+          <div class="mode-icon sage">🍪</div>
+          <div class="mode-info"><h3>Cookies</h3><p>Batches, bags, per-cookie pricing</p></div>
+          <span class="mode-arrow">›</span>
+        </div>
+        <div class="floral-divider">✿ · · · ✿ · · · ✿</div>
+        <div style="text-align:center;padding:8px 0;">
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;">Trusted by <span style="font-weight:600;color:var(--charcoal);">200+ bakers</span> to price confidently</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Would you open this app if it showed up in a search? Does it feel like yours?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 2: CALCULATOR INPUT          -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s2">
+  <div class="screen-number">Screen 2 of 9</div>
+  <div class="screen-tag">INPUT SCREEN</div>
+  <div class="phone-wrap">
+    <div class="phone-frame fg">
+      <div class="app-bar">
+        <button class="back-btn">‹</button>
+        <span class="nav-title">Cake Calculator</span>
+      </div>
+      <div class="screen-body" style="padding-top:12px">
+        <div class="section-label">Your recipe</div>
+        <div class="input-field">
+          <span class="input-label">Recipe name</span>
+          <span class="input-value">Victoria Sponge</span>
+        </div>
+        <div class="input-field">
+          <span class="input-label">Servings</span>
+          <span class="input-value">12</span>
+        </div>
+        <div class="section-label">Costs</div>
+        <div class="input-field">
+          <span class="input-label">Ingredients total</span>
+          <span class="input-value">$23.00</span>
+        </div>
+        <div class="input-field active">
+          <span class="input-label">Labour (hours)</span>
+          <span class="input-value active">2.5</span>
+        </div>
+        <div class="input-field">
+          <span class="input-label">Hourly rate</span>
+          <span class="input-value">$5.00</span>
+        </div>
+        <div class="input-field">
+          <span class="input-label">Overheads</span>
+          <span class="input-value">$5.50</span>
+        </div>
+        <div class="input-field">
+          <span class="input-label">Packaging + delivery</span>
+          <span class="input-value">$4.00</span>
+        </div>
+        <div class="section-label">Target margin</div>
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <div style="flex:1;padding:10px;text-align:center;background:var(--cream-dk);border:1px solid var(--linen);border-radius:8px;font-size:14px;font-weight:500;color:var(--muted);">20%</div>
+          <div style="flex:1;padding:10px;text-align:center;background:var(--rose);border:1px solid var(--rose);border-radius:8px;font-size:14px;font-weight:600;color:#fff;">30%</div>
+          <div style="flex:1;padding:10px;text-align:center;background:var(--cream-dk);border:1px solid var(--linen);border-radius:8px;font-size:14px;font-weight:500;color:var(--muted);">40%</div>
+          <div style="flex:1;padding:10px;text-align:center;background:var(--cream-dk);border:1px solid var(--linen);border-radius:8px;font-size:14px;font-weight:500;color:var(--muted);">50%</div>
+        </div>
+        <button class="btn-secondary" style="margin-top:8px;font-weight:600;font-size:15px;">Calculate my price →</button>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Is filling this form simpler than a spreadsheet? Anything missing or confusing?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 3: LITE RESULT — FINAL       -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s3">
+  <div class="screen-number">Screen 3 of 9</div>
+  <div class="screen-tag">FREE RESULT</div>
+  <div class="phone-wrap">
+    <div class="phone-frame fg">
+      <div class="app-bar">
+        <button class="back-btn">‹</button>
+        <span class="nav-title">Your Price</span>
+      </div>
+      <div class="screen-body" style="padding:0;">
+        <div style="padding:14px 16px 0;">
+          <span class="tier-badge free">✦ Lite result</span>
+        </div>
+        <div class="noise-bg" style="background:linear-gradient(170deg,#FFF8F5 0%,#FCEEE8 50%,#F8E4DC 100%);padding:20px 16px 24px;margin-top:8px;">
+          <div style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:16px;">Victoria Sponge · 12 servings</div>
+          <div style="background:#fff;border-radius:24px;padding:40px 20px 20px;text-align:center;box-shadow:0 12px 40px rgba(168,94,115,0.16),0 4px 12px rgba(44,40,50,0.08),0 0 0 1px rgba(228,221,212,0.3);position:relative;transform:translateY(-4px);">
+            <div style="font-size:12px;color:var(--muted);font-weight:500;margin-bottom:14px;letter-spacing:0.3px;">You should charge</div>
+            <div style="font-family:var(--font-head);font-size:88px;font-weight:700;color:var(--rose-dk);line-height:0.85;letter-spacing:-4px;text-shadow:0 2px 8px rgba(168,94,115,0.08);">$65</div>
+            <div style="margin-top:18px;font-size:14px;font-weight:600;color:var(--charcoal);">$20 profit at 30% margin</div>
+            <div style="border-top:1px solid var(--linen);margin:20px 0 0;padding-top:16px;display:flex;">
+              <div style="flex:1;text-align:center;"><div style="font-family:var(--font-head);font-size:18px;font-weight:700;color:var(--charcoal);">$45</div><div style="font-size:10px;color:var(--muted);margin-top:2px;">Your cost</div></div>
+              <div style="width:1px;background:var(--linen);"></div>
+              <div style="flex:1;text-align:center;"><div style="font-family:var(--font-head);font-size:18px;font-weight:700;color:var(--charcoal);">30%</div><div style="font-size:10px;color:var(--muted);margin-top:2px;">Margin</div></div>
+              <div style="width:1px;background:var(--linen);"></div>
+              <div style="flex:1;text-align:center;"><div style="font-family:var(--font-head);font-size:18px;font-weight:700;color:var(--charcoal);">$5.42</div><div style="font-size:10px;color:var(--muted);margin-top:2px;">Per slice</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 16px;">
+          <div style="text-align:center;margin-top:16px;padding:14px 20px;">
+            <div style="font-size:14px;font-weight:600;color:var(--charcoal);margin-bottom:6px;">Most bakers charge $35–45 for this cake.</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.5;">You're pricing your skill, not just your ingredients.</div>
+          </div>
+          <div class="dust-divider"></div>
+          <div style="background:linear-gradient(135deg,var(--warm-white) 0%,var(--blush) 100%);border:1.5px solid rgba(196,122,142,0.2);border-radius:var(--radius);padding:18px;text-align:center;">
+            <div style="font-family:var(--font-head);font-size:16px;color:var(--charcoal);margin-bottom:4px;">See where every dollar goes</div>
+            <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Full breakdown, all margins, save + ChatGPT</div>
+            <button class="btn-upgrade" style="font-size:14px;padding:12px;">Unlock Pro — $37 →</button>
+          </div>
+          <button class="btn-secondary" style="margin-top:10px;">↩ Recalculate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Does seeing $65 feel like real professional advice, or just a number? Is the card doing enough?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 4: PAYWALL GATE             -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s4">
+  <div class="screen-number">Screen 4 of 9</div>
+  <div class="screen-tag">PAYWALL</div>
+  <div class="phone-wrap">
+    <div class="phone-frame fg">
+      <div class="app-bar" style="background:#fff;">
+        <button class="back-btn">✕</button>
+        <span class="nav-title"></span>
+      </div>
+      <div class="screen-body" style="padding-top:16px;background:linear-gradient(180deg,#fff 0%,var(--blush) 50%,var(--cream) 100%);min-height:560px;">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="font-size:40px;margin-bottom:8px;">🌸</div>
+          <div style="font-family:var(--font-head);font-size:22px;color:var(--charcoal);line-height:1.3;">Your cake is worth<br><span style="color:var(--rose);font-size:28px;">$65</span></div>
+          <div style="font-size:14px;color:var(--muted);margin-top:8px;line-height:1.5;">Unlock full professional breakdown +<br>save, export &amp; explain your price confidently.</div>
+        </div>
+        <div style="background:#fff;border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:var(--shadow);">
+          <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">FLOUR Girls Pro includes</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;"><span style="color:var(--sage);font-weight:700;">✓</span> Per-slice / per-unit breakdown</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;"><span style="color:var(--sage);font-weight:700;">✓</span> Full cost itemisation</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;"><span style="color:var(--sage);font-weight:700;">✓</span> Margin comparison table (20–50%)</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;"><span style="color:var(--sage);font-weight:700;">✓</span> <strong>Copy to ChatGPT</strong> — explain price to clients</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;"><span style="color:var(--sage);font-weight:700;">✓</span> Save pricing history</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;"><span style="color:var(--sage);font-weight:700;">✓</span> PDF export — professional client quotes</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-head);font-size:36px;font-weight:700;color:var(--rose);margin-bottom:4px;">$37</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:16px;">Founder price · One-off · No subscription</div>
+          <button class="btn-upgrade" style="max-width:300px;margin:0 auto 12px;display:block;">Unlock everything →</button>
+          <div style="font-size:12px;color:var(--muted);margin-top:8px;">Already paid? <span style="color:var(--rose);font-weight:500;cursor:pointer;">Restore purchase</span></div>
+          <div style="font-size:11px;color:var(--linen-dk);margin-top:12px;">Price increases to $47 after founder phase</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Would you tap Unlock here, or does it feel too pushy? Does $37 feel fair for what's listed?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 5: PRO — VISUAL VIEW        -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s5">
+  <div class="screen-number">Screen 5 of 9</div>
+  <div class="screen-tag">PRO — VISUAL</div>
+  <div class="phone-wrap">
+    <div class="phone-frame fg">
+      <div class="app-bar">
+        <button class="back-btn">‹</button>
+        <span class="nav-title">Your Price</span>
+      </div>
+      <div class="screen-body" style="padding:0;">
+        <div style="padding:12px 16px 0;">
+          <span class="tier-badge pro">✦ FLOUR Girls Pro</span>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">Victoria Sponge · 12 servings</div>
+        </div>
+        <div class="noise-bg" style="background:linear-gradient(170deg,var(--warm-white) 0%,#FFF3EE 40%,#FCEEE8 100%);padding:28px 16px 24px;text-align:center;margin-top:6px;">
+          <div style="font-family:var(--font-head);font-size:76px;font-weight:700;color:var(--rose-dk);line-height:0.85;letter-spacing:-4px;">$65</div>
+          <div style="margin-top:14px;font-size:14px;color:var(--charcoal);font-weight:600;">$20 profit · $5.42/slice · 30%</div>
+        </div>
+        <div style="padding:0 16px;">
+          <div style="display:flex;align-items:center;gap:12px;padding:13px;margin-top:14px;background:linear-gradient(135deg,var(--warm-white) 0%,#F0EBE4 100%);border:1px solid var(--linen);border-radius:var(--radius);cursor:pointer;">
+            <span style="font-size:22px;">💬</span>
+            <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--charcoal);">Copy to ChatGPT ★</div><div style="font-size:11px;color:var(--muted);">Client reply, IG caption, or quote</div></div>
+            <span style="font-size:18px;color:var(--rose);">›</span>
+          </div>
+          <div style="display:flex;gap:8px;margin:10px 0;">
+            <div style="flex:1;padding:10px;text-align:center;background:#fff;border:1px solid var(--linen);border-radius:var(--radius-sm);font-size:12px;font-weight:500;">💾 Save</div>
+            <div style="flex:1;padding:10px;text-align:center;background:#fff;border:1px solid var(--linen);border-radius:var(--radius-sm);font-size:12px;font-weight:500;">📄 PDF</div>
+            <div style="flex:1;padding:10px;text-align:center;background:#fff;border:1px solid var(--linen);border-radius:var(--radius-sm);font-size:12px;font-weight:500;">↩ Redo</div>
+          </div>
+          <div style="background:linear-gradient(135deg,var(--sage-lt) 0%,#E8F2E8 100%);border-radius:var(--radius);padding:14px 16px;margin:6px 0 14px;display:flex;align-items:center;gap:12px;">
+            <div style="font-size:28px;">⏱</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--sage);">Your time is counted</div>
+              <div style="font-size:12px;color:var(--charcoal);line-height:1.4;margin-top:2px;">2.5 hours of labour + overhead = <strong>$18.00</strong> for your skill and energy</div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-head);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Where $45 goes</div>
+          <div class="view-tabs">
+            <button class="view-tab active" style="border-right:1px solid var(--linen);">Visual</button>
+            <button class="view-tab">Detail</button>
+          </div>
+          <div style="display:flex;gap:16px;justify-content:center;padding:8px 0 16px;">
+            <div style="text-align:center;">
+              <div style="width:100px;height:100px;border-radius:50%;background:var(--cream-dk);border:2px solid var(--linen);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div style="font-family:var(--font-head);font-size:24px;font-weight:700;color:var(--charcoal);">$27</div>
+                <div style="font-size:9px;color:var(--muted);font-weight:500;">60%</div>
+              </div>
+              <div style="font-size:12px;font-weight:600;color:var(--charcoal);margin-top:6px;">Materials</div>
+              <div style="font-size:10px;color:var(--muted);">Ingredients + packaging</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:100px;height:100px;border-radius:50%;background:rgba(212,228,212,0.3);border:2px solid var(--sage);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div style="font-family:var(--font-head);font-size:24px;font-weight:700;color:var(--sage);">$18</div>
+                <div style="font-size:9px;color:var(--sage);font-weight:500;">40%</div>
+              </div>
+              <div style="font-size:12px;font-weight:600;color:var(--sage);margin-top:6px;">Your work</div>
+              <div style="font-size:10px;color:var(--muted);">Labour + overhead</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 14px;font-weight:700;font-size:14px;background:var(--cream);border-radius:var(--radius-sm);">
+            <span>Total cost</span><span>$45.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Do the circles make the breakdown feel clearer — or is it decoration? Would you prefer just numbers?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 6: PRO — DETAIL VIEW        -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s6">
+  <div class="screen-number">Screen 6 of 9</div>
+  <div class="screen-tag">PRO — DETAIL</div>
+  <div class="phone-wrap">
+    <div class="phone-frame fg">
+      <div class="app-bar">
+        <button class="back-btn">‹</button>
+        <span class="nav-title">Your Price</span>
+      </div>
+      <div class="screen-body" style="padding:0;">
+        <div style="padding:12px 16px 0;">
+          <span class="tier-badge pro">✦ FLOUR Girls Pro</span>
+        </div>
+        <div class="noise-bg" style="background:linear-gradient(170deg,var(--warm-white) 0%,#FFF3EE 40%,#FCEEE8 100%);padding:28px 16px 24px;text-align:center;margin-top:6px;">
+          <div style="font-family:var(--font-head);font-size:76px;font-weight:700;color:var(--rose-dk);line-height:0.85;letter-spacing:-4px;">$65</div>
+          <div style="margin-top:14px;font-size:14px;color:var(--charcoal);font-weight:600;">$20 profit · $5.42/slice · 30%</div>
+        </div>
+        <div style="padding:0 16px;">
+          <div style="font-family:var(--font-head);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin:14px 0 8px;">Where $45 goes</div>
+          <div class="view-tabs">
+            <button class="view-tab" style="border-right:1px solid var(--linen);">Visual</button>
+            <button class="view-tab active">Detail</button>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(228,221,212,0.6);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);">
+            <div style="display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--linen);font-size:13px;"><span>Ingredients</span><span style="font-weight:600;">$23.00</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--linen);font-size:13px;background:rgba(212,228,212,0.15);"><span style="font-weight:500;">Labour (2.5h × $5)</span><span style="font-weight:700;color:var(--sage);">$12.50</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--linen);font-size:13px;background:rgba(212,228,212,0.15);"><span style="font-weight:500;">Overheads</span><span style="font-weight:700;color:var(--sage);">$5.50</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--linen);font-size:13px;"><span>Packaging + delivery</span><span style="font-weight:600;">$4.00</span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 14px;font-weight:700;background:var(--cream);font-size:14px;"><span>Total cost</span><span>$45.00</span></div>
+          </div>
+          <div style="font-family:var(--font-head);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin:18px 0 8px;">Compare margins</div>
+          <div style="display:flex;gap:6px;">
+            <div style="flex:1;padding:10px 4px;text-align:center;background:var(--cream);border-radius:8px;cursor:pointer;"><div style="font-size:10px;color:var(--muted);">20%</div><div style="font-size:16px;font-weight:700;color:var(--charcoal);margin:1px 0;">$57</div><div style="font-size:9px;color:var(--muted);">$4.75</div></div>
+            <div style="flex:1;padding:10px 4px;text-align:center;background:var(--blush);border-radius:8px;border:1.5px solid var(--rose);cursor:pointer;"><div style="font-size:10px;color:var(--rose-dk);font-weight:600;">30%</div><div style="font-size:16px;font-weight:700;color:var(--rose);margin:1px 0;">$65</div><div style="font-size:9px;color:var(--rose-dk);">$5.42</div></div>
+            <div style="flex:1;padding:10px 4px;text-align:center;background:var(--cream);border-radius:8px;cursor:pointer;"><div style="font-size:10px;color:var(--muted);">40%</div><div style="font-size:16px;font-weight:700;color:var(--charcoal);margin:1px 0;">$75</div><div style="font-size:9px;color:var(--muted);">$6.25</div></div>
+            <div style="flex:1;padding:10px 4px;text-align:center;background:var(--cream);border-radius:8px;cursor:pointer;"><div style="font-size:10px;color:var(--muted);">50%</div><div style="font-size:16px;font-weight:700;color:var(--charcoal);margin:1px 0;">$90</div><div style="font-size:9px;color:var(--muted);">$7.50</div></div>
+          </div>
+          <div style="margin-top:16px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Is the line-item breakdown clear enough to show a client? Would you trust these numbers?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 7: TEXTURAL — BEFORE/AFTER  -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s7">
+  <div class="screen-number">Screen 7 of 9</div>
+  <div class="screen-tag">TEXTURE TEST</div>
+  <!-- Two phones side by side -->
+  <div style="display:flex;gap:12px;align-items:flex-start;max-width:100%;overflow:hidden;">
+    <!-- BEFORE -->
+    <div style="flex:1;min-width:0;">
+      <div style="text-align:center;font-size:10px;font-weight:700;color:#444;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Current</div>
+      <div class="phone-frame fg" style="width:100%;max-width:180px;margin:0 auto;border-radius:18px;">
+        <div class="app-bar" style="padding:10px 12px 8px;">
+          <span style="font-family:var(--font-head);font-size:14px;color:var(--rose-dk);">FLOUR Girls</span>
+          <button class="gear" style="width:24px;height:24px;font-size:12px;right:10px;">⚙</button>
+        </div>
+        <div style="padding:8px 10px 20px;">
+          <div style="font-family:var(--font-head);font-size:16px;color:var(--charcoal);padding:8px 0;">What are you pricing today?</div>
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#fff;border:1px solid var(--linen);border-radius:10px;margin-bottom:6px;"><span style="font-size:18px;">🎂</span><div><div style="font-size:11px;font-weight:600;">Cake</div><div style="font-size:9px;color:var(--muted);">Per-slice pricing</div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#fff;border:1px solid var(--linen);border-radius:10px;margin-bottom:6px;"><span style="font-size:18px;">🍫</span><div><div style="font-size:11px;font-weight:600;">Brownies</div><div style="font-size:9px;color:var(--muted);">Per-unit pricing</div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#fff;border:1px solid var(--linen);border-radius:10px;"><span style="font-size:18px;">🍪</span><div><div style="font-size:11px;font-weight:600;">Cookies</div><div style="font-size:9px;color:var(--muted);">Per-cookie pricing</div></div></div>
+          <div style="text-align:center;font-size:10px;color:var(--rose);opacity:.4;margin:12px 0;">✿ · ✿ · ✿</div>
+        </div>
+      </div>
+    </div>
+    <!-- AFTER -->
+    <div style="flex:1;min-width:0;">
+      <div style="text-align:center;font-size:10px;font-weight:700;color:var(--rose);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Textural</div>
+      <div class="phone-frame fg textural" style="width:100%;max-width:180px;margin:0 auto;border-radius:18px;">
+        <div class="app-bar" style="padding:10px 12px 8px;">
+          <span style="font-family:var(--font-head);font-size:14px;color:var(--rose-dk);">FLOUR Girls</span>
+          <button class="gear" style="width:24px;height:24px;font-size:12px;right:10px;">⚙</button>
+        </div>
+        <div style="background:linear-gradient(180deg,#FFF5F0 0%,#F5E8E2 100%);padding:10px 10px 6px;">
+          <div style="font-family:var(--font-head);font-size:16px;color:var(--charcoal);padding:4px 0;">What are you pricing today?</div>
+        </div>
+        <div style="padding:8px 10px 20px;">
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#fff;border:1px solid var(--linen);border-radius:10px;margin-bottom:6px;box-shadow:0 2px 6px rgba(44,40,50,0.06);"><span style="font-size:18px;">🎂</span><div><div style="font-size:11px;font-weight:600;">Cake</div><div style="font-size:9px;color:var(--muted);">Per-slice pricing</div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#fff;border:1px solid var(--linen);border-radius:10px;margin-bottom:6px;box-shadow:0 2px 6px rgba(44,40,50,0.06);"><span style="font-size:18px;">🍫</span><div><div style="font-size:11px;font-weight:600;">Brownies</div><div style="font-size:9px;color:var(--muted);">Per-unit pricing</div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#fff;border:1px solid var(--linen);border-radius:10px;box-shadow:0 2px 6px rgba(44,40,50,0.06);"><span style="font-size:18px;">🍪</span><div><div style="font-size:11px;font-weight:600;">Cookies</div><div style="font-size:9px;color:var(--muted);">Per-cookie pricing</div></div></div>
+          <div style="height:1px;margin:14px 0;background:linear-gradient(90deg,transparent 0%,var(--linen) 20%,var(--linen) 80%,transparent 100%);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Does the textured version (right) feel more premium — or is it too subtle to notice?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 8: CHATGPT WIZARD           -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s8">
+  <div class="screen-number">Screen 8 of 9</div>
+  <div class="screen-tag">CHATGPT WIZARD</div>
+  <div class="phone-wrap">
+    <div class="phone-frame fg textural">
+      <div class="app-bar">
+        <button class="back-btn">‹</button>
+        <span class="nav-title">Copy to ChatGPT</span>
+      </div>
+      <div class="screen-body" style="padding-top:0;">
+        <div class="wizard-progress">
+          <span class="wizard-dot active"></span>
+          <span class="wizard-line"></span>
+          <span class="wizard-dot"></span>
+          <span class="wizard-line"></span>
+          <span class="wizard-dot"></span>
+        </div>
+        <div style="padding:0 16px;">
+          <span class="tier-badge pro">✦ PRO feature</span>
+          <div class="wizard-q">Who is this for?</div>
+          <div class="wizard-sub">This shapes the tone and detail of the message ChatGPT writes for you.</div>
+          <div class="chip-grid">
+            <div class="chip selected"><span class="chip-emoji">👩</span>Private client</div>
+            <div class="chip"><span class="chip-emoji">🎪</span>Event planner</div>
+            <div class="chip"><span class="chip-emoji">🏪</span>Wholesale buyer</div>
+            <div class="chip"><span class="chip-emoji">🧁</span>Market stall</div>
+            <div class="chip"><span class="chip-emoji">📱</span>Social media DM</div>
+          </div>
+          <div class="dust-divider"></div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;text-align:center;">Using prices from<br><span style="font-weight:600;color:var(--charcoal);">Victoria Sponge · $65 at 30%</span></div>
+          <div style="margin-top:16px;background:linear-gradient(135deg,var(--warm-white) 0%,var(--blush) 100%);border:1px solid rgba(196,122,142,0.2);border-radius:var(--radius);padding:14px 16px;">
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">What this gives you</div>
+            <div style="font-size:12px;color:var(--charcoal);line-height:1.6;">
+              A ready-to-send message explaining your price confidently — tailored for the person you selected. Tap a chip → press Next twice → copy the message.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="review-prompt">
+    <span class="prompt-label">React to this</span>
+    <p>"Would you actually use this feature after seeing your price? Or would you rather copy the number yourself?"</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- SCREEN 9: FINAL THOUGHTS           -->
+<!-- ════════════════════════════════════ -->
+<section class="review-screen" id="s9">
+  <div class="screen-number">Screen 9 of 9</div>
+  <div class="wrapup-content">
+    <div class="wrapup-icon">🌸</div>
+    <div class="wrapup-title">That's everything,<br>Rochelle.</div>
+    <div class="wrapup-body">If you covered these in your recording, we have everything we need to build the final version.</div>
+    <div class="wrapup-questions">
+      <div class="wrapup-q">The $65 price card — does it feel confident enough to show a client?</div>
+      <div class="wrapup-q">The upgrade screen — is $37 the right number, or does it feel off?</div>
+      <div class="wrapup-q">The ChatGPT wizard — useful feature, or skip it for now?</div>
+      <div class="wrapup-q">What's the ONE thing you'd change before we build the real thing?</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .scroll-wrap -->
+
+<!-- ════════════════════════════════════ -->
+<!-- FLOATING PILL NAVIGATION           -->
+<!-- ════════════════════════════════════ -->
+<div class="nav-pill" id="navPill">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" disabled>‹</button>
+  <div class="nav-center">
+    <div class="nav-label" id="navLabel">Welcome</div>
+    <div class="nav-dots" id="navDots"></div>
+  </div>
+  <button class="nav-btn" id="nextBtn" onclick="navigate(1)">›</button>
+</div>
+
+<script>
+  const screens = document.querySelectorAll('.review-screen');
+  const scrollWrap = document.getElementById('scrollWrap');
+  const navLabel = document.getElementById('navLabel');
+  const navDots = document.getElementById('navDots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  const labels = [
+    'Welcome',
+    '1 · Home Screen',
+    '2 · Input Form',
+    '3 · Lite Result',
+    '4 · Upgrade',
+    '5 · Pro — Visual',
+    '6 · Pro — Detail',
+    '7 · Texture Test',
+    '8 · ChatGPT Wizard',
+    '9 · Final Thoughts'
+  ];
+
+  let current = 0;
+
+  // Build dots
+  screens.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    d.style.cursor = 'pointer';
+    navDots.appendChild(d);
+  });
+
+  function updateNav(idx) {
+    current = idx;
+    navLabel.textContent = labels[idx];
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === screens.length - 1;
+  }
+
+  function goTo(idx) {
+    screens[idx].scrollIntoView({ behavior: 'smooth' });
+    updateNav(idx);
+  }
+
+  function navigate(dir) {
+    const next = Math.max(0, Math.min(screens.length - 1, current + dir));
+    goTo(next);
+  }
+
+  // Intersection observer to track scroll position
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        const idx = Array.from(screens).indexOf(entry.target);
+        updateNav(idx);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  screens.forEach(s => observer.observe(s));
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') navigate(1);
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') navigate(-1);
+  });
+</script>
+</body>
+</html>
