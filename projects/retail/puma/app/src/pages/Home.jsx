@@ -147,7 +147,7 @@ export default function Home() {
                 className="hero-cta"
                 onClick={() => navigate(`/lesson/${currentMission.id}`)}
               >
-                START SESSION
+                {completedIds.has(currentMission.id) ? 'REVISIT' : 'START SESSION'}
               </button>
             </div>
           )}

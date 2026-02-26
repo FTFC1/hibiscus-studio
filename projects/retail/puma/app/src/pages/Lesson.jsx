@@ -291,19 +291,48 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
   const [answers, setAnswers] = useState([])
   const [selected, setSelected] = useState(null)
   const [revealed, setRevealed] = useState(false)
+  const [waitingForNext, setWaitingForNext] = useState(false)
+  const answersRef = useRef([])
 
   const question = quiz[qIndex]
   const total = quiz.length
 
-  const handleSelect = async (optIndex) => {
+  const advanceQuiz = async () => {
+    const newAnswers = answersRef.current
+    if (qIndex < total - 1) {
+      setQIndex(i => i + 1)
+      setSelected(null)
+      setRevealed(false)
+      setWaitingForNext(false)
+    } else {
+      const correctCount = newAnswers.filter(a => a.correct).length
+      const score = Math.round((correctCount / total) * 100)
+      const elapsed = Math.round((Date.now() - startTime.current) / 1000)
+      const wrongAnswers = newAnswers.filter(a => !a.correct)
+
+      if (userId) {
+        await supabase.from('completions').insert({
+          user_id: userId,
+          mission_id: missionId,
+          score,
+          time_spent: elapsed
+        })
+      }
+
+      sessionStorage.setItem(`puma_score_${missionId}`, JSON.stringify({ score, wrongAnswers }))
+      navigate(`/result/${missionId}`, { state: { score, wrongAnswers } })
+    }
+  }
+
+  const handleSelect = (optIndex) => {
     if (revealed) return
     const isCorrect = optIndex === question.correct
 
     setSelected(optIndex)
     setRevealed(true)
 
-    const newAnswers = [
-      ...answers,
+    answersRef.current = [
+      ...answersRef.current,
       {
         id: question.id,
         question: question.question,
@@ -313,32 +342,13 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
         correctText: question.options[question.correct]
       }
     ]
+    setAnswers(answersRef.current)
 
-    setTimeout(async () => {
-      if (qIndex < total - 1) {
-        setQIndex(i => i + 1)
-        setSelected(null)
-        setRevealed(false)
-      } else {
-        // Quiz complete — calculate score and navigate
-        const correctCount = newAnswers.filter(a => a.correct).length
-        const score = Math.round((correctCount / total) * 100)
-        const elapsed = Math.round((Date.now() - startTime.current) / 1000)
-        const wrongAnswers = newAnswers.filter(a => !a.correct)
-
-        if (userId) {
-          await supabase.from('completions').insert({
-            user_id: userId,
-            mission_id: missionId,
-            score,
-            time_spent: elapsed
-          })
-        }
-
-        sessionStorage.setItem(`puma_score_${missionId}`, JSON.stringify({ score, wrongAnswers }))
-        navigate(`/result/${missionId}`, { state: { score, wrongAnswers } })
-      }
-    }, 900)
+    if (isCorrect) {
+      setTimeout(() => advanceQuiz(), 900)
+    } else {
+      setWaitingForNext(true)
+    }
   }
 
   return (
@@ -389,6 +399,12 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
             )
           })}
         </div>
+
+        {waitingForNext && (
+          <button className="quiz-next-btn" onClick={advanceQuiz}>
+            {qIndex < total - 1 ? 'Next Question' : 'See Results'} <span>&rarr;</span>
+          </button>
+        )}
       </div>
     </div>
   )

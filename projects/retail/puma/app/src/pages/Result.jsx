@@ -162,16 +162,23 @@ export default function Result() {
             <button className="result-cta-btn" style={{ background: theme.color }} onClick={() => navigate('/')}>
               Check today's missions <span style={{ fontSize: 18 }}>&rarr;</span>
             </button>
-            <button className="result-cta-btn result-cta-secondary" onClick={() => navigate('/games')}>
+            <button className="result-cta-btn result-cta-secondary" onClick={() => navigate('/games?play=approach')}>
               Play Approach Game
             </button>
           </>
         ) : (
-          <button className="result-cta-btn" style={{ background: theme.color }} onClick={handleCta}>
-            {theme.cta} <span style={{ fontSize: 18 }}>&rarr;</span>
-          </button>
+          <>
+            <button className="result-cta-btn" style={{ background: theme.color }} onClick={handleCta}>
+              {theme.cta} <span style={{ fontSize: 18 }}>&rarr;</span>
+            </button>
+            {theme.fail && (
+              <button className="result-cta-btn result-cta-secondary" onClick={() => navigate('/')}>
+                Back to Home
+              </button>
+            )}
+          </>
         )}
-        <p className="result-nav-hint">Lesson navigation: swipe ← →</p>
+        <p className="result-nav-hint">Tap to continue</p>
       </footer>
     </div>
   )

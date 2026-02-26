@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Header from '../components/Header'
 import { useUser } from '../context/UserContext'
 import { supabase } from '../lib/supabase'
@@ -63,7 +63,8 @@ export default function Games() {
 
 // ── Staff View ──────────────────────────────
 function StaffGames({ profile, userId }) {
-  const [activeGame, setActiveGame] = useState(null)
+  const [searchParams] = useSearchParams()
+  const [activeGame, setActiveGame] = useState(searchParams.get('play') || null)
   const [bestScores, setBestScores] = useState({})
   const [currentMission, setCurrentMission] = useState(null)
   const initials = profile?.avatar_initials || 'U'

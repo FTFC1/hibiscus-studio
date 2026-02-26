@@ -218,7 +218,7 @@ function StaffPractice({ profile, navigate }) {
               <button className="prac-cert-btn prac-cert-btn-primary" onClick={() => navigate('/')}>
                 Check today's missions
               </button>
-              <button className="prac-cert-btn prac-cert-btn-secondary" onClick={() => navigate('/games')}>
+              <button className="prac-cert-btn prac-cert-btn-secondary" onClick={() => navigate('/games?play=approach')}>
                 Play Approach Game
               </button>
             </div>

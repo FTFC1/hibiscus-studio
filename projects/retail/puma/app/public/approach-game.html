@@ -268,6 +268,17 @@
         .btn:active { transform: scale(0.98); }
         .btn:disabled { opacity: 0.4; }
 
+        .btn-fixed-bottom {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            max-width: 388px;
+            margin: 0 auto;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
         .btn-secondary {
             background: transparent;
             border: 2px solid var(--puma-black);
@@ -326,7 +337,7 @@
             line-height: 1.5;
         }
 
-        .game-screen { display: none; }
+        .game-screen { display: none; padding-bottom: 80px; }
         .game-screen.visible { display: block; }
 
         /* Results screen */
@@ -485,7 +496,7 @@
 
             <div class="options" id="optionsList"></div>
 
-            <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Scenario</button>
+            <button class="btn btn-fixed-bottom" id="nextBtn" onclick="nextQuestion()" disabled>Next Scenario</button>
         </div>
 
         <!-- Results Screen -->

@@ -1195,3 +1195,20 @@
 .quiz-option:disabled {
   cursor: default;
 }
+
+.quiz-next-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--puma-black, #111);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.quiz-next-btn:active {
+  transform: scale(0.98);
+}

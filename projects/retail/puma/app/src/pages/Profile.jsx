@@ -66,20 +66,22 @@ export default function Profile() {
           <div className="profile-role-pill">{isManager ? 'Store Manager' : 'Sales Associate'}</div>
         </div>
 
-        {/* Certification Card */}
-        <div className="profile-cert-card">
-          <div className="profile-cert-label">PUMA Certified</div>
-          <div className="profile-cert-title">Customer Engagement Expert</div>
-          <div className="profile-cert-bar-track">
-            <div className="profile-cert-bar-fill" style={{ width: `${certProgress}%` }} />
+        {/* Certification Card — staff only, managers aren't getting certified */}
+        {!isManager && (
+          <div className="profile-cert-card">
+            <div className="profile-cert-label">PUMA Certified</div>
+            <div className="profile-cert-title">Customer Engagement Expert</div>
+            <div className="profile-cert-bar-track">
+              <div className="profile-cert-bar-fill" style={{ width: `${certProgress}%` }} />
+            </div>
+            <div className="profile-cert-remaining">
+              {6 - stats.completed > 0
+                ? `${6 - stats.completed} more missions to certify`
+                : 'Certification complete!'
+              }
+            </div>
           </div>
-          <div className="profile-cert-remaining">
-            {6 - stats.completed > 0
-              ? `${6 - stats.completed} more missions to certify`
-              : 'Certification complete!'
-            }
-          </div>
-        </div>
+        )}
 
         {/* Stats Grid */}
         <div className="profile-stats-grid">
