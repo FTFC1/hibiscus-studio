@@ -373,6 +373,14 @@ function ManagerPractice({ profile, navigate }) {
           <div className="prac-mgr-total">{totalDone} / {totalPossible} tasks done</div>
         </div>
 
+        {teamData.length === 0 && (
+          <div className="prac-mgr-empty">
+            <i className="ri-team-line prac-mgr-empty-icon" />
+            <div className="prac-mgr-empty-title">No team members yet</div>
+            <div className="prac-mgr-empty-sub">Staff will appear here once they sign in to PUMA Training.</div>
+          </div>
+        )}
+
         {teamData.map(s => {
           const behind = isBehind(s.tasks_done, shiftPhase)
           const complete = s.tasks_done >= s.tasks_total

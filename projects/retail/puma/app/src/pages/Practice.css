@@ -322,6 +322,29 @@
   color: var(--text-secondary);
 }
 
+/* ── Manager: Empty State ── */
+.prac-mgr-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+.prac-mgr-empty-icon {
+  font-size: 36px;
+  opacity: 0.3;
+  display: block;
+  margin-bottom: 12px;
+}
+.prac-mgr-empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.prac-mgr-empty-sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
 /* ── Manager: Staff Cards ── */
 .prac-staff-card {
   background: var(--bg-glass);

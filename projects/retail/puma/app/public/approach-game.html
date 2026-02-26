@@ -333,8 +333,41 @@
 
         .start-subtitle {
             color: var(--text-muted);
-            margin-bottom: 32px;
+            margin-bottom: 20px;
             line-height: 1.5;
+        }
+
+        .start-instructions {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .start-instructions-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .start-instructions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .start-instructions-list li {
+            font-size: 0.85rem;
+            color: var(--text);
+            padding: 4px 0;
+        }
+        .start-instructions-list li::before {
+            content: '•';
+            color: var(--puma-red);
+            font-weight: 700;
+            margin-right: 8px;
         }
 
         .game-screen { display: none; padding-bottom: 80px; }
@@ -469,6 +502,14 @@
             <div class="start-subtitle">
                 You've identified the customer type.<br>
                 Now — what do you actually SAY?
+            </div>
+            <div class="start-instructions">
+                <div class="start-instructions-title">How to play</div>
+                <ul class="start-instructions-list">
+                    <li>Read the customer scenario</li>
+                    <li>Pick the best approach line</li>
+                    <li>Review mistakes at the end</li>
+                </ul>
             </div>
             <button class="btn" onclick="startGame()">Start Training</button>
         </div>

@@ -400,6 +400,64 @@
             color: var(--puma-black);
         }
 
+        /* Review section */
+        .review-section {
+            background: #fffbeb;
+            border: 1px solid var(--warning);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .review-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b45309;
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .review-header::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.2s ease;
+        }
+        .review-section.collapsed .review-header::after {
+            transform: rotate(-90deg);
+        }
+        .review-list { padding: 0 16px 16px 16px; }
+        .review-section.collapsed .review-list { display: none; }
+        .review-item {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .review-item:last-child { margin-bottom: 0; }
+        .review-customer-type {
+            font-size: 0.7rem;
+            color: var(--puma-red);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .review-context {
+            font-size: 0.8rem;
+            color: var(--text);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .review-wrong {
+            font-size: 0.75rem;
+            color: var(--error);
+            margin-bottom: 4px;
+        }
+        .review-missed {
+            font-size: 0.75rem;
+            color: var(--warning);
+        }
+
         /* Start Screen */
         .start-screen {
             position: relative;
@@ -424,9 +482,42 @@
 
         .start-subtitle {
             color: var(--text-secondary);
-            margin-bottom: 28px;
+            margin-bottom: 16px;
             line-height: 1.6;
             font-size: 0.95rem;
+        }
+
+        .start-instructions {
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .start-instructions-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .start-instructions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .start-instructions-list li {
+            font-size: 0.85rem;
+            color: var(--text);
+            padding: 4px 0;
+        }
+        .start-instructions-list li::before {
+            content: '•';
+            color: var(--puma-red);
+            font-weight: 700;
+            margin-right: 8px;
         }
 
         /* Leaderboard */
@@ -567,6 +658,15 @@
                 Your job: add the right products to their basket.
             </div>
 
+            <div class="start-instructions">
+                <div class="start-instructions-title">How to play</div>
+                <ul class="start-instructions-list">
+                    <li>Read what the customer wants</li>
+                    <li>Tap add-ons to build their basket</li>
+                    <li>Earn points for good matches</li>
+                </ul>
+            </div>
+
             <div class="name-input-section">
                 <input type="text" class="name-input" id="playerName" placeholder="Enter your name" maxlength="20" oninput="checkNameInput()">
             </div>
@@ -672,6 +772,13 @@
             <div class="leaderboard" id="resultsLeaderboard">
                 <div class="leaderboard-title">Leaderboard</div>
                 <div id="resultsLeaderboardList"></div>
+            </div>
+
+            <div class="review-section collapsed" id="reviewSection" style="display: none;">
+                <div class="review-header" onclick="toggleReview()">
+                    <span>Review Your Basket (<span id="reviewCount">0</span>)</span>
+                </div>
+                <div class="review-list" id="reviewList"></div>
             </div>
 
             <button class="btn" onclick="playAgain()">Try Again</button>
@@ -807,6 +914,7 @@
         let submitted = false;
         let currentGameScenarios = [];
         let playerName = '';
+        let roundHistory = [];
 
         // Load product data (try JSON first, fallback to embedded)
         async function loadProductData() {
@@ -934,6 +1042,7 @@
             totalBasketValue = 0;
             totalMainProductValue = 0;
             submitted = false;
+            roundHistory = [];
 
             // Generate scenarios
             currentGameScenarios = [];
@@ -1096,6 +1205,28 @@
 
             totalBasketValue += thisBasketAddons;
 
+            // Track per-round data for review
+            if (wrongCount > 0 || missedCount > 0) {
+                const wrongItems = [];
+                const missedItems = [];
+                scenario.addons.forEach((addon, idx) => {
+                    const wasSelected = selectedAddons.has(idx);
+                    if (!addon.valid && !addon.optional && wasSelected) {
+                        wrongItems.push(toTitleCase(addon.name));
+                    }
+                    if (addon.valid && !wasSelected) {
+                        missedItems.push(toTitleCase(addon.name));
+                    }
+                });
+                roundHistory.push({
+                    customerType: scenario.customerType,
+                    quote: scenario.customerSays,
+                    mainProduct: toTitleCase(scenario.mainProduct.name),
+                    wrongItems,
+                    missedItems
+                });
+            }
+
             // Calculate score for this round (penalize wrong picks)
             const roundScore = (correctThisRound * 100) - (wrongCount * 50);
             score += Math.max(0, roundScore);
@@ -1148,9 +1279,35 @@
             document.getElementById('correctAddons').textContent = `${totalSelectedValid}/${totalValidAddons}`;
             document.getElementById('avgAddonRate').textContent = avgRate + '%';
 
+            // Show review section if there were mistakes
+            const reviewSection = document.getElementById('reviewSection');
+            const reviewList = document.getElementById('reviewList');
+
+            if (roundHistory.length > 0) {
+                reviewSection.style.display = 'block';
+                document.getElementById('reviewCount').textContent = roundHistory.length;
+                reviewList.innerHTML = roundHistory.map(rh => {
+                    const wrongHtml = rh.wrongItems.map(w => `<div class="review-wrong">✗ Wrong pick: ${w}</div>`).join('');
+                    const missedHtml = rh.missedItems.map(m => `<div class="review-missed">! Missed: ${m}</div>`).join('');
+                    return `
+                        <div class="review-item">
+                            <div class="review-customer-type">${rh.customerType}</div>
+                            <div class="review-context">"${rh.quote}" — buying ${rh.mainProduct}</div>
+                            ${wrongHtml}${missedHtml}
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                reviewSection.style.display = 'none';
+            }
+
             // Save score to leaderboard
             saveScore(playerName, score);
             updateResultsLeaderboard();
+        }
+
+        function toggleReview() {
+            document.getElementById('reviewSection').classList.toggle('collapsed');
         }
 
         // Leaderboard functions
