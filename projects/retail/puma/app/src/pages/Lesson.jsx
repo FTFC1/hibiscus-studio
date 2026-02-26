@@ -335,6 +335,7 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
           })
         }
 
+        sessionStorage.setItem(`puma_score_${missionId}`, JSON.stringify({ score, wrongAnswers }))
         navigate(`/result/${missionId}`, { state: { score, wrongAnswers } })
       }
     }, 900)

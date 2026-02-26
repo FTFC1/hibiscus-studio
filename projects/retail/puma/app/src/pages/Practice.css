@@ -49,6 +49,35 @@
   color: var(--progress-gold);
   line-height: 1.4;
 }
+.prac-certified-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 280px;
+  margin-top: 8px;
+}
+.prac-cert-btn {
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s;
+}
+.prac-cert-btn:active { opacity: 0.75; }
+.prac-cert-btn-primary {
+  background: var(--cta-green);
+  color: var(--bg-body);
+}
+.prac-cert-btn-secondary {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  color: var(--text-primary);
+}
 
 /* ── Mission Card ── */
 .prac-mission-card {

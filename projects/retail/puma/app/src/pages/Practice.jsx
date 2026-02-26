@@ -123,11 +123,11 @@ export default function Practice() {
 
   return isManager
     ? <ManagerPractice profile={profile} navigate={navigate} />
-    : <StaffPractice profile={profile} />
+    : <StaffPractice profile={profile} navigate={navigate} />
 }
 
 // ── Staff View ───────────────────────────────────────────────
-function StaffPractice({ profile }) {
+function StaffPractice({ profile, navigate }) {
   const [missionsCompleted, setMissionsCompleted] = useState(null)
   const [todayLogs, setTodayLogs] = useState([])
   const [refOpen, setRefOpen] = useState(false)
@@ -214,6 +214,14 @@ function StaffPractice({ profile }) {
           <div className="prac-certified">
             <div className="prac-certified-icon">🎉</div>
             <div className="prac-certified-text">All 6 missions complete. Certified.</div>
+            <div className="prac-certified-actions">
+              <button className="prac-cert-btn prac-cert-btn-primary" onClick={() => navigate('/')}>
+                Check today's missions
+              </button>
+              <button className="prac-cert-btn prac-cert-btn-secondary" onClick={() => navigate('/games')}>
+                Play Approach Game
+              </button>
+            </div>
           </div>
         ) : (
           <>

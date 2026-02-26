@@ -29,7 +29,8 @@ export default function Result() {
   const navigate = useNavigate()
   const { missionId } = useParams()
   const location = useLocation()
-  const { score = 0, wrongAnswers = [] } = location.state || {}
+  const fallback = JSON.parse(sessionStorage.getItem(`puma_score_${missionId}`) || '{}')
+  const { score = 0, wrongAnswers = [] } = location.state || fallback
 
   const mission = missions[missionId]
   const theme = getTheme(score)
@@ -41,19 +42,18 @@ export default function Result() {
   // Progress dots — all green on pass, all amber on fail
   const dotColor = theme.fail ? '#F59E0B' : theme.color
 
+  const num = mission?.number || 1
+  const nextId = `mission-${num + 1}`
+  const hasNext = !!missions[nextId]
+  const isAllDone = !theme.fail && !hasNext
+
   const handleCta = () => {
     if (theme.fail) {
-      // Try again — go back to lesson
       navigate(`/lesson/${missionId}`)
+    } else if (hasNext) {
+      navigate(`/lesson/${nextId}`)
     } else {
-      // Next mission
-      const num = mission?.number || 1
-      const nextId = `mission-${num + 1}`
-      if (missions[nextId]) {
-        navigate(`/lesson/${nextId}`)
-      } else {
-        navigate('/')
-      }
+      navigate('/')
     }
   }
 
@@ -145,17 +145,32 @@ export default function Result() {
             </div>
           </div>
         )}
+
+        {/* All missions complete celebration */}
+        {isAllDone && (
+          <div className="result-all-done">
+            <p className="result-all-done-title">You're Certified!</p>
+            <p className="result-all-done-sub">All 6 missions complete. Time to put it all into practice.</p>
+          </div>
+        )}
       </div>
 
       {/* Footer CTA */}
       <footer className="result-footer">
-        <button
-          className="result-cta-btn"
-          style={{ background: theme.color }}
-          onClick={handleCta}
-        >
-          {theme.cta} <span style={{ fontSize: 18 }}>&rarr;</span>
-        </button>
+        {isAllDone ? (
+          <>
+            <button className="result-cta-btn" style={{ background: theme.color }} onClick={() => navigate('/')}>
+              Check today's missions <span style={{ fontSize: 18 }}>&rarr;</span>
+            </button>
+            <button className="result-cta-btn result-cta-secondary" onClick={() => navigate('/games')}>
+              Play Approach Game
+            </button>
+          </>
+        ) : (
+          <button className="result-cta-btn" style={{ background: theme.color }} onClick={handleCta}>
+            {theme.cta} <span style={{ fontSize: 18 }}>&rarr;</span>
+          </button>
+        )}
         <p className="result-nav-hint">Lesson navigation: swipe ← →</p>
       </footer>
     </div>

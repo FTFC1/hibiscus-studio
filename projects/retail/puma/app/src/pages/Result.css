@@ -164,6 +164,31 @@
   margin: 0;
 }
 
+/* All done celebration */
+.result-all-done {
+  text-align: center;
+  padding: 8px 0;
+}
+.result-all-done-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #6ECC5B;
+  margin: 0 0 6px;
+}
+.result-all-done-sub {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Secondary CTA */
+.result-cta-secondary {
+  background: #111111 !important;
+  border: 1px solid #262626;
+  color: #ccc !important;
+}
+
 /* Footer */
 .result-footer {
   padding: 24px 24px 40px;

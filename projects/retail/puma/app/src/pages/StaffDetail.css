@@ -173,6 +173,39 @@
   padding: 0 var(--space-page);
 }
 
+/* ── Nudge Button ── */
+.sd-nudge {
+  margin-bottom: 16px;
+}
+
+.sd-nudge-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(0, 136, 204, 0.12);
+  border: 1px solid rgba(0, 136, 204, 0.25);
+  border-radius: var(--radius-md);
+  color: #29B6F6;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+
+.sd-nudge-btn:active {
+  background: rgba(0, 136, 204, 0.2);
+}
+
+.sd-nudge-icon {
+  font-size: 18px;
+}
+
 /* ── Stuck Callout ── */
 .sd-stuck {
   display: flex;

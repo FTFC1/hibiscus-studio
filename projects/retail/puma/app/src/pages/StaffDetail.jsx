@@ -146,6 +146,19 @@ export default function StaffDetail() {
 
       <div className="sd-content">
 
+        {/* Nudge action — when staff needs attention */}
+        {!isCertified && isAlertState && currentMission && (
+          <div className="sd-nudge">
+            <a
+              className="sd-nudge-btn"
+              href={`tg://msg?text=${encodeURIComponent(`Hey ${staffProfile.full_name.split(' ')[0]}, how's Mission ${currentMission.number} going? Need any help?`)}`}
+            >
+              <i className="ri-telegram-line sd-nudge-icon" />
+              Nudge via Telegram
+            </a>
+          </div>
+        )}
+
         {/* Stuck callout — only when overdue */}
         {!isCertified && isOverdue && currentMission && (
           <div className="sd-stuck">
