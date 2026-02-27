@@ -2777,12 +2777,12 @@
                         console.log('Turnstile verified');
                     },
                     'error-callback': function() {
-                        console.warn('Turnstile verification failed');
-                        window.turnstileToken = null;
+                        console.warn('Turnstile verification failed — bypassing gate');
+                        window.turnstileFailed = true;
                     },
                     'expired-callback': function() {
                         console.warn('Turnstile token expired');
-                        window.turnstileToken = null;
+                        window.turnstileFailed = true;
                     }
                 });
             }
@@ -2790,8 +2790,8 @@
 
         // Submit with Turnstile verification
         function submitWithTurnstile() {
-            if (window.turnstileToken) {
-                // Token verified, proceed to review
+            if (window.turnstileToken || window.turnstileFailed) {
+                // Token verified or Turnstile unavailable — proceed to review
                 goToStep(8);
             } else {
                 // No token yet, show alert
@@ -2800,7 +2800,10 @@
                 // Try to execute turnstile if available
                 if (typeof turnstile !== 'undefined' && turnstile.execute) {
                     turnstile.execute('#turnstile-widget');
-                }
+                } else {
+                // Turnstile not loaded at all — bypass
+                goToStep(8);
+            }
             }
         }
     </script>
