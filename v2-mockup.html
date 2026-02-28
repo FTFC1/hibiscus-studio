@@ -287,10 +287,10 @@
                 </div>
                 <div class="hero-carousel" id="heroCarousel">
                     <video src="img/hero-clips/workshop.mp4" muted loop playsinline preload="auto" class="active" data-caption="Flower arranging workshop"></video>
-                    <video src="img/hero-clips/bridal.mp4" muted loop playsinline preload="auto" data-caption="Bridal shower"></video>
-                    <video src="img/hero-clips/sip-paint.mp4" muted loop playsinline preload="auto" data-caption="Sip & Paint evening"></video>
-                    <video src="img/hero-clips/lash-training.mp4" muted loop playsinline preload="auto" data-caption="Lash training"></video>
-                    <video src="img/hero-clips/cake-class.mp4" muted loop playsinline preload="auto" data-caption="Cake decorating"></video>
+                    <video src="img/hero-clips/bridal.mp4" muted loop playsinline preload="none" data-caption="Bridal shower"></video>
+                    <video src="img/hero-clips/sip-paint.mp4" muted loop playsinline preload="none" data-caption="Sip & Paint evening"></video>
+                    <video src="img/hero-clips/lash-training.mp4" muted loop playsinline preload="none" data-caption="Lash training"></video>
+                    <video src="img/hero-clips/cake-class.mp4" muted loop playsinline preload="none" data-caption="Cake decorating"></video>
                     <div class="hero-carousel-dots" id="carouselDots">
                         <button class="active" aria-label="Slide 1"></button>
                         <button aria-label="Slide 2"></button>
@@ -608,6 +608,11 @@
         var nextBtn = document.getElementById('carouselNext');
         var current = 0;
 
+        function safePlay(vid) {
+            var p = vid.play();
+            if (p && p.catch) p.catch(function() {});
+        }
+
         function goTo(idx) {
             videos[current].classList.remove('active');
             videos[current].pause();
@@ -615,14 +620,14 @@
             current = ((idx % videos.length) + videos.length) % videos.length;
             videos[current].classList.add('active');
             videos[current].currentTime = 0;
-            videos[current].play();
+            safePlay(videos[current]);
             dots[current].classList.add('active');
             sticker.textContent = videos[current].dataset.caption;
             sticker.style.transform = 'translateX(-50%) rotate(' + (Math.random() * 6 - 3) + 'deg)';
         }
 
-        // Start first video playing
-        videos[0].play();
+        // Start first video
+        safePlay(videos[0]);
 
         prevBtn.addEventListener('click', function() { goTo(current - 1); });
         nextBtn.addEventListener('click', function() { goTo(current + 1); });
@@ -631,12 +636,18 @@
             dot.addEventListener('click', function() { goTo(i); });
         });
 
-        // Swipe support for mobile
-        var touchStartX = 0;
-        carousel.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, {passive: true});
+        // Swipe support — only trigger on horizontal swipes, not vertical scroll
+        var touchStartX = 0, touchStartY = 0;
+        carousel.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, {passive: true});
         carousel.addEventListener('touchend', function(e) {
-            var diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); }
+            var dx = touchStartX - e.changedTouches[0].clientX;
+            var dy = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                goTo(dx > 0 ? current + 1 : current - 1);
+            }
         });
     })();
 
