@@ -63,10 +63,9 @@
         .hero .hero-location a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
         .hero .hero-location a:hover { color: var(--ink2); border-color: var(--ink2); }
 
-        /* Hero photo carousel */
-        .hero-carousel { position: relative; max-width: 560px; margin: 0 auto 28px; aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
-        @media (max-width: 768px) { .hero-carousel { max-width: 480px; aspect-ratio: 1/1; } }
-        @media (max-width: 480px) { .hero-carousel { aspect-ratio: 1/1; max-width: 320px; border-radius: 16px; } }
+        /* Hero photo carousel — 1:1 all viewports, sized per breakpoint */
+        .hero-carousel { position: relative; max-width: 400px; margin: 0 auto 28px; aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
+        @media (max-width: 480px) { .hero-carousel { max-width: 320px; border-radius: 16px; } }
         .hero-carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
         .hero-carousel img.active { opacity: 1; }
         .hero-carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 20px 16px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); text-align: left; pointer-events: none; }
