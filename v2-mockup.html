@@ -57,54 +57,23 @@
         .muted-text { font-size: 0.9rem; color: var(--muted); }
         .gradient-text { background: linear-gradient(135deg, var(--accent), var(--accent-soft)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-        .hero { padding: 100px 0 40px; text-align: center; }
-        .hero h1 { margin-bottom: 16px; }
-        .hero .subtitle { max-width: 480px; margin: 0 auto 24px; min-height: 2em; }
+        .hero { padding: 60px 0 32px; text-align: center; }
+        .hero h1 { margin-bottom: 8px; font-size: clamp(2.8rem, 9vw, 4.5rem); line-height: 1; }
+        .hero .hero-location { font-size: 0.85rem; font-weight: 400; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 32px; }
+        .hero .hero-location a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+        .hero .hero-location a:hover { color: var(--ink2); border-color: var(--ink2); }
 
-        /* Hero showcase — visual panel per mode */
-        .hero-showcase { max-width: 560px; margin: 0 auto 36px; position: relative; height: 110px; overflow: hidden; border-radius: var(--radius); }
-        .hero-showcase-slide { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
-        .hero-showcase-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .showcase-card { border-radius: 12px; overflow: hidden; position: relative; border: 1px solid var(--border-light); }
-        .showcase-card-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px; text-align: center; }
-        .showcase-card-icon { color: var(--accent); opacity: 0.7; }
-        .showcase-card-label { font-size: 0.75rem; font-weight: 500; color: var(--ink2); }
-        .showcase-card-sub { font-size: 0.65rem; color: var(--muted); }
-        /* Gradient backgrounds per mode */
-        .showcase-events .showcase-card:nth-child(1) { background: linear-gradient(135deg, #FDF2F4, #FAE1E5); }
-        .showcase-events .showcase-card:nth-child(2) { background: linear-gradient(135deg, #FFF5F6, #FDE8EB); }
-        .showcase-events .showcase-card:nth-child(3) { background: linear-gradient(135deg, #FDF2F4, #F9D5DA); }
-        .showcase-workshops .showcase-card:nth-child(1) { background: linear-gradient(135deg, #EEF4EE, #D5E8D5); }
-        .showcase-workshops .showcase-card:nth-child(2) { background: linear-gradient(135deg, #F0F6F0, #DBE9DB); }
-        .showcase-workshops .showcase-card:nth-child(3) { background: linear-gradient(135deg, #EEF4EE, #CDDCCD); }
-        .showcase-content .showcase-card:nth-child(1) { background: linear-gradient(135deg, #F0EDF6, #DDD5EE); }
-        .showcase-content .showcase-card:nth-child(2) { background: linear-gradient(135deg, #F3F0F8, #E3DCEF); }
-        .showcase-content .showcase-card:nth-child(3) { background: linear-gradient(135deg, #F0EDF6, #D2C8E6); }
-        [data-theme="dark"] .showcase-card { background: var(--card-bg) !important; }
-        @media (max-width: 480px) { .hero-showcase { height: 96px; } .showcase-card-label { font-size: 0.7rem; } }
-
-        /* Event type switcher — full-width on mobile */
-        .hero-switcher { display: flex; justify-content: center; gap: 8px; margin-bottom: 28px; }
-        .hero-switcher-btn { background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border: 1.5px solid var(--border-light); border-radius: 100px; padding: 12px 24px; font-size: 0.95rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.3s ease; font-family: var(--sans); display: flex; align-items: center; gap: 8px; justify-content: center; }
-        [data-theme="dark"] .hero-switcher-btn { background: rgba(30,27,24,0.6); }
-        .hero-switcher-btn:hover { border-color: var(--muted); transform: translateY(-1px); }
-        .hero-switcher-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 16px rgba(190,77,94,0.25); }
-        .hero-switcher-btn.active svg { stroke: #fff; }
-        .hero-switcher-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; flex-shrink: 0; }
-        .hero-switcher-btn .btn-label { display: inline; }
-        @media (max-width: 480px) {
-            .hero-switcher-btn { padding: 12px 14px; font-size: 0.9rem; }
-            .hero-switcher-btn .btn-label { display: none; }
-            .hero-switcher-btn.active .btn-label { display: inline; }
-            .hero-switcher-btn:not(.active) { padding: 12px; }
-        }
-
-        .location-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 28px; max-width: 380px; margin: 0 auto 36px; box-shadow: var(--shadow); text-align: center; }
-        .location-card .address { font-weight: 500; font-size: 0.95rem; line-height: 1.4; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .location-card .address svg { flex-shrink: 0; }
-        .location-card .transport { display: flex; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--muted); }
-        .transport-item { display: flex; align-items: center; gap: 6px; }
-        @media (max-width: 400px) { .location-card .transport { flex-direction: column; gap: 6px; align-items: center; } }
+        /* Hero photo carousel */
+        .hero-carousel { position: relative; max-width: 560px; margin: 0 auto 28px; aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
+        @media (max-width: 768px) { .hero-carousel { max-width: 480px; aspect-ratio: 1/1; } }
+        @media (max-width: 480px) { .hero-carousel { aspect-ratio: 1/1; max-width: 320px; border-radius: 16px; } }
+        .hero-carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+        .hero-carousel img.active { opacity: 1; }
+        .hero-carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 20px 16px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); text-align: left; pointer-events: none; }
+        .hero-carousel-caption span { font-family: var(--sans); font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.9); letter-spacing: 0.02em; }
+        .hero-carousel-dots { position: absolute; bottom: 46px; right: 20px; display: flex; gap: 6px; }
+        .hero-carousel-dots button { width: 6px; height: 6px; border-radius: 50%; border: none; background: rgba(255,255,255,0.4); cursor: pointer; padding: 0; transition: background 0.3s, transform 0.3s; }
+        .hero-carousel-dots button.active { background: #fff; transform: scale(1.3); }
 
         /* Scroll indicator — persistent, prominent */
         .scroll-indicator { text-align: center; padding: 32px 0 0; }
@@ -249,7 +218,7 @@
 
         .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
-        @media (max-width: 768px) { section { padding: 60px 0; } .hero { padding: 80px 0 30px; } }
+        @media (max-width: 768px) { section { padding: 60px 0; } .hero { padding: 48px 0 24px; } }
     </style>
 </head>
 <body>
@@ -266,107 +235,34 @@
 <section class="hero" id="hero">
     <div class="container">
         <h1 class="reveal">Hibiscus Studio</h1>
+        <p class="hero-location reveal" style="transition-delay: 0.05s">East London &middot; E16 1DP</p>
 
-        <!-- Event type switcher -->
-        <div class="hero-switcher reveal" style="transition-delay: 0.1s">
-            <button class="hero-switcher-btn active" data-mode="events" onclick="switchMode('events')">
-                <svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3l1 6"/><path d="M2 9h20"/></svg>
-                <span class="btn-label">Events</span>
-            </button>
-            <button class="hero-switcher-btn" data-mode="workshops" onclick="switchMode('workshops')">
-                <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-                <span class="btn-label">Workshops</span>
-            </button>
-            <button class="hero-switcher-btn" data-mode="content" onclick="switchMode('content')">
-                <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                <span class="btn-label">Content</span>
-            </button>
-        </div>
-
-        <p class="subtitle reveal" style="transition-delay: 0.15s" id="heroSubtitle">Your own equipped space for <span class="gradient-text">bridal showers</span>, birthdays &amp; celebrations in East London</p>
-
-        <!-- Visual showcase — changes per mode -->
-        <div class="hero-showcase reveal" style="transition-delay: 0.2s">
-            <div class="hero-showcase-slide showcase-events active" data-slide="events">
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3l1 6"/><path d="M2 9h20"/></svg></div>
-                        <div class="showcase-card-label">Bridal Showers</div>
-                    </div>
-                </div>
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2z"/></svg></div>
-                        <div class="showcase-card-label">Birthday Parties</div>
-                    </div>
-                </div>
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-                        <div class="showcase-card-label">Baby Showers</div>
-                    </div>
-                </div>
+        <!-- Photo carousel — crossfades through event types -->
+        <div class="hero-carousel reveal" style="transition-delay: 0.15s" id="heroCarousel">
+            <img src="img/hero-workshop.jpg" alt="Sip & Paint evening at Hibiscus Studio" class="active" data-caption="Sip & Paint evening">
+            <img src="img/hero-event.jpg" alt="Birthday dinner setup at Hibiscus Studio" data-caption="Birthday celebration">
+            <img src="img/hero-bridal.jpg" alt="Bridal shower with floral arch at Hibiscus Studio" data-caption="Bridal shower">
+            <img src="img/hero-lash.jpg" alt="Lash training workshop at Hibiscus Studio" data-caption="Lash training workshop">
+            <img src="img/hero-proposal.jpg" alt="Proposal setup with roses at Hibiscus Studio" data-caption="Proposal setup">
+            <div class="hero-carousel-caption" id="carouselCaption">
+                <span>Sip & Paint evening</span>
             </div>
-            <div class="hero-showcase-slide showcase-workshops" data-slide="workshops">
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
-                        <div class="showcase-card-label">Lash Training</div>
-                    </div>
-                </div>
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
-                        <div class="showcase-card-label">Candle Making</div>
-                    </div>
-                </div>
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                        <div class="showcase-card-label">Team Away Days</div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-showcase-slide showcase-content" data-slide="content">
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v1h6V6a3 3 0 0 0-3-3z"/><path d="M6.5 7H4a1 1 0 0 0-1 1v3.5a3 3 0 0 0 3 3h1"/><path d="M17.5 7H20a1 1 0 0 1 1 1v3.5a3 3 0 0 1-3 3h-1"/><path d="M6 14.5V21"/><path d="M18 14.5V21"/><path d="M6 21h12"/></svg></div>
-                        <div class="showcase-card-label">Recipe Shoots</div>
-                    </div>
-                </div>
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
-                        <div class="showcase-card-label">Brand Content</div>
-                    </div>
-                </div>
-                <div class="showcase-card">
-                    <div class="showcase-card-inner">
-                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
-                        <div class="showcase-card-label">Podcasts</div>
-                    </div>
-                </div>
+            <div class="hero-carousel-dots" id="carouselDots">
+                <button class="active" aria-label="Slide 1"></button>
+                <button aria-label="Slide 2"></button>
+                <button aria-label="Slide 3"></button>
+                <button aria-label="Slide 4"></button>
+                <button aria-label="Slide 5"></button>
             </div>
         </div>
 
-        <div class="location-card reveal" style="transition-delay: 0.25s">
-            <div class="address">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                19a Peto Street North, London E16 1DP
-            </div>
-            <div class="transport">
-                <span class="transport-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="M8 19l-2 3"/><path d="M18 22l-2-3"/></svg> 5 min from Canning Town</span>
-                <span class="transport-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg> 30-min loading zone</span>
-            </div>
-        </div>
-
-        <div class="reveal" style="transition-delay: 0.3s">
-            <a href="book/" class="cta" id="heroCta">Book Your Event <span class="arrow">&rarr;</span></a>
-            <p class="muted-text" style="margin-top: 12px">50% deposit &middot; Invoiced within 48h &middot; Free cancellation 30+ days</p>
+        <div class="reveal" style="transition-delay: 0.25s">
+            <a href="book/" class="cta" id="heroCta">Book your space <span class="arrow">&rarr;</span></a>
+            <p class="muted-text" style="margin-top: 12px">From &pound;90 &middot; 50% deposit &middot; Free cancellation 30+ days</p>
         </div>
 
         <!-- Scroll indicator -->
-        <div class="scroll-indicator reveal" style="transition-delay: 0.4s">
+        <div class="scroll-indicator reveal" style="transition-delay: 0.35s">
             <span onclick="document.querySelector('#spaceSection').scrollIntoView({behavior:'smooth'})">
                 Explore the space
                 <svg class="scroll-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -669,62 +565,39 @@
         }, { threshold: 0.25 }).observe(vid);
     }
 
-    // ── HERO EVENT-TYPE SWITCHER ──────
-    const modes = {
-        events: {
-            subtitle: 'Your own equipped space for <span class="gradient-text">bridal showers</span>, birthdays &amp; celebrations in East London',
-            cta: 'Book Your Event',
-            ctaHref: 'book/?type=bridal',
-            accent: '#BE4D5E', accentSoft: '#D4949E'
-        },
-        workshops: {
-            subtitle: 'A fully equipped space for <span class="gradient-text">lash training</span>, candle making &amp; team away days in East London',
-            cta: 'Book a Workshop',
-            ctaHref: 'book/?type=workshop',
-            accent: '#6B8F6B', accentSoft: '#92B592'
-        },
-        content: {
-            subtitle: 'Full kitchen &amp; studio for <span class="gradient-text">recipe shoots</span>, brand content &amp; podcasts in East London',
-            cta: 'Book a Shoot',
-            ctaHref: 'book/?type=content',
-            accent: '#7B6DAF', accentSoft: '#A99BD1'
+    // Hero carousel — crossfade through photos
+    (function() {
+        const carousel = document.getElementById('heroCarousel');
+        if (!carousel) return;
+        const imgs = carousel.querySelectorAll('img');
+        const dots = carousel.querySelectorAll('.hero-carousel-dots button');
+        const caption = carousel.querySelector('#carouselCaption span');
+        let current = 0;
+        let interval;
+
+        function goTo(idx) {
+            imgs[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = idx % imgs.length;
+            imgs[current].classList.add('active');
+            dots[current].classList.add('active');
+            caption.textContent = imgs[current].dataset.caption;
         }
-    };
 
-    function switchMode(mode) {
-        const m = modes[mode];
-        if (!m) return;
+        function startAuto() {
+            interval = setInterval(function() { goTo(current + 1); }, 4000);
+        }
 
-        // Update active button
-        document.querySelectorAll('.hero-switcher-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.mode === mode);
+        dots.forEach(function(dot, i) {
+            dot.addEventListener('click', function() {
+                clearInterval(interval);
+                goTo(i);
+                startAuto();
+            });
         });
 
-        // Update subtitle with crossfade
-        const sub = document.getElementById('heroSubtitle');
-        sub.style.opacity = '0';
-        setTimeout(() => {
-            sub.innerHTML = m.subtitle;
-            sub.style.opacity = '1';
-        }, 200);
-
-        // Update CTA
-        const cta = document.getElementById('heroCta');
-        cta.innerHTML = m.cta + ' <span class="arrow">&rarr;</span>';
-        cta.href = m.ctaHref;
-
-        // Update accent color
-        document.documentElement.style.setProperty('--accent', m.accent);
-        document.documentElement.style.setProperty('--accent-soft', m.accentSoft);
-
-        // Swap showcase visual
-        document.querySelectorAll('.hero-showcase-slide').forEach(s => {
-            s.classList.toggle('active', s.dataset.slide === mode);
-        });
-    }
-
-    // Apply subtitle transition
-    document.getElementById('heroSubtitle').style.transition = 'opacity 0.2s ease';
+        startAuto();
+    })();
 
     // Interest vote
     function voteInterest(btn, addon) {
