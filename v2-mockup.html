@@ -66,8 +66,9 @@
         .hero .hero-location a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
         .hero .hero-location a:hover { color: var(--ink2); border-color: var(--ink2); }
 
-        /* Portrait carousel — tall portrait format, capped height on mobile */
-        .hero-carousel { position: relative; width: 260px; aspect-ratio: 3/4; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); flex-shrink: 0; order: 1; }
+        /* Portrait carousel — framed like a device/card */
+        .hero-carousel-frame { flex-shrink: 0; order: 1; background: var(--card-bg); border: 1px solid var(--border); border-radius: 28px; padding: 10px; box-shadow: var(--shadow-lg); }
+        .hero-carousel { position: relative; width: 250px; aspect-ratio: 3/4; border-radius: 20px; overflow: hidden; }
         .hero-carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
         .hero-carousel img.active { opacity: 1; }
         .hero-carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); text-align: left; pointer-events: none; }
@@ -81,11 +82,13 @@
             .hero { padding: 80px 0 40px; }
             .hero-split { flex-direction: row; justify-content: center; align-items: center; gap: 60px; text-align: left; }
             .hero-text { order: 1; max-width: 380px; }
-            .hero-carousel { order: 2; width: 320px; aspect-ratio: 9/16; }
+            .hero-carousel-frame { order: 2; padding: 12px; border-radius: 32px; }
+            .hero-carousel { width: 300px; aspect-ratio: 9/16; border-radius: 22px; }
         }
         /* Mobile: 3:4 portrait keeps CTA above fold */
         @media (max-width: 480px) {
-            .hero-carousel { width: 220px; border-radius: 16px; }
+            .hero-carousel-frame { padding: 8px; border-radius: 22px; }
+            .hero-carousel { width: 210px; border-radius: 14px; }
         }
 
         /* Scroll indicator — persistent, prominent */
@@ -266,22 +269,24 @@
                 </div>
             </div>
 
-            <!-- Portrait carousel — images shown at natural aspect ratio -->
-            <div class="hero-carousel reveal" style="transition-delay: 0.15s" id="heroCarousel">
-                <img src="img/hero-workshop.jpg" alt="Sip & Paint evening at Hibiscus Studio" class="active" data-caption="Sip & Paint evening">
-                <img src="img/hero-event.jpg" alt="Birthday dinner setup at Hibiscus Studio" data-caption="Birthday celebration">
-                <img src="img/hero-bridal.jpg" alt="Bridal shower with floral arch at Hibiscus Studio" data-caption="Bridal shower">
-                <img src="img/hero-lash.jpg" alt="Lash training workshop at Hibiscus Studio" data-caption="Lash training workshop">
-                <img src="img/hero-proposal.jpg" alt="Proposal setup with roses at Hibiscus Studio" data-caption="Proposal setup">
-                <div class="hero-carousel-caption" id="carouselCaption">
-                    <span>Sip & Paint evening</span>
-                </div>
-                <div class="hero-carousel-dots" id="carouselDots">
-                    <button class="active" aria-label="Slide 1"></button>
-                    <button aria-label="Slide 2"></button>
-                    <button aria-label="Slide 3"></button>
-                    <button aria-label="Slide 4"></button>
-                    <button aria-label="Slide 5"></button>
+            <!-- Portrait carousel in card frame -->
+            <div class="hero-carousel-frame reveal" style="transition-delay: 0.15s">
+                <div class="hero-carousel" id="heroCarousel">
+                    <img src="img/hero-workshop.jpg" alt="Sip & Paint evening at Hibiscus Studio" class="active" data-caption="Sip & Paint evening">
+                    <img src="img/hero-event.jpg" alt="Birthday dinner setup at Hibiscus Studio" data-caption="Birthday celebration">
+                    <img src="img/hero-bridal.jpg" alt="Bridal shower with floral arch at Hibiscus Studio" data-caption="Bridal shower">
+                    <img src="img/hero-lash.jpg" alt="Lash training workshop at Hibiscus Studio" data-caption="Lash training workshop">
+                    <img src="img/hero-proposal.jpg" alt="Proposal setup with roses at Hibiscus Studio" data-caption="Proposal setup">
+                    <div class="hero-carousel-caption" id="carouselCaption">
+                        <span>Sip & Paint evening</span>
+                    </div>
+                    <div class="hero-carousel-dots" id="carouselDots">
+                        <button class="active" aria-label="Slide 1"></button>
+                        <button aria-label="Slide 2"></button>
+                        <button aria-label="Slide 3"></button>
+                        <button aria-label="Slide 4"></button>
+                        <button aria-label="Slide 5"></button>
+                    </div>
                 </div>
             </div>
         </div>
