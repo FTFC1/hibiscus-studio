@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'v2-mockup.html'
+      - 'img/**'
       - 'assets/**'
       - 'book/**'
       - 'calculator/**'
@@ -37,6 +39,8 @@ jobs:
         with:
           sparse-checkout: |
             index.html
+            v2-mockup.html
+            img
             assets
             book
             calculator
