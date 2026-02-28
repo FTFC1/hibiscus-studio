@@ -1932,19 +1932,19 @@
     <div class="step" id="step1">
         <p class="step-title">What type of event?</p>
         <div class="choices choices-compact">
-            <div class="choice-card" onclick="selectEventType('bridal')">
+            <div class="choice-card" onclick="selectEventType('bridal', event)">
                 <div class="title"><span class="event-icon bridal">◇</span> Bridal Party</div>
                 <div class="desc">Hen do, bridal shower, engagement</div>
             </div>
-            <div class="choice-card" onclick="selectEventType('private')">
+            <div class="choice-card" onclick="selectEventType('private', event)">
                 <div class="title"><span class="event-icon private">●</span> Private Event</div>
                 <div class="desc">Birthday, baby shower, anniversary</div>
             </div>
-            <div class="choice-card" onclick="selectEventType('workshop')">
+            <div class="choice-card" onclick="selectEventType('workshop', event)">
                 <div class="title"><span class="event-icon workshop">▣</span> Workshop</div>
                 <div class="desc">Creative sessions, team activities</div>
             </div>
-            <div class="choice-card" onclick="selectEventType('content')">
+            <div class="choice-card" onclick="selectEventType('content', event)">
                 <div class="title"><span class="event-icon content">◐</span> Content Creation</div>
                 <div class="desc">Photography, filming, brand shoots</div>
             </div>
@@ -1972,7 +1972,7 @@
         <div class="day-type-picker" style="max-width:420px; margin:0 auto; display:flex; flex-direction:column; gap:14px;">
 
             <!-- Weekend option with calendar visual -->
-            <div class="choice-card" onclick="selectDayType('weekend')" style="position:relative; overflow:hidden;">
+            <div class="choice-card" onclick="selectDayType('weekend', event)" style="position:relative; overflow:hidden;">
                 <div style="display:flex; align-items:center; gap:16px;">
                     <div style="flex:1;">
                         <div class="title">Weekend</div>
@@ -2016,7 +2016,7 @@
             </div>
 
             <!-- Weekday option with calendar visual -->
-            <div class="choice-card" onclick="selectDayType('weekday')" style="position:relative; overflow:hidden;">
+            <div class="choice-card" onclick="selectDayType('weekday', event)" style="position:relative; overflow:hidden;">
                 <div style="display:flex; align-items:center; gap:16px;">
                     <div style="flex:1;">
                         <div class="title">Weekday</div>
@@ -2130,17 +2130,17 @@
         <p class="step-title">Your details</p>
         <div class="form-group">
             <label class="form-label">Name</label>
-            <input type="text" class="form-input" id="inputName" placeholder="Your name" autocomplete="name" oninput="validateField(this, 'name')">
+            <input type="text" class="form-input" id="inputName" placeholder="Your name" autocomplete="name" oninput="validateField(this, 'name')" onfocus="setTimeout(function(){document.getElementById('inputName').scrollIntoView({block:'center',behavior:'smooth'})},300)">
             <span class="input-check" id="checkName">✓</span>
         </div>
         <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" class="form-input" id="inputEmail" placeholder="you@email.com" autocomplete="email" oninput="validateField(this, 'email')">
+            <input type="email" class="form-input" id="inputEmail" placeholder="you@email.com" autocomplete="email" oninput="validateField(this, 'email')" onfocus="setTimeout(function(){document.getElementById('inputEmail').scrollIntoView({block:'center',behavior:'smooth'})},300)">
             <span class="input-check" id="checkEmail">✓</span>
         </div>
         <div class="form-group">
             <label class="form-label">Phone</label>
-            <input type="tel" class="form-input" id="inputPhone" placeholder="07xxx xxx xxx" autocomplete="tel" inputmode="tel" oninput="validateField(this, 'phone')">
+            <input type="tel" class="form-input" id="inputPhone" placeholder="07xxx xxx xxx" autocomplete="tel" inputmode="tel" oninput="validateField(this, 'phone')" onfocus="setTimeout(function(){document.getElementById('inputPhone').scrollIntoView({block:'center',behavior:'smooth'})},300)">
             <span class="input-check" id="checkPhone">✓</span>
         </div>
 
@@ -2324,7 +2324,7 @@
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">Deposit Paid</span>
-                    <span class="summary-value">£150</span>
+                    <span class="summary-value" id="receiptDeposit">£150</span>
                 </div>
             </div>
         </div>
@@ -2628,12 +2628,12 @@
             });
         }
 
-        function selectEventType(type) {
+        function selectEventType(type, e) {
             selectedEventType = type;
             window.selectedEventType = type;
             isViewing = false; // Reset viewing flag for regular events
             document.querySelectorAll('#step1 .choice-card').forEach(c => c.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
+            if (e && e.currentTarget) e.currentTarget.classList.add('selected');
 
             // ALL event types → Duration first (new universal flow)
             setTimeout(() => goToDuration(), 250);
@@ -2705,7 +2705,16 @@
         }
 
         // Initialize on DOM ready
-        document.addEventListener('DOMContentLoaded', initializeDynamicDates);
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDynamicDates();
+
+            // Bug 3 fix: Read ?type= URL parameter to skip event type selection
+            var urlParams = new URLSearchParams(window.location.search);
+            var typeParam = urlParams.get('type');
+            if (typeParam && ['bridal', 'private', 'workshop', 'content'].indexOf(typeParam) !== -1) {
+                selectEventType(typeParam);
+            }
+        });
 
         // ===== STEP 2: MONTH PICKER (direct grid) =====
         var step2MonthYear = currentYear;
@@ -2744,13 +2753,15 @@
         }
 
         function selectMonthDirect(monthIndex, year) {
-            // Generate dates for the selected month
+            // Generate dates for the selected month, filtering past dates and lead time
             const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
             const weekendDates = [];
             const weekdayDates = [];
 
             for (let d = 1; d <= daysInMonth; d++) {
                 const date = new Date(year, monthIndex, d);
+                // Skip dates before minimum booking date (today + lead time)
+                if (date < minBookingDate) continue;
                 const dayOfWeek = date.getDay();
                 const dateObj = {
                     date: `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`,
@@ -2878,10 +2889,10 @@
             );
         }
 
-        async function selectDayType(type) {
+        async function selectDayType(type, e) {
             selectedDayType = type;
             document.querySelectorAll('#step3 .choice-card').forEach(c => c.classList.remove('selected'));
-            if (event && event.currentTarget) event.currentTarget.classList.add('selected');
+            if (e && e.currentTarget) e.currentTarget.classList.add('selected');
 
             const monthData = datesByMonth[selectedMonth];
             const dates = monthData[type];
@@ -3258,6 +3269,20 @@
             document.getElementById('viewingSummaryDate').textContent = dateStr;
             document.getElementById('viewingSummaryName').textContent = document.getElementById('viewingInputName').value;
 
+            // Submit viewing data to backend
+            var viewingData = {
+                type: 'viewing',
+                date: selectedDateObj.date,
+                name: document.getElementById('viewingInputName').value,
+                email: document.getElementById('viewingInputEmail').value,
+                phone: document.getElementById('viewingInputPhone').value
+            };
+            fetch('https://hb-booking.nicholasfcoker.workers.dev/api/viewing', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(viewingData)
+            }).catch(function() { /* fail silently — confirmation still shows */ });
+
             // Track
             track('viewing_complete');
 
@@ -3564,7 +3589,7 @@
             e.stopPropagation();
 
             // Don't allow selecting unavailable slots
-            const slot = event.target.closest('.time-slot');
+            const slot = e.target.closest('.time-slot');
             if (slot.classList.contains('unavailable')) return;
 
             document.querySelectorAll('.time-slot').forEach(s => {
@@ -3728,10 +3753,18 @@
         function showConfirmation() {
             track('cta_click'); // Track: clicked book button
 
+            // Guard: integration.js must be loaded for real payment processing
+            if (!window._integrationLoaded) {
+                alert('Payment system is loading — please try again in a moment. If this persists, contact us on Instagram @hibiscusstudiosuk');
+                return;
+            }
+
             // Copy values to receipt
             document.getElementById('receiptEvent').textContent = eventTypeLabels[selectedEventType] || '—';
-            document.getElementById('receiptDate').textContent = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month} 2026`;
+            document.getElementById('receiptDate').textContent = `${selectedDateObj.day} ${selectedDateObj.num} ${selectedDateObj.month} ${selectedDateObj.date ? selectedDateObj.date.split('-')[0] : new Date().getFullYear()}`;
             document.getElementById('receiptTime').textContent = `${formatTime(selectedTimeStart)} → ${formatTime(selectedTimeEnd)} (${selectedDuration}hrs)`;
+            var receiptTotal = (selectedDurationPrice || 465) + extrasTotal;
+            document.getElementById('receiptDeposit').textContent = '£' + Math.ceil(receiptTotal / 2);
 
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('step9').classList.add('active');
@@ -3745,8 +3778,8 @@
             document.getElementById('progressFill').style.width = '33%'; // Step 1 of 3 (date → details → confirm)
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('stepViewing').classList.add('active');
-            // Viewings are Tuesday only
-            const allWeekdays = datesByMonth.thisMonth.weekday.concat(datesByMonth.nextMonth.weekday);
+            // Viewings are Tuesday only — pull from 3 months to ensure availability
+            const allWeekdays = datesByMonth.thisMonth.weekday.concat(datesByMonth.nextMonth.weekday).concat(datesByMonth.later.weekday);
             const tuesdaysOnly = allWeekdays.filter(d => d.day === 'Tue');
             await renderDateCards(tuesdaysOnly, 'viewingDates');
         }
@@ -3849,22 +3882,37 @@
             }
         });
 
-        // Submit with Turnstile verification
+        // Submit with Turnstile verification (with timeout fallback)
         function submitWithTurnstile() {
             if (window.turnstileToken || window.turnstileFailed) {
                 // Token verified or Turnstile unavailable — proceed to review
                 goToStep(8);
+            } else if (typeof turnstile !== 'undefined' && turnstile.execute) {
+                // Try to execute turnstile, but timeout after 5s
+                var btn = document.getElementById('btn7');
+                var origText = btn.textContent;
+                btn.textContent = 'Verifying...';
+                btn.disabled = true;
+                turnstile.execute('#turnstile-widget');
+                var turnstileTimeout = setTimeout(function() {
+                    window.turnstileFailed = true;
+                    btn.textContent = origText;
+                    btn.disabled = false;
+                    goToStep(8);
+                }, 5000);
+                // Check every 200ms if token arrived
+                var checkInterval = setInterval(function() {
+                    if (window.turnstileToken || window.turnstileFailed) {
+                        clearTimeout(turnstileTimeout);
+                        clearInterval(checkInterval);
+                        btn.textContent = origText;
+                        btn.disabled = false;
+                        goToStep(8);
+                    }
+                }, 200);
             } else {
-                // No token yet, show alert
-                alert('Please wait, verifying you\'re human...');
-
-                // Try to execute turnstile if available
-                if (typeof turnstile !== 'undefined' && turnstile.execute) {
-                    turnstile.execute('#turnstile-widget');
-                } else {
                 // Turnstile not loaded at all — bypass
                 goToStep(8);
-            }
             }
         }
     </script>
@@ -3876,7 +3924,8 @@
         </p>
     </footer>
 
-    <!-- Live API Integration -->
-    <script src="https://hb-booking.nicholasfcoker.workers.dev/integration.js"></script>
+    <!-- Live API Integration (with load detection) -->
+    <script>window._integrationLoaded = false;</script>
+    <script src="https://hb-booking.nicholasfcoker.workers.dev/integration.js" onload="window._integrationLoaded=true" onerror="console.warn('integration.js failed to load — payment will be blocked')"></script>
 </body>
 </html>
