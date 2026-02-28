@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hibiscus Studio — East London Event Space</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FEFDFB; --bg-gradient-start: #FDF8F4; --card-bg: #FFFFFF;
+            --border: #E8E3DA; --border-light: #F0ECE4;
+            --ink: #1C1917; --ink2: #44403C; --muted: #A8A29E; --faint: #D6D3CD;
+            --rose: #BE4D5E; --rose-bg: #FDF2F4; --rose-soft: #D4949E;
+            --warm: #F5F0E8; --sage: #6B8F6B; --sage-bg: #EEF4EE;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --shadow: 0 2px 20px rgba(0,0,0,0.04); --shadow-lg: 0 8px 40px rgba(0,0,0,0.06);
+            --radius: 16px; --grid-opacity: 0.03;
+            --accent: #BE4D5E; --accent-soft: #D4949E;
+        }
+        [data-theme="dark"] {
+            --bg: #141210; --bg-gradient-start: #1A1714; --card-bg: #1E1B18;
+            --border: #2E2A25; --border-light: #252220;
+            --ink: #F0ECE4; --ink2: #C4BFB6; --muted: #6E675E; --faint: #3A352E;
+            --rose: #D4848F; --rose-bg: rgba(212,132,143,0.1); --rose-soft: #8B5A62;
+            --warm: #1E1B16; --sage: #7AA87A; --sage-bg: rgba(122,168,122,0.1);
+            --shadow: 0 2px 20px rgba(0,0,0,0.2); --shadow-lg: 0 8px 40px rgba(0,0,0,0.3);
+            --grid-opacity: 0.06;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; overflow-x: hidden; }
+        body.chat-open { overflow: hidden; }
+
+        .ico { display: inline-flex; align-items: center; justify-content: center; }
+
+        /* Theme toggle — SVG icons */
+        .theme-toggle { position: fixed; top: 16px; right: 16px; z-index: 50; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--card-bg); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, color 0.2s; backdrop-filter: blur(8px); }
+        .theme-toggle:hover { border-color: var(--ink2); color: var(--ink); }
+        .theme-toggle .t-light { display: block; }
+        .theme-toggle .t-dark { display: none; }
+        [data-theme="dark"] .theme-toggle .t-light { display: none; }
+        [data-theme="dark"] .theme-toggle .t-dark { display: block; color: #E8C547; }
+
+        .grid-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(rgba(120,110,100,var(--grid-opacity)) 1px, transparent 1px), linear-gradient(to right, rgba(120,110,100,var(--grid-opacity)) 1px, transparent 1px); background-size: 40px 40px; }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+        .container-wide { max-width: 960px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+        section { padding: 80px 0; }
+        .section-divider { width: 60px; height: 1px; background: var(--border); margin: 0 auto; }
+
+        h1 { font-family: var(--serif); font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 400; letter-spacing: -0.01em; line-height: 1.1; }
+        h2 { font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 400; margin-bottom: 32px; text-align: center; }
+        .subtitle { font-size: 1.1rem; font-weight: 300; color: var(--ink2); line-height: 1.6; letter-spacing: 0.01em; }
+        .muted-text { font-size: 0.9rem; color: var(--muted); }
+        .gradient-text { background: linear-gradient(135deg, var(--accent), var(--accent-soft)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        .hero { padding: 100px 0 40px; text-align: center; }
+        .hero h1 { margin-bottom: 16px; }
+        .hero .subtitle { max-width: 480px; margin: 0 auto 24px; min-height: 2em; }
+
+        /* Hero showcase — visual panel per mode */
+        .hero-showcase { max-width: 560px; margin: 0 auto 36px; position: relative; height: 110px; overflow: hidden; border-radius: var(--radius); }
+        .hero-showcase-slide { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+        .hero-showcase-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .showcase-card { border-radius: 12px; overflow: hidden; position: relative; border: 1px solid var(--border-light); }
+        .showcase-card-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px; text-align: center; }
+        .showcase-card-icon { color: var(--accent); opacity: 0.7; }
+        .showcase-card-label { font-size: 0.75rem; font-weight: 500; color: var(--ink2); }
+        .showcase-card-sub { font-size: 0.65rem; color: var(--muted); }
+        /* Gradient backgrounds per mode */
+        .showcase-events .showcase-card:nth-child(1) { background: linear-gradient(135deg, #FDF2F4, #FAE1E5); }
+        .showcase-events .showcase-card:nth-child(2) { background: linear-gradient(135deg, #FFF5F6, #FDE8EB); }
+        .showcase-events .showcase-card:nth-child(3) { background: linear-gradient(135deg, #FDF2F4, #F9D5DA); }
+        .showcase-workshops .showcase-card:nth-child(1) { background: linear-gradient(135deg, #EEF4EE, #D5E8D5); }
+        .showcase-workshops .showcase-card:nth-child(2) { background: linear-gradient(135deg, #F0F6F0, #DBE9DB); }
+        .showcase-workshops .showcase-card:nth-child(3) { background: linear-gradient(135deg, #EEF4EE, #CDDCCD); }
+        .showcase-content .showcase-card:nth-child(1) { background: linear-gradient(135deg, #F0EDF6, #DDD5EE); }
+        .showcase-content .showcase-card:nth-child(2) { background: linear-gradient(135deg, #F3F0F8, #E3DCEF); }
+        .showcase-content .showcase-card:nth-child(3) { background: linear-gradient(135deg, #F0EDF6, #D2C8E6); }
+        [data-theme="dark"] .showcase-card { background: var(--card-bg) !important; }
+        @media (max-width: 480px) { .hero-showcase { height: 96px; } .showcase-card-label { font-size: 0.7rem; } }
+
+        /* Event type switcher — full-width on mobile */
+        .hero-switcher { display: flex; justify-content: center; gap: 8px; margin-bottom: 28px; }
+        .hero-switcher-btn { background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border: 1.5px solid var(--border-light); border-radius: 100px; padding: 12px 24px; font-size: 0.95rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.3s ease; font-family: var(--sans); display: flex; align-items: center; gap: 8px; justify-content: center; }
+        [data-theme="dark"] .hero-switcher-btn { background: rgba(30,27,24,0.6); }
+        .hero-switcher-btn:hover { border-color: var(--muted); transform: translateY(-1px); }
+        .hero-switcher-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 16px rgba(190,77,94,0.25); }
+        .hero-switcher-btn.active svg { stroke: #fff; }
+        .hero-switcher-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; flex-shrink: 0; }
+        .hero-switcher-btn .btn-label { display: inline; }
+        @media (max-width: 480px) {
+            .hero-switcher-btn { padding: 12px 14px; font-size: 0.9rem; }
+            .hero-switcher-btn .btn-label { display: none; }
+            .hero-switcher-btn.active .btn-label { display: inline; }
+            .hero-switcher-btn:not(.active) { padding: 12px; }
+        }
+
+        .location-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 28px; max-width: 380px; margin: 0 auto 36px; box-shadow: var(--shadow); text-align: center; }
+        .location-card .address { font-weight: 500; font-size: 0.95rem; line-height: 1.4; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .location-card .address svg { flex-shrink: 0; }
+        .location-card .transport { display: flex; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--muted); }
+        .transport-item { display: flex; align-items: center; gap: 6px; }
+        @media (max-width: 400px) { .location-card .transport { flex-direction: column; gap: 6px; align-items: center; } }
+
+        /* Scroll indicator — persistent, prominent */
+        .scroll-indicator { text-align: center; padding: 32px 0 0; }
+        .scroll-indicator span { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: color 0.2s; }
+        .scroll-indicator span:hover { color: var(--ink2); }
+        .scroll-arrow { animation: scrollBounce 2s ease infinite; }
+        .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--muted), transparent); opacity: 0.4; }
+        @keyframes scrollBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+        .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; padding: 14px 32px; border-radius: 100px; font-size: 1rem; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.2s; border: none; cursor: pointer; }
+        .cta:hover { filter: brightness(0.9); transform: translateY(-1px); }
+        .cta .arrow { transition: transform 0.2s; font-size: 1.1rem; }
+        .cta:hover .arrow { transform: translateX(4px); }
+        .cta-secondary { background: var(--ink); color: var(--bg); }
+        .cta-secondary:hover { background: var(--ink2); filter: none; }
+
+        /* Two-column layout: video + included */
+        .space-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        @media (max-width: 768px) { .space-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+        .video-section { text-align: center; }
+        .video-wrap { max-width: 360px; margin: 0 auto; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-lg); position: relative; background: #000; }
+        .video-wrap .media-container { position: relative; width: 100%; padding-bottom: 177.78%; overflow: hidden; }
+        .video-wrap iframe, .video-wrap video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+
+        .included-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .included-item { background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); border: 1px solid var(--border-light); border-radius: 12px; padding: 20px 14px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; }
+        [data-theme="dark"] .included-item { background: rgba(30,27,24,0.6); }
+        .included-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .included-icon { margin-bottom: 8px; display: flex; justify-content: center; color: var(--rose); }
+        .included-label { font-size: 0.85rem; font-weight: 500; color: var(--ink2); }
+        .included-detail { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+        .pricing-row { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
+        .pricing-row:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .pricing-left .pricing-name { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 4px; }
+        .pricing-left .pricing-desc { font-size: 0.85rem; color: var(--muted); }
+        .pricing-left .pricing-durations { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+        .pricing-right { text-align: right; }
+        .pricing-from { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+        .pricing-amount { font-family: var(--serif); font-size: 1.6rem; color: var(--accent); }
+        .pricing-arrow { color: var(--muted); margin-left: 12px; transition: transform 0.2s; font-size: 1.2rem; }
+        .pricing-row:hover .pricing-arrow { transform: translateX(4px); color: var(--accent); }
+
+        .addons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        @media (max-width: 560px) { .addons-grid { grid-template-columns: 1fr; } }
+        .addon-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+        .addon-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .addon-icon { margin-bottom: 12px; display: flex; justify-content: center; color: var(--rose); }
+        .addon-name { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 4px; }
+        .addon-price { font-weight: 600; color: var(--accent); margin-bottom: 6px; font-size: 0.95rem; }
+        .addon-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+        .addon-badge { display: inline-block; background: var(--warm); color: var(--muted); font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 10px; }
+        .interest-btn { margin-top: 8px; background: transparent; border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; font-size: 0.8rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.2s; font-family: var(--sans); display: inline-flex; align-items: center; gap: 6px; }
+        .interest-btn:hover { border-color: var(--rose); color: var(--rose); }
+        .interest-btn.voted { background: var(--rose-bg); border-color: var(--rose); color: var(--rose); }
+
+        .events-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        @media (max-width: 480px) { .events-grid { grid-template-columns: 1fr; } }
+        .event-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; text-decoration: none; color: inherit; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; display: block; position: relative; overflow: hidden; }
+        .event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--rose), var(--rose-soft)); opacity: 0; transition: opacity 0.2s; }
+        .event-card:hover::before { opacity: 1; }
+        .event-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--rose-soft); }
+        .event-card .event-icon { margin-bottom: 12px; color: var(--rose); }
+        .event-card .event-name { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 6px; }
+        .event-card .event-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; padding-right: 24px; }
+        .event-card .event-arrow { position: absolute; bottom: 20px; right: 20px; color: var(--muted); transition: transform 0.2s, color 0.2s; }
+        .event-card:hover .event-arrow { transform: translateX(3px); color: var(--rose); }
+
+        /* Social — showcase only */
+        .social-section { text-align: center; padding: 60px 0; }
+        .social-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; }
+        .social-heading { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 12px; }
+        .social-desc { font-size: 0.9rem; color: var(--ink2); max-width: 400px; margin: 0 auto 24px; line-height: 1.5; }
+        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 400px; margin: 0 auto 24px; }
+        .social-card { aspect-ratio: 1; border-radius: 12px; border: 1px solid var(--border); background: var(--warm); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: transform 0.2s, box-shadow 0.2s; }
+        .social-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .share-cta { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 100px; background: var(--ink); color: var(--bg); font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
+        .share-cta:hover { transform: translateY(-1px); opacity: 0.9; }
+
+        .faq-container { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+        .faq-item { border-bottom: 1px solid var(--border-light); }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-item summary { padding: 18px 24px; cursor: pointer; font-weight: 500; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; list-style: none; transition: background 0.2s; }
+        .faq-item summary:hover { background: var(--warm); }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item .faq-toggle { font-size: 1.2rem; color: var(--muted); transition: transform 0.2s; }
+        .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+        .faq-item .faq-answer { padding: 0 24px 18px; font-size: 0.9rem; color: var(--ink2); line-height: 1.7; }
+
+        .terms-wrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+        .terms-wrap summary { padding: 20px 24px; cursor: pointer; font-weight: 500; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+        .terms-wrap summary::-webkit-details-marker { display: none; }
+        .terms-wrap .terms-toggle { font-size: 0.8rem; color: var(--muted); transition: transform 0.2s; }
+        .terms-wrap[open] .terms-toggle { transform: rotate(180deg); }
+        .terms-content { padding: 0 24px 24px; }
+        .terms-content h3 { font-size: 0.95rem; font-weight: 600; margin: 20px 0 8px; }
+        .terms-content h3:first-child { margin-top: 0; }
+        .terms-content p, .terms-content li { font-size: 0.85rem; color: var(--ink2); line-height: 1.6; }
+        .terms-content ul { list-style: none; padding: 0; }
+        .terms-content li::before { content: "\00B7"; color: var(--muted); margin-right: 8px; }
+
+        footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; }
+        .footer-brand { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 6px; }
+        .footer-address { font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+        .footer-copy { font-size: 0.8rem; color: var(--faint); }
+
+        .mobile-cta { display: none; position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .mobile-cta.visible { opacity: 1; pointer-events: auto; }
+        .mobile-cta a { display: block; background: var(--ink); color: var(--bg); text-align: center; padding: 16px; border-radius: 14px; font-weight: 600; font-size: 1rem; text-decoration: none; box-shadow: var(--shadow-lg); }
+        @media (max-width: 768px) { .mobile-cta { display: block; } }
+
+        /* Chat FAB */
+        .chat-fab { position: fixed; bottom: 24px; right: 24px; z-index: 45; width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(190,77,94,0.3); transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s; opacity: 0; pointer-events: none; }
+        .chat-fab.visible { opacity: 1; pointer-events: auto; }
+        .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(190,77,94,0.4); }
+        .chat-fab .chat-badge { position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; border-radius: 50%; background: var(--sage); border: 2px solid var(--bg); }
+        @media (max-width: 768px) { .chat-fab.visible { bottom: 88px; } }
+
+        /* Chat overlay + panel */
+        .chat-overlay { display: none; position: fixed; inset: 0; z-index: 43; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); }
+        .chat-overlay.open { display: block; }
+        .chat-panel { position: fixed; bottom: 92px; right: 24px; z-index: 44; width: 360px; max-height: 480px; border-radius: var(--radius); background: var(--card-bg); border: 1px solid var(--border); box-shadow: var(--shadow-lg); display: none; flex-direction: column; overflow: hidden; }
+        .chat-panel.open { display: flex; }
+        @media (max-width: 768px) { .chat-panel { bottom: 148px; right: 16px; left: 16px; width: auto; max-height: 60vh; } }
+        .chat-header { padding: 16px 20px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+        .chat-header-left { display: flex; align-items: center; gap: 10px; }
+        .chat-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--rose-bg); display: flex; align-items: center; justify-content: center; color: var(--rose); }
+        .chat-header-name { font-weight: 600; font-size: 0.9rem; }
+        .chat-header-status { font-size: 0.75rem; color: var(--sage); }
+        .chat-close { background: none; border: none; color: var(--muted); cursor: pointer; padding: 4px; }
+        .chat-messages { flex: 1; padding: 16px 20px; overflow-y: auto; position: relative; }
+        .chat-bubble { padding: 10px 14px; border-radius: 14px; font-size: 0.85rem; line-height: 1.5; margin-bottom: 8px; max-width: 85%; }
+        .chat-bubble.bot { background: var(--warm); color: var(--ink); border-bottom-left-radius: 4px; }
+        .chat-bubble.user { background: var(--accent); color: #fff; margin-left: auto; border-bottom-right-radius: 4px; }
+        .chat-actions { padding: 8px 20px 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .chat-action-btn { padding: 8px 14px; border-radius: 100px; border: 1px solid var(--border); background: var(--card-bg); color: var(--ink2); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+        .chat-action-btn:hover { border-color: var(--rose); color: var(--rose); background: var(--rose-bg); }
+        /* Scroll hint in chat */
+        .chat-scroll-hint { text-align: center; padding: 6px 0 2px; font-size: 0.7rem; color: var(--faint); letter-spacing: 0.04em; animation: fadeInUp 0.4s ease 0.6s both; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { section { padding: 60px 0; } .hero { padding: 80px 0 30px; } }
+    </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- Theme Toggle — SVG icons -->
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span class="t-light"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+    <span class="t-dark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+</button>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+    <div class="container">
+        <h1 class="reveal">Hibiscus Studio</h1>
+
+        <!-- Event type switcher -->
+        <div class="hero-switcher reveal" style="transition-delay: 0.1s">
+            <button class="hero-switcher-btn active" data-mode="events" onclick="switchMode('events')">
+                <svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3l1 6"/><path d="M2 9h20"/></svg>
+                <span class="btn-label">Events</span>
+            </button>
+            <button class="hero-switcher-btn" data-mode="workshops" onclick="switchMode('workshops')">
+                <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span class="btn-label">Workshops</span>
+            </button>
+            <button class="hero-switcher-btn" data-mode="content" onclick="switchMode('content')">
+                <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <span class="btn-label">Content</span>
+            </button>
+        </div>
+
+        <p class="subtitle reveal" style="transition-delay: 0.15s" id="heroSubtitle">Your own equipped space for <span class="gradient-text">bridal showers</span>, birthdays &amp; celebrations in East London</p>
+
+        <!-- Visual showcase — changes per mode -->
+        <div class="hero-showcase reveal" style="transition-delay: 0.2s">
+            <div class="hero-showcase-slide showcase-events active" data-slide="events">
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3l1 6"/><path d="M2 9h20"/></svg></div>
+                        <div class="showcase-card-label">Bridal Showers</div>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2z"/></svg></div>
+                        <div class="showcase-card-label">Birthday Parties</div>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                        <div class="showcase-card-label">Baby Showers</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-showcase-slide showcase-workshops" data-slide="workshops">
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                        <div class="showcase-card-label">Lash Training</div>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+                        <div class="showcase-card-label">Candle Making</div>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                        <div class="showcase-card-label">Team Away Days</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-showcase-slide showcase-content" data-slide="content">
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v1h6V6a3 3 0 0 0-3-3z"/><path d="M6.5 7H4a1 1 0 0 0-1 1v3.5a3 3 0 0 0 3 3h1"/><path d="M17.5 7H20a1 1 0 0 1 1 1v3.5a3 3 0 0 1-3 3h-1"/><path d="M6 14.5V21"/><path d="M18 14.5V21"/><path d="M6 21h12"/></svg></div>
+                        <div class="showcase-card-label">Recipe Shoots</div>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+                        <div class="showcase-card-label">Brand Content</div>
+                    </div>
+                </div>
+                <div class="showcase-card">
+                    <div class="showcase-card-inner">
+                        <div class="showcase-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+                        <div class="showcase-card-label">Podcasts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="location-card reveal" style="transition-delay: 0.25s">
+            <div class="address">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                19a Peto Street North, London E16 1DP
+            </div>
+            <div class="transport">
+                <span class="transport-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="M8 19l-2 3"/><path d="M18 22l-2-3"/></svg> 5 min from Canning Town</span>
+                <span class="transport-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg> 30-min loading zone</span>
+            </div>
+        </div>
+
+        <div class="reveal" style="transition-delay: 0.3s">
+            <a href="book/" class="cta" id="heroCta">Book Your Event <span class="arrow">&rarr;</span></a>
+            <p class="muted-text" style="margin-top: 12px">50% deposit &middot; Invoiced within 48h &middot; Free cancellation 30+ days</p>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator reveal" style="transition-delay: 0.4s">
+            <span onclick="document.querySelector('#spaceSection').scrollIntoView({behavior:'smooth'})">
+                Explore the space
+                <svg class="scroll-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <div class="scroll-line"></div>
+            </span>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SEE OUR SPACE + WHAT'S INCLUDED (2-column on desktop) -->
+<section id="spaceSection">
+    <div class="container-wide">
+        <h2 class="reveal" style="text-align: center">See Our Space</h2>
+        <div class="space-grid">
+            <!-- Left: Video -->
+            <div class="video-section">
+                <div class="video-wrap reveal" style="transition-delay: 0.1s">
+                    <div class="media-container">
+                        <video playsinline loop muted autoplay poster="" preload="metadata" id="studioVideo">
+                            <source src="studio-tour.webm" type="video/webm">
+                            <source src="studio-tour.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+            <!-- Right: What's Included -->
+            <div>
+                <h3 class="reveal" style="font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 8px;">What's Included</h3>
+                <p class="muted-text reveal" style="margin-bottom: 20px; font-size: 0.85rem">Everything you need — no hidden extras</p>
+                <div class="included-grid">
+                    <div class="included-item reveal">
+                        <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg></div>
+                        <div class="included-label">40 Chairs</div>
+                        <div class="included-detail">Stackable, rearrangeable</div>
+                    </div>
+                    <div class="included-item reveal" style="transition-delay: 0.05s">
+                        <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="3" rx="1"/><path d="M6 10v7"/><path d="M18 10v7"/></svg></div>
+                        <div class="included-label">10 Tables</div>
+                        <div class="included-detail">Various sizes</div>
+                    </div>
+                    <div class="included-item reveal" style="transition-delay: 0.1s">
+                        <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v1h6V6a3 3 0 0 0-3-3z"/><path d="M6.5 7H4a1 1 0 0 0-1 1v3.5a3 3 0 0 0 3 3h1"/><path d="M17.5 7H20a1 1 0 0 1 1 1v3.5a3 3 0 0 1-3 3h-1"/><path d="M6 14.5V21"/><path d="M18 14.5V21"/><path d="M6 21h12"/></svg></div>
+                        <div class="included-label">Full Kitchen</div>
+                        <div class="included-detail">5-hob stove, double oven, fridge</div>
+                    </div>
+                    <div class="included-item reveal" style="transition-delay: 0.15s">
+                        <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+                        <div class="included-label">High-Speed WiFi</div>
+                        <div class="included-detail">Stream &amp; share instantly</div>
+                    </div>
+                    <div class="included-item reveal" style="transition-delay: 0.2s">
+                        <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="4"/><line x1="12" y1="6" x2="12.01" y2="6"/></svg></div>
+                        <div class="included-label">Wireless Speaker</div>
+                        <div class="included-detail"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg> Bluetooth</div>
+                    </div>
+                    <div class="included-item reveal" style="transition-delay: 0.25s">
+                        <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                        <div class="included-label">Private Facilities</div>
+                        <div class="included-detail">Exclusive use</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PRICING -->
+<section>
+    <div class="container">
+        <h2 class="reveal">Hire Options</h2>
+        <a href="book/?type=bridal" class="pricing-row reveal">
+            <div class="pricing-left"><div class="pricing-name">Event Hire</div><div class="pricing-desc">Bridal showers, birthdays, baby showers, dinner parties</div><div class="pricing-durations">4hr &middot; 6hr &middot; 8hr &middot; Full Day</div></div>
+            <div style="display:flex;align-items:center"><div class="pricing-right"><div class="pricing-from">from</div><div class="pricing-amount">&pound;345</div></div><span class="pricing-arrow">&rarr;</span></div>
+        </a>
+        <a href="book/?type=workshop" class="pricing-row reveal" style="transition-delay: 0.1s">
+            <div class="pricing-left"><div class="pricing-name">Workshops</div><div class="pricing-desc">Lash training, candle making, baking classes, team days</div><div class="pricing-durations">2hr &middot; Half Day &middot; Full Day</div></div>
+            <div style="display:flex;align-items:center"><div class="pricing-right"><div class="pricing-from">from</div><div class="pricing-amount">&pound;120</div></div><span class="pricing-arrow">&rarr;</span></div>
+        </a>
+        <a href="book/?type=content" class="pricing-row reveal" style="transition-delay: 0.2s">
+            <div class="pricing-left"><div class="pricing-name">Content Creation</div><div class="pricing-desc">Recipe shoots, brand content, podcasts, food photography</div><div class="pricing-durations">2hr &middot; Half Day &middot; Full Day</div></div>
+            <div style="display:flex;align-items:center"><div class="pricing-right"><div class="pricing-from">from</div><div class="pricing-amount">&pound;90</div></div><span class="pricing-arrow">&rarr;</span></div>
+        </a>
+        <div class="reveal" style="text-align:center; margin-top: 24px; transition-delay: 0.3s">
+            <a href="book/" class="cta cta-secondary">View All Options <span class="arrow">&rarr;</span></a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ADD-ONS -->
+<section>
+    <div class="container">
+        <h2 class="reveal">Make It Yours &#10024;</h2>
+        <div class="addons-grid">
+            <div class="addon-card reveal">
+                <div class="addon-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v4"/><path d="M12 18v4"/></svg></div>
+                <div class="addon-name">DJ Setup</div>
+                <div class="addon-price">+&pound;100</div>
+                <div class="addon-desc">Full DJ equipment with decks &amp; mixer</div>
+            </div>
+            <div class="addon-card reveal" style="transition-delay: 0.1s">
+                <div class="addon-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/><line x1="6" y1="17" x2="18" y2="17"/></svg></div>
+                <div class="addon-name">Catering</div>
+                <div class="addon-price">+&pound;150</div>
+                <div class="addon-desc">Nigerian small chops platter for your guests</div>
+                <span class="addon-badge">Coming Soon</span>
+                <button class="interest-btn" onclick="voteInterest(this, 'catering')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> I want this</button>
+            </div>
+            <div class="addon-card reveal" style="transition-delay: 0.2s">
+                <div class="addon-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
+                <div class="addon-name">Photographer</div>
+                <div class="addon-price">+&pound;200</div>
+                <div class="addon-desc">2 hour session with edited photos</div>
+                <span class="addon-badge">Coming Soon</span>
+                <button class="interest-btn" onclick="voteInterest(this, 'photographer')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> I want this</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PERFECT FOR -->
+<section>
+    <div class="container">
+        <h2 class="reveal">Perfect for Any Event</h2>
+        <div class="events-grid">
+            <a href="book/?type=bridal" class="event-card reveal">
+                <div class="event-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3l1 6"/><path d="M2 9h20"/></svg></div>
+                <div class="event-name">Bridal Parties</div>
+                <div class="event-desc">Hen do, bridal shower, engagement celebrations — your whole crew, your way</div>
+                <span class="event-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+            <a href="book/?type=private" class="event-card reveal" style="transition-delay: 0.1s">
+                <div class="event-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2z"/></svg></div>
+                <div class="event-name">Private Events</div>
+                <div class="event-desc">Birthdays, baby showers, anniversaries, intimate dinner parties</div>
+                <span class="event-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+            <a href="book/?type=workshop" class="event-card reveal" style="transition-delay: 0.2s">
+                <div class="event-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+                <div class="event-name">Workshops &amp; Training</div>
+                <div class="event-desc">Lash courses, candle making, baking classes, team away days — equipped and ready</div>
+                <span class="event-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+            <a href="book/?type=content" class="event-card reveal" style="transition-delay: 0.3s">
+                <div class="event-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+                <div class="event-name">Content Creation</div>
+                <div class="event-desc">Recipe videos, brand shoots, podcasts — full kitchen for food content at &pound;45/hr</div>
+                <span class="event-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SOCIAL — showcase only -->
+<section class="social-section">
+    <div class="container">
+        <div class="social-eyebrow reveal">Behind the Scenes</div>
+        <div class="social-heading reveal" style="transition-delay: 0.05s">See What Our Hosts Create</div>
+        <p class="social-desc reveal" style="transition-delay: 0.1s">Real events, real setups, real vibes — every week at Hibiscus Studio.</p>
+        <div class="social-grid reveal" style="transition-delay: 0.15s">
+            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        </div>
+        <div class="reveal" style="transition-delay: 0.2s; text-align: center">
+            <a href="book/" class="cta">Book Your Own Event <span class="arrow">&rarr;</span></a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FAQ -->
+<section>
+    <div class="container">
+        <h2 class="reveal">Common Questions</h2>
+        <div class="faq-container reveal" style="transition-delay: 0.1s">
+            <details class="faq-item"><summary>What's the capacity? <span class="faq-toggle">+</span></summary><div class="faq-answer">We host intimate gatherings for up to 25 seated guests. Larger private events available on request.</div></details>
+            <details class="faq-item"><summary>How do I secure my booking? <span class="faq-toggle">+</span></summary><div class="faq-answer">Choose your booking type and reserve your date. We'll invoice you within 48 hours. Once your 50% reservation fee is received, your booking is confirmed. If we don't receive payment within 48 hours, the booking will be released.</div></details>
+            <details class="faq-item"><summary>Can I bring my own food &amp; drinks? <span class="faq-toggle">+</span></summary><div class="faq-answer">Absolutely. Our kitchen includes a fridge, 5-hob stove, microwave, and double oven. Outside catering is welcome. We don't provide cooking utensils, and the space must be left as you found it.</div></details>
+            <details class="faq-item"><summary>What's the cancellation policy? <span class="faq-toggle">+</span></summary><div class="faq-answer">30+ days: full refund or free reschedule. 15-30 days: 50% refund or one free reschedule. 7-14 days: non-refundable, &pound;25 admin fee for reschedule. Less than 7 days: forfeited. No-show: full amount charged.</div></details>
+            <details class="faq-item"><summary>Is parking available? <span class="faq-toggle">+</span></summary><div class="faq-answer">Paid parking on nearby streets. Free after 6:30 PM and all day Sundays. 30-minute loading zone at the entrance for drop-offs.</div></details>
+            <details class="faq-item"><summary>What about setup and pack down? <span class="faq-toggle">+</span></summary><div class="faq-answer">Please allow enough time for setup and pack down within your booked slot. All activities including cleanup must be completed within your booked time.</div></details>
+            <details class="faq-item"><summary>Can I bring a DJ or play music? <span class="faq-toggle">+</span></summary><div class="faq-answer">Yes, light music is welcome. DJs welcome for background-style sets, but sound must stay moderate and finish by 10 PM. We don't supply speakers or PA — your DJ must provide their own.</div></details>
+            <details class="faq-item"><summary>Do you have a full kitchen I can use for filming? <span class="faq-toggle">+</span></summary><div class="faq-answer">Yes — 5-hob stove, double oven, fridge, and microwave. Perfect for recipe content, baking videos, and food photography. At &pound;45/hr (content rate), it's a fraction of the cost of dedicated cooking venue hire in London.</div></details>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TERMS -->
+<section>
+    <div class="container">
+        <details class="terms-wrap reveal">
+            <summary>Terms &amp; Conditions <span class="terms-toggle">&#9660;</span></summary>
+            <div class="terms-content">
+                <h3>1. Deposit and Booking Confirmation</h3><ul><li>A 50% deposit is required upon booking to secure your date and time</li><li>Invoices valid for 48 hours. Unpaid bookings are automatically released</li></ul>
+                <h3>2. Booking Times</h3><ul><li>Hire period begins and ends at the agreed times in your confirmation</li><li>Setup and breakdown must occur within the booked time frame</li></ul>
+                <h3>3. Grace Period &amp; Late Fees</h3><ul><li>30-minute grace period after the agreed end time</li><li>After grace period: &pound;50 per additional 30 minutes</li></ul>
+                <h3>4. Changes to Booking</h3><ul><li>Changes must be requested at least 7 days in advance, subject to availability</li></ul>
+                <h3>5. Cancellations</h3><ul><li>30+ days: Full refund or free reschedule</li><li>15-30 days: 50% refund or one free reschedule</li><li>7-14 days: Non-refundable. &pound;25 admin fee for reschedule</li><li>Under 7 days: Forfeited, no rescheduling</li><li>No-show: Full booking amount charged</li></ul>
+                <h3>6. Studio Usage</h3><ul><li>Studio must be left as found. Cleaning fees may apply</li><li>Do not move heavy furniture without permission</li><li>Rubbish left behind: &pound;50 deducted from damages deposit</li></ul>
+                <h3>7. Liability</h3><p>Hibiscus Studio is not liable for any personal injury, loss, or damage during hire.</p>
+                <h3>8. Prohibited Activities</h3><p>Smoking, illegal substances, and unsafe activities are strictly prohibited.</p>
+                <h3>9. Damages Deposit</h3><ul><li>&pound;200 refundable damages deposit required per booking</li><li>Returned within 1-3 working days after event inspection</li></ul>
+                <h3>10. Acceptance</h3><p>By paying the deposit, you agree to these Terms &amp; Conditions.</p>
+            </div>
+        </details>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-brand">Hibiscus Studio</div>
+        <div class="footer-address">19a Peto Street North, London E16 1DP</div>
+        <div class="footer-copy">&copy; 2026 Hibiscus Studio. All rights reserved.</div>
+    </div>
+</footer>
+
+<div class="mobile-cta" id="mobileCta"><a href="book/">Book Your Event</a></div>
+
+<!-- CHAT FAB -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Quick assist">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <div class="chat-badge"></div>
+</button>
+
+<!-- CHAT OVERLAY -->
+<div class="chat-overlay" id="chatOverlay" onclick="toggleChat()"></div>
+
+<!-- CHAT PANEL -->
+<div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+        <div class="chat-header-left">
+            <div class="chat-avatar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg></div>
+            <div><div class="chat-header-name">Quick Assist</div><div class="chat-header-status">Replies instantly</div></div>
+        </div>
+        <button class="chat-close" onclick="toggleChat()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="chat-bubble bot">Hey! What can I help you with?</div>
+    </div>
+    <div class="chat-actions" id="chatActions">
+        <button class="chat-action-btn" onclick="chatAction('start')">I want to know the pricing</button>
+        <button class="chat-action-btn" onclick="chatAction('whats_included')">What's included?</button>
+        <button class="chat-action-btn" onclick="chatAction('capacity')">How many guests?</button>
+        <button class="chat-action-btn" onclick="chatAction('ready')">I'm ready to book</button>
+    </div>
+</div>
+
+<script>
+    // Theme
+    function toggleTheme() {
+        const c = document.documentElement.getAttribute('data-theme');
+        const n = c === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', n);
+        localStorage.setItem('hbs-theme', n);
+    }
+    if (localStorage.getItem('hbs-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(e => { e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Sticky mobile CTA + chat FAB visibility
+    const hero = document.getElementById('hero');
+    const mCta = document.getElementById('mobileCta');
+    const fab = document.getElementById('chatFab');
+    if (hero) {
+        new IntersectionObserver(e => {
+            e.forEach(x => {
+                const past = !x.isIntersecting;
+                if (mCta) mCta.classList.toggle('visible', past);
+                fab.classList.toggle('visible', past);
+            });
+        }, { threshold: 0 }).observe(hero);
+    }
+
+    // Video — play/pause on scroll visibility
+    const vid = document.getElementById('studioVideo');
+    if (vid) {
+        new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { vid.play().catch(() => {}); }
+                else { vid.pause(); }
+            });
+        }, { threshold: 0.25 }).observe(vid);
+    }
+
+    // ── HERO EVENT-TYPE SWITCHER ──────
+    const modes = {
+        events: {
+            subtitle: 'Your own equipped space for <span class="gradient-text">bridal showers</span>, birthdays &amp; celebrations in East London',
+            cta: 'Book Your Event',
+            ctaHref: 'book/?type=bridal',
+            accent: '#BE4D5E', accentSoft: '#D4949E'
+        },
+        workshops: {
+            subtitle: 'A fully equipped space for <span class="gradient-text">lash training</span>, candle making &amp; team away days in East London',
+            cta: 'Book a Workshop',
+            ctaHref: 'book/?type=workshop',
+            accent: '#6B8F6B', accentSoft: '#92B592'
+        },
+        content: {
+            subtitle: 'Full kitchen &amp; studio for <span class="gradient-text">recipe shoots</span>, brand content &amp; podcasts in East London',
+            cta: 'Book a Shoot',
+            ctaHref: 'book/?type=content',
+            accent: '#7B6DAF', accentSoft: '#A99BD1'
+        }
+    };
+
+    function switchMode(mode) {
+        const m = modes[mode];
+        if (!m) return;
+
+        // Update active button
+        document.querySelectorAll('.hero-switcher-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+
+        // Update subtitle with crossfade
+        const sub = document.getElementById('heroSubtitle');
+        sub.style.opacity = '0';
+        setTimeout(() => {
+            sub.innerHTML = m.subtitle;
+            sub.style.opacity = '1';
+        }, 200);
+
+        // Update CTA
+        const cta = document.getElementById('heroCta');
+        cta.innerHTML = m.cta + ' <span class="arrow">&rarr;</span>';
+        cta.href = m.ctaHref;
+
+        // Update accent color
+        document.documentElement.style.setProperty('--accent', m.accent);
+        document.documentElement.style.setProperty('--accent-soft', m.accentSoft);
+
+        // Swap showcase visual
+        document.querySelectorAll('.hero-showcase-slide').forEach(s => {
+            s.classList.toggle('active', s.dataset.slide === mode);
+        });
+    }
+
+    // Apply subtitle transition
+    document.getElementById('heroSubtitle').style.transition = 'opacity 0.2s ease';
+
+    // Interest vote
+    function voteInterest(btn, addon) {
+        if (btn.classList.contains('voted')) return;
+        btn.classList.add('voted');
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Noted!';
+        if (typeof umami !== 'undefined') umami.track('addon-interest', { addon });
+    }
+
+    // ── CHAT (guided, no free text) ──────
+    function toggleChat() {
+        const p = document.getElementById('chatPanel');
+        const o = document.getElementById('chatOverlay');
+        const open = p.classList.toggle('open');
+        o.classList.toggle('open', open);
+        document.body.classList.toggle('chat-open', open);
+    }
+
+    const flows = {
+        start: { bot: "Sure! What type of event are you planning?", actions: [
+            { label: "Event (bridal, birthday, party)", key: "price_event" },
+            { label: "Workshop or training", key: "price_workshop" },
+            { label: "Content shoot or filming", key: "price_content" },
+        ]},
+        price_event: { bot: "Event hire pricing:<br><br>\u2022 <b>4 hours</b> \u2014 \u00A3345<br>\u2022 <b>6 hours</b> \u2014 \u00A3465<br>\u2022 <b>8 hours</b> \u2014 \u00A3645<br>\u2022 <b>Full day</b> \u2014 \u00A3885<br><br>Chairs, tables, kitchen, WiFi all included. 50% deposit secures your date.", actions: [
+            { label: "Book an event \u2192", key: "go_book_event" },
+            { label: "Ask something else", key: "restart" },
+        ]},
+        price_workshop: { bot: "Workshop pricing:<br><br>\u2022 <b>2 hours</b> \u2014 \u00A3120<br>\u2022 <b>Half day</b> \u2014 \u00A3345<br>\u2022 <b>Full day</b> \u2014 \u00A3645<br><br>Great for lash courses, candle making, baking classes, and team days. Full kitchen included.", actions: [
+            { label: "Book a workshop \u2192", key: "go_book_workshop" },
+            { label: "Ask something else", key: "restart" },
+        ]},
+        price_content: { bot: "Content creation pricing:<br><br>\u2022 <b>2 hours</b> \u2014 \u00A390<br>\u2022 <b>Half day</b> \u2014 \u00A3250<br>\u2022 <b>Full day</b> \u2014 \u00A3500<br><br>Full kitchen for food content. That's \u00A345/hr \u2014 a fraction of London cooking venue hire.", actions: [
+            { label: "Book a content shoot \u2192", key: "go_book_content" },
+            { label: "Ask something else", key: "restart" },
+        ]},
+        whats_included: { bot: "Every booking includes:<br><br>\u2022 40 stackable chairs<br>\u2022 10 tables (various sizes)<br>\u2022 Full kitchen (5-hob stove, double oven, fridge, microwave)<br>\u2022 High-speed WiFi<br>\u2022 Wireless Bluetooth speaker<br>\u2022 Private toilet<br><br>No extra fees. Arrange the space however you like.", actions: [
+            { label: "See the pricing", key: "start" },
+            { label: "I'm ready to book \u2192", key: "ready" },
+        ]},
+        capacity: { bot: "Up to <b>25 seated guests</b> comfortably. We provide 40 chairs and 10 tables so you can set up your way. Larger private events may be available on request.", actions: [
+            { label: "See the pricing", key: "start" },
+            { label: "I'm ready to book \u2192", key: "ready" },
+        ]},
+        cancellation: { bot: "\u2022 <b>30+ days:</b> Full refund or free reschedule<br>\u2022 <b>15-30 days:</b> 50% refund or one reschedule<br>\u2022 <b>7-14 days:</b> Non-refundable, \u00A325 admin for reschedule<br>\u2022 <b>Under 7 days:</b> Forfeited<br><br>We try to be fair \u2014 life happens.", actions: [
+            { label: "Book now \u2192", key: "ready" },
+            { label: "Ask something else", key: "restart" },
+        ]},
+        ready: { bot: "Let's get you booked in! Our booking system will guide you through date, time, and any extras.", actions: [
+            { label: "Start booking \u2192", key: "go_book" },
+        ]},
+        restart: { bot: "No problem! What else can I help with?", actions: [
+            { label: "Pricing", key: "start" },
+            { label: "What's included?", key: "whats_included" },
+            { label: "How many guests?", key: "capacity" },
+            { label: "Cancellation policy", key: "cancellation" },
+        ]},
+        go_book: { action: () => window.location.href = 'book/' },
+        go_book_event: { action: () => window.location.href = 'book/?type=bridal' },
+        go_book_workshop: { action: () => window.location.href = 'book/?type=workshop' },
+        go_book_content: { action: () => window.location.href = 'book/?type=content' },
+    };
+
+    function chatAction(key) {
+        const flow = flows[key];
+        if (!flow) return;
+
+        const actionsEl = document.getElementById('chatActions');
+        const clicked = actionsEl.querySelector('[data-key="' + key + '"]') || actionsEl.querySelector(':focus');
+        const label = clicked ? clicked.textContent : key;
+        addBubble(label, 'user');
+        actionsEl.innerHTML = '';
+
+        if (flow.action) { setTimeout(flow.action, 400); return; }
+
+        setTimeout(() => {
+            addBubble(flow.bot, 'bot');
+            // Add scroll hint after longer messages
+            if (flow.bot.length > 120) {
+                const hint = document.createElement('div');
+                hint.className = 'chat-scroll-hint';
+                hint.textContent = 'scroll for more \u2193';
+                document.getElementById('chatMessages').appendChild(hint);
+            }
+            if (flow.actions) {
+                flow.actions.forEach(a => {
+                    const btn = document.createElement('button');
+                    btn.className = 'chat-action-btn';
+                    btn.textContent = a.label;
+                    btn.setAttribute('data-key', a.key);
+                    btn.onclick = () => chatAction(a.key);
+                    actionsEl.appendChild(btn);
+                });
+            }
+        }, 350);
+    }
+
+    function addBubble(html, type) {
+        const m = document.getElementById('chatMessages');
+        // Remove any existing scroll hints
+        m.querySelectorAll('.chat-scroll-hint').forEach(h => h.remove());
+        const b = document.createElement('div');
+        b.className = 'chat-bubble ' + type;
+        b.innerHTML = html;
+        m.appendChild(b);
+        m.scrollTop = m.scrollHeight;
+    }
+</script>
+</body>
+</html>
