@@ -57,22 +57,36 @@
         .muted-text { font-size: 0.9rem; color: var(--muted); }
         .gradient-text { background: linear-gradient(135deg, var(--accent), var(--accent-soft)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
+        /* Hero — split layout: text left, portrait carousel right on desktop; stacked on mobile */
         .hero { padding: 60px 0 32px; text-align: center; }
-        .hero h1 { margin-bottom: 8px; font-size: clamp(2.8rem, 9vw, 4.5rem); line-height: 1; }
-        .hero .hero-location { font-size: 0.85rem; font-weight: 400; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 32px; }
+        .hero-split { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+        .hero-text { order: 2; }
+        .hero-text h1 { margin-bottom: 8px; font-size: clamp(2.8rem, 9vw, 4.5rem); line-height: 1; }
+        .hero .hero-location { font-size: 0.85rem; font-weight: 400; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
         .hero .hero-location a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
         .hero .hero-location a:hover { color: var(--ink2); border-color: var(--ink2); }
 
-        /* Hero photo carousel — 1:1 all viewports, sized per breakpoint */
-        .hero-carousel { position: relative; max-width: 400px; margin: 0 auto 28px; aspect-ratio: 1/1; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
-        @media (max-width: 480px) { .hero-carousel { max-width: 320px; border-radius: 16px; } }
+        /* Portrait carousel — tall portrait format, capped height on mobile */
+        .hero-carousel { position: relative; width: 260px; aspect-ratio: 3/4; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); flex-shrink: 0; order: 1; }
         .hero-carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
         .hero-carousel img.active { opacity: 1; }
-        .hero-carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 20px 16px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); text-align: left; pointer-events: none; }
-        .hero-carousel-caption span { font-family: var(--sans); font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.9); letter-spacing: 0.02em; }
-        .hero-carousel-dots { position: absolute; bottom: 46px; right: 20px; display: flex; gap: 6px; }
+        .hero-carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); text-align: left; pointer-events: none; }
+        .hero-carousel-caption span { font-family: var(--sans); font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.9); letter-spacing: 0.02em; }
+        .hero-carousel-dots { position: absolute; bottom: 40px; right: 16px; display: flex; gap: 6px; }
         .hero-carousel-dots button { width: 6px; height: 6px; border-radius: 50%; border: none; background: rgba(255,255,255,0.4); cursor: pointer; padding: 0; transition: background 0.3s, transform 0.3s; }
         .hero-carousel-dots button.active { background: #fff; transform: scale(1.3); }
+
+        /* Desktop: side-by-side split, taller portrait */
+        @media (min-width: 768px) {
+            .hero { padding: 80px 0 40px; }
+            .hero-split { flex-direction: row; justify-content: center; align-items: center; gap: 60px; text-align: left; }
+            .hero-text { order: 1; max-width: 380px; }
+            .hero-carousel { order: 2; width: 320px; aspect-ratio: 9/16; }
+        }
+        /* Mobile: 3:4 portrait keeps CTA above fold */
+        @media (max-width: 480px) {
+            .hero-carousel { width: 220px; border-radius: 16px; }
+        }
 
         /* Scroll indicator — persistent, prominent */
         .scroll-indicator { text-align: center; padding: 32px 0 0; }
@@ -232,41 +246,44 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
-    <div class="container">
-        <h1 class="reveal">Hibiscus Studio</h1>
-        <p class="hero-location reveal" style="transition-delay: 0.05s">East London &middot; E16 1DP</p>
-
-        <!-- Photo carousel — crossfades through event types -->
-        <div class="hero-carousel reveal" style="transition-delay: 0.15s" id="heroCarousel">
-            <img src="img/hero-workshop.jpg" alt="Sip & Paint evening at Hibiscus Studio" class="active" data-caption="Sip & Paint evening" style="object-position: center 35%">
-            <img src="img/hero-event.jpg" alt="Birthday dinner setup at Hibiscus Studio" data-caption="Birthday celebration" style="object-position: center 30%">
-            <img src="img/hero-bridal.jpg" alt="Bridal shower with floral arch at Hibiscus Studio" data-caption="Bridal shower" style="object-position: center 45%">
-            <img src="img/hero-lash.jpg" alt="Lash training workshop at Hibiscus Studio" data-caption="Lash training workshop" style="object-position: center 25%">
-            <img src="img/hero-proposal.jpg" alt="Proposal setup with roses at Hibiscus Studio" data-caption="Proposal setup" style="object-position: center 30%">
-            <div class="hero-carousel-caption" id="carouselCaption">
-                <span>Sip & Paint evening</span>
+    <div class="container-wide">
+        <div class="hero-split">
+            <!-- Text + CTA side -->
+            <div class="hero-text reveal">
+                <h1>Hibiscus Studio</h1>
+                <p class="hero-location" style="transition-delay: 0.05s">East London &middot; E16 1DP</p>
+                <div style="transition-delay: 0.2s">
+                    <a href="book/" class="cta" id="heroCta">Book your space <span class="arrow">&rarr;</span></a>
+                    <p class="muted-text" style="margin-top: 12px">From &pound;90 &middot; 50% deposit &middot; Free cancellation 30+ days</p>
+                </div>
+                <!-- Scroll indicator — desktop only -->
+                <div class="scroll-indicator reveal" style="transition-delay: 0.3s">
+                    <span onclick="document.querySelector('#spaceSection').scrollIntoView({behavior:'smooth'})">
+                        Explore the space
+                        <svg class="scroll-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        <div class="scroll-line"></div>
+                    </span>
+                </div>
             </div>
-            <div class="hero-carousel-dots" id="carouselDots">
-                <button class="active" aria-label="Slide 1"></button>
-                <button aria-label="Slide 2"></button>
-                <button aria-label="Slide 3"></button>
-                <button aria-label="Slide 4"></button>
-                <button aria-label="Slide 5"></button>
+
+            <!-- Portrait carousel — images shown at natural aspect ratio -->
+            <div class="hero-carousel reveal" style="transition-delay: 0.15s" id="heroCarousel">
+                <img src="img/hero-workshop.jpg" alt="Sip & Paint evening at Hibiscus Studio" class="active" data-caption="Sip & Paint evening">
+                <img src="img/hero-event.jpg" alt="Birthday dinner setup at Hibiscus Studio" data-caption="Birthday celebration">
+                <img src="img/hero-bridal.jpg" alt="Bridal shower with floral arch at Hibiscus Studio" data-caption="Bridal shower">
+                <img src="img/hero-lash.jpg" alt="Lash training workshop at Hibiscus Studio" data-caption="Lash training workshop">
+                <img src="img/hero-proposal.jpg" alt="Proposal setup with roses at Hibiscus Studio" data-caption="Proposal setup">
+                <div class="hero-carousel-caption" id="carouselCaption">
+                    <span>Sip & Paint evening</span>
+                </div>
+                <div class="hero-carousel-dots" id="carouselDots">
+                    <button class="active" aria-label="Slide 1"></button>
+                    <button aria-label="Slide 2"></button>
+                    <button aria-label="Slide 3"></button>
+                    <button aria-label="Slide 4"></button>
+                    <button aria-label="Slide 5"></button>
+                </div>
             </div>
-        </div>
-
-        <div class="reveal" style="transition-delay: 0.25s">
-            <a href="book/" class="cta" id="heroCta">Book your space <span class="arrow">&rarr;</span></a>
-            <p class="muted-text" style="margin-top: 12px">From &pound;90 &middot; 50% deposit &middot; Free cancellation 30+ days</p>
-        </div>
-
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator reveal" style="transition-delay: 0.35s">
-            <span onclick="document.querySelector('#spaceSection').scrollIntoView({behavior:'smooth'})">
-                Explore the space
-                <svg class="scroll-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                <div class="scroll-line"></div>
-            </span>
         </div>
     </div>
 </section>
