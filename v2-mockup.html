@@ -67,15 +67,20 @@
         .hero .hero-location a:hover { color: var(--ink2); border-color: var(--ink2); }
 
         /* Portrait video carousel — framed like a device/card */
-        .hero-carousel-frame { flex-shrink: 0; order: 1; background: var(--card-bg); border: 1px solid var(--border); border-radius: 28px; padding: 10px; box-shadow: var(--shadow-lg); }
+        .hero-carousel-frame { flex-shrink: 0; order: 1; position: relative; background: var(--card-bg); border: 1px solid var(--border); border-radius: 28px; padding: 10px; box-shadow: var(--shadow-lg); }
         .hero-carousel { position: relative; width: 250px; aspect-ratio: 9/16; border-radius: 20px; overflow: hidden; background: var(--ink); }
         .hero-carousel video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.6s ease; }
         .hero-carousel video.active { opacity: 1; }
-        .hero-carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); text-align: left; pointer-events: none; }
-        .hero-carousel-caption span { font-family: var(--sans); font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.9); letter-spacing: 0.02em; }
-        .hero-carousel-nav { position: absolute; top: 50%; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 8px; transform: translateY(-50%); pointer-events: none; z-index: 2; }
-        .hero-carousel-nav button { width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,0.25); backdrop-filter: blur(4px); color: #fff; cursor: pointer; pointer-events: auto; display: flex; align-items: center; justify-content: center; transition: background 0.2s; font-size: 14px; }
-        .hero-carousel-nav button:hover { background: rgba(255,255,255,0.45); }
+
+        /* Sticker tag — sits outside the video, overlaps card edge */
+        .hero-carousel-sticker { position: absolute; top: -14px; left: 50%; transform: translateX(-50%) rotate(-2deg); z-index: 5; background: var(--rose); color: #fff; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em; padding: 6px 16px; border-radius: 20px; white-space: nowrap; box-shadow: 0 3px 12px rgba(190,77,94,0.3); transition: transform 0.4s ease, background 0.3s; pointer-events: none; }
+
+        /* Nav arrows — big, solid, sit on the card frame edges */
+        .hero-carousel-nav { position: absolute; top: 50%; left: -18px; right: -18px; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; z-index: 4; }
+        .hero-carousel-nav button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border); background: var(--card-bg); color: var(--ink); cursor: pointer; pointer-events: auto; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s, transform 0.15s; font-size: 18px; font-weight: 600; box-shadow: var(--shadow); }
+        .hero-carousel-nav button:hover { background: var(--rose); color: #fff; border-color: var(--rose); transform: scale(1.1); }
+
+        /* Dots */
         .hero-carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
         .hero-carousel-dots button { width: 6px; height: 6px; border-radius: 50%; border: none; background: rgba(255,255,255,0.4); cursor: pointer; padding: 0; transition: background 0.3s, transform 0.3s; }
         .hero-carousel-dots button.active { background: #fff; transform: scale(1.3); }
@@ -274,19 +279,17 @@
 
             <!-- Portrait carousel in card frame -->
             <div class="hero-carousel-frame reveal" style="transition-delay: 0.15s">
+                <div class="hero-carousel-sticker" id="carouselSticker">Flower arranging workshop</div>
+                <div class="hero-carousel-nav">
+                    <button id="carouselPrev" aria-label="Previous">&#8249;</button>
+                    <button id="carouselNext" aria-label="Next">&#8250;</button>
+                </div>
                 <div class="hero-carousel" id="heroCarousel">
                     <video src="img/hero-clips/workshop.mp4" muted loop playsinline preload="auto" class="active" data-caption="Flower arranging workshop"></video>
-                    <video src="img/hero-clips/bridal.mp4" muted loop playsinline preload="auto" data-caption="Bridal shower setup"></video>
+                    <video src="img/hero-clips/bridal.mp4" muted loop playsinline preload="auto" data-caption="Bridal shower"></video>
                     <video src="img/hero-clips/sip-paint.mp4" muted loop playsinline preload="auto" data-caption="Sip & Paint evening"></video>
-                    <video src="img/hero-clips/lash-training.mp4" muted loop playsinline preload="auto" data-caption="Lash training event"></video>
-                    <video src="img/hero-clips/cake-class.mp4" muted loop playsinline preload="auto" data-caption="Cake decorating class"></video>
-                    <div class="hero-carousel-nav">
-                        <button id="carouselPrev" aria-label="Previous">&#8249;</button>
-                        <button id="carouselNext" aria-label="Next">&#8250;</button>
-                    </div>
-                    <div class="hero-carousel-caption" id="carouselCaption">
-                        <span>Flower arranging workshop</span>
-                    </div>
+                    <video src="img/hero-clips/lash-training.mp4" muted loop playsinline preload="auto" data-caption="Lash training"></video>
+                    <video src="img/hero-clips/cake-class.mp4" muted loop playsinline preload="auto" data-caption="Cake decorating"></video>
                     <div class="hero-carousel-dots" id="carouselDots">
                         <button class="active" aria-label="Slide 1"></button>
                         <button aria-label="Slide 2"></button>
@@ -599,7 +602,7 @@
         if (!carousel) return;
         var videos = carousel.querySelectorAll('video');
         var dots = carousel.querySelectorAll('.hero-carousel-dots button');
-        var caption = carousel.querySelector('#carouselCaption span');
+        var sticker = document.getElementById('carouselSticker');
         var prevBtn = document.getElementById('carouselPrev');
         var nextBtn = document.getElementById('carouselNext');
         var current = 0;
@@ -613,7 +616,8 @@
             videos[current].currentTime = 0;
             videos[current].play();
             dots[current].classList.add('active');
-            caption.textContent = videos[current].dataset.caption;
+            sticker.textContent = videos[current].dataset.caption;
+            sticker.style.transform = 'translateX(-50%) rotate(' + (Math.random() * 6 - 3) + 'deg)';
         }
 
         // Start first video playing
