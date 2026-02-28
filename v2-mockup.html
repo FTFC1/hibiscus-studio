@@ -73,7 +73,8 @@
         .hero-carousel video.active { opacity: 1; }
 
         /* Sticker tag — sits outside the video, overlaps card edge */
-        .hero-carousel-sticker { position: absolute; top: -14px; left: 50%; transform: translateX(-50%) rotate(-2deg); z-index: 5; background: var(--rose); color: #fff; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em; padding: 6px 16px; border-radius: 20px; white-space: nowrap; box-shadow: 0 3px 12px rgba(190,77,94,0.3); transition: transform 0.4s ease, background 0.3s; pointer-events: none; }
+        .hero-carousel-sticker { position: absolute; top: -14px; left: 50%; transform: translateX(-50%) rotate(-2deg); z-index: 5; background: #fff; color: var(--ink); font-family: var(--serif); font-style: italic; font-size: 0.85rem; padding: 5px 16px; border-radius: 6px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid var(--border); transition: transform 0.4s ease; pointer-events: none; }
+        [data-theme="dark"] .hero-carousel-sticker { background: var(--card-bg); }
 
         /* Nav arrows — big, solid, sit on the card frame edges */
         .hero-carousel-nav { position: absolute; top: 50%; left: -18px; right: -18px; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; z-index: 4; }
