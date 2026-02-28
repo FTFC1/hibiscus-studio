@@ -69,7 +69,8 @@
         /* Portrait carousel — framed like a device/card */
         .hero-carousel-frame { flex-shrink: 0; order: 1; background: var(--card-bg); border: 1px solid var(--border); border-radius: 28px; padding: 10px; box-shadow: var(--shadow-lg); }
         .hero-carousel { position: relative; width: 250px; aspect-ratio: 3/4; border-radius: 20px; overflow: hidden; }
-        .hero-carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+        .hero-carousel { background: var(--warm); }
+        .hero-carousel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 1.2s ease; }
         .hero-carousel img.active { opacity: 1; }
         .hero-carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); text-align: left; pointer-events: none; }
         .hero-carousel-caption span { font-family: var(--sans); font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.9); letter-spacing: 0.02em; }
