@@ -7,6 +7,7 @@ on:
       - 'index.html'
       - 'v2-mockup.html'
       - 'img/**'
+      - 'studio-tour.*'
       - 'assets/**'
       - 'book/**'
       - 'calculator/**'
@@ -41,6 +42,8 @@ jobs:
             index.html
             v2-mockup.html
             img
+            studio-tour.mp4
+            studio-tour.webm
             assets
             book
             calculator
