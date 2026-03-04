@@ -1406,10 +1406,14 @@
         // ── INIT ──────────────────────────────
         (async function loadBookedSlots() {
             try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 3000);
                 const res = await fetch(
                     BOOKING_API.replace('/api/bookings', '/api/open-house/booked') +
-                    '?date=' + EVENT_DATE
+                    '?date=' + EVENT_DATE,
+                    { signal: controller.signal }
                 );
+                clearTimeout(timeout);
                 if (res.ok) {
                     const data = await res.json();
                     if (Array.isArray(data.bookedTimes)) {
