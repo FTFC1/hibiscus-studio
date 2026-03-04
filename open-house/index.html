@@ -1403,7 +1403,21 @@
         }
 
         // ── INIT ──────────────────────────────
-        renderSlots();
+        (async function loadBookedSlots() {
+            try {
+                const res = await fetch(
+                    BOOKING_API.replace('/api/bookings', '/api/open-house/booked') +
+                    '?date=' + EVENT_DATE
+                );
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data.bookedTimes)) {
+                        bookedSlots = data.bookedTimes;
+                    }
+                }
+            } catch (_) {}
+            renderSlots();
+        })();
     </script>
 </body>
 </html>
