@@ -174,8 +174,16 @@
         .social-heading { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 12px; }
         .social-desc { font-size: 0.9rem; color: var(--ink2); max-width: 400px; margin: 0 auto 24px; line-height: 1.5; }
         .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 400px; margin: 0 auto 24px; }
-        .social-card { aspect-ratio: 1; border-radius: 12px; border: 1px solid var(--border); background: var(--warm); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: transform 0.2s, box-shadow 0.2s; }
+        .social-card { aspect-ratio: 1; border-radius: 12px; border: 1px solid var(--border); background: var(--warm); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; }
         .social-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .social-card-img { background-size: cover; background-position: center; position: relative; overflow: hidden; }
+        .social-card-img::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.2s; }
+        .social-card-img:hover::after { background: rgba(0,0,0,0.2); }
+        .social-card-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; z-index: 1; }
+        .social-card-img:hover .social-card-play { opacity: 1; }
+        .social-card-follow { background: var(--ink); color: var(--bg); flex-direction: column; gap: 6px; border: none; }
+        .social-card-follow:hover { background: #333; }
+        .social-card-follow span { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
         .share-cta { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 100px; background: var(--ink); color: var(--bg); font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
         .share-cta:hover { transform: translateY(-1px); opacity: 0.9; }
 
@@ -464,12 +472,29 @@
         <div class="social-heading reveal" style="transition-delay: 0.05s">See What Our Hosts Create</div>
         <p class="social-desc reveal" style="transition-delay: 0.1s">Real events, real setups, real vibes — every week at Hibiscus Studio.</p>
         <div class="social-grid reveal" style="transition-delay: 0.15s">
-            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            <div class="social-card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+            <!-- Bento workshop hen do -->
+            <a class="social-card social-card-img" href="https://www.tiktok.com/@hibiscusstudiouk/video/7612001700873800982" target="_blank" rel="noopener" style="background-image: url('img/hero-workshop.jpg')">
+                <div class="social-card-play"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            </a>
+            <!-- Flower arrangement -->
+            <a class="social-card social-card-img" href="https://www.tiktok.com/@hibiscusstudiouk/video/7610172203493133591" target="_blank" rel="noopener" style="background-image: url('img/hero-bridal.jpg')">
+                <div class="social-card-play"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            </a>
+            <!-- Lash artistry masterclass -->
+            <a class="social-card social-card-img" href="https://www.tiktok.com/@hibiscusstudiouk/video/7611176059098139926" target="_blank" rel="noopener" style="background-image: url('img/hero-lash.jpg')">
+                <div class="social-card-play"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            </a>
+            <a class="social-card social-card-img" href="https://www.tiktok.com/@hibiscusstudiouk" target="_blank" rel="noopener" style="background-image: url('img/hero-event.jpg')">
+                <div class="social-card-play"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            </a>
+            <a class="social-card social-card-img" href="https://www.tiktok.com/@hibiscusstudiouk" target="_blank" rel="noopener" style="background-image: url('img/hero-proposal.jpg')">
+                <div class="social-card-play"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            </a>
+            <!-- Follow CTA -->
+            <a class="social-card social-card-follow" href="https://www.tiktok.com/@hibiscusstudiouk" target="_blank" rel="noopener">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+                <span>Follow us</span>
+            </a>
         </div>
         <div class="reveal" style="transition-delay: 0.2s; text-align: center">
             <a href="book/" class="cta">Book Your Own Event <span class="arrow">&rarr;</span></a>
