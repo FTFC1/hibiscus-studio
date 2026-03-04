@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open House Booking — Delivery Report · Aloe Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0A0A;
+      --surface: #111111;
+      --border: #1E1E1E;
+      --border-light: #2A2A2A;
+      --ink: #F0F0F0;
+      --ink2: #A0A0A0;
+      --muted: #606060;
+      --accent: #C8FF00;
+      --accent-dim: rgba(200, 255, 0, 0.08);
+      --red: #FF4444;
+      --green: #44FF88;
+      --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+      --mono: 'IBM Plex Mono', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .logo span { color: var(--muted); }
+
+    .header-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 32px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      margin-bottom: 56px;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 strong { font-weight: 600; }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--ink2);
+      line-height: 1.6;
+      max-width: 540px;
+    }
+
+    /* ── STATUS STRIP ── */
+    .status-strip {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .status-chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      padding: 6px 12px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip-green { background: rgba(68,255,136,0.1); color: var(--green); border: 1px solid rgba(68,255,136,0.2); }
+    .chip-accent { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(200,255,0,0.2); }
+    .chip-muted { background: #1A1A1A; color: var(--muted); border: 1px solid var(--border); }
+
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── ITEMS ── */
+    .item-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .item:hover { background: var(--surface); }
+
+    .item-icon {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-ok { color: var(--green); font-size: 14px; }
+    .icon-info { color: var(--accent); font-size: 14px; }
+
+    .item-body { flex: 1; }
+
+    .item-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .item-desc {
+      font-size: 13px;
+      color: var(--ink2);
+      line-height: 1.5;
+    }
+
+    /* ── NOTE BOX ── */
+    .note {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-top: 8px;
+    }
+
+    .note p {
+      font-size: 13px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    .note p + p { margin-top: 8px; }
+
+    .note strong { color: var(--ink); font-weight: 500; }
+
+    /* ── CTA ── */
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cta-text { flex: 1; }
+
+    .cta-text p {
+      font-size: 13px;
+      color: var(--ink2);
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    .cta-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      white-space: nowrap;
+      transition: all 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0A0A0A;
+    }
+
+    .btn-primary:hover { background: #D4FF33; }
+
+    .btn-ghost {
+      border: 1px solid var(--border-light);
+      color: var(--ink2);
+    }
+
+    .btn-ghost:hover { border-color: var(--muted); color: var(--ink); }
+
+    /* ── FLOW DIAGRAM ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      row-gap: 12px;
+    }
+
+    .flow-step {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink2);
+      white-space: nowrap;
+    }
+
+    .flow-arrow {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 0 8px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-link:hover { color: var(--ink2); }
+
+    @media (max-width: 600px) {
+      .container { padding: 40px 20px; }
+      .header { padding: 16px 20px; }
+      .hero h1 { font-size: 26px; }
+      .cta-block { flex-direction: column; align-items: flex-start; }
+      .flow { flex-direction: column; align-items: flex-start; }
+      .flow-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">Aloe<span>Labs</span></div>
+    <div class="header-meta">Delivery Report · March 2026</div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">Hibiscus Studio · Open House</div>
+      <h1>Your booking page<br><strong>is live and working.</strong></h1>
+      <p class="hero-sub">Everything guests need to book a viewing slot on Saturday 7th March is ready. Here's what was built, what to expect, and what you need to do.</p>
+    </section>
+
+    <!-- STATUS -->
+    <div class="status-strip">
+      <div class="status-chip chip-green"><div class="dot"></div>Booking page live</div>
+      <div class="status-chip chip-green"><div class="dot"></div>Email confirmation working</div>
+      <div class="status-chip chip-green"><div class="dot"></div>Slot availability live</div>
+      <div class="status-chip chip-muted">Event: Sat 7 Mar · 11am–3pm</div>
+    </div>
+
+    <!-- WHAT WAS BUILT -->
+    <section class="section">
+      <div class="section-label">What was built</div>
+      <div class="item-list">
+
+        <div class="item">
+          <div class="item-icon"><span class="icon-ok">✓</span></div>
+          <div class="item-body">
+            <div class="item-title">Open House booking page</div>
+            <div class="item-desc">Guests pick a 20-minute slot, enter their name, email and phone, and submit. The slot is marked as taken for everyone else in real time. 12 slots across 11am–3pm.</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-icon"><span class="icon-ok">✓</span></div>
+          <div class="item-body">
+            <div class="item-title">Instant confirmation email to guests</div>
+            <div class="item-desc">Every guest receives a clean email with their booked time, the studio address, and a Google Calendar link. Sends from <strong>contacthibiscusstudio@gmail.com</strong> — your HBS email, not a third-party service.</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-icon"><span class="icon-ok">✓</span></div>
+          <div class="item-body">
+            <div class="item-title">Notification to you (Rochelle)</div>
+            <div class="item-desc">Every time someone books, you get a summary email so you know who's coming and when.</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-icon"><span class="icon-ok">✓</span></div>
+          <div class="item-body">
+            <div class="item-title">Social proof + scarcity indicators</div>
+            <div class="item-desc">The page shows how many people have booked and how many slots remain. Updates automatically as bookings come in — no manual work needed.</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-icon"><span class="icon-ok">✓</span></div>
+          <div class="item-body">
+            <div class="item-title">Instagram link corrected</div>
+            <div class="item-desc">"See the space" link now points to <strong>@hibiscusstudiosuk</strong> — the correct account.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section">
+      <div class="section-label">How a booking flows</div>
+      <div class="flow">
+        <div class="flow-step">Guest visits page</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Picks a slot</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Enters details</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Confirmation email sent</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">You get notified</div>
+      </div>
+      <div class="note">
+        <p>No passwords. No accounts. No payment required. Guests land, pick a time, and they're done in under a minute.</p>
+        <p>If a confirmation email lands in spam, they should look for the subject line: <strong>"You're booked — Hibiscus Studio Open House, 7th March"</strong></p>
+      </div>
+    </section>
+
+    <!-- WHAT TO DO -->
+    <section class="section">
+      <div class="section-label">What you need to do</div>
+      <div class="item-list">
+
+        <div class="item">
+          <div class="item-icon"><span class="icon-info">→</span></div>
+          <div class="item-body">
+            <div class="item-title">Share the link</div>
+            <div class="item-desc">That's the main action. Send <strong>hibiscusstudio.co.uk/open-house</strong> to your list, stories, DMs — wherever your audience is.</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-icon"><span class="icon-info">→</span></div>
+          <div class="item-body">
+            <div class="item-title">Nothing else to manage</div>
+            <div class="item-desc">The page handles bookings automatically. You'll receive an email for each new booking. No spreadsheet, no manual confirmations.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <div class="cta-text">
+        <div class="cta-label">Open House · Saturday 7th March</div>
+        <p>Your booking page is live. Share when ready.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://hibiscusstudio.co.uk/open-house" target="_blank" class="btn btn-primary">View page →</a>
+        <a href="https://hibiscusstudio.co.uk/v2-mockup.html" target="_blank" class="btn btn-ghost">Full website</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">Delivered by Aloe Labs · aloelabs.studio · March 2026</div>
+    <div class="footer-right">
+      <a href="https://hibiscusstudio.co.uk/open-house" class="footer-link">hibiscusstudio.co.uk/open-house</a>
+    </div>
+  </footer>
+
+</body>
+</html>
