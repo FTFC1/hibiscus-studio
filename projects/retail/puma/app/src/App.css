@@ -126,7 +126,7 @@
 
 .mission-content p {
   color: var(--text-on-light-sub);
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -397,10 +397,6 @@
 }
 
 .nav-item i {
-  font-size: 20px;
-}
-
-.nav-item i {
   font-size: 18px;
 }
 
@@ -452,11 +448,11 @@
 .login-input {
   width: 100%;
   padding: 14px 16px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
   border-radius: 12px;
   color: var(--text-on-dark);
-  font-size: 15px;
+  font-size: 16px;
   font-family: inherit;
   outline: none;
   transition: border-color 0.2s;
@@ -471,7 +467,7 @@
 }
 
 .login-error {
-  color: var(--accent-red, #FF4757);
+  color: var(--alert-red);
   font-size: 13px;
   text-align: center;
 }
@@ -480,10 +476,10 @@
   width: 100%;
   padding: 14px;
   background: var(--accent-lime);
-  color: #080808;
+  color: var(--text-on-cta);
   border: none;
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;

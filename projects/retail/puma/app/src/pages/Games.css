@@ -393,7 +393,7 @@
   align-items: center; gap: 8px;
 }
 .approach-results-emoji { font-size: 56px; line-height: 1; }
-.approach-results-title { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+.approach-results-title { font-size: 24px; font-weight: 700; color: var(--text-primary); }
 
 .approach-results-stats, .basket-results-stats {
   width: 100%;
@@ -605,7 +605,7 @@
   align-items: center; gap: 8px;
 }
 .basket-results-emoji { font-size: 56px; line-height: 1; }
-.basket-results-title { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+.basket-results-title { font-size: 24px; font-weight: 700; color: var(--text-primary); }
 .basket-results-subtitle { font-size: 14px; color: var(--text-secondary); }
 .basket-results-actions {
   display: flex; flex-direction: column; gap: 8px;
@@ -794,6 +794,102 @@
 .chart-dot-mid { background: var(--progress-gold, #c9a435); }
 .chart-dot-low { background: var(--alert-red, #d94040); }
 
+/* -- State Cards (empty, error, loading) -- */
+
+.state-card {
+  margin: 20px;
+  padding: 32px 24px;
+  background: var(--card-bg, #0F0F0F);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.state-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.state-icon.green { color: #4CAF50; }
+.state-icon.gold { color: #D4A843; }
+.state-icon.danger { color: #E8453C; }
+
+.state-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #E8E8E8;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.state-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.42);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.state-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.state-btn.green {
+  background: #3A7D44;
+  color: #fff;
+}
+
+.error-detail {
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: rgba(255,255,255,0.2);
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+/* Confirmation toast */
+.confirm-toast {
+  margin: 16px 20px;
+  padding: 14px 16px;
+  background: rgba(58, 125, 68, 0.12);
+  border: 1px solid rgba(58, 125, 68, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirm-toast i {
+  font-size: 18px;
+  color: #4CAF50;
+}
+
+.confirm-toast-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+/* Spin animation for loading */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
 /* -- Conversation UI (Approach Game redesign) -- */
 
 .convo {
@@ -841,9 +937,9 @@
 }
 
 .convo-bubble-text {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
-  color: #E8E8E8;
+  color: var(--text-primary);
   line-height: 1.45;
   font-style: italic;
 }
@@ -852,7 +948,7 @@
   align-self: center;
   font-size: 12px;
   font-weight: 600;
-  color: #4CAF50;
+  color: var(--cta-green);
   margin-top: 6px;
 }
 
@@ -963,10 +1059,10 @@
 .reaction-bubble {
   padding: 12px 14px;
   border-radius: 16px 16px 16px 4px;
-  background: #161616;
-  border: 1px solid rgba(255,255,255,0.05);
-  font-size: 15px;
-  color: #E8E8E8;
+  background: var(--surface-elevated);
+  border: 1px solid var(--bg-glass-stroke);
+  font-size: 14px;
+  color: var(--text-primary);
   line-height: 1.45;
   font-style: italic;
 }
@@ -1018,8 +1114,8 @@
   line-height: 1.4;
 }
 
-.verdict-correct .verdict-text { color: #4CAF50; }
-.verdict-wrong .verdict-text { color: #F28B83; }
+.verdict-correct .verdict-text { color: var(--cta-green); }
+.verdict-wrong .verdict-text { color: var(--alert-red); }
 
 /* Better answer reveal (on wrong) */
 .better-answer {
@@ -1034,13 +1130,13 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #4CAF50;
+  color: var(--cta-green);
   margin-bottom: 6px;
 }
 
 .better-answer-text {
-  font-size: 15px;
-  color: #E8E8E8;
+  font-size: 14px;
+  color: var(--text-primary);
   line-height: 1.4;
   font-style: italic;
 }
@@ -1099,9 +1195,64 @@
 
 .coach-note-text {
   font-size: 14px;
-  color: #E8E8E8;
+  color: var(--text-primary);
   line-height: 1.5;
   padding-left: 10px;
+}
+
+/* Practice Basket Score (Revenue Component) */
+.basket-revenue {
+  background: var(--cta-green-dim);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  text-align: center;
+}
+.basket-revenue-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-on-dark-sub);
+  margin-bottom: 8px;
+}
+.basket-revenue-values {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.basket-revenue-earned {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--cta-green);
+}
+.basket-revenue-of {
+  font-size: 14px;
+  color: var(--text-on-dark-sub);
+}
+.basket-revenue-possible {
+  font-size: 14px;
+  color: var(--text-on-dark-sub);
+}
+.basket-revenue-bar {
+  height: 8px;
+  background: var(--bg-glass);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.basket-revenue-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cta-green), var(--accent-lime));
+  border-radius: 4px;
+}
+.basket-revenue-gap {
+  font-size: 13px;
+  color: var(--alert-red);
+  font-weight: 500;
 }
 
 /* Sticky CTA */

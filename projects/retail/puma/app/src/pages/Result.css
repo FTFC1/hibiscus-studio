@@ -68,7 +68,7 @@
 }
 
 .result-status-label {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
@@ -170,7 +170,7 @@
 }
 
 .result-badge-name {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--alert-green);
   margin: 0 0 2px;

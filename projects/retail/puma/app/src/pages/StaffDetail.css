@@ -203,10 +203,10 @@
   gap: 8px;
   width: 100%;
   padding: 14px 16px;
-  background: rgba(0, 136, 204, 0.12);
-  border: 1px solid rgba(0, 136, 204, 0.25);
+  background: var(--cta-green-dim);
+  border: 1px solid rgba(76, 168, 88, 0.25);
   border-radius: var(--radius-md);
-  color: #29B6F6;
+  color: var(--cta-green);
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
@@ -281,7 +281,7 @@
 }
 
 .sd-certified-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--text-on-dark);
 }

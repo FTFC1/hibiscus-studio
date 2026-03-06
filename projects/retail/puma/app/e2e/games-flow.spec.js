@@ -7,11 +7,14 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Games Flow', () => {
-  test('Games page loads with game cards', async ({ page }) => {
+  test('Games page loads with game cards or empty state', async ({ page }) => {
     await page.locator('.bottom-nav').locator('text=Games').click()
     await expect(page).toHaveURL('/games')
     await page.waitForTimeout(1000)
-    await expect(page.locator('.game-card').first()).toBeVisible({ timeout: 5000 })
+    // Games show if lessons completed, otherwise empty state
+    const gameCard = page.locator('.game-card').first()
+    const emptyState = page.locator('.state-card')
+    await expect(gameCard.or(emptyState)).toBeVisible({ timeout: 5000 })
   })
 
   test('clicking a game opens the game screen', async ({ page }) => {
