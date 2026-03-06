@@ -1,3 +1,14 @@
+/* ── Error Card ── */
+.error-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  min-height: 40vh;
+}
+
 /* ── View Switcher ── */
 .view-switcher {
   display: flex;

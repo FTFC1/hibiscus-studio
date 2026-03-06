@@ -33,6 +33,7 @@ export default function Home() {
   const [staffData, setStaffData] = useState([])
   const [recentBuzz, setRecentBuzz] = useState([])
   const [loadingData, setLoadingData] = useState(true)
+  const [loadError, setLoadError] = useState(null)
 
   // Scroll to top on mount
   useEffect(() => { window.scrollTo(0, 0) }, [])
@@ -44,41 +45,49 @@ export default function Home() {
 
   async function loadData() {
     setLoadingData(true)
+    setLoadError(null)
 
-    // Load user's own completions
-    const { data: myCompletions } = await supabase
-      .from('completions')
-      .select('mission_id')
-      .eq('user_id', userId)
-    if (myCompletions) {
-      setCompletedIds(new Set(myCompletions.map(c => c.mission_id)))
+    try {
+      // Load user's own completions
+      const { data: myCompletions, error: compErr } = await supabase
+        .from('completions')
+        .select('mission_id')
+        .eq('user_id', userId)
+      if (compErr) throw compErr
+      if (myCompletions) {
+        setCompletedIds(new Set(myCompletions.map(c => c.mission_id)))
+      }
+
+      if (role === 'manager') {
+        const { data: dashboard, error: dashErr } = await supabase
+          .from('manager_dashboard')
+          .select('*')
+        if (dashErr) throw dashErr
+        if (dashboard) setStaffData(dashboard)
+      }
+
+      // Load recent completions for buzz
+      const { data: recent, error: buzzErr } = await supabase
+        .from('completions')
+        .select('*, profiles(full_name, avatar_initials)')
+        .order('completed_at', { ascending: false })
+        .limit(3)
+      if (buzzErr) throw buzzErr
+      if (recent) {
+        setRecentBuzz(recent.map(r => ({
+          initial: r.profiles?.avatar_initials?.[0] || '?',
+          name: r.profiles?.full_name || 'Unknown',
+          action: `completed ${missionList.find(m => m.id === r.mission_id)?.title || r.mission_id}`,
+          time: getTimeAgo(r.completed_at),
+          isDemoData: r.is_demo
+        })))
+      }
+    } catch (err) {
+      console.error('Home data load failed:', err)
+      setLoadError(err?.message || 'Failed to load data')
+    } finally {
+      setLoadingData(false)
     }
-
-    if (role === 'manager') {
-      // Load manager dashboard
-      const { data: dashboard } = await supabase
-        .from('manager_dashboard')
-        .select('*')
-      if (dashboard) setStaffData(dashboard)
-    }
-
-    // Load recent completions for buzz
-    const { data: recent } = await supabase
-      .from('completions')
-      .select('*, profiles(full_name, avatar_initials)')
-      .order('completed_at', { ascending: false })
-      .limit(3)
-    if (recent) {
-      setRecentBuzz(recent.map(r => ({
-        initial: r.profiles?.avatar_initials?.[0] || '?',
-        name: r.profiles?.full_name || 'Unknown',
-        action: `completed ${missionList.find(m => m.id === r.mission_id)?.title || r.mission_id}`,
-        time: getTimeAgo(r.completed_at),
-        isDemoData: r.is_demo
-      })))
-    }
-
-    setLoadingData(false)
   }
 
   function getTimeAgo(dateStr) {
@@ -118,6 +127,21 @@ export default function Home() {
     : 0
 
   const initials = profile?.avatar_initials || 'U'
+
+  if (loadError) {
+    return (
+      <>
+        <Header brandSplit={['PUMA', 'Training']} initials={initials} />
+        <div className="error-card">
+          <i className="ri-wifi-off-line" style={{ fontSize: 32, color: '#FF6464' }} />
+          <p style={{ color: '#ccc', margin: '12px 0' }}>{loadError}</p>
+          <button className="hero-cta" onClick={loadData} style={{ width: 'auto', padding: '10px 24px' }}>
+            Retry
+          </button>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>

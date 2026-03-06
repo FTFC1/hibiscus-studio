@@ -32,6 +32,7 @@ export default function StaffDetail() {
   const [staffProfile, setStaffProfile] = useState(null)
   const [completions, setCompletions] = useState([])
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState(null)
 
   useEffect(() => {
     if (role !== 'manager') { navigate('/'); return }
@@ -40,23 +41,39 @@ export default function StaffDetail() {
 
   async function loadStaffData() {
     setLoading(true)
+    setLoadError(null)
 
-    const [{ data: profile }, { data: completionData }] = await Promise.all([
-      supabase.from('profiles').select('*').eq('id', staffId).single(),
-      supabase
-        .from('completions')
-        .select('mission_id, score, completed_at')
-        .eq('user_id', staffId)
-        .not('mission_id', 'like', 'game-%')
-        .order('completed_at', { ascending: false }),
-    ])
+    try {
+      const [profileRes, completionRes] = await Promise.all([
+        supabase.from('profiles').select('*').eq('id', staffId).single(),
+        supabase
+          .from('completions')
+          .select('mission_id, score, completed_at')
+          .eq('user_id', staffId)
+          .not('mission_id', 'like', 'game-%')
+          .order('completed_at', { ascending: false }),
+      ])
 
-    if (profile) setStaffProfile(profile)
-    if (completionData) setCompletions(completionData)
-    setLoading(false)
+      if (profileRes.error) throw profileRes.error
+      if (completionRes.error) throw completionRes.error
+      if (profileRes.data) setStaffProfile(profileRes.data)
+      if (completionRes.data) setCompletions(completionRes.data)
+    } catch (err) {
+      console.error('StaffDetail load failed:', err)
+      setLoadError(err?.message || 'Failed to load staff data')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (loading) return <div className="sd-loading"><div className="loading-spinner" /></div>
+  if (loadError) return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', padding: 24, textAlign: 'center' }}>
+      <i className="ri-error-warning-line" style={{ fontSize: 32, color: '#FF6464' }} />
+      <p style={{ color: '#ccc', margin: '12px 0' }}>{loadError}</p>
+      <button onClick={loadStaffData} style={{ padding: '10px 24px', borderRadius: 12, border: 'none', background: '#3A7D44', color: '#fff', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}>Retry</button>
+    </div>
+  )
   if (!staffProfile) return null
 
   const completedIds = new Set(completions.map(c => c.mission_id))

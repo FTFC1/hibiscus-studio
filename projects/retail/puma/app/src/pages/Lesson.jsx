@@ -348,12 +348,17 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
       const wrongAnswers = newAnswers.filter(a => !a.correct)
 
       if (userId) {
-        await supabase.from('completions').insert({
-          user_id: userId,
-          mission_id: missionId,
-          score,
-          time_spent: elapsed
-        })
+        try {
+          const { error } = await supabase.from('completions').insert({
+            user_id: userId,
+            mission_id: missionId,
+            score,
+            time_spent: elapsed
+          })
+          if (error) console.error('Completion save failed:', error)
+        } catch (err) {
+          console.error('Completion save failed:', err)
+        }
       }
 
       sessionStorage.setItem(`puma_score_${missionId}`, JSON.stringify({ score, wrongAnswers }))
