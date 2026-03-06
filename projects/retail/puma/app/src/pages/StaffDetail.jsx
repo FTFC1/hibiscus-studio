@@ -151,7 +151,7 @@ export default function StaffDetail() {
           <div className="sd-nudge">
             <a
               className="sd-nudge-btn"
-              href={`tg://msg?text=${encodeURIComponent(`Hey ${staffProfile.full_name.split(' ')[0]}, how's Mission ${currentMission.number} going? Need any help?`)}`}
+              href={`https://t.me/share/url?url=&text=${encodeURIComponent(`Hey ${staffProfile.full_name.split(' ')[0]}, how's Mission ${currentMission.number} going? Need any help?`)}`}
             >
               <i className="ri-telegram-line sd-nudge-icon" />
               Nudge via Telegram

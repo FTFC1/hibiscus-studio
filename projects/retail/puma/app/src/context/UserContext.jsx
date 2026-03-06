@@ -32,9 +32,6 @@ export function UserProvider({ children }) {
       .eq('id', userId)
       .single()
     setProfile(data)
-    if (data?.role === 'manager' && window.location.pathname !== '/') {
-      window.location.replace('/')
-    }
     setLoading(false)
   }
 

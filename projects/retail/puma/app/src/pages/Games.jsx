@@ -420,6 +420,8 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
   const [totalBasketValue, setTotalBasketValue] = useState(0)
   const [totalMainValue, setTotalMainValue] = useState(0)
   const [roundFeedback, setRoundFeedback] = useState(null)
+  const [roundResults, setRoundResults] = useState([])
+  const [basketReviewOpen, setBasketReviewOpen] = useState(false)
 
   useEffect(() => {
     const generated = []
@@ -524,6 +526,24 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
     const roundScore = Math.max(0, (correctCount * 100) - (wrongCount * 50))
     setTotalScore(s => s + roundScore)
     setRoundFeedback({ correctCount, wrongCount, missedCount })
+
+    // Track wrong/missed for review
+    if (wrongCount > 0 || missedCount > 0) {
+      const wrongPicks = current.addons.filter((addon, i) => {
+        const wasSelected = selectedAddons.has(i)
+        return (wasSelected && !addon.valid && !addon.optional) || (!wasSelected && addon.valid)
+      }).map(addon => ({
+        name: addon.name,
+        wasWrong: !addon.valid && !addon.optional,
+        wasMissed: addon.valid,
+        reason: addon.reason
+      }))
+      setRoundResults(prev => [...prev, {
+        customerType: current.customerType,
+        mainProduct: current.mainProduct.name,
+        wrongPicks
+      }])
+    }
   }
 
   function replay() {
@@ -542,6 +562,8 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
     setTotalBasketValue(0)
     setTotalMainValue(0)
     setRoundFeedback(null)
+    setRoundResults([])
+    setBasketReviewOpen(false)
   }
 
   const finalAccuracy = totalValidAddons > 0 ? Math.round((totalSelectedValid / totalValidAddons) * 100) : 0
@@ -619,6 +641,32 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
 
           {improved && <div className="game-result-improve">{'\u2191'} from {bestScore}% best</div>}
           {bestScore !== null && !improved && <div className="game-result-prev">Best: {bestScore}%</div>}
+
+          {roundResults.length > 0 && (
+            <div className={`approach-review ${basketReviewOpen ? '' : 'collapsed'}`}>
+              <div className="approach-review-header" onClick={() => setBasketReviewOpen(o => !o)}>
+                <span>Review Mistakes ({roundResults.reduce((s, r) => s + r.wrongPicks.length, 0)})</span>
+                <span className="approach-review-arrow">{basketReviewOpen ? '\u25BC' : '\u25B6'}</span>
+              </div>
+              {basketReviewOpen && (
+                <div className="approach-review-list">
+                  {roundResults.map((rr, i) => (
+                    <div key={i} className="approach-review-item">
+                      <div className="approach-review-type">{rr.customerType}</div>
+                      <div className="approach-review-quote">Buying: {rr.mainProduct}</div>
+                      {rr.wrongPicks.map((wp, j) => (
+                        <div key={j} style={{ marginTop: 4 }}>
+                          {wp.wasWrong && <div className="approach-review-you">{'\u2717'} {wp.name} — {wp.reason}</div>}
+                          {wp.wasMissed && <div className="approach-review-better">{'\u2713'} Missed: {wp.name} — {wp.reason}</div>}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {saved && <div className="game-result-autosaved">{'\u2713'} Saved</div>}
 
           <div className="basket-results-actions">
