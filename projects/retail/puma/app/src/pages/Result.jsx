@@ -140,8 +140,8 @@ export default function Result() {
               <span style={{ fontSize: 20 }}>⚡</span>
             </div>
             <div>
-              <p className="result-badge-name">Speed Opener</p>
-              <p className="result-badge-desc">Mastered the 5-30-60 Rule</p>
+              <p className="result-badge-name">{mission?.title || 'Speed Opener'}</p>
+              <p className="result-badge-desc">Perfect score — mastered this mission</p>
             </div>
           </div>
         )}

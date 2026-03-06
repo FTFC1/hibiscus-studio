@@ -5,17 +5,17 @@ import { supabase } from '../lib/supabase'
 import './Profile.css'
 
 const badgeTemplates = [
-  { icon: 'ri-medal-fill', label: 'First Mission', check: (c) => c >= 1 },
-  { icon: 'ri-flashlight-fill', label: 'Quick Learner', check: (c) => c >= 3 },
-  { icon: 'ri-trophy-line', label: 'Quiz Master', check: (c, avg) => avg >= 90 },
-  { icon: 'ri-vip-diamond-line', label: 'Top Seller', check: () => false },
-  { icon: 'ri-shield-flash-line', label: 'Perfect Week', check: () => false },
-  { icon: 'ri-fire-line', label: '7-Day Streak', check: () => false },
+  { icon: 'ri-medal-fill', label: 'First Mission', check: (s) => s.completed >= 1 },
+  { icon: 'ri-flashlight-fill', label: 'Quick Learner', check: (s) => s.completed >= 3 },
+  { icon: 'ri-trophy-line', label: 'Quiz Master', check: (s) => s.avgScore >= 90 },
+  { icon: 'ri-vip-diamond-line', label: 'Top Seller', check: (s) => s.completed >= 6 },
+  { icon: 'ri-shield-flash-line', label: 'Perfect Week', check: (s) => s.practiceDays >= 5 },
+  { icon: 'ri-fire-line', label: '7-Day Streak', check: (s) => s.streakDays >= 7 },
 ]
 
 export default function Profile() {
   const { profile, role, isManager, setRole, signOut, userId } = useUser()
-  const [stats, setStats] = useState({ completed: 0, avgScore: 0, gameScores: {} })
+  const [stats, setStats] = useState({ completed: 0, avgScore: 0, gameScores: {}, practiceDays: 0, streakDays: 0 })
 
   useEffect(() => {
     if (!userId) return
@@ -27,11 +27,37 @@ export default function Profile() {
       .from('completions')
       .select('score, mission_id')
       .eq('user_id', userId)
+
+    // Practice logs for streak/badge calculation
+    const { data: practiceLogs } = await supabase
+      .from('practice_logs')
+      .select('log_date')
+      .eq('user_id', userId)
+      .order('log_date', { ascending: false })
+      .limit(30)
+
+    let practiceDays = 0
+    let streakDays = 0
+    if (practiceLogs && practiceLogs.length > 0) {
+      const uniqueDays = [...new Set(practiceLogs.map(l => l.log_date))]
+      practiceDays = uniqueDays.length
+      // Calculate current streak (consecutive days from today backwards)
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      const daySet = new Set(uniqueDays)
+      for (let i = 0; i < 30; i++) {
+        const d = new Date(today)
+        d.setDate(d.getDate() - i)
+        const key = d.toISOString().split('T')[0]
+        if (daySet.has(key)) streakDays++
+        else break
+      }
+    }
+
     if (data) {
       const avg = data.length > 0
         ? Math.round(data.reduce((s, c) => s + c.score, 0) / data.length)
         : 0
-      // Best scores per game
       const gameScores = {}
       data.forEach(c => {
         if (c.mission_id?.startsWith('game-')) {
@@ -39,7 +65,7 @@ export default function Profile() {
           if (!gameScores[key] || c.score > gameScores[key]) gameScores[key] = c.score
         }
       })
-      setStats({ completed: data.length, avgScore: avg, gameScores })
+      setStats({ completed: data.length, avgScore: avg, gameScores, practiceDays, streakDays })
     }
   }
 
@@ -50,7 +76,7 @@ export default function Profile() {
 
   const badges = badgeTemplates.map(b => ({
     ...b,
-    earned: b.check(stats.completed, stats.avgScore)
+    earned: b.check(stats)
   }))
 
   return (

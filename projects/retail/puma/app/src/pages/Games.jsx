@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import CountUp from 'react-countup'
 import Header from '../components/Header'
 import { useUser } from '../context/UserContext'
 import { supabase } from '../lib/supabase'
@@ -46,7 +47,7 @@ const gameDefinitions = [
 const addonCategoryIcons = {
   addon_socks: 'ri-footprint-line',
   addon_socks_performance: 'ri-run-line',
-  addon_headwear: 'ri-baseball-cap-line',
+  addon_headwear: 'ri-hat-line',
   addon_bag: 'ri-shopping-bag-3-line',
   addon_accessory: 'ri-hand-heart-line',
   addon_bodywear: 'ri-t-shirt-2-line',
@@ -60,15 +61,18 @@ export default function Games() {
 
   return isManager
     ? <ManagerGames profile={profile} navigate={navigate} />
-    : <StaffGames profile={profile} userId={userId} />
+    : <StaffGames profile={profile} userId={userId} navigate={navigate} />
 }
 
 // -- Staff View --
-function StaffGames({ profile, userId }) {
+function StaffGames({ profile, userId, navigate }) {
   const [searchParams] = useSearchParams()
   const [activeGame, setActiveGame] = useState(searchParams.get('play') || null)
   const [bestScores, setBestScores] = useState({})
   const [currentMission, setCurrentMission] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [showToast, setShowToast] = useState(false)
   const initials = profile?.avatar_initials || 'U'
 
   useEffect(() => {
@@ -77,25 +81,39 @@ function StaffGames({ profile, userId }) {
   }, [userId])
 
   async function loadData() {
-    const [{ data: scores }, { data: dash }] = await Promise.all([
-      supabase.from('completions').select('mission_id, score').eq('user_id', userId)
-        .in('mission_id', ['game-approach', 'game-basket']).order('score', { ascending: false }),
-      supabase.from('manager_dashboard').select('missions_completed').eq('id', userId).single(),
-    ])
-    if (scores) {
-      const best = {}
-      scores.forEach(row => {
-        if (!best[row.mission_id] || row.score > best[row.mission_id]) best[row.mission_id] = row.score
-      })
-      setBestScores(best)
-    }
-    if (dash) {
-      const mc = dash.missions_completed || 0
-      if (mc < missionList.length) setCurrentMission(missionList[mc])
+    setLoading(true)
+    setError(null)
+    try {
+      const [{ data: scores, error: scErr }, { data: dash, error: dErr }] = await Promise.all([
+        supabase.from('completions').select('mission_id, score').eq('user_id', userId)
+          .in('mission_id', ['game-approach', 'game-basket']).order('score', { ascending: false }),
+        supabase.from('manager_dashboard').select('missions_completed').eq('id', userId).single(),
+      ])
+      if (scErr) throw scErr
+      if (scores) {
+        const best = {}
+        scores.forEach(row => {
+          if (!best[row.mission_id] || row.score > best[row.mission_id]) best[row.mission_id] = row.score
+        })
+        setBestScores(best)
+      }
+      if (dash) {
+        const mc = dash.missions_completed || 0
+        if (mc < missionList.length) setCurrentMission(missionList[mc])
+      }
+    } catch (err) {
+      setError(err?.message || 'Failed to load games')
+    } finally {
+      setLoading(false)
     }
   }
 
-  function goBack() { setActiveGame(null); loadData() }
+  function goBack() {
+    setActiveGame(null)
+    setShowToast(true)
+    loadData()
+    setTimeout(() => setShowToast(false), 3000)
+  }
 
   if (activeGame === 'approach') {
     return (
@@ -114,10 +132,80 @@ function StaffGames({ profile, userId }) {
     )
   }
 
+  // -- Loading State --
+  if (loading) {
+    return (
+      <>
+        <Header title="Games" initials={initials} />
+        <div className="games-page">
+          <div className="state-card">
+            <i className="ri-loader-4-line state-icon green spin"></i>
+            <div className="state-title">Loading games...</div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  // -- Error State --
+  if (error) {
+    return (
+      <>
+        <Header title="Games" initials={initials} />
+        <div className="games-page">
+          <div className="state-card">
+            <i className="ri-wifi-off-line state-icon danger"></i>
+            <div className="state-title">Can't load games</div>
+            <div className="state-desc">Check your internet connection and try again.</div>
+            <div className="error-detail">{error}</div>
+            <button className="state-btn green" onClick={loadData}>
+              <i className="ri-refresh-line"></i> Retry
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  // -- Empty State (no missions completed yet) --
+  if (!currentMission && Object.keys(bestScores).length === 0) {
+    return (
+      <>
+        <Header title="Games" initials={initials} />
+        <div className="games-page">
+          <div className="state-card">
+            <i className="ri-gamepad-line state-icon green"></i>
+            <div className="state-title">No games yet</div>
+            <div className="state-desc">Games unlock as you complete lessons. Finish your first lesson to start playing.</div>
+            <button className="state-btn green" onClick={() => navigate('/practice')}>
+              <i className="ri-book-open-line"></i> Go to Practice
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+
   return (
     <>
       <Header title="Games" initials={initials} />
       <div className="games-page">
+        {/* Confirmation toast (after finishing a game) */}
+        <AnimatePresence>
+          {showToast && (
+            <motion.div
+              className="confirm-toast"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+            >
+              <i className="ri-check-double-line"></i>
+              <div className="confirm-toast-text">Score saved! Your manager can see your progress.</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {currentMission && (
           <div className="games-mission-card">
             <div className="games-mission-label">Your Mission</div>
@@ -488,6 +576,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
   const [totalSelectedValid, setTotalSelectedValid] = useState(0)
   const [totalBasketValue, setTotalBasketValue] = useState(0)
   const [totalMainValue, setTotalMainValue] = useState(0)
+  const [totalPossibleAddonValue, setTotalPossibleAddonValue] = useState(0)
   const [roundFeedback, setRoundFeedback] = useState(null)
   const [roundResults, setRoundResults] = useState([])
   const [basketReviewOpen, setBasketReviewOpen] = useState(false)
@@ -573,12 +662,13 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
     setTotalMainValue(v => v + current.mainProduct.price)
 
     let correctCount = 0, wrongCount = 0, missedCount = 0, roundAddonsValue = 0
-    let validThisRound = 0, selectedValidThisRound = 0
+    let validThisRound = 0, selectedValidThisRound = 0, possibleAddonValue = 0
 
     current.addons.forEach((addon, i) => {
       const wasSelected = selectedAddons.has(i)
       if (addon.valid) {
         validThisRound++
+        possibleAddonValue += addon.price
         if (wasSelected) { correctCount++; selectedValidThisRound++; roundAddonsValue += addon.price }
         else missedCount++
       } else if (addon.optional) {
@@ -591,6 +681,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
     setTotalValidAddons(v => v + validThisRound)
     setTotalSelectedValid(v => v + selectedValidThisRound)
     setTotalBasketValue(v => v + roundAddonsValue)
+    setTotalPossibleAddonValue(v => v + possibleAddonValue)
 
     const roundScore = Math.max(0, (correctCount * 100) - (wrongCount * 50))
     setTotalScore(s => s + roundScore)
@@ -630,6 +721,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
     setTotalSelectedValid(0)
     setTotalBasketValue(0)
     setTotalMainValue(0)
+    setTotalPossibleAddonValue(0)
     setRoundFeedback(null)
     setRoundResults([])
     setBasketReviewOpen(false)
@@ -706,6 +798,30 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
               <span className="approach-stat-label">Avg Add-on Rate</span>
               <span className="approach-stat-value">{avgRate}%</span>
             </div>
+          </div>
+
+          <div className="basket-revenue">
+            <div className="basket-revenue-label">Practice Basket Score</div>
+            <div className="basket-revenue-values">
+              <span className="basket-revenue-earned">
+                {'\u20A6'}<CountUp end={totalBasketValue} duration={1.4} separator="," />
+              </span>
+              <span className="basket-revenue-of"> of </span>
+              <span className="basket-revenue-possible">{formatPrice(totalPossibleAddonValue)} possible</span>
+            </div>
+            <div className="basket-revenue-bar">
+              <motion.div
+                className="basket-revenue-fill"
+                initial={{ width: 0 }}
+                animate={{ width: `${totalPossibleAddonValue > 0 ? Math.round((totalBasketValue / totalPossibleAddonValue) * 100) : 0}%` }}
+                transition={{ duration: 1.2, ease: 'easeOut' }}
+              />
+            </div>
+            {totalPossibleAddonValue > totalBasketValue && (
+              <div className="basket-revenue-gap">
+                {formatPrice(totalPossibleAddonValue - totalBasketValue)} left on the table in this practice
+              </div>
+            )}
           </div>
 
           {improved && <div className="game-result-improve">{'\u2191'} from {bestScore}% best</div>}
@@ -854,6 +970,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
 function ManagerGames({ profile, navigate }) {
   const [teamData, setTeamData] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const shiftPhase = getShiftPhase()
   const initials = profile?.avatar_initials || 'M'
 
@@ -867,12 +984,15 @@ function ManagerGames({ profile, navigate }) {
   }, [])
 
   async function fetchTeamData() {
-    const [{ data: staff }, { data: allGameScores }] = await Promise.all([
-      supabase.from('manager_dashboard').select('*'),
-      supabase.from('completions').select('user_id, mission_id, score, created_at')
-        .in('mission_id', ['game-approach', 'game-basket']),
-    ])
-    if (!staff) { setLoading(false); return }
+    setError(null)
+    try {
+      const [{ data: staff, error: sErr }, { data: allGameScores }] = await Promise.all([
+        supabase.from('manager_dashboard').select('*'),
+        supabase.from('completions').select('user_id, mission_id, score, created_at')
+          .in('mission_id', ['game-approach', 'game-basket']),
+      ])
+      if (sErr) throw sErr
+      if (!staff) { setLoading(false); return }
 
     const today = new Date().toISOString().split('T')[0]
     const team = staff.map(s => {
@@ -892,7 +1012,47 @@ function ManagerGames({ profile, navigate }) {
     })
 
     setTeamData(team)
-    setLoading(false)
+    } catch (err) {
+      setError(err?.message || 'Failed to load team data')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // -- Error State --
+  if (error) {
+    return (
+      <>
+        <Header title="Games" initials={initials} />
+        <div className="games-page">
+          <div className="state-card">
+            <i className="ri-wifi-off-line state-icon danger"></i>
+            <div className="state-title">Can't load team data</div>
+            <div className="state-desc">Check your internet connection and try again.</div>
+            <div className="error-detail">{error}</div>
+            <button className="state-btn green" onClick={fetchTeamData}>
+              <i className="ri-refresh-line"></i> Retry
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  // -- Empty State (no staff) --
+  if (!loading && teamData.length === 0) {
+    return (
+      <>
+        <Header title="Games" initials={initials} />
+        <div className="games-page">
+          <div className="state-card">
+            <i className="ri-team-line state-icon gold"></i>
+            <div className="state-title">No team members yet</div>
+            <div className="state-desc">Staff will appear here once they create accounts and start playing games.</div>
+          </div>
+        </div>
+      </>
+    )
   }
 
   return (

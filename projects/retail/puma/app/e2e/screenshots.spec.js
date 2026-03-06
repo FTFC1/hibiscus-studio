@@ -55,8 +55,8 @@ test.describe.serial('Screen Capture', () => {
     await expect(page.locator('.slide-card').first()).toBeVisible({ timeout: 10000 })
 
     // Navigate to last slide
-    for (let i = 0; i < 4; i++) {
-      const navBtns = page.locator('.lesson-footer .nav-btn')
+    for (let i = 0; i < 5; i++) {
+      const navBtns = page.locator('.lesson-footer .nav-pill-next, .lesson-footer .nav-btn')
       const count = await navBtns.count()
       if (count > 1) await navBtns.last().click()
       else if (count === 1) await navBtns.first().click()
@@ -75,8 +75,8 @@ test.describe.serial('Screen Capture', () => {
     await page.goto('/lesson/mission-1')
     await expect(page.locator('.slide-card').first()).toBeVisible({ timeout: 10000 })
 
-    for (let i = 0; i < 4; i++) {
-      const navBtns = page.locator('.lesson-footer .nav-btn')
+    for (let i = 0; i < 5; i++) {
+      const navBtns = page.locator('.lesson-footer .nav-pill-next, .lesson-footer .nav-btn')
       const count = await navBtns.count()
       if (count > 1) await navBtns.last().click()
       else if (count === 1) await navBtns.first().click()
@@ -97,8 +97,8 @@ test.describe.serial('Screen Capture', () => {
     await page.goto('/lesson/mission-1')
     await expect(page.locator('.slide-card').first()).toBeVisible({ timeout: 10000 })
 
-    for (let i = 0; i < 4; i++) {
-      const navBtns = page.locator('.lesson-footer .nav-btn')
+    for (let i = 0; i < 5; i++) {
+      const navBtns = page.locator('.lesson-footer .nav-pill-next, .lesson-footer .nav-btn')
       const count = await navBtns.count()
       if (count > 1) await navBtns.last().click()
       else if (count === 1) await navBtns.first().click()
@@ -108,7 +108,7 @@ test.describe.serial('Screen Capture', () => {
     await page.locator('text=Take the Quiz').click()
     await page.waitForTimeout(500)
 
-    for (let q = 0; q < 3; q++) {
+    for (let q = 0; q < 5; q++) {
       // Wait for enabled quiz options (not disabled from previous answer)
       await expect(page.locator('.quiz-option:not([disabled])').first()).toBeVisible({ timeout: 5000 })
       await page.locator('.quiz-option:not([disabled])').first().click()

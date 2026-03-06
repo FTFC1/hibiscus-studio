@@ -22,12 +22,12 @@ test.describe('Navigation', () => {
     await page.goto('/lesson/mission-1')
     await expect(page.locator('.slide-card').first()).toBeVisible({ timeout: 10000 })
 
-    for (let i = 0; i < 4; i++) {
-      const navBtns = page.locator('.lesson-footer .nav-btn')
-      const count = await navBtns.count()
-      if (count > 1) await navBtns.last().click()
-      else if (count === 1) await navBtns.first().click()
-      await page.waitForTimeout(400)
+    for (let i = 0; i < 5; i++) {
+      const navBtn = page.locator('.lesson-footer .nav-pill-next, .lesson-footer .nav-btn').last()
+      if (await navBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+        await navBtn.click()
+        await page.waitForTimeout(400)
+      }
     }
 
     const quizBtn = page.locator('text=Take the Quiz')
@@ -35,7 +35,7 @@ test.describe('Navigation', () => {
       await quizBtn.click()
       await page.waitForTimeout(500)
 
-      for (let q = 0; q < 3; q++) {
+      for (let q = 0; q < 5; q++) {
         const opts = page.locator('.quiz-option:not([disabled])')
         await expect(opts.first()).toBeVisible({ timeout: 5000 })
         await opts.first().click()

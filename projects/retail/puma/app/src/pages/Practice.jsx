@@ -1,4 +1,4 @@
-import { useState, useEffect, useOptimistic } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import { useUser } from '../context/UserContext'
@@ -129,63 +129,17 @@ export default function Practice() {
 // ── Staff View ───────────────────────────────────────────────
 function StaffPractice({ profile, navigate }) {
   const [missionsCompleted, setMissionsCompleted] = useState(null)
-  const [todayLogs, setTodayLogs] = useState([])
   const [refOpen, setRefOpen] = useState(false)
-  // StaffPractice intentionally does NOT subscribe to Supabase Realtime.
-  // Realtime is manager-only. Staff sync via re-fetch after each write.
-  // This avoids the Realtime + optimistic update race condition (R10).
-
-  const [optimisticLogs, applyOptimistic] = useOptimistic(
-    todayLogs,
-    (state, { mission_id, task_idx, checked }) => {
-      if (checked) {
-        const already = state.some(l => l.mission_id === mission_id && l.task_idx === task_idx)
-        return already ? state : [...state, { mission_id, task_idx }]
-      }
-      return state.filter(l => !(l.mission_id === mission_id && l.task_idx === task_idx))
-    }
-  )
 
   useEffect(() => {
     if (!profile?.id) return
-    const today = getToday()
-
     supabase
       .from('manager_dashboard')
       .select('missions_completed')
       .eq('user_id', profile.id)
       .single()
       .then(({ data }) => setMissionsCompleted(data?.missions_completed ?? 0))
-
-    supabase
-      .from('practice_logs')
-      .select('mission_id, task_idx')
-      .eq('user_id', profile.id)
-      .eq('date', today)
-      .then(({ data }) => { if (data) setTodayLogs(data) })
   }, [profile?.id])
-
-  async function toggleTask(mission_id, task_idx) {
-    const checked = !optimisticLogs.some(l => l.mission_id === mission_id && l.task_idx === task_idx)
-    // Optimistic update — synchronous, immediate UI feedback (R9)
-    applyOptimistic({ mission_id, task_idx, checked })
-    const today = getToday()
-    if (checked) {
-      await supabase.from('practice_logs').upsert(
-        { user_id: profile.id, mission_id, task_idx, date: today, completed: true, checked_at: new Date().toISOString() },
-        { onConflict: 'user_id,mission_id,task_idx,date' }
-      )
-    } else {
-      await supabase.from('practice_logs').delete()
-        .eq('user_id', profile.id).eq('mission_id', mission_id)
-        .eq('task_idx', task_idx).eq('date', today)
-    }
-    // Sync state after write
-    const { data } = await supabase
-      .from('practice_logs').select('mission_id, task_idx')
-      .eq('user_id', profile.id).eq('date', today)
-    if (data) setTodayLogs(data)
-  }
 
   if (missionsCompleted === null) return (
     <>
@@ -198,12 +152,6 @@ function StaffPractice({ profile, navigate }) {
   const currentMission = !certDone ? missionList[missionsCompleted] : null
   const completedMissions = missionList.slice(0, missionsCompleted)
   const lockedMissions = !certDone ? missionList.slice(missionsCompleted + 1) : []
-
-  const doneCount = currentMission
-    ? currentMission.tasks.filter((_, i) => optimisticLogs.some(l => l.mission_id === currentMission.id && l.task_idx === i)).length
-    : 0
-  const allDone = currentMission ? doneCount === currentMission.tasks.length : false
-  const pct = currentMission ? Math.round((doneCount / currentMission.tasks.length) * 100) : 0
 
   return (
     <>
@@ -225,40 +173,20 @@ function StaffPractice({ profile, navigate }) {
           </div>
         ) : (
           <>
-            {/* Current mission */}
-            <div className={`prac-mission-card${allDone ? ' all-done' : ''}`}>
+            {/* Current mission hero card */}
+            <div className="prac-mission-card">
               <div className="prac-mission-label">Mission {missionsCompleted + 1} of 6</div>
               <div className="prac-mission-name">{currentMission.name}</div>
               <div className="prac-mission-desc">{currentMission.description}</div>
             </div>
 
-            <div className="prac-section-label">Today's Tasks</div>
-
-            {/* Tasks */}
-            <div className="prac-tasks">
-              {currentMission.tasks.map((task, i) => {
-                const done = optimisticLogs.some(l => l.mission_id === currentMission.id && l.task_idx === i)
-                return (
-                  <div key={i} className="prac-task-row" onClick={() => toggleTask(currentMission.id, i)}>
-                    <div className={`prac-check${done ? ' checked' : ''}`}>
-                      {done && <span className="prac-check-icon">✓</span>}
-                    </div>
-                    <span className={`prac-task-text${done ? ' done' : ''}`}>{task}</span>
-                  </div>
-                )
-              })}
-            </div>
-
-            {/* Progress */}
-            <div className="prac-progress-row">
-              <span className="prac-progress-text">{doneCount} of {currentMission.tasks.length} done</span>
-              <div className="prac-progress-bar">
-                <div className="prac-progress-fill" style={{ width: `${pct}%` }} />
-              </div>
-              <span className="prac-progress-pct" style={{ color: doneCount > 0 ? 'var(--cta-green)' : 'var(--text-secondary)' }}>
-                {pct}%
-              </span>
-            </div>
+            {/* Start Lesson CTA */}
+            <button
+              className="prac-start-cta"
+              onClick={() => navigate(`/lesson/${currentMission.id}`)}
+            >
+              Start Lesson <i className="ri-arrow-right-line"></i>
+            </button>
 
             {/* Reference card */}
             <div className="prac-ref-toggle" onClick={() => setRefOpen(o => !o)}>

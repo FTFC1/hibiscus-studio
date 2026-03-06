@@ -16,10 +16,15 @@ export default function Activity() {
   }, [])
 
   async function loadActivity() {
-    // Build leaderboard from completions
+    // Build leaderboard from this week's completions
+    const weekStart = new Date()
+    weekStart.setDate(weekStart.getDate() - weekStart.getDay())
+    weekStart.setHours(0, 0, 0, 0)
+
     const { data: allCompletions } = await supabase
       .from('completions')
       .select('user_id, score, profiles(full_name, avatar_initials)')
+      .gte('completed_at', weekStart.toISOString())
 
     if (allCompletions) {
       const byUser = {}

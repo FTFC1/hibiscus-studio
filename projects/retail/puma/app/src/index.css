@@ -43,6 +43,7 @@
   --alert-green: #4ADE80;
   --alert-green-dim: rgba(74, 222, 128, 0.15);
   --accent-orange: #FF8A40;
+  --accent-purple: #9B7DFF;
 
   /* ── Backward Compat (existing CSS references these) ── */
   --accent-lime: #4CA858;

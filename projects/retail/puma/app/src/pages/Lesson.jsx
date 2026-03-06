@@ -1,9 +1,31 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback, useEffect, Fragment } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { missions } from '../data/missions'
 import { supabase } from '../lib/supabase'
 import { useUser } from '../context/UserContext'
 import './Lesson.css'
+
+function SlideObjectives({ mission }) {
+  return (
+    <div className="slide-card glass-panel objectives-card">
+      <div className="objectives-badge">Mission {mission.number}</div>
+      <h2 className="objectives-title">{mission.title}</h2>
+      <p className="objectives-label">After this lesson you'll be able to:</p>
+      <div className="objectives-list">
+        {mission.objectives.map((obj, i) => (
+          <div key={i} className="objectives-item">
+            <span className="objectives-check"><i className="ri-check-line"></i></span>
+            <span className="objectives-text">{obj}</span>
+          </div>
+        ))}
+      </div>
+      <div className="objectives-meta">
+        <i className="ri-time-line"></i>
+        <span>{mission.readTime}</span>
+      </div>
+    </div>
+  )
+}
 
 function SlideText({ slide }) {
   return (
@@ -39,8 +61,19 @@ function SlideText({ slide }) {
 }
 
 function SlideRule({ slide }) {
-  const hasMeanings = slide.body && slide.body.includes(' · ')
-  const meanings = hasMeanings ? slide.body.split(' · ').map(s => s.trim()) : null
+  const defaultFlow = [
+    { icon: 'ri-eye-line', time: '5s', label: 'Acknowledge' },
+    { icon: 'ri-walk-line', time: '30s', label: 'Approach' },
+    { icon: 'ri-chat-smile-2-line', time: '60s', label: 'Engage' }
+  ]
+  const defaultStats = [
+    { value: '+20%', label: 'more spent when greeted', source: 'Consumer Electronics Study', color: 'var(--accent-lime)' },
+    { value: '3 min', label: 'avg customer patience', source: 'Retail Research', color: 'var(--accent-purple)' },
+    { value: '+1 item', label: 'per basket with help', source: 'Lithuanian Retail Study', color: 'var(--accent-orange)' },
+    { value: '68%', label: 'leave if ignored', source: 'PwC', color: 'var(--alert-red, #FF6464)' }
+  ]
+  const flow = slide.flow || defaultFlow
+  const stats = slide.stats || defaultStats
 
   return (
     <div className="slide-card slide-card-lime">
@@ -48,65 +81,45 @@ function SlideRule({ slide }) {
         <i className={`${slide.icon} slide-icon slide-icon-lime`}></i>
         <h2 className="slide-title">{slide.title}</h2>
       </div>
-      {slide.bar ? (
-        <div className="rule-bar-row">
-          <div className="rule-bar-track">
-            <div className="rule-bar-fill rule-bar-70">
-              <i className="ri-user-voice-line rule-bar-icon"></i>
+      <div className="rule-flow">
+        {flow.map((step, i) => (
+          <Fragment key={i}>
+            {i > 0 && <i className="ri-arrow-right-s-line rule-flow-arrow"></i>}
+            <div className="rule-flow-step">
+              <div className="rule-flow-icon"><i className={step.icon}></i></div>
+              <span className="rule-flow-time">{step.time}</span>
+              <span className="rule-flow-label">{step.label}</span>
             </div>
-            <div className="rule-bar-fill rule-bar-30">
-            </div>
+          </Fragment>
+        ))}
+      </div>
+      <div className="rule-bento">
+        {stats.map((stat, i) => (
+          <div className="rule-bento-card" key={i}>
+            <div className="rule-bento-value" style={{ color: stat.color }}>{stat.value}</div>
+            <div className="rule-bento-label">{stat.label}</div>
+            {stat.source && <div className="rule-bento-source">{stat.source}</div>}
           </div>
-          <div className="rule-bar-labels">
-            <span className="rule-bar-label-left">{slide.stats[0].label}</span>
-            <span className="rule-bar-label-right">{slide.stats[1].label}</span>
-          </div>
-        </div>
-      ) : (
-        <div className="rule-stats">
-          {slide.stats.map((stat, i) => (
-            <div className="rule-stat" key={i}>
-              <span className="rule-stat-value">{stat.value}</span>
-              <span className="rule-stat-label">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      )}
-      {meanings ? (
-        <div className="rule-meanings">
-          {meanings.map((m, i) => (
-            <div className="rule-meaning" key={i}>
-              <span className="rule-meaning-bullet"></span>
-              <span className="rule-meaning-text">{m}</span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="slide-body slide-body-white">{slide.body}</p>
-      )}
+        ))}
+      </div>
     </div>
   )
 }
 
 function SlideToolkit({ slide, onOpenRef }) {
-  // Detect action:speech pattern (e.g. "ACKNOWLEDGE: "That's...")
-  const parseItem = (item) => {
-    const match = item.match(/^([A-Z][A-Z\s]+):\s*(.+)$/)
-    if (match) {
-      const action = match[1].trim()
-      const rest = match[2].trim()
-      // Split speech (in quotes) from description
-      const quoteMatch = rest.match(/^(".*?"|'.*?')\s*(.*)$/)
-      if (quoteMatch) {
-        return { action, quote: quoteMatch[1], desc: quoteMatch[2] || null }
-      }
-      return { action, quote: null, desc: rest }
-    }
-    return { action: null, quote: null, desc: item }
+  const [favorites, setFavorites] = useState(new Set())
+  const defaultEmojis = ['👋', '👟', '🎁', '🔥']
+
+  const toggleFavorite = (index) => {
+    setFavorites(prev => {
+      const next = new Set(prev)
+      if (next.has(index)) next.delete(index)
+      else next.add(index)
+      return next
+    })
   }
 
-  const parsed = slide.items.map(parseItem)
-  const hasActions = parsed.some(p => p.action)
+  const items = slide.items || []
 
   return (
     <div className="slide-card glass-panel">
@@ -114,40 +127,26 @@ function SlideToolkit({ slide, onOpenRef }) {
         <i className={`${slide.icon} slide-icon`}></i>
         <h2 className="slide-title">{slide.title}</h2>
       </div>
-      <div className="toolkit-list">
-        {parsed.map((p, i) => (
-          <div key={i}>
-            {hasActions && p.action ? (
-              <div className="toolkit-step">
-                <div className="toolkit-step-header">
-                  <span className="toolkit-num">{i + 1}.</span>
-                  <span className="toolkit-action">{p.action}</span>
-                </div>
-                <div className="toolkit-quote">
-                  <i className="ri-chat-quote-line toolkit-quote-icon"></i>
-                  <div className="toolkit-quote-content">
-                    {p.quote && <span className="toolkit-quote-text">{p.quote}</span>}
-                    {p.desc && <span className="toolkit-quote-desc">{p.desc}</span>}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="toolkit-item">
-                <span className="toolkit-num">{i + 1}.</span>
-                <span className="toolkit-text">{p.desc}</span>
-              </div>
-            )}
-            {i < slide.items.length - 1 && (
-              <div className="toolkit-arrow">
-                <i className="ri-arrow-down-s-line"></i>
-              </div>
-            )}
+      {items.map((item, i) => {
+        const text = typeof item === 'string' ? item : item.text || item
+        const emoji = (typeof item === 'object' && item.emoji) ? item.emoji : defaultEmojis[i % defaultEmojis.length]
+        return (
+          <div
+            key={i}
+            className={`opener-card ${favorites.has(i) ? 'selected' : ''}`}
+            onClick={() => toggleFavorite(i)}
+          >
+            <div className="opener-emoji">{emoji}</div>
+            <div className="opener-text">{text}</div>
+            <span className="opener-star">
+              <i className={favorites.has(i) ? 'ri-star-fill' : 'ri-star-line'}></i>
+            </span>
           </div>
-        ))}
+        )
+      })}
+      <div className="opener-hint">
+        <i className="ri-star-line"></i> Tap to pick your favourite
       </div>
-      {slide.footnote && (
-        <p className="toolkit-footnote">{slide.footnote}</p>
-      )}
       <button className="toolkit-ref-btn" onClick={(e) => { e.stopPropagation(); onOpenRef?.() }}>
         <i className="ri-bookmark-3-line"></i>
         <span>View Reference</span>
@@ -157,36 +156,73 @@ function SlideToolkit({ slide, onOpenRef }) {
 }
 
 function SlideComparison({ slide }) {
+  const [mode, setMode] = useState('dont')
+
+  const dontBullets = slide.dontBullets || [
+    { icon: 'ri-door-open-line', text: slide.dont || 'Customer walks in — no greeting' }
+  ]
+  const doBullets = slide.doBullets || [
+    { icon: 'ri-hand-heart-line', text: slide.do || 'Greet within 5 seconds' }
+  ]
+  const dontResult = slide.dontResult || 'Sale lost'
+  const doResult = slide.doResult || 'Sale made'
+
   return (
     <div className="slide-card glass-panel">
       <div className="slide-header">
         <i className={`${slide.icon} slide-icon`}></i>
         <h2 className="slide-title">{slide.title}</h2>
       </div>
-      <div className="comparison-blocks">
-        <div className="comparison-card comparison-card-bad">
-          <div className="comparison-card-top">
-            <i className="ri-close-circle-line comparison-card-icon comparison-icon-bad"></i>
-            <span className="comparison-pill comparison-dont">Don't</span>
+      <div className="compare-toggle">
+        <button
+          className={`compare-toggle-btn ${mode === 'dont' ? 'active' : ''}`}
+          data-target="dont"
+          onClick={() => setMode('dont')}
+        >
+          <i className="ri-close-circle-line"></i> Don't
+        </button>
+        <button
+          className={`compare-toggle-btn ${mode === 'do' ? 'active' : ''}`}
+          data-target="do"
+          onClick={() => setMode('do')}
+        >
+          <i className="ri-checkbox-circle-line"></i> Do
+        </button>
+      </div>
+
+      {mode === 'dont' && (
+        <div className="compare-panel" style={{ display: 'flex' }}>
+          <div className="compare-bullets">
+            {dontBullets.map((b, i) => (
+              <div className="compare-bullet bad" key={i}>
+                <i className={b.icon}></i>
+                <span>{b.text}</span>
+              </div>
+            ))}
           </div>
-          <p className="comparison-text comparison-text-bad">{slide.dont}</p>
           <div className="comparison-result comparison-result-bad">
             <i className="ri-walk-line"></i>
-            <span>They leave</span>
+            <span>{dontResult}</span>
           </div>
         </div>
-        <div className="comparison-card comparison-card-good">
-          <div className="comparison-card-top">
-            <i className="ri-checkbox-circle-line comparison-card-icon comparison-icon-good"></i>
-            <span className="comparison-pill comparison-do">Do</span>
+      )}
+
+      {mode === 'do' && (
+        <div className="compare-panel" style={{ display: 'flex' }}>
+          <div className="compare-bullets">
+            {doBullets.map((b, i) => (
+              <div className="compare-bullet good" key={i}>
+                <i className={b.icon}></i>
+                <span>{b.text}</span>
+              </div>
+            ))}
           </div>
-          <p className="comparison-text comparison-text-good">{slide.do}</p>
           <div className="comparison-result comparison-result-good">
             <i className="ri-shopping-bag-3-line"></i>
-            <span>They buy</span>
+            <span>{doResult}</span>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -440,7 +476,8 @@ export default function Lesson() {
   const goNext = useCallback(() => {
     // totalSlidesWithComplete is computed below; use mission.slides to derive max
     const contentCount = (mission?.slides || []).filter(s => s.type !== 'practice').length
-    if (currentSlide < contentCount) setCurrentSlide(s => s + 1) // +1 for completion screen
+    const objOffset = (mission?.objectives && mission.objectives.length > 0) ? 1 : 0
+    if (currentSlide < contentCount + objOffset) setCurrentSlide(s => s + 1) // +1 for completion screen
   }, [currentSlide, mission])
 
   const goPrev = useCallback(() => {
@@ -499,7 +536,8 @@ export default function Lesson() {
 
   // Filter out practice slides — they're now embedded in the completion screen
   const contentSlides = mission.slides.filter(s => s.type !== 'practice')
-  const totalContentSlides = contentSlides.length
+  const hasObjectives = mission.objectives && mission.objectives.length > 0
+  const totalContentSlides = contentSlides.length + (hasObjectives ? 1 : 0)
   // Completion screen is the extra "slide" after content
   const isCompletionScreen = currentSlide === totalContentSlides
   const totalSlidesWithComplete = totalContentSlides + 1
@@ -553,7 +591,7 @@ export default function Lesson() {
           <i className="ri-arrow-left-line"></i>
         </button>
         <div className="progress-dots-inline">
-          {Array.from({ length: (mission.slides.filter(s => s.type !== 'practice').length) + 1 }).map((_, i) => (
+          {Array.from({ length: totalSlidesWithComplete }).map((_, i) => (
             <div
               key={i}
               className={`dot ${i === currentSlide ? 'dot-active' : ''} ${i < currentSlide ? 'dot-done' : ''}`}
@@ -578,6 +616,11 @@ export default function Lesson() {
           className="slides-track"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
+          {hasObjectives && (
+            <div className="slide-wrapper" key="objectives">
+              <SlideObjectives mission={mission} />
+            </div>
+          )}
           {contentSlides.map((slide, i) => (
             <div className="slide-wrapper" key={i}>
               {renderSlide(slide, i)}
@@ -602,18 +645,15 @@ export default function Lesson() {
         <div className={`lesson-footer ${footerVisible ? 'lesson-footer-visible' : ''}`}>
           <div className="footer-inner">
             <button
-              className={`nav-btn ${currentSlide === 0 ? 'nav-btn-disabled' : ''}`}
+              className={`nav-pill nav-pill-back ${currentSlide === 0 ? 'nav-pill-disabled' : ''}`}
               onClick={goPrev}
               disabled={currentSlide === 0}
             >
-              <i className="ri-arrow-left-s-line"></i>
+              <i className="ri-arrow-left-s-line"></i> Back
             </button>
-
-            <div className="footer-right">
-              <button className="nav-btn" onClick={goNext}>
-                <i className="ri-arrow-right-s-line"></i>
-              </button>
-            </div>
+            <button className="nav-pill nav-pill-next" onClick={goNext}>
+              Continue <i className="ri-arrow-right-s-line"></i>
+            </button>
           </div>
         </div>
       )}

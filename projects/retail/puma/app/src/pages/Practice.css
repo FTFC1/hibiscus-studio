@@ -112,107 +112,27 @@
   line-height: 1.5;
 }
 
-/* ── Section Label ── */
-.prac-section-label {
-  font-size: 10px;
+/* ── Start Lesson CTA ── */
+.prac-start-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 14px;
+  border: none;
+  background: var(--cta-green);
+  color: var(--bg-body);
+  font-size: 16px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  padding: 0 2px;
-  margin-top: 2px;
-}
-
-/* ── Tasks ── */
-.prac-tasks {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.prac-task-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 10px 12px;
-  background: var(--bg-glass);
-  border: 1px solid var(--bg-glass-stroke);
-  border-radius: 12px;
+  font-family: inherit;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: opacity 0.15s;
 }
-.prac-task-row:active { opacity: 0.75; }
-
-.prac-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.2);
-  flex-shrink: 0;
-  margin-top: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.prac-check.checked {
-  background: var(--cta-green);
-  border-color: var(--cta-green);
-  transform: scale(1.1);
-}
-.prac-check-icon {
-  font-size: 12px;
-  color: var(--bg-body);
-  font-weight: 700;
-}
-
-.prac-task-text {
-  font-size: 13px;
-  color: var(--text-primary);
-  line-height: 1.5;
-  transition: color 0.2s;
-}
-.prac-task-text.done {
-  color: var(--text-disabled);
-  text-decoration: line-through;
-  text-decoration-color: var(--progress-gold);
-  text-decoration-thickness: 1.5px;
-}
-
-/* ── Progress Row ── */
-.prac-progress-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 2px;
-}
-.prac-progress-text {
-  font-size: 11px;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.prac-progress-bar {
-  flex: 1;
-  height: 4px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.prac-progress-fill {
-  height: 100%;
-  background: var(--cta-green);
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-.prac-progress-pct {
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: color 0.3s;
-}
+.prac-start-cta:active { opacity: 0.75; }
+.prac-start-cta i { font-size: 18px; }
 
 /* ── Reference Card ── */
 .prac-ref-toggle {

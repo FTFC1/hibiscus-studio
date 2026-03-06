@@ -40,13 +40,23 @@
     "file": "08-games.png"
   },
   {
-    "name": "09-game-open",
-    "label": "Game — Open",
-    "file": "09-game-open.png"
-  },
-  {
     "name": "10-practice",
     "label": "Practice",
     "file": "10-practice.png"
+  },
+  {
+    "name": "11-profile",
+    "label": "Profile",
+    "file": "11-profile.png"
+  },
+  {
+    "name": "12-activity",
+    "label": "Activity",
+    "file": "12-activity.png"
+  },
+  {
+    "name": "13-staff-detail",
+    "label": "Staff Detail",
+    "file": "13-staff-detail.png"
   }
 ]

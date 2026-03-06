@@ -13,6 +13,11 @@ export const missions = {
     totalMissions: 6,
     title: 'The 5-30-60 Rule',
     readTime: '5 min',
+    objectives: [
+      'Spot the 3 time windows for customer engagement (5s, 30s, 60s)',
+      'Use 4 warm openers instead of "Can I help you?"',
+      'Apply the 5-30-60 Rule during your next shift'
+    ],
     slides: [
       {
         type: 'text',
@@ -79,7 +84,9 @@ export const missions = {
     quiz: [
       { id: 'q1', question: 'A customer walked in 45 seconds ago. Which time windows have already passed?', options: ['None yet', 'Acknowledge only (5s)', 'Acknowledge AND approach (5s + 30s)', 'All three windows'], correct: 2 },
       { id: 'q2', question: 'Which opener follows the rule when approaching a browser?', options: ['"Can I help you?"', '"Are you finding everything okay?"', '"What brings you in today?"', '"Just shout if you need help!"'], correct: 2 },
-      { id: 'q3', question: 'Customer says "Just looking." What does the rule say?', options: ['Respect it and give them space', '"No problem, I\'m right here" — stay visible', 'Ask a follow-up question immediately', 'Hand off to a colleague'], correct: 1 }
+      { id: 'q3', question: 'Customer says "Just looking." What does the rule say?', options: ['Respect it and give them space', '"No problem, I\'m right here" — stay visible', 'Ask a follow-up question immediately', 'Hand off to a colleague'], correct: 1 },
+      { id: 'q4', question: 'A customer picks up a shoe and checks the price tag. No staff has spoken to them. What window are you in?', options: ['Still within the 5-second acknowledge window', 'Past acknowledge, in the 30-second approach window', 'Already in the 60-second engage window', 'It depends on how long they\'ve been in the store'], correct: 3 },
+      { id: 'q5', question: 'You acknowledged a customer at 5 seconds. At 25 seconds they\'re still browsing. What do you do?', options: ['Wait until 60 seconds to engage', 'Approach now — you\'re inside the 30-second window', 'Ask "Can I help you?" from across the store', 'Wait for them to make eye contact again'], correct: 1 }
     ]
   },
 
@@ -88,6 +95,11 @@ export const missions = {
     totalMissions: 6,
     title: 'Kill "Can I Help You?"',
     readTime: '6 min',
+    objectives: [
+      'Explain why closed questions kill conversations',
+      'Use 5 warm openings that invite engagement',
+      'Track your engagement rate vs "just looking" rate'
+    ],
     slides: [
       {
         type: 'text',
@@ -155,7 +167,9 @@ export const missions = {
     quiz: [
       { id: 'q1', question: 'Why does "Can I help you?" fail 90% of the time?', options: ['It sounds too casual', 'It\'s a closed question — shut down with one word', 'It comes too early in the conversation', 'It sounds scripted'], correct: 1 },
       { id: 'q2', question: 'Which of these is an open question?', options: ['"Can I help you?"', '"Are you finding everything?"', '"What brings you in today?"', '"Do you need anything?"'], correct: 2 },
-      { id: 'q3', question: 'Customer says "Running shoes." What\'s the best follow-up?', options: ['"Great, follow me!"', '"We have lots of options"', '"What kind of running?"', '"Let me show you our best ones"'], correct: 2 }
+      { id: 'q3', question: 'Customer says "Running shoes." What\'s the best follow-up?', options: ['"Great, follow me!"', '"We have lots of options"', '"What kind of running?"', '"Let me show you our best ones"'], correct: 2 },
+      { id: 'q4', question: 'You approach a customer browsing hoodies. Which opener keeps the conversation going?', options: ['"Need any help?"', '"Those are on sale"', '"Shopping for yourself or a gift?"', '"The changing rooms are over there"'], correct: 2 },
+      { id: 'q5', question: 'A customer responds "Just browsing" to your warm opening. What happened?', options: ['Your opening was wrong — try a different one next time', 'Normal response — stay visible and try again in 2-3 minutes', 'They don\'t want to buy — move on to someone else', 'You approached too early'], correct: 1 }
     ]
   },
 
@@ -165,6 +179,11 @@ export const missions = {
     title: 'The 70/30 Rule',
     readTime: '2 min',
     bar: true,
+    objectives: [
+      'Recognise when you\'re feature-dumping (talking > 30%)',
+      'Ask 4 qualifying questions before showing products',
+      'Let the customer do 70% of the talking'
+    ],
     slides: [
       {
         type: 'text',
@@ -231,7 +250,9 @@ export const missions = {
     quiz: [
       { id: 'q1', question: 'Under the 70/30 rule, who should be talking more?', options: ['Staff — you know the products best', 'Customer — you\'re learning their need', '50/50 is ideal', 'Depends on the customer'], correct: 1 },
       { id: 'q2', question: 'When should you show products to a customer?', options: ['When they seem interested', 'After the first qualifying question', 'After asking all 4 questions', 'When they pick something up'], correct: 2 },
-      { id: 'q3', question: 'You talk for 3 minutes listing shoe features. Customer\'s eyes glaze over. What went wrong?', options: ['Too many options shown', 'Feature-dumping — you talked more than you listened', 'Wrong products for the customer', 'Bad timing'], correct: 1 }
+      { id: 'q3', question: 'You talk for 3 minutes listing shoe features. Customer\'s eyes glaze over. What went wrong?', options: ['Too many options shown', 'Feature-dumping — you talked more than you listened', 'Wrong products for the customer', 'Bad timing'], correct: 1 },
+      { id: 'q4', question: 'Customer says "I need running shoes." You ask all 4 questions and learn: trail running, current shoes hurt their knees, comfort is #1, buying today. How many shoes do you show?', options: ['1 — the best match', '2 — targeted options based on their answers', '5 — give them variety', 'All your running shoes — let them decide'], correct: 1 },
+      { id: 'q5', question: 'You catch yourself talking for 2 minutes straight about a shoe\'s technology. What should you do RIGHT NOW?', options: ['Finish your point — they need to hear this', 'Stop and ask "What matters most to you?"', 'Show them the price to change the subject', 'Ask if they want to try it on'], correct: 1 }
     ]
   },
 
@@ -240,6 +261,11 @@ export const missions = {
     totalMissions: 6,
     title: '"I\'ll Think About It"',
     readTime: '7 min',
+    objectives: [
+      'Decode the 5 hidden meanings behind "I\'ll think about it"',
+      'Use the 3-step Acknowledge-Probe-Bridge framework',
+      'Keep hesitant customers in the conversation without being pushy'
+    ],
     slides: [
       {
         type: 'text',
@@ -303,7 +329,9 @@ export const missions = {
     quiz: [
       { id: 'q1', question: '"I\'ll think about it" usually means:', options: ['They genuinely need time to decide', 'Something is stopping them — price, doubt, or comparison', 'They will come back tomorrow', 'They can\'t afford it'], correct: 1 },
       { id: 'q2', question: 'Customer says "I\'ll think about it." What\'s your first move?', options: ['"Okay, no problem!"', '"We have a sale tomorrow, so..."', '"That\'s totally fair — what\'s making you think it over?"', '"Let me give you a discount"'], correct: 2 },
-      { id: 'q3', question: 'You ask "Is it the price, or not sure it\'s right?" What are you doing?', options: ['Convincing them to buy', 'Uncovering the real objection behind the polite exit', 'Closing the sale', 'Ending the conversation politely'], correct: 1 }
+      { id: 'q3', question: 'You ask "Is it the price, or not sure it\'s right?" What are you doing?', options: ['Convincing them to buy', 'Uncovering the real objection behind the polite exit', 'Closing the sale', 'Ending the conversation politely'], correct: 1 },
+      { id: 'q4', question: 'Customer says "I\'ll think about it" and starts walking to the door. You\'ve already probed and they said "I need to ask my wife." What\'s the best bridge?', options: ['"No problem, come back anytime"', '"I can hold it for 24 hours — want me to put your name on it?"', '"Your wife would love it, trust me"', '"We have a sale ending today"'], correct: 1 },
+      { id: 'q5', question: 'A customer tried on 3 pairs of shoes, loved the second pair, then said "Let me think about it." What\'s the MOST LIKELY hidden meaning?', options: ['They genuinely need time', 'They\'re not sure about the price', 'They want to check other stores first', 'Could be any of these — that\'s why you probe'], correct: 3 }
     ]
   },
 
@@ -312,6 +340,11 @@ export const missions = {
     totalMissions: 6,
     title: '"It\'s Too Expensive"',
     readTime: '8 min',
+    objectives: [
+      'Recognise price objections as buying signals, not rejections',
+      'Use the 4-step framework: Ask Budget → Anchor Value → Show Down → Payment Flex',
+      'Hold full price by building value before offering alternatives'
+    ],
     slides: [
       {
         type: 'text',
@@ -377,7 +410,9 @@ export const missions = {
     quiz: [
       { id: 'q1', question: '"It\'s too expensive" is actually:', options: ['A clear no — move on', 'A buying signal — they\'re interested but need value justified', 'A request for a discount', 'A product quality concern'], correct: 1 },
       { id: 'q2', question: 'What\'s the FIRST step when a customer says "too expensive"?', options: ['Offer 10% off immediately', 'Ask: "What were you thinking price-wise?"', 'Show a cheaper option', 'Justify the price immediately'], correct: 1 },
-      { id: 'q3', question: 'Why does showing the cheaper option side-by-side often sell the premium?', options: ['It makes the premium look more affordable', 'Customer feels and sees the quality difference directly', 'It confuses them into buying', 'It looks like more value for money'], correct: 1 }
+      { id: 'q3', question: 'Why does showing the cheaper option side-by-side often sell the premium?', options: ['It makes the premium look more affordable', 'Customer feels and sees the quality difference directly', 'It confuses them into buying', 'It looks like more value for money'], correct: 1 },
+      { id: 'q4', question: 'Customer says a pair of trainers at ₦45,000 is "too expensive." You ask their budget — they say ₦30,000. What\'s your next move?', options: ['"Let me find something in your budget"', '"The reason these are ₦45K is [benefit tied to their need]" — then show the ₦28K pair side-by-side', '"We have installments — ₦15K for 3 months"', '"I can give you 15% off"'], correct: 1 },
+      { id: 'q5', question: 'You anchored value, showed a cheaper option side-by-side, and the customer STILL hesitates. What\'s left in the framework?', options: ['Offer a discount — you\'ve tried everything', 'Payment flexibility — break it into installments or cost-per-wear', 'Let them go — they can\'t afford it', 'Call your manager for approval'], correct: 1 }
     ]
   },
 
@@ -386,6 +421,11 @@ export const missions = {
     totalMissions: 6,
     title: 'Exit Protocol',
     readTime: '6 min',
+    objectives: [
+      'Capture Name + Number + Need from non-buying customers',
+      'Set a specific follow-up trigger (sale, restock, new arrival)',
+      'Turn today\'s browser into tomorrow\'s buyer with a 3-7 day follow-up'
+    ],
     slides: [
       {
         type: 'text',
@@ -451,7 +491,9 @@ export const missions = {
     quiz: [
       { id: 'q1', question: 'What percentage of non-buying browsers would buy later if you follow up?', options: ['10%', '25%', '40%', '70%'], correct: 2 },
       { id: 'q2', question: 'The exit capture needs three things. Which combo is right?', options: ['Name + email + address', 'Name + number + need', 'Name + social media + size', 'Number + purchase history + budget'], correct: 1 },
-      { id: 'q3', question: 'When do you use the exit capture line?', options: ['Only if they seemed very interested', 'As soon as they enter the store', 'When a customer leaves without buying', 'After they\'ve made a purchase'], correct: 2 }
+      { id: 'q3', question: 'When do you use the exit capture line?', options: ['Only if they seemed very interested', 'As soon as they enter the store', 'When a customer leaves without buying', 'After they\'ve made a purchase'], correct: 2 },
+      { id: 'q4', question: 'You spent 15 minutes helping a customer. They loved the shoes but said "Not today." You captured their name and WhatsApp. When do you follow up?', options: ['Same day — while it\'s fresh', '3-7 days later with a specific trigger', '2 weeks later', 'Only when the item goes on sale'], correct: 1 },
+      { id: 'q5', question: 'A customer is leaving. You say "Before you go — can I grab your number? I\'ll text you if these go on sale." They say "I don\'t give out my number." What do you do?', options: ['"No problem at all! I\'m [name], nice meeting you" — let them go gracefully', 'Ask for their email instead', 'Give them YOUR number and say "Save my contact"', 'Try once more — "It\'s just for stock alerts"'], correct: 0 }
     ]
   }
 }

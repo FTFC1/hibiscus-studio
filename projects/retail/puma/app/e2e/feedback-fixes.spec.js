@@ -17,8 +17,8 @@ test.describe('Fix 4: Lesson completion flow (no dead-end practice screen)', () 
     const dotCount = await dots.count()
 
     // Click through slides via right arrow
-    for (let i = 0; i < dotCount - 1; i++) {
-      const nextBtn = page.locator('.footer-right .nav-btn')
+    for (let i = 0; i < Math.max(dotCount - 1, 5); i++) {
+      const nextBtn = page.locator('.lesson-footer .nav-pill-next, .footer-right .nav-btn')
       if (await nextBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
         await nextBtn.click()
         await page.waitForTimeout(400)
