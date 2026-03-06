@@ -80,7 +80,7 @@ export default function Result() {
         <div className="result-ring-wrap">
           <svg width="160" height="160" viewBox="0 0 160 160">
             {/* Track */}
-            <circle cx={CX} cy={CY} r={R} fill="none" stroke="#111111" strokeWidth="5" />
+            <circle cx={CX} cy={CY} r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="5" />
             {/* Arc */}
             <circle
               cx={CX} cy={CY} r={R}
@@ -100,7 +100,7 @@ export default function Result() {
             <text x={CX} y={CY - 8} textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="28" fontWeight="700" fontFamily="Inter, sans-serif">
               {score}%
             </text>
-            <text x={CX} y={CY + 10} textAnchor="middle" dominantBaseline="middle" fill="#666" fontSize="11" fontFamily="Inter, sans-serif">
+            <text x={CX} y={CY + 10} textAnchor="middle" dominantBaseline="middle" fill="#8E9BA0" fontSize="11" fontFamily="Inter, sans-serif">
               {correctCount}/{totalQuestions} correct
             </text>
           </svg>

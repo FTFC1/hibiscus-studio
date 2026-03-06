@@ -172,6 +172,88 @@
 .game-result-autosaved { font-size: 11px; color: var(--text-disabled); margin-top: 8px; text-align: center; }
 
 /* ═══════════════════════════════════════════
+   GAME ONBOARD (shared intro screen)
+   ═══════════════════════════════════════════ */
+
+.game-onboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.game-onboard-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-stroke);
+  border-radius: 14px;
+  padding: 32px 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.game-onboard-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  display: block;
+  color: var(--progress-gold);
+}
+
+.game-onboard-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.game-onboard-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.game-onboard-steps {
+  text-align: left;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-onboard-step {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.game-onboard-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: var(--cta-green-dim);
+  color: var(--cta-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.game-onboard-step-text {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.4;
+  padding-top: 2px;
+}
+
+.game-onboard-cta {
+  margin-top: 24px;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════
    THE APPROACH GAME
    ═══════════════════════════════════════════ */
 
@@ -207,7 +289,7 @@
   display: inline-block;
   font-size: 10px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.06em;
-  background: rgba(227,6,19,0.15); color: #ff6b6b;
+  background: rgba(155, 125, 255, 0.12); color: #9B7DFF;
   padding: 4px 10px; border-radius: 6px;
   margin-bottom: 12px;
 }
@@ -222,12 +304,12 @@
   color: var(--text-primary); line-height: 1.4;
   margin-bottom: 16px; font-style: italic;
 }
-.approach-customer-quote::before { content: '\201C'; color: #ff6b6b; }
-.approach-customer-quote::after { content: '\201D'; color: #ff6b6b; }
+.approach-customer-quote::before { content: '\201C'; color: var(--cta-green); }
+.approach-customer-quote::after { content: '\201D'; color: var(--cta-green); }
 
 .approach-question-prompt {
   font-size: 13px; font-weight: 600;
-  color: var(--text-secondary); text-align: center;
+  color: var(--cta-green); text-align: center;
   padding: 10px; border-radius: 8px;
   background: rgba(255,255,255,0.03);
 }
@@ -240,6 +322,7 @@
   border: 2px solid var(--bg-glass-stroke);
   border-radius: var(--radius-md);
   padding: 16px 18px;
+  min-height: 56px;
   cursor: pointer; transition: all 0.15s ease;
   position: relative; overflow: hidden;
   -webkit-tap-highlight-color: transparent;
@@ -509,7 +592,7 @@
 .basket-addon-badge.badge-wrong { background: var(--alert-red); }
 .basket-addon-badge.badge-missed { background: #f59e0b; }
 
-.basket-submit-btn {
+.basket-submit-btn, .approach-submit-btn {
   position: sticky;
   bottom: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);

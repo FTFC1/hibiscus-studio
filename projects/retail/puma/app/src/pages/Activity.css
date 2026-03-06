@@ -6,7 +6,25 @@
   flex-direction: column;
   gap: 24px;
   padding-bottom: 24px;
+  position: relative;
 }
+
+/* Grid texture (cascaded from Games/Practice) */
+.activity-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+}
+
+.activity-page > * { position: relative; z-index: 1; }
 
 /* ── Trend Verdict ── */
 .trend-verdict {
@@ -195,6 +213,7 @@
   background: var(--bg-glass);
   border: 1px solid var(--bg-glass-stroke);
   border-radius: var(--radius-md);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .lb-row-you {
@@ -285,6 +304,7 @@
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .buzz-item:last-child {

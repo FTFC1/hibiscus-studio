@@ -2,7 +2,25 @@
 .sd-page {
   min-height: 100vh;
   padding-bottom: 40px;
+  position: relative;
 }
+
+/* Grid texture (cascaded from Games/Practice) */
+.sd-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 85%);
+}
+
+.sd-page > * { position: relative; z-index: 1; }
 
 .sd-loading {
   display: flex;
@@ -86,7 +104,7 @@
 }
 
 .sd-cert-track {
-  height: 7px;
+  height: 5px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-pill);
   overflow: hidden;
@@ -275,10 +293,10 @@
 
 /* ── Mission List ── */
 .sd-missions-header {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   color: var(--text-disabled);
   margin-bottom: 12px;
 }

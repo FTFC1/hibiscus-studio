@@ -164,7 +164,7 @@ function ApproachGame({ onBack, userId, bestScore }) {
   const [correct, setCorrect] = useState(0)
   const [picked, setPicked] = useState(null)
   const [wrongAnswers, setWrongAnswers] = useState([])
-  const [phase, setPhase] = useState('play') // play | results
+  const [phase, setPhase] = useState('onboard') // onboard | play | results
   const [saved, setSaved] = useState(false)
   const [reviewOpen, setReviewOpen] = useState(false)
 
@@ -229,6 +229,46 @@ function ApproachGame({ onBack, userId, bestScore }) {
     setPhase('play')
     setSaved(false)
     setReviewOpen(false)
+  }
+
+  // ── Onboard Screen ──
+  if (phase === 'onboard') {
+    return (
+      <div className="game-container">
+        <div className="game-back-header" onClick={onBack}>
+          <i className="ri-arrow-left-s-line"></i>
+          <span>Back to Games</span>
+        </div>
+        <div className="game-onboard">
+          <div className="game-onboard-card">
+            <i className="ri-chat-smile-3-line game-onboard-icon"></i>
+            <div className="game-onboard-title">The Approach Game</div>
+            <div className="game-onboard-desc">Test your customer approach skills across {TOTAL} real scenarios.</div>
+            <div className="game-onboard-steps">
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">1</div>
+                <div className="game-onboard-step-text">A customer walks in — you'll see their type and what they said</div>
+              </div>
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">2</div>
+                <div className="game-onboard-step-text">Pick the best response from 4 options</div>
+              </div>
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">3</div>
+                <div className="game-onboard-step-text">See why each answer works or doesn't with real explanations</div>
+              </div>
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">4</div>
+                <div className="game-onboard-step-text">Your score saves automatically — your manager sees your progress</div>
+              </div>
+            </div>
+          </div>
+          <button className="game-next-btn game-onboard-cta basket-submit-btn" onClick={() => setPhase('play')}>
+            Got it, let's play!
+          </button>
+        </div>
+      </div>
+    )
   }
 
   // ── Results Screen ──
@@ -354,7 +394,7 @@ function ApproachGame({ onBack, userId, bestScore }) {
         </div>
 
         {picked !== null && (
-          <button className="game-next-btn" onClick={next}>
+          <button className="game-next-btn approach-submit-btn" onClick={next}>
             {round >= TOTAL - 1 ? 'See Results' : 'Next Scenario \u2192'}
           </button>
         )}
@@ -370,7 +410,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
   const [round, setRound] = useState(0)
   const [selectedAddons, setSelectedAddons] = useState(new Set())
   const [submitted, setSubmitted] = useState(false)
-  const [phase, setPhase] = useState('play')
+  const [phase, setPhase] = useState('onboard') // onboard | play | results
   const [saved, setSaved] = useState(false)
 
   // Cumulative stats
@@ -507,6 +547,46 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
   const finalAccuracy = totalValidAddons > 0 ? Math.round((totalSelectedValid / totalValidAddons) * 100) : 0
   const avgRate = totalMainValue > 0 ? Math.round((totalBasketValue / totalMainValue) * 100) : 0
   const improved = bestScore !== null && finalAccuracy > bestScore
+
+  // ── Onboard Screen ──
+  if (phase === 'onboard') {
+    return (
+      <div className="game-container">
+        <div className="game-back-header" onClick={onBack}>
+          <i className="ri-arrow-left-s-line"></i>
+          <span>Back to Games</span>
+        </div>
+        <div className="game-onboard">
+          <div className="game-onboard-card">
+            <i className="ri-shopping-basket-2-line game-onboard-icon"></i>
+            <div className="game-onboard-title">Build the Basket</div>
+            <div className="game-onboard-desc">Match the right add-ons to each customer across {TOTAL} rounds.</div>
+            <div className="game-onboard-steps">
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">1</div>
+                <div className="game-onboard-step-text">A customer arrives with a main product already chosen</div>
+              </div>
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">2</div>
+                <div className="game-onboard-step-text">Read their type and what they said to pick the right add-ons</div>
+              </div>
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">3</div>
+                <div className="game-onboard-step-text">Tap add-ons to build the basket, then check your picks</div>
+              </div>
+              <div className="game-onboard-step">
+                <div className="game-onboard-step-num">4</div>
+                <div className="game-onboard-step-text">See your accuracy and basket value — aim for the right matches, not just more items</div>
+              </div>
+            </div>
+          </div>
+          <button className="game-next-btn game-onboard-cta basket-submit-btn" onClick={() => setPhase('play')}>
+            Got it, let's play!
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   // ── Results Screen ──
   if (phase === 'results') {
