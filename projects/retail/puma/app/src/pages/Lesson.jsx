@@ -73,7 +73,8 @@ function SlideRule({ slide }) {
     { value: '68%', label: 'leave if ignored', source: 'PwC', color: 'var(--alert-red, #FF6464)' }
   ]
   const flow = slide.flow || defaultFlow
-  const stats = slide.stats || defaultStats
+  // Old missions.js stats have 3 items (time values) — use defaultStats for bento (4 research-backed items)
+  const stats = (slide.stats && slide.stats.length === 4 && slide.stats[0].color) ? slide.stats : defaultStats
 
   return (
     <div className="slide-card slide-card-lime">
