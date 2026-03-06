@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import Header from '../components/Header'
 import { useUser } from '../context/UserContext'
 import { supabase } from '../lib/supabase'
 import { missionList } from '../data/missions'
+import { quizReducer, createInitialState, ACTIONS } from '../lib/quizReducer'
 import {
   approachScenarios, approachInsights,
   basketCustomerTypes, basketProducts,
 } from '../data/game-scenarios'
 import './Games.css'
 
-// ── HELPERS ──────────────────────────────────
+// -- HELPERS --
 
 function shuffle(arr) {
   const a = [...arr]
@@ -50,7 +52,7 @@ const addonCategoryIcons = {
   addon_bodywear: 'ri-t-shirt-2-line',
 }
 
-// ── Root: route by role ─────────────────────
+// -- Root: route by role --
 export default function Games() {
   const { profile, userId, role } = useUser()
   const navigate = useNavigate()
@@ -61,7 +63,7 @@ export default function Games() {
     : <StaffGames profile={profile} userId={userId} />
 }
 
-// ── Staff View ──────────────────────────────
+// -- Staff View --
 function StaffGames({ profile, userId }) {
   const [searchParams] = useSearchParams()
   const [activeGame, setActiveGame] = useState(searchParams.get('play') || null)
@@ -156,82 +158,50 @@ function StaffGames({ profile, userId }) {
   )
 }
 
-// ── The Approach Game ────────────────────────
+// -- The Approach Game (Conversation UI + useReducer) --
 function ApproachGame({ onBack, userId, bestScore }) {
   const TOTAL = 8
-  const [scenarios, setScenarios] = useState([])
-  const [round, setRound] = useState(0)
-  const [correct, setCorrect] = useState(0)
-  const [picked, setPicked] = useState(null)
-  const [wrongAnswers, setWrongAnswers] = useState([])
-  const [phase, setPhase] = useState('onboard') // onboard | play | results
   const [saved, setSaved] = useState(false)
   const [reviewOpen, setReviewOpen] = useState(false)
+  const [tipOpen, setTipOpen] = useState(false)
 
-  useEffect(() => {
-    // Shuffle scenarios AND shuffle each scenario's options so correct answer isn't always A
-    const shuffled = shuffle(approachScenarios).slice(0, TOTAL).map(s => ({
+  const [initialScenarios] = useState(() =>
+    shuffle(approachScenarios).slice(0, TOTAL).map(s => ({
       ...s,
       options: shuffle(s.options),
     }))
-    setScenarios(shuffled)
-  }, [])
+  )
 
-  // Auto-save when results show
-  useEffect(() => {
-    if (phase !== 'results' || !userId) return
-    const accuracy = Math.round((correct / TOTAL) * 100)
-    supabase.from('completions').insert({ user_id: userId, mission_id: 'game-approach', score: accuracy })
-      .then(() => setSaved(true))
-  }, [phase, userId, correct])
-
-  if (!scenarios.length) return null
+  const [state, dispatch] = useReducer(quizReducer, createInitialState(initialScenarios, TOTAL))
+  const { phase, scenarios, round, correct, picked, wrongAnswers } = state
 
   const current = scenarios[round]
   const accuracy = Math.round((correct / TOTAL) * 100)
   const improved = bestScore !== null && accuracy > bestScore
 
-  function pickOption(idx) {
-    if (picked !== null) return
-    setPicked(idx)
-    const opt = current.options[idx]
-    if (opt.correct) {
-      setCorrect(c => c + 1)
-    } else {
-      const correctOpt = current.options.find(o => o.correct)
-      setWrongAnswers(wa => [...wa, {
-        type: current.type,
-        quote: current.quote,
-        youSaid: opt.script,
-        shouldSay: correctOpt?.script || '',
-      }])
-    }
-  }
+  // Auto-save when results show
+  useEffect(() => {
+    if (phase !== 'results' || !userId) return
+    supabase.from('completions').insert({ user_id: userId, mission_id: 'game-approach', score: accuracy })
+      .then(() => setSaved(true))
+  }, [phase, userId, accuracy])
 
-  function next() {
-    if (round >= TOTAL - 1) {
-      setPhase('results')
-      return
-    }
-    setRound(r => r + 1)
-    setPicked(null)
-  }
+  // Reset tip toggle on new question
+  useEffect(() => { setTipOpen(false) }, [round])
+
+  if (!scenarios.length) return null
 
   function replay() {
-    setScenarios(shuffle(approachScenarios).slice(0, TOTAL).map(s => ({
+    const newScenarios = shuffle(approachScenarios).slice(0, TOTAL).map(s => ({
       ...s,
       options: shuffle(s.options),
-    })))
-    setRound(0)
-    setCorrect(0)
-    setPicked(null)
-    setWrongAnswers([])
-    setPhase('play')
+    }))
+    dispatch({ type: ACTIONS.REPLAY, scenarios: newScenarios })
     setSaved(false)
     setReviewOpen(false)
   }
 
-  // ── Onboard Screen ──
+  // -- Onboard Screen --
   if (phase === 'onboard') {
     return (
       <div className="game-container">
@@ -263,7 +233,7 @@ function ApproachGame({ onBack, userId, bestScore }) {
               </div>
             </div>
           </div>
-          <button className="game-next-btn game-onboard-cta basket-submit-btn" onClick={() => setPhase('play')}>
+          <button className="game-next-btn game-onboard-cta basket-submit-btn" onClick={() => dispatch({ type: ACTIONS.START })}>
             Got it, let's play!
           </button>
         </div>
@@ -271,7 +241,7 @@ function ApproachGame({ onBack, userId, bestScore }) {
     )
   }
 
-  // ── Results Screen ──
+  // -- Results Screen --
   if (phase === 'results') {
     let emoji, title
     if (accuracy >= 90) { emoji = '\uD83C\uDFC6'; title = 'Approach Master!' }
@@ -279,7 +249,6 @@ function ApproachGame({ onBack, userId, bestScore }) {
     else if (accuracy >= 50) { emoji = '\uD83D\uDC4D'; title = 'Getting There!' }
     else { emoji = '\uD83D\uDCAA'; title = 'Keep Practicing!' }
 
-    // Find most-missed type for key insight
     const typeCounts = {}
     wrongAnswers.forEach(wa => { typeCounts[wa.type] = (typeCounts[wa.type] || 0) + 1 })
     const focusType = Object.keys(typeCounts).sort((a, b) => typeCounts[b] - typeCounts[a])[0]
@@ -302,7 +271,7 @@ function ApproachGame({ onBack, userId, bestScore }) {
             </div>
           </div>
 
-          {improved && <div className="game-result-improve">\u2191 from {bestScore}% best</div>}
+          {improved && <div className="game-result-improve">{'\u2191'} from {bestScore}% best</div>}
           {bestScore !== null && !improved && <div className="game-result-prev">Best: {bestScore}%</div>}
 
           <div className="approach-insight-card">
@@ -331,17 +300,22 @@ function ApproachGame({ onBack, userId, bestScore }) {
             </div>
           )}
 
-          {saved && <div className="game-result-autosaved">\u2713 Saved</div>}
+          {saved && <div className="game-result-autosaved">{'\u2713'} Saved</div>}
           <div className="approach-results-actions">
             <button className="game-next-btn" onClick={replay}>Play Again</button>
-            <button className="game-back-btn-action" onClick={onBack}>\u2190 Back to Games</button>
+            <button className="game-back-btn-action" onClick={onBack}>{'\u2190'} Back to Games</button>
           </div>
         </div>
       </div>
     )
   }
 
-  // ── Play Screen ──
+  // -- Play + Feedback Screen (Conversation UI) --
+  const pickedOpt = picked !== null ? current.options[picked] : null
+  const isCorrect = pickedOpt?.correct
+  const correctOpt = current.options.find(o => o.correct)
+  const inFeedback = phase === 'feedback'
+
   return (
     <div className="game-container">
       <div className="game-play">
@@ -353,57 +327,152 @@ function ApproachGame({ onBack, userId, bestScore }) {
         {/* Progress strip */}
         <div className="approach-progress-strip">
           <div className="approach-progress-bar">
-            <div className="approach-progress-fill" style={{ width: `${(round / TOTAL) * 100}%` }} />
+            <div className="approach-progress-fill" style={{ width: `${((round + (inFeedback ? 1 : 0)) / TOTAL) * 100}%` }} />
           </div>
-          <div className="approach-progress-text">Scenario {round + 1} of {TOTAL}</div>
+          <div className="approach-progress-text">{round + 1}/{TOTAL}</div>
         </div>
 
-        {/* Scenario card */}
-        <div className="approach-scenario-card">
-          <div className="approach-customer-badge">{current.type}</div>
-          <div className="approach-scenario-context">{current.context}</div>
-          <div className="approach-customer-quote">{current.quote}</div>
-          <div className="approach-question-prompt">What do you say?</div>
+        {/* Customer bubble -- conversation UI */}
+        <div className="convo">
+          <div className="convo-customer">
+            <div className="convo-customer-label">
+              <div className="customer-badge">{current.type}</div>
+              <span className="convo-context">{current.context}</span>
+            </div>
+            <div className="convo-bubble">
+              <div className="convo-bubble-text">{current.quote}</div>
+            </div>
+          </div>
+          {!inFeedback && <div className="convo-prompt">What do you say?</div>}
         </div>
 
-        {/* Options */}
-        <div className="approach-options">
-          {current.options.map((opt, i) => {
-            const letter = String.fromCharCode(65 + i)
-            let cls = 'approach-option'
-            if (picked !== null) {
-              if (i === picked && opt.correct) cls += ' correct'
-              else if (i === picked && !opt.correct) cls += ' wrong'
-              else if (opt.correct) cls += ' was-correct'
-            }
-            return (
-              <div key={i} className={cls} onClick={() => pickOption(i)}>
-                <div className="approach-option-badge"></div>
-                <div className="approach-option-content">
-                  <div className={`approach-option-letter ${picked !== null && (i === picked || opt.correct) ? (opt.correct ? 'letter-correct' : 'letter-wrong') : ''}`}>{letter}</div>
-                  <div className="approach-option-text">
-                    <div className="approach-option-script">"{opt.script}"</div>
-                    {picked !== null && (i === picked || opt.correct) && (
-                      <div className={`approach-option-explanation ${opt.correct ? 'explanation-good' : 'explanation-bad'}`}>{opt.explanation}</div>
-                    )}
+        {/* Before answer: show reply options */}
+        {!inFeedback && (
+          <div className="convo-replies">
+            {current.options.map((opt, i) => {
+              const letter = String.fromCharCode(65 + i)
+              return (
+                <div key={i} className="convo-reply" onClick={() => dispatch({ type: ACTIONS.SELECT_ANSWER, index: i })}>
+                  <div className="option-letter">{letter}</div>
+                  <div className="option-text">
+                    <div className="option-script">"{opt.script}"</div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        )}
 
-        {picked !== null && (
-          <button className="game-next-btn approach-submit-btn" onClick={next}>
+        {/* After answer: conversation feedback flow */}
+        <AnimatePresence>
+          {inFeedback && (
+            <motion.div
+              className="answered-flow"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Your sent reply */}
+              <div className="sent-reply">
+                <div className={`sent-reply-label ${isCorrect ? 'correct-label' : 'wrong-label'}`}>
+                  <i className={isCorrect ? 'ri-check-line' : 'ri-close-line'} style={{ fontSize: 12, marginRight: 2 }}></i>
+                  {' '}You said
+                </div>
+                <div className={`sent-bubble ${isCorrect ? 'sent-correct' : 'sent-wrong'}`}>
+                  "{pickedOpt.script}"
+                </div>
+              </div>
+
+              {/* Customer reaction */}
+              <motion.div
+                className="customer-reaction"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.25 }}
+              >
+                <div className="reaction-name">Customer</div>
+                <div className="reaction-bubble">
+                  {pickedOpt.reaction || (isCorrect ? '"Thanks, that really helps!"' : '"Okay..." \u2014 walks away')}
+                </div>
+              </motion.div>
+
+              {/* Verdict strip */}
+              <motion.div
+                className={`verdict-strip ${isCorrect ? 'verdict-correct' : 'verdict-wrong'}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5, duration: 0.2 }}
+              >
+                <div className="verdict-icon">
+                  <i className={isCorrect ? 'ri-check-line' : 'ri-close-line'}></i>
+                </div>
+                <div className="verdict-text">{pickedOpt.explanation}</div>
+              </motion.div>
+
+              {/* Better answer (only on wrong) */}
+              {!isCorrect && correctOpt && (
+                <motion.div
+                  className="better-answer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7, duration: 0.25 }}
+                >
+                  <div className="better-answer-label">
+                    <i className="ri-check-line" style={{ fontSize: 11, marginRight: 3 }}></i>
+                    {' '}Better response
+                  </div>
+                  <div className="better-answer-text">"{correctOpt.script}"</div>
+                </motion.div>
+              )}
+
+              {/* Progressive disclosure: "Why this works/matters" */}
+              <div className="other-options-toggle" onClick={() => setTipOpen(o => !o)}>
+                <i className="ri-lightbulb-line"></i>
+                <span>{isCorrect ? 'Why this works' : 'Why this matters'}</span>
+              </div>
+              <AnimatePresence>
+                {tipOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <div className={`coach-note ${isCorrect ? 'note-good' : 'note-bad'}`}>
+                      <div className="coach-note-header">Tip</div>
+                      <div className="coach-note-text">
+                        {isCorrect
+                          ? (correctOpt?.explanation || 'Great read of the customer type.')
+                          : `${current.type} customers respond best to: "${correctOpt?.script}"`
+                        }
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Next button */}
+        {inFeedback && (
+          <motion.button
+            className="game-next-btn approach-submit-btn sticky-cta"
+            onClick={() => dispatch({ type: ACTIONS.NEXT_QUESTION })}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.2 }}
+          >
             {round >= TOTAL - 1 ? 'See Results' : 'Next Scenario \u2192'}
-          </button>
+          </motion.button>
         )}
       </div>
     </div>
   )
 }
 
-// ── Build the Basket Game ────────────────────
+// -- Build the Basket Game --
 function BasketGame({ onBack, userId, userName, bestScore }) {
   const TOTAL = 5
   const [scenarios, setScenarios] = useState([])
@@ -463,7 +532,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
       addons.push({ ...shuffledValid[i], valid: true, reason: `Good match for ${type.name}` })
     }
     if (shuffledValid.length > 2) {
-      addons.push({ ...shuffledValid[2], optional: true, reason: 'Optional — nice to have' })
+      addons.push({ ...shuffledValid[2], optional: true, reason: 'Optional \u2014 nice to have' })
     }
     const shuffledInvalid = shuffle(invalidAddonProducts)
     if (shuffledInvalid.length > 0) {
@@ -570,7 +639,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
   const avgRate = totalMainValue > 0 ? Math.round((totalBasketValue / totalMainValue) * 100) : 0
   const improved = bestScore !== null && finalAccuracy > bestScore
 
-  // ── Onboard Screen ──
+  // -- Onboard Screen --
   if (phase === 'onboard') {
     return (
       <div className="game-container">
@@ -610,7 +679,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
     )
   }
 
-  // ── Results Screen ──
+  // -- Results Screen --
   if (phase === 'results') {
     let emoji, title, subtitle
     if (finalAccuracy >= 80 && avgRate >= 12) { emoji = '\uD83C\uDFC6'; title = 'Basket Builder Pro!'; subtitle = "You know how to read customers" }
@@ -678,7 +747,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
     )
   }
 
-  // ── Play Screen ──
+  // -- Play Screen --
   return (
     <div className="game-container">
       <div className="game-play">
@@ -761,7 +830,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
                 </div>
                 <div className="basket-addon-price">{formatPrice(addon.price)}</div>
                 {submitted && (addon.valid || (!addon.optional && isSelected) || (!addon.valid && !addon.optional && !isSelected && false)) && (
-                  <div className={`basket-addon-badge ${addon.valid && isSelected ? 'badge-correct' : addon.valid && !isSelected ? 'badge-missed' : 'badge-wrong'}`}>
+                  <div className={`basket-addon-badge ${addon.valid && isSelected ? 'badge-correct' : addon.valid ? 'badge-missed' : 'badge-wrong'}`}>
                     {addon.valid && isSelected ? '\u2713' : addon.valid ? '!' : '\u2717'}
                   </div>
                 )}
@@ -781,7 +850,7 @@ function BasketGame({ onBack, userId, userName, bestScore }) {
   )
 }
 
-// ── Manager View ────────────────────────────
+// -- Manager View --
 function ManagerGames({ profile, navigate }) {
   const [teamData, setTeamData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -835,7 +904,7 @@ function ManagerGames({ profile, navigate }) {
           <div className="games-mgr-total">{teamData.length} staff {'\u00B7'} Practice through play</div>
         </div>
 
-        {loading && <div className="games-loading">Loading team data\u2026</div>}
+        {loading && <div className="games-loading">Loading team data{'\u2026'}</div>}
 
         {/* Team Performance Chart */}
         {!loading && teamData.length > 0 && (

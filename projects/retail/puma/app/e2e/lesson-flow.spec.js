@@ -1,5 +1,24 @@
 import { test, expect } from '@playwright/test'
 
+// Helper: answer a quiz question by clicking the Nth option (0-indexed)
+// Handles both correct (auto-advance) and wrong (click Next) flows
+async function answerQuizQuestion(page, optionIndex) {
+  const options = page.locator('.quiz-option:not([disabled])')
+  await expect(options.first()).toBeVisible({ timeout: 5000 })
+  await options.nth(optionIndex).click()
+  await page.waitForTimeout(500)
+
+  // If wrong answer, a "Next" button appears — click it
+  const nextBtn = page.locator('.quiz-next-btn')
+  if (await nextBtn.isVisible({ timeout: 1500 }).catch(() => false)) {
+    await nextBtn.click()
+    await page.waitForTimeout(500)
+  } else {
+    // Correct answer auto-advances after 900ms
+    await page.waitForTimeout(600)
+  }
+}
+
 // Login as staff before each test
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -21,38 +40,30 @@ test.describe('Lesson Flow', () => {
   })
 
   test('navigate slides and take quiz → Result page', async ({ page }) => {
-    // Go to mission-1 directly (predictable quiz answers)
     await page.goto('/lesson/mission-1')
     await expect(page.locator('.slide-card').first()).toBeVisible({ timeout: 10000 })
 
-    // Navigate through slides using the right-side nav button
+    // Navigate through slides
     for (let i = 0; i < 4; i++) {
-      // The right arrow is the last .nav-btn in the footer
       const navBtns = page.locator('.lesson-footer .nav-btn')
       const count = await navBtns.count()
-      if (count > 1) {
-        await navBtns.last().click()
-      } else if (count === 1) {
-        await navBtns.first().click()
-      }
+      if (count > 1) await navBtns.last().click()
+      else if (count === 1) await navBtns.first().click()
       await page.waitForTimeout(400)
     }
 
     // Click "Take the Quiz"
-    const quizBtn = page.locator('text=Take the Quiz')
-    await expect(quizBtn).toBeVisible({ timeout: 5000 })
-    await quizBtn.click()
+    await expect(page.locator('text=Take the Quiz')).toBeVisible({ timeout: 5000 })
+    await page.locator('text=Take the Quiz').click()
     await page.waitForTimeout(500)
 
-    // Answer all 3 questions
-    for (let q = 0; q < 3; q++) {
-      await expect(page.locator('.quiz-option').first()).toBeVisible({ timeout: 5000 })
-      await page.locator('.quiz-option').first().click()
-      await page.waitForTimeout(1200)
-    }
+    // Answer 3 questions (mission-1: correct answers at index 2, 2, 1)
+    await answerQuizQuestion(page, 2) // Q1 correct
+    await answerQuizQuestion(page, 2) // Q2 correct
+    await answerQuizQuestion(page, 1) // Q3 correct
 
     // Should land on Result page
-    await expect(page).toHaveURL(/\/result\/mission-1/, { timeout: 5000 })
+    await expect(page).toHaveURL(/\/result\/mission-1/, { timeout: 10000 })
     await expect(page.locator('.result-ring-wrap')).toBeVisible()
     await expect(page.locator('.result-cta-btn')).toBeVisible()
   })
@@ -61,7 +72,6 @@ test.describe('Lesson Flow', () => {
     await page.goto('/lesson/mission-1')
     await expect(page.locator('.slide-card').first()).toBeVisible({ timeout: 10000 })
 
-    // Navigate to last slide
     for (let i = 0; i < 4; i++) {
       const navBtns = page.locator('.lesson-footer .nav-btn')
       const count = await navBtns.count()
@@ -73,15 +83,13 @@ test.describe('Lesson Flow', () => {
     await page.locator('text=Take the Quiz').click()
     await page.waitForTimeout(500)
 
+    // Answer all 3 (pick first option each time — some will be wrong)
     for (let q = 0; q < 3; q++) {
-      await expect(page.locator('.quiz-option').first()).toBeVisible({ timeout: 5000 })
-      await page.locator('.quiz-option').first().click()
-      await page.waitForTimeout(1500)
+      await answerQuizQuestion(page, 0)
     }
 
-    // Wait for navigation to result page after last answer
     await expect(page).toHaveURL(/\/result\/mission-1/, { timeout: 10000 })
-    const ctaBtn = page.locator('.result-cta-btn')
+    const ctaBtn = page.locator('.result-cta-btn').first()
     await expect(ctaBtn).toBeVisible({ timeout: 5000 })
     const ctaText = await ctaBtn.textContent()
     expect(ctaText.length).toBeGreaterThan(0)

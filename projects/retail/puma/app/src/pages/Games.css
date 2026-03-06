@@ -793,3 +793,320 @@
 .chart-dot-high { background: var(--alert-green, #3a7d44); }
 .chart-dot-mid { background: var(--progress-gold, #c9a435); }
 .chart-dot-low { background: var(--alert-red, #d94040); }
+
+/* -- Conversation UI (Approach Game redesign) -- */
+
+.convo {
+  padding: 16px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.convo-customer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 90%;
+}
+
+.convo-customer-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.customer-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(155, 125, 255, 0.12);
+  color: #9B7DFF;
+  border: 1px solid rgba(155, 125, 255, 0.2);
+}
+
+.convo-context {
+  font-size: 11px;
+  color: rgba(255,255,255,0.42);
+}
+
+.convo-bubble {
+  padding: 14px 16px;
+  border-radius: 16px 16px 16px 4px;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.convo-bubble-text {
+  font-size: 17px;
+  font-weight: 500;
+  color: #E8E8E8;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.convo-prompt {
+  align-self: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-top: 6px;
+}
+
+/* Reply options (right-aligned) */
+.convo-replies {
+  padding: 0 20px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.convo-reply {
+  width: 90%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #0F0F0F;
+  border: 1.5px solid rgba(255,255,255,0.06);
+  border-radius: 4px 16px 16px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.convo-reply:active { transform: scale(0.98); }
+
+.convo-reply .option-letter {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(155, 125, 255, 0.12);
+  color: #9B7DFF;
+  border: 1px solid rgba(155, 125, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.convo-reply .option-script {
+  font-size: 15px;
+  line-height: 1.4;
+  color: #E8E8E8;
+}
+
+/* Answered conversation flow */
+.answered-flow {
+  padding: 8px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sent-reply {
+  align-self: flex-end;
+  max-width: 85%;
+}
+
+.sent-reply-label {
+  text-align: right;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.sent-reply-label.correct-label { color: #4CAF50; }
+.sent-reply-label.wrong-label { color: #E8453C; }
+
+.sent-bubble {
+  padding: 14px 16px;
+  border-radius: 16px 16px 4px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #E8E8E8;
+}
+
+.sent-bubble.sent-correct {
+  background: rgba(58, 125, 68, 0.12);
+  border: 1.5px solid rgba(58, 125, 68, 0.35);
+}
+
+.sent-bubble.sent-wrong {
+  background: rgba(232, 69, 60, 0.08);
+  border: 1.5px solid rgba(232, 69, 60, 0.3);
+}
+
+/* Customer reaction */
+.customer-reaction {
+  align-self: flex-start;
+  max-width: 80%;
+}
+
+.reaction-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 4px;
+}
+
+.reaction-bubble {
+  padding: 12px 14px;
+  border-radius: 16px 16px 16px 4px;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.05);
+  font-size: 15px;
+  color: #E8E8E8;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+/* Verdict strip */
+.verdict-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+.verdict-strip.verdict-correct {
+  background: rgba(58, 125, 68, 0.1);
+  border: 1px solid rgba(58, 125, 68, 0.2);
+}
+
+.verdict-strip.verdict-wrong {
+  background: rgba(232, 69, 60, 0.08);
+  border: 1px solid rgba(232, 69, 60, 0.15);
+}
+
+.verdict-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.verdict-correct .verdict-icon {
+  background: #3A7D44;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(58, 125, 68, 0.4);
+}
+
+.verdict-wrong .verdict-icon {
+  background: #E8453C;
+  color: #fff;
+}
+
+.verdict-text {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.verdict-correct .verdict-text { color: #4CAF50; }
+.verdict-wrong .verdict-text { color: #F28B83; }
+
+/* Better answer reveal (on wrong) */
+.better-answer {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(58, 125, 68, 0.06);
+  border: 1px dashed rgba(58, 125, 68, 0.25);
+}
+
+.better-answer-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4CAF50;
+  margin-bottom: 6px;
+}
+
+.better-answer-text {
+  font-size: 15px;
+  color: #E8E8E8;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* Progressive disclosure toggle */
+.other-options-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.2);
+  cursor: pointer;
+  min-height: 44px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.other-options-toggle:active {
+  background: rgba(255,255,255,0.04);
+}
+
+/* Coach note */
+.coach-note {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #0F0F0F;
+  border: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+}
+
+.coach-note::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 2px;
+}
+
+.coach-note.note-good::before { background: #3A7D44; }
+.coach-note.note-bad::before { background: #E8453C; }
+
+.coach-note-header {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #D4A843;
+  margin-bottom: 6px;
+  padding-left: 10px;
+}
+
+.coach-note-text {
+  font-size: 14px;
+  color: #E8E8E8;
+  line-height: 1.5;
+  padding-left: 10px;
+}
+
+/* Sticky CTA */
+.sticky-cta {
+  position: sticky;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 10;
+}

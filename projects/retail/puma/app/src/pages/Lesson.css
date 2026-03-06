@@ -1212,3 +1212,23 @@
 .quiz-next-btn:active {
   transform: scale(0.98);
 }
+
+.quiz-correct-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  background: rgba(76, 175, 80, 0.08);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  border-radius: 10px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--alert-green, #4ADE80);
+  line-height: 1.4;
+}
+
+.quiz-correct-hint i {
+  font-size: 16px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}

@@ -31,6 +31,6 @@ test.describe('Game Onboard Screens (B14)', () => {
 
     // Should now be in play mode — onboard gone, scenario visible
     await expect(page.locator('.game-onboard-card')).not.toBeVisible()
-    await expect(page.locator('.approach-scenario-card')).toBeVisible({ timeout: 5000 })
+    await expect(page.locator('.convo-replies')).toBeVisible({ timeout: 5000 })
   })
 })

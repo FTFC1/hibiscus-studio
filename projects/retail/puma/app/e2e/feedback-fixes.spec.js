@@ -8,9 +8,8 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Fix 4: Lesson completion flow (no dead-end practice screen)', () => {
   test('Lesson ends with completion screen, not phantom Start Session', async ({ page }) => {
-    // Navigate to first lesson
-    const heroCard = page.locator('.hero-card').first()
-    await heroCard.click()
+    // Navigate to first lesson via hero CTA
+    await page.click('.hero-cta')
     await expect(page.locator('.lesson-top-bar')).toBeVisible({ timeout: 5000 })
 
     // Swipe through all content slides to reach completion
@@ -62,10 +61,18 @@ test.describe('Fix 1: Quiz options are shuffled (not always option A)', () => {
     const gameCard = page.locator('.game-card-active').first()
     await expect(gameCard).toBeVisible({ timeout: 5000 })
     await gameCard.click()
+
+    // Handle onboard screen (B14) — click through to play
+    const onboardCta = page.locator('.game-onboard-cta')
+    if (await onboardCta.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await onboardCta.click()
+      await page.waitForTimeout(500)
+    }
+
     await expect(page.locator('text=Back to Games')).toBeVisible({ timeout: 5000 })
 
     // Verify options are rendered with different letters
-    const options = page.locator('.approach-option')
+    const options = page.locator('.convo-reply')
     await expect(options.first()).toBeVisible({ timeout: 5000 })
     const count = await options.count()
     expect(count).toBeGreaterThanOrEqual(3)
@@ -73,17 +80,17 @@ test.describe('Fix 1: Quiz options are shuffled (not always option A)', () => {
     // Each option should have a letter badge (A, B, C, D)
     const letters = []
     for (let i = 0; i < count; i++) {
-      const letter = await options.nth(i).locator('.approach-option-letter').textContent()
+      const letter = await options.nth(i).locator('.option-letter').textContent()
       letters.push(letter)
     }
     expect(letters).toEqual(['A', 'B', 'C', 'D'].slice(0, count))
 
-    // Pick an option and verify it registers (not always same index correct)
+    // Pick an option and verify it registers
     await options.first().click()
-    await page.waitForTimeout(300)
-    // After picking, one option should be marked correct or wrong
-    const markedOptions = page.locator('.approach-option.correct, .approach-option.wrong')
-    await expect(markedOptions.first()).toBeVisible({ timeout: 3000 })
+    await page.waitForTimeout(500)
+    // After picking, feedback flow shows (sent-reply with correct/wrong label)
+    const feedback = page.locator('.sent-reply-label')
+    await expect(feedback).toBeVisible({ timeout: 3000 })
   })
 })
 

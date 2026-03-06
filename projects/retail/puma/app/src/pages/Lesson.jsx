@@ -400,6 +400,14 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
           })}
         </div>
 
+        {/* Show correct answer hint when wrong */}
+        {revealed && selected !== question.correct && (
+          <div className="quiz-correct-hint">
+            <i className="ri-lightbulb-line"></i>
+            <span>Correct answer: <strong>{question.options[question.correct]}</strong></span>
+          </div>
+        )}
+
         {waitingForNext && (
           <button className="quiz-next-btn" onClick={advanceQuiz}>
             {qIndex < total - 1 ? 'Next Question' : 'See Results'} <span>&rarr;</span>

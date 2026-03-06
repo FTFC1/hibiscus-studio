@@ -36,9 +36,18 @@ test.describe('Navigation', () => {
       await page.waitForTimeout(500)
 
       for (let q = 0; q < 3; q++) {
-        await expect(page.locator('.quiz-option').first()).toBeVisible({ timeout: 5000 })
-        await page.locator('.quiz-option').first().click()
-        await page.waitForTimeout(1200)
+        const opts = page.locator('.quiz-option:not([disabled])')
+        await expect(opts.first()).toBeVisible({ timeout: 5000 })
+        await opts.first().click()
+        await page.waitForTimeout(500)
+        // If wrong, click "Next" button
+        const nextBtn = page.locator('.quiz-next-btn')
+        if (await nextBtn.isVisible({ timeout: 1500 }).catch(() => false)) {
+          await nextBtn.click()
+          await page.waitForTimeout(500)
+        } else {
+          await page.waitForTimeout(600)
+        }
       }
 
       await expect(page).toHaveURL(/\/result\//)
