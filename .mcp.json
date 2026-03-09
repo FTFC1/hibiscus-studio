@@ -3,6 +3,14 @@
     "craft": {
       "command": "npx",
       "args": ["-y", "craft-mcp-cli"]
+    },
+    "trello": {
+      "command": "node",
+      "args": ["supporting-systems/trello-mcp-server/dist/index.js"],
+      "env": {
+        "TRELLO_API_KEY": "2a58f6d2eaae8bb0ba474b913ddb8386",
+        "TRELLO_TOKEN": "ATTA4b8eadb9b0a9a540826e3a47575e47e8159af3ccef4bd0053efdbabfd0d895403455C2B4"
+      }
     }
   }
 }

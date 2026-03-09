@@ -1,5 +1,65 @@
 # Claude Code Preferences
 
+## Core Principles (MANDATORY)
+
+### Code First, Not Analysis First
+When I ask you to build something, write actual code immediately. Do NOT produce analysis tables, architecture diagrams, scoring matrices, or /recursive evaluations unless I explicitly ask for them. Default to shipping, not planning.
+
+### Surface Results Inline
+When creating artifacts, documents, or analysis outputs, ALWAYS present key results directly in the conversation for my review. Do not silently write files I haven't seen — if I can't review it inline, the work is wasted.
+
+---
+
+## Known Limitations (MANDATORY)
+
+### Image Size Check
+When reading files or directories that contain images, ALWAYS check image dimensions first. If any image exceeds 2000px, resize or skip it. Never attempt to send oversized images to the API — this has blocked entire sessions repeatedly.
+
+### Check Today's Work First
+When looking for recently-created files, scripts, or tokens, check TODAY's work first (recent git commits, recently modified files) before grep-hunting through old directories. Prefer `git log --oneline -20` and `find . -mtime 0` over recursive grep.
+
+---
+
+## Session Continuity (MANDATORY)
+
+### Post-Compaction Recovery
+After compaction or context loss, read .claude/pickup.md and the HUD file FIRST before doing anything else. Never rely on stale pre-compaction memory. The current session state lives in these files, not in your context window.
+
+---
+
+## Business Context (MANDATORY)
+
+### Nigerian Cultural Awareness
+This is a Nigerian business context. When doing sales outreach, prospecting, or communication drafts, apply Nigerian cultural awareness by default — relationship-first selling, appropriate honorifics, local business norms. Don't treat outreach as generic copy tasks.
+
+---
+
+## Build Rules (MANDATORY)
+
+### No Dead Ends
+**Rule:** Every user-facing message must include an actionable next step. No terminal messages.
+
+**What this means:** When building any handler, flow, or UI that can fail to find/match/resolve something, the failure branch MUST route the user forward — not just report the failure.
+
+**Pre-ship check:** Before deploying any build, grep for patterns like:
+- `"Couldn't find"` / `"No results"` / `"not found"` / `"No one matching"`
+- Any `else` branch in a lookup/match handler
+- Any empty-state message
+
+For each one, ask: **what does the user DO next?** If the answer is "re-type their request differently" or "figure it out themselves" — that's a dead end. Fix it.
+
+**Examples:**
+- Person not found in pipeline → offer to add as new lead (don't say "try again")
+- Search returns nothing → suggest similar matches, or offer to add
+- Action fails → explain what happened AND what to do next
+- Intent misclassified → fallback handler routes to most likely action
+
+**Why this exists:** Gemini classified "new lead Dayo in Lekki" as `note` instead of `add`. The note handler searched for Dayo, didn't find him, and dead-ended with "Couldn't find Dayo." User was stranded. The LLM will misclassify — every handler must be resilient to receiving the wrong intent.
+
+**Codified:** Feb 23, 2026. Origin: Mikano Pipeline Bot voice note dead-end bug.
+
+---
+
 ## PROPOSED IMPROVEMENTS (2026-01-31)
 
 *Review these suggestions before they're integrated into the doc*
