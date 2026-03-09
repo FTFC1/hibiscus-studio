@@ -3269,27 +3269,42 @@
             document.getElementById('viewingSummaryDate').textContent = dateStr;
             document.getElementById('viewingSummaryName').textContent = document.getElementById('viewingInputName').value;
 
-            // Submit viewing data to backend
+            // Submit viewing data to backend — uses /api/bookings (same as paid flow)
             var viewingData = {
-                type: 'viewing',
-                date: selectedDateObj.date,
                 name: document.getElementById('viewingInputName').value,
                 email: document.getElementById('viewingInputEmail').value,
-                phone: document.getElementById('viewingInputPhone').value
+                phone: document.getElementById('viewingInputPhone').value,
+                date: selectedDate,
+                eventType: 'viewing',
+                startTime: selectedTimeStart,
+                endTime: selectedTimeEnd,
+                duration: 0.33,
+                guestCount: 1,
+                notes: ''
             };
-            fetch('https://hb-booking.nicholasfcoker.workers.dev/api/viewing', {
+            fetch('https://hb-booking.nicholasfcoker.workers.dev/api/bookings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(viewingData)
-            }).catch(function() { /* fail silently — confirmation still shows */ });
+            }).then(function(response) {
+                if (!response.ok) {
+                    return response.json().then(function(data) {
+                        throw new Error(data.error || 'Booking failed');
+                    });
+                }
+                return response.json();
+            }).then(function(data) {
+                // Track
+                track('viewing_complete');
 
-            // Track
-            track('viewing_complete');
-
-            // Show confirmation
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            document.getElementById('stepViewingConfirm').classList.add('active');
-            document.getElementById('progressBar').style.display = 'none';
+                // Show confirmation
+                document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+                document.getElementById('stepViewingConfirm').classList.add('active');
+                document.getElementById('progressBar').style.display = 'none';
+            }).catch(function(err) {
+                // Show error inline — do NOT advance to fake confirmation
+                alert('Could not book your viewing: ' + err.message + '. Please try again or contact us on Instagram @hibiscusstudiosuk');
+            });
         }
 
         // ===== DURATION PICKER FUNCTIONS =====
