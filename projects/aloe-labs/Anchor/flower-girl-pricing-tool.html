@@ -176,39 +176,7 @@ html, body {
                 box-shadow: 0 4px 14px rgba(196,122,142,.35); }
 .btn-ghost    { background: none; color: var(--rose); padding: 12px; font-size: 14px; }
 
-/* ─────────────────────────────────────────────
-   HOME — MODE CARDS
-───────────────────────────────────────────── */
-.mode-card {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--white); border: 1px solid var(--linen);
-  border-radius: var(--radius); padding: 18px 16px; margin-bottom: 10px;
-  cursor: pointer; box-shadow: var(--shadow-sm);
-  transition: transform .15s;
-}
-.mode-card:active { transform: scale(.98); }
-.mode-card.locked { opacity: .55; cursor: default; }
-.mode-icon {
-  width: 50px; height: 50px; border-radius: 14px;
-  background: var(--blush); display: flex; align-items: center;
-  justify-content: center; font-size: 24px; flex-shrink: 0;
-}
-.mode-icon.sage { background: var(--sage-lt); }
-.mode-icon.gold { background: var(--gold-lt); }
-.mode-info { flex: 1; }
-.mode-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 3px; }
-.mode-info p  { font-size: 12px; color: var(--muted); }
-.mode-arrow { color: var(--rose); font-size: 20px; }
-.coming-soon-badge {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.5px;
-  color: var(--muted); background: var(--linen);
-  padding: 4px 10px; border-radius: 20px; white-space: nowrap;
-}
-.badge-soon {
-  font-size: 9px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--gold);
-  background: var(--gold-lt); padding: 3px 8px; border-radius: 20px;
-}
+/* (mode cards removed — single-mode app) */
 .badge-free {
   font-size: 9px; font-weight: 700; letter-spacing: 1px;
   text-transform: uppercase; color: var(--sage);
@@ -278,7 +246,16 @@ html, body {
   width: 30px; height: 30px; border-radius: 8px;
   background: var(--blush); display: flex; align-items: center;
   justify-content: center; font-size: 18px; color: var(--rose);
+  flex-shrink: 0;
 }
+.add-row-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px; border-radius: var(--radius-sm);
+  background: var(--blush); color: var(--rose-dk); border: 1.5px dashed var(--blush-dk);
+  font-size: 14px; font-weight: 600; font-family: var(--font-body);
+  cursor: pointer; touch-action: manipulation; margin-top: 8px;
+}
+.add-row-btn:active { background: var(--blush-dk); }
 
 /* ─────────────────────────────────────────────
    CALC — CAKE SIZE
@@ -924,7 +901,7 @@ html, body {
 /* ─────────────────────────────────────────────
    WIZARD — PROGRESS DOTS
 ───────────────────────────────────────────── */
-.wiz-progress { display: flex; gap: 4px; padding: 14px 16px 6px; }
+.wiz-progress { display: flex; gap: 4px; padding: 14px 16px 6px; position: sticky; top: 0; z-index: 10; background: var(--cream); }
 .wiz-bar {
   flex: 1; height: 4px; border-radius: 2px;
   background: var(--linen); transition: background .3s;
@@ -1019,16 +996,18 @@ html, body {
   display: flex; align-items: center; gap: 10px;
 }
 .stepper-btn {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   background: var(--blush); border: none; font-size: 18px;
   color: var(--rose); cursor: pointer; display: flex;
   align-items: center; justify-content: center;
   font-family: var(--font-body);
+  touch-action: manipulation;
 }
 .stepper-btn:active { background: var(--blush-dk); }
 .stepper-val {
   font-size: 18px; font-weight: 600; min-width: 50px;
   text-align: center; color: var(--charcoal);
+  touch-action: manipulation;
 }
 .stepper-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
@@ -1049,7 +1028,7 @@ html, body {
 .extra-btn {
   width: 44px; height: 44px; border-radius: 50%; border: none;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all .15s;
+  cursor: pointer; transition: all .15s; touch-action: manipulation;
 }
 .extra-btn-minus { background: var(--blush); color: var(--rose-dk); }
 .extra-btn-minus:active { background: var(--blush-dk); }
@@ -1103,7 +1082,7 @@ html, body {
 .wiz-footer-btns .btn-back { flex: 0 0 auto; width: auto; min-width: 90px; }
 #screen-wiz-1 .screen-body,
 #screen-wiz-2 .screen-body,
-#screen-wiz-3 .screen-body { padding-bottom: 16px; }
+#screen-wiz-3 .screen-body { padding-bottom: calc(80px + var(--safe-b)); }
 
 
 /* ─────────────────────────────────────────────
@@ -1500,7 +1479,7 @@ html, body {
   <button id="license-submit-btn" class="btn btn-upgrade" onclick="validateLicense()">Unlock Tool →</button>
   <div class="divider-or">or</div>
   <button class="coach-btn" onclick="window.open(CFG.upgradeLink,'_blank')">
-    Buy the Flour Girl Tool — <span id="license-price">£37</span>
+    Buy the Flour Girl Tool — <span id="license-price">£27</span>
   </button>
 </div>
 </div>
@@ -1561,7 +1540,7 @@ html, body {
         <div class="checklist-row" onclick="showOverheadsSheet()">
           <span class="checklist-status" id="chk-overheads"></span>
           <div class="checklist-info">
-            <span class="checklist-label">Overheads</span>
+            <span class="checklist-label">Business Costs</span>
           </div>
           <span class="checklist-value" id="chk-overheads-val"></span>
           <span class="checklist-chevron">›</span>
@@ -1668,8 +1647,8 @@ html, body {
       </div>
     </div>
 
-    <!-- Overheads -->
-    <div class="section-label">Overheads</div>
+    <!-- Business Costs -->
+    <div class="section-label">Business Costs</div>
     <div class="card card-pad" id="overheads-card">
       <div style="font-size:12px;color:var(--muted);margin-bottom:10px">
         How much of each running cost goes into this cake? Tap any row to set a % or flat amount.
@@ -1677,7 +1656,7 @@ html, body {
       <div id="overhead-lines"></div>
       <div class="add-row" onclick="openAddOhSheet()" style="padding-top:10px">
         <div class="add-icon">+</div>
-        <span>Add overhead</span>
+        <span>Add business cost</span>
       </div>
     </div>
 
@@ -1871,10 +1850,7 @@ html, body {
     <div id="wiz2-ing-list"></div>
 
     <!-- Add custom ingredient -->
-    <div class="add-row" onclick="openAddIngSheet()" style="padding-top:10px">
-      <div class="add-icon">+</div>
-      <span>Add custom ingredient</span>
-    </div>
+    <button class="add-row-btn" onclick="openAddIngSheet()">+ Add ingredient</button>
 
     <div class="scroll-end"></div>
   </div>
@@ -1920,7 +1896,7 @@ html, body {
         <span style="font-size:14px;font-weight:500">Hours</span>
         <div class="stepper">
           <button class="stepper-btn" onclick="wizAdjustHours(-0.5)">-</button>
-          <div class="stepper-val" id="wiz3-hours" onclick="openNumpad('Hours worked',state.recipe.hours,v=>{state.recipe.hours=v;saveState();document.getElementById('wiz3-hours').textContent=v;})">3</div>
+          <div class="stepper-val" id="wiz3-hours" onclick="openNumpad('Hours worked',state.recipe.hours,v=>{state.recipe.hours=v;saveState();document.getElementById('wiz3-hours').textContent=v;updateWiz3LabourPreview();})">3</div>
           <button class="stepper-btn" onclick="wizAdjustHours(0.5)">+</button>
         </div>
       </div>
@@ -1928,11 +1904,12 @@ html, body {
         <span style="font-size:14px;font-weight:500">Hourly rate</span>
         <div class="stepper">
           <button class="stepper-btn" onclick="wizAdjustRate(-1)">-</button>
-          <div class="stepper-val" id="wiz3-rate" onclick="openNumpad('Hourly rate ('+sym()+')',state.recipe.hourlyRate,v=>{state.recipe.hourlyRate=v;saveState();document.getElementById('wiz3-rate').textContent=sym()+v;})">${sym()}15</div>
+          <div class="stepper-val" id="wiz3-rate" onclick="openNumpad('Hourly rate ('+sym()+')',state.recipe.hourlyRate,v=>{state.recipe.hourlyRate=v;saveState();document.getElementById('wiz3-rate').textContent=sym()+v;updateWiz3LabourPreview();})">${sym()}15</div>
           <button class="stepper-btn" onclick="wizAdjustRate(1)">+</button>
         </div>
       </div>
       <div style="font-size:12px;color:var(--muted);text-align:center" id="wiz3-labour-preview">= ${sym()}45 labour cost</div>
+      <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-style:italic">Include prep, baking, decorating, and cleanup time</div>
     </div>
 
     <!-- Packaging -->
@@ -1971,12 +1948,12 @@ html, body {
       <div class="extra-chips" id="wiz3-del-chips"></div>
     </div>
 
-    <!-- Overheads -->
-    <div class="section-label">Overheads</div>
+    <!-- Business Costs -->
+    <div class="section-label">Business Costs</div>
     <div id="wiz3-oh-list"></div>
     <div class="add-row" onclick="openAddOhSheet()" style="padding-top:10px">
       <div class="add-icon">+</div>
-      <span>Add custom overhead</span>
+      <span>Add custom business cost</span>
     </div>
 
     <div class="scroll-end"></div>
@@ -2197,7 +2174,7 @@ html, body {
     <div class="sheet-handle"></div>
     <button class="sheet-x sheet-x-float" onclick="closeOverlay('overlay-add-oh')">×</button>
     <div class="edit-sheet-body">
-      <div class="edit-ing-name">Add Overhead</div>
+      <div class="edit-ing-name">Add Business Cost</div>
       <div class="edit-ing-sub">Set your monthly running costs — they'll be allocated across your recipes</div>
       <span class="f-label">Name</span>
       <input class="txt-input" id="new-oh-name" placeholder="e.g. Rent, Electricity, Mixer">
@@ -2217,7 +2194,7 @@ html, body {
       </div>
       <div class="edit-btns">
         <button class="btn btn-secondary" onclick="closeOverlay('overlay-add-oh')">Cancel</button>
-        <button class="btn btn-primary" onclick="saveNewOverhead()">Add overhead</button>
+        <button class="btn btn-primary" onclick="saveNewOverhead()">Add business cost</button>
       </div>
     </div>
   </div>
@@ -2313,7 +2290,7 @@ html, body {
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <span class="sheet-title">Overheads</span>
+      <span class="sheet-title">Business Costs</span>
       <button class="sheet-x" onclick="closeOverlay('overlay-overheads')">×</button>
     </div>
     <div style="padding:16px">
@@ -2372,9 +2349,9 @@ const CFG = {
   coachCTA: '📸 DM Rochelle on Instagram',
   workshopLink: '#',
   upgradeLink: 'https://flourgirl.lemonsqueezy.com/checkout/buy/4a86208b-e1d8-4da1-b9a7-00cfde978ff9',
-  upgradePrice: 37,
-  upgradePrices: {GBP:'£37', USD:'$47', EUR:'€43', CAD:'C$65', ZAR:'R860', NGN:'₦55,000'},
-  upgradePricesStrike: {GBP:'£47', USD:'$57', EUR:'€53', CAD:'C$79', ZAR:'R1,050', NGN:'₦65,000'},
+  upgradePrice: 27,
+  upgradePrices: {GBP:'£27', USD:'$35', EUR:'€32', CAD:'C$48', ZAR:'R630', NGN:'₦40,000'},
+  upgradePricesStrike: {GBP:'£37', USD:'$47', EUR:'€43', CAD:'C$65', ZAR:'R860', NGN:'₦55,000'},
 };
 
 /* ─────────────────────────────────────────────
@@ -2942,7 +2919,7 @@ function setCurrency(code, el) {
   document.querySelectorAll('.currency-opt').forEach(e => e.classList.remove('active'));
   el.classList.add('active');
   // Update paywall/license prices for selected currency
-  const priceStr = CFG.upgradePrices[code] || '£37';
+  const priceStr = CFG.upgradePrices[code] || '£27';
   const pp = document.getElementById('paywall-price');
   const lp = document.getElementById('license-price');
   if (pp) pp.textContent = priceStr;
@@ -3180,8 +3157,8 @@ function renderPaywall() {
   const el = document.getElementById('paywall-content');
   if (!el) return;
   const s = sym();
-  const priceStr = CFG.upgradePrices[state.currency] || '£37';
-  const strikeStr = CFG.upgradePricesStrike[state.currency] || '£47';
+  const priceStr = CFG.upgradePrices[state.currency] || '£27';
+  const strikeStr = CFG.upgradePricesStrike[state.currency] || '£37';
 
   // Cupcake icons: 36 rose (lost) + 12 dim
   const cakes = Array(36).fill('<div class="fg-loss-cake fg-loss-cake-lost">🧁</div>').join('')
@@ -3215,7 +3192,7 @@ function renderPaywall() {
         </div>
         <div class="fg-missing-icon-item">
           <span class="fg-missing-icon-emoji">🏠</span>
-          <div><div class="fg-missing-icon-text">Overheads</div><div class="fg-missing-icon-zero">Not priced</div></div>
+          <div><div class="fg-missing-icon-text">Business Costs</div><div class="fg-missing-icon-zero">Not priced</div></div>
         </div>
         <div class="fg-missing-icon-item">
           <span class="fg-missing-icon-emoji">🔧</span>
@@ -4944,7 +4921,7 @@ function showResults() {
           <span class="breakdown-val">${fmt(r.ingredients)}</span>
         </div>
         <div class="breakdown-row tappable" onclick="resultEditStep(3)">
-          <span class="breakdown-lbl">Overheads<span class="tap-hint">edit</span></span>
+          <span class="breakdown-lbl">Business Costs<span class="tap-hint">edit</span></span>
           <span class="breakdown-val">${fmt(r.overheads)}</span>
         </div>
         <div class="breakdown-row tappable" onclick="resultEditStep(3)">
@@ -4964,7 +4941,7 @@ function showResults() {
           <span class="breakdown-val" id="dv-profit" style="color:var(--rose-dk)">${fmt(profit)}</span>
         </div>
         <div class="breakdown-row" style="border-bottom:none;background:var(--sage-lt);margin:0 -16px;padding:12px 16px;border-radius:0 0 var(--radius) var(--radius)">
-          <span class="breakdown-lbl" style="font-weight:700;font-size:15px">Sell price</span>
+          <span class="breakdown-lbl" style="font-weight:700;font-size:15px">Suggested Selling Price</span>
           <span class="breakdown-val" id="dv-sell" style="font-size:18px;font-weight:700;color:var(--sage)">${fmtRound(atTarget)}</span>
         </div>
       </div>
@@ -5316,12 +5293,23 @@ function numpadDone() {
 /* ─────────────────────────────────────────────
    OVERLAY HELPERS
 ───────────────────────────────────────────── */
+let _savedScrollY = 0;
 function openOverlay(id) {
+  // position:fixed approach — proven by body-scroll-lock (4.1k★)
+  // overflow:hidden alone fails on iOS Safari (touch still scrolls)
+  _savedScrollY = window.pageYOffset;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${_savedScrollY}px`;
+  document.body.style.width = '100%';
   document.getElementById(id).classList.add('active');
 }
 
 function closeOverlay(id) {
   document.getElementById(id).classList.remove('active');
+  document.body.style.removeProperty('position');
+  document.body.style.removeProperty('top');
+  document.body.style.removeProperty('width');
+  window.scrollTo(0, _savedScrollY);
 }
 
 function onOverlayClick(e, id) {
