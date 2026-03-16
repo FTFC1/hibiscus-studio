@@ -70,6 +70,7 @@ function StaffGames({ profile, userId, navigate }) {
   const [activeGame, setActiveGame] = useState(searchParams.get('play') || null)
   const [bestScores, setBestScores] = useState({})
   const [currentMission, setCurrentMission] = useState(null)
+  const [hasLessonCompletion, setHasLessonCompletion] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [showToast, setShowToast] = useState(false)
@@ -84,10 +85,12 @@ function StaffGames({ profile, userId, navigate }) {
     setLoading(true)
     setError(null)
     try {
-      const [{ data: scores, error: scErr }, { data: dash, error: dErr }] = await Promise.all([
+      const [{ data: scores, error: scErr }, { data: dash, error: dErr }, { data: lessonRows, error: lErr }] = await Promise.all([
         supabase.from('completions').select('mission_id, score').eq('user_id', userId)
           .in('mission_id', ['game-approach', 'game-basket']).order('score', { ascending: false }),
-        supabase.from('manager_dashboard').select('missions_completed').eq('id', userId).single(),
+        supabase.from('manager_dashboard').select('missions_completed').eq('user_id', userId).maybeSingle(),
+        supabase.from('completions').select('mission_id').eq('user_id', userId)
+          .like('mission_id', 'mission-%').limit(1),
       ])
       if (scErr) throw scErr
       if (scores) {
@@ -97,9 +100,16 @@ function StaffGames({ profile, userId, navigate }) {
         })
         setBestScores(best)
       }
+      // Track whether user has completed at least one lesson quiz
+      if (lessonRows && lessonRows.length > 0) {
+        setHasLessonCompletion(true)
+      }
       if (dash) {
         const mc = dash.missions_completed || 0
         if (mc < missionList.length) setCurrentMission(missionList[mc])
+      } else if (lessonRows && lessonRows.length > 0) {
+        // Dashboard view unavailable but user has lesson completions — show first mission as fallback
+        setCurrentMission(missionList[0])
       }
     } catch (err) {
       setError(err?.message || 'Failed to load games')
@@ -168,7 +178,7 @@ function StaffGames({ profile, userId, navigate }) {
   }
 
   // -- Empty State (no missions completed yet) --
-  if (!currentMission && Object.keys(bestScores).length === 0) {
+  if (!currentMission && Object.keys(bestScores).length === 0 && !hasLessonCompletion) {
     return (
       <>
         <Header title="Games" initials={initials} />

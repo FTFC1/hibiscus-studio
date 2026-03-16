@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect, Fragment } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { missions } from '../data/missions'
 import { supabase } from '../lib/supabase'
 import { useUser } from '../context/UserContext'
@@ -136,6 +136,11 @@ function SlideToolkit({ slide, onOpenRef }) {
             key={i}
             className={`opener-card ${favorites.has(i) ? 'selected' : ''}`}
             onClick={() => toggleFavorite(i)}
+            role="button"
+            tabIndex={0}
+            aria-pressed={favorites.has(i)}
+            aria-label={`${typeof item === 'string' ? item : item.text || item} — ${favorites.has(i) ? 'selected' : 'tap to select'}`}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFavorite(i) } }}
           >
             <div className="opener-emoji">{emoji}</div>
             <div className="opener-text">{text}</div>
@@ -291,8 +296,8 @@ function SlideComplete({ mission, hasQuiz, onStartQuiz, onHome }) {
 
 function QuickRefOverlay({ isOpen, onClose, items }) {
   return (
-    <div className={`qr-overlay ${isOpen ? 'qr-overlay-open' : ''}`}>
-      <div className="qr-backdrop" onClick={onClose}></div>
+    <div className={`qr-overlay ${isOpen ? 'qr-overlay-open' : ''}`} role="dialog" aria-label="Quick Reference" aria-modal="true">
+      <div className="qr-backdrop" onClick={onClose} aria-label="Close reference overlay" role="button" tabIndex={isOpen ? 0 : -1}></div>
       <div className={`qr-sheet ${isOpen ? 'qr-sheet-open' : ''}`}>
         <div className="qr-sheet-header">
           <h3 className="qr-sheet-title">Quick Reference</h3>
@@ -322,7 +327,7 @@ function QuickRefOverlay({ isOpen, onClose, items }) {
   )
 }
 
-function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
+function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
   const navigate = useNavigate()
   const [qIndex, setQIndex] = useState(0)
   const [answers, setAnswers] = useState([])
@@ -347,22 +352,45 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
       const elapsed = Math.round((Date.now() - startTime.current) / 1000)
       const wrongAnswers = newAnswers.filter(a => !a.correct)
 
-      if (userId) {
+      const passed = score >= 67
+      if (userId && passed) {
         try {
-          const { error } = await supabase.from('completions').insert({
-            user_id: userId,
-            mission_id: missionId,
-            score,
-            time_spent: elapsed
-          })
-          if (error) console.error('Completion save failed:', error)
+          // Upsert: update existing row if retaking, keep highest score
+          const { data: existing } = await supabase
+            .from('completions')
+            .select('id, score')
+            .eq('user_id', userId)
+            .eq('mission_id', missionId)
+            .order('score', { ascending: false })
+            .limit(1)
+            .single()
+
+          if (existing && score <= existing.score) {
+            // Already have a better or equal score — skip write
+          } else if (existing) {
+            // Update existing row with better score
+            const { error } = await supabase
+              .from('completions')
+              .update({ score, time_spent: elapsed })
+              .eq('id', existing.id)
+            if (error) console.error('Completion update failed:', error)
+          } else {
+            // First completion — insert
+            const { error } = await supabase.from('completions').insert({
+              user_id: userId,
+              mission_id: missionId,
+              score,
+              time_spent: elapsed
+            })
+            if (error) console.error('Completion save failed:', error)
+          }
         } catch (err) {
           console.error('Completion save failed:', err)
         }
       }
 
       sessionStorage.setItem(`puma_score_${missionId}`, JSON.stringify({ score, wrongAnswers }))
-      navigate(`/result/${missionId}`, { state: { score, wrongAnswers } })
+      navigate(`/result/${missionId}`, { state: { score, wrongAnswers, isReview } })
     }
   }
 
@@ -396,8 +424,8 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
   return (
     <div className="quiz-overlay">
       <header className="lesson-top-bar">
-        <button className="nav-btn back-btn" onClick={onBack}>
-          <i className="ri-arrow-left-line"></i>
+        <button className="nav-btn back-btn" onClick={onBack} aria-label="Go back to lesson">
+          <i className="ri-arrow-left-line" aria-hidden="true"></i>
         </button>
         <div className="progress-dots-inline">
           {quiz.map((_, i) => (
@@ -462,9 +490,11 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack }) {
 
 export default function Lesson() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { missionId } = useParams()
   const mission = missions[missionId]
   const { userId } = useUser()
+  const isReview = location.state?.isReview || false
 
   const [currentSlide, setCurrentSlide] = useState(0)
   const [quickRefOpen, setQuickRefOpen] = useState(false)
@@ -572,6 +602,7 @@ export default function Lesson() {
         userId={userId}
         startTime={startTime}
         onBack={() => setQuizMode(false)}
+        isReview={isReview}
       />
     )
   }
@@ -593,8 +624,8 @@ export default function Lesson() {
     >
       {/* Top Bar — just back button + progress dots */}
       <header className="lesson-top-bar">
-        <button className="nav-btn back-btn" onClick={(e) => { e.stopPropagation(); navigate('/') }}>
-          <i className="ri-arrow-left-line"></i>
+        <button className="nav-btn back-btn" onClick={(e) => { e.stopPropagation(); navigate(-1) }} aria-label="Go back">
+          <i className="ri-arrow-left-line" aria-hidden="true"></i>
         </button>
         <div className="progress-dots-inline">
           {Array.from({ length: totalSlidesWithComplete }).map((_, i) => (
@@ -607,8 +638,9 @@ export default function Lesson() {
         <button
           className="nav-btn qr-btn-top"
           onClick={(e) => { e.stopPropagation(); setQuickRefOpen(true) }}
+          aria-label="Open quick reference"
         >
-          <i className="ri-bookmark-3-line"></i>
+          <i className="ri-bookmark-3-line" aria-hidden="true"></i>
           <span>Reference</span>
         </button>
       </header>
@@ -654,11 +686,12 @@ export default function Lesson() {
               className={`nav-pill nav-pill-back ${currentSlide === 0 ? 'nav-pill-disabled' : ''}`}
               onClick={goPrev}
               disabled={currentSlide === 0}
+              aria-label="Previous slide"
             >
-              <i className="ri-arrow-left-s-line"></i> Back
+              <i className="ri-arrow-left-s-line" aria-hidden="true"></i> Back
             </button>
-            <button className="nav-pill nav-pill-next" onClick={goNext}>
-              Continue <i className="ri-arrow-right-s-line"></i>
+            <button className="nav-pill nav-pill-next" onClick={goNext} aria-label="Next slide">
+              Continue <i className="ri-arrow-right-s-line" aria-hidden="true"></i>
             </button>
           </div>
         </div>

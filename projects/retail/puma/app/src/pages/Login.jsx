@@ -47,6 +47,7 @@ export default function Login() {
             style={{ background: '#4CAF50', fontSize: '15px', padding: '16px' }}
             onClick={() => handleDemo('staff')}
             disabled={submitting}
+            aria-label="Enter as staff demo user"
           >
             {submitting ? 'Loading…' : 'Staff View'}
           </button>
@@ -55,6 +56,7 @@ export default function Login() {
             style={{ background: 'transparent', border: '1px solid #4CAF50', color: '#4CAF50', fontSize: '15px', padding: '16px' }}
             onClick={() => handleDemo('manager')}
             disabled={submitting}
+            aria-label="Enter as manager demo user"
           >
             {submitting ? 'Loading…' : 'Manager View'}
           </button>

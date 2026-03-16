@@ -12,7 +12,13 @@ export default function Header({ title, initials, brandSplit }) {
       ) : (
         <h1>{title}</h1>
       )}
-      <div className="avatar" onClick={() => navigate('/profile')} style={{ cursor: 'pointer' }}>{initials}</div>
+      <button
+        className="avatar"
+        onClick={() => navigate('/profile')}
+        aria-label="Go to profile"
+      >
+        {initials}
+      </button>
     </header>
   )
 }

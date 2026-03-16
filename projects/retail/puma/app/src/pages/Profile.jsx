@@ -23,23 +23,33 @@ export default function Profile() {
   }, [userId])
 
   async function loadStats() {
-    const { data } = await supabase
-      .from('completions')
-      .select('score, mission_id')
-      .eq('user_id', userId)
+    let data, practiceLogs
+    try {
+      const res = await supabase
+        .from('completions')
+        .select('score, mission_id')
+        .eq('user_id', userId)
+      data = res.data
+      if (res.error) console.error('Completions load failed:', res.error)
 
-    // Practice logs for streak/badge calculation
-    const { data: practiceLogs } = await supabase
-      .from('practice_logs')
-      .select('log_date')
-      .eq('user_id', userId)
-      .order('log_date', { ascending: false })
-      .limit(30)
+      // Practice logs for streak/badge calculation
+      const logsRes = await supabase
+        .from('practice_logs')
+        .select('date')
+        .eq('user_id', userId)
+        .order('date', { ascending: false })
+        .limit(30)
+      practiceLogs = logsRes.data
+      if (logsRes.error) console.error('Practice logs load failed:', logsRes.error)
+    } catch (err) {
+      console.error('Profile stats load failed:', err)
+      return
+    }
 
     let practiceDays = 0
     let streakDays = 0
     if (practiceLogs && practiceLogs.length > 0) {
-      const uniqueDays = [...new Set(practiceLogs.map(l => l.log_date))]
+      const uniqueDays = [...new Set(practiceLogs.map(l => l.date))]
       practiceDays = uniqueDays.length
       // Calculate current streak (consecutive days from today backwards)
       const today = new Date()
@@ -55,6 +65,9 @@ export default function Profile() {
     }
 
     if (data) {
+      // Count unique missions completed (not total rows — retakes inflate)
+      const uniqueMissions = new Set(data.filter(c => !c.mission_id?.startsWith('game-')).map(c => c.mission_id))
+      const completed = Math.min(uniqueMissions.size, 6)
       const avg = data.length > 0
         ? Math.round(data.reduce((s, c) => s + c.score, 0) / data.length)
         : 0
@@ -65,7 +78,7 @@ export default function Profile() {
           if (!gameScores[key] || c.score > gameScores[key]) gameScores[key] = c.score
         }
       })
-      setStats({ completed: data.length, avgScore: avg, gameScores, practiceDays, streakDays })
+      setStats({ completed, avgScore: avg, gameScores, practiceDays, streakDays })
     }
   }
 
@@ -138,9 +151,11 @@ export default function Profile() {
             </div>
             <span className="profile-perf-val">{stats.avgScore}%</span>
           </div>
-          {Object.entries(stats.gameScores).map(([game, score]) => (
+          {Object.entries(stats.gameScores).map(([game, score]) => {
+            const gameLabels = { approach: 'Approach', basket: 'Basket', 'spot-diff': 'Spot the Difference', 'price-defense': 'Price Defense' }
+            return (
             <div key={game} className="profile-perf-row">
-              <span className="profile-perf-label">{game === 'approach' ? 'Approach' : game === 'basket' ? 'Basket' : game}</span>
+              <span className="profile-perf-label">{gameLabels[game] || game.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>
               <div className="profile-perf-track">
                 <div
                   className={`profile-perf-fill ${score >= 80 ? 'perf-high' : score >= 50 ? 'perf-mid' : 'perf-low'}`}
@@ -149,7 +164,8 @@ export default function Profile() {
               </div>
               <span className="profile-perf-val">{score}%</span>
             </div>
-          ))}
+            )
+          })}
           {Object.keys(stats.gameScores).length === 0 && (
             <div className="profile-perf-empty">Play some games to see your scores here</div>
           )}
@@ -211,19 +227,19 @@ export default function Profile() {
         )}
 
         {/* Settings */}
-        <div className="profile-settings">
-          <div className="profile-settings-item">
-            <i className="ri-notification-3-line" />
+        <div className="profile-settings" role="list">
+          <button className="profile-settings-item" aria-label="Notifications">
+            <i className="ri-notification-3-line" aria-hidden="true" />
             <span>Notifications</span>
-          </div>
-          <div className="profile-settings-item">
-            <i className="ri-customer-service-2-line" />
+          </button>
+          <button className="profile-settings-item" aria-label="Support">
+            <i className="ri-customer-service-2-line" aria-hidden="true" />
             <span>Support</span>
-          </div>
-          <div className="profile-settings-item profile-settings-item-logout" onClick={signOut}>
-            <i className="ri-logout-box-r-line" />
+          </button>
+          <button className="profile-settings-item profile-settings-item-logout" onClick={signOut} aria-label="Log out">
+            <i className="ri-logout-box-r-line" aria-hidden="true" />
             <span>Log Out</span>
-          </div>
+          </button>
         </div>
 
       </div>

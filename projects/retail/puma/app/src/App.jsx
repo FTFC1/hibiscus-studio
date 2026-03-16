@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 import { UserProvider, useUser } from './context/UserContext'
+import useAutoUpdate from './hooks/useAutoUpdate'
 import Home from './pages/Home'
 import Lesson from './pages/Lesson'
 import Practice from './pages/Practice'
@@ -21,10 +23,38 @@ const navItems = [
   { icon: 'ri-user-3-line', label: 'Profile', path: '/profile' },
 ]
 
+function UpdateToast() {
+  return (
+    <div style={{
+      position: 'fixed', top: 16, left: '50%', transform: 'translateX(-50%)',
+      background: '#3A7D44', color: 'white', padding: '10px 20px',
+      borderRadius: 12, fontSize: 13, fontWeight: 600, zIndex: 9999,
+      boxShadow: '0 4px 20px rgba(0,0,0,0.4)', fontFamily: 'Inter, sans-serif',
+    }}>
+      Updating...
+    </div>
+  )
+}
+
 function AppInner() {
   const location = useLocation()
   const navigate = useNavigate()
   const { session, loading } = useUser()
+  const updateAvailable = useAutoUpdate()
+  const [wasLoggedOut, setWasLoggedOut] = useState(false)
+
+  // Track logout→login transitions to redirect to Home
+  useEffect(() => {
+    if (!session) {
+      setWasLoggedOut(true)
+    } else if (wasLoggedOut) {
+      setWasLoggedOut(false)
+      // After fresh login, always land on Home
+      if (location.pathname !== '/') {
+        navigate('/', { replace: true })
+      }
+    }
+  }, [session])
 
   // Dev-only review route — bypasses auth
   if (location.pathname === '/review') {
@@ -50,6 +80,7 @@ function AppInner() {
 
   return (
     <>
+      {updateAvailable && <UpdateToast />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/lesson/:missionId" element={<Lesson />} />

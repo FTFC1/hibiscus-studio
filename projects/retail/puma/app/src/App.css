@@ -28,8 +28,8 @@
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--cta-green-dim);
   border: 1.5px solid var(--cta-green-glow);
@@ -39,6 +39,9 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--accent-lime);
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
 }
 
 /* Progress Banner */

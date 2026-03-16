@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import { useUser } from '../context/UserContext'
 import { supabase } from '../lib/supabase'
+import { getDueMissions } from '../lib/spacedRepetition'
 import './Practice.css'
 
 // Course content — source of truth
@@ -129,6 +130,7 @@ export default function Practice() {
 // ── Staff View ───────────────────────────────────────────────
 function StaffPractice({ profile, navigate }) {
   const [missionsCompleted, setMissionsCompleted] = useState(null)
+  const [dueMissions, setDueMissions] = useState([])
   const [refOpen, setRefOpen] = useState(false)
 
   useEffect(() => {
@@ -139,6 +141,15 @@ function StaffPractice({ profile, navigate }) {
       .eq('user_id', profile.id)
       .single()
       .then(({ data }) => setMissionsCompleted(data?.missions_completed ?? 0))
+
+    // Fetch completions for spaced repetition
+    supabase
+      .from('completions')
+      .select('mission_id, score, completed_at')
+      .eq('user_id', profile.id)
+      .then(({ data }) => {
+        if (data) setDueMissions(getDueMissions(data))
+      })
   }, [profile?.id])
 
   if (missionsCompleted === null) return (
@@ -159,18 +170,34 @@ function StaffPractice({ profile, navigate }) {
       <div className="practice-page">
 
         {certDone ? (
-          <div className="prac-certified">
-            <div className="prac-certified-icon">🎉</div>
-            <div className="prac-certified-text">All 6 missions complete. Certified.</div>
-            <div className="prac-certified-actions">
-              <button className="prac-cert-btn prac-cert-btn-primary" onClick={() => navigate('/')}>
-                Check today's missions
-              </button>
-              <button className="prac-cert-btn prac-cert-btn-secondary" onClick={() => navigate('/games?play=approach')}>
-                Play Approach Game
+          dueMissions.length > 0 ? (
+            <div className="prac-review-card">
+              <i className="ri-time-line prac-review-icon"></i>
+              <div className="prac-review-title">
+                {dueMissions.length} review{dueMissions.length > 1 ? 's' : ''} due
+              </div>
+              <div className="prac-review-sub">Keep your skills sharp with a quick review</div>
+              <button
+                className="prac-cert-btn prac-cert-btn-primary"
+                onClick={() => navigate(`/lesson/${dueMissions[0].missionId}`, { state: { isReview: true } })}
+              >
+                Start Review
               </button>
             </div>
-          </div>
+          ) : (
+            <div className="prac-certified">
+              <div className="prac-certified-icon">🎉</div>
+              <div className="prac-certified-text">All 6 missions complete. Certified.</div>
+              <div className="prac-certified-actions">
+                <button className="prac-cert-btn prac-cert-btn-primary" onClick={() => navigate('/')}>
+                  Check today's missions
+                </button>
+                <button className="prac-cert-btn prac-cert-btn-secondary" onClick={() => navigate('/games?play=approach')}>
+                  Play Approach Game
+                </button>
+              </div>
+            </div>
+          )
         ) : (
           <>
             {/* Current mission hero card */}
@@ -215,9 +242,18 @@ function StaffPractice({ profile, navigate }) {
           <div className="prac-compact-row">
             <span className="prac-compact-label">Done</span>
             <div className="prac-chips">
-              {completedMissions.map((_, i) => (
-                <span key={i} className="prac-chip prac-chip-done">✓ M{i + 1}</span>
-              ))}
+              {completedMissions.map((m, i) => {
+                const isReviewDue = dueMissions.some(d => d.missionId === m.id)
+                return (
+                  <span
+                    key={i}
+                    className={`prac-chip prac-chip-done${isReviewDue ? ' prac-chip-review' : ''}`}
+                    onClick={() => navigate(`/lesson/${m.id}`, { state: { isReview: true } })}
+                  >
+                    ✓ M{i + 1}
+                  </span>
+                )
+              })}
             </div>
           </div>
         )}

@@ -19,7 +19,11 @@ function getDotPos(score) {
   }
 }
 
-function getTheme(score) {
+function getTheme(score, isReview = false) {
+  if (isReview) {
+    if (score >= 67) return { color: '#3A7D44', label: 'Review Complete', emoji: '✓', cta: 'Back to Home', badge: false, review: true }
+    return { color: '#F59E0B', label: 'Keep Practicing', emoji: '✗', cta: 'Try Again', badge: false, fail: true, review: true }
+  }
   if (score === 100) return { color: '#6ECC5B', label: 'Perfect Score', emoji: '⚡', cta: 'Next Mission', badge: true }
   if (score >= 67) return { color: '#3A7D44', label: 'Mission Complete', emoji: '✓', cta: 'Next Mission', badge: false }
   return { color: '#F59E0B', label: 'Mission Incomplete', emoji: '✗', cta: 'Try Again', badge: false, fail: true }
@@ -30,10 +34,10 @@ export default function Result() {
   const { missionId } = useParams()
   const location = useLocation()
   const fallback = JSON.parse(sessionStorage.getItem(`puma_score_${missionId}`) || '{}')
-  const { score = 0, wrongAnswers = [] } = location.state || fallback
+  const { score = 0, wrongAnswers = [], isReview = false } = location.state || fallback
 
   const mission = missions[missionId]
-  const theme = getTheme(score)
+  const theme = getTheme(score, isReview)
   const dashOffset = CIRC * (1 - score / 100)
   const dot = getDotPos(score)
   const totalQuestions = mission?.quiz?.length || 3
@@ -49,7 +53,9 @@ export default function Result() {
 
   const handleCta = () => {
     if (theme.fail) {
-      navigate(`/lesson/${missionId}`)
+      navigate(`/lesson/${missionId}`, theme.review ? { state: { isReview: true } } : undefined)
+    } else if (theme.review) {
+      navigate('/')
     } else if (hasNext) {
       navigate(`/lesson/${nextId}`)
     } else {
@@ -60,8 +66,8 @@ export default function Result() {
   return (
     <div className="result-page">
       <header className="result-header">
-        <button className="nav-btn back-btn" onClick={() => navigate('/')}>
-          <i className="ri-arrow-left-line"></i>
+        <button className="nav-btn back-btn" onClick={() => navigate('/')} aria-label="Back to home">
+          <i className="ri-arrow-left-line" aria-hidden="true"></i>
         </button>
         <div className="progress-dots-inline">
           {Array.from({ length: totalQuestions }).map((_, i) => (
@@ -78,7 +84,7 @@ export default function Result() {
       <div className="result-body">
         {/* Ring */}
         <div className="result-ring-wrap">
-          <svg width="160" height="160" viewBox="0 0 160 160">
+          <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label={`Score: ${score}%, ${correctCount} of ${totalQuestions} correct`}>
             {/* Track */}
             <circle cx={CX} cy={CY} r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="5" />
             {/* Arc */}
