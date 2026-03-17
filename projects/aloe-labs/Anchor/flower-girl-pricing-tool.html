@@ -787,12 +787,12 @@ html, body {
   color: var(--muted); margin-bottom: 10px;
 }
 .where-toggle {
-  display: flex; background: var(--charcoal); border-radius: 10px;
+  display: flex; background: var(--linen-dk); border-radius: 10px;
   padding: 3px; margin-bottom: 16px; overflow: hidden;
 }
 .where-toggle-btn {
   flex: 1; padding: 8px 0; text-align: center; font-size: 13px;
-  font-weight: 600; color: var(--muted); border: none; background: none;
+  font-weight: 600; color: var(--charcoal); border: none; background: none;
   border-radius: 8px; cursor: pointer; transition: all .15s;
 }
 .where-toggle-btn.active { background: var(--white); color: var(--charcoal); }
@@ -992,6 +992,16 @@ html, body {
 .dietary-toggle.active {
   background: var(--blush); border-color: var(--rose); color: var(--rose);
 }
+.vault-units-bar {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px; padding: 8px 0;
+}
+.vault-units-label {
+  font-size: 12px; color: var(--muted); font-weight: 500;
+}
+.vault-units-bar .dietary-toggle {
+  padding: 5px 12px; font-size: 11px;
+}
 
 /* ─────────────────────────────────────────────
    WIZARD — STEPPER (+/-)
@@ -1086,7 +1096,7 @@ html, body {
 .wiz-footer-btns .btn-back { flex: 0 0 auto; width: auto; min-width: 90px; }
 #screen-wiz-1 .screen-body,
 #screen-wiz-2 .screen-body,
-#screen-wiz-3 .screen-body { padding-bottom: calc(80px + var(--safe-b)); }
+#screen-wiz-3 .screen-body { padding-bottom: calc(16px + var(--safe-b)); }
 
 
 /* ─────────────────────────────────────────────
@@ -1534,6 +1544,14 @@ html, body {
           <span class="checklist-value" id="chk-currency-val"></span>
           <span class="checklist-chevron">›</span>
         </div>
+        <div class="checklist-row" onclick="toggleUnitsFromHome()">
+          <span class="checklist-status"><span class="checklist-check">✓</span></span>
+          <div class="checklist-info">
+            <span class="checklist-label">Units</span>
+          </div>
+          <span class="checklist-value" id="chk-units-val">Metric (g, ml)</span>
+          <span class="checklist-chevron">›</span>
+        </div>
         <div class="checklist-row" onclick="showMarginSheet()">
           <span class="checklist-status" id="chk-margin"></span>
           <div class="checklist-info">
@@ -1579,6 +1597,11 @@ html, body {
       <button class="vault-seg-btn" id="vault-tab-rec" onclick="switchVaultTab('recipes')">Recipes</button>
     </div>
     <div id="vault-panel-ingredients">
+      <div class="vault-units-bar">
+        <span class="vault-units-label">Display units:</span>
+        <button class="dietary-toggle" id="vault-metric" onclick="toggleUnits('metric')">Metric</button>
+        <button class="dietary-toggle" id="vault-imperial" onclick="toggleUnits('imperial')">Imperial</button>
+      </div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
         Tap any ingredient to update what you actually pay. Accurate prices = accurate costs.
       </div>
@@ -1849,6 +1872,8 @@ html, body {
     <div class="dietary-bar" id="wiz2-dietary-bar">
       <button class="dietary-toggle" id="dt-gluten-free" onclick="toggleDietary('gluten-free')">Gluten-free</button>
       <button class="dietary-toggle" id="dt-dairy-free" onclick="toggleDietary('dairy-free')">Dairy-free</button>
+      <button class="dietary-toggle" id="dt-metric" onclick="toggleUnits('metric')">Metric (g, ml)</button>
+      <button class="dietary-toggle" id="dt-imperial" onclick="toggleUnits('imperial')">Imperial (oz, fl oz)</button>
     </div>
 
     <!-- Ingredient toggle list -->
@@ -2410,22 +2435,32 @@ const CURRENCY_UNITS = {
   USD:'imperial', CAD:'imperial',
 };
 
+const LOSS_EXAMPLES = {
+  GBP: { undercharge: 20, yearly: 3120, sym: '\u00A3' },
+  USD: { undercharge: 25, yearly: 3900, sym: '$' },
+  EUR: { undercharge: 22, yearly: 3432, sym: '\u20AC' },
+  CAD: { undercharge: 30, yearly: 4680, sym: 'C$' },
+  ZAR: { undercharge: 350, yearly: 54600, sym: 'R' },
+  NGN: { undercharge: 5000, yearly: 780000, sym: '\u20A6' },
+};
+
 /* ── Unit display conversion (metric ↔ imperial) ─────────── */
+function activeUnits() { return state.unitsOverride || state.units; }
 function displayUnit(metricUnit) {
-  if (state.units !== 'imperial') return metricUnit;
+  if (activeUnits() !== 'imperial') return metricUnit;
   if (metricUnit === 'g') return 'oz';
   if (metricUnit === 'ml') return 'fl oz';
   return metricUnit; // whole, tsp, etc. stay the same
 }
 function toDisplayQty(qty, metricUnit) {
-  if (state.units !== 'imperial') return qty;
+  if (activeUnits() !== 'imperial') return qty;
   if (metricUnit === 'g') return +(qty / 28.35).toFixed(1);
   if (metricUnit === 'ml') return +(qty / 29.57).toFixed(1);
   return qty;
 }
 function fromDisplayQty(displayQty, metricUnit) {
   // Convert user-entered imperial value back to metric for storage
-  if (state.units !== 'imperial') return displayQty;
+  if (activeUnits() !== 'imperial') return displayQty;
   if (metricUnit === 'g') return Math.round(displayQty * 28.35);
   if (metricUnit === 'ml') return Math.round(displayQty * 29.57);
   return displayQty;
@@ -2774,6 +2809,7 @@ const DIETARY_SWAPS = {
 let state = {
   currency: 'GBP',
   units: 'metric',
+  unitsOverride: null,
   paid: false,
   targetMargin: 0.30,
   setupDone: false,
@@ -2812,7 +2848,7 @@ function fmtRound(n) { return sym() + Math.ceil(Math.abs(n)).toLocaleString(); }
 ───────────────────────────────────────────── */
 let screenStack = [];
 
-const NAV_SCREENS = new Set(['screen-home','screen-vault','screen-calc','screen-results','screen-wiz-1','screen-wiz-2','screen-wiz-3']);
+const NAV_SCREENS = new Set(['screen-home','screen-vault','screen-calc','screen-results']);
 
 function updateNav(screenId) {
   const nav = document.getElementById('bottom-nav');
@@ -2851,6 +2887,7 @@ function goBack() {
   cur.classList.remove('active');
   const back = document.getElementById(prev);
   back.classList.add('active');
+  updateNav(prev);
   refreshScreen(prev);
 }
 
@@ -3037,6 +3074,10 @@ function renderHome() {
   }
   setChk('ingredients', ingCount > 0, ingCount > 0 ? ingCount + ' loaded' : 'None yet');
   setChk('currency', true, s + ' ' + state.currency);
+  // Units row
+  const curU = activeUnits();
+  const unitsVal = document.getElementById('chk-units-val');
+  if (unitsVal) unitsVal.textContent = curU === 'imperial' ? 'Imperial (oz, fl oz)' : 'Metric (g, ml)';
 
   // Margin — checkmark + value on right
   const marginStatus = document.getElementById('chk-margin');
@@ -3184,9 +3225,9 @@ function renderPaywall() {
       <div class="fg-loss-visual-label">If you bake 3 cakes a week</div>
       <div class="fg-loss-cakes">${cakes}</div>
       <div class="fg-loss-sub">Every cake priced without your real costs</div>
-      <div class="fg-loss-amount">£3,120</div>
+      <div class="fg-loss-amount">${(LOSS_EXAMPLES[state.currency] || LOSS_EXAMPLES.GBP).sym}${(LOSS_EXAMPLES[state.currency] || LOSS_EXAMPLES.GBP).yearly.toLocaleString()}</div>
       <div class="fg-loss-sub">left on the table in a year</div>
-      <div class="fg-loss-footnote">Based on undercharging £20 per cake</div>
+      <div class="fg-loss-footnote">Based on undercharging ${(LOSS_EXAMPLES[state.currency] || LOSS_EXAMPLES.GBP).sym}${(LOSS_EXAMPLES[state.currency] || LOSS_EXAMPLES.GBP).undercharge.toLocaleString()} per cake</div>
     </div>
     <div class="fg-missing-icon-card">
       <div class="fg-missing-icon-label">Costs most bakers forget</div>
@@ -3433,6 +3474,12 @@ let _addOhFromHome = false;
 ───────────────────────────────────────────── */
 function renderVault() {
   updateVaultTabBadges();
+  // Sync vault units toggle active states
+  const vu = activeUnits();
+  const vM = document.getElementById('vault-metric');
+  const vI = document.getElementById('vault-imperial');
+  if (vM) vM.classList.toggle('active', vu === 'metric');
+  if (vI) vI.classList.toggle('active', vu !== 'metric');
   const list = document.getElementById('vault-list');
   if (!list) return;
   if (!state.ingredients.length) {
@@ -4507,12 +4554,44 @@ function toggleDietary(mode) {
   renderWiz2IngList();
 }
 
+function toggleUnits(mode) {
+  state.unitsOverride = mode;
+  // Wizard step 2 toggles
+  const dtM = document.getElementById('dt-metric');
+  const dtI = document.getElementById('dt-imperial');
+  if (dtM) dtM.classList.toggle('active', mode === 'metric');
+  if (dtI) dtI.classList.toggle('active', mode === 'imperial');
+  // Vault toggles
+  const vM = document.getElementById('vault-metric');
+  const vI = document.getElementById('vault-imperial');
+  if (vM) vM.classList.toggle('active', mode === 'metric');
+  if (vI) vI.classList.toggle('active', mode === 'imperial');
+  // Home units row
+  const homeUnits = document.getElementById('chk-units-val');
+  if (homeUnits) homeUnits.textContent = mode === 'imperial' ? 'Imperial (oz, fl oz)' : 'Metric (g, ml)';
+  renderWiz2IngList();
+  renderVault();
+  saveState();
+}
+
+function toggleUnitsFromHome() {
+  const current = state.unitsOverride || state.units;
+  const next = current === 'metric' ? 'imperial' : 'metric';
+  toggleUnits(next);
+}
+
 function renderWiz2() {
   // Reset dietary toggles UI
   for (const mode in wizDietary) {
     const el = document.getElementById('dt-' + mode);
     if (el) el.classList.toggle('active', wizDietary[mode]);
   }
+  // Reset units toggles UI
+  const curUnits = activeUnits();
+  const metricBtn = document.getElementById('dt-metric');
+  const imperialBtn = document.getElementById('dt-imperial');
+  if (metricBtn) metricBtn.classList.toggle('active', curUnits === 'metric');
+  if (imperialBtn) imperialBtn.classList.toggle('active', curUnits === 'imperial');
   // If returning from results, preserve existing recipe lines
   if (_wizFromResults && state.recipe.lines.length > 0) {
     rebuildWizFromRecipe();
