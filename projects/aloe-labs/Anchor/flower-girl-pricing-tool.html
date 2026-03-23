@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Flour Girl Pricing Tool</title>
+<title>BakePrice × Flour Girl — Cake Pricing Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -16,8 +16,8 @@
   --cream-dk:  #F2EDE6;
   --blush:     #F5DDD6;
   --blush-dk:  #ECC8BC;
-  --rose:      #C47A8E;
-  --rose-dk:   #A85E73;
+  --rose:      #A85E73;
+  --rose-dk:   #8A4A5E;
   --sage:      #7A9B7A;
   --sage-lt:   #D4E4D4;
   --linen:     #E4DDD4;
@@ -28,15 +28,18 @@
   --coral-lt:  #F5DADA;
   --gold:      #B8956A;
   --gold-lt:   #F0E0C8;
-  --white:     #FFFFFF;
+  --white:     #FFFCF8;
 
   --font-head: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
 
   --radius:    16px;
   --radius-sm: 10px;
-  --shadow:    0 2px 16px rgba(44,40,50,0.08);
-  --shadow-sm: 0 1px 4px rgba(44,40,50,0.05);
+  --shadow:    0 2px 16px rgba(139,90,107,0.08);
+  --shadow-sm: 0 1px 4px rgba(139,90,107,0.05);
+  --shadow-warm: 0 4px 20px rgba(139,90,107,0.12);
+  --charcoal-shade: #3a3540;
+  --missing-icon-bg: #FDF6F4;
   --safe-b:    env(safe-area-inset-bottom, 0px);
   --nav-h:     58px;
 }
@@ -46,7 +49,7 @@
 
 html, body {
   height: 100%;
-  background: #D4CAC0;
+  background: var(--linen-dk);
   font-family: var(--font-body);
   color: var(--charcoal);
   -webkit-font-smoothing: antialiased;
@@ -58,7 +61,14 @@ html, body {
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--cream);
+  background-color: var(--cream);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(228,221,212,0.15) 20px,
+    rgba(228,221,212,0.15) 21px
+  );
 }
 
 /* ─────────────────────────────────────────────
@@ -70,7 +80,14 @@ html, body {
   overflow: hidden;
   display: none;
   flex-direction: column;
-  background: var(--cream);
+  background-color: var(--cream);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(228,221,212,0.15) 20px,
+    rgba(228,221,212,0.15) 21px
+  );
 }
 .screen.active { display: flex; }
 .screen.enter  { animation: sEnter .28s ease forwards; }
@@ -111,12 +128,12 @@ html, body {
   position: absolute; top: 14px; right: 16px;
 }
 .florals {
-  background: linear-gradient(to right, var(--blush), var(--cream-dk), var(--blush));
+  background: linear-gradient(to right, var(--rose), var(--gold), var(--rose));
   padding: 7px 16px;
   text-align: center;
   font-size: 10px;
   letter-spacing: 3px;
-  color: var(--rose);
+  color: var(--white);
   user-select: none;
 }
 .nav-bar {
@@ -156,8 +173,18 @@ html, body {
   background: var(--white);
   border: 1px solid var(--linen);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-warm);
   margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--rose), var(--gold));
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 .card-pad { padding: 16px; }
 
@@ -172,10 +199,11 @@ html, body {
   transition: opacity .15s, transform .1s;
 }
 .btn:active { opacity: .82; transform: scale(.98); }
-.btn-primary  { background: var(--rose); color: #fff; }
+.btn-primary  { background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dk) 100%); color: #fff;
+                box-shadow: 0 4px 12px rgba(168,94,115,0.3); }
 .btn-secondary{ background: var(--cream-dk); color: var(--charcoal); border: 1px solid var(--linen); }
 .btn-upgrade  { background: linear-gradient(135deg, var(--rose), var(--rose-dk)); color:#fff;
-                box-shadow: 0 4px 14px rgba(196,122,142,.35); }
+                box-shadow: 0 4px 14px rgba(168,94,115,.35); }
 .btn-ghost    { background: none; color: var(--rose); padding: 12px; font-size: 14px; }
 
 /* (mode cards removed — single-mode app) */
@@ -205,8 +233,8 @@ html, body {
   min-height: 44px;
 }
 .vault-seg-btn.active {
-  background: var(--white); color: var(--charcoal);
-  box-shadow: 0 1px 3px rgba(44,40,50,0.1);
+  background: var(--rose); color: #fff;
+  box-shadow: 0 1px 3px rgba(168,94,115,0.2);
 }
 .vault-recipe-card {
   background: var(--white); border: 1px solid var(--linen);
@@ -336,7 +364,7 @@ html, body {
   text-align: center; font-family: var(--font-body); color: var(--charcoal);
   outline: none; cursor: pointer;
 }
-.pct-input:focus { border-color: var(--rose); background: #fff; }
+.pct-input:focus { border-color: var(--rose); background: var(--white); }
 .oh-result { font-size: 12px; color: var(--muted); min-width: 42px; text-align: right; }
 
 /* ─────────────────────────────────────────────
@@ -376,7 +404,7 @@ html, body {
    RESULTS
 ───────────────────────────────────────────── */
 .result-hero {
-  background: linear-gradient(135deg, var(--blush) 0%, #fff 70%);
+  background: linear-gradient(135deg, var(--blush) 0%, var(--white) 70%);
   border: 1px solid rgba(196,122,142,.18);
   border-radius: var(--radius); padding: 24px 20px;
   text-align: center; margin-bottom: 16px;
@@ -426,7 +454,7 @@ html, body {
   color: rgba(196,122,142,.45); margin: 20px 0;
 }
 .upsell-card {
-  background: linear-gradient(135deg, #fff 0%, var(--blush) 100%);
+  background: linear-gradient(135deg, var(--white) 0%, var(--blush) 100%);
   border: 1.5px solid rgba(196,122,142,.22);
   border-radius: var(--radius); padding: 20px;
 }
@@ -466,7 +494,7 @@ html, body {
 .step-dot.active { background: var(--rose); width: 24px; border-radius: 4px; }
 .step-dot.done   { background: var(--sage); }
 .ob-progress { height: 3px; background: var(--linen); margin: 0 -24px 24px; position: relative; }
-.ob-progress-fill { height: 100%; background: var(--rose); border-radius: 0 2px 2px 0; transition: width .4s ease; }
+.ob-progress-fill { height: 100%; background: linear-gradient(to right, var(--rose), var(--gold)); border-radius: 0 2px 2px 0; transition: width .4s ease; }
 [id^="ob-step-"] { display: flex; flex-direction: column; min-height: 100%; }
 .ob-sticky-footer { position: sticky; bottom: -24px; z-index: 5; background: var(--cream); padding: 16px 24px calc(24px + var(--safe-b)); margin: 0 -24px; box-shadow: 0 -6px 20px rgba(44,40,50,.1); margin-top: auto; }
 .ob-footer-btns { display: flex; gap: 10px; }
@@ -477,9 +505,9 @@ html, body {
 
 .currency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
 .currency-opt  {
-  background: var(--cream-dk); border: 2px solid var(--linen);
+  background: var(--white); border: 2px solid var(--linen);
   border-radius: var(--radius-sm); padding: 16px 12px; text-align: center;
-  cursor: pointer; transition: all .15s;
+  cursor: pointer; transition: all .15s; box-shadow: var(--shadow-sm);
 }
 .currency-opt.active { background: var(--blush); border-color: var(--rose); }
 .c-flag   { font-size: 32px; display: block; margin-bottom: 4px; }
@@ -523,7 +551,7 @@ html, body {
 @keyframes shUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
 .sheet-handle {
-  width: 36px; height: 4px; background: var(--linen-dk);
+  width: 36px; height: 4px; background: var(--gold);
   border-radius: 2px; margin: 12px auto 0;
 }
 .sheet-header {
@@ -628,7 +656,7 @@ html, body {
   border-radius: 10px; padding: 14px 16px; font-family: var(--font-body);
   font-size: 15px; color: var(--charcoal); outline: none; margin-bottom: 12px;
 }
-.txt-input:focus { border-color: var(--rose); background: #fff; }
+.txt-input:focus { border-color: var(--rose); background: var(--white); }
 .txt-input::placeholder { color: var(--muted); }
 
 .scroll-end { height: 24px; }
@@ -667,6 +695,7 @@ html, body {
   background: var(--white);
   border-top: 1px solid var(--linen);
   padding: 10px 16px calc(var(--nav-h) + 12px + var(--safe-b));
+  box-shadow: var(--shadow-warm);
 }
 .calc-footer-strip {
   display: grid; grid-template-columns: repeat(4,1fr);
@@ -732,7 +761,7 @@ html, body {
    RESULTS — SELL PRICE HERO
 ───────────────────────────────────────────── */
 .result-sell-hero {
-  background: linear-gradient(180deg, var(--blush) 0%, var(--cream) 100%);
+  background: linear-gradient(135deg, var(--blush) 0%, var(--gold-lt) 50%, var(--cream) 100%);
   border-radius: var(--radius); padding: 28px 20px 20px;
   text-align: center; margin-bottom: 16px; color: var(--charcoal);
 }
@@ -845,7 +874,10 @@ html, body {
 #bottom-nav {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 50;
   display: none; align-items: center; justify-content: space-around;
-  background: var(--white); border-top: 1px solid var(--linen);
+  background: rgba(250,247,242,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: none;
   height: calc(var(--nav-h) + var(--safe-b));
   padding-bottom: var(--safe-b);
 }
@@ -856,6 +888,14 @@ html, body {
   color: var(--muted); transition: color .15s;
 }
 .nav-tab.active { color: var(--rose); }
+.nav-tab.active::after {
+  content: '';
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--rose);
+  margin-top: 2px;
+}
 .nav-tab-icon { font-size: 20px; }
 .nav-tab-lbl  { font-size: 10px; font-weight: 600; letter-spacing: .3px; }
 
@@ -1180,7 +1220,7 @@ html, body {
 .fg-missing-icon-card { background: var(--white); border: 1.5px dashed var(--linen); border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; }
 .fg-missing-icon-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--rose); margin-bottom: 10px; }
 .fg-missing-icon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.fg-missing-icon-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #FDF6F4; border-radius: 8px; }
+.fg-missing-icon-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--missing-icon-bg); border-radius: 8px; }
 .fg-missing-icon-emoji { font-size: 18px; flex-shrink: 0; }
 .fg-missing-icon-text { font-size: 12px; color: var(--charcoal); line-height: 1.3; }
 .fg-missing-icon-zero { font-weight: 700; color: var(--rose); font-size: 11px; }
@@ -1214,7 +1254,7 @@ html, body {
 .home-hero-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
 .home-resume-banner {
   display: flex; align-items: center; justify-content: space-between;
-  background: linear-gradient(135deg, var(--blush) 0%, #fff 100%);
+  background: linear-gradient(135deg, var(--blush) 0%, var(--white) 100%);
   border: 1.5px solid var(--rose); border-radius: var(--radius);
   padding: 16px 18px; margin-bottom: 14px;
   cursor: pointer; box-shadow: 0 2px 8px rgba(184,110,120,.12);
@@ -1230,30 +1270,39 @@ html, body {
 .home-dash {
   background: var(--white); border: 1px solid var(--linen);
   border-radius: var(--radius); padding: 0; margin-bottom: 14px;
-  box-shadow: 0 2px 12px rgba(44,40,50,.06);
+  box-shadow: var(--shadow-warm);
   overflow: hidden;
+  position: relative;
+}
+.home-dash::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--rose), var(--gold));
+  z-index: 1;
 }
 .home-dash-top {
-  background: linear-gradient(135deg, var(--charcoal) 0%, #3a3540 100%);
-  padding: 24px 20px 20px; text-align: center; color: #fff;
+  background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
+  padding: 24px 20px 20px; text-align: center; color: var(--charcoal);
 }
 .home-dash-name {
-  font-size: 12px; font-weight: 500; opacity: .7;
+  font-size: 12px; font-weight: 500; color: var(--muted);
   text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px;
 }
 .home-dash-price {
   font-family: var(--font-head); font-size: 36px; font-weight: 700;
-  letter-spacing: -.5px; line-height: 1;
+  letter-spacing: -.5px; line-height: 1; color: var(--rose);
 }
 .home-dash-sub {
-  font-size: 12px; opacity: .6; margin-top: 6px;
+  font-size: 12px; color: var(--muted); margin-top: 6px;
 }
 .home-dash-pills {
   display: flex; gap: 6px; justify-content: center; margin-top: 14px;
 }
 .home-dash-pill {
-  background: rgba(255,255,255,.12); border-radius: 100px;
-  padding: 4px 10px; font-size: 11px; font-weight: 500; color: rgba(255,255,255,.85);
+  background: rgba(168,94,115,.12); border-radius: 100px;
+  padding: 4px 10px; font-size: 11px; font-weight: 500; color: var(--charcoal);
 }
 .home-dash-actions {
   display: flex; gap: 8px; padding: 14px 16px;
@@ -1274,7 +1323,16 @@ html, body {
   border: 1px solid var(--linen);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-warm);
+  position: relative;
+}
+.checklist-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--rose), var(--gold));
+  z-index: 1;
 }
 .checklist-row {
   display: flex; align-items: center; gap: 12px;
@@ -1323,6 +1381,42 @@ html, body {
   flex-shrink: 0;
 }
 
+/* Setup accordion */
+.setup-accordion-header {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 12px 0; min-height: 44px;
+  font-family: var(--font-body);
+}
+.setup-chevron {
+  transition: transform 0.2s ease;
+}
+.setup-accordion.collapsed .setup-chevron {
+  transform: rotate(-90deg);
+}
+.setup-accordion.collapsed .setup-accordion-body {
+  display: none;
+}
+
+/* Home stat bar */
+.home-stat-bar {
+  font-size: 12px; color: var(--muted); font-weight: 500;
+  padding: 4px 0 8px; text-align: center;
+}
+.home-stat-bar:empty { display: none; }
+
+/* Recipe profit pill */
+.recipe-profit-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sage);
+  background: var(--sage-lt);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+
 /* Hero card arrow */
 .home-hero-card .hero-arrow {
   display: inline-block; margin-top: 10px;
@@ -1342,19 +1436,28 @@ html, body {
 .home-recent-card {
   flex: 0 0 152px; background: var(--white); border: 1px solid var(--linen);
   border-radius: var(--radius); padding: 0; overflow: hidden;
-  cursor: pointer; box-shadow: 0 2px 8px rgba(44,40,50,.06); transition: transform .12s;
+  cursor: pointer; box-shadow: var(--shadow-warm); transition: transform .12s;
+  position: relative;
+}
+.home-recent-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--rose), var(--gold));
+  z-index: 1;
 }
 .home-recent-card:active { transform: scale(.97); }
 .home-recent-top {
-  background: linear-gradient(135deg, var(--charcoal) 0%, #3a3540 100%);
-  padding: 14px 14px 12px; color: #fff;
+  background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
+  padding: 14px 14px 12px; color: var(--charcoal);
 }
 .home-recent-price {
-  font-family: var(--font-head); font-size: 22px; color: #fff;
+  font-family: var(--font-head); font-size: 22px; color: var(--rose);
   line-height: 1; letter-spacing: -.3px;
 }
 .home-recent-label {
-  font-size: 10px; color: rgba(255,255,255,.55); margin-top: 4px;
+  font-size: 10px; color: var(--muted); margin-top: 4px;
   text-transform: uppercase; letter-spacing: .5px; font-weight: 500;
 }
 .home-recent-body { padding: 10px 14px 14px; }
@@ -1380,6 +1483,7 @@ html, body {
 }
 .home-recent-new span { font-size: 11px; font-weight: 600; color: var(--muted); }
 </style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="35554f50-1236-4c86-bef2-0f90af20ad5e"></script>
 </head>
 <body>
 <div id="app">
@@ -1393,8 +1497,8 @@ html, body {
   <!-- Brand -->
   <div class="ob-brand">
     <span class="brand-mark">🌸</span>
-    <div class="brand-name">Flour Girl</div>
-    <div class="brand-tag">Pricing Tool — know your number</div>
+    <div class="brand-name">BakePrice × Flour Girl</div>
+    <div class="brand-tag">know your number</div>
   </div>
 
   <!-- Progress bar -->
@@ -1471,8 +1575,8 @@ html, body {
 <div class="ob-screen">
   <div class="ob-brand" style="padding-top:32px">
     <span class="brand-mark">🌸</span>
-    <div class="brand-name">Flour Girl</div>
-    <div class="brand-tag">Pricing Tool</div>
+    <div class="brand-name">BakePrice × Flour Girl</div>
+    <div class="brand-tag">Enter your license key</div>
   </div>
   <div style="text-align:center;margin-bottom:24px">
     <div style="font-family:var(--font-head);font-size:22px;margin-bottom:8px">Enter your license key</div>
@@ -1490,11 +1594,11 @@ html, body {
     oninput="document.getElementById('license-error').textContent=''"
     onkeydown="if(event.key==='Enter')validateLicense()"
   >
-  <div id="license-error" style="font-size:13px;color:#c0392b;min-height:20px;margin-bottom:12px;text-align:center;"></div>
+  <div id="license-error" style="font-size:13px;color:var(--coral);min-height:20px;margin-bottom:12px;text-align:center;"></div>
   <button id="license-submit-btn" class="btn btn-upgrade" onclick="validateLicense()">Unlock Tool →</button>
   <div class="divider-or">or</div>
-  <button class="coach-btn" onclick="window.open(CFG.upgradeLink,'_blank')">
-    Buy the Flour Girl Tool — <span id="license-price">£27</span>
+  <button class="coach-btn" onclick="window.open(CFG.upgradeLink,'_blank')" data-umami-event="paywall-upgrade">
+    Get BakePrice Pro — <span id="license-price">£27</span>
   </button>
 </div>
 </div>
@@ -1515,7 +1619,7 @@ html, body {
 ════════════════════════════════════════════ -->
 <div id="screen-home" class="screen">
   <div class="screen-header">
-    <div class="app-bar"><span class="app-bar-brand">Flour Girl</span></div>
+    <div class="app-bar"><span class="app-bar-brand">BakePrice</span></div>
     <div style="padding:16px 16px 10px">
       <div id="home-greeting" style="font-size:13px;color:var(--muted);margin-bottom:4px"></div>
       <div style="font-family:var(--font-head);font-size:22px">What are you<br>pricing today?</div>
@@ -1524,55 +1628,66 @@ html, body {
   <div class="screen-body" style="padding-top:8px">
     <div id="home-hero-slot"></div>
 
-    <!-- Setup Checklist Card -->
-    <div class="setup-checklist" id="setup-checklist">
-      <div class="home-section-label">Your setup</div>
-      <div class="checklist-card">
-        <div class="checklist-row" onclick="goTo('screen-vault')">
-          <span class="checklist-status" id="chk-ingredients"></span>
-          <div class="checklist-info">
-            <span class="checklist-label">Ingredients</span>
+    <!-- Recent Recipes (above setup) -->
+    <div id="home-recents" style="margin-top:8px"></div>
+
+    <!-- Quick stat bar -->
+    <div class="home-stat-bar" id="home-stat-bar"></div>
+
+    <!-- Price New Cake button (between recipes and setup) -->
+    <div id="home-new-cake-btn" style="margin:12px 0"></div>
+
+    <!-- Setup Checklist (collapsible accordion) -->
+    <div class="setup-accordion collapsed" id="setup-checklist">
+      <button class="setup-accordion-header" onclick="toggleSetup()">
+        <span class="home-section-label" style="margin:0">Your setup</span>
+        <i class="setup-chevron ri-arrow-down-s-line" style="font-style:normal;font-size:20px;color:var(--muted);transition:transform 0.2s ease">&#8964;</i>
+      </button>
+      <div class="setup-accordion-body" id="setup-body">
+        <div class="checklist-card">
+          <div class="checklist-row" onclick="goTo('screen-vault')">
+            <span class="checklist-status" id="chk-ingredients"></span>
+            <div class="checklist-info">
+              <span class="checklist-label">Ingredients</span>
+            </div>
+            <span class="checklist-value" id="chk-ingredients-val"></span>
+            <span class="checklist-chevron">›</span>
           </div>
-          <span class="checklist-value" id="chk-ingredients-val"></span>
-          <span class="checklist-chevron">›</span>
-        </div>
-        <div class="checklist-row" onclick="showCurrencySheet()">
-          <span class="checklist-status" id="chk-currency"></span>
-          <div class="checklist-info">
-            <span class="checklist-label">Currency</span>
+          <div class="checklist-row" onclick="showCurrencySheet()">
+            <span class="checklist-status" id="chk-currency"></span>
+            <div class="checklist-info">
+              <span class="checklist-label">Currency</span>
+            </div>
+            <span class="checklist-value" id="chk-currency-val"></span>
+            <span class="checklist-chevron">›</span>
           </div>
-          <span class="checklist-value" id="chk-currency-val"></span>
-          <span class="checklist-chevron">›</span>
-        </div>
-        <div class="checklist-row" onclick="toggleUnitsFromHome()">
-          <span class="checklist-status"><span class="checklist-check">✓</span></span>
-          <div class="checklist-info">
-            <span class="checklist-label">Units</span>
+          <div class="checklist-row" onclick="showUnitsSheet()">
+            <span class="checklist-status"><span class="checklist-check">✓</span></span>
+            <div class="checklist-info">
+              <span class="checklist-label">Units</span>
+            </div>
+            <span class="checklist-value" id="chk-units-val">Metric (g, ml)</span>
+            <span class="checklist-chevron">›</span>
           </div>
-          <span class="checklist-value" id="chk-units-val">Metric (g, ml)</span>
-          <span class="checklist-chevron">›</span>
-        </div>
-        <div class="checklist-row" onclick="showMarginSheet()">
-          <span class="checklist-status" id="chk-margin"></span>
-          <div class="checklist-info">
-            <span class="checklist-label">Profit margin</span>
+          <div class="checklist-row" onclick="showMarginSheet()">
+            <span class="checklist-status" id="chk-margin"></span>
+            <div class="checklist-info">
+              <span class="checklist-label">Profit margin</span>
+            </div>
+            <span class="checklist-value" id="chk-margin-val"></span>
+            <span class="checklist-chevron">›</span>
           </div>
-          <span class="checklist-value" id="chk-margin-val"></span>
-          <span class="checklist-chevron">›</span>
-        </div>
-        <div class="checklist-row" onclick="showOverheadsSheet()">
-          <span class="checklist-status" id="chk-overheads"></span>
-          <div class="checklist-info">
-            <span class="checklist-label">Business Costs</span>
+          <div class="checklist-row" onclick="showOverheadsSheet()">
+            <span class="checklist-status" id="chk-overheads"></span>
+            <div class="checklist-info">
+              <span class="checklist-label">Business Costs</span>
+            </div>
+            <span class="checklist-value" id="chk-overheads-val"></span>
+            <span class="checklist-chevron">›</span>
           </div>
-          <span class="checklist-value" id="chk-overheads-val"></span>
-          <span class="checklist-chevron">›</span>
         </div>
       </div>
     </div>
-
-    <!-- Recent Recipes -->
-    <div id="home-recents" style="margin-top:16px"></div>
 
     <div class="scroll-end"></div>
   </div>
@@ -2294,6 +2409,18 @@ html, body {
   </div>
 </div>
 
+<!-- UNITS DRAWER -->
+<div id="overlay-units" class="overlay" onclick="onOverlayClick(event,'overlay-units')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <span class="sheet-title">Display Units</span>
+      <button class="sheet-x" onclick="closeOverlay('overlay-units')">×</button>
+    </div>
+    <div class="curr-pick-list" id="units-pick-list"></div>
+  </div>
+</div>
+
 <!-- MARGIN DRAWER -->
 <div id="overlay-margin" class="overlay" onclick="onOverlayClick(event,'overlay-margin')">
   <div class="sheet">
@@ -2380,8 +2507,8 @@ const CFG = {
   workshopLink: '#',
   upgradeLink: 'https://flourgirl.lemonsqueezy.com/checkout/buy/4a86208b-e1d8-4da1-b9a7-00cfde978ff9',
   upgradePrice: 27,
-  upgradePrices: {GBP:'£27', USD:'$35', EUR:'€32', CAD:'C$48', ZAR:'R630', NGN:'₦40,000'},
-  upgradePricesStrike: {GBP:'£37', USD:'$47', EUR:'€43', CAD:'C$65', ZAR:'R860', NGN:'₦55,000'},
+  upgradePrices: {GBP:'£27', USD:'$37', EUR:'€34', CAD:'C$50', ZAR:'R690', NGN:'₦40,000'},
+  upgradePricesStrike: {GBP:'£47', USD:'$47', EUR:'€43', CAD:'C$65', ZAR:'R860', NGN:'₦55,000'},
 };
 
 /* ─────────────────────────────────────────────
@@ -2832,6 +2959,13 @@ function loadState() {
   try {
     const s = localStorage.getItem('fg_state');
     if (s) state = Object.assign(state, JSON.parse(s));
+    // Clean orphan ingredient lines — recipe references IDs not in state.ingredients
+    if (state.recipe && state.recipe.lines && state.ingredients) {
+      const ingIds = new Set(state.ingredients.map(i => i.id));
+      const before = state.recipe.lines.length;
+      state.recipe.lines = state.recipe.lines.filter(l => ingIds.has(l.ingredientId));
+      if (state.recipe.lines.length < before) saveState();
+    }
   } catch(e){}
 }
 
@@ -2866,6 +3000,14 @@ function updateNav(screenId) {
 function navTo(screenId) {
   if (screenId === 'screen-home') screenStack = [];
   goTo(screenId);
+}
+
+function toggleSetup() {
+  const el = document.querySelector('.setup-accordion');
+  el.classList.toggle('collapsed');
+  if (!el.classList.contains('collapsed')) {
+    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+  }
 }
 
 function goTo(id) {
@@ -3103,6 +3245,9 @@ function renderHome() {
     if (ohStatus) ohStatus.innerHTML = '<span class="checklist-dot"></span>';
     if (ohVal) ohVal.textContent = 'None set';
   }
+  // Load saved recipes early so hero slot can reference them
+  const saved = JSON.parse(localStorage.getItem('fg_saved_recipes') || '[]');
+
   // Home hero slot: never empty — resume / first-time CTA / dashboard card
   const slot = document.getElementById('home-hero-slot');
   if (slot) {
@@ -3141,26 +3286,52 @@ function renderHome() {
           <button class="btn btn-primary" onclick="startWizard(true)">New cake</button>
         </div>
       </div>`;
-    } else {
-      // State B: First-time → welcoming CTA card
-      slot.innerHTML = `<div class="home-hero-card" onclick="startWizard()">
-        <h3>Price your first cake</h3>
-        <p>Add your ingredients, set your margin,<br>and get a price you can trust.</p>
-        <span class="hero-arrow">→</span>
+    } else if (saved.length > 0) {
+      // State D: Returning user with saved recipes but no active calc
+      const lastSaved = saved[saved.length - 1];
+      const m = state.targetMargin || 0.30;
+      const sellPrice = lastSaved.total ? priceAt(lastSaved.total, m) : 0;
+      const profit = sellPrice - (lastSaved.total || 0);
+      const cakeName = lastSaved.name || 'Last cake';
+      const marginPctH = Math.round(m * 100);
+      slot.innerHTML = `<div class="home-dash">
+        <div class="home-dash-top" onclick="loadSavedRecipe(${saved.length - 1})">
+          <div class="home-dash-name">${cakeName}</div>
+          <div class="home-dash-price">${fmtRound(sellPrice)}</div>
+          <div class="home-dash-sub">Sell price at ${marginPctH}% margin</div>
+          <div class="home-dash-pills">
+            <span class="home-dash-pill">Cost ${fmt(lastSaved.total || 0)}</span>
+            <span class="home-dash-pill">Profit ${fmt(profit)}</span>
+            ${saved.length > 1 ? `<span class="home-dash-pill">${saved.length} recipes</span>` : ''}
+          </div>
+        </div>
+        <div class="home-dash-actions">
+          <button class="btn btn-secondary" onclick="loadSavedRecipe(${saved.length - 1})">View results</button>
+          <button class="btn btn-primary" onclick="startWizard(true)">New cake</button>
+        </div>
       </div>`;
+    } else {
+      // State B: First-time → description at top, CTA pushed to bottom
+      slot.innerHTML = `<div style="text-align:center;padding:20px 0 12px">
+        <div style="font-size:40px;margin-bottom:12px">🌸</div>
+        <h3 style="font-family:var(--font-head);font-size:22px;margin-bottom:8px">Price your first cake</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.5">Add your ingredients, set your margin,<br>and get a price you can trust.</p>
+      </div>
+      <div style="flex:1"></div>
+      <button class="btn btn-primary" onclick="startWizard()" style="width:100%;margin-top:24px">Start Pricing \u2192</button>`;
     }
   }
 
-  // Recent recipes section (below checklist)
+  // Recent recipes section (above setup)
   const recentsEl = document.getElementById('home-recents');
   if (recentsEl) {
-    const saved = JSON.parse(localStorage.getItem('fg_saved_recipes') || '[]');
     if (saved.length > 0) {
       const margin = state.targetMargin || 0.30;
       const cards = saved.slice(-5).reverse().map((rec, idx) => {
         const realIdx = saved.length - 1 - idx;
         const sell = rec.total ? fmtRound(priceAt(rec.total, margin)) : '—';
-        const profit = rec.total ? fmtRound(priceAt(rec.total, margin) - rec.total) : '';
+        const profitAmt = rec.total ? priceAt(rec.total, margin) - rec.total : 0;
+        const profitStr = profitAmt > 0 ? fmtRound(profitAmt) : '';
         return `<div class="home-recent-card" onclick="loadSavedRecipe(${realIdx})">
           <div class="home-recent-top">
             <div class="home-recent-price">${sell}</div>
@@ -3168,7 +3339,8 @@ function renderHome() {
           </div>
           <div class="home-recent-body">
             <div class="home-recent-name">${esc(rec.name)}</div>
-            <div class="home-recent-meta">${rec.size}${profit ? ' · +' + profit : ''}</div>
+            <div class="home-recent-meta">${rec.size}</div>
+            ${profitStr ? `<span class="recipe-profit-pill">+${profitStr} profit</span>` : ''}
           </div>
         </div>`;
       }).join('');
@@ -3183,6 +3355,27 @@ function renderHome() {
         </div>`;
     } else {
       recentsEl.innerHTML = '';
+    }
+  }
+
+  // Stat bar
+  const statBar = document.getElementById('home-stat-bar');
+  if (statBar) {
+    const count = saved.length;
+    const revenue = saved.reduce((sum, r) => {
+      const margin = state.targetMargin || 0.30;
+      return sum + (r.total ? priceAt(r.total, margin) : 0);
+    }, 0);
+    statBar.textContent = count > 0 ? `${count} cake${count !== 1 ? 's' : ''} priced \u00B7 ${fmt(revenue)} revenue` : '';
+  }
+
+  // New cake button (only show if NOT first-time user)
+  const newCakeBtn = document.getElementById('home-new-cake-btn');
+  if (newCakeBtn) {
+    if (saved.length > 0 || lastCalcResult) {
+      newCakeBtn.innerHTML = `<button class="btn btn-primary" onclick="startWizard(true)" style="width:100%">Price New Cake \u2192</button>`;
+    } else {
+      newCakeBtn.innerHTML = '';
     }
   }
 }
@@ -3271,7 +3464,7 @@ function renderPaywall() {
         <span style="font-family:var(--font-head);font-size:32px;font-weight:600;color:var(--rose)">${priceStr}</span>
       </div>
       <p style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px">Founder pricing · One-time purchase</p>
-      <button class="btn btn-upgrade" onclick="unlockTool()" style="width:100%">Unlock for ${priceStr}</button>
+      <button class="btn btn-upgrade" onclick="unlockTool()" style="width:100%" data-umami-event="paywall-upgrade">Unlock for ${priceStr}</button>
       <p class="fg-trust">Secured by Lemon Squeezy · Instant access</p>
       <a class="fg-license-link" onclick="showLicenseScreen()">Already bought it? Enter license key →</a>
     </div>`;
@@ -3370,6 +3563,29 @@ function showCurrencySheet() {
       <span class="curr-check">${state.currency === code ? '✓' : ''}</span>
     </div>`).join('');
   openOverlay('overlay-currency');
+}
+
+function showUnitsSheet() {
+  const current = state.unitsOverride || state.units;
+  const options = [
+    { key: 'metric', label: 'Metric', sub: 'g, ml' },
+    { key: 'imperial', label: 'Imperial', sub: 'oz, fl oz' }
+  ];
+  const list = document.getElementById('units-pick-list');
+  list.innerHTML = options.map(o => `
+    <div class="curr-item" onclick="pickUnitsFromSheet('${o.key}')">
+      <div>
+        <div class="curr-main">${o.label}</div>
+        <div class="curr-code">${o.sub}</div>
+      </div>
+      <span class="curr-check">${current === o.key ? '✓' : ''}</span>
+    </div>`).join('');
+  openOverlay('overlay-units');
+}
+
+function pickUnitsFromSheet(mode) {
+  toggleUnits(mode);
+  closeOverlay('overlay-units');
 }
 
 function pickCurrency(code) {
@@ -3847,6 +4063,7 @@ function applyRecipeNameDisplay() {
    CALC — RENDER
 ───────────────────────────────────────────── */
 function renderCalc() {
+  if (typeof umami !== 'undefined') umami.track('result-generated');
   applyRecipeNameDisplay();
   // Sync currency symbols
   document.getElementById('labour-sym').textContent = sym();
@@ -3885,7 +4102,7 @@ function renderCalcLines() {
     const cost = ing ? calcIngCost(ing, line.qty, line.unit) : 0;
     return `
     <div class="recipe-line">
-      <span class="rline-name">${ing ? ing.name : '?'}</span>
+      <span class="rline-name">${ing ? ing.name : 'Unknown'}</span>
       <button class="qty-btn" onclick="editLineQty(${i})">${line.qty}</button>
       <button class="unit-btn" onclick="editLineUnit(${i})">${line.unit}</button>
       <span class="rline-cost">${fmt(cost)}</span>
@@ -4309,6 +4526,7 @@ let wizDietary = { 'gluten-free': false, 'dairy-free': false };
 let wizOhToggles = []; // [{overheadId, checked, percent}]
 
 function startWizard(forceNew) {
+  if (!state.paid) { goTo('screen-paywall'); return; }
   // If there's an active recipe with ingredients, resume it instead of wiping
   if (!forceNew && state.recipe && (state.recipe.lines.length > 0 || state.recipe.name.trim())) {
     goTo('screen-calc');
@@ -4869,6 +5087,7 @@ let lastCalcResult = null;
 try { lastCalcResult = JSON.parse(localStorage.getItem('fg_last_calc') || 'null'); } catch(e){}
 
 function showResults() {
+  if (!state.paid) { goTo('screen-paywall'); return; }
   const r = calcTotals();
 
   // Validation guard
@@ -5040,7 +5259,7 @@ function showResults() {
 
     <div class="client-card card">
       <button class="coach-btn" onclick="window.open('${CFG.coachLink}','_blank')">
-        ${igSvg} DM Flour Girl on Instagram
+        ${igSvg} DM us on Instagram
       </button>
     </div>
   `;
@@ -5260,7 +5479,7 @@ function copyPlainSummary() {
     'Per slice: ' + s + perSlice.toFixed(2),
     'Break-even: ' + s + (r.total || 0).toFixed(2),
     '',
-    'Priced with Flour Girl 🌸'
+    'Priced with BakePrice × Flour Girl 🌸'
   ].join('\n');
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(() => {
@@ -5380,6 +5599,10 @@ function numpadDone() {
 ───────────────────────────────────────────── */
 let _savedScrollY = 0;
 function openOverlay(id) {
+  // Close any already-open overlays first to prevent stacking
+  document.querySelectorAll('.overlay.active').forEach(o => {
+    if (o.id !== id) o.classList.remove('active');
+  });
   // position:fixed approach — proven by body-scroll-lock (4.1k★)
   // overflow:hidden alone fails on iOS Safari (touch still scrolls)
   _savedScrollY = window.pageYOffset;
