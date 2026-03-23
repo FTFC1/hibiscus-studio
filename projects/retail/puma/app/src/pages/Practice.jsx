@@ -341,7 +341,7 @@ function ManagerPractice({ profile, navigate }) {
           <div className="prac-mgr-empty">
             <i className="ri-team-line prac-mgr-empty-icon" />
             <div className="prac-mgr-empty-title">No team members yet</div>
-            <div className="prac-mgr-empty-sub">Staff will appear here once they sign in to PUMA Training.</div>
+            <div className="prac-mgr-empty-sub">Share the app with your team. Once they sign in, you'll see their mission progress and daily task counts here.</div>
           </div>
         )}
 
