@@ -39,7 +39,7 @@ function UpdateToast() {
 function AppInner() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { session, loading } = useUser()
+  const { session, loading, isManager } = useUser()
   const updateAvailable = useAutoUpdate()
   const [wasLoggedOut, setWasLoggedOut] = useState(false)
 
@@ -76,7 +76,9 @@ function AppInner() {
   const isLessonPage = location.pathname.startsWith('/lesson')
   const isResultPage = location.pathname.startsWith('/result')
   const isStaffDetailPage = location.pathname.startsWith('/staff')
-  const activeIndex = navItems.findIndex(item => item.path === location.pathname)
+  // Hide Activity tab for managers
+  const visibleNav = isManager ? navItems.filter(n => n.path !== '/activity') : navItems
+  const activeIndex = visibleNav.findIndex(item => item.path === location.pathname)
 
   return (
     <>
@@ -94,9 +96,9 @@ function AppInner() {
 
       {!isLessonPage && !isResultPage && !isStaffDetailPage && (
         <BottomNav
-          items={navItems}
+          items={visibleNav}
           activeIndex={activeIndex >= 0 ? activeIndex : 0}
-          onNavigate={(i) => navigate(navItems[i].path)}
+          onNavigate={(i) => navigate(visibleNav[i].path)}
         />
       )}
     </>

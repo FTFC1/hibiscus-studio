@@ -52,6 +52,26 @@
   flex-shrink: 0;
 }
 
+.result-ring-wrap circle:nth-child(2) {
+  animation: ringDraw 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+@keyframes ringDraw {
+  from { stroke-dashoffset: 414.69; }
+}
+
+/* Staggered fade-up animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-ring-wrap { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.result-status { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+.result-wrong-section { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+.result-badge-card { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+.result-footer { animation: fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+
 /* Status */
 .result-status {
   display: flex;
@@ -69,9 +89,9 @@
 
 .result-status-label {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 900;
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
 }
 
 .result-mission-title {
@@ -136,15 +156,17 @@
 }
 
 .result-answer-wrong {
-  background: rgba(245, 158, 11, 0.08);
-  color: var(--accent-orange);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(232, 69, 60, 0.1);
+  color: #E8453C;
+  border: 1px solid rgba(232, 69, 60, 0.2);
+  text-decoration: line-through;
+  opacity: 0.7;
 }
 
 .result-answer-correct {
-  background: rgba(58, 125, 68, 0.1);
-  color: var(--cta-green);
-  border: 1px solid rgba(58, 125, 68, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: #EEEEEE;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Badge card */

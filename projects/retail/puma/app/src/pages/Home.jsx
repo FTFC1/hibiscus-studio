@@ -79,7 +79,8 @@ export default function Home() {
   const [activeFilter, setActiveFilter] = useState(null)
 
   // Scroll to top on mount
-  useEffect(() => { window.scrollTo(0, 0) }, [])
+  // Reset scroll on mount AND on role change (manager↔staff switch)
+  useEffect(() => { window.scrollTo(0, 0); document.body.style.overflow = '' }, [role])
 
   useEffect(() => {
     if (!userId) return
@@ -143,7 +144,16 @@ export default function Home() {
           .from('manager_dashboard')
           .select('*')
         if (dashErr) throw dashErr
-        if (dashboard) setStaffData(dashboard)
+        if (dashboard) {
+          // Cap missions_completed at 6 (view may count retakes)
+          const cleaned = dashboard.map(s => ({
+            ...s,
+            missions_completed: Math.min(Number(s.missions_completed) || 0, 6),
+            cert_progress: Math.min(Math.round((Math.min(Number(s.missions_completed) || 0, 6) / 6) * 100), 100),
+            avg_score: Math.min(Number(s.avg_score) || 0, 100)
+          }))
+          setStaffData(cleaned)
+        }
       }
 
       // Load recent completions for buzz
@@ -282,14 +292,16 @@ export default function Home() {
           {/* STATE: All Complete */}
           {completedCount === totalMissions && (
             <div className="all-complete">
-              <div className="all-complete-icon"><i className="ri-trophy-line"></i></div>
-              <div className="all-complete-title">All missions complete</div>
-              <div className="all-complete-desc">Keep your skills sharp in Games</div>
+              <i className="ri-trophy-line all-complete-icon"></i>
+              <div className="all-complete-text">
+                <div className="all-complete-title">All missions complete</div>
+                <div className="all-complete-desc">Keep skills sharp in Games</div>
+              </div>
               <button
                 className="all-complete-cta"
                 onClick={() => navigate('/games')}
               >
-                <i className="ri-gamepad-line"></i> Go to Games
+                Games <i className="ri-arrow-right-s-line"></i>
               </button>
             </div>
           )}

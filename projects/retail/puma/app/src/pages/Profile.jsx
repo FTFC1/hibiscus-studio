@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import { useUser } from '../context/UserContext'
 import { supabase } from '../lib/supabase'
@@ -15,6 +16,7 @@ const badgeTemplates = [
 
 export default function Profile() {
   const { profile, role, isManager, setRole, signOut, userId } = useUser()
+  const navigate = useNavigate()
   const [stats, setStats] = useState({ completed: 0, avgScore: 0, gameScores: {}, practiceDays: 0, streakDays: 0 })
 
   useEffect(() => {
@@ -102,7 +104,20 @@ export default function Profile() {
           <div className="profile-avatar">{initials}</div>
           <div className="profile-name">{name}</div>
           <div className="profile-store-info">{store}</div>
-          <div className="profile-role-pill">{isManager ? 'Store Manager' : 'Sales Associate'}</div>
+          <div className="profile-role-row">
+            <div className="profile-role-pill">{isManager ? 'Store Manager' : 'Sales Associate'}</div>
+            {isManager && (
+              <button
+                className="profile-role-change"
+                onClick={() => {
+                  setRole(role === 'manager' ? 'staff' : 'manager')
+                  window.scrollTo(0, 0)
+                }}
+              >
+                Switch to {role === 'manager' ? 'Staff' : 'Manager'}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Certification Card — staff only, managers aren't getting certified */}
@@ -122,74 +137,80 @@ export default function Profile() {
           </div>
         )}
 
-        {/* Stats Grid */}
-        <div className="profile-stats-grid">
-          <div className="profile-stat-card">
-            <div className="profile-stat-value">{stats.completed}/6</div>
-            <div className="profile-stat-label">Missions</div>
-          </div>
-          <div className="profile-stat-card">
-            <div className="profile-stat-value">{stats.avgScore}%</div>
-            <div className="profile-stat-label">Accuracy</div>
-          </div>
-          <div className="profile-stat-card">
-            <div className="profile-stat-value">{certProgress}%</div>
-            <div className="profile-stat-label">Certified</div>
-          </div>
-        </div>
-
-        {/* Performance Bars */}
-        <div className="profile-section-title">Performance</div>
-        <div className="profile-perf-card">
-          <div className="profile-perf-row">
-            <span className="profile-perf-label">Overall</span>
-            <div className="profile-perf-track">
-              <div
-                className={`profile-perf-fill ${stats.avgScore >= 80 ? 'perf-high' : stats.avgScore >= 50 ? 'perf-mid' : 'perf-low'}`}
-                style={{ width: `${stats.avgScore}%` }}
-              />
+        {/* Stats Grid — staff only (managers don't train themselves) */}
+        {!isManager && (
+          <div className="profile-stats-grid">
+            <div className="profile-stat-card">
+              <div className="profile-stat-value">{stats.completed}/6</div>
+              <div className="profile-stat-label">Missions</div>
             </div>
-            <span className="profile-perf-val">{stats.avgScore}%</span>
-          </div>
-          {Object.entries(stats.gameScores).map(([game, score]) => {
-            const gameLabels = { approach: 'Approach', basket: 'Basket', 'spot-diff': 'Spot the Difference', 'price-defense': 'Price Defense' }
-            return (
-            <div key={game} className="profile-perf-row">
-              <span className="profile-perf-label">{gameLabels[game] || game.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>
-              <div className="profile-perf-track">
-                <div
-                  className={`profile-perf-fill ${score >= 80 ? 'perf-high' : score >= 50 ? 'perf-mid' : 'perf-low'}`}
-                  style={{ width: `${score}%` }}
-                />
-              </div>
-              <span className="profile-perf-val">{score}%</span>
+            <div className="profile-stat-card">
+              <div className="profile-stat-value">{stats.avgScore}%</div>
+              <div className="profile-stat-label">Accuracy</div>
             </div>
-            )
-          })}
-          {Object.keys(stats.gameScores).length === 0 && (
-            <div className="profile-perf-empty">Play some games to see your scores here</div>
-          )}
-          <div className="profile-perf-legend">
-            <span className="profile-perf-legend-item"><span className="perf-dot perf-dot-high" /> 80%+ Great</span>
-            <span className="profile-perf-legend-item"><span className="perf-dot perf-dot-mid" /> 50-79% Improving</span>
-            <span className="profile-perf-legend-item"><span className="perf-dot perf-dot-low" /> &lt;50% Needs Practice</span>
+            <div className="profile-stat-card">
+              <div className="profile-stat-value">{certProgress}%</div>
+              <div className="profile-stat-label">Certified</div>
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Badges */}
-        <div className="profile-section-title">Badges</div>
-        <div className="profile-badges-grid">
-          {badges.map((b, i) => {
-            let cls = 'profile-badge'
-            if (b.earned) cls += ' profile-badge-earned'
-            return (
-              <div key={i} className={cls}>
-                <i className={`${b.icon} profile-badge-icon`} />
-                <div className="profile-badge-label">{b.label}</div>
+        {/* Performance Bars — staff only */}
+        {!isManager && (
+          <>
+            <div className="profile-section-title">Performance</div>
+            <div className="profile-perf-card">
+              <div className="profile-perf-row">
+                <span className="profile-perf-label">Overall</span>
+                <div className="profile-perf-track">
+                  <div
+                    className={`profile-perf-fill ${stats.avgScore >= 80 ? 'perf-high' : stats.avgScore >= 50 ? 'perf-mid' : 'perf-low'}`}
+                    style={{ width: `${stats.avgScore}%` }}
+                  />
+                </div>
+                <span className="profile-perf-val">{stats.avgScore}%</span>
               </div>
-            )
-          })}
-        </div>
+              {Object.entries(stats.gameScores).map(([game, score]) => {
+                const gameLabels = { approach: 'Approach', basket: 'Basket', 'spot-diff': 'Spot the Difference', 'price-defense': 'Price Defense' }
+                return (
+                <div key={game} className="profile-perf-row">
+                  <span className="profile-perf-label">{gameLabels[game] || game.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>
+                  <div className="profile-perf-track">
+                    <div
+                      className={`profile-perf-fill ${score >= 80 ? 'perf-high' : score >= 50 ? 'perf-mid' : 'perf-low'}`}
+                      style={{ width: `${score}%` }}
+                    />
+                  </div>
+                  <span className="profile-perf-val">{score}%</span>
+                </div>
+                )
+              })}
+              {Object.keys(stats.gameScores).length === 0 && (
+                <div className="profile-perf-empty">Play some games to see your scores here</div>
+              )}
+              <div className="profile-perf-legend">
+                <span className="profile-perf-legend-item"><span className="perf-dot perf-dot-high" /> 80%+ Great</span>
+                <span className="profile-perf-legend-item"><span className="perf-dot perf-dot-mid" /> 50-79% Improving</span>
+                <span className="profile-perf-legend-item"><span className="perf-dot perf-dot-low" /> &lt;50% Needs Practice</span>
+              </div>
+            </div>
+
+            {/* Badges — staff only */}
+            <div className="profile-section-title">Badges</div>
+            <div className="profile-badges-grid">
+              {badges.map((b, i) => {
+                let cls = 'profile-badge'
+                if (b.earned) cls += ' profile-badge-earned'
+                return (
+                  <div key={i} className={cls}>
+                    <i className={`${b.icon} profile-badge-icon`} />
+                    <div className="profile-badge-label">{b.label}</div>
+                  </div>
+                )
+              })}
+            </div>
+          </>
+        )}
 
         {/* Your Store */}
         <div className="profile-store-card">
@@ -202,29 +223,6 @@ export default function Profile() {
             <div className="profile-store-row">{certProgress}% certified</div>
           </div>
         </div>
-
-        {/* Role Switcher — only for managers */}
-        {isManager && (
-          <div className="profile-role-switcher">
-            <div className="profile-section-title" style={{ marginBottom: 8 }}>View Mode</div>
-            <div className="profile-role-options">
-              <button
-                className={`profile-role-btn${role === 'staff' ? ' profile-role-btn-active' : ''}`}
-                onClick={() => setRole('staff')}
-              >
-                <i className="ri-user-3-line" />
-                <span>Sales Associate</span>
-              </button>
-              <button
-                className={`profile-role-btn${role === 'manager' ? ' profile-role-btn-active' : ''}`}
-                onClick={() => setRole('manager')}
-              >
-                <i className="ri-team-line" />
-                <span>Manager</span>
-              </button>
-            </div>
-          </div>
-        )}
 
         {/* Settings */}
         <div className="profile-settings" role="list">

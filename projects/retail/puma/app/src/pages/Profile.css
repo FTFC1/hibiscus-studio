@@ -63,6 +63,13 @@
   margin-bottom: 12px;
 }
 
+.profile-role-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
 .profile-role-pill {
   display: inline-block;
   font-size: 11px;
@@ -74,6 +81,20 @@
   background: var(--bg-glass);
   border: 1px solid var(--bg-glass-stroke);
   color: var(--text-on-dark-sub);
+}
+
+.profile-role-change {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: none;
+  border: 1px solid var(--bg-glass-stroke);
+  color: var(--accent-lime);
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 /* ── Certification Card ── */
@@ -344,44 +365,6 @@
 
 .profile-store-row span {
   color: var(--text-on-dark);
-  font-weight: 600;
-}
-
-/* ── Role Switcher ── */
-.profile-role-switcher {
-  margin-top: 4px;
-}
-
-.profile-role-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.profile-role-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text-on-dark-sub);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.profile-role-btn i {
-  font-size: 16px;
-}
-
-.profile-role-btn-active {
-  background: var(--cta-green-dim);
-  border-color: var(--cta-green-glow);
-  color: var(--cta-green);
   font-weight: 600;
 }
 

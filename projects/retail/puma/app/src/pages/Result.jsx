@@ -119,10 +119,10 @@ export default function Result() {
           <p className="result-mission-title">{mission?.title}</p>
         </div>
 
-        {/* Wrong answer review (fail state only) */}
-        {theme.fail && wrongAnswers.length > 0 && (
+        {/* Wrong answer review (shown on pass and fail) */}
+        {wrongAnswers.length > 0 && (
           <div className="result-wrong-section">
-            <p className="result-wrong-heading">Review your answers</p>
+            <p className="result-wrong-heading">{theme.fail ? "Here's what to focus on" : 'Check your learning'}</p>
             {wrongAnswers.map((wa, i) => (
               <div key={i} className="result-wrong-card">
                 <p className="result-wrong-question">{wa.question}</p>
@@ -178,13 +178,13 @@ export default function Result() {
               {theme.cta} <span style={{ fontSize: 18 }}>&rarr;</span>
             </button>
             {theme.fail && (
-              <button className="result-cta-btn result-cta-secondary" onClick={() => navigate('/')}>
-                Back to Home
+              <button className="result-cta-btn result-cta-secondary" onClick={() => navigate(`/lesson/${missionId}`)}>
+                Review Lesson
               </button>
             )}
           </>
         )}
-        <p className="result-nav-hint">Tap to continue</p>
+{/* nav hint removed — buttons are self-explanatory */}
       </footer>
     </div>
   )

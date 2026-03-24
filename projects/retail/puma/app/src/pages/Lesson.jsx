@@ -329,12 +329,22 @@ function QuickRefOverlay({ isOpen, onClose, items }) {
 
 function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
   const navigate = useNavigate()
-  const [qIndex, setQIndex] = useState(0)
-  const [answers, setAnswers] = useState([])
+
+  // Restore quiz progress from sessionStorage on mount (F16/F32/F33)
+  const savedProgress = (() => {
+    try {
+      const raw = sessionStorage.getItem(`puma_quiz_progress_${missionId}`)
+      if (raw) return JSON.parse(raw)
+    } catch {}
+    return null
+  })()
+
+  const [qIndex, setQIndex] = useState(savedProgress?.qIndex ?? 0)
+  const [answers, setAnswers] = useState(savedProgress?.answers ?? [])
   const [selected, setSelected] = useState(null)
   const [revealed, setRevealed] = useState(false)
   const [waitingForNext, setWaitingForNext] = useState(false)
-  const answersRef = useRef([])
+  const answersRef = useRef(savedProgress?.answers ?? [])
 
   const question = quiz[qIndex]
   const total = quiz.length
@@ -390,50 +400,60 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
       }
 
       sessionStorage.setItem(`puma_score_${missionId}`, JSON.stringify({ score, wrongAnswers }))
+      sessionStorage.removeItem(`puma_quiz_progress_${missionId}`)
       navigate(`/result/${missionId}`, { state: { score, wrongAnswers, isReview } })
     }
   }
 
   const handleSelect = (optIndex) => {
-    if (revealed) return
+    if (revealed || isReview) return
     const isCorrect = optIndex === question.correct
 
     setSelected(optIndex)
     setRevealed(true)
 
-    answersRef.current = [
-      ...answersRef.current,
-      {
-        id: question.id,
-        question: question.question,
-        selected: optIndex,
-        correct: isCorrect,
-        selectedText: question.options[optIndex],
-        correctText: question.options[question.correct]
-      }
-    ]
+    const newAnswer = {
+      id: question.id,
+      question: question.question,
+      selected: optIndex,
+      correct: isCorrect,
+      selectedText: question.options[optIndex],
+      correctText: question.options[question.correct]
+    }
+    answersRef.current = [...answersRef.current, newAnswer]
     setAnswers(answersRef.current)
 
-    if (isCorrect) {
-      setTimeout(() => advanceQuiz(), 900)
-    } else {
-      setWaitingForNext(true)
-    }
+    // Persist quiz progress so page refresh doesn't destroy it (F16/F32)
+    sessionStorage.setItem(`puma_quiz_progress_${missionId}`, JSON.stringify({
+      qIndex: qIndex + 1,
+      answers: answersRef.current
+    }))
+
+    // Always wait for manual "Next" — no auto-advance (Tinder pattern + DR07/DR11)
+    setWaitingForNext(true)
   }
 
   return (
     <div className="quiz-overlay">
       <header className="lesson-top-bar">
-        <button className="nav-btn back-btn" onClick={onBack} aria-label="Go back to lesson">
+        <button className="nav-btn back-btn" onClick={() => {
+          if (qIndex > 0 && !window.confirm('Leave quiz? Your progress will be lost.')) return
+          onBack()
+        }} aria-label="Go back to lesson">
           <i className="ri-arrow-left-line" aria-hidden="true"></i>
         </button>
-        <div className="progress-dots-inline">
-          {quiz.map((_, i) => (
-            <div
-              key={i}
-              className={`dot ${i === qIndex ? 'dot-active' : ''} ${i < qIndex ? 'dot-done' : ''}`}
-            />
-          ))}
+        <div className="quiz-progress-bar">
+          {quiz.map((_, i) => {
+            let segClass = 'seg'
+            if (i < qIndex) {
+              // Already answered — check if correct or wrong
+              const ans = answersRef.current[i]
+              segClass += ans?.correct ? ' seg-correct' : ' seg-wrong'
+            } else if (i === qIndex) {
+              segClass += ' seg-current'
+            }
+            return <div key={i} className={segClass} />
+          })}
         </div>
         <div style={{ width: 80 }} />
       </header>
@@ -456,6 +476,7 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
                 className={cls}
                 onClick={() => handleSelect(i)}
                 disabled={revealed}
+                aria-label={`${String.fromCharCode(65 + i)} ${opt}`}
               >
                 <span className="quiz-option-letter">{String.fromCharCode(65 + i)}</span>
                 <span className="quiz-option-text">{opt}</span>
@@ -470,12 +491,26 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
           })}
         </div>
 
-        {/* Show correct answer hint when wrong */}
-        {revealed && selected !== question.correct && (
-          <div className="quiz-correct-hint">
-            <i className="ri-lightbulb-line"></i>
-            <span>Correct answer: <strong>{question.options[question.correct]}</strong></span>
-          </div>
+        {/* Verdict label */}
+        {revealed && (
+          <p className={`quiz-verdict ${selected === question.correct ? 'quiz-verdict-correct' : 'quiz-verdict-wrong'}`}>
+            {selected === question.correct ? 'Correct!' : 'Not quite'}
+          </p>
+        )}
+
+        {/* Explanation — collapsible "Why?" toggle (C04 progressive disclosure) */}
+        {revealed && (selected !== question.correct) && (
+          <p className="quiz-correct-answer-line">
+            The answer is <strong>{question.options[question.correct]}</strong>
+          </p>
+        )}
+        {revealed && question.explanation && (
+          <details className={`quiz-explanation ${selected === question.correct ? 'quiz-explanation-correct' : 'quiz-explanation-wrong'}`}>
+            <summary className="quiz-why-btn">
+              <i className="ri-lightbulb-line"></i> Why?
+            </summary>
+            <p className="quiz-why-text">{question.explanation}</p>
+          </details>
         )}
 
         {waitingForNext && (

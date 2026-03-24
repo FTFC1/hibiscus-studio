@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
-  await page.click('text=Manager View')
-  await expect(page.locator('.mgr-card').first()).toBeVisible({ timeout: 15000 })
+  await page.click('text=Staff View')
+  await expect(page.locator('.hero-card, .hero-cta, .completed-section').first()).toBeVisible({ timeout: 15000 })
 })
 
 test.describe('Navigation', () => {

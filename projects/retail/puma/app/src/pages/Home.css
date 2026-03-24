@@ -324,50 +324,58 @@
   transform: scale(0.98);
 }
 
-/* ── All Complete State ── */
+/* ── All Complete State (compact banner) ── */
 .all-complete {
   margin: 16px var(--space-page);
   background: var(--cta-green-dim);
   border: 1px solid rgba(76, 168, 88, 0.2);
-  border-radius: 16px;
-  padding: 32px 24px;
-  text-align: center;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .all-complete-icon {
-  font-size: 48px;
+  font-size: 24px;
   color: var(--cta-green);
-  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.all-complete-text {
+  flex: 1;
+  min-width: 0;
 }
 
 .all-complete-title {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 4px;
   color: var(--text-primary);
 }
 
 .all-complete-desc {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--text-secondary);
-  margin-bottom: 16px;
 }
 
 .all-complete-cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 24px;
+  gap: 4px;
+  padding: 8px 14px;
   background: var(--cta-green);
   color: #080808;
   border: none;
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 700;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   min-height: 44px;
+  margin-left: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .all-complete-cta:active {

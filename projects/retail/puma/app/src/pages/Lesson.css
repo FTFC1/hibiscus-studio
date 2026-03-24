@@ -1026,6 +1026,40 @@
   font-size: 18px;
 }
 
+/* ── Quiz Segmented Progress Bar ── */
+.quiz-progress-bar {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  align-items: center;
+}
+
+.quiz-progress-bar .seg {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s;
+}
+
+.quiz-progress-bar .seg-correct {
+  background: #4CAF50;
+}
+
+.quiz-progress-bar .seg-wrong {
+  background: #E8453C;
+}
+
+.quiz-progress-bar .seg-current {
+  background: rgba(255, 255, 255, 0.25);
+  animation: segPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes segPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 /* ── Quiz Overlay ── */
 .quiz-overlay {
   position: fixed;
@@ -1046,17 +1080,17 @@
 }
 
 .quiz-counter {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   margin: 0 0 16px;
 }
 
 .quiz-question {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-primary);
   line-height: 1.35;
   margin: 0 0 32px;
@@ -1070,8 +1104,8 @@
 
 .quiz-option {
   width: 100%;
-  background: #111111;
-  border: 1px solid #262626;
+  background: var(--surface-card, #111111);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
   padding: 16px;
   display: flex;
@@ -1090,22 +1124,26 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #1A1A1A;
-  border: 1px solid #333;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
-  color: var(--text-muted);
   flex-shrink: 0;
   font-family: 'Inter', sans-serif;
+  border: 1px solid transparent;
 }
 
+/* Colored letter badges — A green, B blue, C orange, D purple (DR07) */
+.quiz-option:nth-child(1) .quiz-option-letter { background: rgba(58, 125, 68, 0.2); color: #4CAF50; border-color: rgba(58, 125, 68, 0.3); }
+.quiz-option:nth-child(2) .quiz-option-letter { background: rgba(59, 130, 246, 0.2); color: #60A5FA; border-color: rgba(59, 130, 246, 0.3); }
+.quiz-option:nth-child(3) .quiz-option-letter { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border-color: rgba(245, 158, 11, 0.3); }
+.quiz-option:nth-child(4) .quiz-option-letter { background: rgba(155, 125, 255, 0.2); color: #9B7DFF; border-color: rgba(155, 125, 255, 0.3); }
+
 .quiz-option-text {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  color: #CCCCCC;
+  color: #E0E0E0;
   flex: 1;
   line-height: 1.4;
   font-family: 'Inter', sans-serif;
@@ -1116,43 +1154,43 @@
   flex-shrink: 0;
 }
 
-/* Revealed states */
+/* Revealed states — correct answer is subtle, not bright green (Tinder pattern) */
 .quiz-option-correct {
-  background: rgba(58, 125, 68, 0.15);
-  border-color: #3A7D44;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .quiz-option-correct .quiz-option-letter {
-  background: #3A7D44;
-  border-color: #3A7D44;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
   color: white;
 }
 
 .quiz-option-correct .quiz-option-text {
-  color: #4CAF50;
+  color: #EEEEEE;
 }
 
 .quiz-option-correct .quiz-option-icon {
-  color: #3A7D44;
+  color: #4CAF50;
 }
 
 .quiz-option-wrong {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: #F59E0B;
+  background: rgba(232, 69, 60, 0.12);
+  border-color: #E8453C;
 }
 
 .quiz-option-wrong .quiz-option-letter {
-  background: #F59E0B;
-  border-color: #F59E0B;
+  background: #E8453C;
+  border-color: #E8453C;
   color: white;
 }
 
 .quiz-option-wrong .quiz-option-text {
-  color: #F59E0B;
+  color: #E8453C;
 }
 
 .quiz-option-wrong .quiz-option-icon {
-  color: #F59E0B;
+  color: #E8453C;
 }
 
 .quiz-option-dim {
@@ -1166,38 +1204,109 @@
 .quiz-next-btn {
   width: 100%;
   padding: 16px;
-  background: var(--surface-card);
+  background: #3A7D44;
   color: white;
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   margin-top: 16px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 12px rgba(58, 125, 68, 0.25);
+  transition: transform 0.15s;
 }
 
 .quiz-next-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
-.quiz-correct-hint {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 12px 14px;
-  background: rgba(76, 175, 80, 0.08);
-  border: 1px solid rgba(76, 175, 80, 0.2);
-  border-radius: 10px;
-  margin-top: 12px;
+/* ── Verdict Label ── */
+.quiz-verdict {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 12px 0 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.quiz-verdict-correct {
+  color: #4CAF50;
+}
+
+.quiz-verdict-wrong {
+  color: #E8453C;
+}
+
+/* ── Correct Answer Line (wrong answer only) ── */
+.quiz-correct-answer-line {
   font-size: 13px;
-  color: var(--alert-green, #4ADE80);
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 8px 0 0;
+  font-family: 'Inter', sans-serif;
 }
 
-.quiz-correct-hint i {
+.quiz-correct-answer-line strong {
+  color: #EEEEEE;
+}
+
+/* ── Explanation Card (collapsible) ── */
+.quiz-explanation {
+  border-radius: 10px;
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+}
+
+.quiz-why-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.quiz-why-btn::-webkit-details-marker { display: none; }
+.quiz-why-btn::marker { display: none; content: ''; }
+
+.quiz-why-btn i {
+  font-size: 16px;
+  color: #D4A843;
+}
+
+.quiz-why-text {
+  padding: 0 14px 12px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.quiz-explanation strong {
+  color: #4CAF50;
+}
+
+.quiz-explanation-correct {
+  background: rgba(58, 125, 68, 0.1);
+  border-left: 3px solid #3A7D44;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.quiz-explanation-wrong {
+  background: rgba(212, 168, 67, 0.08);
+  border-left: 3px solid #D4A843;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.quiz-explanation i {
   font-size: 16px;
   margin-top: 1px;
   flex-shrink: 0;
+  color: #D4A843;
 }
 
 /* ── Objectives Slide (Slide 0) ── */

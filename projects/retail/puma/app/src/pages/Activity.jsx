@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import { useUser } from '../context/UserContext'
 import { supabase } from '../lib/supabase'
+import { missionList } from '../data/missions'
 import './Activity.css'
 
 const medals = { 1: '\u{1F947}', 2: '\u{1F948}', 3: '\u{1F949}' }
@@ -65,7 +66,7 @@ export default function Activity() {
       setBuzzItems(recent.map(r => ({
         initial: r.profiles?.avatar_initials?.[0] || '?',
         name: r.profiles?.full_name || 'Unknown',
-        action: `scored ${r.score}% on ${r.mission_id}`,
+        action: `scored ${r.score}% on ${missionList.find(m => m.id === r.mission_id)?.title || r.mission_id}`,
         time: getTimeAgo(r.completed_at),
         isDemo: r.is_demo
       })))
