@@ -1,0 +1,11 @@
+node_modules
+test-results
+*.spec.cjs
+playwright.config.cjs
+design-round-*.html
+ia-wireframes*.html
+ui-explore-*.html
+halfmoon-proof.html
+session-summary.html
+PROGRESS.md
+excalidraw.log
