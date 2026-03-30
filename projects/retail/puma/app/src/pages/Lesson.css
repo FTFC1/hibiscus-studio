@@ -1060,6 +1060,40 @@
   50% { opacity: 1; }
 }
 
+/* ── Quiz Save Toast ── */
+.quiz-save-toast {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  right: 20px;
+  z-index: 300;
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: toast-in 0.3s ease-out;
+}
+.quiz-save-toast.success {
+  background: rgba(58, 125, 68, 0.12);
+  border: 1px solid rgba(58, 125, 68, 0.2);
+  color: #4CAF50;
+}
+.quiz-save-toast.error {
+  background: rgba(211, 47, 47, 0.12);
+  border: 1px solid rgba(211, 47, 47, 0.2);
+  color: #ef5350;
+}
+.quiz-save-toast i {
+  font-size: 18px;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Quiz Overlay ── */
 .quiz-overlay {
   position: fixed;

@@ -344,6 +344,7 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
   const [selected, setSelected] = useState(null)
   const [revealed, setRevealed] = useState(false)
   const [waitingForNext, setWaitingForNext] = useState(false)
+  const [saveToast, setSaveToast] = useState(null) // { type: 'success' | 'error', msg }
   const answersRef = useRef(savedProgress?.answers ?? [])
 
   const question = quiz[qIndex]
@@ -375,6 +376,7 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
             .limit(1)
             .single()
 
+          let saveError = null
           if (existing && score <= existing.score) {
             // Already have a better or equal score — skip write
           } else if (existing) {
@@ -383,7 +385,7 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
               .from('completions')
               .update({ score, time_spent: elapsed })
               .eq('id', existing.id)
-            if (error) console.error('Completion update failed:', error)
+            saveError = error
           } else {
             // First completion — insert
             const { error } = await supabase.from('completions').insert({
@@ -392,10 +394,20 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
               score,
               time_spent: elapsed
             })
-            if (error) console.error('Completion save failed:', error)
+            saveError = error
           }
+
+          if (saveError) {
+            console.error('Completion save failed:', saveError)
+            setSaveToast({ type: 'error', msg: 'Score not saved — check your connection and try again.' })
+          } else {
+            setSaveToast({ type: 'success', msg: 'Score saved! Your manager can see your progress.' })
+          }
+          setTimeout(() => setSaveToast(null), 4000)
         } catch (err) {
           console.error('Completion save failed:', err)
+          setSaveToast({ type: 'error', msg: 'Score not saved — check your connection and try again.' })
+          setTimeout(() => setSaveToast(null), 4000)
         }
       }
 
@@ -435,6 +447,12 @@ function SlideQuiz({ quiz, missionId, userId, startTime, onBack, isReview }) {
 
   return (
     <div className="quiz-overlay">
+      {saveToast && (
+        <div className={`quiz-save-toast ${saveToast.type}`}>
+          <i className={saveToast.type === 'success' ? 'ri-check-double-line' : 'ri-error-warning-line'}></i>
+          <span>{saveToast.msg}</span>
+        </div>
+      )}
       <header className="lesson-top-bar">
         <button className="nav-btn back-btn" onClick={() => {
           if (qIndex > 0 && !window.confirm('Leave quiz? Your progress will be lost.')) return
