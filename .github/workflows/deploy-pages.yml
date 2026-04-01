@@ -18,6 +18,7 @@ on:
       - 'fg-ganache-landing.html'
       - 'flour-girls-review-tool.html'
       - 'fg-images/**'
+      - 'rochelle-videos/**'
       - 'CNAME'
       - '.nojekyll'
       - '.github/workflows/deploy-pages.yml'
@@ -54,6 +55,7 @@ jobs:
             fg-ganache-landing.html
             flour-girls-review-tool.html
             fg-images
+            rochelle-videos
             CNAME
             .nojekyll
 
