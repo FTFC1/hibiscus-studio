@@ -1848,6 +1848,7 @@
 
     <!-- Cloudflare Turnstile (invisible bot protection) -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="d6e75f06-fc67-4f39-9586-d7651b35f5b7"></script>
 </head>
 <body>
     <!-- Decorative flower pattern (sides) -->
@@ -3705,6 +3706,14 @@
             if (step === 8) {
                 updateSummary();
                 track('booking_complete'); // Track: reached final step
+            }
+
+            // Umami funnel tracking
+            if (typeof umami !== 'undefined') {
+                if (step === 0) umami.track('funnel-start');
+                if (step === 4) umami.track('funnel-date-selected');
+                if (step === 7) umami.track('funnel-details-submitted');
+                if (step === 8) umami.track('funnel-booking-confirmed');
             }
 
             // Scroll to top

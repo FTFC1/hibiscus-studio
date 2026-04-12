@@ -1,1657 +1,880 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hibiscus Studio - East London Event Space Rental</title>
-  <meta name="description"
-    content="Book Hibiscus Studio for corporate events, creative sessions, and private parties. Beautiful event space in East London with full kitchen, 40 chairs, 10 tables.">
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://cloud.umami.is https://cdn.tailwindcss.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://cloud.umami.is https://www.youtube.com;">
-
-  <!-- Preload critical resources -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    as="style">
-  <link rel="preconnect" href="https://acuityscheduling.com">
-  <link rel="dns-prefetch" href="//www.youtube.com">
-  <link rel="dns-prefetch" href="//maps.googleapis.com">
-
-  <!-- Umami Analytics -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="d6e75f06-fc67-4f39-9586-d7651b35f5b7"></script>
-
-  <script src="https://cdn.tailwindcss.com?v=1"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-    }
-  </script>
-  <script>
-    // Default to light mode unless user has saved preference for dark
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  </script>
-  <style>
-    /* Smooth animations */
-    * {
-      transition: all 0.2s ease-in-out;
-    }
-
-    /* Hover animations */
-    .hover-lift:hover {
-      transform: translateY(-2px);
-    }
-
-    .hover-scale:hover {
-      transform: scale(1.02);
-    }
-
-    /* Loading animation */
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.5;
-      }
-    }
-
-    .loading-pulse {
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-
-    /* Fade in animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.6s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Slide left animation for funnel steps */
-    .slide-left {
-      animation: slideLeft 0.3s ease-out;
-    }
-
-    @keyframes slideLeft {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    /* TikTok embed responsive */
-    .media-container {
-      position: relative;
-      width: 100%;
-      height: 0;
-      padding-bottom: 177.78%;
-      /* 9:16 aspect ratio for proper YouTube Shorts display */
-      overflow: hidden;
-      border-radius: 12px;
-      background-color: #000;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-      max-height: 70vh;
-      /* Prevent videos from being too tall on mobile */
-    }
-
-    .media-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .dark .media-container {
-      background-color: #111827;
-      /* tailwind gray-900 */
-    }
-
-    /* Deposit badge */
-    .badge-deposit {
-      @apply inline-block rounded-full text-sm font-semibold tracking-wide px-4 py-2;
-      background-color: rgba(251, 191, 36, 0.15);
-      /* subtle amber */
-      color: #fcd34d;
-      /* amber-300 */
-    }
-
-    .dark .badge-deposit {
-      background-color: rgba(251, 191, 36, 0.15);
-      color: #fcd34d;
-    }
-
-    /* Custom sizing for feature icons */
-    .w-18 {
-      width: 4.5rem;
-    }
-
-    .h-18 {
-      height: 4.5rem;
-    }
-
-    /* Smooth scroll and better positioning */
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Offset anchor positioning */
-    #see-space {
-      scroll-margin-top: 2rem;
-    }
-
-    /* Hide scrollbar for mobile carousel */
-    .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    .scrollbar-hide::-webkit-scrollbar {
-      display: none;
-    }
-
-    /* Smooth scrolling for carousel */
-    .snap-x {
-      scroll-snap-type: x mandatory;
-    }
-
-    .snap-center {
-      scroll-snap-align: center;
-    }
-
-    /* Reduce gaps on mobile */
-    @media (max-width: 768px) {
-      .media-container {
-        padding-bottom: 120%;
-        /* Slightly taller on mobile for better fit */
-      }
-    }
-  </style>
-  <link rel="stylesheet" href="assets/css/chat-widget.css">
-</head>
-
-<body class="bg-white dark:bg-gray-900 transition-colors">
-
-  <!-- Hero Section -->
-  <section
-    class="pt-8 pb-16 md:pt-20 md:pb-24 flex flex-col justify-center items-center text-center px-4 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
-    <div class="max-w-4xl mx-auto space-y-8 fade-in">
-
-      <!-- Studio Name & Hook -->
-      <div class="space-y-4">
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">Hibiscus Studio</h1>
-        <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 font-light">Studio hire for events, workshops &
-          hourly content shoots</p>
-        <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Host unforgettable corporate events,
-          creative sessions, and private parties in our beautifully designed studio space.</p>
-      </div>
-
-      <!-- Key Features -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        <div class="flex flex-col items-center space-y-3 hover-lift">
-          <div
-            class="w-18 h-18 bg-blue-100 dark:bg-blue-600/20 text-blue-600 dark:text-blue-300 rounded-full flex items-center justify-center shadow-sm">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z" />
-              <path
-                d="M5 7V5a1 1 0 011-1h12a1 1 0 011 1v2h1a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2h1zm2-2v2h10V5H7zm-3 4v8h16V9H4z" />
-            </svg>
-          </div>
-          <span class="font-medium text-center">40 chairs</span>
-        </div>
-        <div class="flex flex-col items-center space-y-3 hover-lift">
-          <div
-            class="w-18 h-18 bg-blue-100 dark:bg-blue-600/20 text-blue-600 dark:text-blue-300 rounded-full flex items-center justify-center shadow-sm">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20 6H4c-1.1 0-2 .9-2 2v8c0 1.11.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H4V8h16v8z" />
-            </svg>
-          </div>
-          <span class="font-medium text-center">10 tables</span>
-        </div>
-        <div class="flex flex-col items-center space-y-3 hover-lift">
-          <div
-            class="w-18 h-18 bg-green-100 dark:bg-green-600/20 text-green-600 dark:text-green-300 rounded-full flex items-center justify-center shadow-sm">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M18 2.01L6 2c-1.1 0-2 .89-2 2v16c0 1.11.9 2 2 2h12c1.1 0 2-.89 2-2V4c0-1.11-.9-1.99-2-1.99zM18 20H6v-9.02h12V20zm0-11H6V4h12v5z" />
-              <circle cx="12" cy="13.5" r="1.5" />
-              <path d="M14 17h-4v-1h4v1z" />
-            </svg>
-          </div>
-          <span class="font-medium text-center">Full kitchen</span>
-        </div>
-        <div class="flex flex-col items-center space-y-3 hover-lift">
-          <div
-            class="w-18 h-18 bg-purple-100 dark:bg-purple-600/20 text-purple-600 dark:text-purple-300 rounded-full flex items-center justify-center shadow-sm">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
-            </svg>
-          </div>
-          <span class="font-medium text-center whitespace-nowrap">High-speed Wi-Fi</span>
-        </div>
-      </div>
-
-      <!-- Location & Accessibility -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 max-w-2xl mx-auto">
-        <div class="text-center space-y-4">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Perfect Location</h3>
-          <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400">
-            <div class="w-5 h-5 text-red-500 flex-shrink-0">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-              </svg>
-            </div>
-            <span>19a Peto Street North, London E16</span>
-          </div>
-          <div class="flex items-center justify-center gap-8 text-sm text-gray-500 dark:text-gray-400">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 text-blue-500 flex-shrink-0">
-                <svg fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M4 15.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V5c0-3.5-3.5-4-8-4s-8 .5-8 4v10.5zM8 5h8c1.1 0 2 .9 2 2v3H6V7c0-1.1.9-2 2-2z" />
-                </svg>
-              </div>
-              <span>5 min from Canning Town</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 text-orange-500 flex-shrink-0">
-                <svg fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
-                </svg>
-              </div>
-              <span>30-min loading zone • Free after 6:30pm</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Primary CTA -->
-      <div class="space-y-4">
-        <a href="#hire"
-          class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 hover-scale shadow-lg hover:shadow-xl">
-          View Booking Options
-        </a>
-        <p class="text-base text-gray-500 dark:text-gray-400">
-          8 flexible booking options • Book directly • 50% reservation fee invoiced within 48h
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Media Section -->
-  <section class="py-16 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center space-y-6">
-        <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md mx-auto shadow-lg">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-6">Follow Our Journey</h3>
-          <div class="flex justify-center gap-6">
-            <a href="https://www.instagram.com/hibiscusstudiolondon" target="_blank"
-              class="flex flex-col items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors group">
-              <div
-                class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </div>
-              <span class="text-sm font-medium">Instagram</span>
-            </a>
-            <div class="flex flex-col items-center gap-2 text-gray-400 dark:text-gray-500 group">
-              <div
-                class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg>
-              </div>
-              <span class="text-sm font-medium">YouTube</span>
-              <span class="text-xs text-gray-400">Coming Soon</span>
-            </div>
-            <a href="https://www.tiktok.com/@hibiscusstudiouk" target="_blank"
-              class="flex flex-col items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors group">
-              <div
-                class="w-12 h-12 bg-black dark:bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-white dark:text-black" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
-                </svg>
-              </div>
-              <span class="text-sm font-medium">TikTok</span>
-            </a>
-          </div>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">Behind-the-scenes content & event inspiration</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- YouTube Short Video Section -->
-  <section class="py-16 bg-white dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center space-y-6">
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">See Our Space in Action</h3>
-        <p class="text-gray-600 dark:text-gray-400">Get a quick tour of Hibiscus Studio</p>
-
-        <!-- Video Container with Responsive Aspect Ratio -->
-        <div class="max-w-sm mx-auto">
-          <div class="media-container relative">
-            <iframe id="videoIframe"
-              src="https://www.youtube.com/embed/lisladEHsnQ?autoplay=1&mute=1&loop=1&playlist=lisladEHsnQ&enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
-              title="Hibiscus Studio Tour"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen class="w-full h-full object-cover" loading="lazy">
-            </iframe>
-
-            <!-- Apple-Style Centered Unmute Prompt -->
-            <div id="unmutePrompt"
-              class="absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-500 opacity-0 pointer-events-none">
-              <button id="unmuteButton"
-                class="flex flex-col items-center gap-3 px-6 py-4 rounded-2xl backdrop-blur-2xl bg-black/40 dark:bg-black/50 border border-white/20 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 pointer-events-auto"
-                aria-label="Tap to unmute">
-                <!-- Muted Speaker Icon -->
-                <div id="mutedIcon" class="transition-all duration-300">
-                  <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-                  </svg>
-                </div>
-                <!-- Unmuted Speaker Icon (hidden by default) -->
-                <div id="unmutedIcon" class="hidden transition-all duration-300">
-                  <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                  </svg>
-                </div>
-                <!-- Apple-style minimalist copy -->
-                <span id="promptText" class="text-sm font-medium text-white/95 tracking-wide">Tap for sound</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Studio Hire Options with Progressive Disclosure -->
-  <div id="hire" class="text-center mt-12 space-y-8">
-    <div class="max-w-4xl mx-auto">
-      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Ready to book your session?</h3>
-      <p class="text-gray-600 dark:text-gray-400 mb-8">Select your category below to get started. A 50% reservation fee invoice
-        will be emailed within 48 hours to confirm your booking.</p>
-
-      <!-- Category Selection (Progressive Disclosure Step 1) -->
-      <div id="categorySelection" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-8 px-4 md:px-0">
-        <!-- Studio Viewing Category - FIRST (Direct booking) -->
-        <button
-          onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164274/calendar/12260380')"
-          class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
-          <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-2xl flex items-center justify-center mx-auto">
-            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-              </path>
-            </svg>
-          </div>
-          <h4 class="text-xl font-bold text-gray-900 dark:text-white">Studio Viewing</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">See the space before booking</p>
-          <div class="text-sm font-medium text-green-600 dark:text-green-400">Free • 20 mins</div>
-        </button>
-
-        <!-- Event Hire Category - SECOND -->
-        <button onclick="showCategory('event')"
-          class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
-          <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-2xl flex items-center justify-center mx-auto">
-            <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <h4 class="text-xl font-bold text-gray-900 dark:text-white">Event Hire</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Corporate events & celebrations</p>
-          <div class="text-sm font-medium text-blue-600 dark:text-blue-400">£345 - £885</div>
-        </button>
-
-        <!-- Workshops & Content Category - THIRD -->
-        <button onclick="showCategory('workshop')"
-          class="category-btn border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
-          <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-2xl flex items-center justify-center mx-auto">
-            <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-              </path>
-            </svg>
-          </div>
-          <h4 class="text-xl font-bold text-gray-900 dark:text-white">Workshops & Content</h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Classes & photo shoots</p>
-          <div class="text-sm font-medium text-purple-600 dark:text-purple-400">£90 - £645</div>
-        </button>
-
-        <!-- Proposal Packages Category - FOURTH (NEW) -->
-        <button onclick="showCategory('proposal')"
-          class="category-btn border-2 border-pink-300 dark:border-pink-600 bg-gradient-to-br from-pink-200 to-red-200 dark:from-pink-900/30 dark:to-red-900/30 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300 text-center space-y-4">
-          <div
-            class="w-16 h-16 bg-gradient-to-br from-pink-400 to-red-400 dark:from-pink-700 dark:to-red-700 rounded-2xl flex items-center justify-center mx-auto">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
-              </path>
-            </svg>
-          </div>
-          <h4 class="text-xl font-bold text-gray-900 dark:text-white">Proposal Packages</h4>
-          <p class="text-sm text-gray-700 dark:text-gray-300">Romance styled to perfection</p>
-          <div class="text-sm font-medium text-pink-700 dark:text-pink-400">£770 - £1,700</div>
-          <span
-            class="inline-block bg-amber-200 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 text-xs font-semibold px-3 py-1 rounded-full">Launch
-            Offer</span>
-        </button>
-      </div>
-
-      <!-- Detailed Options (Progressive Disclosure Step 2) -->
-      <!-- Event Hire Options -->
-      <div id="eventOptions" class="category-options hidden px-4 md:px-0">
-        <div class="mb-6 flex items-center justify-between">
-          <h4 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Event Hire Options</h4>
-          <button onclick="showCategories()"
-            class="flex items-center space-x-1 md:space-x-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
-            <svg class="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-            <span class="hidden sm:inline">Back to categories</span>
-            <span class="sm:hidden">Back</span>
-          </button>
-        </div>
-        <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-          <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>Suitable for intimate events such
-              as:</strong> Corporate events, Supperclubs, Wellness, Brand launches, Private events, Intimate birthday
-            dinners, Bridal & baby showers</p>
-          <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Included in booking:</strong> Kitchen area
-            (Fridge, oven, cooking hob, dishwasher), 10 tables, 40 chairs</p>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <!-- 4hrs Flexi -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">4hrs Flexi</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Can be booked anytime</p>
-              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£345</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">4 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Ideal for focused events or meetings with
-                flexible timing.</p>
-            </div>
-            <button
-              onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80372609?appointmentTypeIds%5B%5D=80372609')"
-              class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-              Book Now
-            </button>
-          </div>
-
-          <!-- Half-Day -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">Half-Day</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm OR 4pm-10pm)</p>
-              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£465</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Great for workshops or extended celebrations.</p>
-            </div>
-            <button
-              onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=79362536')"
-              class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-              Book Now
-            </button>
-          </div>
-
-          <!-- 8hrs Flexi -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">8hrs Flexi</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Can be booked anytime</p>
-              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£645</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">8 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">More time for setup, networking, and celebrating
-                with flexible timing.</p>
-            </div>
-            <button
-              onclick="openBookingModal('https://app.acuityscheduling.com/schedule.php?owner=35990507&appointmentType=80372722')"
-              class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-              Book Now
-            </button>
-          </div>
-
-          <!-- Event Full-Day (Most Popular) -->
-          <div
-            class="lg:col-span-1 border-2 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 relative flex flex-col justify-between">
-            <div
-              class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm px-4 py-1 rounded-full font-semibold whitespace-nowrap">
-              Most Popular
-            </div>
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">Full-Day</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
-              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£885</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Complete day access for major events and
-                celebrations.</p>
-            </div>
-            <button
-              onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')"
-              class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-              Book Now
-            </button>
-          </div>
-
-          <!-- Late Finish -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300 flex flex-col justify-between">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">Late Finish</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(4pm-midnight)</p>
-              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">£845</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">8 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Perfect for evening events with extended
-                celebration time until midnight.</p>
-            </div>
-            <button
-              onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/79453733/calendar/12272135')"
-              class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-              Book Now
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Workshop & Content Options -->
-      <div id="workshopOptions" class="category-options hidden px-4 md:px-0">
-        <div class="mb-6 flex items-center justify-between">
-          <h4 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Workshops & Content Creation</h4>
-          <button onclick="showCategories()"
-            class="flex items-center space-x-1 md:space-x-2 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors">
-            <svg class="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-            <span class="hidden sm:inline">Back to categories</span>
-            <span class="sm:hidden">Back</span>
-          </button>
-        </div>
-        <div class="mb-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg space-y-2">
-          <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Workshop - Suitable for:</strong> Workshops,
-            classes, demonstrations, tastings, creative sessions, and small group training. Perfect for baking,
-            floristry, art, wellness, or educational experiences.</p>
-          <p class="text-sm text-gray-700 dark:text-gray-300"><strong>Content Creation - Suitable for:</strong>
-            Photography, filming, brand shoots, product launches, podcast recordings, interviews, and creative content
-            days.</p>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          <!-- Workshop 2 Hours -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">2 Hours</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Workshop Session</p>
-              <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£120</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">2 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">Perfect for teaching workshops and small group
-                sessions. Up to 20 attendees.</p>
-              <button
-                onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80163988/calendar/12260380')"
-                class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                Book Now
-              </button>
-            </div>
-          </div>
-
-          <!-- Workshop Half-Day -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Half-Day</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm OR 4pm-10pm)</p>
-              <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£345</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">Morning slot 10am-4pm OR Evening slot 4pm-10pm. Up to
-                20 attendees.</p>
-              <button
-                onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80373390')"
-                class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                Book Now
-              </button>
-            </div>
-          </div>
-
-          <!-- Workshop Full-Day -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">Workshop Full-Day</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
-              <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">£645</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">Full-day workshops and intensive training sessions. Up
-                to 20 attendees.</p>
-              <button
-                onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80164478/calendar/12272135')"
-                class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                Book Now
-              </button>
-            </div>
-          </div>
-
-          <!-- Content Creation Hourly -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">2 Hours</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Content Creation</p>
-              <div class="text-2xl font-bold text-green-600 dark:text-green-400">£90</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">2 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">Content creation and photo shoots with natural light.
-              </p>
-              <button
-                onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80162472')"
-                class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                Book Now
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Second Row for Content Half-Day and Full-Day -->
-        <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mt-6">
-          <!-- Content Half-Day -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Half-Day</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10am-4pm OR 4pm-10pm)</p>
-              <div class="text-2xl font-bold text-green-600 dark:text-green-400">£250</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">6 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">Morning slot 10am-4pm OR Evening slot 4pm-10pm.
-                Extended content creation sessions with kitchen access.</p>
-              <button
-                onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80373390')"
-                class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                Book Now
-              </button>
-            </div>
-          </div>
-
-          <!-- Content Full-Day -->
-          <div
-            class="border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-6 hover-scale shadow-lg transition-all duration-300">
-            <div class="text-center space-y-3">
-              <h5 class="text-lg font-bold text-gray-900 dark:text-white">Content Full-Day</h5>
-              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">(10AM-10PM)</p>
-              <div class="text-2xl font-bold text-green-600 dark:text-green-400">£500</div>
-              <p class="text-sm text-gray-600 dark:text-gray-400">12 hours</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">Full-day content creation with complete kitchen
-                access.</p>
-              <button
-                onclick="openBookingModal('https://app.acuityscheduling.com/schedule/cb10d5fd/appointment/80373328')"
-                class="w-full bg-black dark:bg-white text-white dark:text-black py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors mt-4">
-                Book Now
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Proposal Packages Options (NEW) -->
-      <div id="proposalOptions" class="category-options hidden px-4 md:px-0">
-        <div class="mb-6 flex items-center justify-between">
-          <h4 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Proposal Packages</h4>
-          <button onclick="showCategories()"
-            class="flex items-center space-x-1 md:space-x-2 bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-400 px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors">
-            <svg class="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-            <span class="hidden sm:inline">Back to categories</span>
-            <span class="sm:hidden">Back</span>
-          </button>
-        </div>
-
-        <div
-          class="mb-6 p-6 bg-gradient-to-r from-pink-200 to-red-200 dark:from-pink-900/30 dark:to-red-900/30 rounded-xl border-2 border-pink-300 dark:border-pink-700">
-          <div class="text-center space-y-3">
-            <h5 class="text-xl font-bold text-gray-900 dark:text-white">Romance, Styled to Perfection</h5>
-            <p class="text-sm text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
-              Create an unforgettable moment with our beautifully curated proposal packages. Each package includes venue
-              setup, professional photography, and personalized touches to make your special moment magical.
-            </p>
-            <div
-              class="inline-flex items-center gap-2 bg-amber-200 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 text-sm font-semibold px-4 py-2 rounded-full">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                  clip-rule="evenodd" />
-              </svg>
-              Limited Time Launch Offers – Save up to £400!
-            </div>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <!-- Heart Package -->
-          <div
-            class="relative border-2 border-pink-300 dark:border-pink-600 bg-gradient-to-br from-white to-pink-50 dark:from-gray-800 dark:to-pink-900/20 rounded-2xl p-8 hover-scale shadow-xl transition-all duration-300">
-            <!-- Savings Badge -->
-            <div
-              class="absolute -top-3 -right-3 bg-red-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg transform rotate-12">
-              Save £400
-            </div>
-
-            <div class="text-center space-y-4">
-              <div
-                class="w-20 h-20 bg-gradient-to-br from-pink-100 to-red-100 dark:from-pink-900 dark:to-red-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-10 h-10 text-pink-600 dark:text-pink-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                    clip-rule="evenodd" />
-                </svg>
-              </div>
-
-              <h5 class="text-2xl font-bold text-gray-900 dark:text-white">Heart Package</h5>
-
-              <div class="space-y-2">
-                <div class="flex items-center justify-center gap-3">
-                  <span class="text-4xl font-bold text-pink-600 dark:text-pink-400">£2,050</span>
-                </div>
-                <p class="text-sm text-gray-500 dark:text-gray-400 line-through">Was: £2,450</p>
-              </div>
-
-              <div class="text-left space-y-3 mt-6 bg-white/50 dark:bg-gray-800/50 rounded-xl p-6">
-                <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-4">Package
-                  Includes:</p>
-                <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Heart-shaped romantic décor</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>50 Red Naomi roses (initial & heart arrangement) 🌹</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>2hr venue hire</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>On-site event planner (2hrs)</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Violinist or saxophonist (1hr)</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>20 edited photos & 1 content reel (delivered in 72hrs)</span>
-                  </div>
-
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Standard board (non-custom)</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Full setup + on-site staff (6 hours)</span>
-                  </div>
-                </div>
-                <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
-                  <p class="text-xs text-gray-600 dark:text-gray-400">
-                    <span class="font-semibold">Delivery:</span> 14 working days |
-                    <span class="font-semibold">Express:</span> +£150
-                  </p>
-                </div>
-              </div>
-
-              <!-- PLACEHOLDER: Replace this URL with your Tally form link -->
-              <button
-                onclick="openBookingModal('https://tally.so/embed/w8vEWl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1')"
-                class="w-full bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700 text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl mt-6">
-                Contact to Book
-              </button>
-            </div>
-          </div>
-
-          <!-- White Whimsical Package -->
-          <div
-            class="relative border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-2xl p-8 hover-scale shadow-lg transition-all duration-300">
-            <!-- Savings Badge -->
-            <div
-              class="absolute -top-3 -right-3 bg-amber-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg transform rotate-12">
-              Save £180
-            </div>
-
-            <div class="text-center space-y-4">
-              <div
-                class="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-10 h-10 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </div>
-
-              <h5 class="text-2xl font-bold text-gray-900 dark:text-white">White Whimsical</h5>
-
-              <div class="space-y-2">
-                <div class="flex items-center justify-center gap-3">
-                  <span class="text-4xl font-bold text-gray-900 dark:text-white">£1,695</span>
-                </div>
-                <p class="text-sm text-gray-500 dark:text-gray-400 line-through">Was: £2,095</p>
-              </div>
-
-              <p class="text-sm text-gray-600 dark:text-gray-400 italic">Perfect for proposals or intimate moments</p>
-
-              <div class="text-left space-y-3 mt-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-                <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-4">Package
-                  Includes:</p>
-                <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Elegant decor setup</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>2hr venue hire</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>On-site event planner (2hrs)</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>20 edited photos & 1 content reel (delivered in 72hrs)</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Custom flower colour (Red, White, or Rose)</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Personalised wording</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Standard board (non-custom)</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    <span>Full setup + staff (6 hours)</span>
-                  </div>
-                </div>
-                <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
-                  <p class="text-xs text-gray-600 dark:text-gray-400">
-                    <span class="font-semibold">Delivery:</span> 14 working days |
-                    <span class="font-semibold">Express:</span> +£150
-                  </p>
-                </div>
-              </div>
-
-              <!-- PLACEHOLDER: Replace this URL with your Tally form link -->
-              <button
-                onclick="openBookingModal('https://tally.so/embed/w8vEWl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1')"
-                class="w-full bg-black dark:bg-white text-white dark:text-black py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:bg-gray-800 dark:hover:bg-gray-200 mt-6">
-                Contact to Book
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Payment Info -->
-      <div class="mt-8 space-y-6">
-        <div
-          class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg p-4 max-w-md mx-auto">
-          <div class="text-amber-800 dark:text-amber-200 font-bold text-base">
-            50% reservation fee invoiced within 48h
-          </div>
-          <div class="text-xs text-amber-700 dark:text-amber-300 mt-1">
-            Book now, pay later • Full refund if cancelled 48hrs+ in advance
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  </div>
-  </section>
-
-  <!-- Quick Info Section -->
-  <section class="py-16 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white fade-in">Perfect for Any Event</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Corporate left -->
-        <div class="space-y-3 fade-in hover-lift flex flex-col items-center text-center">
-          <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto">
-            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-              </path>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 dark:text-white">Corporate Events</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Meetings, workshops, and team building</p>
-        </div>
-        <!-- Creative centre -->
-        <div class="space-y-3 fade-in hover-lift flex flex-col items-center text-center">
-          <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto">
-            <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-              </path>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 dark:text-white">Creative Sessions</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Workshops, classes, and artistic projects</p>
-        </div>
-        <!-- Private right -->
-        <div class="space-y-3 fade-in hover-lift flex flex-col items-center text-center">
-          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto">
-            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 dark:text-white">Private Parties</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Birthdays, celebrations, and social gatherings</p>
-        </div>
-      </div>
-
-      <!-- Secondary CTA -->
-      <div class="mt-12 fade-in">
-        <a href="#hire"
-          class="inline-block bg-black dark:bg-white text-white dark:text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors hover-scale">
-          View Booking Options
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="py-16 bg-white dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-center fade-in">Frequently Asked Questions
-      </h2>
-
-      <div class="space-y-4">
-        <!-- FAQ Item - Capacity (NEW) -->
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            What's the capacity?
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">We host intimate gatherings for up to 25 seated
-            guests.
-            (Larger private events available on request.)</p>
-        </details>
-
-        <!-- FAQ Item -->
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            How to secure my booking
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Choose your booking type. Reserve your date on our
-            calendar. We will invoice you within 48 hours. Once your 50% reservation fee is received your booking is confirmed.
-            If we do not receive your reservation fee within 48 hours we will cancel your booking.</p>
-        </details>
-
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            Can I bring my own food & drinks?
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Absolutely. Our kitchenette is yours to use and
-            includes a fridge, 5-hob stove, microwave, and double oven. Outside catering is welcome. Please note: we do
-            not provide any cooking utensils or equipment, and the space must be left as you found it.</p>
-        </details>
-
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            What's the cancellation policy?
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">• More than 30 days before: Full refund of the
-            reservation fee, or reschedule without fees (subject to availability). • 15–30 days before: 50% of the reservation fee
-            refunded, or one free reschedule (must be confirmed within 14 days of the original booking). • 7–14 days
-            before: The reservation fee is non-refundable. Rescheduling may be allowed for a £25 admin fee (subject to
-            availability). • Less than 7 days before: The reservation fee is forfeited, and no rescheduling is permitted. •
-            No-show or same-day cancellations: The full booking amount will be charged as a no-show fee.</p>
-        </details>
-
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            Is parking available?
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Parking is the client's responsibility. Paid parking
-            is available on nearby streets. Parking is free after 6:30 PM and all day on Sundays. There's also a
-            30-minute loading zone at the entrance for drop-offs and collections.</p>
-        </details>
-
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            What about setup and pack down time?
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Please ensure you allow enough time for setup and pack down when reserving your slot. All activities including cleanup must be completed within your booked time.</p>
-        </details>
-
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            Your hire includes:
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Your hire includes:<br>• 40 limewash Chiavari
-            chairs<br>• 10 trestle tables (each 6ft x 2ft)</p>
-        </details>
-
-        <details class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-          <summary class="cursor-pointer flex justify-between items-center text-gray-900 dark:text-white font-medium">
-            Can I bring a DJ or play music?
-            <span class="text-xl text-gray-500 group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="mt-3 text-gray-600 dark:text-gray-400 text-sm">Yes, light music is welcome for private events. You
-            may bring a DJ for background-style sets, but all sound must remain at a moderate volume and finish by 10:00
-            PM.
-            Please note we do not supply speakers or a PA system; these must be provided by your DJ.
-            Any excessive noise or complaints may result in your damages deposit being withheld.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- Terms & Conditions Section -->
-  <section class="py-16 bg-white dark:bg-gray-900">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Terms & Conditions</h2>
-        <p class="text-gray-600 dark:text-gray-400">Please review our terms before booking</p>
-      </div>
-
-      <div class="space-y-6 max-w-3xl mx-auto">
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">1. Deposit and Booking Confirmation</h3>
-          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
-            <li>• A 50% deposit is required upon booking to secure your desired date and time.</li>
-            <li>• Invoices are valid for 48 hours from the time of issue. If payment is not made within this time frame,
-              the booking will be automatically released.</li>
-            <li>• A new invoice will be required to re-book the date and time.</li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">2. Booking Start and End Times</h3>
-          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
-            <li>• The hire period begins at the agreed start time and ends at the agreed end time as stated in your
-              booking confirmation.</li>
-            <li>• Any setup or breakdown must occur within the booked time frame.</li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">3. Grace Period and Late Fees</h3>
-          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
-            <li>• A 30-minute grace period is allowed after the agreed end time.</li>
-            <li>• After the grace period, a late fee of £50 will be charged for every additional 30 minutes (or part
-              thereof).</li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">4. Changes to Booking</h3>
-          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
-            <li>• Requests to change the booking date or time must be made at least 7 days in advance and are subject to
-              availability.</li>
-            <li>• Changes may incur additional fees depending on the nature of the request.</li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">5. Cancellations and Refunds by the
-            Client</h3>
-          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
-            <li>• <strong>More than 30 Days Before Booking Date:</strong> The deposit will be fully refunded, or the
-              booking can be rescheduled without fees (subject to availability).</li>
-            <li>• <strong>15–30 Days Before Booking Date:</strong> 50% of the deposit will be refunded, or one free
-              reschedule is permitted (must be confirmed within 14 days of the original booking).</li>
-            <li>• <strong>7–14 Days Before Booking Date:</strong> The deposit is non-refundable. Rescheduling may be
-              allowed for an admin fee of £25 (subject to availability).</li>
-            <li>• <strong>Less than 7 Days Before Booking Date:</strong> The deposit is forfeited, and no rescheduling
-              is permitted.</li>
-            <li>• <strong>No-Show or Same-Day Cancellations:</strong> The full booking amount will be charged as a
-              no-show fee.</li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">6. Studio Usage</h3>
-          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
-            <li>• The studio must be left in the condition it was found. Cleaning fees may apply if additional cleaning
-              is required.</li>
-            <li>• All equipment and furniture must be treated with care and returned to their original positions.</li>
-            <li>• Do not move or drag tables, chairs, or heavy furniture — these must only be moved by the Hibiscus
-              Studio team.</li>
-            <li>• Any damage caused from moving items without permission may result in deductions from the damages
-              deposit.</li>
-            <li>• Excessively loud music, noise complaints, or damages to studio property will result in additional
-              charges and/or the loss of your damages deposit.</li>
-            <li>• Any rubbish found left behind, inside or outside the studio, will result in a £50 fee automatically
-              deducted from your damages deposit.</li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">7. Liability</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Hibiscus Studio is not liable for any personal injury,
-            loss, or damage to property incurred during the hire period.</p>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">8. Prohibited Activities</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Smoking, illegal substances, and any unsafe or illegal
-            activities are strictly prohibited within the studio.</p>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">9. Damages Deposit</h3>
-          <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
-            <li>• A £200 refundable damages deposit is required for each booking.</li>
-            <li>• This will be returned within 1–3 working days after the event, pending an inspection of the space.
-            </li>
-          </ul>
-        </div>
-
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">10. Acceptance of Terms</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">By paying the deposit, you agree to these Terms &
-            Conditions.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-white dark:bg-gray-900 py-8 border-t border-gray-200 dark:border-gray-700">
-    <div class="max-w-4xl mx-auto px-4 text-center text-gray-600 dark:text-gray-400">
-      <p>&copy; 2025 Hibiscus Studio. All rights reserved.</p>
-      <!-- Removed old prompt now covered by FAQ -->
-    </div>
-  </footer>
-
-  <!-- Sticky mobile CTA -->
-  <div
-    class="mobile-sticky-cta md:hidden fixed bottom-4 inset-x-0 flex justify-center z-50 px-4 opacity-0 pointer-events-none transition-opacity duration-300">
-    <a href="#hire"
-      class="flex-1 bg-black dark:bg-white text-white dark:text-black text-center py-4 rounded-xl font-semibold shadow-lg hover:opacity-90 transition">View
-      Options</a>
-  </div>
-
-  <!-- Booking Modal -->
-  <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl w-full max-w-6xl h-[90vh] relative shadow-2xl">
-      <!-- Modal Header -->
-      <div class="flex items-center justify-between p-4 md:p-6 border-b border-gray-200">
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900">Book Your Session</h3>
-            <p class="text-sm text-gray-500">Hibiscus Studio</p>
-          </div>
-        </div>
-        <button onclick="closeBookingModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Modal Content -->
-      <div class="h-[calc(90vh-80px)] relative">
-        <!-- Loading Spinner -->
-        <div id="loadingSpinner" class="absolute inset-0 flex items-center justify-center bg-white rounded-b-2xl">
-          <div class="flex flex-col items-center space-y-4">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <p class="text-gray-600 text-sm">Loading booking calendar...</p>
-          </div>
-        </div>
-        <iframe id="bookingFrame" src="" class="w-full h-full rounded-b-2xl opacity-0 transition-opacity duration-300"
-          frameborder="0"></iframe>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Progressive Disclosure Functions - Updated for direct Studio Viewing
-    function showCategory(category) {
-      // Track category selection with Umami
-      if (typeof umami !== 'undefined') {
-        umami.track('selected-category', { category: category });
-      }
-
-      // Hide category selection
-      const categorySelection = document.getElementById('categorySelection');
-      if (categorySelection) {
-        categorySelection.style.display = 'none';
-      }
-
-      // Get category option divs
-      const eventOptions = document.getElementById('eventOptions');
-      const workshopOptions = document.getElementById('workshopOptions');
-      const proposalOptions = document.getElementById('proposalOptions');
-
-      // Hide all options first
-      if (eventOptions) eventOptions.classList.add('hidden');
-      if (workshopOptions) workshopOptions.classList.add('hidden');
-      if (proposalOptions) proposalOptions.classList.add('hidden');
-
-      // Show the selected category
-      if (category === 'event' && eventOptions) {
-        eventOptions.classList.remove('hidden');
-      } else if (category === 'workshop' && workshopOptions) {
-        workshopOptions.classList.remove('hidden');
-      } else if (category === 'proposal' && proposalOptions) {
-        proposalOptions.classList.remove('hidden');
-      }
-    }
-
-    function showCategories() {
-      // Show category selection
-      const categorySelection = document.getElementById('categorySelection');
-      if (categorySelection) {
-        categorySelection.style.display = 'grid';
-      }
-
-      // Hide all category options
-      const eventOptions = document.getElementById('eventOptions');
-      const workshopOptions = document.getElementById('workshopOptions');
-      const proposalOptions = document.getElementById('proposalOptions');
-
-      if (eventOptions) eventOptions.classList.add('hidden');
-      if (workshopOptions) workshopOptions.classList.add('hidden');
-      if (proposalOptions) proposalOptions.classList.add('hidden');
-    }
-
-    // Updated smooth scroll function
-    function smoothScrollToHire() {
-      // Track scroll to booking section
-      if (typeof umami !== 'undefined') {
-        umami.track('scrolled-to-booking');
-      }
-
-      document.getElementById('hire').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-
-    // Booking modal functions
-    function openBookingModal(url) {
-      // Track booking intent with Umami
-      if (typeof umami !== 'undefined') {
-        umami.track('clicked-book-now', { url: url });
-      }
-
-      const modal = document.getElementById('bookingModal');
-      const iframe = document.getElementById('bookingFrame');
-      const spinner = document.getElementById('loadingSpinner');
-
-      // Show modal and loading spinner
-      modal.classList.remove('hidden');
-      spinner.classList.remove('hidden');
-      iframe.classList.add('opacity-0');
-      document.body.style.overflow = 'hidden';
-
-      // Load iframe
-      iframe.src = url;
-
-      // Hide spinner when iframe loads
-      iframe.onload = function () {
-        spinner.classList.add('hidden');
-        iframe.classList.remove('opacity-0');
-      };
-    }
-
-    function closeBookingModal() {
-      const modal = document.getElementById('bookingModal');
-      const iframe = document.getElementById('bookingFrame');
-      const spinner = document.getElementById('loadingSpinner');
-
-      modal.classList.add('hidden');
-      iframe.src = '';
-      iframe.classList.add('opacity-0');
-      spinner.classList.remove('hidden');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close modal when clicking outside
-    document.getElementById('bookingModal').addEventListener('click', function (e) {
-      if (e.target === this) {
-        closeBookingModal();
-      }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        closeBookingModal();
-      }
-    });
-
-
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-      // Apple-Style Unmute Button Functionality
-      const unmutePrompt = document.getElementById('unmutePrompt');
-      const unmuteButton = document.getElementById('unmuteButton');
-      const mutedIcon = document.getElementById('mutedIcon');
-      const unmutedIcon = document.getElementById('unmutedIcon');
-      const promptText = document.getElementById('promptText');
-
-      if (unmuteButton) {
-        unmuteButton.addEventListener('click', function () {
-          if (isVideoMuted) {
-            // Unmute the video
-            if (youtubePlayer && youtubePlayer.unMute) {
-              youtubePlayer.unMute();
-            }
-            isVideoMuted = false;
-
-            // Swap icons with smooth transition
-            mutedIcon.classList.add('hidden');
-            unmutedIcon.classList.remove('hidden');
-
-            // Update text (Apple-style confirmation)
-            if (promptText) {
-              promptText.textContent = 'Sound on';
-            }
-
-            // Fade out prompt after unmuting (Apple-like behavior)
-            setTimeout(() => {
-              if (unmutePrompt) {
-                unmutePrompt.style.opacity = '0';
-              }
-            }, 1500);
-          } else {
-            // Mute the video (toggle behavior)
-            if (youtubePlayer && youtubePlayer.mute) {
-              youtubePlayer.mute();
-            }
-            isVideoMuted = true;
-
-            // Swap icons back
-            unmutedIcon.classList.add('hidden');
-            mutedIcon.classList.remove('hidden');
-
-            // Update text
-            if (promptText) {
-              promptText.textContent = 'Tap for sound';
-            }
-          }
-        });
-      }
-
-      // Mobile video carousel functionality
-      const mobileVideoContainer = document.getElementById('mobile-video-container');
-      const indicators = document.querySelectorAll('[id^="indicator-"]');
-
-      if (mobileVideoContainer && indicators.length > 0) {
-        mobileVideoContainer.addEventListener('scroll', () => {
-          const scrollLeft = mobileVideoContainer.scrollLeft;
-          const containerWidth = mobileVideoContainer.offsetWidth;
-          const currentIndex = Math.round(scrollLeft / (containerWidth * 0.85)); // 85vw per slide
-
-          // Update indicators
-          indicators.forEach((indicator, index) => {
-            if (index === currentIndex) {
-              indicator.classList.remove('bg-gray-300', 'dark:bg-gray-600');
-              indicator.classList.add('bg-blue-600');
-            } else {
-              indicator.classList.remove('bg-blue-600');
-              indicator.classList.add('bg-gray-300', 'dark:bg-gray-600');
-            }
-          });
-        });
-      }
-
-      // Staggered animation for grid items
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-            }, index * 100);
-          }
-        });
-      }, observerOptions);
-
-      // Observe elements for animation
-      document.querySelectorAll('.fade-in').forEach(el => {
-        observer.observe(el);
-      });
-    });
-
-    // Sticky CTA visibility
-    const stickyCTA = document.querySelector('.mobile-sticky-cta');
-    const heroSection = document.querySelector('section');
-    if (stickyCTA) {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // hero visible – hide CTA
-            stickyCTA.classList.add('opacity-0', 'pointer-events-none');
-          } else {
-            stickyCTA.classList.remove('opacity-0', 'pointer-events-none');
-          }
-        });
-      }, { threshold: 0 });
-      io.observe(heroSection);
-    }
-  </script>
-
-  <!-- YouTube iframe API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
-    // Prevent scroll restoration on page refresh
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    window.addEventListener('beforeunload', () => {
-      window.scrollTo(0, 0);
-    });
-
-    // YouTube Player setup for scroll-based autoplay
-    let youtubePlayer;
-    let isVideoMuted = true;
-    let hasVideoStartedPlaying = false;
-
-    // This function is called by the YouTube API when it's ready
-    function onYouTubeIframeAPIReady() {
-      youtubePlayer = new YT.Player('videoIframe', {
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hibiscus Studio — East London Event Space Rental</title>
+    <meta name="description" content="Book Hibiscus Studio for corporate events, creative sessions, and private parties. Beautiful event space in East London with full kitchen, 40 chairs, 10 tables.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FEFDFB; --bg-gradient-start: #FDF8F4; --card-bg: #FFFFFF;
+            --border: #E8E3DA; --border-light: #F0ECE4;
+            --ink: #1C1917; --ink2: #44403C; --muted: #A8A29E; --faint: #D6D3CD;
+            --rose: #BE4D5E; --rose-bg: #FDF2F4; --rose-soft: #D4949E;
+            --warm: #F5F0E8; --sage: #6B8F6B; --sage-bg: #EEF4EE;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --shadow: 0 2px 20px rgba(0,0,0,0.04); --shadow-lg: 0 8px 40px rgba(0,0,0,0.06);
+            --radius: 16px; --grid-opacity: 0.03;
+            --accent: #BE4D5E; --accent-soft: #D4949E;
         }
-      });
+        [data-theme="dark"] {
+            --bg: #141210; --bg-gradient-start: #1A1714; --card-bg: #1E1B18;
+            --border: #2E2A25; --border-light: #252220;
+            --ink: #F0ECE4; --ink2: #C4BFB6; --muted: #6E675E; --faint: #3A352E;
+            --rose: #D4848F; --rose-bg: rgba(212,132,143,0.1); --rose-soft: #8B5A62;
+            --warm: #1E1B16; --sage: #7AA87A; --sage-bg: rgba(122,168,122,0.1);
+            --shadow: 0 2px 20px rgba(0,0,0,0.2); --shadow-lg: 0 8px 40px rgba(0,0,0,0.3);
+            --grid-opacity: 0.06;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; overflow-x: hidden; }
+
+        .theme-toggle { position: fixed; top: 16px; right: 16px; z-index: 50; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--card-bg); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, color 0.2s; backdrop-filter: blur(8px); }
+        .theme-toggle:hover { border-color: var(--ink2); color: var(--ink); }
+        .theme-toggle .t-light { display: block; }
+        .theme-toggle .t-dark { display: none; }
+        [data-theme="dark"] .theme-toggle .t-light { display: none; }
+        [data-theme="dark"] .theme-toggle .t-dark { display: block; color: #E8C547; }
+
+        .grid-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(rgba(120,110,100,var(--grid-opacity)) 1px, transparent 1px), linear-gradient(to right, rgba(120,110,100,var(--grid-opacity)) 1px, transparent 1px); background-size: 40px 40px; }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+        .container-wide { max-width: 960px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+        section { padding: 80px 0; }
+        .section-divider { width: 60px; height: 1px; background: var(--border); margin: 0 auto; }
+
+        h1 { font-family: var(--serif); font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 400; letter-spacing: -0.01em; line-height: 1.1; }
+        h2 { font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 400; margin-bottom: 32px; text-align: center; }
+        .subtitle { font-size: 1.05rem; font-weight: 300; color: var(--ink2); line-height: 1.6; letter-spacing: 0.01em; }
+        .muted-text { font-size: 0.9rem; color: var(--muted); }
+        .section-intro { font-size: 0.95rem; color: var(--ink2); text-align: center; max-width: 540px; margin: -16px auto 40px; line-height: 1.6; }
+
+        /* Hero */
+        .hero { padding: 60px 0 32px; text-align: center; }
+        .hero-split { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+        .hero-text { order: 2; }
+        .hero-text h1 { margin-bottom: 8px; font-size: clamp(2.8rem, 9vw, 4.5rem); line-height: 1; }
+        .hero .hero-location { font-size: 0.85rem; font-weight: 400; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+        .hero .hero-location a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+        .hero .hero-location a:hover { color: var(--ink2); border-color: var(--ink2); }
+
+        .hero-carousel-frame { flex-shrink: 0; order: 1; position: relative; background: var(--card-bg); border: 1px solid var(--border); border-radius: 28px; padding: 10px; box-shadow: var(--shadow-lg); }
+        .hero-carousel { position: relative; width: 250px; aspect-ratio: 9/16; border-radius: 20px; overflow: hidden; background: var(--ink); }
+        .hero-carousel video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.6s ease; }
+        .hero-carousel video.active { opacity: 1; }
+        .hero-carousel-sticker { position: absolute; top: -14px; left: 50%; transform: translateX(-50%) rotate(-2deg); z-index: 5; background: #fff; color: var(--ink); font-family: var(--serif); font-style: italic; font-size: 0.85rem; padding: 5px 16px; border-radius: 6px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid var(--border); transition: transform 0.4s ease; pointer-events: none; }
+        [data-theme="dark"] .hero-carousel-sticker { background: var(--card-bg); }
+        .hero-carousel-nav { position: absolute; top: 50%; left: -18px; right: -18px; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; z-index: 4; }
+        .hero-carousel-nav button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border); background: var(--card-bg); color: var(--ink); cursor: pointer; pointer-events: auto; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s, transform 0.15s; font-size: 18px; font-weight: 600; box-shadow: var(--shadow); }
+        .hero-carousel-nav button:hover { background: var(--rose); color: #fff; border-color: var(--rose); transform: scale(1.1); }
+        .hero-carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+        .hero-carousel-dots button { width: 6px; height: 6px; border-radius: 50%; border: none; background: rgba(255,255,255,0.4); cursor: pointer; padding: 0; transition: background 0.3s, transform 0.3s; }
+        .hero-carousel-dots button.active { background: #fff; transform: scale(1.3); }
+
+        @media (min-width: 768px) {
+            .hero { padding: 80px 0 40px; }
+            .hero-split { flex-direction: row; justify-content: center; align-items: center; gap: 60px; text-align: left; }
+            .hero-text { order: 1; max-width: 380px; }
+            .hero-carousel-frame { order: 2; padding: 12px; border-radius: 32px; }
+            .hero-carousel { width: 300px; border-radius: 22px; }
+        }
+        @media (max-width: 480px) {
+            .hero-carousel-frame { padding: 8px; border-radius: 22px; }
+            .hero-carousel { width: 220px; border-radius: 14px; }
+        }
+
+        .scroll-indicator { text-align: center; padding: 32px 0 0; }
+        .scroll-indicator span { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: color 0.2s; }
+        .scroll-indicator span:hover { color: var(--ink2); }
+        .scroll-arrow { animation: scrollBounce 2s ease infinite; }
+        .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--muted), transparent); opacity: 0.4; }
+        @keyframes scrollBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+        .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; padding: 14px 32px; border-radius: 100px; font-size: 1rem; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.2s; border: none; cursor: pointer; }
+        .cta:hover { filter: brightness(0.9); transform: translateY(-1px); }
+        .cta .arrow { transition: transform 0.2s; font-size: 1.1rem; }
+        .cta:hover .arrow { transform: translateX(4px); }
+        .cta-secondary { background: var(--ink); color: var(--bg); }
+        .cta-secondary:hover { background: var(--ink2); filter: none; }
+
+        .included-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        @media (max-width: 560px) { .included-grid { grid-template-columns: repeat(2, 1fr); } }
+        .included-item { background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); border: 1px solid var(--border-light); border-radius: 12px; padding: 20px 14px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; }
+        [data-theme="dark"] .included-item { background: rgba(30,27,24,0.6); }
+        .included-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .included-icon { margin-bottom: 8px; display: flex; justify-content: center; color: var(--rose); }
+        .included-label { font-size: 0.85rem; font-weight: 500; color: var(--ink2); }
+        .included-detail { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+        .offer-cards { display: grid; gap: 20px; }
+        .offer-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+        .offer-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--rose), var(--rose-soft)); }
+        .offer-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .offer-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 12px; }
+        @media (max-width: 480px) { .offer-card-header { flex-direction: column; } .offer-card-price { text-align: left; } }
+        .offer-card-title { font-family: var(--serif); font-size: 1.4rem; }
+        .offer-card-price { text-align: right; }
+        .offer-card-price .from { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+        .offer-card-price .amount { font-family: var(--serif); font-size: 1.8rem; color: var(--accent); }
+        .offer-card-price .unit { font-size: 0.8rem; color: var(--muted); }
+        .offer-card-details { font-size: 0.88rem; color: var(--ink2); line-height: 1.7; list-style: none; padding: 0; }
+        .offer-card-details li { margin-bottom: 4px; padding-left: 18px; position: relative; }
+        .offer-card-details li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--rose-soft); }
+        .offer-card-schedule { display: inline-flex; align-items: center; gap: 6px; background: var(--warm); border-radius: 8px; padding: 8px 14px; margin-top: 12px; font-size: 0.8rem; color: var(--ink2); }
+        .offer-card-note { font-size: 0.78rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+        .timeline { position: relative; max-width: 540px; margin: 0 auto; }
+        .timeline-step { display: flex; gap: 20px; position: relative; padding-bottom: 36px; }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-step:last-child .timeline-line { display: none; }
+        .timeline-num { width: 40px; height: 40px; border-radius: 50%; background: var(--rose-bg); color: var(--rose); font-family: var(--serif); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2px solid var(--rose-soft); position: relative; z-index: 2; }
+        .timeline-line { position: absolute; left: 19px; top: 42px; bottom: -2px; width: 2px; background: var(--border); z-index: 1; }
+        .timeline-content { flex: 1; padding-top: 6px; }
+        .timeline-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+        .timeline-desc { font-size: 0.85rem; color: var(--ink2); line-height: 1.6; }
+        .timeline-highlight { display: inline-block; background: var(--rose-bg); color: var(--rose); font-size: 0.78rem; font-weight: 600; padding: 2px 10px; border-radius: 100px; margin-top: 4px; }
+
+        .important-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        @media (max-width: 600px) { .important-grid { grid-template-columns: 1fr; } }
+        .important-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: transform 0.2s; }
+        .important-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .important-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+        .important-card-icon.deposit { background: var(--sage-bg); color: var(--sage); }
+        .important-card-icon.cancel { background: var(--rose-bg); color: var(--rose); }
+        .important-card-icon.late { background: #FFF3E0; color: #E65100; }
+        [data-theme="dark"] .important-card-icon.late { background: rgba(230,81,0,0.12); }
+        .important-card-icon.dj { background: #EDE7F6; color: #7B1FA2; }
+        [data-theme="dark"] .important-card-icon.dj { background: rgba(123,31,162,0.12); }
+        .important-card-icon.setup { background: #E3F2FD; color: #1565C0; }
+        [data-theme="dark"] .important-card-icon.setup { background: rgba(21,101,192,0.12); }
+        .important-card-icon.calendar { background: var(--warm); color: var(--ink2); }
+        .important-card-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
+        .important-card-text { font-size: 0.85rem; color: var(--ink2); line-height: 1.6; }
+        .important-card-amount { font-family: var(--serif); font-size: 1.5rem; color: var(--accent); margin-bottom: 4px; }
+        .important-card-text strong { color: var(--ink); font-weight: 600; }
+
+        .cancel-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        .cancel-table td { padding: 6px 0; font-size: 0.82rem; color: var(--ink2); border-bottom: 1px solid var(--border-light); vertical-align: top; }
+        .cancel-table tr:last-child td { border-bottom: none; }
+        .cancel-table td:first-child { font-weight: 500; color: var(--ink); padding-right: 12px; white-space: nowrap; }
+
+        .faq-container { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+        .faq-item { border-bottom: 1px solid var(--border-light); }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-item summary { padding: 18px 24px; cursor: pointer; font-weight: 500; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; list-style: none; transition: background 0.2s; }
+        .faq-item summary:hover { background: var(--warm); }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item .faq-toggle { font-size: 1.2rem; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; margin-left: 12px; }
+        .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+        .faq-item .faq-answer { padding: 0 24px 18px; font-size: 0.9rem; color: var(--ink2); line-height: 1.7; }
+
+        .terms-wrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+        .terms-wrap summary { padding: 20px 24px; cursor: pointer; font-weight: 500; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+        .terms-wrap summary::-webkit-details-marker { display: none; }
+        .terms-wrap .terms-toggle { font-size: 0.8rem; color: var(--muted); transition: transform 0.2s; }
+        .terms-wrap[open] .terms-toggle { transform: rotate(180deg); }
+        .terms-content { padding: 0 24px 24px; }
+        .terms-content h3 { font-size: 0.95rem; font-weight: 600; margin: 20px 0 8px; font-family: var(--sans); }
+        .terms-content h3:first-child { margin-top: 0; }
+        .terms-content p, .terms-content li { font-size: 0.85rem; color: var(--ink2); line-height: 1.6; }
+        .terms-content ul { list-style: none; padding: 0; }
+        .terms-content li::before { content: "\00B7"; color: var(--muted); margin-right: 8px; }
+
+        /* Find Us */
+        .find-us { padding: 60px 0 40px; border-top: 1px solid var(--border); }
+        .find-us-body { display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center; }
+        .find-us-map-wrap { width: 180px; height: 180px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,0.07); flex-shrink: 0; }
+        .find-us-map-wrap img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .find-us-address-block { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .find-us-pin { display: flex; align-items: center; gap: 6px; justify-content: center; }
+        .find-us-pin svg { color: var(--rose); flex-shrink: 0; }
+        .find-us-address { font-size: 0.95rem; color: var(--ink2); line-height: 1.55; }
+        .find-us-address a { color: var(--ink2); text-decoration: none; transition: color 0.2s; }
+        .find-us-address a:hover { color: var(--rose); }
+        .find-us-w3w { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.02em; }
+        .find-us-w3w a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+        .find-us-w3w a:hover { color: var(--rose); }
+        .find-us-divider { width: 32px; height: 1px; background: var(--border); margin: 4px auto; }
+        .find-us-contact-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+        .find-us-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .find-us-links a { color: var(--ink2); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+        .find-us-links a:hover { color: var(--rose); border-color: var(--rose); }
+
+        footer { border-top: 1px solid var(--border); padding: 28px 0; text-align: center; }
+        .footer-brand { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 6px; }
+        .footer-copy { font-size: 0.8rem; color: var(--faint); }
+
+        .mobile-cta { display: none; position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .mobile-cta.visible { opacity: 1; pointer-events: auto; }
+        .mobile-cta a { display: block; background: var(--ink); color: var(--bg); text-align: center; padding: 16px; border-radius: 14px; font-weight: 600; font-size: 1rem; text-decoration: none; box-shadow: var(--shadow-lg); }
+        @media (max-width: 768px) { .mobile-cta { display: block; } }
+
+        .notice-bar { background: var(--warm); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px; text-align: center; font-size: 0.85rem; color: var(--ink2); margin-top: 20px; }
+        .notice-bar strong { color: var(--ink); }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { section { padding: 60px 0; } .hero { padding: 48px 0 24px; } }
+
+        /* Chat FAB */
+        .chat-fab { position: fixed; bottom: 24px; right: 24px; z-index: 45; width: 56px; height: 56px; border-radius: 50%; background: var(--rose); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(190,77,94,0.3); transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s; }
+        .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(190,77,94,0.4); }
+        .chat-fab .chat-badge { position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; border-radius: 50%; background: var(--sage); border: 2px solid var(--bg); }
+        @media (max-width: 768px) { .chat-fab.visible { bottom: 88px; } }
+        .chat-overlay { display: none; position: fixed; inset: 0; z-index: 43; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); }
+        .chat-overlay.open { display: block; }
+        .chat-panel { position: fixed; bottom: 92px; right: 24px; z-index: 44; width: 360px; max-height: 480px; border-radius: var(--radius); background: var(--card-bg); border: 1px solid var(--border); box-shadow: var(--shadow-lg); display: none; flex-direction: column; overflow: hidden; }
+        .chat-panel.open { display: flex; }
+        @media (max-width: 768px) { .chat-panel { bottom: 148px; right: 16px; left: 16px; width: auto; max-height: 60vh; } }
+        .chat-header { padding: 16px 20px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+        .chat-header-left { display: flex; align-items: center; gap: 10px; }
+        .chat-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--rose-bg); display: flex; align-items: center; justify-content: center; color: var(--rose); }
+        .chat-header-name { font-weight: 600; font-size: 0.9rem; }
+        .chat-header-status { font-size: 0.75rem; color: var(--sage); }
+        .chat-close { background: none; border: none; color: var(--muted); cursor: pointer; padding: 4px; font-size: 1.2rem; }
+        .chat-messages { flex: 1; padding: 16px 20px; overflow-y: auto; }
+        .chat-bubble { padding: 10px 14px; border-radius: 14px; font-size: 0.85rem; line-height: 1.5; margin-bottom: 8px; max-width: 85%; }
+        .chat-bubble.bot { background: var(--warm); color: var(--ink); border-bottom-left-radius: 4px; }
+        .chat-actions { padding: 8px 20px 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .chat-action-btn { padding: 8px 14px; border-radius: 100px; border: 1px solid var(--border); background: var(--card-bg); color: var(--ink2); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+        .chat-action-btn:hover { border-color: var(--rose); color: var(--rose); background: var(--rose-bg); }
+    </style>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="d6e75f06-fc67-4f39-9586-d7651b35f5b7"></script>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span class="t-light"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+    <span class="t-dark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+</button>
+
+<!-- ========== 1. HERO ========== -->
+<section class="hero" id="hero">
+    <div class="container-wide">
+        <div class="hero-split">
+            <div class="hero-text reveal">
+                <h1>Hibiscus Studio</h1>
+                <p class="hero-location">East London &middot; <a href="https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP" target="_blank" rel="noopener">E16 1DP</a></p>
+                <p class="subtitle" style="margin-bottom: 24px">A warm, creative event space for buttercream classes, group bento experiences, and corporate workshops.</p>
+                <a href="book/" class="cta" id="heroCta">Book your event <span class="arrow">&rarr;</span></a>
+                <div class="scroll-indicator reveal" style="transition-delay: 0.3s">
+                    <span onclick="document.querySelector('#spaceSection').scrollIntoView({behavior:'smooth'})">
+                        Explore the space
+                        <svg class="scroll-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        <div class="scroll-line"></div>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Portrait video carousel -->
+            <div class="hero-carousel-frame reveal" style="transition-delay: 0.15s">
+                <div class="hero-carousel-sticker" id="carouselSticker">Hibiscus Studio</div>
+                <div class="hero-carousel-nav">
+                    <button id="carouselPrev" aria-label="Previous">&#8249;</button>
+                    <button id="carouselNext" aria-label="Next">&#8250;</button>
+                </div>
+                <div class="hero-carousel" id="heroCarousel">
+                    <video autoplay muted loop playsinline preload="auto" class="active" data-caption="Hibiscus Studio">
+                        <source src="rochelle-videos/rochelle-5223-web.webm" type="video/webm">
+                        <source src="rochelle-videos/rochelle-5223-web.mp4" type="video/mp4">
+                    </video>
+                    <video muted loop playsinline preload="none" data-caption="The Studio">
+                        <source src="rochelle-videos/rochelle-5224-web.webm" type="video/webm">
+                        <source src="rochelle-videos/rochelle-5224-web.mp4" type="video/mp4">
+                    </video>
+                    <video muted loop playsinline preload="none" data-caption="Our Space">
+                        <source src="rochelle-videos/rochelle-5225-web.webm" type="video/webm">
+                        <source src="rochelle-videos/rochelle-5225-web.mp4" type="video/mp4">
+                    </video>
+                    <video muted loop playsinline preload="none" data-caption="Welcome to Hibiscus">
+                        <source src="rochelle-videos/rochelle-5229-web.webm" type="video/webm">
+                        <source src="rochelle-videos/rochelle-5229-web.mp4" type="video/mp4">
+                    </video>
+                    <video muted loop playsinline preload="none" data-caption="Events at Hibiscus">
+                        <source src="rochelle-videos/rochelle-5230-web.webm" type="video/webm">
+                        <source src="rochelle-videos/rochelle-5230-web.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero-carousel-dots" id="carouselDots">
+                        <button class="active" aria-label="Slide 1"></button>
+                        <button aria-label="Slide 2"></button>
+                        <button aria-label="Slide 3"></button>
+                        <button aria-label="Slide 4"></button>
+                        <button aria-label="Slide 5"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 2. THE SPACE ========== -->
+<section id="spaceSection">
+    <div class="container">
+        <h2 class="reveal">The Space</h2>
+        <p class="section-intro reveal">Everything you need is included in every booking. No hidden extras, no surprise fees.</p>
+        <div class="included-grid">
+            <div class="included-item reveal">
+                <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v1h6V6a3 3 0 0 0-3-3z"/><path d="M6.5 7H4a1 1 0 0 0-1 1v3.5a3 3 0 0 0 3 3h1"/><path d="M17.5 7H20a1 1 0 0 1 1 1v3.5a3 3 0 0 1-3 3h-1"/><path d="M6 14.5V21"/><path d="M18 14.5V21"/><path d="M6 21h12"/></svg></div>
+                <div class="included-label">Full Kitchen</div>
+                <div class="included-detail">5-hob stove, double oven, fridge, microwave</div>
+            </div>
+            <div class="included-item reveal" style="transition-delay: 0.05s">
+                <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg></div>
+                <div class="included-label">40 Chairs</div>
+                <div class="included-detail">Stackable, rearrangeable</div>
+            </div>
+            <div class="included-item reveal" style="transition-delay: 0.1s">
+                <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="3" rx="1"/><path d="M6 10v7"/><path d="M18 10v7"/></svg></div>
+                <div class="included-label">10 Tables</div>
+                <div class="included-detail">Various sizes available</div>
+            </div>
+            <div class="included-item reveal" style="transition-delay: 0.15s">
+                <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+                <div class="included-label">High-Speed WiFi</div>
+                <div class="included-detail">Stream and share instantly</div>
+            </div>
+            <div class="included-item reveal" style="transition-delay: 0.2s">
+                <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="4"/><line x1="12" y1="6" x2="12.01" y2="6"/></svg></div>
+                <div class="included-label">Bluetooth Speaker</div>
+                <div class="included-detail">Wireless audio included</div>
+            </div>
+            <div class="included-item reveal" style="transition-delay: 0.25s">
+                <div class="included-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <div class="included-label">Private Facilities</div>
+                <div class="included-detail">Exclusive use of the space</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 3. WHAT WE OFFER ========== -->
+<section id="offers">
+    <div class="container">
+        <h2 class="reveal">What We Offer</h2>
+        <p class="section-intro reveal">Three types of booking, each with clear pricing. Max 4 teaching days per month, so availability is limited.</p>
+
+        <div class="offer-cards">
+            <div class="offer-card reveal">
+                <div class="offer-card-header">
+                    <div><div class="offer-card-title">Private 1:1 Buttercream Class</div></div>
+                    <div class="offer-card-price">
+                        <div class="from">from</div>
+                        <div class="amount">&pound;395</div>
+                    </div>
+                </div>
+                <ul class="offer-card-details">
+                    <li>Weekday (Tue/Thu): &pound;395 &mdash; 10:30am to 3:30pm</li>
+                    <li>Saturday: &pound;445 &mdash; 10am to 3pm</li>
+                    <li>One-on-one tuition with all materials included</li>
+                </ul>
+                <div class="offer-card-schedule">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Max 2 per month
+                </div>
+            </div>
+
+            <div class="offer-card reveal" style="transition-delay: 0.1s">
+                <div class="offer-card-header">
+                    <div><div class="offer-card-title">Private Group Bento Experience</div></div>
+                    <div class="offer-card-price">
+                        <div class="from">per person</div>
+                        <div class="amount">&pound;65</div>
+                        <div class="unit">min 12 guests</div>
+                    </div>
+                </div>
+                <ul class="offer-card-details">
+                    <li>Saturday: 10:30am&ndash;12:30pm or 1:30pm&ndash;3:30pm</li>
+                    <li>Weekday: 11:00am&ndash;1:00pm</li>
+                    <li>2-hour group bento cake experience</li>
+                    <li>Minimum 12 guests required</li>
+                </ul>
+                <div class="offer-card-schedule">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Max 2 per month
+                </div>
+                <div class="offer-card-note">On Saturdays: if a 1:1 class is booked, no Bento that day (and vice versa).</div>
+            </div>
+
+            <div class="offer-card reveal" style="transition-delay: 0.2s">
+                <div class="offer-card-header">
+                    <div><div class="offer-card-title">Corporate Workshop</div></div>
+                    <div class="offer-card-price">
+                        <div class="from">custom</div>
+                        <div class="amount">Quote</div>
+                    </div>
+                </div>
+                <ul class="offer-card-details">
+                    <li>Weekdays only</li>
+                    <li>5&ndash;15 guests: standard rate</li>
+                    <li>16&ndash;25 guests: additional assistant fee applies</li>
+                    <li>26&ndash;40 guests: premium rate with coordination fee</li>
+                    <li>Corporate bookings take scheduling priority</li>
+                </ul>
+                <div class="offer-card-schedule">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Max 1 per month
+                </div>
+            </div>
+        </div>
+
+        <div class="notice-bar reveal" style="transition-delay: 0.3s">
+            <strong>Fridays and Sundays are permanently blocked</strong> &mdash; no bookings available on these days.
+        </div>
+
+        <div class="reveal" style="text-align: center; margin-top: 32px">
+            <a href="mailto:hello@hibiscusstudio.co.uk?subject=Booking%20Enquiry" class="cta">Enquire Now <span class="arrow">&rarr;</span></a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 4. HOW BOOKING WORKS ========== -->
+<section>
+    <div class="container">
+        <h2 class="reveal">How Booking Works</h2>
+        <p class="section-intro reveal">From enquiry to event day, here is exactly what to expect.</p>
+
+        <div class="timeline">
+            <div class="timeline-step reveal">
+                <div class="timeline-num">1</div>
+                <div class="timeline-line"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Enquire</div>
+                    <div class="timeline-desc">Send us a message with your preferred date, booking type, and group size. We will check availability and send you an invoice.</div>
+                </div>
+            </div>
+            <div class="timeline-step reveal" style="transition-delay: 0.08s">
+                <div class="timeline-num">2</div>
+                <div class="timeline-line"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Invoice sent</div>
+                    <div class="timeline-desc">You will receive an invoice with full pricing details.</div>
+                    <div class="timeline-highlight">48 hours to pay or the slot is released</div>
+                </div>
+            </div>
+            <div class="timeline-step reveal" style="transition-delay: 0.16s">
+                <div class="timeline-num">3</div>
+                <div class="timeline-line"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Pay 50% reservation fee</div>
+                    <div class="timeline-desc">Your 50% reservation fee secures your date. Once paid, the booking is confirmed and your date is locked in.</div>
+                </div>
+            </div>
+            <div class="timeline-step reveal" style="transition-delay: 0.24s">
+                <div class="timeline-num">4</div>
+                <div class="timeline-line"></div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Remaining balance due</div>
+                    <div class="timeline-desc">The remaining 50% is due before your event date, along with the &pound;200 refundable damages deposit.</div>
+                </div>
+            </div>
+            <div class="timeline-step reveal" style="transition-delay: 0.32s">
+                <div class="timeline-num">5</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Event day</div>
+                    <div class="timeline-desc">Enjoy your event. After inspection, your &pound;200 damages deposit is returned within 1&ndash;3 working days.</div>
+                    <div class="timeline-highlight">Deposit returned in 1&ndash;3 days</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 5. IMPORTANT TO KNOW ========== -->
+<section>
+    <div class="container">
+        <h2 class="reveal">Important to Know</h2>
+        <p class="section-intro reveal">Please read this section carefully before booking. These policies apply to every booking.</p>
+
+        <div class="important-grid">
+            <div class="important-card reveal">
+                <div class="important-card-icon deposit">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div class="important-card-amount">&pound;200</div>
+                <div class="important-card-title">Refundable Damages Deposit</div>
+                <div class="important-card-text">Required for every booking. Returned within <strong>1&ndash;3 working days</strong> after event inspection. Only deducted if damage occurs or the space is not left as found.</div>
+            </div>
+
+            <div class="important-card reveal" style="transition-delay: 0.08s">
+                <div class="important-card-icon cancel">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div class="important-card-title">Cancellation Policy</div>
+                <table class="cancel-table">
+                    <tr><td>30+ days</td><td>Full refund or free reschedule</td></tr>
+                    <tr><td>15&ndash;30 days</td><td>50% refund or one free reschedule</td></tr>
+                    <tr><td>7&ndash;14 days</td><td>Non-refundable. &pound;25 admin fee for reschedule</td></tr>
+                    <tr><td>Under 7 days</td><td>Non-refundable. Non-transferable</td></tr>
+                    <tr><td>No-show</td><td>Full amount charged</td></tr>
+                </table>
+            </div>
+
+            <div class="important-card reveal" style="transition-delay: 0.16s">
+                <div class="important-card-icon late">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="important-card-title">Late Fees</div>
+                <div class="important-card-text">There is a <strong>10-minute grace period</strong> after your booked end time. After that, a fee of <strong>&pound;50 per 30 minutes</strong> applies. Plan your setup and pack-down within your booked slot.</div>
+            </div>
+
+            <div class="important-card reveal" style="transition-delay: 0.24s">
+                <div class="important-card-icon dj">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v4"/><path d="M12 18v4"/></svg>
+                </div>
+                <div class="important-card-amount">&pound;95</div>
+                <div class="important-card-title">DJ Supervision Fee</div>
+                <div class="important-card-text">If you bring your own DJ, a <strong>&pound;95 supervision fee</strong> applies. This covers sound monitoring, neighbour management, and equipment oversight. Your DJ must provide their own speakers/PA. Sound must finish by 10 PM.</div>
+            </div>
+
+            <div class="important-card reveal" style="transition-delay: 0.32s">
+                <div class="important-card-icon setup">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <div class="important-card-title">Setup and Pack-Down</div>
+                <div class="important-card-text">All setup, activities, and cleanup <strong>must be completed within your booked time</strong>. No extra time is available unless pre-arranged. The studio must be left as you found it. Rubbish left behind: &pound;50 deducted from deposit.</div>
+            </div>
+
+            <div class="important-card reveal" style="transition-delay: 0.4s">
+                <div class="important-card-icon calendar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div class="important-card-title">48-Hour Invoice Window</div>
+                <div class="important-card-text">Once you receive your invoice, you have <strong>48 hours to complete payment</strong>. If the invoice is not paid within this window, the booking is automatically released and the slot becomes available to others.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 6. FAQ ========== -->
+<section>
+    <div class="container">
+        <h2 class="reveal">Common Questions</h2>
+        <div class="faq-container reveal" style="transition-delay: 0.1s">
+            <details class="faq-item">
+                <summary>What is the capacity? <span class="faq-toggle">+</span></summary>
+                <div class="faq-answer">We can seat up to 25 guests for intimate events. For larger groups (corporate workshops up to 40), please enquire and we will confirm the setup that works best.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can I bring my own food and drinks? <span class="faq-toggle">+</span></summary>
+                <div class="faq-answer">Yes. Our kitchen includes a fridge, 5-hob stove, microwave, and double oven. Outside catering is welcome. We do not provide cooking utensils, and the space must be left as you found it.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is parking available? <span class="faq-toggle">+</span></summary>
+                <div class="faq-answer">Paid parking is available on nearby streets. Free parking after 6:30 PM and all day on Sundays. There is a 30-minute loading zone at the entrance for drop-offs.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can I view the studio before booking? <span class="faq-toggle">+</span></summary>
+                <div class="faq-answer">Of course. We offer viewing slots so you can see the space in person before committing. Send us a message to arrange a time. Viewings are free and usually take about 15 minutes.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can I request changes to my booking? <span class="faq-toggle">+</span></summary>
+                <div class="faq-answer">Changes must be requested at least 7 days in advance, subject to availability. Please contact us as early as possible.</div>
+            </details>
+            <details class="faq-item">
+                <summary>What happens if something gets damaged? <span class="faq-toggle">+</span></summary>
+                <div class="faq-answer">Your &pound;200 damages deposit covers any issues. If the space passes inspection, the full deposit is returned within 1&ndash;3 working days. If repairs or extra cleaning are needed, costs are deducted from the deposit.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Do you provide cooking equipment or utensils? <span class="faq-toggle">+</span></summary>
+                <div class="faq-answer">The kitchen appliances (stove, oven, fridge, microwave) are included. However, we do not provide cooking utensils, pots, pans, or ingredients. Please bring what you need for your event.</div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 7. FULL T&C ========== -->
+<section>
+    <div class="container">
+        <details class="terms-wrap reveal">
+            <summary>Full Terms and Conditions <span class="terms-toggle">&#9660;</span></summary>
+            <div class="terms-content">
+                <h3>1. Reservation Fee and Booking Confirmation</h3>
+                <ul>
+                    <li>A 50% reservation fee is required upon booking to secure your date and time</li>
+                    <li>Invoices are valid for 48 hours. Unpaid bookings are automatically released</li>
+                </ul>
+                <h3>2. Booking Times</h3>
+                <ul>
+                    <li>Hire period begins and ends at the agreed times in your confirmation</li>
+                    <li>Setup and breakdown must occur within the booked time frame</li>
+                </ul>
+                <h3>3. Grace Period and Late Fees</h3>
+                <ul>
+                    <li>10-minute grace period after the agreed end time</li>
+                    <li>After grace period: &pound;50 per additional 30 minutes</li>
+                </ul>
+                <h3>4. Changes to Booking</h3>
+                <ul>
+                    <li>Changes must be requested at least 7 days in advance, subject to availability</li>
+                </ul>
+                <h3>5. Cancellations</h3>
+                <ul>
+                    <li>30+ days: Full refund or free reschedule</li>
+                    <li>15&ndash;30 days: 50% refund or one free reschedule</li>
+                    <li>7&ndash;14 days: Non-refundable. &pound;25 admin fee for reschedule</li>
+                    <li>Under 7 days: Forfeited, no rescheduling</li>
+                    <li>No-show: Full booking amount charged</li>
+                </ul>
+                <h3>6. DJ Supervision Fee</h3>
+                <ul>
+                    <li>A &pound;95 DJ supervision fee applies when a DJ is brought to the studio</li>
+                    <li>This covers sound monitoring, neighbour management, and equipment oversight</li>
+                    <li>Sound must finish by 10 PM</li>
+                </ul>
+                <h3>7. Studio Usage</h3>
+                <ul>
+                    <li>Studio must be left as found. Cleaning fees may apply</li>
+                    <li>Do not move heavy furniture without permission</li>
+                    <li>Rubbish left behind: &pound;50 deducted from damages deposit</li>
+                </ul>
+                <h3>8. Liability</h3>
+                <p>Hibiscus Studio is not liable for any personal injury, loss, or damage during hire.</p>
+                <h3>9. Prohibited Activities</h3>
+                <p>Smoking, illegal substances, and unsafe activities are strictly prohibited.</p>
+                <h3>10. Damages Deposit</h3>
+                <ul>
+                    <li>&pound;200 refundable damages deposit required per booking</li>
+                    <li>Returned within 1&ndash;3 working days after event inspection</li>
+                </ul>
+                <h3>11. Availability</h3>
+                <ul>
+                    <li>Maximum 4 teaching days per month</li>
+                    <li>Corporate bookings take scheduling priority</li>
+                    <li>Fridays and Sundays are permanently blocked</li>
+                    <li>Saturday bookings: if used for a 1:1 class, no Bento that day (and vice versa)</li>
+                </ul>
+                <h3>12. Acceptance</h3>
+                <p>By paying the reservation fee, you confirm that you have read, understood, and agree to these Terms and Conditions.</p>
+            </div>
+        </details>
+    </div>
+</section>
+
+<!-- ========== 8. FIND US ========== -->
+<section class="find-us" id="find-us">
+    <div class="container">
+        <h2>Find Us</h2>
+        <div class="find-us-body">
+            <div class="find-us-map-wrap">
+                <img src="img/map-peto-street.png" alt="Map showing 19a Peto Street North, Canning Town" loading="lazy">
+            </div>
+            <div class="find-us-address-block">
+                <div class="find-us-pin">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div class="find-us-address">
+                        <a href="https://maps.google.com/?q=19a+Peto+Street+North,+Canning+Town,+London+E16+1DP" target="_blank" rel="noopener">19a Peto Street North, Canning Town, London E16 1DP</a>
+                    </div>
+                </div>
+                <div class="find-us-w3w">
+                    <a href="https://what3words.com/dime.square.cost" target="_blank" rel="noopener">///dime.square.cost</a>
+                </div>
+                <div class="find-us-divider"></div>
+                <div class="find-us-contact-label">Any questions?</div>
+                <div class="find-us-links">
+                    <a href="mailto:connect@hibiscusstudio.co.uk">connect@hibiscusstudio.co.uk</a>
+                    <a href="https://www.instagram.com/hibiscusstudio" target="_blank" rel="noopener">@hibiscusstudio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== 9. FOOTER ========== -->
+<footer>
+    <div class="container">
+        <div class="footer-brand">Hibiscus Studio</div>
+        <div class="footer-copy">&copy; 2026 Hibiscus Studio. All rights reserved.</div>
+    </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="mobile-cta" id="mobileCta"><a href="book/">Book Your Event</a></div>
+
+<!-- Chat FAB + Panel -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Chat with us">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="chat-badge"></span>
+</button>
+<div class="chat-overlay" id="chatOverlay" onclick="toggleChat()"></div>
+<div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+        <div class="chat-header-left">
+            <div class="chat-avatar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg></div>
+            <div>
+                <div class="chat-header-name">Hibiscus Studio</div>
+                <div class="chat-header-status">Typically replies within an hour</div>
+            </div>
+        </div>
+        <button class="chat-close" onclick="toggleChat()">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="chat-bubble bot">Hi there! Looking to book Hibiscus Studio? I can help you find the right option.</div>
+    </div>
+    <div class="chat-actions" id="chatActions">
+        <button class="chat-action-btn" onclick="chatRespond('pricing')">See pricing</button>
+        <button class="chat-action-btn" onclick="chatRespond('availability')">Check availability</button>
+        <button class="chat-action-btn" onclick="chatRespond('deposit')">How does the deposit work?</button>
+        <button class="chat-action-btn" onclick="chatRespond('book')">Ready to book</button>
+    </div>
+</div>
+
+<script>
+    // Chat FAB
+    function toggleChat() {
+        var p = document.getElementById('chatPanel');
+        var o = document.getElementById('chatOverlay');
+        var isOpen = p.classList.contains('open');
+        p.classList.toggle('open');
+        o.classList.toggle('open');
+        document.body.classList.toggle('chat-open', !isOpen);
     }
-
-    function onPlayerReady(event) {
-      // Pause immediately on load (even though autoplay=1 is set)
-      youtubePlayer.pauseVideo();
-
-      // Set up Intersection Observer for scroll-based autoplay
-      const videoContainer = document.querySelector('#videoIframe');
-      const unmutePrompt = document.getElementById('unmutePrompt');
-
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.5 // Video must be 50% visible
-      };
-
-      const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Video is in viewport - play it
-            youtubePlayer.playVideo();
-            // Show unmute prompt with gentle fade-in
-            if (unmutePrompt && isVideoMuted) {
-              setTimeout(() => {
-                unmutePrompt.style.opacity = '1';
-              }, 800);
+    function chatRespond(type) {
+        var msgs = document.getElementById('chatMessages');
+        var acts = document.getElementById('chatActions');
+        var responses = {
+            pricing: { text: 'Our 1:1 Buttercream Class starts at \u00a3395 (weekday) or \u00a3445 (Saturday). Group Bento is \u00a365 per person (min 12). Corporate workshops are custom-quoted. Want to book?', actions: ['Ready to book', 'Tell me more about classes', 'What about deposits?'] },
+            availability: { text: 'We run Tuesdays, Thursdays, and Saturdays only. Fridays and Sundays are always closed. We have a maximum of 4 event days per month, so popular dates go fast!', actions: ['Ready to book', 'See pricing'] },
+            deposit: { text: 'To secure your date, you pay a 50% reservation fee. There is also a \u00a3200 refundable damages deposit, returned within 1\u20133 working days after your event (assuming no damages). The invoice is valid for 48 hours.', actions: ['Ready to book', 'What about cancellations?'] },
+            book: { text: 'Let\u2019s get you booked in! Click below to start your booking.', actions: ['GO_TO_BOOKING'] },
+            classes: { text: 'The 1:1 Buttercream Class is a 5-hour hands-on session. You\u2019ll learn piping techniques, colour mixing, and take home your creations. Weekdays are Tue/Thu (10:30am\u20133:30pm), Saturdays are 10am\u20133pm.', actions: ['Ready to book', 'See pricing'] },
+            cancellations: { text: '30+ days out: full refund. 15\u201330 days: 50% refund. 7\u201314 days: non-refundable (\u00a325 reschedule fee). Under 7 days: non-refundable, non-transferable. No-shows are charged in full.', actions: ['Ready to book', 'How does the deposit work?'] }
+        };
+        var key = type === 'Tell me more about classes' ? 'classes' : type === 'What about cancellations?' ? 'cancellations' : type === 'What about deposits?' ? 'deposit' : type === 'See pricing' ? 'pricing' : type === 'Check availability' ? 'availability' : type === 'How does the deposit work?' ? 'deposit' : type === 'Ready to book' ? 'book' : type;
+        var r = responses[key] || responses.book;
+        var bubble = document.createElement('div');
+        bubble.className = 'chat-bubble bot';
+        bubble.textContent = r.text;
+        msgs.appendChild(bubble);
+        msgs.scrollTop = msgs.scrollHeight;
+        acts.innerHTML = '';
+        r.actions.forEach(function(a) {
+            if (a === 'GO_TO_BOOKING') {
+                var link = document.createElement('a');
+                link.href = 'book/';
+                link.className = 'chat-action-btn';
+                link.style.cssText = 'background:var(--rose);color:#fff;border-color:var(--rose);text-decoration:none;display:inline-block;text-align:center;';
+                link.textContent = 'Start Booking';
+                acts.appendChild(link);
+            } else {
+                var btn = document.createElement('button');
+                btn.className = 'chat-action-btn';
+                btn.textContent = a;
+                btn.onclick = function() { chatRespond(a); };
+                acts.appendChild(btn);
             }
-          } else {
-            // Video is out of viewport - pause it
-            youtubePlayer.pauseVideo();
-            // Hide unmute prompt
-            if (unmutePrompt) {
-              unmutePrompt.style.opacity = '0';
-            }
-          }
         });
-      }, observerOptions);
-
-      if (videoContainer) {
-        videoObserver.observe(videoContainer);
-      }
     }
 
-    function onPlayerStateChange(event) {
-      // Track if video has started playing
-      if (event.data === YT.PlayerState.PLAYING) {
-        hasVideoStartedPlaying = true;
-      }
+    // Theme
+    function toggleTheme() {
+        var c = document.documentElement.getAttribute('data-theme');
+        var n = c === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', n);
+        localStorage.setItem('hbs-theme', n);
     }
-  </script>
+    if (localStorage.getItem('hbs-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 
-  <script src="assets/js/chat-widget.js"></script>
+    // Scroll reveal
+    var obs = new IntersectionObserver(function(e) {
+        e.forEach(function(x) {
+            if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+    // Sticky mobile CTA visibility
+    var hero = document.getElementById('hero');
+    var mCta = document.getElementById('mobileCta');
+    if (hero) {
+        new IntersectionObserver(function(e) {
+            e.forEach(function(x) {
+                var past = !x.isIntersecting;
+                if (mCta) mCta.classList.toggle('visible', past);
+                var fab = document.getElementById('chatFab');
+                if (fab) fab.classList.toggle('visible', past);
+            });
+        }, { threshold: 0 }).observe(hero);
+    }
+
+    // Hero video carousel
+    (function() {
+        var carousel = document.getElementById('heroCarousel');
+        if (!carousel) return;
+        var videos = carousel.querySelectorAll('video');
+        var dots = carousel.querySelectorAll('.hero-carousel-dots button');
+        var sticker = document.getElementById('carouselSticker');
+        var prevBtn = document.getElementById('carouselPrev');
+        var nextBtn = document.getElementById('carouselNext');
+        var current = 0;
+
+        function safePlay(vid) {
+            var p = vid.play();
+            if (p && p.catch) p.catch(function() {});
+        }
+
+        function goTo(idx) {
+            videos[current].classList.remove('active');
+            videos[current].pause();
+            dots[current].classList.remove('active');
+            current = ((idx % videos.length) + videos.length) % videos.length;
+            videos[current].classList.add('active');
+            videos[current].currentTime = 0;
+            safePlay(videos[current]);
+            dots[current].classList.add('active');
+            sticker.textContent = videos[current].dataset.caption;
+            sticker.style.transform = 'translateX(-50%) rotate(' + (Math.random() * 6 - 3) + 'deg)';
+        }
+
+        safePlay(videos[0]);
+
+        // Auto-advance every 6 seconds, pause on interaction
+        var autoTimer = null;
+        function startAuto() { clearInterval(autoTimer); autoTimer = setInterval(function() { goTo(current + 1); }, 6000); }
+        function resetAuto() { clearInterval(autoTimer); startAuto(); }
+        startAuto();
+
+        prevBtn.addEventListener('click', function() { goTo(current - 1); resetAuto(); });
+        nextBtn.addEventListener('click', function() { goTo(current + 1); resetAuto(); });
+
+        dots.forEach(function(dot, i) {
+            dot.addEventListener('click', function() { goTo(i); resetAuto(); });
+        });
+
+        // Swipe support
+        var touchStartX = 0, touchStartY = 0;
+        carousel.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, {passive: true});
+        carousel.addEventListener('touchend', function(e) {
+            var dx = touchStartX - e.changedTouches[0].clientX;
+            var dy = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                goTo(dx > 0 ? current + 1 : current - 1);
+            }
+        });
+    })();
+</script>
+
 </body>
-
 </html>
