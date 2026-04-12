@@ -763,9 +763,12 @@
         .duration-card.recommended:not(.selected) {
             border-color: var(--success-border);
         }
-        /* Hide price on duration cards — front-load decision, not cost */
+        /* Show price on duration cards — Rochelle: "people can just see the price" */
         .duration-price {
-            display: none !important;
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-top: 4px;
         }
 
         /* Time slots - ticket style */
@@ -2478,18 +2481,18 @@
             12: { hours: 12, price: 885, label: '12 hours', desc: 'Full day (10am-10pm)' }
         };
 
-        // Workshop pricing (education-focused, lower rates)
+        // Workshop pricing — £60/hr, 2hr minimum
         var workshopPricing = {
-            2: { hours: 2, price: 120, label: '2 hours', desc: 'Quick session' },
-            6: { hours: 6, price: 345, label: '6 hours', desc: 'Half-day workshop' },
-            12: { hours: 12, price: 645, label: '12 hours', desc: 'Full-day workshop' }
+            2: { hours: 2, price: 120, label: '2 hours', desc: '£60/hr (2hr min)' },
+            6: { hours: 6, price: 345, label: 'Half day', desc: 'Half-day rate' },
+            12: { hours: 12, price: 645, label: 'Full day', desc: 'Full-day rate' }
         };
 
-        // Content creation pricing (fast turnaround, lowest rates)
+        // Content creation pricing — £45/hr, 2hr minimum
         var contentPricing = {
-            2: { hours: 2, price: 90, label: '2 hours', desc: 'Quick shoot' },
-            6: { hours: 6, price: 250, label: '6 hours', desc: 'Half-day shoot' },
-            12: { hours: 12, price: 500, label: '12 hours', desc: 'Full-day shoot' }
+            2: { hours: 2, price: 90, label: '2 hours', desc: '£45/hr (2hr min)' },
+            6: { hours: 6, price: 250, label: 'Half day', desc: 'Half-day rate' },
+            12: { hours: 12, price: 500, label: 'Full day', desc: 'Full-day rate' }
         };
 
         // Get pricing tier based on event type
