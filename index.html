@@ -263,7 +263,7 @@
             <div class="hero-text reveal">
                 <h1>Hibiscus Studio</h1>
                 <p class="hero-location">East London &middot; <a href="https://maps.google.com/?q=19a+Peto+Street+North+London+E16+1DP" target="_blank" rel="noopener">E16 1DP</a></p>
-                <p class="subtitle" style="margin-bottom: 24px">A warm, creative event space for corporate workshops, private events, and creative sessions.</p>
+                <p class="subtitle" style="margin-bottom: 24px">A warm, creative event space for private events and creative sessions.</p>
                 <a href="book/" class="cta" id="heroCta">Book your event <span class="arrow">&rarr;</span></a>
                 <div class="scroll-indicator reveal" style="transition-delay: 0.3s">
                     <span onclick="document.querySelector('#spaceSection').scrollIntoView({behavior:'smooth'})">
@@ -414,43 +414,6 @@
 
 <div class="section-divider"></div>
 
-<!-- ========== 3. WHAT WE OFFER (CLASSES) ========== -->
-<section id="offers">
-    <div class="container">
-        <h2 class="reveal">Corporate Workshops</h2>
-        <p class="section-intro reveal">Creative corporate events and private hire. Custom-quoted to your group size and brief.</p>
-
-        <div class="offer-cards">
-            <div class="offer-card reveal" style="transition-delay: 0.2s">
-                <div class="offer-card-header">
-                    <div><div class="offer-card-title">Corporate Workshop</div></div>
-                    <div class="offer-card-price">
-                        <div class="from">custom</div>
-                        <div class="amount">Quote</div>
-                    </div>
-                </div>
-                <ul class="offer-card-details">
-                    <li>Weekdays only</li>
-                    <li>5&ndash;15 guests: standard rate</li>
-                    <li>16&ndash;25 guests: additional assistant fee applies</li>
-                    <li>26&ndash;40 guests: premium rate with coordination fee</li>
-                    <li>Corporate bookings take scheduling priority</li>
-                </ul>
-                <div class="offer-card-schedule">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    Max 1 per month
-                </div>
-            </div>
-        </div>
-
-        <div class="reveal" style="text-align: center; margin-top: 32px">
-            <a href="mailto:connect@hibiscusstudio.co.uk?subject=Booking%20Enquiry" class="cta">Enquire Now <span class="arrow">&rarr;</span></a>
-        </div>
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
 <!-- ========== 4. HOW BOOKING WORKS ========== -->
 <section>
     <div class="container">
@@ -580,7 +543,7 @@
         <div class="faq-container reveal" style="transition-delay: 0.1s">
             <details class="faq-item">
                 <summary>What is the capacity? <span class="faq-toggle">+</span></summary>
-                <div class="faq-answer">We can seat up to 25 guests for intimate events. For larger groups (corporate workshops up to 40), please enquire and we will confirm the setup that works best.</div>
+                <div class="faq-answer">We can seat up to 25 guests for intimate events. For larger groups (up to 40), please enquire and we will confirm the setup that works best.</div>
             </details>
             <details class="faq-item">
                 <summary>Can I bring my own food and drinks? <span class="faq-toggle">+</span></summary>
@@ -763,7 +726,7 @@
         var msgs = document.getElementById('chatMessages');
         var acts = document.getElementById('chatActions');
         var responses = {
-            pricing: { text: 'Corporate workshops are custom-quoted based on group size and brief. Want to enquire?', actions: ['Ready to book', 'What about deposits?'] },
+            pricing: { text: 'We offer hourly, half-day and full-day rates depending on your event type. Want to enquire?', actions: ['Ready to book', 'What about deposits?'] },
             availability: { text: 'We run Tuesdays, Thursdays, and Saturdays only. We have a maximum of 4 event days per month, so popular dates go fast!', actions: ['Ready to book', 'See pricing'] },
             deposit: { text: 'To secure your date, you pay a 50% reservation fee. There is also a \u00a3200 refundable damages deposit, returned within 1\u20133 working days after your event (assuming no damages). The invoice is valid for 48 hours.', actions: ['Ready to book', 'What about cancellations?'] },
             book: { text: 'Let\u2019s get you booked in! Click below to start your booking.', actions: ['GO_TO_BOOKING'] },
