@@ -30,7 +30,7 @@ After compaction or context loss, read .claude/pickup.md and the HUD file FIRST 
 ## Business Context (MANDATORY)
 
 ### Nigerian Cultural Awareness
-This is a Nigerian business context. When doing sales outreach, prospecting, or communication drafts, apply Nigerian cultural awareness by default — relationship-first selling, appropriate honorifics, local business norms. Don't treat outreach as generic copy tasks.
+Nigerian context applies ONLY for Mikano (employer) and local client outreach (Rochelle, Olabi, Lagos leads). All products, Aloe Labs, BakePrice, content, and positioning are SOVEREIGN — global by default. Location is heritage, not business identity.
 
 ---
 
