@@ -2396,10 +2396,22 @@ router.post('/api/bookings/:id/change-date', async (request, env) => {
 // Mark deposit as paid
 router.post('/api/bookings/:id/mark-deposit-paid', async (request, env) => {
   const { id } = request.params;
+
+  const cfAccessJwt = request.headers.get('Cf-Access-Jwt-Assertion');
+  const authCookie = request.headers.get('Cookie')?.match(/hb_admin_key=([^;]+)/)?.[1];
+  const authHeader = request.headers.get('Authorization')?.replace('Bearer ', '');
+
+  if (!cfAccessJwt && authCookie !== env.ADMIN_KEY && authHeader !== env.ADMIN_KEY) {
+    return json({ error: 'Unauthorized' }, 401);
+  }
+
   const data = await env.BOOKINGS.get(id);
 
   if (!data) {
-    return json({ error: 'Booking not found' }, 404);
+    // Calendar-only bookings (no KV record) surface in the action-well but
+    // can't be mutated here — tell the client clearly so the dashboard can
+    // route the user forward instead of dead-ending with a vague error.
+    return json({ error: 'Booking not in KV (calendar-only?)', calendarOnly: true, id }, 404);
   }
 
   const booking = JSON.parse(data);
@@ -2427,10 +2439,19 @@ router.post('/api/bookings/:id/mark-deposit-paid', async (request, env) => {
 // Mark balance as paid
 router.post('/api/bookings/:id/mark-balance-paid', async (request, env) => {
   const { id } = request.params;
+
+  const cfAccessJwt = request.headers.get('Cf-Access-Jwt-Assertion');
+  const authCookie = request.headers.get('Cookie')?.match(/hb_admin_key=([^;]+)/)?.[1];
+  const authHeader = request.headers.get('Authorization')?.replace('Bearer ', '');
+
+  if (!cfAccessJwt && authCookie !== env.ADMIN_KEY && authHeader !== env.ADMIN_KEY) {
+    return json({ error: 'Unauthorized' }, 401);
+  }
+
   const data = await env.BOOKINGS.get(id);
 
   if (!data) {
-    return json({ error: 'Booking not found' }, 404);
+    return json({ error: 'Booking not in KV (calendar-only?)', calendarOnly: true, id }, 404);
   }
 
   const booking = JSON.parse(data);
@@ -6245,29 +6266,49 @@ async function confirmBooking(id) {
 }
 
 async function markDepositPaid(id) {
+  console.log('[markDepositPaid] id=', id);
   try {
     var res = await fetch('/api/bookings/'+id+'/mark-deposit-paid', { method: 'POST', credentials: 'include' });
+    var data = {};
+    try { data = await res.json(); } catch (_) {}
+    console.log('[markDepositPaid] status=', res.status, 'body=', data);
     if (res.ok) {
       showToast('Deposit marked as paid');
       setTimeout(function() { location.reload(); }, 1500);
-    } else {
-      var data = await res.json();
-      throw new Error(data.error || 'Failed');
+      return;
     }
-  } catch (e) { showToast('Error: ' + e.message); }
+    if (data && data.calendarOnly) {
+      showToast('Calendar-only booking — open in calendar to edit');
+      return;
+    }
+    throw new Error((data && data.error ? data.error : 'HTTP ' + res.status));
+  } catch (e) {
+    console.error('[markDepositPaid] error', e);
+    showToast('Error: ' + (e && e.message ? e.message : e));
+  }
 }
 
 async function markBalancePaid(id) {
+  console.log('[markBalancePaid] id=', id);
   try {
     var res = await fetch('/api/bookings/'+id+'/mark-balance-paid', { method: 'POST', credentials: 'include' });
+    var data = {};
+    try { data = await res.json(); } catch (_) {}
+    console.log('[markBalancePaid] status=', res.status, 'body=', data);
     if (res.ok) {
       showToast('Balance marked as paid');
       setTimeout(function() { location.reload(); }, 1500);
-    } else {
-      var data = await res.json();
-      throw new Error(data.error || 'Failed');
+      return;
     }
-  } catch (e) { showToast('Error: ' + e.message); }
+    if (data && data.calendarOnly) {
+      showToast('Calendar-only booking — open in calendar to edit');
+      return;
+    }
+    throw new Error((data && data.error ? data.error : 'HTTP ' + res.status));
+  } catch (e) {
+    console.error('[markBalancePaid] error', e);
+    showToast('Error: ' + (e && e.message ? e.message : e));
+  }
 }
 
 function showCancelModal(id, name, date, days, deposit, total) {
